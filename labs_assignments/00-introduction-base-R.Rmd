@@ -13,6 +13,12 @@ css: ../static/sjs-style.css
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+if (!("emo" %in% installed.packages())) {
+  library(remotes)
+  install_github("hadley/emo")
+}
+
+library(emo)
 ```
 
 
@@ -39,6 +45,8 @@ However, there are still certain core features of base R which are important to 
 ### What is RStudio?
 
 RStudio is a _graphical environment_ ("integrated development environment" or IDE) for writing and developing R code. RStudio is NOT a separate programming language - it is an interface we use to facilitate R programming. In other words, you can program in R without RStudio, but you can't use the RStudio environment without R.
+
+For more information about RStudio than you ever wanted to know, see this [RStudio IDE Cheatsheet](https://d33wubrfki0l68.cloudfront.net/0dc0efccfaf638de8be4ce43e2bab8a91541d3d2/c4fdc/wp-content/uploads/2018/08/rstudio-ide.png).
 
 ### Obtaining and Using R/RStudio
 
@@ -487,10 +495,34 @@ iris$Species
 levels(iris$Species)
 ```
 
+You will have more opportunities to work with data frames for this week's assignment.
 
 
-__This concludes the Introduction to R and RStudio lesson. You should now complete the associated assignment.__
+## Writing Scripts
+
+So far, we have been directly typing code into the console and interactively examining its output. While this is tremendously valuable for a) getting comfortable with R, and b) trying out different coding strategies, _it is not a good idea long term_. Future You wants to be able to look back at your code, but if Today You types directly into the console, Future You will never know about it.
+
+This is one of the many reasons we use **scripts** for portable programming. These are _plain text files_ containing code which should ONLY be created and used in appropriate _plain text editors_ - one of these exists implicitly within RStudio! 
+<br><br>
+`r emo::ji("clap")` **MICROSOFT** `r emo::ji("clap")` **WORD** `r emo::ji("clap")` **IS** `r emo::ji("clap")` **NOT** `r emo::ji("clap")` **A** `r emo::ji("clap")` **TEXT EDITOR.**  `r emo::ji("clap")`
+<br>
+`r emo::ji("clap")` **PAGES** `r emo::ji("clap")` **IS** `r emo::ji("clap")` **NOT** `r emo::ji("clap")` **A** `r emo::ji("clap")` **TEXT** `r emo::ji("clap")` **EDITOR.** `r emo::ji("clap")`
+<br>
+`r emo::ji("clap")` **GOOGLE DOCS** `r emo::ji("clap")` **IS** `r emo::ji("clap")` **NOT** `r emo::ji("clap")` **A** `r emo::ji("clap")` **TEXT** `r emo::ji("clap")` **EDITOR.** `r emo::ji("clap")`
+<br><br>
+If you would like to download a text editor separate from RStudio's built-in option, I recommend [BBEdit](https://www.barebones.com/products/bbedit/) for Mac, [Sublime3](https://www.sublimetext.com/3) for Windows, or [Visual Studio Code](https://code.visualstudio.com/) for either platform.
 
 
+### Creating and running scripts
+
+To create an R script to edit and run from within the RStudio environment, click the White Icon with the green plus sign and select "R Script" from the dropdown. 
+![newrscript](../static/img/rscript.png)
+
+You can now type code as you normally would in this script. Code can be executed in two ways from this script (see icons in upper-right corner of "editor" pane in the image above):
+
+1. The **Run** button will execute code that you have _highlighted_. If nothing is highlighted, **Run** will run the code that your cursor is currently on. _Bear in mind, if your highlighted code depends on non-highlighted code, you will get an error!_
+2. The **Source** button will execute all code in the entire script.
+
+When writing scripts, to view _any_ output, you MUST use the `print()` function. In interactive environments, simply typing a variable name will automatically reveal its value. This is NOT the case in scripts, so you must always print print print PRINT PRINT PPPPRRRRIIIINNNTTTT!!! **If you learn nothing else in this class, you will learn to PRINT. It's _that_ important**.
 
 
