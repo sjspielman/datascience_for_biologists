@@ -8,13 +8,23 @@ output:
     highlight: tango
     toc: true
     toc_float: true
-css: sjs-style.css
+css: ../static/sjs-style.css
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+
+## Learning Goals
+
+Today's lesson will teach you to:
+
++ Navigate the RStudio environment
++ Use R for simple calculations, both mathematical and logical
++ Understand and apply base R functions
++ Understand, define, and use R datatypes, including array manipulation and indexing
++ Understand the anatomy of a data frame
 
 ## What is R?
 
@@ -37,27 +47,16 @@ There are two main paths to developing in R within the RStudio environment:
 1. Use RStudio _in the browser_ via [rstudio.cloud](rstudio.cloud). Make your free account on this website and you can get started right away. **For this class, we will be using RStudio Cloud!** This option requires NO downloads at all.
 
 2. Download and install _both_ R and RStudio (in that order!) to your local machine. This requires some amount of computer knowledge, and not all computer operating system versions will be compatible. **If you anticipate serious R usage in your future, you will eventually want to do this.** 
-  + [Link to download R](https://cran.r-project.org/mirrors.html)
-  + [Link to download RStudio](https://rstudio.com/products/rstudio/download/) (click the free version!)
+    + [Link to download R](https://cran.r-project.org/mirrors.html)
+    + [Link to download RStudio](https://rstudio.com/products/rstudio/download/) (click the free version!)
 
-## Learning Goals
-
-Today's lesson will teach you to:
-
-
-+ Navigate the **RStudio** environment
-+ Use R for simple calculations
-+ Understand R datatypes and their purpose
-+ Understand and apply standard R functions
-+ Understand the anatomy of a data frame
-+ Obtain "summary statistics" from data frames
 
 
 ## The RStudio Environment
 
 
 The RStudio environment has four main **panes** (their specific location can be changed under Tools -> Global Options -> Pane Layout).
-![RStudio Appearance](img/rstudio-cloud-anatomy.png) 
+![RStudio Appearance](../static/img/rstudio-cloud-anatomy.png) 
 
 This image presents the **RStudio Cloud** environment (see next section) within a project I have created called "demo". 
 
@@ -79,7 +78,7 @@ This image presents the **RStudio Cloud** environment (see next section) within 
 
 
 
-## Basic Calculations and Functions
+## Basic Calculations
 
 We will begin with _interactive coding_ to explore R's functionality. Launch your own new project in RStudio Cloud and answer the following questions by writing simple operations in the **console**.
 
@@ -90,10 +89,19 @@ Arguably the __most important__ aspect of your coding is comments: Small pieces 
 R will _ignore_ comments, which are indicated with hashtags. Anything on a given line that appears after a hashtag will be ignored, whether the hashtag is at the beginning of a line or in the middle of a line. You will see many comments in example code below!
 
 ### Mathematical operators
-> Add, subtract, multiply, and divide with operators `+`, `-`, `*`, `/` .<br>
-> Exponentiate with either operator `**` or `^`.
 
-#### Do this:
+The most basic use of R is as a regular calculator:
+
+| Operation | Symbol |
+|-----------|--------|
+| Add  | `+` | 
+| Subtract  | `-` | 
+| Multiply  | `*` | 
+| Divide  | `\` | 
+| Exponentiate | `^` or `**` | 
+
+
+#### <mark>EXERCISE ALERT! Practice using R as a calculator.</mark>
 
 1. What is 780 times 1236.2?
 2. What is 1000 divided by 342.321?
@@ -139,7 +147,7 @@ Some features of variables, considering the example `x <- 7`:
 
  + As best you can, it is a good idea to make your variable names informative (e.g. `x` doesn't mean anything, but `cost_of_sandwich` is meaningful... if we're talking about sandwich prices, that is..). Similarly, it is best practice to use underscores `_` to separate words if there are multiple words in the name.
  
-#### Do this: Redo all your mathematical calculations using VARIABLES!
+#### <mark>EXERCISE ALERT! Redo all your mathematical calculations using VARIABLES! </mark>
 For example, the approach for #1 would be:
 ```{r, demo-variable-math}
 v1 <- 780
@@ -149,7 +157,7 @@ v1*v2
 ```
 
 
-### Functions
+## Functions
 We can use pre-built computation methods called "functions" for other operations. Functions have the following format, where the _argument_ is the information we are providing to the function for it to run.
 ```{r, example-function, eval=FALSE}
 function_name(argument)
@@ -158,7 +166,7 @@ function_name(argument)
 To learn about functions, we'll examine one called `log()` first. 
 
 To know what a function does and how to use it, use the question mark which will reveal documentation in the **help pane**: `?log`
-![rhelp](img/rhelp-log.png) 
+![rhelp](../static/img/rhelp-log.png) 
 
 The documentation tells use that `log()` is derived from `{base}`, meaning it is a function that is part of base R. It provides a brief description of what the function does and shows several examples of to how use it.
 
@@ -168,7 +176,7 @@ In particular, documentation tells about how what argument(s) to provide:
 
 Functions also _return_ values for us to use. In the case of `log()`, the returned value is the log'd value the function computed.
 
-#### DO THIS: Perform the following computations using functions
+#### <mark>EXERCISE ALERT! Perform the following computations using functions</mark>
 > Try to use _variables_ while you code!
 
 1. What is the natural log of 75?
@@ -177,7 +185,9 @@ Functions also _return_ values for us to use. In the case of `log()`, the return
 4. What is the log of the square root of 341? (Hint: You can do this in _one line_ of code by _nesting_ your functions. Play around with it!)
 
 
-## Variable types
+## Working with variables
+
+### Variable Types
 
 Now that you have a general sense of R usage, let's learn about the different types of variables. We have already seen "numeric" types above using numbers, but there are more than just numbers out there. Here are some of the most important types we'll need to know:
 
@@ -256,19 +266,14 @@ Let's examine their usage:
 4 = 3
 ```
 
-#### DO THIS: Solve the questions below using logical operators. 
+#### <mark>EXERCISE ALERT! Solve the questions below using logical operators. </mark> 
 > Each answer should end up as TRUE or FALSE, as determined by R - not by you!
 
 1. Is 134 less than 3?
 2. Is the number 150 positive or negative? (Hint: compare it to 0)
 3. Is the natural log of 134 less than 3?
-4. Is the square root of 81 greater than the cube root of 125?
-    
-    > Hint: Define two variables and use a logical operator to compare them to one another
-    
-5. Define a character variable consisting of your name, e.g. mine is `name <- "Stephanie"`. Use a logical operator to determine if the _number of characters_ in this overall variable is equal to 7. 
-    
-    > Hint: To determine the number of characters, use the `nchar()` function. Look it up with `?nchar` if you need help using it!
+4. Is the square root of 81 greater than the cube root of 125? (Hint: Define two variables and use a logical operator to compare them to one another)
+5. Define a character variable consisting of your name, e.g. mine is `name <- "Stephanie"`. Use a logical operator to determine if the _number of characters_ in this overall variable is equal to 7. (Hint: To determine the number of characters, use the `nchar()` function. Look it up with `?nchar` if you need help using it!)
 
 
 
@@ -338,14 +343,14 @@ log(values_1_to_20)
 Arrays can also be extended into lists, which we will discuss later during the semester.
 
 
-#### DO THIS: Create, manipulate, and index arrays.
+#### <mark>EXERCISE ALERT! Create, manipulate, and index arrays.</mark>
 
 1. Define an array variable called `numbers` that contains the range of values 5-15, using a colon `:` to define the variable. Print the length of this array. Perform the following tasks with this array:
     + Use indexing to print the 8th value in `numbers`.
     + Use indexing to print the 4th - 8th values in `numbers`. You should use a single command for indexing all at once, not a separate command for the 4th, 5th, 6th, 7th, and 8th.
     + Use indexing to print the 20th value in `numbers`. Did it work??? What did you get as output and why?
     + We can also use _logical expressions_ to index arrays (example below). Use this approach to obtain all values from `numbers` than are less than or equal to 7.
-      ```{r}
+      ```{r, collapse=TRUE}
       my_array <- c(1,4,6,32,26)
       my_array[my_array > 10]  # get the values that are greater than 10
       ```
@@ -359,7 +364,7 @@ Arrays can also be extended into lists, which we will discuss later during the s
         + `max()`: The maximum value in the array
         + `sum()`: The sum of all values in the array
     + We can also use the `sum()` function with _logical expressions_, as shown in the example below. Use the `sum()` function to determine how many values in ``numbers_sqrt` are greater than 2.
-      ```{r}
+      ```{r, collapse=TRUE}
       my_array <- c(1,4,6,32,26)
       sum(my_array > 10)  # how many values are greater than 10?
       ```
@@ -369,7 +374,7 @@ Arrays can also be extended into lists, which we will discuss later during the s
    + Use the `sum()` function to add up this array - you will get an actual answer! Where does this answer come from? (Hint: Try coercing the value `TRUE` to be an integer with `as.integer(TRUE)`, and similarly `FALSE`. This logical-numerical mapping is standard across all computer programming languages).
    
    + The function `which()` is sort of the opposite of indexing: It tells you at which index/indices a _logical condition_ is satified. This function takes a single argument which itself is a _logical expression_, as shown in the below example, and returns an array. Use the `which()` function to determine which values in `logical_array` are `TRUE`. 
-      ```{r}
+      ```{r, collapse=TRUE}
       temp_array <- c(4,8,2,34,5,8)
       which(temp_array == 8)
       which(temp_array > 50) ## returns an empty array since nothing is greater than 50
@@ -399,7 +404,7 @@ Logical conditions can also be _combined_ with one another to make more involved
 
 + **and** is True when BOTH conditions are True. (represented in R with the symbol `&`) 
 + **or** is True when AT LEAST ONE condition is True (represented in R with the symbol `|` located on the backslash key! This is *not* the letter L or number 1; it is a "pipe" operator.)
-![rhelp](img/Boolean-Ven.jpg) 
+![rhelp](../static/img/Boolean-Ven.jpg) 
 
 For example:
 ```{r, collapse=TRUE}

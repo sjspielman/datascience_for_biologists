@@ -1,0 +1,27 @@
+blockquote {
+  display: block;
+  font-size: 1em;
+  font-weight: 500;
+}
+
+h2 {
+  margin-top: 2em;
+}
+
+h3 {
+  margin-top: 1.2em;
+}
+
+h4 {
+  margin-top: 1em;
+}
+
+
+#TOC {
+  width:225px;
+}
+
+
+mark {
+    background-color:#FFCC00;
+}
