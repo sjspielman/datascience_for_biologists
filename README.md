@@ -6,7 +6,6 @@ Course materials for Rowan University Course "Data Science for Biologists" (BIOL
 
 Materials developed by Stephanie J. Spielman.
 
-https://rstudio.cloud/learn/primers/3.1
 
 <!--
 A variable is a quantity, quality, or property that you can measure.
