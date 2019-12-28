@@ -5,3 +5,15 @@
 Course materials for Rowan University Course "Data Science for Biologists" (BIOL01301)
 
 Materials developed by Stephanie J. Spielman.
+
+https://rstudio.cloud/learn/primers/3.1
+
+<!--
+A variable is a quantity, quality, or property that you can measure.
+
+A value is the state of a variable when you measure it. The value of a variable may change from measurement to measurement.
+
+An observation or case is a set of measurements made under similar conditions (you usually make all of the measurements in an observation at the same time and on the same object). An observation will contain several values, each associated with a different variable. I’ll sometimes refer to an observation as a case or data point.
+
+Tabular data is a table of values, each associated with a variable and an observation. Tabular data is tidy if each value is placed in its own cell, each variable in its own column, and each observation in its own row.
+-->
