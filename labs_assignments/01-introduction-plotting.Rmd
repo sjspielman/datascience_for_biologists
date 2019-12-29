@@ -1,0 +1,375 @@
+---
+title: "Introduction to Making Figures with `ggplot2`"
+date: "Stephanie J. Spielman"
+author: "Data Science for Biologists, Spring 2020"
+#date: "12/28/2019"
+output: 
+  html_document:
+    highlight: tango
+    toc: true
+    toc_float: true
+css: ../static/sjs-style.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.width=4, fig.height=3)
+if (!("ggplot2" %in% installed.packages())) {
+  install.packages("tidyverse")
+}
+```
+
+
+## Learning Goals
+
+Today's lesson will teach you to:
+
++ Install and load external packages
++ Create basic plots from data frames using the ggplot framework
++ Understand different geoms and their usage
++ Manipulate figure aesthetics including color/fill, shape, and size
++ Export and save figures
+
+## References
+
+For help, your go-to references are:
+
+1. [The official ggplot2 documentation](https://ggplot2.tidyverse.org/reference/) provides information for using `ggplot2` functions and commands
+2. [The ggplot2 CheatSheet](https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf) is an _information rich_ overview of much of `ggplot2`'s functionality
+3. [Chapter Five from "Fundamentals of Data Visualization"](https://serialmentor.com/dataviz/directory-of-visualizations.html) provides a "directory" of different types of plots which exist for different types of data
+4. [Chapter Three from "Data Visualization: A practical introduction"](https://socviz.co/makeplot.html) introduces `ggplot2` usage
+5. [Chapter Three from "R for Data Science"](https://r4ds.had.co.nz/data-visualisation.html) introduces `ggplot2` usage
+6. [All the R colors you ever wanted to use](../static/Rcolor.pdf)
+
+
+
+
+## Obtaining tidyverse packages 
+
+This lab focuses on making figures using the `ggplot2` package, which is one of several [`tidyverse`](https://tidyverse.tidyverse.org/) packages. To obtain `ggplot2`, you will need to first _install_ the library, and then _load_ the library for use in your current R session. 
+
+We will, in fact, install the whole suite of `tidyverse` packages which will include `ggplot2`. **You only need to run package installation ONCE within a given R project. Once it has been installed, you can use the package by loading it when needed**.
+
+The command to install packages is `install.packages()` - you must provide package names _in quotes!_ to this function:
+```{r, eval=FALSE}
+install.packages("tidyverse")
+```
+This command will take several minutes to run and complete, and you may see red text going down the console - don't worry! These are just messages indicating the stage of installation; they are not errors.
+
+Once this package installation completes, you can load packages for use with the `library()` function (do NOT use quotes here!):
+```{r}
+library(tidyverse)
+```
+The output from loading the `tivyverse` explicitly tells you a) which packages were loaded aka "attached" to the current R session (these are the _core packages_ of the `tidyverse`), and b) the _versions_ of those packages. Package functions and features sometimes changes in different versions, so it is actually very important to know which version you use for a given coding session. In this class, we will cover all of these packages except (time pending!) `stringr`(convenient functions for working with strings), `forcats` (convenient functions for working with factors), and `purrr` (functional programming).
+
+
+Any single package can also be loaded on its own, e.g. for today you could just use the code **`library(ggplot2)`** and be able to use all of `ggplot2`'s functionality. Once we get more involved with the tidyverse, however, the convenience of loading all the packages at once will become very clear.
+
+## Anatomy of a plot 
+
+The philosophy behind `ggplot2` is a **G**rammar of **G**raphics: decomposing aspects of a figure into the specific role each aspect plays in the structure of the figure.
+
+![Grammar of Graphics](../static/img/ggplot-grammar-of-graphics-stack-1.png){width=200px}
+
+Today, we will focus on the first three components (reading from the bottom-up!):
+
+1. **Data** - the actual data that will be used to create the figure
+2. **Aesthetics** - how will aspects of the data be _mapped_ into the figure? These include mapped visual components like color, shape, size, etc.  
+3. **Geometrics (geoms)** - what will the literal _geometric shape_ be that represents the data? This mostly corresponds to the type of plot you will make, e.g. the geom in a boxplot is a boxplot. The geom in a histogram is a histogram. The geom of a scatterplot is _points_. 
+
+| Aesthetics | Geoms |
+|------------|-------|
+| ![aes](../static/img/common-aesthetics-1.png){width=400px} | ![geom](../static/img/ggplot2_geoms.png){width=400px}
+
+
+
+
+
+## Visualizing quantitative distributions
+
+We will begin by making figures of _quantitative distributions_ using the `iris` dataset. As always, we LOOK AT the data before beginning to understand the different variable types.
+```{r}
+head(iris)
+```
+
+The main types of plots (geoms!) for representing distributions of quantitative data are the following (but there are others):
+
+1. Histograms
+2. Density plots
+3. Boxplots
+4. Violin plot (density plot meets boxplot)
+5. Jitter plots and related 
+
+The basic anatomy of building a plot with `ggplot2` is to declare a plot with the function `ggplot()` (no 2!) and then _add_ components to this plot with `+`.
+
+```{r}
+## Start a plot to visualize the data frame `iris`
+ggplot(iris)
+```
+
+As you can see, this plot (blank grey square) is..uninspiring. It has a created a blank canvas for us, but we now need to specify more information to actually get a plot. 
+
+### Histograms
+
+We will fill in this command to make a _histogram of the Sepal Lengths_ for all flowers in the dataset. The first question to ask yourself when making any figure is, what variables go on the X-axis and Y-axis? In this case, the X-axis should show the sepal lengths, and the Y-axis should show the _counts_ for each bin of sepal lengths. In effect, this represents a _statsitical transformation_ of the data itself, but by specifying a _histogram geom_, `ggplot2` will take care of this transformation magic.
+
+Therefore, we only need to specify the X-axis data for making a histogram. _This represents an AESTHETIC MAPPING_: We are telling `ggplot2` to take the data from `Sepal.Length` and map it onto the X axis of the plot. **Whenever specifying a direct relationship between the DATA and a GRAPHICAL COMPONENT**, we specify within `aes()`:
+
+```{r}
+## Soecify the x-axis aesthetic
+ggplot(iris, aes(x = Sepal.Length))
+```
+
+Now, we're starting to get somewhere: We have an X-axis with values for `Sepal.Length` templated on. `ggplot2` has chosen for us a reasonable range of values on the X-axis, but we will learn later how this can be modified. We just need our actual _geom_ (how should these data be graphically represented?) which can be added to the `ggplot` object. 
+
+```{r}
+## Add in the geom
+ggplot(iris, aes(x = Sepal.Length)) + geom_histogram()
+```
+
+And voila, we have a histogram! You'll also notice a warning (not error!) message from `ggplot2` letting us know how it binned the data (30 bins along the X-axis), and suggests how we might change the binning to our liking. 
+
+```{r}
+## Change the binning
+ggplot(iris, aes(x = Sepal.Length)) + geom_histogram(binwidth = 1) # each bin has a range along the X-axis of 1. Much less resolution
+
+## Change the binning.We separate lines of ggplot code for visual clarity
+ggplot(iris, aes(x = Sepal.Length)) + 
+  geom_histogram(binwidth = 0.1) # each bin has a range along the X-axis of 0.1. Much more resolution
+```
+
+
+Let's pretty-up the plot a little bit. Some visual aspects we can modify include:
++ The _color_ (i.e. outline) and _fill_ of the histogram geom itself.
++ The background color, aka the plot [theme](https://ggplot2.tidyverse.org/reference/ggtheme.html)
++ The axis labels
+
+First, let's change the histogram colors:
+```{r, message=FALSE}
+## add histogram color
+ggplot(iris, aes(x = Sepal.Length)) + 
+  geom_histogram(color = "red")
+```
+
+And also its fill:
+```{r, message=FALSE}
+## add histogram color AND fill
+ggplot(iris, aes(x = Sepal.Length)) + 
+  geom_histogram(color = "red", fill = "forestgreen")
+```
+
+**In fact, these colors were a VERY BAD CHOICE** because they cannot be differentiated by many common types of colorblindness, and they are also pretty contrasting and glaring. Always strive to use eyeball- and  colorblind-friendly palettes to make your figures more accessible to a broad audience!!
+
+We can also now tweak the overall theme of the plot. These are heavily customizable, but there are also many built-in options. The default theme of `theme_gray()` has a gray background with a grid, among other visual components. Let's try another one, such as `theme_classic()`:
+```{r, message=FALSE}
+## add colorblind-friendly colors and a new theme
+ggplot(iris, aes(x = Sepal.Length)) + 
+  geom_histogram(color = "black", fill = "dodgerblue") +
+  theme_classic()
+```
+
+Finally, let's tweak the axis labels. By default, the name of the column plotted is used on its axis, and histogram Y-axes are given the name "count". The fastest way (but as we will see, NOT the only way!) to modify this is with the functions `xlab()` and `ylab()` (lab for "label"). Within the Grammar of Graphics, axis titles are regarded as _scales_. 
+
+```{r, message=FALSE}
+## add x and y axis labels
+ggplot(iris, aes(x = Sepal.Length)) + 
+  geom_histogram(color = "black", fill = "dodgerblue") +
+  theme_classic() + 
+  xlab("Sepal Length (cm)") + ylab("Count")
+```
+
+
+To **save and export this plot**, we can save it to a variable, and then use the function `ggsave()` to save it to a file.
+```{r, message=FALSE}
+ggplot(iris, aes(x = Sepal.Length)) + 
+  geom_histogram(color = "black", fill = "dodgerblue") +
+  theme_classic() + 
+  xlab("Sepal Length (cm)") + ylab("Count") -> p  ## Assignment!
+
+## Save the plot, stored in variable `p`
+## Check out ?ggsave for more information
+ggsave("iris_histogram.pdf", p) ## To make sure the plot looks ok, we have to open the file and examine its aspect ratio.
+```
+
+<br><br>
+
+#### <mark>EXERCISE ALERT!</mark>
+
+Make a histogram of the distribution of _petal lengths_ from the iris dataset. Your plot should have the following components:
+
+1. A _color_ for the histogram outline of your choosing
+2. A _fill_ for the histogram bars of your choosing
+3. A _bidwidth_ that gives a meaningful representation of the data. Try at least 3-4 binning options to find the best one.
+4. Clean axis labels
+5. _A different [theme](https://ggplot2.tidyverse.org/reference/ggtheme.html) from `theme_gray()` or `theme_classic()` - choose one that works for you!
+  + **For an added challenge**, install and load the package [`ggthemes`](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/) find your favorite
+6. A meaningful title. You can add plot titles with the function `ggtitle()`
+7. Save your plot as a *png* file with a _reasonable aspect ratio!!_. You'll definitely need to look up `ggsave()` help for getting this done.
+
+
+### Density plots
+
+One problem with the histograms we've made is that there are actually _three species_ in the iris dataset, but our data visualization cannot help us understand the differences among species. 
+
+One way to achieve this goal is to specify _a different histogram color_ for each species. This means the variable `Species` is being MAPPED onto color and/or fill. **This constitutes an aesthetic because we are taking information from the data and applying a specific graphical element**. We are no longer saying "make the fill the color blue" - we are saying "make the fill based on the SPECIES value". Therefore, `fill` needs to be inside an `aes()`:
+
+```{r, message=FALSE}
+ggplot(iris, aes(x = Sepal.Length)) + 
+  geom_histogram(aes(fill = Species)) 
+```
+
+We now have three fills and an automatically generated legend! However, the plot is _very hard to read_ - we can't tell where the maximum Setosa sepal length is because it is covered by the other distributions. To address this, we can specify an `alpha` argument, which does color opacity: 0 is completely opaque and 1 is completely translucent.
+
+
+```{r, message=FALSE}
+ggplot(iris, aes(x = Sepal.Length)) + 
+  geom_histogram(aes(fill = Species), alpha = 0.6) ## Alpha is NOT mapping to the data, so don't put it in aes!! 
+```
+
+Well, that didn't work - histograms don't play very well with `alpha`. Instead, we can make a **density plot** which gives a smoothened histogram. The basic X/Y components are the same, but the **geom** is different:
+
+```{r, message=FALSE}
+ggplot(iris, aes(x = Sepal.Length)) + 
+  geom_density(aes(fill = Species), alpha = 0.6) 
+```
+
+Now we can really see the differences, and even draw conclusions! Setosa irises have the smallest sepal lengths on average, and viriginca has the largest on average. Setosa irises also have the most narrow distribution compared to versicolor and virginica.
+
+> NOTE: `aes()` arguments can be supplied to many different places in the ggplot command. For example, this code is effectively equivalent: `ggplot(iris) + geom_density(aes(x = Sepal.Length, fill = Species), alpha = 0.6)`
+
+The colors you see are `ggplot`'s default color scheme, but can be modified in a variety of ways (See section "Scales" [here](https://ggplot2.tidyverse.org/reference/)). Color schemes are regarded as _scales_ in the Grammar of Graphics.
+
+One option is to create our OWN colorscheme with the function `scale_fill_manual()` (its color equivalent is `scale_color_manual()`; eventually, you will use the wrong one, and you will have to figure it out!).
+
+```{r, message=FALSE}
+ggplot(iris, aes(x = Sepal.Length)) + 
+  geom_density(aes(fill = Species), alpha = 0.6) +
+  scale_fill_manual(values = c("blue", "pink", "yellow")) 
+```
+
+> NOTE: The automatic arrangement of setosa, versicolor, virginica is based on the _factor order_. In the coming weeks, we will learn how to manipulate factors to customize the ordering.
+
+
+
+<br><br>
+
+#### <mark>EXERCISE ALERT!</mark>
+
+
+1. Examine this code, which has an error so it does NOT produce a figure, but shares a reasonably helpful error message. Figure out why and fix the problem by playing around with the code. Hint: What is an aesthetic? What is NOT an aesthetic?
+    ```{r, message=FALSE, error=TRUE}
+    ggplot(iris, aes(x = Sepal.Length)) + 
+      geom_density(fill = Species, alpha = 0.6) 
+    ```
+
+2. Examine this code and the resulting figure. You will notice the output has some unexpected components. Figure out why and fix the problem by playing around with the code.
+    ```{r, message=FALSE}
+    ggplot(iris, aes(x = Sepal.Length)) + 
+      geom_density(aes(fill = Species, alpha = 0.6)) 
+    ```
+
+3. Create a _density plot_ of the Petal lengths where density plots are colored by Species, using colors of your own choosing. Ensure clean axis labels for your plot.
+
+4. Modify your density plot to show the legend on the _bottom_ of the plot. To achieve this, you will need to modify the theme with the added function/argument: `theme(theme_position = "bottom")` (more/way too many details [here](https://ggplot2.tidyverse.org/reference/theme.html)). 
+    + Once you have completed this, make a second plot where the lelgend is on the TOP of the plot.
+
+5. Modify your density plot to change the **LEGEND title** to "Iris Species" instead of the default "Species". Hint: legend titles are part of the _scale_ grammar, so you can find an argument to place in your call to `scale_fill_manual()` that will modify the legend title. Use the help menu!
+
+
+
+6. Examine this code and the resulting figure. You will notice it does not work as you might think. Figure out why and fix the problem by playing around with the code. Hint: What colors appear, the ones we specified or the default colors? Are they colors or fills? Is there any _inconsistency_ to the code?
+    ```{r, message=FALSE}
+    ggplot(iris, aes(x = Sepal.Length)) + 
+      geom_density(aes(color = Species), alpha = 0.6) +
+      scale_fill_manual(values = c("blue", "pink", "yellow")) 
+    ```
+
+
+### Boxplots and voilin plots
+
+#### <mark>EXERCISE ALERT!</mark>
+For this section, you will _teach yourself!_ the joys of boxplots and violin plots by writing code to _reproduce the figures below_. When making each plot, spend some time thinking about:
+
++ What variables (if any) go on the X-axis? On the Y-axis?
++ What aesthetics (colors, fills, etc) are applied? Are these true aesthetics (mapped from the data), or visual components that are fundamentally not related to the data itself?
+  + Colors don't have to be _exact_ matches, but try your best.
++ What are the axis labels and, if present, title?
++ Where is the legend located, and what is its title?
++ NOTE: all plots use `theme_classic()` (it's my favorite pre-built theme.). You can use the separate line of code to globally set the theme for all plots with: `theme_set(theme_classic())`. This way you don't have to always type `+ theme_classic()` in your plot calls.
+
+**You should do these exerises in an R Script which creates and saves each plot to a file. The saved plots should have READABLE aspect ratios.** Your script will be separate from coding in the console, so you will have to load the `ggplot2` library at the very top of the script file.
+
+1. Re-create this boxplot of iris petal lengths. 
+
+```{r, echo=FALSE}
+ggplot(iris, aes(x = Species, y = Petal.Length)) + 
+  geom_boxplot(aes(fill = Species), color = "skyblue") +
+  scale_fill_manual(values=c("red", "pink", "orange")) +
+  theme_classic() + 
+  xlab("Iris Species") + 
+  ylab("Iris Petal Length (cm)") +
+  ggtitle("Boxplot of iris species petal lengths")
+```
+
+
+2. Re-create this violin plot of iris petal lengths.
+
+```{r, echo=FALSE}
+ggplot(iris, aes(x = Species, y = Petal.Length)) + 
+  geom_violin(aes(fill = Species)) +
+  scale_fill_manual(name = "", values=c("orange", "pink", "red")) +
+  theme_classic() + theme(legend.position = "none") + 
+  xlab("Iris Species") + 
+  ylab("Iris Petal Length (cm)")
+```
+
+
+### Jitter plots (strip plots)
+
+The final type of plot we can use to visualize distributions is known as a "jitter plot" or a "strip plot". This type of plot actually displays the individual data POINTS themselves, rather than "massaging them" into a distribution.
+
+For example, here is a jitter plot of iris sepal lengths across species:
+```{r}
+ggplot(iris, aes(x = Species, y = Sepal.Length)) + 
+  geom_jitter()
+```
+
+In fact, `geom_jitter()` is a special kind of call to `geom_point()` which makes POINTS! It is equivalent to `geom_point(position = "jitter")`. These types of plots are very useful for visualizing the data in its "rawest" form, while still being able to discern trends.
+
+However, the three separate distributions are difficult to see, so let's make each chunk of points more narrow with the argument `width` (I know this exists because ~I looked at the help menu for `geom_jitter()`! I am not clairvoyant! I looked it up! You can too!~). This argument is **not** an aesthetic because it has no specific mapping to data - it applies to all the data equally, so we do not place it into `aes()`.
+```{r}
+ggplot(iris, aes(x = Species, y = Sepal.Length)) + 
+  geom_jitter(width = 0.05)
+```
+
+Now the points are too close to each other to read, so let's try a different width value:
+```{r}
+ggplot(iris, aes(x = Species, y = Sepal.Length)) + 
+  geom_jitter(width = 0.15)
+```
+
+
+#### <mark>EXERCISE ALERT!</mark>
+
+Make several jitter plots of the Petal Lengths with the following features, separately. When adding in each feature consider carefully: is it an aesthetic (maps to data specifically) or a general property of the plot?
+
+For all plots, find the jitter width that works best for you.
+
+1. Color _all points_ a single color of your choosing that is not the default black
+2. Change the _size_ of the points to 2 (use the `size` argument in `geom_jitter()`), and then change the size to 0.1 . Which size do you think works best for conveying information about the data?
+3. Color points based on `Species`, using default ggplot colors. _Hint: points are not objects to be filled, just dots that can be colored._ 
+4. Color points based on `Species` using colors of your choosing
+5. Make the _shape_ of the points based on `Species`, using the `shape` argument in `geom_jitter`
+ 
+**Bonus activity**: There is another similar type of plot called a "sina plot", which is basically a jitter-violin marriage, however it is not available within `ggplot2`. You can obtain this functionality by installing the package `ggforce`, loading the library, and making a plot as normal with the geom `geom_sina()` that comes with the `ggforce` package. Try it out!
+
+## Visualizing categorical distributions
+
+We will now describe distributions of _categorical data_. The standard way to describe categorical distributions is by looking at the COUNTS of each category, which we can achieve with bar plots.
+
+Let's remind ourselves which variable(s) are categorical in iris. Seems `Species` is the only one..
+```{r}
+head(iris)
+```
+
+
+

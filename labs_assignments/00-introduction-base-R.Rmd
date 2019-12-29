@@ -108,11 +108,16 @@ The most basic use of R is as a regular calculator:
 | Divide  | `\` | 
 | Exponentiate | `^` or `**` | 
 
+For example, we can do some simple multiplication like this. In this and following code chunks, the section with the gray background is R code, the the following white-background chunk is the code's output.
+```{r}
+5 * 6
+```
+
 
 #### <mark>EXERCISE ALERT! Practice using R as a calculator.</mark>
 
-1. What is 780 times 1236.2?
-2. What is 1000 divided by 342.321?
+1. What is 780 times 1236?
+2. What is 1000 divided by 342.3?
 3. What is 6 raised to the 7^th^ power?
 4. What is the square root (Hint: exponent of 0.5) of 812?
 5. What is 4582 minus 131?
