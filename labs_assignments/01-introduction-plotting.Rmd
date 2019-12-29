@@ -40,7 +40,7 @@ For help, your go-to references are:
 5. [Chapter Three from "R for Data Science"](https://r4ds.had.co.nz/data-visualisation.html) introduces `ggplot2` usage
 6. [All the R colors you ever wanted to use](../static/Rcolor.pdf)
 
-
+Finally, you will need to use the **help menus** frequently. For example, to see what the function `log()` does, we'd type `?log` into the console and read the "Help" pane in RStudio.
 
 
 ## Obtaining tidyverse packages 
@@ -169,23 +169,26 @@ ggplot(iris, aes(x = Sepal.Length)) +
   theme_classic()
 ```
 
-Finally, let's tweak the axis labels. By default, the name of the column plotted is used on its axis, and histogram Y-axes are given the name "count". The fastest way (but as we will see, NOT the only way!) to modify this is with the functions `xlab()` and `ylab()` (lab for "label"). Within the Grammar of Graphics, axis titles are regarded as _scales_. 
+Finally, let's tweak the axis labels. By default, the name of the column plotted is used on its axis, and histogram Y-axes are given the name "count". One way (but as we will see, NOT the only way!) to modify this is with the function `labs()`. Within the Grammar of Graphics, axis titles are regarded as _scales_. 
 
 ```{r, message=FALSE}
 ## add x and y axis labels
 ggplot(iris, aes(x = Sepal.Length)) + 
   geom_histogram(color = "black", fill = "dodgerblue") +
   theme_classic() + 
-  xlab("Sepal Length (cm)") + ylab("Count")
+  labs(x = "Sepal Length (cm)", 
+       y = "Count")
 ```
 
+You can also write, for axis labels, `xlab("Sepal Length (cm)") + ylab("Count")`. Keep coming to class for even more choices! 
 
 To **save and export this plot**, we can save it to a variable, and then use the function `ggsave()` to save it to a file.
 ```{r, message=FALSE, eval=FALSE}
 ggplot(iris, aes(x = Sepal.Length)) + 
   geom_histogram(color = "black", fill = "dodgerblue") +
   theme_classic() + 
-  xlab("Sepal Length (cm)") + ylab("Count") -> p  ## Assignment!
+    labs(x = "Sepal Length (cm)", 
+       y = "Count") -> p  ## Assignment!
 
 ## Save the plot, stored in variable `p`
 ## Check out ?ggsave for more information
@@ -204,7 +207,7 @@ Make a histogram of the distribution of _petal lengths_ from the iris dataset. Y
 4. Clean axis labels
 5. _A different [theme](https://ggplot2.tidyverse.org/reference/ggtheme.html) from `theme_gray()` or `theme_classic()` - choose one that works for you!
   + **For an added challenge**, install and load the package [`ggthemes`](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/) find your favorite
-6. A meaningful title. You can add plot titles with the function `ggtitle()`
+6. A meaningful title. You can add plot titles either with the added argument `title` to the `labs()` function, or using the separate function `ggtitle()`. Check out the help menus to learn more!!
 7. Save your plot as a *png* file with a _reasonable aspect ratio!!_. You'll definitely need to look up `ggsave()` help for getting this done.
 
 
@@ -272,9 +275,12 @@ ggplot(iris, aes(x = Sepal.Length)) +
 3. Create a _density plot_ of the Petal lengths where density plots are colored by Species, using colors of your own choosing. Ensure clean axis labels for your plot.
 
 4. Modify your density plot to show the legend on the _bottom_ of the plot. To achieve this, you will need to modify the theme with the added function/argument: `theme(theme_position = "bottom")` (more/way too many details [here](https://ggplot2.tidyverse.org/reference/theme.html)). 
-    + Once you have completed this, make a second plot where the lelgend is on the TOP of the plot.
+    + Once you have completed this, make a second plot where the legend is on the TOP of the plot.
 
-5. Modify your density plot to change the **LEGEND title** to "Iris Species" instead of the default "Species". Hint: legend titles are part of the _scale_ grammar, so you can find an argument to place in your call to `scale_fill_manual()` that will modify the legend title. Use the help menu!
+5. Modify your density plot to change the **LEGEND title** to "Iris Species" instead of the default "Species". There are a couple ways to do this, such as:
+    + Find an argument to place in your call to `scale_fill_manual()` that will modify the legend title. Use the help menu!
+    + You can use `labs()` to specify that the label associated with _fill_ is some custom legend title. Again, help menu!!
+ 
 
 
 
@@ -293,7 +299,7 @@ For this section, you will _teach yourself!_ the joys of boxplots and violin plo
 
 + What variables (if any) go on the X-axis? On the Y-axis?
 + What aesthetics (colors, fills, etc) are applied? Are these true aesthetics (mapped from the data), or visual components that are fundamentally not related to the data itself?
-  + Colors don't have to be _exact_ matches, but try your best.
+  + Hint: colors used in the plot include red, orange, pink, and skyblue.
 + What are the axis labels and, if present, title?
 + Where is the legend located, and what is its title?
 + NOTE: all plots use `theme_classic()` (it's my favorite pre-built theme.). You can use the separate line of code to globally set the theme for all plots with: `theme_set(theme_classic())`. This way you don't have to always type `+ theme_classic()` in your plot calls.
@@ -307,8 +313,8 @@ ggplot(iris, aes(x = Species, y = Petal.Length)) +
   geom_boxplot(aes(fill = Species), color = "skyblue") +
   scale_fill_manual(values=c("red", "pink", "orange")) +
   theme_classic() + 
-  xlab("Iris Species") + 
-  ylab("Iris Petal Length (cm)") +
+    labs(x = "Iris Species", 
+       y = "Iris Petal Length (cm)") +
   ggtitle("Boxplot of iris species petal lengths")
 ```
 
@@ -394,7 +400,8 @@ ggplot(iris, aes(x = Species)) +
   geom_bar(aes(fill = Species), color = "magenta") + 
   scale_fill_manual(values=c("skyblue", "blue", "navyblue")) + 
   theme_bw() + # a whole other theme!
-  xlab("Species") + ylab("Count")
+  labs(x = "Species",
+       y = "Count")
 ```
 
 
