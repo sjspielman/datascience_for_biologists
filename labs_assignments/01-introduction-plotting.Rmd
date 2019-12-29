@@ -70,11 +70,13 @@ The philosophy behind `ggplot2` is a **G**rammar of **G**raphics: decomposing as
 
 ![Grammar of Graphics](../static/img/ggplot-grammar-of-graphics-stack-1.png){width=200px}
 
-Today, we will focus on the first three components (reading from the bottom-up!):
+Today, we will focus on the first three components (reading from the bottom-up!), with a couple others tossed in for fun!:
 
 1. **Data** - the actual data that will be used to create the figure
-2. **Aesthetics** - how will aspects of the data be _mapped_ into the figure? These include mapped visual components like color, shape, size, etc.  
-3. **Geometrics (geoms)** - what will the literal _geometric shape_ be that represents the data? This mostly corresponds to the type of plot you will make, e.g. the geom in a boxplot is a boxplot. The geom in a histogram is a histogram. The geom of a scatterplot is _points_. 
+2. **Aesthetics** - how will aspects of the data be _mapped_ into the figure? These include mapped visual components like color, shape, size, etc. This further includes the grammatical category of **Scales**, which control how these mappings are perceived (e.g., which colors should be used when mapping data to color?).
+3. **Geometrics (geoms)** - what will the literal _geometric shape_ be that represents the data? This mostly corresponds to the type of plot you will make, e.g. the geom in a boxplot is a boxplot. The geom in a histogram is a histogram. The geom of a scatterplot is _points_. Many geoms implicitly are related to **Statistics**, because sometimes data needs to be statistically transformed to get the geometry right. This will make more sense after today's activities, I promise/hope.
+
+The table below is _very comprehensive_. Don't memorize the "Geoms" cheatsheet, please.
 
 | Aesthetics | Geoms |
 |------------|-------|
@@ -179,7 +181,7 @@ ggplot(iris, aes(x = Sepal.Length)) +
 
 
 To **save and export this plot**, we can save it to a variable, and then use the function `ggsave()` to save it to a file.
-```{r, message=FALSE}
+```{r, message=FALSE, eval=FALSE}
 ggplot(iris, aes(x = Sepal.Length)) + 
   geom_histogram(color = "black", fill = "dodgerblue") +
   theme_classic() + 
@@ -370,6 +372,57 @@ Let's remind ourselves which variable(s) are categorical in iris. Seems `Species
 ```{r}
 head(iris)
 ```
+
+There are generally two broad ways a bar plot can come together:
+
+1. You tell `ggplot` the categorical variable to consider, _and ggplot counts occurrences for you!_. We accomplish this with the geom `geom_bar()` (which implicitly does the counting, much like `geom_histogram()` implicitly did the binning.)
+
+2. The data set _already contains the final counts_ and we just need to toss up bars of that size. We accomplish this with the geom `geom_col()` OR `geom_bar(stat="identity")`. The added argument `stat="identity"` means "don't do a _statistical transformation, just use the data as is". In fact, when `stat="identity"` is not supplied, `geom_bar()` automatically has `stat="count"` specified..to count! Check out the documentation of this function for more details.
+
+In our case, we are in scenario #1: There is NO existing column that already has counted the number of species for us, so we will use regular `geom_bar()`. In a bar plot, the variable of interest (`Species`) is on the X-axis, and its counts are on the Y-axis.
+
+```{r}
+ggplot(iris, aes(x = Species)) + 
+  geom_bar()
+```
+
+We see this dataset is very balanced - there are 50 of each species!
+
+Again, we can pretty it up (magenta for demo purposes ONLY. functionally, it just adds unnecessary visual noise).
+```{r}
+ggplot(iris, aes(x = Species)) + 
+  geom_bar(aes(fill = Species), color = "magenta") + 
+  scale_fill_manual(values=c("skyblue", "blue", "navyblue")) + 
+  theme_bw() + # a whole other theme!
+  xlab("Species") + ylab("Count")
+```
+
+
+## Visualizing relationships with scatterplots
+
+
+Finally, we can look at the _relationship_ between two variables using scatterplots. Let's start with plotting Sepal Lengths against Sepal Widths. **In general, when we say plot A _against_ B, B goes on the X-axis. So it's really plot Y against X!!!** 
+
+In this case, we know some of our aesthetics already: `Sepal.Length` values will get mapped to the Y-axis, and `Sepal.Width` values will get mapped to the X-axis. We also know that the geometric shape to use is _points_, which we can achieve with `geom_point()`.
+
+A basic scatterplot, then, will be made like this:
+```{r}
+ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length)) + 
+  geom_point()
+```
+
+
+#### <mark>EXERCISE ALERT!</mark>
+
+Use your magnificant `ggplot2` skills to fancy up this scatterplot, specifically to determine _which type of visualization provides the MOST useful information about species differences._
+
++ Make points _colored_ according to `Species`
++ Make points _shaped_ according to `Species`
++ Make points _sized_ according to `Species`
+
+As always, ensure a nice theme and clean axis labels!
+    
+
 
 
 
