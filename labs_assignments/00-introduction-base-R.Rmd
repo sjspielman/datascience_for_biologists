@@ -105,7 +105,7 @@ The most basic use of R is as a regular calculator:
 | Add  | `+` | 
 | Subtract  | `-` | 
 | Multiply  | `*` | 
-| Divide  | `\` | 
+| Divide  | `/` | 
 | Exponentiate | `^` or `**` | 
 
 For example, we can do some simple multiplication like this. In this and following code chunks, the section with the gray background is R code, and the following white-background chunk is the code's output.
