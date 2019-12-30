@@ -218,7 +218,7 @@ Now that you have a general sense of R usage, let's learn about the different ty
 | `integer`       | Any _whole_ number value (no decimals) | `5` <br> `-100` | `as.integer()`
 |`character`      | Any collection of characters defined within _quotation marks_. Also known as a "string". | `"a"` (a single letter) <br>`"stringofletters"` (a whole bunch of characters put together as one) <br> `"string of letters and spaces"` <br> `"5"` <br> `'single quotes are also good'` | `as.character()`
 |`logical`      | A value of `TRUE`, `FALSE`, or `NA` | `TRUE` <br> `FALSE` <br> `NA` (not defined) | `as.logical()` 
-|`factor`       | A special type of `character` that indicates CATEGORIES | `"Happy"` and `"Sad"` | `as.factor()`
+|`factor`       | A special type of variable that denotes specific CATEGORIES of a categorical variable | (stay tuned..) | `as.factor()`
 
 Variable types in R are what is known as "weakly typed", meaning when possible, you can _coerce_ (convert) one type to another.
 
