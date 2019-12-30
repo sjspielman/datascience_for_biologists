@@ -197,7 +197,7 @@ ggsave("iris_histogram.pdf", p) ## To make sure the plot looks ok, we have to op
 
 <br><br>
 
-#### <mark>EXERCISE ALERT!</mark>
+#### <mark>EXERCISE SET ONE</mark>
 
 Make a histogram of the distribution of _petal lengths_ from the iris dataset. Your plot should have the following components:
 
@@ -257,7 +257,7 @@ ggplot(iris, aes(x = Sepal.Length)) +
 
 <br><br>
 
-#### <mark>EXERCISE ALERT!</mark>
+#### <mark>EXERCISE SET TWO</mark>
 
 
 1. Examine this code, which has an error so it does NOT produce a figure, but shares a reasonably helpful error message. Figure out why and fix the problem by playing around with the code. Hint: What is an aesthetic? What is NOT an aesthetic?
@@ -294,7 +294,7 @@ ggplot(iris, aes(x = Sepal.Length)) +
 
 ### Boxplots and voilin plots
 
-#### <mark>EXERCISE ALERT!</mark>
+#### <mark>EXERCISE SET THREE</mark>
 For this section, you will _teach yourself!_ the joys of boxplots and violin plots by writing code to _reproduce the figures below_. When making each plot, spend some time thinking about:
 
 + What variables (if any) go on the X-axis? On the Y-axis?
@@ -356,7 +356,7 @@ ggplot(iris, aes(x = Species, y = Sepal.Length)) +
 ```
 
 
-#### <mark>EXERCISE ALERT!</mark>
+#### <mark>EXERCISE SET FOUR</mark>
 
 Make several jitter plots of the Petal Lengths with the following features, separately. When adding in each feature consider carefully: is it an aesthetic (maps to data specifically) or a general property of the plot?
 
@@ -419,7 +419,7 @@ ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length)) +
 ```
 
 
-#### <mark>EXERCISE ALERT!</mark>
+#### <mark>EXERCISE SET FIVE</mark>
 
 Use your magnificant `ggplot2` skills to fancy up this scatterplot, specifically to determine _which type of visualization provides the MOST useful information about species differences._
 
@@ -429,7 +429,5 @@ Use your magnificant `ggplot2` skills to fancy up this scatterplot, specifically
 
 As always, ensure a nice theme and clean axis labels!
     
-
-
 
 

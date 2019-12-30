@@ -114,7 +114,9 @@ For example, we can do some simple multiplication like this. In this and followi
 ```
 
 
-#### <mark>EXERCISE ALERT! Practice using R as a calculator.</mark>
+#### <mark>EXERCISE SET ONE</mark>
+
+Practice using R as a calculator:
 
 1. What is 780 times 1236?
 2. What is 1000 divided by 342.3?
@@ -160,7 +162,10 @@ Some features of variables, considering the example `x <- 7`:
 
  + As best you can, it is a good idea to make your variable names informative (e.g. `x` doesn't mean anything, but `cost_of_sandwich` is meaningful... if we're talking about sandwich prices, that is..). Similarly, it is best practice to use underscores `_` to separate words if there are multiple words in the name.
  
-#### <mark>EXERCISE ALERT! Redo all your mathematical calculations using VARIABLES! </mark>
+#### <mark>EXERCISE SET TWO </mark>
+
+Redo all your mathematical calculations from Exercise Set One using variables.
+
 For example, the approach for #1 would be:
 ```{r, demo-variable-math}
 v1 <- 780
@@ -191,8 +196,9 @@ In particular, documentation tells about how what argument(s) to provide:
 
 Functions also _return_ values for us to use. In the case of `log()`, the returned value is the log'd value the function computed.
 
-#### <mark>EXERCISE ALERT! Perform the following computations using functions</mark>
-> Try to use _variables_ while you code!
+#### <mark>EXERCISE SET THREE</mark>
+
+Perform the following computations using functions. Try to use _variables_ while you code!
 
 1. What is the natural log of 75?
 2. What is the logarithm of 100 in base 7?
@@ -281,8 +287,9 @@ Let's examine their usage:
 4 = 3
 ```
 
-#### <mark>EXERCISE ALERT! Solve the questions below using logical operators. </mark> 
-> Each answer should end up as TRUE or FALSE, as determined by R - not by you!
+#### <mark>EXERCISE SET FOUR</mark> 
+
+Solve the questions below using logical operators. Each answer should end up as `TRUE` or `FALSE`, as determined by R - not by you!
 
 1. Is 134 less than 3?
 2. Is the number 150 positive or negative? (Hint: compare it to 0)
@@ -292,9 +299,9 @@ Let's examine their usage:
 
 
 
-### Arrays
+### Arrays/vectors
 
-You will have noticed that all your computations tend to pop up with a `[1]` preceding them in R's output. This is because, in fact, all (ok mostly all) variables are _by default_ **arrays** aka vectors, and our answers are the first (in these cases only) value in the array.  **See [here](https://r4ds.had.co.nz/vectors.html) for a deeper dive into array structures.**
+You will have noticed that all your computations tend to pop up with a `[1]` preceding them in R's output. This is because, in fact, all (ok mostly all) variables are _by default_ **arrays** aka vectors, and our answers are the first (in these cases only) value in the array. As arrays gets longer, new index indicators will appear at the start of new lines. **See [here](https://r4ds.had.co.nz/vectors.html) for a deeper dive into array structures.**
 
 ```{r}
 
@@ -358,7 +365,9 @@ log(values_1_to_20)
 Arrays can also be extended into lists, which we will discuss later during the semester.
 
 
-#### <mark>EXERCISE ALERT! Create, manipulate, and index arrays.</mark>
+#### <mark>EXERCISE SET FIVE</mark>
+
+Create, manipulate, and index arrays.
 
 1. Define an array variable called `numbers` that contains the range of values 5-15, using a colon `:` to define the variable. Print the length of this array. Perform the following tasks with this array:
     + Use indexing to print the 8th value in `numbers`.
@@ -388,7 +397,7 @@ Arrays can also be extended into lists, which we will discuss later during the s
 2. Define a _logical_ array as `logical_array <- c(TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, TRUE)` (NOTE: you can write `TRUE` or `T` but never `true`, `True`, or `t`. In fact, `t()` is a totally separate function for transposing matrices that we will not be using.)
    + Use the `sum()` function to add up this array - you will get an actual answer! Where does this answer come from? (Hint: Try coercing the value `TRUE` to be an integer with `as.integer(TRUE)`, and similarly `FALSE`. This logical-numerical mapping is standard across all computer programming languages).
    
-   + The function `which()` is sort of the opposite of indexing: It tells you at which index/indices a _logical condition_ is satified. This function takes a single argument which itself is a _logical expression_, as shown in the below example, and returns an array. Use the `which()` function to determine which values in `logical_array` are `TRUE`. 
+   + The function `which()` is sort of the opposite of indexing: It tells you at which index/indices a _logical condition_ is satified. This function takes a single argument, the _logical expression_ of interest (see example below) and returns an array. Use the `which()` function to determine which values in `logical_array` are `TRUE`. 
       ```{r, collapse=TRUE}
       temp_array <- c(4,8,2,34,5,8)
       which(temp_array == 8)
@@ -527,7 +536,8 @@ To create an R script to edit and run from within the RStudio environment, click
 
 You can now type code as you normally would in this script. Code can be executed in two ways from this script (see icons in upper-right corner of "editor" pane in the image above):
 
-1. The **Run** button will execute code that you have _highlighted_. If nothing is highlighted, **Run** will run the code that your cursor is currently on. _Bear in mind, if your highlighted code depends on non-highlighted code, you will get an error!_
+1. The **Run** button will execute code that you have _highlighted_. If nothing is highlighted, **Run** will run the code that your cursor is currently on. _Bear in mind, if your highlighted code depends on non-highlighted code, you will get an error!_ A shortcut for run is cmd+Enter. It makes code very easy to run!
+
 2. The **Source** button will execute all code in the entire script.
 
 When writing scripts, to view _any_ output, you MUST use the `print()` function. In interactive environments, simply typing a variable name will automatically reveal its value. This is NOT the case in scripts, so you must always print print print PRINT PRINT PPPPRRRRIIIINNNTTTT!!! **If you learn nothing else in this class, you will learn to PRINT. It's _that_ important**.
