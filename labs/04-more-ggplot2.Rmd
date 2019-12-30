@@ -1,5 +1,5 @@
 ---
-title: "Homework Two"
+title: "More practice with `ggplot2`"
 subtitle: "Data Science for Biologists, Spring 2020"
 author: "Enter your name here"
 date: "`r Sys.Date()`"
