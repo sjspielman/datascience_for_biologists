@@ -1,0 +1,274 @@
+---
+title: "Homework Two"
+subtitle: "Data Science for Biologists, Spring 2020"
+author: "Enter your name here"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    highlight: tango
+css: ../static/sjs-style.css
+---
+
+<!-- SETUP CODE CHUNK -->
+```{r setup, include=FALSE}
+## Change the default figure width and height to your liking, but within reason.
+knitr::opts_chunk$set(echo = TRUE, fig.width=4, fig.height=3)
+library(tidyverse)
+library(patchwork)
+theme_set(theme_classic())
+```
+
+
+## Instructions
+
+For this lab/assignment, you will continue to hone your plotting skills _and_ learn how to read and use external datasets. Questions below are given as prompts with either templated or empty R chunks for you to fill in and complete.
+
+<mark>You do **not** need to submit anything over Blackboard, but you **do** need to complete this entire document within RStudio Cloud by the hard deadline of **Thursday February 6th at 11:30 am**. </mark>
+
+#### You will be graded on the following criteria:
+
++ Did you enter your name appropriately into the YAML front matter?
++ Does the document knit without errors? *Adding `eval=FALSE` to code chunks with errors will not avoid penalty.*
++ Does your code have appropriate *comments*?
++ Is your submission appropriately _professional_? 
+  + *You need to run SPELL CHECK before submitting*, available under `Edit->Check Spelling`.
++ Do all figures have clean axis labels? (Titles are optional).
++ Did you write your written answers in the <answer>answer style</answer>?
++ Have you addressed the questions as they are asked? Be sure to limit your code and your answers to the scope of the question!
+  + If you write code that is not ultimately part of your final answer, you must either: delete it, comment it out, OR move it to a different R chunk with the added chunk options `eval=FALSE, echo=FALSE`. 
++ Is all work your own, including code and written answers?
+  + If ANY of your submitted work is not your own (with the exception of what you have been provided), you will receive a 0 on the assignment. You will be reported for a Level 2 or 3 Academic Integrity Violation, depending on the severity of the issue.
+
+  
+
+### Getting started
+
+This assignment will make use of an _external data set_, i.e. a data set that you have to upload to R yourself. We will do this using the `readr` package, which is part of the core `tidyverse` and assists in reading/writing files. You will be working with a file called `"sparrows.csv"`. You will see this file is available already in this project in the Files pane in RStudio. If you click on this file name, it will appear in the Editor pane -  this is a *comma-separated file* (CSV, comma-separated values), meaning each column of data is separated by a comma. Another way to say this is that the file is *comma-delimited*. It is also very common to see *tab-delimited* files (TSV) in data science.
+
+
+Data in this file was collected in 1898 by Hermon Bumpus, an American biologist working at Brown University. Immediately following a bad winter storm, he collected 136 English house sparrows (some alive, some dead), *Passer domesticus*, and brought them indoors. Of these birds, 64 had died during the storm, but 72 recovered and survived. Bumpus measured the birds' physical traits and recorded them for future generations of data science students.
+
+#### Reading CSV files
+
+We use the function `read_csv` from the package `readr` to read in CSV files. When using functions from specific packages, it is often safer to write them in the format `package::function()`, i.e. `readr::read_csv()`, just in case there is another function named `readr()` also floating around in the R environment. It is not likely this will happen to you at this stage of your data sciencing, but it doesn't hurt to get in the habit. 
+
+We can read in the file as follows:
+```{r, read-sparrows}
+## save the data frame, automatically made into a TIBBLE by readr
+##    into the variable `sparrows`
+sparrows <- read_csv("sparrows.csv")
+
+## Examine the data
+head(sparrows)
+```
+
+#### Understanding factors
+
+Part of this lab/assignment will necessitate working with _factors_, a special type of variable used to work with categories of categorical variables. By default, `readr` assumes that NOTHING is a factor, so we have the full power to determine which variables are factors, and what the _order_ of the categories should be. In R, we call the categories of a factor its _levels_.
+
+> The base R version of the `read_csv` function is `read.csv` and assumes any character is a factor - this problem notoriously causes everyone a lot of major headaches. `readr` rescued us all with its lovely `read_csv` alternative.
+
+The `tidyverse` package [`forcats`](https://forcats.tidyverse.org/) has rich functionality for working with and modifying factors, but for now these features are a bit too advanced (although have at it if you want!), so we will use some convenient base R code.
+
+From the `head(sparrows)` output, we see at least three columns are designed `<chr>`, meaning R thinks those columns are characters - plain old works with nothing interesting linking them. But, we know "better" - it is clear that columns `Sex`, `Age`, and `Survival` are categorical variables with distinct categories (levels!). We can convert these columns to factors like this:
+
+```{r, factor-sex-1}
+### Convert Sex to a factor with _coersion_
+sparrows$Sex <- as.factor(sparrows$Sex)
+
+### If we run head() again, we'll see it's a factor now
+head(sparrows)
+
+
+### Once converted, let's see its levels
+levels(sparrows$Sex)
+
+
+```
+
+R has decided that "Female" should be ordered before "Male" because of alphabetical order. If we had a compelling reason for "Male" to be first (this comes into play mostly for plotting reasons, and as we will learn in a few months, data modeling), we can specify the order of levels directly:
+
+```{r, factor-sex-2}
+### Make the order Male, Female
+levels(sparrows$Sex) <- c("Male", "Female")
+
+### We can also change how the categories are written. The key is to be in the _same order_
+levels(sparrows$Sex) <- c("M", "F")
+
+## Print it out to see
+sparrows$Sex
+```
+
+This can (should?) all be done at once with the command below. **However**, this code will NOT WORK and will produce NA's all around. The lesson: **take great care messing with factors**.
+
+```{r, factor-sex-3}
+### All at once
+sparrows$Sex <- factor(sparrows$Sex, levels=c("Male", "Female"), labels = c("M", "F"))
+
+### WOMP WOMP - we previously changed the words to M/F, so R couldn't handle c("Male", "Female")
+sparrows$Sex
+
+#### Back to the drawing board
+sparrows <- read_csv("sparrows.csv")
+sparrows$Sex <- factor(sparrows$Sex, levels=c("Male", "Female"), labels = c("M", "F"))
+sparrows$Sex
+```
+
+
+## <mark>Questions</mark>
+
+
+1. Convert the columns `Survival` and `Age` into factors. For `Survival`, the order should be (1) Alive, (2) Dead. for `Age`, the order should be (1) Young, (2) Adult. In total, this should be **two** lines of code only (one line for each variable).
+
+    ```{r factor-survival-age}
+    ## Fill in your code here
+    
+    ```
+    
+
+2. Visualize the distribution of `Survival` using a bar plot, where all bars are a single color of your choosing.
+
+    ```{r survival-barplot}
+    ## Fill in your code here
+    
+    ```
+    
+    
+2. Visualize the distribution of `Survival` using a bar plot, where bars are also colored (filled) by `Sex`, to make a _grouped bar plot_. There are two ways these bars can be represented: stacked (default) or dodged (add the argument `position = "dodge"` to `geom_bar()`). **Make one of each, and in the space below, answer using the plots as your guide whether males or females where more likely to survive. Write an additional 1-2 sentences describing which visualization choice makes it easier to answer this question.** 
+
+    ```{r survival-sex-stacked}
+    ## Fill in your code here for the STACKED barplot. Save the plot to a variable, and then print that variable - it will work!
+    
+    ```
+  
+    ```{r survival-sex-dodged}
+    ## Fill in your code here for the DODGED barplot. Save the plot to a variable, and then print that variable - it will work!
+    
+    ```
+    
+    <answer>
+    <!-- your answer goes in here. DO NOT DELETE THE ANSWER TAGS -->
+    
+    
+    </answer>
+
+3. It is possible to add plots together with the _awesome_ package `patchwork`, which has been installed and loaded for you. Below, add your two bar plots together with a `+` sign by adding the two variables - the code will be short! Then, stack your plots by dividing with with the `/` sign. **Pretty cool, right!** You may need to tweak the figure width/height to get a nice-looking output, beware.
+
+
+    ```{r survival-sex-patch1}
+    ## Add the plots for side-by-side view
+    
+    ```
+
+
+    ```{r survival-sex-patch2}
+    ## Divide the plots for a stacked view
+    
+    ```
+
+
+4. Compare the distributions of living vs. dead sparrow skull widths using a single _density plot_, where distributions are colored (filled) according to `Survival`. Make sure both distributions are fully visible (hint! what other option do you need?), and specify _your own_ colors for this task using either colors of your choosing or an existing palette.
+  
+    **In the space below, write 1-2 sentences about whether skull width may have been a contributing factor to who lived and who died.** 
+
+    ```{r survival-skull-density}
+    ## Fill in your density plot code here
+   
+    ```
+
+
+  <answer>
+  <!-- your answer goes in here. DO NOT DELETE THE ANSWER TAGS -->
+    
+    
+  </answer>
+
+
+
+5. We will now learn to make a _faceted_ plot, which splits your figure into a row or grid of panels highlighting different subsets of the data. Our goal is to re-make the density plot from Question 4, but _faceting by sex_: This means there will be one plot for Males and one plot for Females (ordered by factor level!!). There are two functions that can accomplish this: `facet_wrap()` and `facet_grid()`; the latter is most useful for faceting multiple variables.
+
+    Consider this simple example of visualizing iris sepal lengths _faceted by Species_, using the function `facet_wrap()`:
+  
+    ```{r facet-demo}
+    ggplot(iris, aes(x = Sepal.Length)) + 
+      geom_density() +
+      facet_wrap(~Species) ## the tilde!! so important!!
+    ```
+  
+    Now, convert your plot from Question 4 so that it is faceted by `Sex`:
+    ```{r survival-skull-density-facet}
+      ## Fill in your faceted density plot code here
+    
+    ```
+ 
+  
+    **In the space below, write 2-4 sentences about whether considering sex separately when plotting helped you to understand trends in the data. What trends do you now see that you didn't see before? What trends are new?** 
+  
+    <answer>
+    <!-- your answer goes in here. DO NOT DELETE THE ANSWER TAGS -->
+    
+    
+    </answer>
+
+
+
+
+
+5. Make a jitter plot of `Weight` across `Sex`, colored by `Age`. Again, choose your own colors and ensure an appropriate jitter width.
+
+    ```{r weight-sex-age-jitter}
+      ## Fill in your jitter plot code here
+    
+    ```
+
+6. Make a second jitter plot of `Weight` across `Sex`, except this time color all points according to the bird's `Length` __and__ facet your plot by `Age`. Again, choose your own colors and ensure an appropriate jitter width, ensuring the color scheme is appropriate for the _type of variable you are mapping to color_.
+
+    ```{r weight-sex-length-age-jitter}
+      ## Fill in your jitter plot code here
+    
+    ```
+
+7. Plot the distribution of sparrow sternum lengths as histograms faceted by `Sex` AND `Age` by using the function `facet_grid(x~y)`, where `x` and `y` are the two variables you are faceting across (be brave, jump in the deep end, and try it out!). Make sure that the `Sex` facet is shown VERTICALLY and the `Age` facet is shown `HORIZONTALLY`.  
+
+    ```{r sternum-facet-histogram}
+      ## Fill in your jitter plot code here
+    
+    ```
+    
+8. Visualize the relationship between sparrow skull length and skull width using a scatterplot where points are colored by `Sex`. Choose your own colors yet again, and **save your plot to a variable** for future use.
+
+    ```{r skull-scatter}
+      ## Fill in your scatterplot plot code here
+    
+    ```
+
+    **In the space below, describe the relationship in 2-3 sentences: is it positive or negative? strong or weak? What differences or similarities do you see between sexes?**    
+    <answer>
+    <!-- your answer goes in here. DO NOT DELETE THE ANSWER TAGS -->
+    
+    
+    </answer>
+
+
+9. In fact, we can continue to modify existing plots. Let's add a _line of best fit_ into our scatterplot with the code `geom_smooth(method = "lm")` (if you like, add another argument to `geom_smooth()` for color!). We can do this by simply adding this extra geom to the existing plot variable. Perform this task below:
+
+    ```{r skull-scatter-smooth}
+      ## Scatterplot + line of best fit goes here
+    
+    ```
+
+10. Finally let's learn one more useful geom: `geom_text()`. Re-create your scatterplot from question 8 by *replacing `geom_point()` with `geom_text()`*. This will write some text label rather than drawing points, so we need to tell `ggplot` what the label is (look up the docs! you can do it!). 
+
+    Do this task in two ways: 1) make all labels the letter "B" for bird, and 2) make all labels the `Sex` of that bird (hint: This is an aesthetic mapping!).
+
+    ```{r skull-scatter-text-B}
+    ## Scatterplot with label "B" goes here
+    
+    ```
+    
+    
+    
+    ```{r skull-scatter-text-Sex}
+    ## Scatterplot with points labeled according to sex goes here
+    
+    ```
