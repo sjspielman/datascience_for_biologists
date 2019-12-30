@@ -1,0 +1,90 @@
+---
+title: HIV prevalence
+author: Stephanie J. Spielman
+output: html_document
+---
+
+```{r setup, include=FALSE}
+require(knitr)
+require(tidyverse) ### ggplot2, tibble, tidyr, readr, purrr, dplyr 
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.align="center", fig.height=3, fig.width=4)
+```
+
+```{r}
+### First, read in data with "bad" column names using base R
+aids.baseR <- read.csv("annual_AIDS_deaths.csv")
+head(aids.baseR)
+```
+
+You can see that Country has been loaded as `factors` (this is normal R behavior and can cause headaches) and the columns have an `X` in front because R doesn't want to have columns starting with a number. For automated and/or high-throughput analyses, these behaviors can cause a lot of problems that won't be obvious! 
+
+**Conclusion: Enter the Tidyverse:**
+
+```{r}
+### Read in data frame using the readr function read_csv
+aids <- read_csv("annual_AIDS_deaths.csv")
+```
+
+Immediately upon reading in, `readr` gave us some handy information about the type of variable each column has been assigned: Columns in this *tibble* (basically a smarter data frame for the modern age) will default to be integers, and the column "Country" is a character. Let's examine a bit more by calling `spec()`:
+```{r}
+### See full column specifications
+spec(aids)
+```
+The most important thing to note is that columns started with numbers (the years) all now have backticks around them, as in `` `1998` `. `readr` has done this for us so that we can use the actual column names in analysis:
+
+```{r}
+aids$`1999`
+```
+
+
+### Tidying the data
+
+To be able to work with this data effectively, we must make it **tidy**. We know it's not tidy now because we have values (the years) as columns rather than having them as values in a single column, `Year`.
+
+```{r}
+### Tidy the data with `gather`. Remember the backticks for special columns!
+aids %>% gather(Year, Deaths, `1990`:`2011`)  -> aids.tidy
+head(aids.tidy)
+```
+
+Depending on our analsys, we may wish to coerce the new column `Year` into either a factor or integer. For now, let's coerce to factor:
+```{r}
+### Coerce a dataframe/tibble column to be a factor
+aids.tidy$Year <- factor(aids.tidy$Year)
+head(aids.tidy)
+```
+
+
+
+### Visualizing the data
+
+Let's begin with just visualizing for a single country, South Africa:
+
+
+```{r bar1, fig.width=8}
+## Barplot
+aids.tidy %>% filter(Country == "South Africa") %>% ggplot(aes(x = Year, y = Deaths)) + geom_bar(stat="identity")
+```
+
+We can add a fill also:
+```{r bar2, fig.width=8}
+## Barplot w/ fill
+aids.tidy %>% filter(Country == "South Africa") %>% ggplot(aes(x = Year, y = Deaths)) + geom_bar(stat="identity", fill="lightblue")
+```
+
+
+We can change the type of plot too to a *lineplot*
+```{r line1, fig.width=8}
+## Lineplot
+aids.tidy %>% filter(Country == "South Africa") %>% ggplot(aes(x = Year, y = Deaths, group=1)) + geom_point() + geom_line()
+```
+
+
+Let's add colors. Why did I change the order of the plot line below?
+```{r line2, fig.width=8}
+## Lineplot with colors
+aids.tidy %>% filter(Country == "South Africa") %>% ggplot(aes(x = Year, y = Deaths, group=1)) + geom_line(color = "pink2") + geom_point(color = "turquoise2") 
+```
+
+
