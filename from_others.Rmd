@@ -1,0 +1,45 @@
+---
+title: "Materials to incorporate"
+author: "Stephanie J. Spielman"
+date: "12/30/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Converting an ugly plot to a clean plot
+
+Use the fisheries and instructors datasets to make better figures from the existing.
+
+1. Think about what the GOAL of each figure is. What question is it asking?
+2. Create a new compelling figure to answer that question
+3. Describe at least 3 things you identified that should be changed for interpretability.
+
+This will involve some amount of tidyr'ing, so this could be a good exercise/hw for having learned tidyr.
+This could also be a good option for part of their PROJECT.
+
+## plotting and wrangling: hw-02 from dsbox
+
+The exercise is pokemon-based but seems _mostly_ reasonable as a template for plotting, summary stats, and dplyr
+
+## wrangling FACTORS: hw-03 from dsbox
+
+Again, uses bike rentals dataset but is pretty reasonable for dplyr. Does recoding as FACTORS and some exploratory data analysis, but mostly modeling. We are _not_ ready for modeling guys
+
+## hw-05 from dsbox
+
+**resampling and permutation. we'll want this eventually.**
+
+## PROJECT from ds-box
+
+Very similar to my plan. have some nice _guidelines_ for organization and grading to base off.
+
+
+## lab-01 is a github lab
+
+## Lab 02: Data wrangling and visualization  
+
+This is a reasonably good joint dplyr and ggplot lab, although we'd need to change the data to be biological.
+OR DO WE?

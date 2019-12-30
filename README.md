@@ -10,6 +10,9 @@ Materials developed by Stephanie J. Spielman.
 
 [2. Introduction to `ggplot2`](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/labs/02-introduction-ggplot2.html)
 
+[3. Introduction to `RMarkdown`](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/labs/03-introduction-rmarkdown.html)
+
+
 <!--
 A variable is a quantity, quality, or property that you can measure.
 
@@ -18,4 +21,9 @@ A value is the state of a variable when you measure it. The value of a variable 
 An observation or case is a set of measurements made under similar conditions (you usually make all of the measurements in an observation at the same time and on the same object). An observation will contain several values, each associated with a different variable. I’ll sometimes refer to an observation as a case or data point.
 
 Tabular data is a table of values, each associated with a variable and an observation. Tabular data is tidy if each value is placed in its own cell, each variable in its own column, and each observation in its own row.
+-->
+
+<!--
+1. links to SHIT FIGURES https://www.reddit.com/r/dataisugly/ and https://flowingdata.com/category/visualization/ugly-visualization/
+
 -->

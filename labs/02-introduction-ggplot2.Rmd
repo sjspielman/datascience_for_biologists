@@ -1,7 +1,7 @@
 ---
 title: "Introduction to Making Figures with `ggplot2`"
-date: "Stephanie J. Spielman"
-author: "Data Science for Biologists, Spring 2020"
+subtitle: "Data Science for Biologists, Spring 2020"
+author: "Stephanie J. Spielman"
 #date: "12/28/2019"
 output: 
   html_document:
