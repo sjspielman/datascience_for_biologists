@@ -6,6 +6,9 @@ Course materials for Rowan University Course "Data Science for Biologists" (BIOL
 
 Materials developed by Stephanie J. Spielman.
 
+[1. Introduction to R and RStudio](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/labs/01-introduction-base-R.html)
+
+[2. Introduction to `ggplot2`](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/labs/02-introduction-ggplot2.html)
 
 <!--
 A variable is a quantity, quality, or property that you can measure.
