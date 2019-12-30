@@ -12,6 +12,8 @@ Materials developed by Stephanie J. Spielman.
 
 [3. Introduction to `RMarkdown`](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/labs/03-introduction-rmarkdown.html)
 
+[4. More practice with `ggplot2` ](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/labs/04-more-ggplot2.html)
+
 
 <!--
 A variable is a quantity, quality, or property that you can measure.
