@@ -146,8 +146,8 @@ Modify the YAML frontmatter and the R `setup` chunk to customize this document a
 
 1. Working with YAML frontmatter 
     + Modify the YAML frontmatter "author" field to show YOUR name, not mine!
-    + Add a _new_ field to the YAML frontmatter called "date". This should be a top-level field similar to title and author (unlike, for example, the highlight field which is nested under output/html_document). In this field, type today's date in any format you like.
-    + Change the value in the new "date" field to this exact text: `{r sys.Date()}`. This adds _inline R code_ - like a code chunk, but embedded into a line directly. It will automatically calculate and reveal today's date.
+    + Add a _new_ field to the YAML frontmatter called "date". This should be a top-level field similar to title and author (unlike, for example, the highlight field which is nested under output/html_document). In this field, type today's date in any format you like (words, numbers, whatever - as long as it is in quotes)!
+    + Change the value in the new "date" field to this exact text, including the quotes: "`r Sys.Date()`". This will automatically calculate and reveal today's date.
     + Modify the "highlight" field to a different [syntax highlighter](
   https://www.garrickadenbuie.com/blog/pandoc-syntax-highlighting-examples/), and re-Knit. 
   All you need to do is delete the word "tango" and replace it with your choice, such as "espresso". _Ignore any directions this website provides - the point of the link is just to see the palettes._ Choose your own adventure!!
