@@ -46,7 +46,7 @@ We can write headers of varying size with different numbers of hashtags (remembe
 # Biggest header
 ## Slightly smaller
 ### And smaller
-#### And smaller!
+#### And smaller!!!
 ##### so smol
 ###### this is the smolest
 
@@ -97,7 +97,9 @@ There are several ways you can modify the behavior of code chunks, by adding arg
 
 #### <mark>EXERCISE SET ONE</mark>
 
-Practice writing code chunks in the space below. After you write each chunk, make sure it works as expected by pressing the **green arrow** at the top-right corner of the chunk. This will **Run** your code chunk and reveal its output in place, without going through the hassle of knitting the entire document. You can clear this output by clicking the "x" in its top right corner. You are also welcome to Knit each time if that works for you!
+Practice writing code chunks in the space below. After you write each chunk, make sure it works as expected by pressing the **green arrow** at the top-right corner of the chunk. This will **Run** your code chunk and reveal its output in place, without going through the hassle of knitting the entire document. You can clear this output by clicking the "x" in its top right corner. You are also welcome to Knit each time if that works for you! 
+
+> Beware: Pressing the green arrow doesn't always mean the code was run in the Console. If/when you encouter errors that suggest the code you thought you ran didn't run, it's because the code was run..elsewhere.
 
 
 1. Write a code chunk named "chunk-1" that reveals the _last six rows_ (hint: use the function `tail()`) of the `iris` data frame. 

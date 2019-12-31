@@ -112,7 +112,12 @@ Convert the columns `Survival` and `Age` into factors. For `Survival`, the order
   +  Confirm you are correct by printing the LEVELS of each column
 
 ```{r factor-survival-age}
-## Fill in your re-factoring code here
+## Fill in your code here
+sparrows$Survival <- factor(sparrows$Survival, levels=c("Alive", "Dead"))
+sparrows$Age <- factor(sparrows$Age, levels=c("Young", "Adult"))
+    
+levels(sparrows$Survival)
+levels(sparrows$Age)
 ```
     
 
@@ -121,6 +126,7 @@ Visualize the distribution of `Survival` using a bar plot, where all bars are fi
 
 ```{r survival-barplot}
 ### Barplot code goes here
+ggplot(sparrows, aes(x = Survival)) + geom_bar(fill = "purple")
 ```
     
     
@@ -139,13 +145,15 @@ Make one of each type of barplot, and in the space below, answer whether males o
   
 
 ```{r survival-age-stacked}
-## Fill in your code here for the STACKED barplot.
-
+## Fill in your code here for the STACKED barplot. 
+p1 <- ggplot(sparrows, aes(x = Survival)) + geom_bar(aes(fill = Age))
+print(p1)
 ```
   
 ```{r survival-age-dodged}
 ## Fill in your code here for the DODGED barplot.
-
+p2 <- ggplot(sparrows, aes(x = Survival)) + geom_bar(aes(fill = Age), position = "dodge")
+print(p2)
 ```
     
 <answer>
@@ -160,13 +168,13 @@ It is possible to add plots together with the _awesome_ package [`patchwork`](ht
 
 ```{r survival-sex-patch1}
 ## Add the plots for side-by-side view
-
+p1 + p2
 ```
 
 
 ```{r survival-sex-patch2}
 ## Divide the plots for a stacked view
-
+p1/p2
 ```
 
 
@@ -178,7 +186,9 @@ In the space below, write 1-2 sentences about whether skull width may have been 
 
 ```{r survival-skull-density}
 ## Fill in your density plot code here
-
+ggplot(sparrows, aes(x = Skull_Width, fill = Survival)) + 
+  geom_density(alpha = 0.5) + 
+  scale_fill_manual(values=c("yellow", "black"))
 ```
 
 
@@ -206,7 +216,10 @@ Now, convert your plot from Question 5 so that it is faceted by `Sex`. In the sp
 
 ```{r survival-skull-density-facet}
 ### code for faceted plot goes here
-
+ggplot(sparrows, aes(x = Skull_Width, fill = Survival)) + 
+  geom_density(alpha = 0.5) + 
+  scale_fill_manual(values=c("yellow", "black")) + 
+  facet_wrap(~Sex)
 ```
 
 
@@ -216,7 +229,10 @@ Now, convert your plot from Question 5 so that it is faceted by `Sex`. In the sp
 Make a jitter plot of `Weight` across `Sex`, colored by `Age`. *Before you plot, think carefully about what belongs on X vs Y axis.* For this task, you should choose your own colors, ensure the jitter width makes the plot readable, AND place the legend at the BOTTOM of the plot.
 
 ```{r weight-sex-age-jitter}
-
+ggplot(sparrows, aes(x = Sex, y = Weight, color = Age)) + 
+  geom_jitter(width = 0.1) + 
+  scale_color_manual(values = c("orange", "darkgreen")) + 
+  theme(legend.position = "bottom")
 ```
 
 ##### Question 8
@@ -231,7 +247,10 @@ Make a second jitter plot of `Weight` across `Sex`, except this time color all p
 
 ```{r weight-sex-length-jitter}
 ### code for jitter plot colored by length goes here
-
+ggplot(sparrows, aes(x = Sex, y = Weight, color = Length)) + 
+  geom_jitter(width = 0.1) + 
+  scale_color_distiller(palette = "Reds") + 
+  theme(legend.position = "bottom")
 ```
 
 
@@ -244,8 +263,10 @@ When styling your histograms:
   + Make the color of the histograms black
   
 ```{r sternum-facet-histogram}
-### Code for faceted histogram goes here
-
+### code for faceted histogram goes here
+ggplot(sparrows, aes(x = Sternum_Length, fill = Age)) + 
+  geom_histogram(binwidth = 0.6, color = "black") + 
+  facet_grid(Sex~Age) 
 ```
 
 ##### Question 10
@@ -254,8 +275,10 @@ Visualize the relationship between sparrow skull length (X axis) and skull width
 In the space below, describe the relationship in 2-3 sentences: is it positive or negative? strong or weak? Do you see any systematic differences between sexes, or are patterns most the same between sexes?
 
 ```{r skull-scatter}
-### Code for scatterplot goes here
-
+ggplot(sparrows, aes(x = Skull_Length, y = Skull_Width)) + 
+  geom_point(aes(color = Sex)) +
+  scale_color_manual(values=c("green", "orange")) -> p
+print(p)
 ```
 
 
@@ -270,8 +293,7 @@ In the space below, describe the relationship in 2-3 sentences: is it positive o
 In fact, we can continue to modify existing plots. Let's add a _title_ to the plot from Question 10, simply by adding the appropriate label to the variable you definitely saved.
 
 ```{r skull-scatter-title}
-### Code to add in title goes here
-
+### code to add in title goes here
 ```
 
 ##### Question 12
@@ -284,13 +306,17 @@ In the space below, explain why the lines of best fit (aka regression lines) loo
 
 ```{r skull-scatter-smooth-1}
 ## Scatterplot + line of best fit goes here, with color in geom_point
-
+ggplot(sparrows, aes(x = Skull_Length, y = Skull_Width, color = Sex)) + 
+  geom_point(aes(color=Sex)) + 
+  geom_smooth(method = "lm")
 ```
 
 
 ```{r skull-scatter-smooth-2}
 ## Scatterplot + line of best fit goes here, with color in ggplot
-
+ggplot(sparrows, aes(x = Skull_Length, y = Skull_Width, color = Sex)) + 
+  geom_point() + 
+  geom_smooth(method = "lm")
 ```
     
   
@@ -309,12 +335,14 @@ Do this task in two ways: 1) make all labels the letter "B" for bird, and 2) mak
 
 ```{r skull-scatter-text-B}
 ### Scatterplot with points all labeled "B" goes here
-
+ggplot(sparrows, aes(x = Skull_Length, y = Skull_Width)) + 
+  geom_text(label = "B")
 ```
     
     
     
 ```{r skull-scatter-text-Sex}
 ## Scatterplot with points labeled according to sex goes here
-
+ggplot(sparrows, aes(x = Skull_Length, y = Skull_Width)) + 
+  geom_text(aes(label = Age))
 ```
