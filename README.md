@@ -6,13 +6,13 @@ Course materials for Rowan University Course "Data Science for Biologists" (BIOL
 
 Materials developed by Stephanie J. Spielman.
 
-[1. Introduction to R and RStudio](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/labs/01-introduction-base-R.html)
+[1. Introduction to R and RStudio](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/01-introduction-base-R.html)
 
-[2. Introduction to `ggplot2`](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/labs/02-introduction-ggplot2.html)
+[2. Introduction to `ggplot2`](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/02-introduction-ggplot2.html)
 
-[3. Introduction to `RMarkdown`](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/labs/03-introduction-rmarkdown.html)
+[3. Introduction to `RMarkdown`](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/03-introduction-rmarkdown.html)
 
-[4. More practice with `ggplot2` ](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/labs/04-more-ggplot2.html)
+[4. More practice with `ggplot2` ](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/04-more-ggplot2.html)
 
 
 <!--
