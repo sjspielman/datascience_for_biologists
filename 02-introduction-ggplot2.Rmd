@@ -8,7 +8,7 @@ output:
     highlight: tango
     toc: true
     toc_float: true
-css: ../static/sjs-style.css
+css: static/sjs-style.css
 ---
 
 ```{r setup, include=FALSE}
@@ -38,7 +38,7 @@ For help, your go-to references are:
 3. [Chapter Five from "Fundamentals of Data Visualization"](https://serialmentor.com/dataviz/directory-of-visualizations.html) provides a "directory" of different types of plots which exist for different types of data
 4. [Chapter Three from "Data Visualization: A practical introduction"](https://socviz.co/makeplot.html) introduces `ggplot2` usage
 5. [Chapter Three from "R for Data Science"](https://r4ds.had.co.nz/data-visualisation.html) introduces `ggplot2` usage
-6. [All the R colors you ever wanted to use](../static/Rcolor.pdf)
+6. [All the R colors you ever wanted to use](static/Rcolor.pdf)
 
 Finally, you will need to use the **help menus** frequently. For example, to see what the function `log()` does, we'd type `?log` into the console and read the "Help" pane in RStudio.
 
@@ -68,7 +68,7 @@ Any single package can also be loaded on its own, e.g. for today you could just 
 
 The philosophy behind `ggplot2` is a **G**rammar of **G**raphics: decomposing aspects of a figure into the specific role each aspect plays in the structure of the figure.
 
-![Grammar of Graphics](../static/img/ggplot-grammar-of-graphics-stack-1.png){width=200px}
+![Grammar of Graphics](static/img/ggplot-grammar-of-graphics-stack-1.png){width=200px}
 
 Today, we will focus on the first three components (reading from the bottom-up!), with a couple others tossed in for fun!:
 
@@ -80,7 +80,7 @@ The table below is _very comprehensive_. Don't memorize the "Geoms" cheatsheet, 
 
 | Aesthetics | Geoms |
 |------------|-------|
-| ![aes](../static/img/common-aesthetics-1.png){width=400px} | ![geom](../static/img/ggplot2_geoms.png){width=400px}
+| ![aes](static/img/common-aesthetics-1.png){width=400px} | ![geom](static/img/ggplot2_geoms.png){width=400px}
 
 
 

@@ -9,6 +9,49 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## Me previously, factors
+
+#### Understanding factors
+
+Part of this lab/assignment will necessitate working with _factors_, a special type of variable used to work with categories of categorical variables. By default, `readr` assumes that NOTHING is a factor, so we have the full power to determine which variables are factors, and what the _order_ of the categories should be. In R, we call the categories of a factor its _levels_.
+
+> The base R version of the `read_csv` function is `read.csv` and assumes any character is a factor - this problem notoriously causes everyone a lot of major headaches. `readr` rescued us all with its lovely `read_csv` alternative.
+
+The `tidyverse` package [`forcats`](https://forcats.tidyverse.org/) has rich functionality for working with and modifying factors, but for now these features are a bit too advanced (although have at it if you want!), so we will use some convenient base R code.
+
+From the `head(sparrows)` output, we see at least three columns are designed `<chr>`, meaning R thinks those columns are characters - plain old works with nothing interesting linking them. But, we know "better" - it is clear that columns `Sex`, `Age`, and `Survival` are categorical variables with distinct categories (levels!). We can convert these columns to factors like this:
+
+```{r, factor-sex-1}
+### Convert Sex to a factor 
+sparrows$Sex <- factor(sparrows$Sex)
+
+### If we run head() again, we'll see it's a factor now
+head(sparrows)
+
+
+### Once converted, let's see its levels
+levels(sparrows$Sex)
+
+
+```
+
+**By definition, levels are ordered**, and if no order is specified, R defaults to alphabetical order. To re-order a factor, simply refine the levels with your preferred order of the categories:
+```{r, factor-sex-2}
+### Make the order Male, Female. 
+levels(sparrows$Sex) <- c("Male", "Female")
+
+## Print it out to see
+print(levels(sparrows$Sex))
+```
+
+
+This can also all be done at once with the single command below.
+```{r, factor-sex-3}
+### Convert to factor and order levels as desired at once
+sparrows$Sex <- factor(sparrows$Sex, levels=c("Male", "Female"))
+```
+
+
 ## Converting an ugly plot to a clean plot
 
 Use the fisheries and instructors datasets to make better figures from the existing.

@@ -5,11 +5,8 @@ author: "Stephanie J. Spielman"
 output: 
   html_document:
     highlight: tango
+css: static/sjs-style.css
 ---
-<!-- You should ignore the next line, it just makes the exercise labels yellow. -->
-<style> mark { background-color:#FFCC00;}</style>
-
-
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -172,4 +169,4 @@ Modify the YAML frontmatter and the R `setup` chunk to customize this document a
 
 ### Brewer Palettes
 
-![Colorblind-friendly Brewer Palettes](../static/img/0101-rcolorbrewer-palette-rcolorbrewer-palettes-colorblind-friendly-1.png){width=300px}
+![Colorblind-friendly Brewer Palettes](static/img/0101-rcolorbrewer-palette-rcolorbrewer-palettes-colorblind-friendly-1.png){width=300px}

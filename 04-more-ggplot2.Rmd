@@ -1,12 +1,12 @@
 ---
 title: "More practice with `ggplot2`"
 subtitle: "Data Science for Biologists, Spring 2020"
-author: "KEY"
+author: "Enter your name here"
 date: "`r Sys.Date()`"
 output: 
   html_document:
     highlight: tango
-css: ../static/sjs-style.css
+css: static/sjs-style.css
 ---
 
 <!-- SETUP CODE CHUNK -->
@@ -41,82 +41,74 @@ For this lab/assignment, you will continue to hone your plotting skills _and_ le
 
   
 
-### Getting started
+## Background
 
 This assignment will make use of an _external data set_, i.e. a data set that you have to upload to R yourself. We will do this using the `readr` package, which is part of the core `tidyverse` and assists in reading/writing files. You will be working with a file called `"sparrows.csv"`. You will see this file is available already in this project in the Files pane in RStudio. If you click on this file name, it will appear in the Editor pane -  this is a *comma-separated file* (CSV, comma-separated values), meaning each column of data is separated by a comma. Another way to say this is that the file is *comma-delimited*. It is also very common to see *tab-delimited* files (TSV) in data science.
 
 
 Data in this file was collected in 1898 by Hermon Bumpus, an American biologist working at Brown University. Immediately following a bad winter storm, he collected 136 English house sparrows (some alive, some dead), *Passer domesticus*, and brought them indoors. Of these birds, 64 had died during the storm, but 72 recovered and survived. Bumpus measured the birds' physical traits and recorded them for future generations of data science students.
 
-#### Reading CSV files
+### Reading CSV files and defining factors
 
 We use the function `read_csv` from the package `readr` to read in CSV files. When using functions from specific packages, it is often safer to write them in the format `package::function()`, i.e. `readr::read_csv()`, just in case there is another function named `readr()` also floating around in the R environment. It is not likely this will happen to you at this stage of your data sciencing, but it doesn't hurt to get in the habit. 
 
 We can read in the file as follows:
 ```{r, read-sparrows}
-## save the data frame, automatically made into a TIBBLE by readr
-##    into the variable `sparrows`
-sparrows <- read_csv("sparrows.csv")
+## save the data frame, automatically made into a TIBBLE by readr,  into the variable `sparrows`
+## readr tells us about all the columns it reads in!!
+sparrows <- read_csv("data/sparrows.csv") ## RELATIVE PATH to the dataset
+```
 
+`readr` has made some very educated guesses as to what _type_ of variable each column stores - it has found three `character` columns, and nine `double` columns. Doubles can be thought of numbers with decimals, as opposed to integers - we therefore know these columns contain __continuous quantitative data__! (Note: it is possible to specify the column types to `readr`, but that's for another day.)
+
+Let's examine the actual values further:
+```{r, head-sparrows}
 ## Examine the data
 head(sparrows)
 ```
 
-#### Understanding factors
 
-Part of this lab/assignment will necessitate working with _factors_, a special type of variable used to work with categories of categorical variables. By default, `readr` assumes that NOTHING is a factor, so we have the full power to determine which variables are factors, and what the _order_ of the categories should be. In R, we call the categories of a factor its _levels_.
+From the `head(sparrows)` output, we see that those three character columns appear to contain **categories** of a **categorical variable**. In R, we use the data type **`factor`** to represent categorical variables, and we call the categories **`levels`**. But, R doesn't seem to think that these columns are factors - it thinks they are characters - plain old works with nothing interesting linking them. 
 
-> The base R version of the `read_csv` function is `read.csv` and assumes any character is a factor - this problem notoriously causes everyone a lot of major headaches. `readr` rescued us all with its lovely `read_csv` alternative.
+In fact, `readr` assumes that NOTHING is a factor, so we have the full power to determine which variables are factors, and what the _order_ of the categories should be. In R, we call the categories of a factor its _levels_. While factors are very meaningful, they can be frustrating to work with. Trust me.
 
-The `tidyverse` package [`forcats`](https://forcats.tidyverse.org/) has rich functionality for working with and modifying factors, but for now these features are a bit too advanced (although have at it if you want!), so we will use some convenient base R code.
+> The base R version of the `read_csv` function is `read.csv` and assumes the opposite - that all characters are factors. This problem notoriously causes everyone a lot of major headaches because factors are very difficult to work with.
 
-From the `head(sparrows)` output, we see at least three columns are designed `<chr>`, meaning R thinks those columns are characters - plain old works with nothing interesting linking them. But, we know "better" - it is clear that columns `Sex`, `Age`, and `Survival` are categorical variables with distinct categories (levels!). We can convert these columns to factors like this:
+
+Let's therefore begin to **convert these columns into factors**:
 
 ```{r, factor-sex-1}
 ### Convert Sex to a factor 
 sparrows$Sex <- factor(sparrows$Sex)
 
-### If we run head() again, we'll see it's a factor now
+### If we run head() again, we'll see the successful change
 head(sparrows)
 
-
-### Once converted, let's see its levels
+### The levels function tells us the categories in the variable:
 levels(sparrows$Sex)
-
-
 ```
 
-R has decided that "Female" should be ordered before "Male" because of alphabetical order. If we had a compelling reason for "Male" to be first (this comes into play mostly for plotting reasons, and as we will learn in a few months, data modeling), we can specify the order of levels directly:
-
+**By definition, levels are ordered**, and if no order is specified, R defaults to alphabetical order. To re-order a factor, simply refine the levels with your preferred order of the categories, for example:
 ```{r, factor-sex-2}
-### Make the order Male, Female. This can reorder levels, but the names of levels CANNOT CHANGE (for now..)!
+### Make the order Male, Female. 
 levels(sparrows$Sex) <- c("Male", "Female")
 
 ## Print it out to see
 print(levels(sparrows$Sex))
 ```
 
+
 This can also all be done at once with the single command below.
 ```{r, factor-sex-3}
-### All at once
+### Convert to factor and order levels as desired at once
 sparrows$Sex <- factor(sparrows$Sex, levels=c("Male", "Female"))
 ```
 
 
+
 ## <mark>Questions</mark>
 
-##### Question 1
-Convert the columns `Survival` and `Age` into factors. For `Survival`, the order should be (1) Alive, (2) Dead. for `Age`, the order should be (1) Young, (2) Adult. 
-
-  + In total, this should be _two_ lines of code only (one line for each variable) - in a single line, you should set the variable as a factor AND define its levels.
-  +  Confirm you are correct by printing the LEVELS of each column
-
-```{r factor-survival-age}
-## Fill in your re-factoring code here
-```
-    
-
-##### Question 2 
+##### Question 1 
 Visualize the distribution of `Survival` using a bar plot, where all bars are filled with a single color of your choosing.
 
 ```{r survival-barplot}
@@ -124,8 +116,24 @@ Visualize the distribution of `Survival` using a bar plot, where all bars are fi
 ```
     
     
+##### Question 2
+
+You may have noticed in Question #1, `Alive` was automatically plotted before `Dead`. What if we wanted `Dead` before `Alive` on the X-axis? **We'd have to re-factor the column!**. For this question, do the following:
+
++ Use your new factor skills to convert _both_ `Survival` and `Age` to factors. For `Survival`, set the order to be be (1) Dead, (2) Alive. for `Age`, the order should be (1) Young, (2) Adult. 
+  + In total, this should be _two_ lines of code only (one line for each variable) - in a single line, you should set the variable as a factor AND define its levels.
+  +Confirm you are correct by printing the LEVELS of each column
++ Then, make a new barplot visualizing `Survival` with your re-factored variable to see how the X-axis order changed. 
+
+
+```{r factor-survival-age}
+## Fill in your code to re-factor and plot here
+```
+    
+    
+    
 ##### Question 3
-Visualize the distribution of `Survival` using a bar plot, where bars are also colored (filled) by `Age`, to make a _grouped bar plot_. There are two ways these bars can be represented: stacked (this will happen by DEFAULT when you add the fill) or dodged (add the argument `position = "dodge"` to `geom_bar()`). 
+We will now look at the relationship between two categorical variables using a _grouped bar plot_. Visualize the distribution of `Survival` using a bar plot as before, but now color (in this case, fill) the bars by `Age`. There are two ways these bars can be represented: stacked (this will happen by DEFAULT when you add the fill) or dodged (add the argument `position = "dodge"` to `geom_bar()`). 
 
 Make one of each type of barplot, and in the space below, answer whether males or females where more likely to survive. Write an additional 1-2 sentences describing which visualization choice makes it easier to answer this question.
   
@@ -280,7 +288,7 @@ We will now recreate the scatterplot to include a _line of best fit_ (also known
 + Place the aesthetic mapping to color within the `geom_point()` call
 + Place the aesthetic mapping to color within the overall `ggplot()` call (along with X and Y specs). 
 
-In the space below, explain why the lines of best fit (aka regression lines) look different between the two plots, and what each line represents in each plot. What did you learn about how aesthetic placement is applied to geoms? In addition, based on your figures, do you think males and females have fundamentally different RELATIONSHIPS between skull width and length?
+In the space below, explain why the lines of best fit (aka regression lines) look different between the two plots, and what each line represents in each plot. In addition, based on your figures, do you think males and females have fundamentally different RELATIONSHIPS between skull width and length?
 
 ```{r skull-scatter-smooth-1}
 ## Scatterplot + line of best fit goes here, with color in geom_point
@@ -300,12 +308,35 @@ In the space below, explain why the lines of best fit (aka regression lines) loo
     
 </answer>
 
+
 ##### Question 13
+In the last question, we began to observe that it might matter where the aesthetic mapping is specified. To try and understand this further, consider the following code chunk which has a bug and gives an error.
+
+
+```{r bug, error=TRUE}
+## This code will not work - run it and see the error message!
+ggplot(sparrows, aes(color = Sex)) + 
+  geom_point(aes(x = Skull_Length, y = Skull_Width)) + 
+  geom_smooth(method = "lm")
+```
+
+Considering this example, and what you observed in Question 12, what did you learn about how aesthetic placement is applied to geoms?
+
+<answer>
+<!-- your answer goes in here. DO NOT DELETE THE ANSWER TAGS -->
+    
+    
+</answer>
+
+##### Question 14
 Finally let's learn one more useful geom: `geom_text()`. Yet again, re-create the same scatterplot but **replace `geom_point()` with `geom_text()`**. This will write some text label rather than drawing points, so we need to tell `ggplot` what the label is (look up the docs! you can do it!). 
 
 > Note: neither of these plots is particularly good. But, they do teach how to use `geom_text()`!
 
-Do this task in two ways: 1) make all labels the letter "B" for bird, and 2) make all labels the `Age` of that bird (hint: This is an aesthetic mapping!).
+Do this task in two ways: 
+
++ Make all labels the letter "B" for bird
++ Make all labels the `Age` of that bird (hint: This is an aesthetic mapping!).
 
 ```{r skull-scatter-text-B}
 ### Scatterplot with points all labeled "B" goes here
@@ -314,7 +345,7 @@ Do this task in two ways: 1) make all labels the letter "B" for bird, and 2) mak
     
     
     
-```{r skull-scatter-text-Sex}
-## Scatterplot with points labeled according to sex goes here
+```{r skull-scatter-text-age}
+## Scatterplot with points labeled according to age goes here
 
 ```

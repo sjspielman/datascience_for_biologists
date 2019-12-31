@@ -6,7 +6,8 @@ date: "`r Sys.Date()`"
 output: 
   html_document:
     highlight: tango
-css: ../static/sjs-style.css
+css: static/sjs-style.css
+
 ---
 
 <!-- SETUP CODE CHUNK -->
@@ -16,120 +17,38 @@ knitr::opts_chunk$set(echo = TRUE, fig.width=4, fig.height=3)
 library(tidyverse)
 library(patchwork)
 theme_set(theme_classic())
-```
-
-
-## Instructions
-
-For this lab/assignment, you will continue to hone your plotting skills _and_ learn how to read and use external datasets. Questions below are given as prompts with either templated or empty R chunks for you to fill in and complete.
-
-<mark>You do **not** need to submit anything over Blackboard, but you **do** need to complete this entire document within RStudio Cloud by the hard deadline of **Thursday February 6th at 11:30 am**. </mark>
-
-#### You will be graded on the following criteria:
-
-+ Did you enter your name appropriately into the YAML front matter?
-+ Does the document knit without errors? *Adding `eval=FALSE` to code chunks with errors will not avoid penalty.*
-+ Does your code have appropriate *comments*?
-+ Is your submission appropriately _professional_? 
-  + *You need to run SPELL CHECK before submitting*, available under `Edit->Check Spelling`.
-+ Do all figures have clean axis labels? (Titles are optional). There should NOT be any underscores in axis labels.
-+ Did you write your written answers in the <answer>answer style</answer>?
-+ Have you addressed the questions as they are asked? Be sure to limit your code and your answers to the scope of the question!
-  + If you write code that is not ultimately part of your final answer, you must either: delete it, comment it out, OR move it to a different R chunk with the added chunk options `eval=FALSE, echo=FALSE`. 
-+ Is all work your own, including code and written answers?
-  + If ANY of your submitted work is not your own (with the exception of what you have been provided), you will receive a 0 on the assignment. You will be reported for a Level 2 or 3 Academic Integrity Violation, depending on the severity of the issue.
-
-  
-
-### Getting started
-
-This assignment will make use of an _external data set_, i.e. a data set that you have to upload to R yourself. We will do this using the `readr` package, which is part of the core `tidyverse` and assists in reading/writing files. You will be working with a file called `"sparrows.csv"`. You will see this file is available already in this project in the Files pane in RStudio. If you click on this file name, it will appear in the Editor pane -  this is a *comma-separated file* (CSV, comma-separated values), meaning each column of data is separated by a comma. Another way to say this is that the file is *comma-delimited*. It is also very common to see *tab-delimited* files (TSV) in data science.
-
-
-Data in this file was collected in 1898 by Hermon Bumpus, an American biologist working at Brown University. Immediately following a bad winter storm, he collected 136 English house sparrows (some alive, some dead), *Passer domesticus*, and brought them indoors. Of these birds, 64 had died during the storm, but 72 recovered and survived. Bumpus measured the birds' physical traits and recorded them for future generations of data science students.
-
-#### Reading CSV files
-
-We use the function `read_csv` from the package `readr` to read in CSV files. When using functions from specific packages, it is often safer to write them in the format `package::function()`, i.e. `readr::read_csv()`, just in case there is another function named `readr()` also floating around in the R environment. It is not likely this will happen to you at this stage of your data sciencing, but it doesn't hurt to get in the habit. 
-
-We can read in the file as follows:
-```{r, read-sparrows}
-## save the data frame, automatically made into a TIBBLE by readr
-##    into the variable `sparrows`
-sparrows <- read_csv("sparrows.csv")
-
-## Examine the data
-head(sparrows)
-```
-
-#### Understanding factors
-
-Part of this lab/assignment will necessitate working with _factors_, a special type of variable used to work with categories of categorical variables. By default, `readr` assumes that NOTHING is a factor, so we have the full power to determine which variables are factors, and what the _order_ of the categories should be. In R, we call the categories of a factor its _levels_.
-
-> The base R version of the `read_csv` function is `read.csv` and assumes any character is a factor - this problem notoriously causes everyone a lot of major headaches. `readr` rescued us all with its lovely `read_csv` alternative.
-
-The `tidyverse` package [`forcats`](https://forcats.tidyverse.org/) has rich functionality for working with and modifying factors, but for now these features are a bit too advanced (although have at it if you want!), so we will use some convenient base R code.
-
-From the `head(sparrows)` output, we see at least three columns are designed `<chr>`, meaning R thinks those columns are characters - plain old works with nothing interesting linking them. But, we know "better" - it is clear that columns `Sex`, `Age`, and `Survival` are categorical variables with distinct categories (levels!). We can convert these columns to factors like this:
-
-```{r, factor-sex-1}
-### Convert Sex to a factor 
-sparrows$Sex <- factor(sparrows$Sex)
-
-### If we run head() again, we'll see it's a factor now
-head(sparrows)
-
-
-### Once converted, let's see its levels
-levels(sparrows$Sex)
-
-
-```
-
-R has decided that "Female" should be ordered before "Male" because of alphabetical order. If we had a compelling reason for "Male" to be first (this comes into play mostly for plotting reasons, and as we will learn in a few months, data modeling), we can specify the order of levels directly:
-
-```{r, factor-sex-2}
-### Make the order Male, Female. This can reorder levels, but the names of levels CANNOT CHANGE (for now..)!
-levels(sparrows$Sex) <- c("Male", "Female")
-
-## Print it out to see
-print(levels(sparrows$Sex))
-```
-
-This can also all be done at once with the single command below.
-```{r, factor-sex-3}
-### All at once
-sparrows$Sex <- factor(sparrows$Sex, levels=c("Male", "Female"))
+sparrows <- read_csv("data/sparrows.csv")
 ```
 
 
 ## <mark>Questions</mark>
 
-##### Question 1
-Convert the columns `Survival` and `Age` into factors. For `Survival`, the order should be (1) Alive, (2) Dead. for `Age`, the order should be (1) Young, (2) Adult. 
-
-  + In total, this should be _two_ lines of code only (one line for each variable) - in a single line, you should set the variable as a factor AND define its levels.
-  +  Confirm you are correct by printing the LEVELS of each column
-
-```{r factor-survival-age}
-## Fill in your code here
-sparrows$Survival <- factor(sparrows$Survival, levels=c("Alive", "Dead"))
-sparrows$Age <- factor(sparrows$Age, levels=c("Young", "Adult"))
-    
-levels(sparrows$Survival)
-levels(sparrows$Age)
-```
-    
-
-##### Question 2 
+##### Question 1 
 Visualize the distribution of `Survival` using a bar plot, where all bars are filled with a single color of your choosing.
 
 ```{r survival-barplot}
-### Barplot code goes here
 ggplot(sparrows, aes(x = Survival)) + geom_bar(fill = "purple")
 ```
     
     
+##### Question 2
+
+You may have noticed in Question #1, `Alive` was automatically plotted before `Dead`. What if we wanted `Dead` before `Alive` on the X-axis? **We'd have to re-factor the column!**. For this question, do the following:
+
++ Use your new factor skills to convert _both_ `Survival` and `Age` to factors. For `Survival`, set the order to be be (1) Dead, (2) Alive. for `Age`, the order should be (1) Young, (2) Adult. 
+  + In total, this should be _two_ lines of code only (one line for each variable) - in a single line, you should set the variable as a factor AND define its levels.
+  +Confirm you are correct by printing the LEVELS of each column
++ Then, make a new barplot visualizing `Survival` with your re-factored variable to see how the X-axis order changed. 
+
+
+```{r factor-survival-age}
+sparrows$Survival <- factor(sparrows$Survival, levels=c("Dead", "Alive"))
+sparrows$Age <- factor(sparrows$Age, levels=c("Young", "Adult"))
+
+ggplot(sparrows, aes(x = Survival)) + geom_bar(fill="purple")
+```
+    
+
 ##### Question 3
 Visualize the distribution of `Survival` using a bar plot, where bars are also colored (filled) by `Age`, to make a _grouped bar plot_. There are two ways these bars can be represented: stacked (this will happen by DEFAULT when you add the fill) or dodged (add the argument `position = "dodge"` to `geom_bar()`). 
 
@@ -293,7 +212,7 @@ print(p)
 In fact, we can continue to modify existing plots. Let's add a _title_ to the plot from Question 10, simply by adding the appropriate label to the variable you definitely saved.
 
 ```{r skull-scatter-title}
-### code to add in title goes here
+p + labs(title = "its mah title")
 ```
 
 ##### Question 12
@@ -302,11 +221,11 @@ We will now recreate the scatterplot to include a _line of best fit_ (also known
 + Place the aesthetic mapping to color within the `geom_point()` call
 + Place the aesthetic mapping to color within the overall `ggplot()` call (along with X and Y specs). 
 
-In the space below, explain why the lines of best fit (aka regression lines) look different between the two plots, and what each line represents in each plot. What did you learn about how aesthetic placement is applied to geoms? In addition, based on your figures, do you think males and females have fundamentally different RELATIONSHIPS between skull width and length?
+In the space below, explain why the lines of best fit (aka regression lines) look different between the two plots, and what each line represents in each plot. In addition, based on your figures, do you think males and females have fundamentally different RELATIONSHIPS between skull width and length?
 
 ```{r skull-scatter-smooth-1}
 ## Scatterplot + line of best fit goes here, with color in geom_point
-ggplot(sparrows, aes(x = Skull_Length, y = Skull_Width, color = Sex)) + 
+ggplot(sparrows, aes(x = Skull_Length, y = Skull_Width)) + 
   geom_point(aes(color=Sex)) + 
   geom_smooth(method = "lm")
 ```
@@ -326,12 +245,37 @@ ggplot(sparrows, aes(x = Skull_Length, y = Skull_Width, color = Sex)) +
     
 </answer>
 
+
 ##### Question 13
+In the last question, we began to observe that it might matter where the aesthetic mapping is specified. To try and understand this further, consider the following code chunk which has a bug and gives an error.
+
+
+```{r bug, error=TRUE}
+## This code will not work - run it and see the error message!
+ggplot(sparrows, aes(color = Sex)) + 
+  geom_point(aes(x = Skull_Length, y = Skull_Width)) + 
+  geom_smooth(method = "lm")
+```
+
+Considering this example, and what you observed in Question 12, what did you learn about how aesthetic placement is applied to geoms?
+
+<answer>
+<!-- your answer goes in here. DO NOT DELETE THE ANSWER TAGS -->
+    
+    
+</answer>
+
+
+##### Question 14
 Finally let's learn one more useful geom: `geom_text()`. Yet again, re-create the same scatterplot but **replace `geom_point()` with `geom_text()`**. This will write some text label rather than drawing points, so we need to tell `ggplot` what the label is (look up the docs! you can do it!). 
 
 > Note: neither of these plots is particularly good. But, they do teach how to use `geom_text()`!
 
-Do this task in two ways: 1) make all labels the letter "B" for bird, and 2) make all labels the `Age` of that bird (hint: This is an aesthetic mapping!).
+
+Do this task in two ways: 
+
++ Make all labels the letter "B" for bird
++ Make all labels the `Age` of that bird (hint: This is an aesthetic mapping!).
 
 ```{r skull-scatter-text-B}
 ### Scatterplot with points all labeled "B" goes here

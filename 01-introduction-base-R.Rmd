@@ -8,7 +8,7 @@ output:
     highlight: tango
     toc: true
     toc_float: true
-css: ../static/sjs-style.css
+css: static/sjs-style.css
 ---
 
 ```{r setup, include=FALSE}
@@ -64,7 +64,7 @@ There are two main paths to developing in R within the RStudio environment:
 
 
 The RStudio environment has four main **panes** (their specific location can be changed under Tools -> Global Options -> Pane Layout).
-![RStudio Appearance](../static/img/rstudio-cloud-anatomy.png) 
+![RStudio Appearance](static/img/rstudio-cloud-anatomy.png) 
 
 This image presents the **RStudio Cloud** environment within a project I have created called "demo" and an _R script_ called "example.R". 
 
@@ -186,7 +186,7 @@ function_name(argument)
 To learn about functions, we'll examine one called `log()` first. 
 
 To know what a function does and how to use it, use the question mark which will reveal documentation in the **help pane**: `?log`
-![rhelp](../static/img/rhelp-log.png) 
+![rhelp](static/img/rhelp-log.png) 
 
 The documentation tells use that `log()` is derived from `{base}`, meaning it is a function that is part of base R. It provides a brief description of what the function does and shows several examples of to how use it.
 
@@ -428,7 +428,7 @@ Logical conditions can also be _combined_ with one another to make more involved
 
 + **and** is True when BOTH conditions are True. (represented in R with the symbol `&`) 
 + **or** is True when AT LEAST ONE condition is True (represented in R with the symbol `|` located on the backslash key! This is *not* the letter L or number 1; it is a "pipe" operator.)
-![rhelp](../static/img/Boolean-Ven.jpg) 
+![rhelp](static/img/Boolean-Ven.jpg) 
 
 For example:
 ```{r, collapse=TRUE}
@@ -532,7 +532,7 @@ If you would like to download a text editor separate from RStudio's built-in opt
 ### Creating and running scripts
 
 To create an R script to edit and run from within the RStudio environment, click the White Icon with the green plus sign and select "R Script" from the dropdown. 
-![newrscript](../static/img/rscript.png)
+![newrscript](static/img/rscript.png)
 
 You can now type code as you normally would in this script. Code can be executed in two ways from this script (see icons in upper-right corner of "editor" pane in the image above):
 
