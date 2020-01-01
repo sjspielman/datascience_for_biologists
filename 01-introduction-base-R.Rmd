@@ -465,7 +465,7 @@ We will begin our exploration with the old trusted dataset `iris`, which comes w
 ### Exploring and indexing data frames
 
 The first step to using any data is to LOOK AT IT!!! RStudio contains a special function `View()` which allows you to literally VIEW a variable. Try it out with `View(iris)`. You'll see a new table pop up in the "editor" pane:
-![iris][irisview.png].
+![iris][static/img/irisview.png].
 
 As you can see, there are FIVE columns and 150 rows in this data frame. While `View()` is convenient, there are also more dynamic ways of exploring our data which do not require specialized RStudio features. Some useful functions include:
 
