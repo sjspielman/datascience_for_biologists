@@ -206,6 +206,7 @@ Perform the following computations using functions. Try to use _variables_ while
 4. What is the log of the square root of 341? (Hint: You can do this in _one line_ of code by _nesting_ your functions. Play around with it!)
 
 
+
 ## Working with variables
 
 ### Variable Types
@@ -321,15 +322,17 @@ We can define arrays with the function `c()`, which stands for "combine". This f
 
 ```{r}
 my_numeric_array <- c(1,1,2,3,5,8,13,21)
+print(my_numeric_array)
 length(my_numeric_array)
 
 my_mixedtype_array <- c("one", "one", "two", 3, 5, 8, 13, "twenty one")
+print(my_mixedtype_array)
 length(my_mixedtype_array)
 
 # Combining two arrays will make one BIGGER array, not a nested array
 my_array_of_arrays <- c(my_numeric_array,  my_mixedtype_array)
-length(my_array_of_arrays)
 print(my_array_of_arrays)
+length(my_array_of_arrays)
 
 ## We can build on arrays in place by redefining them
 my_numeric_array <- c(my_numeric_array, 10000)
@@ -337,11 +340,11 @@ print(my_numeric_array)
 ```
 
 
-We can pull out specific items from an array using a process called _indexing_, which uses brackets `[]` to specify the position of an item. Indexing in R begins at **one** (if you have programmed in other languages, this will be different. Brace yourself.).
+We can pull out specific items from an array using a process called _indexing_, which uses brackets `[]` to specify the position of an item. Indexing in R begins at **one** (if you have programmed in other languages, this will be different. Brace yourself.). 
 
 ```{r}
 ## Grab the FOURTH value from my_numeric_array
-## This gives us an array of length 1 whose value will be 3 
+## This gives us an array of length 1 
 my_numeric_array[4]
 
 ## Use a colon to specify an inclusive RANGE of indices
@@ -365,6 +368,20 @@ log(values_1_to_20)
 Arrays can also be extended into lists, which we will discuss later during the semester.
 
 
+Finally, we can apply logical expressions to arrays, just we can do for single values.
+
+```{r}
+example_array <- 2:8 ## Define an array of values ranging from 1-8
+print(example_array)
+
+## Which values are <= 3?
+## The output here is a LOGICAL ARRAY telling us whether each value in example_array is TRUE or FALSE
+print(example_array <= 3)
+```
+
+### A note on protected variables
+A key concept that emerges here is **protected variables**. We have learned functions such as `c`, `length`, `sum`, `sqrt`, and more. Many computer languages recognize these names as protected - they are implicitly part of the language and are not allowed to be used for any other purpose, such as variable names. **R does not have this level of protection - it very much hopes you will not do this stupid thing, but it will NOT prevent you from doing it.** Imagine defining a variable called `c`: This will work, but it will lead to a LOT OF UNINTENDED BUGS. **CHOOSE YOUR VARIABLE NAMES WISELY!**
+
 #### <mark>EXERCISE SET FIVE</mark>
 
 Create, manipulate, and index arrays.
@@ -373,14 +390,14 @@ Create, manipulate, and index arrays.
     + Use indexing to print the 8th value in `numbers`.
     + Use indexing to print the 4th - 8th values in `numbers`. You should use a single command for indexing all at once, not a separate command for the 4th, 5th, 6th, 7th, and 8th.
     + Use indexing to print the 20th value in `numbers`. Did it work??? What did you get as output and why?
-    + We can also use _logical expressions_ to index arrays (example below). Use this approach to obtain all values from `numbers` than are less than or equal to 7.
+    + We can also use _logical expressions_ to index arrays, as shown in the example below. We call strategy "logical indexing," and we pronounce brackets as "where" (as in comments in code exmaple). _Use logical indexing to obtain all values from `numbers` than are less than or equal to 7_.
       ```{r, collapse=TRUE}
       my_array <- c(1,4,6,32,26)
+      # Pronounce out loud: "my array where my array is greater than 10"
       my_array[my_array > 10]  # get the values that are greater than 10
       ```
-      
     + Subtract 10 from all values in `numbers`, and save the new array as a _different variable_ called `numbers_minus10`. You should now have TWO defined arrays!
-    + Square root all values in each of your two arrays, and save the output arrays respectively as `numbers_sqrt` and `numbers_minus10_sqrt`. Print these variables out. What do you see and why? Take a moment to really understand any unexpected output.
+    + Square root all values in each of your two arrays using the `sqrt()` function, and save the output from these commands respectively as `numbers_sqrt` (output from square rooting `numbers`) and `numbers_minus10_sqrt` (output from square rooting `numbers_minus10`). Print your new variables out. What do you see and why? Take a moment to really understand any unexpected output.
     + The function `is.na()` returns a logical value indicating whether the input was `NA`. Run this function on both `numbers_sqrt` and `numbers_minus10_sqrt`.
     + There are several key functions which can be used on arrays containing numeric values, some of which are below. Run each of these functions on the array `numbers_sqrt` and `numbers_minus10_sqrt`, and compare the outputs. What does this tell you about how R deals with NA or NaN values?
         + `mean()`: The average value in the array
@@ -419,8 +436,6 @@ Create, manipulate, and index arrays.
     + Use the `%in%` operator to determine if `"h"` is in `new_array`. Did you expect this answer? Why or why not?
     + Use the `%in%` operator to determine if `"g"` is in _the string_ `"hijk"`. For this question, using indexing to extract `"hijk"` and save it as its own variable. Then check for the `"g"`. What have you now learned about the `%in%` operator?
 
-### A note on protected variables
-A key concept that emerges here is **protected variables**. We have learned functions such as `c`, `length`, `sum`, `sqrt`, and more. Many computer languages recognize these names as protected - they are implicitly part of the language and are not allowed to be used for any other purpose, such as variable names. **R does not have this level of protection - it very much hopes you will not do this stupid thing, but it will NOT prevent you from doing it.** Imagine defining a variable called `c`: This will work, but it will lead to a LOT OF UNINTENDED BUGS. **CHOOSE YOUR VARIABLE NAMES WISELY!**
 
 ### Multiple logical operations
 
@@ -428,7 +443,6 @@ Logical conditions can also be _combined_ with one another to make more involved
 
 + **and** is True when BOTH conditions are True. (represented in R with the symbol `&`) 
 + **or** is True when AT LEAST ONE condition is True (represented in R with the symbol `|` located on the backslash key! This is *not* the letter L or number 1; it is a "pipe" operator.)
-![rhelp](static/img/Boolean-Ven.jpg) 
 
 For example:
 ```{r, collapse=TRUE}
