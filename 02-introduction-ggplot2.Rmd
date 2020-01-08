@@ -117,7 +117,7 @@ We will fill in this command to make a _histogram of the Sepal Lengths_ for all 
 Therefore, we only need to specify the X-axis data for making a histogram. _This represents an AESTHETIC MAPPING_: We are telling `ggplot2` to take the data from `Sepal.Length` and map it onto the X axis of the plot. **Whenever specifying a direct relationship between the DATA and a GRAPHICAL COMPONENT**, we specify within `aes()`:
 
 ```{r}
-## Soecify the x-axis aesthetic
+## Specify the x-axis aesthetic
 ggplot(iris, aes(x = Sepal.Length))
 ```
 
