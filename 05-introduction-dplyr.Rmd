@@ -1,0 +1,145 @@
+---
+title: "Data manipulation with `dplyr`"
+subtitle: "Data Science for Biologists, Spring 2020"
+author: "Stephanie J. Spielmam"
+output: 
+  html_document:
+    highlight: tango
+css: static/sjs-style.css
+---
+
+<!-- SETUP CODE CHUNK -->
+```{r setup, include=FALSE}
+## Change the default figure width and height to your liking, but within reason.
+knitr::opts_chunk$set(echo = TRUE, fig.width=7, fig.height=3)
+library(tidyverse)
+library(tidylog) # This must be loaded _AFTER_ tidyverse!
+theme_set(theme_classic())
+```
+
+## Resources
+
+Your resources for working with `dplyr` include:
+
+1. [dplyr documentation](http://rmarkdown.rstudio.com)
+2. [dplyr Cheatsheet](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf)
+3. [The dplyr Vignette](https://dplyr.tidyverse.org/articles/dplyr.html)
+
+Remember this table of the most common (plus some of my favorite) `dplyr` verbs (functions), and remember the **pipe** operator `%>%` for automatically sending output to a new function as input:
+
+| Function | Purpose |  Example |
+|----------|-------------------------------|-------------------------------------------------------------|
+| `select()`| Select or remove certain **columns** (variables) from a tibble | `select(iris, Petal.Width) ## Keep only Petal.Width` <br><br> `iris %>% select(Petal.Width)` <br><br> `iris %>% select(-Petal.Width) ## Remove column Petal Width` |
+| `filter()`| Subset certain **rows** (observations/cases) from a tibble using a logical expression | `filter(iris, Petal.Width <= 2)` <br><br> `iris %>% filter(Petal.Width <= 2)` <br><br> `iris %>% filter(Species == "setosa")` | 
+| `mutate()`| Create a new column (variable) | `mutate(iris, petal_area = Petal.Width * Petal.Length)` <br><br> `iris %>% mutate(petal_area = Petal.Width * Petal.Length)` <br><br> `iris %>% mutate(flower_type = "iris")` | 
+| `summarize()`| Reduce multiple rows to a single _summarized_ row/set of rows (observations)  | `summarize(iris, mean_petal_width = mean(Petal.Width))` <br><br> `iris %>% summarize(mean_petal_width = mean(Petal.Width))` | 
+| `group_by()`| Specify a grouping for grouped operations  | ` ## Calculate the mean for each Species` <br> `iris %>% ` <br> `          group_by(Species) %>%` <br> `          summarize(mean_petal_width = mean(Petal.Width))`  | 
+| `ungroup()`| Clear a tibble of all groupings. _Recommended after done with `group_by()` operations!!_  | `iris %>% ` <br> `          group_by(Species) %>%` <br> `          summarize(mean_petal_width = mean(Petal.Width)) %>% ` <br> `                   ungroup()` | 
+| `tally()`| Short-cut to create a new column `n` with _counts per group_  | `## add a column "n" with the number of each Species in data.` <br> `iris %>% ` <br>`      group_by(Species) %>%` <br> `      tally()` |
+| `count()` | Short-cut of `group_by(...) %>% tally() %>% ungroup()` | `# Equivalent to the tally() example above (except also ungroups it! very helpful!)` <br> `iris %>% count(Species)`
+
+> NOTE: _Many_ packages in R have a function called `select()` including base R, so it is not unusual for R to get confused which `select()` you are trying to use (later on we will learn where this confusion comes from). If you ever see an error that `select()` isn't working as you expect, re-write it explicitly as `dplyr::select()` to clearly tell R that you want the `dplyr` function.
+
+
+## Setup 
+
+We will learn the fundamentals of `dplyr` using the built-in R dataset `CO2`. This dataset is not in the best default format, so we will define it as a tibble for our use, **but save it as a new variable `CO2_tibble`**.
+
+```{r}
+# Create a new lowercase variable. __NEVER__ overwrite base R variables. 
+# CO2 <- as.tibble(CO2) is _very bad._ Don't do this.
+CO2_tibble <- as_tibble(CO2)
+head(CO2_tibble)
+```
+
+This dataset contains "data from an experiment on the cold tolerance of the grass species _Echinochloa crus-galli_.... The CO2 uptake of six plants from Quebec and six plants from Mississippi was measured at several levels of ambient CO2 concentration. Half the plants of each type were chilled overnight before the experiment was conducted."
+
+
+### Messages from `tidylog`
+
+To assist in learning `dplyr` (and more packages coming soon), we will also be using the (pre-installed for you) library, `tidylog`. As you can see in the setup R chunk of this document, `tidylog` has been loaded for you. This fairly amazing library provides you with direct feedback about what goes on "under the hood" of `tidyverse` operations.
+
+```{r}
+## Obtain all rows where the plant is from Quebec
+CO2_tibble %>%
+  filter(Type == "Quebec")
+```
+Because we loaded `tidylog`, we were given this added output information :`## filter: removed 42 rows (50%), 42 rows remaining`. 
+
+
+## <mark> EXERCISE SET ONE </mark>
+
+Perform all exercises using the `%>%` operator. You will probably type it as `>%>` sometimes, so expect this bug ;)
+
+##### Question 1
+Subset the data using `filter()` to contain only observations from Mississippi (Hint: make sure to spell it right!).
+
+
+##### Question 2
+Subset the data using `filter()` to contain only observations from Mississippi exposed to chilled environment. Hint: You can provide multiple logical statements to `filter()` simply by separating them by commas. This is assumed to mean "and".
+
+
+##### Question 3
+Subset the data using `filter()` to contain only observations from Mississippi exposed to chilled environment, and _then_ keep only rows `Plant`, `Type`, and `Treatment`.
+
+
+##### Question 4
+Remove the columns `Update` and `Conc` from the data using `select()`. In your code, refer only to these two column names - NOT `Plant`, `Type`, etc.
+
+
+##### Question 5
+Subset the data using `select()` to contain only observations where the plant is either `Qn1` or `Qn2`. using the `%in%` operator (remember this?) to ask whether `Plant` is _in_ an array of these plants, i.e. `c("Qn1", "Qn2")`
+
+##### Question 6
+Subset the data using `filter()` to contain only rows where uptake is greater than or equal to 38. 
+
+
+##### Question 7
+Create a _new column_  using `mutate()` called "new_column" where all rows have the value 5. 
+
+##### Question 8
+CO2 concentration in this dataset is measured in mL/L - let's change the units to cL/L (i.e. milli -> centi by dividing by 10). Create a new column using `mutate()` called "conc_cLL" using `mutate()` which contains the concentration measured in cL/L.
+
+##### Question 9
+Modify your answer to #8 by, at the end, removing the original `uptake` column. Save the final result to a new tibble `CO2_tibble2` and examine its output with `head()` to confirm your it all worked.
+
+
+##### Question 10
+Create a new column using `mutate()` called "high_uptake". Rows where uptake is _greater than or equal to 38_ are considered to have high uptakes. Rows with high uptake should be given the value `TRUE`, and `FALSE` otherwise. Hint: Most of the code is identical to your solution to #6!
+
+##### Question 11
+Calculate the mean uptake as a new column. Do this in two ways: first with `mutate()` and then with `summarize()`. Examine the difference between your outputs to understand the difference between these two `dplyr` verbs.
+
+##### Question 12
+Create a new tibble called "quebec" that contains _only_ plants from Quebec. Work with this tibble to determine the following:
+
++ What is the mean (function `mean()`) uptake for Quebec plants? **Use `summarize()`**, no dollar signs!
++ What is the mean uptake for all _chilled_ Quebec plants? Again use `summarize()`, but first you'll want to filter the data for only chilled plants. 
++ Without filtering, use a single chain of commands to determine the mean uptake for both chilled and nonchilled Quebec plants. You'll need to use `group_by()` to setup `summarize()` to do calculations separately for these two groups.
++ What is the median (function `median()`) uptake for Quebec plants?
++ What is the median uptake for Quebec plants exposed to a concentration of 500 mL/L? 
++ What is the median update for chilled and nonchilled Quebec plants separately exposed to a concentration of 500 mL/L? 
++ How many plants have an uptake less than 25 when exposed to a CO2 concentration of 500 mL/L? You can answer this by piping your commands into `tally()` but without grouping the data - `dplyr` will assume all data is one group, and simply count the the number of rows!
+
+##### Question 13
+Let's now compare plants from Mississippi to those from Quebec in _one chain of commands_: Which plant type has a higher mean uptake, considering only nonchilled plants exposed to a concentration of 1000 mL/L? 
+
+This is a fairly involved question with multiple steps, so let's break it down: Generally speaking, it is always a good first step to subset the data to only those observations we're interested in. Here, we're only interested in nonchilled plants exposed to 1000 mL/L. Then we can perform operations on the subsetted data, which is to calculate the mean uptake (sounds like a _summary_!) for plants in Mississippi and Quebec separately (these sound like _groups_ we should summarize separately!).
+
+For involved tasks like this, **YOU REALLY REALLY REALLY SHOULD** to do each step one at a time, examine its output, and then proceed to tack on the next step.
+
+
+##### Question 14
+Now seems as good a time as any to introduce line plots! Together, we will learn how to create the plot shown below. We will also discuss whether the points as shown are a good idea or not.
+
+
+```{r, echo=FALSE}
+ggplot(CO2_tibble, aes(x = conc, y = uptake, group = Plant, color = Treatment)) + 
+  geom_line() + 
+  geom_point() +
+  facet_grid(~Type) + 
+  labs(x = "Concentration", y = "Uptake")
+```
+
+
+

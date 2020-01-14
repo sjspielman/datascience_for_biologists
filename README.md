@@ -28,4 +28,11 @@ Tabular data is a table of values, each associated with a variable and an observ
 <!--
 1. links to SHIT FIGURES https://www.reddit.com/r/dataisugly/ and https://flowingdata.com/category/visualization/ugly-visualization/
 
+
+bullshit readings:
+
+1. The intro page itself https://callingbullshit.org/ and https://callingbullshit.org/FAQ.html
+2. Figures:
+	+ https://callingbullshit.org/tools/tools_misleading_axes.html
+	+ https://callingbullshit.org/tools/tools_proportional_ink.html
 -->

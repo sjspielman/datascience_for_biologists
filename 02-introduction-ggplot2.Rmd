@@ -201,14 +201,14 @@ ggsave("iris_histogram.pdf", p) ## To make sure the plot looks ok, we have to op
 
 Make a histogram of the distribution of _petal lengths_ from the iris dataset. Your plot should have the following components:
 
-1. A _color_ for the histogram outline of your choosing
-2. A _fill_ for the histogram bars of your choosing
-3. A _bidwidth_ that gives a meaningful representation of the data. Try at least 3-4 binning options to find the best one.
-4. Clean axis labels
-5. _A different [theme](https://ggplot2.tidyverse.org/reference/ggtheme.html) from `theme_gray()` or `theme_classic()` - choose one that works for you!
-  + **For an added challenge**, install and load the package [`ggthemes`](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/) find your favorite
-6. A meaningful title. You can add plot titles either with the added argument `title` to the `labs()` function, or using the separate function `ggtitle()`. Check out the help menus to learn more!!
-7. Save your plot as a *png* file with a _reasonable aspect ratio!!_. You'll definitely need to look up `ggsave()` help for getting this done.
++ A _color_ for the histogram outline of your choosing
++ A _fill_ for the histogram bars of your choosing
++ A _bidwidth_ that gives a meaningful representation of the data. Try at least 3-4 binning options to find the best one.
++ Clean axis labels
++ _A different [theme](https://ggplot2.tidyverse.org/reference/ggtheme.html) from `theme_gray()` or `theme_classic()` - choose one that works for you!
+    + **For an added challenge**, install and load the package [`ggthemes`](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/), Find and use your favorite theme!
++ A meaningful title. You can add plot titles either with the added argument `title` to the `labs()` function, or using the separate function `ggtitle()`. Check out the help menus to learn more!!
++ Save your plot as a *png* file with a _reasonable aspect ratio!!_. You'll definitely need to look up `ggsave()` help for getting this done.
 
 
 ### Density plots
@@ -260,13 +260,13 @@ ggplot(iris, aes(x = Sepal.Length)) +
 #### <mark>EXERCISE SET TWO</mark>
 
 
-1. Examine this code, which has an error so it does NOT produce a figure, but shares a reasonably helpful error message. Figure out why and fix the problem by playing around with the code. Hint: What is an aesthetic? What is NOT an aesthetic?
+1. Examine this code, which has an error so it does NOT produce a figure, but shares a reasonably helpful error message.Figure out why and fix the code to properly build the figure. Hint: What is an aesthetic? What is NOT an aesthetic?
     ```{r, message=FALSE, error=TRUE}
     ggplot(iris, aes(x = Sepal.Length)) + 
       geom_density(fill = Species, alpha = 0.6) 
     ```
 
-2. Examine this code and the resulting figure. You will notice the output has some unexpected components. Figure out why and fix the problem by playing around with the code.
+2. Examine this code and the resulting figure. You will notice the output has some unexpected components. Figure out why and fix the code to properly build the figure.
     ```{r, message=FALSE}
     ggplot(iris, aes(x = Sepal.Length)) + 
       geom_density(aes(fill = Species, alpha = 0.6)) 
@@ -284,7 +284,7 @@ ggplot(iris, aes(x = Sepal.Length)) +
 
 
 
-6. Examine this code and the resulting figure. You will notice it does not work as you might think. Figure out why and fix the problem by playing around with the code. Hint: What colors appear, the ones we specified or the default colors? Are they colors or fills? Is there any _inconsistency_ to the code?
+6. Examine this code and the resulting figure. You will notice it does not work as you might think. Figure out why and fix the code to properly build the figure. Hint: What colors appear, the ones we specified or the default colors? Are they colors or fills? Is there any _inconsistency_ to the code?
     ```{r, message=FALSE}
     ggplot(iris, aes(x = Sepal.Length)) + 
       geom_density(aes(color = Species), alpha = 0.6) +
@@ -304,7 +304,6 @@ For this section, you will _teach yourself!_ the joys of boxplots and violin plo
 + Where is the legend located, and what is its title?
 + NOTE: all plots use `theme_classic()` (it's my favorite pre-built theme.). You can use the separate line of code to globally set the theme for all plots with: `theme_set(theme_classic())`. This way you don't have to always type `+ theme_classic()` in your plot calls.
 
-**You should do these exerises in an R Script which creates and saves each plot to a file. The saved plots should have READABLE aspect ratios.** Your script will be separate from coding in the console, so you will have to load the `ggplot2` library at the very top of the script file.
 
 1. Re-create this boxplot of iris petal lengths. 
 
@@ -343,7 +342,7 @@ ggplot(iris, aes(x = Species, y = Sepal.Length)) +
 
 In fact, `geom_jitter()` is a special kind of call to `geom_point()` which makes POINTS! It is equivalent to `geom_point(position = "jitter")`. These types of plots are very useful for visualizing the data in its "rawest" form, while still being able to discern trends.
 
-However, the three separate distributions are difficult to see, so let's make each chunk of points more narrow with the argument `width` (I know this exists because ~I looked at the help menu for `geom_jitter()`! I am not clairvoyant! I looked it up! You can too!~). This argument is **not** an aesthetic because it has no specific mapping to data - it applies to all the data equally, so we do not place it into `aes()`.
+However, the three separate distributions are difficult to see, so let's make each chunk of points more narrow with the argument `width` (I know this exists because I looked at the help menu for `geom_jitter()`! I am not clairvoyant! I looked it up! You can too!). This argument is **not** an aesthetic because it has no specific mapping to data - it applies to all the data equally, so we do not place it into `aes()`.
 ```{r}
 ggplot(iris, aes(x = Species, y = Sepal.Length)) + 
   geom_jitter(width = 0.05)
@@ -423,9 +422,9 @@ ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length)) +
 
 Use your magnificant `ggplot2` skills to fancy up this scatterplot, specifically to determine _which type of visualization provides the MOST useful information about species differences._
 
-+ Make points _colored_ according to `Species`
-+ Make points _shaped_ according to `Species`
-+ Make points _sized_ according to `Species`
+1. Make points _colored_ according to `Species`
+2. Make points _shaped_ according to `Species`
+3. Make points _sized_ according to `Species`
 
 As always, ensure a nice theme and clean axis labels!
     
