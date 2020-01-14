@@ -14,6 +14,7 @@ Materials developed by Stephanie J. Spielman.
 
 [4. More practice with `ggplot2` ](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/04-more-ggplot2.html)
 
+[5. Introduction to `dplyr`](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/05-introduction-dplyr.html)
 
 <!--
 A variable is a quantity, quality, or property that you can measure.
