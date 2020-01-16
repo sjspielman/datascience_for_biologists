@@ -2,9 +2,7 @@
 
 # Data Science for Biologists
 
-Course materials for Rowan University Course "Data Science for Biologists" (BIOL01301)
-
-Materials developed by Stephanie J. Spielman.
+Course materials for Rowan University Course "Data Science for Biologists" (BIOL01301) Spring 2020. Materials developed by Stephanie J. Spielman.
 
 [1. Introduction to R and RStudio](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/01-introduction-base-R.html)
 
