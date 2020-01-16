@@ -23,7 +23,7 @@ theme_set(theme_classic())
 
 For this lab/assignment, you will continue to hone your plotting skills _and_ learn how to read and use external datasets. Questions below are given as prompts with either templated or empty R chunks for you to fill in and complete.
 
-<mark>You do **not** need to submit anything over Blackboard, but you **do** need to complete this entire document within RStudio Cloud by the hard deadline of **Thursday February 6th at 11:30 am**. </mark>
+**This assignment must be submitted as an RMarkdown document on Blackboard by _Thursday February 13th at 10:00 am._** 
 
 #### You will be graded on the following criteria:
 
@@ -310,7 +310,7 @@ In the space below, explain why the lines of best fit (aka regression lines) loo
 
 
 ##### Question 13
-In the last question, we began to observe that it might matter where the aesthetic mapping is specified. To try and understand this further, consider the following code chunk which has a bug and gives an error.
+In the last question, we began to observe that it might matter where the aesthetic mapping is specified. To try and understand this further, consider the following code chunk which has a bug and gives an error. (The blank space you see below the code is there because the plot couldn't be built due to a bug in the code).
 
 
 ```{r bug, error=TRUE}

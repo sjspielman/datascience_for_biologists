@@ -19,9 +19,28 @@ if (!("ggplot2" %in% installed.packages())) {
 ```
 
 
+
+
+## Instructions
+
+For this lab/assignment, you will continue learn the basics of visualization in R through the `ggplot2` package.
+
+**This assignment must be submitted using the R script template provided to you. The assignment is due on Blackboard (as an R script) by **Thursday February 6th at 10:00 am_.**
+
+#### You will be graded on the following criteria:
+
++ Did you complete the assignment using the R script template, and is the template filled in appropriately?
++ Document run without errors?
++ Does your code have appropriate *comments*?
++ Do all figures have clean axis labels? (Titles are optional). There should NOT be any underscores in axis labels.
++ Have you addressed the questions as they are asked? Be sure to limit your code and your answers to the scope of the question!
++ Is all work your own, including code and any written answers?
+  + If ANY of your submitted work is not your own (with the exception of what you have been provided), you will receive a 0 on the assignment. You will be reported for a Level 2 or 3 Academic Integrity Violation, depending on the severity of the issue.
+
+
 ## Learning Goals
 
-Today's lesson will teach you to:
+This lab/assignment will teach you to:
 
 + Install and load external packages
 + Create basic plots from data frames using the ggplot framework
