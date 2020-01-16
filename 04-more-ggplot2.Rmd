@@ -23,7 +23,7 @@ theme_set(theme_classic())
 
 For this lab/assignment, you will continue to hone your plotting skills _and_ learn how to read and use external datasets. Questions below are given as prompts with either templated or empty R chunks for you to fill in and complete.
 
-**This assignment must be submitted as an RMarkdown document on Blackboard by _Thursday February 13th at 10:00 am._** 
+**This assignment must be submitted as an RMarkdown document on Blackboard by _Thursday February 13th at 10:00 am_.** 
 
 #### You will be graded on the following criteria:
 

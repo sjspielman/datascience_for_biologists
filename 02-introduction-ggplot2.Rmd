@@ -25,7 +25,7 @@ if (!("ggplot2" %in% installed.packages())) {
 
 For this lab/assignment, you will continue learn the basics of visualization in R through the `ggplot2` package.
 
-**This assignment must be submitted using the R script template provided to you. The assignment is due on Blackboard (as an R script) by **Thursday February 6th at 10:00 am_.**
+**This assignment must be submitted using the R script template provided to you. The assignment is due on Blackboard (as an R script) by _Thursday February 6th at 10:00 am._**
 
 #### You will be graded on the following criteria:
 
