@@ -325,12 +325,8 @@ my_numeric_array <- c(1,1,2,3,5,8,13,21)
 print(my_numeric_array)
 length(my_numeric_array)
 
-my_mixedtype_array <- c("one", "one", "two", 3, 5, 8, 13, "twenty one")
-print(my_mixedtype_array)
-length(my_mixedtype_array)
-
 # Combining two arrays will make one BIGGER array, not a nested array
-my_array_of_arrays <- c(my_numeric_array,  my_mixedtype_array)
+my_array_of_arrays <- c(my_numeric_array,  c(100,101,102))
 print(my_array_of_arrays)
 length(my_array_of_arrays)
 
