@@ -64,15 +64,14 @@ Finally, you will need to use the **help menus** frequently. For example, to see
 
 ## Obtaining tidyverse packages 
 
-This lab focuses on making figures using the `ggplot2` package, which is one of several [`tidyverse`](https://tidyverse.tidyverse.org/) packages. To obtain `ggplot2`, you will need to first _install_ the library, and then _load_ the library for use in your current R session. 
-
-We will, in fact, install the whole suite of `tidyverse` packages which will include `ggplot2`. **You only need to run package installation ONCE within a given R project. Once it has been installed, you can use the package by loading it when needed**.
+This lab focuses on making figures using the `ggplot2` package, which is one of several [`tidyverse`](https://tidyverse.tidyverse.org/) packages. To obtain `ggplot2`, you will need to first _install_ the library, and then _load_ the library for use in your current R session. **The library has already been installed for you**, but if you were to install it, here's what you would do!
 
 The command to install packages is `install.packages()` - you must provide package names _in quotes!_ to this function:
 ```{r, eval=FALSE}
-install.packages("tidyverse")
+install.packages("tidyverse") # install all tidyverse packages at once
 ```
-This command will take several minutes to run and complete, and you may see red text going down the console - don't worry! These are just messages indicating the stage of installation; they are not errors.
+This command will take several minutes to run and complete, and you may see red text going down the console - don't worry! These are just messages indicating the stage of installation; they are not errors. **You only need to run package installation ONCE within a given RStudio Cloud space (or, once on your computer)**. Once it has been installed, you can use the package by loading it when needed.
+
 
 Once this package installation completes, you can load packages for use with the `library()` function (do NOT use quotes here!):
 ```{r}
@@ -118,7 +117,7 @@ The main types of plots (geoms!) for representing distributions of quantitative 
 2. Density plots
 3. Boxplots
 4. Violin plot (density plot meets boxplot)
-5. Jitter plots and related 
+5. Strip (jitter) plots and related 
 
 The basic anatomy of building a plot with `ggplot2` is to declare a plot with the function `ggplot()` (no 2!) and then _add_ components to this plot with `+`.
 
