@@ -292,7 +292,7 @@ ggplot(iris, aes(x = Sepal.Length)) +
 
 3. Create a _density plot_ of the Petal lengths where density plots are colored by Species, using colors of your own choosing. Ensure clean axis labels for your plot.
 
-4. Modify your density plot to show the legend on the _bottom_ of the plot. To achieve this, you will need to modify the theme with the added function/argument: `theme(theme_position = "bottom")` (more/way too many details [here](https://ggplot2.tidyverse.org/reference/theme.html)). 
+4. Modify your density plot to show the legend on the _bottom_ of the plot. To achieve this, you will need to modify the theme with the added function/argument: `theme(legend.position = "bottom")` (more/way too many details [here](https://ggplot2.tidyverse.org/reference/theme.html)). 
     + Once you have completed this, make a second plot where the legend is on the TOP of the plot.
 
 5. Modify your density plot to change the **LEGEND title** to "Iris Species" instead of the default "Species". There are a couple ways to do this, such as:
