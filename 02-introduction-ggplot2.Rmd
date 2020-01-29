@@ -32,7 +32,7 @@ For this lab/assignment, you will continue learn the basics of visualization in 
 + Did you complete the assignment using the R script template, and is the template filled in appropriately?
 + Document run without errors?
 + Does your code have appropriate *comments*?
-+ Do all figures have clean axis labels? (Titles are optional). There should NOT be any underscores in axis labels.
++ Do all figures have clean axis labels? (Titles are optional). Hint: "Petal.Length" is not clean. "Petal Length" (no period!) is clean.
 + Have you addressed the questions as they are asked? Be sure to limit your code and your answers to the scope of the question!
 + Is all work your own, including code and any written answers?
   + If ANY of your submitted work is not your own (with the exception of what you have been provided), you will receive a 0 on the assignment. You will be reported for a Level 2 or 3 Academic Integrity Violation, depending on the severity of the issue.
