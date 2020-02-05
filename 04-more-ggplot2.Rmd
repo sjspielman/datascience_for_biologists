@@ -244,9 +244,10 @@ Make a second jitter plot of `Weight` across `Sex`, except this time color all p
 Plot the distribution of sparrow sternum lengths as histograms faceted by `Sex` AND `Age` by using the function `facet_grid(x~y)`, where `x` and `y` are the two variables you are faceting across (be brave, jump in the deep end, and try it out!). Make sure that the `Sex` facet is shown VERTICALLY and the `Age` facet is shown `HORIZONTALLY`.
 
 When styling your histograms:
-  + Choose a bin width that makes all histograms mostly continuous (no empty spaces between bars).
-  + Add histogram fills according to EITHER `Sex` or `Age`
-  + Make the color of the histograms black
+
++ Choose a bin width that makes all histograms mostly continuous (no empty spaces between bars).
++ Add histogram fills according to EITHER `Sex` or `Age`
++ Make the color of the histograms black
   
 ```{r sternum-facet-histogram}
 ### Code for faceted histogram goes here
