@@ -104,6 +104,7 @@ Practice writing code chunks in the space below. After you write each chunk, mak
 ```{r}
 ```
 
+
 2. Write a code chunk named "chunk-2" that calculates the maximum value of iris sepal lengths (hint: remember the function `max()` and the `$` for working with columns). In your chunk, set the option `collapse=TRUE` to see how output looks different.
 
 ```{r}
@@ -128,7 +129,17 @@ Practice writing code chunks in the space below. After you write each chunk, mak
 5. Modify the _size_ of the output figure in "chunk-4" by adding parameters like `{r, fig.width=7, fig.height=5}` until you find a width/height that conveys your figure well.
 
 
-    **At this point, if you haven't already, Knit the whole document to see how your chunks appear!**
+6. For many questions you will be prompted to write answers. I have set up a way for your answers to appear _in blue_ to help your grader grade. You will write your answers inside _answer tags_, as shown below (only visible in the Rmarkdown document, not yet visible in the knitted output!). I will provide an _HTML comment_ stating answer goes here (you can either leave or delete this comment, it doesn't matter), but your answer must be INSIDE the space delimited by `<answer>` and `</answer>`. Practice writing some text inside the answer tags, knit, and view the output to get a sense of how this will work.
+
+<answer>
+<!-- your answer goes in here. DO NOT DELETE THE ANSWER TAGS -->
+    
+    
+</answer>
+
+
+
+**At this point, if you haven't already, Knit the whole document to see how your chunks appear!**
  
  
 ## Working with global options
@@ -150,6 +161,7 @@ Modify the YAML frontmatter and the R `setup` chunk to customize this document a
     + Modify the "highlight" field to a different [syntax highlighter](
   https://www.garrickadenbuie.com/blog/pandoc-syntax-highlighting-examples/), and re-Knit. 
   All you need to do is delete the word "tango" and replace it with your choice, such as "espresso". _Ignore any directions this website provides - the point of the link is just to see the palettes._ Choose your own adventure!!
+  + Modify the front matter to change the text `html_document` to `pdf_document`, and knit the output. It's a PDF now! Yes! Magic!
   
 <br><br>
 
