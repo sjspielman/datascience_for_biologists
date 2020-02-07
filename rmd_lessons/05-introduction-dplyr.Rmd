@@ -11,10 +11,10 @@ css: static/sjs-style.css
 <!-- SETUP CODE CHUNK -->
 ```{r setup, include=FALSE}
 ## Change the default figure width and height to your liking, but within reason.
-knitr::opts_chunk$set(echo = TRUE, fig.width=7, fig.height=3)
+knitr::opts_chunk$set(echo = TRUE, fig.width=6, fig.height=4)
 library(tidyverse)
 library(tidylog) # This must be loaded _AFTER_ tidyverse!
-theme_set(theme_classic())
+theme_set(theme_classic())  ### If you want to set a global theme, do so here
 ```
 
 ## Resources
@@ -25,6 +25,7 @@ Your resources for working with `dplyr` include:
 2. [dplyr Cheatsheet](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf)
 3. [The dplyr Vignette](https://dplyr.tidyverse.org/articles/dplyr.html)
 
+<!--
 Remember this table of the most common (plus some of my favorite) `dplyr` verbs (functions), and remember the **pipe** operator `%>%` for automatically sending output to a new function as input:
 
 | Function | Purpose |  Example |
@@ -37,7 +38,7 @@ Remember this table of the most common (plus some of my favorite) `dplyr` verbs 
 | `ungroup()`| Clear a tibble of all groupings. _Recommended after done with `group_by()` operations!!_  | `iris %>% ` <br> `          group_by(Species) %>%` <br> `          summarize(mean_petal_width = mean(Petal.Width)) %>% ` <br> `                   ungroup()` | 
 | `tally()`| Short-cut to create a new column `n` with _counts per group_  | `## add a column "n" with the number of each Species in data.` <br> `iris %>% ` <br>`      group_by(Species) %>%` <br> `      tally()` |
 | `count()` | Short-cut of `group_by(...) %>% tally() %>% ungroup()` | `# Equivalent to the tally() example above (except also ungroups it! very helpful!)` <br> `iris %>% count(Species)`
-
+-->
 > NOTE: _Many_ packages in R have a function called `select()` including base R, so it is not unusual for R to get confused which `select()` you are trying to use (later on we will learn where this confusion comes from). If you ever see an error that `select()` isn't working as you expect, re-write it explicitly as `dplyr::select()` to clearly tell R that you want the `dplyr` function.
 
 
@@ -75,41 +76,72 @@ In addition, for any tasks which require multiple steps (a chain of `dplyr` comm
 ##### Question 1
 Subset the data using `filter()` to contain only observations from Mississippi (Hint: make sure to spell it right!).
 
+```{r}
+```
 
 ##### Question 2
 Subset the data using `filter()` to contain only observations from Mississippi exposed to chilled environment. Hint: You can provide multiple logical statements to `filter()` simply by separating them by commas. This is assumed to mean "and".
 
+```{r}
+```
 
 ##### Question 3
 Subset the data using `filter()` to contain only observations from Mississippi exposed to chilled environment, and _then_ keep only rows `Plant`, `Type`, and `Treatment`.
+
+```{r}
+```
 
 
 ##### Question 4
 Remove the columns `Update` and `Conc` from the data using `select()`. In your code, refer only to these two column names - NOT `Plant`, `Type`, etc.
 
 
+```{r}
+```
+
+
 ##### Question 5
 Subset the data using `select()` to contain only observations where the plant is either `Qn1` or `Qn2`. using the `%in%` operator (remember this?) to ask whether `Plant` is _in_ an array of these plants, i.e. `c("Qn1", "Qn2")`
+
+```{r}
+```
 
 ##### Question 6
 Subset the data using `filter()` to contain only rows where uptake is greater than or equal to 38. 
 
+```{r}
+```
 
 ##### Question 7
 Create a _new column_  using `mutate()` called "new_column" where all rows have the value 5. 
 
+```{r}
+```
+
 ##### Question 8
 CO2 concentration in this dataset is measured in mL/L - let's change the units to cL/L (i.e. milli -> centi by dividing by 10). Create a new column using `mutate()` called "conc_cLL" using `mutate()` which contains the concentration measured in cL/L.
+
+```{r}
+```
 
 ##### Question 9
 Modify your answer to #8 by, at the end, removing the original `uptake` column. Save the final result to a new tibble `CO2_tibble2` and examine its output with `head()` to confirm your it all worked.
 
+```{r}
+```
 
 ##### Question 10
 Create a new column using `mutate()` called "high_uptake". Rows where uptake is _greater than or equal to 38_ are considered to have high uptakes. Rows with high uptake should be given the value `TRUE`, and `FALSE` otherwise. Hint: Most of the code is identical to your solution to #6!
 
+```{r}
+```
+
 ##### Question 11
 Calculate the mean uptake as a new column. Do this in two ways: first with `mutate()` and then with `summarize()`. Examine the difference between your outputs to understand the difference between these two `dplyr` verbs.
+
+```{r}
+```
+
 
 ##### Question 12
 Create a new tibble called "quebec" that contains _only_ plants from Quebec. Work with this tibble to determine the following:
@@ -122,12 +154,18 @@ Create a new tibble called "quebec" that contains _only_ plants from Quebec. Wor
 + What is the median update for chilled and nonchilled Quebec plants separately exposed to a concentration of 500 mL/L? 
 + How many plants have an uptake less than 25 when exposed to a CO2 concentration of 500 mL/L? You can answer this by piping your commands into `tally()` but without grouping the data - `dplyr` will assume all data is one group, and simply count the the number of rows!
 
+```{r}
+```
+
 ##### Question 13
 Let's now compare plants from Mississippi to those from Quebec in _one chain of commands_: Which plant type has a higher mean uptake, considering only nonchilled plants exposed to a concentration of 1000 mL/L? 
 
+```{r}
+```
+
 
 ##### Question 14
-Now seems as good a time as any to introduce line plots! Together, we will learn how to create the plot shown below. We will also discuss whether the points as shown are a good idea or not.
+Now seems as good a time as any to introduce line plots. The line plot below Note the new **group** aesthetic below: Together, we will learn how the plot below comes together. We will also discuss whether the points as shown are a good idea or not.
 
 
 ```{r, echo=FALSE}

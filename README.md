@@ -4,15 +4,15 @@
 
 Course materials for Rowan University Course "Data Science for Biologists" (BIOL01301) Spring 2020. Materials developed by Stephanie J. Spielman.
 
-[1. Introduction to R and RStudio](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/01-introduction-base-R.html)
+[1. Introduction to R and RStudio](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/rmd_lessons/01-introduction-base-R.html)
 
-[2. Introduction to `ggplot2`](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/02-introduction-ggplot2.html)
+[2. Introduction to `ggplot2`](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/rmd_lessons/02-introduction-ggplot2.html)
 
-[3. Introduction to `RMarkdown`](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/03-introduction-rmarkdown.html)
+[3. Introduction to `RMarkdown`](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/rmd_lessons/03-introduction-rmarkdown.html)
 
-[4. More practice with `ggplot2` ](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/04-more-ggplot2.html)
+[4. More practice with `ggplot2` ](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/rmd_lessons/04-more-ggplot2.html)
 
-[5. Introduction to `dplyr`](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/05-introduction-dplyr.html)
+[5. Introduction to `dplyr`](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/rmd_lessons/05-introduction-dplyr.html)
 
 <!--
 A variable is a quantity, quality, or property that you can measure.
