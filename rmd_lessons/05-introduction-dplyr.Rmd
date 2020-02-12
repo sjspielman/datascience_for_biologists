@@ -1,7 +1,7 @@
 ---
 title: "Data manipulation with `dplyr`"
 subtitle: "Data Science for Biologists, Spring 2020"
-author: "Stephanie J. Spielmam"
+author: "Stephanie J. Spielman"
 output: 
   html_document:
     highlight: tango
