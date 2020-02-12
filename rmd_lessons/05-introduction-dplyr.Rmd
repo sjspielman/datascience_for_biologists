@@ -25,21 +25,7 @@ Your resources for working with `dplyr` include:
 2. [dplyr Cheatsheet](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf)
 3. [The dplyr Vignette](https://dplyr.tidyverse.org/articles/dplyr.html)
 
-<!--
-Remember this table of the most common (plus some of my favorite) `dplyr` verbs (functions), and remember the **pipe** operator `%>%` for automatically sending output to a new function as input:
-
-| Function | Purpose |  Example |
-|----------|-------------------------------|-------------------------------------------------------------|
-| `select()`| Select or remove certain **columns** (variables) from a tibble | `select(iris, Petal.Width) ## Keep only Petal.Width` <br><br> `iris %>% select(Petal.Width)` <br><br> `iris %>% select(-Petal.Width) ## Remove column Petal Width` |
-| `filter()`| Subset certain **rows** (observations/cases) from a tibble using a logical expression | `filter(iris, Petal.Width <= 2)` <br><br> `iris %>% filter(Petal.Width <= 2)` <br><br> `iris %>% filter(Species == "setosa")` | 
-| `mutate()`| Create a new column (variable) | `mutate(iris, petal_area = Petal.Width * Petal.Length)` <br><br> `iris %>% mutate(petal_area = Petal.Width * Petal.Length)` <br><br> `iris %>% mutate(flower_type = "iris")` | 
-| `summarize()`| Reduce multiple rows to a single _summarized_ row/set of rows (observations)  | `summarize(iris, mean_petal_width = mean(Petal.Width))` <br><br> `iris %>% summarize(mean_petal_width = mean(Petal.Width))` | 
-| `group_by()`| Specify a grouping for grouped operations  | ` ## Calculate the mean for each Species` <br> `iris %>% ` <br> `          group_by(Species) %>%` <br> `          summarize(mean_petal_width = mean(Petal.Width))`  | 
-| `ungroup()`| Clear a tibble of all groupings. _Recommended after done with `group_by()` operations!!_  | `iris %>% ` <br> `          group_by(Species) %>%` <br> `          summarize(mean_petal_width = mean(Petal.Width)) %>% ` <br> `                   ungroup()` | 
-| `tally()`| Short-cut to create a new column `n` with _counts per group_  | `## add a column "n" with the number of each Species in data.` <br> `iris %>% ` <br>`      group_by(Species) %>%` <br> `      tally()` |
-| `count()` | Short-cut of `group_by(...) %>% tally() %>% ungroup()` | `# Equivalent to the tally() example above (except also ungroups it! very helpful!)` <br> `iris %>% count(Species)`
--->
-> NOTE: _Many_ packages in R have a function called `select()` including base R, so it is not unusual for R to get confused which `select()` you are trying to use (later on we will learn where this confusion comes from). If you ever see an error that `select()` isn't working as you expect, re-write it explicitly as `dplyr::select()` to clearly tell R that you want the `dplyr` function. **In this document, please write all dplyr functions explicitly as dplyr::<function> to get in the habit of this "coding best practice."**
+> NOTE: _Many_ packages in R have a function called `select()` including base R, so it is not unusual for R to get confused which `select()` you are trying to use (later on we will learn where this confusion comes from). If you ever see an error that `select()` isn't working as you expect, re-write it explicitly as `dplyr::select()` to clearly tell R that you want the `dplyr` function. **In this document, please write all dplyr functions explicitly as `dplyr::<function>` to get in the habit of this "coding best practice."**
 
 
 ## Setup 
@@ -217,17 +203,17 @@ Write this code in TWO WAYS:
 ### q14 code way 2
 ```
 
-
-```{r}
-## Your slightly-modified code from question 14 here
-```
-
-##### Question 16
+##### Question 15
 
 Make a boxplot of uptake values for all plants exposed to concentrations of 175 mL/L, where you are _somehow distinguishing_ (colors, fills, facets, *choose your adventure!*) between both Treatment (chilled vs nonchilled) and Type (Quebec vs Mississippi). Make sure your figure is well-designed using principles you have learned by reading "Fundamentals of Data Visualization" - do not make an "ugly" or "bad" figure.
 
 
-##### Question 17
+
+```{r}
+```
+
+
+##### Question 16
 
 Reproduce the figure below _but with colors/fills/theme/ customized to your liking_ (just keep labels, faceting, X, and Y axes the same). Do NOT use the same colors/fills, and do NOT use the same theme as me! Again, make sure your figure is well-designed using principles you have learned by reading "Fundamentals of Data Visualization" - do not make an "ugly" or "bad" figure.**Your code should be a single piped command doing both the `dplyr` data manipulation AND the `ggplot2` plotting.**
 
@@ -272,7 +258,13 @@ The hints you need to accomplish this task:
     iris2 %>% dplyr::select(-Species) -> iris2
     ```
   
-  
+
+
+
+```{r}
+## make your recreated but customized figure here
+```
+
   
 
 
