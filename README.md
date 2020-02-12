@@ -15,6 +15,8 @@ Course materials for Rowan University Course "Data Science for Biologists" (BIOL
 [5. Introduction to `dplyr`](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/rmd_lessons/05-introduction-dplyr.html)
 
 <!--
+"TODO" FOR ALL REMINDERS ON DEBUGGING DAY
+
 A variable is a quantity, quality, or property that you can measure.
 
 A value is the state of a variable when you measure it. The value of a variable may change from measurement to measurement.
