@@ -1,7 +1,7 @@
 ---
 title: "Data manipulation with `dplyr`"
 subtitle: "Data Science for Biologists, Spring 2020"
-author: "Stephanie J. Spielman"
+author: "YOUR NAME GOES HERE!"
 output: 
   html_document:
     highlight: tango
@@ -17,6 +17,26 @@ library(tidylog) # This must be loaded _AFTER_ tidyverse!
 theme_set(theme_classic())  ### If you want to set a global theme, do so here
 ```
 
+
+## Instructions
+
+**This assignment must be submitted as an RMarkdown document on Blackboard by _Thursday February 19th at 10:00 am_.** 
+
+#### You will be graded on the following criteria:
+
++ Did you enter your name appropriately into the YAML front matter?
++ Does the document knit without errors? *Adding `eval=FALSE` to code chunks with errors will not avoid penalty.*
++ Does your code in the R chunks have appropriate *comments*? 
++ Is your submission appropriately _professional_? 
+  + *You need to run SPELL CHECK before submitting*, available under `Edit->Check Spelling`.
++ Do all figures have clean axis labels? (Titles are optional). There should NOT be any underscores in axis labels.
++ Did you write your written answers in the <answer>answer style</answer>?
++ Have you addressed the questions as they are asked? Be sure to limit your code and your answers to the scope of the question!
+  + If you write code that is not ultimately part of your final answer, you must either: delete it, comment it out, OR move it to a different R chunk with the added chunk options `eval=FALSE, echo=FALSE`. 
++ Is all work your own, including code and written answers?
+  + If ANY of your submitted work is not your own (with the exception of what you have been provided), you will receive a 0 on the assignment. You will be reported for a Level 2 or 3 Academic Integrity Violation, depending on the severity of the issue.
+
+
 ## Resources
 
 Your resources for working with `dplyr` include:
@@ -25,8 +45,13 @@ Your resources for working with `dplyr` include:
 2. [dplyr Cheatsheet](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf)
 3. [The dplyr Vignette](https://dplyr.tidyverse.org/articles/dplyr.html)
 
-> NOTE: _Many_ packages in R have a function called `select()` including base R, so it is not unusual for R to get confused which `select()` you are trying to use (later on we will learn where this confusion comes from). If you ever see an error that `select()` isn't working as you expect, re-write it explicitly as `dplyr::select()` to clearly tell R that you want the `dplyr` function. **In this document, please write all dplyr functions explicitly as `dplyr::<function>` to get in the habit of this "coding best practice."**
+> NOTE: _Many_ packages in R have a function called `select()` including base R, so it is not unusual for R to get confused which `select()` you are trying to use (later on we will learn where this confusion comes from). If you ever see an error that `select()` isn't working as you expect, re-write it explicitly as `dplyr::select()` to clearly tell R that you want the `dplyr` function. 
 
+
+> NOTE2: The library `tidylog` is actually _modifying_ `dplyr` functions so that they also print out various informative messages. Therefore, if you specify `dplyr::<function>` these messages will NOT appear because the `dplyr` versions will be used. If you specify `tidylog::<function>` you can ensure messages DO appear. Because we loaded `tidylog` AFTER `tidyverse`, the default versions R assumes you want to use are `tidylog`'s functions if you do not explicitly specify.
+
+
+<!-- HEY HAVE YOU KNITTED YET? IT'S VERY HARD TO READ INSTRUCTIONS IN RMD! -->
 
 ## Setup 
 
@@ -49,7 +74,7 @@ To assist in learning `dplyr` (and more packages coming soon), we will also be u
 ```{r}
 ## Obtain all rows where the plant is from Quebec
 CO2_tibble %>%
-  dplyr::filter(Type == "Quebec")
+  filter(Type == "Quebec")
 ```
 Because we loaded `tidylog`, we were given this added output information :`## filter: removed 42 rows (50%), 42 rows remaining`. 
 
@@ -66,20 +91,20 @@ Subset the data using `filter()` to contain only observations from Mississippi (
 ```
 
 ##### Question 2
-Subset the data using `dplyr::filter()` to contain only observations from Mississippi exposed to chilled environment. Hint: You can provide multiple logical statements to `dplyr::filter()` simply by separating them by commas. (This is assumed to mean BOTH conditions are true, i.e. "logical and").
+Subset the data using `filter()` to contain only observations from Mississippi exposed to chilled environment. Hint: You can provide multiple logical statements to `filter()` simply by separating them by commas. (This is assumed to mean BOTH conditions are true, i.e. "logical and").
 
 ```{r}
 ```
 
 ##### Question 3
-Subset the data using `dplyr::filter()` to contain only observations from Mississippi exposed to chilled environment, and _then_ keep only rows `Plant`, `Type`, and `Treatment`.
+Subset the data using `filter()` to contain only observations from Mississippi exposed to chilled environment, and _then_ keep only rows `Plant`, `Type`, and `Treatment`.
 
 ```{r}
 ```
 
 
 ##### Question 4
-Remove the columns `Update` and `Conc` from the data using `dplyr::select()`. In your code, refer only to these two column names - NOT `Plant`, `Type`, etc.
+Remove the columns `uptake` and `conc` from the data using `select()`. In your code, refer only to these two column names - NOT `Plant`, `Type`, etc. (Hint: you can SUBTRACT columns to remove them!)
 
 
 ```{r}
@@ -87,25 +112,25 @@ Remove the columns `Update` and `Conc` from the data using `dplyr::select()`. In
 
 
 ##### Question 5
-Subset the data using `dplyr::select()` to contain only observations where the plant is either `Qn1` or `Qn2`. using the `%in%` operator (remember this? It will return `TRUE` or `FALSE` depending if a value is IN an array or column) to ask whether `Plant` is _in_ an array of these plants, i.e. `c("Qn1", "Qn2")`
+Subset the data using `filter()` to contain only observations (rows) where the plant is either `Qn1` or `Qn2` using the `%in%` operator (remember this? It will return `TRUE` or `FALSE` depending if a value is IN an array or column) to ask whether `Plant` is _in_ an array of these plants, i.e. `c("Qn1", "Qn2")`
 
 ```{r}
 ```
 
 ##### Question 6
-Subset the data using `dplyr::filter()` to contain only rows where uptake is greater than or equal to 38 (i.e. `>=38`, NOT `>38`). 
+Subset the data using `filter()` to contain only rows where uptake is greater than or equal to 38 (i.e. `>=38`, NOT `>38`). 
 
 ```{r}
 ```
 
 ##### Question 7
-Create a _new column_  using `dplyr::mutate()` called "new_column" where all rows have the value 5. 
+Create a _new column_  using `mutate()` called "new_column" where all rows have the value 5. 
 
 ```{r}
 ```
 
 ##### Question 8
-CO2 concentration in this dataset is measured in mL/L - let's change the units to cL/L (i.e. milli -> centi by dividing by 10). Create a new column using `dplyr::mutate()` called "conc_cLL" using `dplyr::mutate()` which contains the concentration measured in cL/L.
+CO2 concentration in this dataset is measured in mL/L - let's change the units to cL/L (i.e. milli -> centi by dividing by 10). Create a new column using `mutate()` called "conc_cLL" using `mutate()` which contains the concentration measured in cL/L.
 
 ```{r}
 ```
@@ -117,13 +142,13 @@ Modify your answer to #8 by, at the end, removing the original `uptake` column. 
 ```
 
 ##### Question 10
-Create a new column using `dplyr::mutate()` called "high_uptake". Rows where uptake is _greater than or equal to 38_ are considered to have high uptakes. Rows with high uptake should be given the value `TRUE`, and `FALSE` otherwise. Hint: Most of the code is identical to your solution to #6!
+Create a new column using `mutate()` called "high_uptake". Rows where uptake is _greater than or equal to 38_ are considered to have high uptakes. Rows with high uptake should be given the value `TRUE`, and `FALSE` otherwise. Hint: Most of the code is identical to your solution to #6!
 
 ```{r}
 ```
 
 ##### Question 11
-Calculate the mean uptake as a new column. Do this in two ways: first with `dplyr::mutate()` and then with `dplyr::summarize()`. Examine the difference between your outputs to understand the difference between these two `dplyr` verbs.
+Calculate the mean uptake as a new column. Do this in two ways: first with `mutate()` and then with `summarize()`. Examine the difference between your outputs to understand the difference between these two `dplyr` verbs.
 
 ```{r}
 ```
@@ -136,11 +161,11 @@ Create a new tibble called "quebec" that contains _only_ plants from Quebec. Wor
 ```{r}
 ```
 
-+ What is the mean uptake for all _chilled_ Quebec plants? Again use `dplyr::summarize()`, but first you'll want to filter the data for only chilled plants. 
++ What is the mean uptake for all _chilled_ Quebec plants? Again use `summarize()`, but first you'll want to filter the data for only chilled plants. 
 ```{r}
 ```
 
-+ Without filtering, use a single chain of commands to determine the mean uptake for both chilled and nonchilled Quebec plants. You'll need to use `dplyr::group_by()` to setup `dplyr::summarize()` to do calculations separately for these two groups.
++ Without filtering, use a single chain of commands to determine the mean uptake for both chilled and nonchilled Quebec plants. You'll need to use `group_by()` to setup `summarize()` to do calculations separately for these two groups.
 ```{r}
 ```
 
@@ -152,11 +177,11 @@ Create a new tibble called "quebec" that contains _only_ plants from Quebec. Wor
 ```{r}
 ```
 
-+ What is the median update for chilled and nonchilled Quebec plants separately exposed to a concentration of 500 mL/L? 
++ What is the median uptake for chilled and nonchilled Quebec plants separately exposed to a concentration of 500 mL/L? 
 ```{r}
 ```
 
-+ How many plants have an uptake less than 25 when exposed to a CO2 concentration of 500 mL/L? You can answer this by piping your commands into `dplyr::tally()` but without grouping the data - `dplyr` will assume all data is one group, and simply count the the number of rows!
++ How many plants have an uptake less than 25 when exposed to a CO2 concentration of 500 mL/L? You can answer this by piping your commands into `tally()` but without grouping the data - `dplyr` will assume all data is one group, and simply count the the number of rows!
 ```{r}
 ```
 
@@ -189,7 +214,7 @@ Write this code in TWO WAYS:
 ```{r}
   ## GUIDING EXAMPLE of piping data directly into ggplot (don't modify this code - it is an example template!)
   iris %>%
-    dplyr::filter(Species == "setosa") %>%
+    filter(Species == "setosa") %>%
     ggplot(aes(x = Petal.Length, y = Petal.Width)) + ### Note: we don't supply the tibble to ggplot since it's being PIPED IN!
     geom_point()
 ```
@@ -232,10 +257,10 @@ The hints you need to accomplish this task:
     ### The first new column changes the order
     ### The second new column changes the order AND names of levels (labels)
     iris %>%
-      dplyr::mutate(species_factor_custom_levels            = factor(Species, levels=c("virginica", "setosa", "versicolor")), ## change order, preserve labels
-                    species_factor_custom_labels            = factor(Species, labels=c("Setosa", "Versicolor", "Virginica")), ## preserve order, change labels 
+      mutate(species_factor_custom_levels        = factor(Species, levels=c("virginica", "setosa", "versicolor")), ## change order, preserve labels
+                    species_factor_custom_labels = factor(Species, labels=c("Setosa", "Versicolor", "Virginica")), ## preserve order, change labels 
                     species_factor_custom_levels_and_labels = factor(Species, levels=c("virginica", "setosa", "versicolor"))  ## change order, change labels
-                   ) -> iris2
+          ) -> iris2
     ## See the different versions of the species factor 
     print(levels(iris2$Species))
     print(levels(iris2$species_factor_custom_levels))
@@ -248,14 +273,14 @@ The hints you need to accomplish this task:
     new_levels <-  c("virginica", "setosa", "versicolor")
     new_labels <- c("Virginica", "Setosa", "Versicolor")   
     iris %>%
-      dplyr::mutate(species_factor_custom_levels            = factor(Species, levels=new_levels), ## change order, preserve labels
+      mutate(species_factor_custom_levels            = factor(Species, levels=new_levels), ## change order, preserve labels
                     species_factor_custom_labels            = factor(Species, labels=new_labels), ## preserve order, change labels 
                     species_factor_custom_levels_and_labels = factor(Species, levels=new_levels, labels = new_labels)  ## change order, change labels
-                    ) -> iris2    
+            ) -> iris2    
     
     ### If you want, you could also remove the original Species from the tibble
     ### but, can't hurt to keep it around. really your call!
-    iris2 %>% dplyr::select(-Species) -> iris2
+    iris2 %>% select(-Species) -> iris2
     ```
   
 
