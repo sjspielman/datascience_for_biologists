@@ -85,7 +85,7 @@ Perform all exercises using the `%>%` operator. You will probably type it as `>%
 In addition, for any tasks which require multiple steps (a chain of `dplyr` commands), **YOU REALLY REALLY REALLY SHOULD** to do each step one at a time, examine its output, and then proceed to tack on the next step.
 
 ##### Question 1
-Subset the data using `filter()` to contain only observations from Mississippi (Hint: make sure to spell it right!).
+Subset the data using `filter()` to contain only observations (rows) from Mississippi (Hint: make sure to spell it right!).
 
 ```{r}
 ```
@@ -97,7 +97,7 @@ Subset the data using `filter()` to contain only observations from Mississippi e
 ```
 
 ##### Question 3
-Subset the data using `filter()` to contain only observations from Mississippi exposed to chilled environment, and _then_ keep only rows `Plant`, `Type`, and `Treatment`.
+Subset the data using `filter()` to contain only observations (rows) from Mississippi exposed to chilled environment, and _then_ keep only columns `Plant`, `Type`, and `Treatment`.
 
 ```{r}
 ```
@@ -118,13 +118,13 @@ Subset the data using `filter()` to contain only observations (rows) where the p
 ```
 
 ##### Question 6
-Subset the data using `filter()` to contain only rows where uptake is greater than or equal to 38 (i.e. `>=38`, NOT `>38`). 
+Subset the data using `filter()` to contain only observations (rows) where uptake is greater than or equal to 38 (i.e. `>=38`, NOT `>38`). 
 
 ```{r}
 ```
 
 ##### Question 7
-Create a _new column_  using `mutate()` called "new_column" where all rows have the value 5. 
+Create a _new column_  using `mutate()` called "new_column" where all rows have the value 5. You do NOT need to use quotes when writing the new column name!
 
 ```{r}
 ```
@@ -136,7 +136,7 @@ CO2 concentration in this dataset is measured in mL/L - let's change the units t
 ```
 
 ##### Question 9
-Modify your answer to #8 by, at the end, removing the original `uptake` column. Save the final result to a new tibble `CO2_tibble2` and examine its output with `head()` to confirm it all worked.
+Modify your answer to #8 by, at the end, removing the original `uptake` column. Save the final result to a new tibble `CO2_tibble2` and examine its output simply by printing the tibble (in Rmarkdown chunks you can simply type the name of the tibble to cleanly print the first 10 rows, just like in the console!) to confirm it all worked.
 
 ```{r}
 ```
