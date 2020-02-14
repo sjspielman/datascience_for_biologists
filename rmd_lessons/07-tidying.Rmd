@@ -1,0 +1,120 @@
+---
+title: "Working with untidy and tidy data"
+subtitle: "Data Science for Biologists, Spring 2020"
+author: "YOUR NAME GOES HERE"
+output: 
+  html_document:
+    highlight: tango
+css: static/sjs-style.css
+---
+
+<!-- SETUP CODE CHUNK -->
+```{r setup, include=FALSE}
+## Change the default figure width and height to your liking, but within reason.
+knitr::opts_chunk$set(echo = TRUE, fig.width=6, fig.height=3.5)
+library(tidyverse)
+library(kableExtra) # helpful to print fancy tables in RMarkdown
+theme_set(theme_classic())  ### If you want to set a global theme, do so here
+```
+
+
+## Instructions
+
+**This assignment must be submitted as an RMarkdown document on Blackboard by _Thursday February 26th at 10:00 am_.** 
+
+#### You will be graded on the following criteria:
+
++ Did you enter your name appropriately into the YAML front matter?
++ Does the document knit without errors? *Adding `eval=FALSE` to code chunks with errors will not avoid penalty.*
++ Does your code in the R chunks have appropriate *comments*? 
++ Is your submission appropriately _professional_? 
+  + *You need to run SPELL CHECK before submitting*, available under `Edit->Check Spelling`.
++ Do all figures have clean axis labels? (Titles are optional). There should NOT be any underscores in axis labels.
++ Did you write your written answers in the <answer>answer style</answer>?
++ Have you addressed the questions as they are asked? Be sure to limit your code and your answers to the scope of the question!
+  + If you write code that is not ultimately part of your final answer, you must either: delete it, comment it out, OR move it to a different R chunk with the added chunk options `eval=FALSE, echo=FALSE`. 
++ Is all work your own, including code and written answers?
+  + If ANY of your submitted work is not your own (with the exception of what you have been provided), you will receive a 0 on the assignment. You will be reported for a Level 2 or 3 Academic Integrity Violation, depending on the severity of the issue.
+
+<!-- HEY HAVE YOU KNITTED YET? IT'S VERY HARD TO READ INSTRUCTIONS IN RMD! -->
+
+
+## Questions
+
+##### Question 1
+
+annual aids deaths needs to be tidied
+
+##### Question 2
+
+can you convert this tidy dataset into an UNTIDY dataset?
+
+##### Question 3
+
+something with separating and/or uniting
+
+
+##### Question 4
+
+
+
+##### Question 8
+
+In fact, it is possible to create tibbles within R directly! There are many strategies for this; below are two different strategies option that uses the `tibble` library within the `tidyverse` (see [here](https://r4ds.had.co.nz/tibbles.html)). The three tibbles defined below represent, respectively, number of frogs collected and their colors for two different species, and then the full names of these totally and completely real frog species:
+
+```{r}
+
+## defines each column as an array
+tibble(
+  color        = c("blue", "green", "turquoise"),
+  male         = c(25, 36, 52),
+  female       = c(28, 17, 33),
+  species_abbr = c("sp1", "sp1", "sp1")
+) -> frogs_sp1
+
+## defines tibble in a format like the tibble would end up appearing
+## spacing is helpful!
+tribble(
+  ~color, ~male, ~female, ~species_abbr,
+  "orange", 13,   17,    "sp2",
+  "red",    45,   36,    "sp2",
+  "pink",  31,    25,    "sp2"
+) -> frogs_sp2
+
+## Like strategy one
+tibble(
+  species_name = c("Frogus firstus", "Frofus secondus"),
+  species_abbr = c("sp1", "sp2")
+) -> species_names
+
+#### EXAMINE THESE NEW TIBBLES BY PRINTING THEM HERE!!!!! #####
+```
+
+
+For this question, we want to create a SINGLE tibble containing all information from both species. To accomplish this task, you will need to both combine these data sets (think: are they RELATIONAL and should be joined, or should they be BOUND?) and tidy them. When tidying, think about what are the _variables_ in this data to help inform you what columns should ultimately be created. In addtion, your final tibble should NOT include species abbreviations (`species_abbr`) - only the species names.
+
+```{r}
+## Wrangle and tidy the data into ONE TIDY TIBBLE in this chunk
+
+```
+
+##### Question 9
+
+Let's learn a very cool new RMarkdown thing (libraries already loaded for you in the setup chunk) - [`kableExtra`](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html). `kable` is a function in `knitr` that allows you to turn tibbles from your R code into pretty embedded tables, and `kableExtra` lets you format these tables in very exciting ways (Note: this ONLY WORKS when you knit to HTML - NOT PDF or WORD!). Use the linked information about `kableExtra` to make your own beautiful rendering of the tidy tibble you created in question 5.
+
+HINT: The simplest way is to just pass the tibble into the `kable()` function, i.e. `iris %>% kable()`. For this question, you must add least TWO CUSTOMIZED features on top of that baseline - have fun!! **Always make sure to KNIT to see the final output - the "preview" output can be misleading.**
+
+
+```{r}
+### r code to kable the table goes here
+```
+
+##### Question 10
+
+Again, consider your fancy new tidy tibble from question #8: Create a visualization from this dataset that reveals the number and color of all frogs, from both species. For your figure:
+
++ Use colors and/or fills that reflect the actual frog colors (don't worry about colorblindness stuff..). You don't have to specifically use "red" but make sure "red" frogs are represented by a reddish color, etc.
++ Plan it conceptually on paper FIRST, then figure out how to plot it
+
+
+
