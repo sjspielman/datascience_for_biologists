@@ -1,0 +1,104 @@
+---
+title: "Data wrangling round 2"
+subtitle: "Data Science for Biologists, Spring 2020"
+author: "YOUR NAME GOES HERE"
+output: 
+  html_document:
+    highlight: tango
+css: static/sjs-style.css
+---
+
+<!-- SETUP CODE CHUNK -->
+```{r setup, include=FALSE}
+## Change the default figure width and height to your liking, but within reason.
+knitr::opts_chunk$set(echo = TRUE, fig.width=6, fig.height=3.5)
+library(tidyverse)
+library(tidylog) # This must be loaded _AFTER_ tidyverse!
+theme_set(theme_classic())  ### If you want to set a global theme, do so here
+```
+
+
+## Instructions
+
+**This assignment must be submitted as an RMarkdown document on Blackboard by _Thursday February 26th at 10:00 am_.** 
+
+#### You will be graded on the following criteria:
+
++ Did you enter your name appropriately into the YAML front matter?
++ Does the document knit without errors? *Adding `eval=FALSE` to code chunks with errors will not avoid penalty.*
++ Does your code in the R chunks have appropriate *comments*? 
++ Is your submission appropriately _professional_? 
+  + *You need to run SPELL CHECK before submitting*, available under `Edit->Check Spelling`.
++ Do all figures have clean axis labels? (Titles are optional). There should NOT be any underscores in axis labels.
++ Did you write your written answers in the <answer>answer style</answer>?
++ Have you addressed the questions as they are asked? Be sure to limit your code and your answers to the scope of the question!
+  + If you write code that is not ultimately part of your final answer, you must either: delete it, comment it out, OR move it to a different R chunk with the added chunk options `eval=FALSE, echo=FALSE`. 
++ Is all work your own, including code and written answers?
+  + If ANY of your submitted work is not your own (with the exception of what you have been provided), you will receive a 0 on the assignment. You will be reported for a Level 2 or 3 Academic Integrity Violation, depending on the severity of the issue.
+
+<!-- HEY HAVE YOU KNITTED YET? IT'S VERY HARD TO READ INSTRUCTIONS IN RMD! -->
+
+
+## Questions
+
+Perform all exercises using the `%>%` operator. For this assignment, you will be working with TWO datasets which can be found in the `data/` directory in your RStudio Cloud Project:
+ 
++ `annual_AIDS_death.csv`
+
+from claus, meh
+
+
+**This homework is due on Feb. 19, 2019 at 4:00pm. Please submit as a PDF file on Canvas.**
+
+**Problem 1: (4 pts)** The following two data tables contain information about how many male and female passengers traveling on the Titanic in different classes survived or died. The data-frame `survived` contains information about passengers that survived, and the data-frame `deceased` contains information about passendgers that died. Using the `dplyr` and `tidyr` packages, make these data-frames tidy and then combine them into a single data-frame. Make sure that your final data-frame has a `survival_status` column indicating which data-frame the observations originally came from. HINT: You can use the `bind_rows` function to add rows from one data-frame onto another as long as both data-frames have identical column names.
+
+```{r}
+survived <- read.table(text = "
+class  male female
+1st    57    140
+2nd    14     80
+3rd    75     76
+crew  192     20
+", head = T)
+
+deceased <- read.table(text = "
+class  male female
+1st   118      4
+2nd   154     13
+3rd   387     89
+crew  670      3
+", head = T)
+
+# R code goes here
+```
+
+Using the data-frame you created above, compute the total number of passengers that survived and that did not survive.
+
+```{r}
+# R code goes here
+```
+
+**Problem 2: (3 pts)** The `chickwts` dataset contains information on the weight of chicks after being fed different feed supplements. The different feed supplements are labeled casein, horsebean, linseed, meatmeal, soybean, and sunflower in the `feed` column. I have created a new data-frame (`feed_names`), that contains the abbreviated names of different feed supplements. Using one of the `dplyr` join functions, combine the two data-frames so that there is an additional `feed_abbr` column and all of the original columns and rows in chickwts are retained. Which join function is most appropriate to use and why? 
+
+```{r}
+head(chickwts)
+
+feed_names <- read.table(text = "
+feed feed_abbr
+casein cs
+whey wh
+linseed  ls
+meatmeal mm
+fishmeal fm
+soybean sb
+sunflower sf
+corn co
+wheatbran wb
+", head = T)
+
+# R code goes here
+```
+
+  
+
+
