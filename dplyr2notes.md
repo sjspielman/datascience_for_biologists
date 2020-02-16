@@ -1,4 +1,6 @@
 MOMv3.3.txt is really good for:
+- https://esajournals.onlinelibrary.wiley.com/doi/abs/10.1890/02-9003
+- https://esajournals.onlinelibrary.wiley.com/doi/abs/10.1890/02-9002
 - recoding NA (they are -999)
 - reference is a string, and it's absolutely vile. commas all around, some periods instead of commas, etc.
     + they'd have to design a regex to match it and then separate_rows with tidyr eeeeeeekkkkkk
@@ -40,21 +42,47 @@ then resplit apart to make it tidy again
 then there are lots of NAs but they are coded differently in each data set. 
 students will have to recode NAs replace_na and/or na_if and then remove them potentially
 
+Once combined answer some questions about the data. these questions will require you to either wrangle, manipulate, tidy or untidy, visualize the data. You'll have to see what you need!
 
 
+## teach yourself two new packages: ggrepel, and flipbook
+
+give them some dataset to make a scatterplot of where they use ggrepel, making use of one of its functions label or text.
+
+
+Last question on project should be to make a beautiful visualization of their choosing using flipbook
+https://resources.rstudio.com/rstudio-conf-2020/flipbooks-evangeline-reynolds
+the rules:
+it should answer a scientific question about the dataset, something you are truly interested in knowing. 
+it can either be a dataset we have previous used in class, or a dataset you identify and use. _if you use your own dataset you must submit it!!_
+it does not have to be a fancy flipbook like she goes into at the end, but it needs to be a flipbook.
+HINT: In order to use flipbookr you have to install it. Do NOT keep any install code in your submitted docs.
+it does need to have at least TWO customized features such as background color, code styling, etc.
+write 2-4 sentences on what your flipbook reveals! This should be a text annotation under the final figure? is it possible?
 =======================================================
+
+r blogging
+https://resources.rstudio.com/rstudio-conf-2020/rebecca-barter
+================================
+
+
 
 ## Debugging
+discuss geom_col vs geom_bar and explain how the difference is in the STAT.
+geoms are sometimes stats.
+
 namespace
-scope
-hardcoding
-meaningful variable names
-traceback
-watch jenny bryan probably right
+scope, interpretter: https://bookdown.org/rdpeng/rprogdatascience/scoping-rules-of-r.html
+hardcoding         : 
+meaningful variable names :
+should we speak about reproducible research?
+watch jenny bryan's video about debugging, it;s about an hour. you have notes.
+
 
 =======================================================
 
 
+we need to count the number again using BOTH group_by/tally and count
 ## Working with missing data
 replace_na()
 na_if()
