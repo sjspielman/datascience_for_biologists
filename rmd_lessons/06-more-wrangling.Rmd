@@ -1,10 +1,11 @@
 ---
-title: "Data wrangling round 2"
+title: "Data manipulation with `dplyr` II"
 subtitle: "Data Science for Biologists, Spring 2020"
 author: "YOUR NAME GOES HERE"
 output: 
   html_document:
-    highlight: tango
+    highlight: espresso
+    theme: sandstone
 css: static/sjs-style.css
 ---
 
@@ -13,7 +14,7 @@ css: static/sjs-style.css
 ## Change the default figure width and height to your liking, but within reason.
 knitr::opts_chunk$set(echo = TRUE, fig.width=6, fig.height=3.5)
 library(tidyverse)
-library(tidylog) # This must be loaded _AFTER_ tidyverse!
+#library(tidylog) # This must be loaded _AFTER_ tidyverse!, if you want it
 theme_set(theme_classic())  ### If you want to set a global theme, do so here
 ```
 
@@ -28,7 +29,7 @@ theme_set(theme_classic())  ### If you want to set a global theme, do so here
 + Does the document knit without errors? *Adding `eval=FALSE` to code chunks with errors will not avoid penalty.*
 + Does your code in the R chunks have appropriate *comments*? 
 + Is your submission appropriately _professional_? 
-  + *You need to run SPELL CHECK before submitting*, available under `Edit->Check Spelling`.
+  + *You need to run SPELL CHECK before submitting*, available under `Edit->Check Spelling`, **or the ABC icon!!!!!**.
 + Do all figures have clean axis labels? (Titles are optional). There should NOT be any underscores in axis labels.
 + Did you write your written answers in the <answer>answer style</answer>?
 + Have you addressed the questions as they are asked? Be sure to limit your code and your answers to the scope of the question!
@@ -41,82 +42,214 @@ theme_set(theme_classic())  ### If you want to set a global theme, do so here
 
 ## Questions
 
-For this lab/assignment, you will be using several datasets, all of which are CSV files in the `data/` directory. You'll need to read in the data to use it. **Read in the CSV files for use at the BEGINNING of the question they are used for.** Once a dataset is read in, you don't need to read it in again! Seriously, only read in a dataset once (this counts for grading!!) - otherwise you can accidentally introduce bugs, and bugs are bad. Whenever reading in a dataset, you should ALWAYS IMMEDIATELY PRINT THE DATA (tibbles only print 10 rows by default). This allows readers of your reproducible and sharable document to see the data being used!
+For this lab/assignment, you will be using several datasets that are either built-in to R or an R package, or, is available as a CSV file in the `data/dplyr_lab2/` directory. For these, you'll need to read in the data to use it. **Read in the CSV files for use at the BEGINNING of the question they are used for.** Once a dataset is read in, you don't need to read it in again! Seriously, only read in a dataset once (this counts for grading!!) - otherwise you can accidentally introduce bugs, and bugs are bad. Whenever reading in a dataset, you should ALWAYS IMMEDIATELY PRINT THE DATA (tibbles only print 10 rows by default - you can just type the name of the tibble to see these). This allows readers of your reproducible and sharable document to see the data being used!
+
+
+#### Question 1
+
+Consider the two datasets named `algae_lowtide.csv` and `algae_hightide.csv`. These two datasets contain information about algal abundance measured during experiments carried out under low tide and high tide conditions, respectively. The datasets also contain information about whether there were herbivores (i.e. algae predators!) present.
+
+Create a _single tibble_ containing all information from both datasets. Your final tibble should contain three columns:
+
++ tide (should have values "high" and "low")
++ herbivores (should have values "yes" and "no")
++ abundance (numeric values)
+
+To accomplish this, you will need to manipulate the data using both `mutate()` and `bind_rows()`. Plan how you will do this first, and then implement below. *Your final tibble should be exported to a CSV simply called `algae.csv`*.
+
 
 ```{r}
-## read in the DIAMONDS data (assume iris was external and this line reads it in)
-diamonds ## PRINT IT OUT!!
+## This code chunk should read in, save, print the datasets only
 ```
 
 
-##### Question 1
-
-bind_rows and bind_cols
-
-##### Question 2
-
-left_join, anti_join, inner_join
-
-##### Question 3
-then they'll have to join something to plot it becuase the plotting variables are in two different tibbles.
-
-##### Question 4
-missing data (NA)
-replace_na
-na_if
-
-##### Question 5
-try to summarize, realize you can't, think about what to do
-drop_na
-
-##### Question 6
-if_else() ## MUST BE SAME TYPE
-
-
-##### Question 7
-case_when()
-
-
-##### Question 8
-
-The `chickwts` dataset contains information on the weight of chicks after being fed different feed supplements. The different feed supplements are labeled casein, horsebean, linseed, meatmeal, soybean, and sunflower in the `feed` column. I have created a new data-frame (`feed_names`), that contains the abbreviated names of different feed supplements. Using one of the `dplyr` join functions, combine the two data-frames so that there is an additional `feed_abbr` column and all of the original columns and rows in chickwts are retained. Which join function is most appropriate to use and why? 
-
 ```{r}
-head(chickwts)
-
-feed_names <- read.table(text = "
-feed feed_abbr
-casein cs
-whey wh
-linseed  ls
-meatmeal mm
-fishmeal fm
-soybean sb
-sunflower sf
-corn co
-wheatbran wb
-", head = T)
-
-# R code goes here
+## This code chunk should perform the analysis, and export the final CSV
 ```
 
-HINT: Here are some functions you'll probably want to use when planning your approach to this question:
-+ `rename` to change column names
-+ `case_when` to create recoded columns (Hint2: creating new columns? sounds like this might necessitate another function as well! what could it be?)
-+ `bind_rows` to combine two tibbles with the same column names (and data types in those columns!)
-
-woops somebody else screwed up their data 
-they put into two tibbles! your task is to combine them.
-second tibble has feeds by their abbr, so you need to use case_when to mutate these.
-also weight should be called chick_weight so they'll need to use rename
-
-##### Question 9
-
-oh god they really screwed up. now they have a second set of information about nutritional content for the feeds. 
 
 
-##### Question 10
-Create a visualization that shows the relationship between **median weight** for each feed and the **nutritional content** of each feed type as measured in something totally different. To achieve a dataset you can visualize you'll have to wrangle!
+#### Question 2
+
+
+Consider the two datasets named `mammals_diet.csv` and `mammals_info.csv`. These two datasets contain information about several different, including their diet, adult average body weight in kg, and the average amount of hours they sleep per night.
+Read in these two data sets, and then combine them (using the SAME ORDER of arguments each time!) with each of the functions `left_join()`, `right_join()`, `inner_join()`, and finally `anti_join()`. Examine and visually compare their outputs to understand the differences among these functions. Explain _using a markdown bulleted list_ the differences among these functions in the space below (short explanations please!). 
+
+```{r}
+## This code chunk should read in, save, print the datasets only
+```
+
+```{r}
+## perform joins here, and print the output to compare!
+```
+
+<answer>
+REPLACE THIS TEXT WITH YOUR ANSWER
+</answer>
+
+
+#### Question 3
+
+Now, consider the additional dataset named `diet_foods.csv` which gives some example foods that different "vores" might eat. Combine this dataset with the previous other two mammal datasets to *create the largest table possible (i.e. with the most number of mammals) that DOES NOT contain NAs.* Your final output should ordered based ascending body weights.
+```{r}
+## This code chunk should read in, save, print the dataset only
+```
+
+```{r}
+## perform tasks here
+```
+
+#### Question 4
+
+We'll practice some more joining now, using data from the `nycflights13` library (pre-loaded in the setup chunk). There are five datasets from this package: `flights`, `planes`, `airlines`, `airport`, and `weather`. Examine these by printing in the chunk below first:
+
+```{r}
+## look at the data here. do NOT PRINT ALL ROWS.
+```
+
+Perform the following tasks to understand various _relationships_ in this data:
+
+##### Question 4.1: Relationship between arrival delay and age of plane
+
+`flights` contains information about individual departures. Individual planes are indicated by their tail number (`tailnum`). Information about individual planes is available in the data `planes`. In particular, this tibble lists the year each individual plane was manufactured. From `flights` and `planes`, make a combined tibble that contains the following columns:
+
++ tail number
++ year of manufacture for each plane.
++ month of departure
++ mean arrival delay (HINT! is this a column already? do you need to make it?!)
+
+You should ONLY CONSIDER planes that flew to LAX (`dest`) in summer months June, July, and August (`month`). Once you have created your beautifully wrangled data, make a figure of mean arrival delay across year of manufacture, where summer months are clearly distinguished. Consider best-plotting principles and choose your own stylstic adventure. In 1-2 sentences below, describe trends you observe.
+
+
+```{r}
+# R code goes here.
+```
+
+<answer>
+REPLACE THIS TEXT WITH YOUR ANSWER
+</answer>
+
+
+##### Question 4.2: Relationship between arrival delay and temperature
+
+
+Calculate the mean arrival delay for each day of the year from the `flights` tibble, and store in a variable called `daily_delays`.
+```{r}
+# R code goes here.
+```
+
+We want to examine whether there is a relationship between delays and the temperature of each day in the New York City area. The data frame `weather` holds temperature measurements for each hour of each day:
+
+Create a single tibble with the following information, from `flights` and `weather`:
+
++ The mean arrival delay for each day of the year, considering ALL planes
++ The mean temperature for each day 
+
+HINT: You will want to FIRST create your summary tibbles, THEN join the two summaries. Once your dataset is made, make a figure showing the mean delay across mean temperature. Consider best-plotting principles and choose your own stylstic adventure. In 1-2 sentences below, describe trends you observe.
+```{r}
+# R code goes here.
+```
+<answer>
+REPLACE THIS TEXT WITH YOUR ANSWER
+</answer>
+
+#### Question 5
+
+This question will consider the `ggplot2` dataset (it's built-in to the library and loaded already!) called `msleep` which, you guessed it, is what I used to make questions 2-3. This dataset contains many missing values. Examine the dataset visually with `View()` from the console to get a full sense. We'll use this dataset to practice working with missing data in a variety of ways.
+
++ Create **four** new versions of this data, each one saved to a new variable of its own _with a meaningful name_! The new versions should be as follows (each is independent; don't "build" instructions on top of each other). Be sure to use `dplyr` command(s)!!
+  1. All rows with NA are removed, using `drop_na()`.
+  2. All rows with NA in the `conservation` column ONLY are removed, using `drop_na()`. The result will still have NA's, just not in this column.
+  3. All rows with NA in the `bodywt` column ONLY are removed, using `drop_na()`. The result will still have NA's, just not in this column.
+  4. All NAs in the column `bodywt` are replaced with the number 0, using `replace_na()`. (But think: should you ever actually do this in real data analysis? ..NO.) 
+
+Be sure to print the output for each new version!
+
+```{r}
+## define the FOUR new data frames here
+```
+
+Then, for each version AND the original untouched `msleep`, calculate the mean body weight using simply `mean(dataframe$column-with-weight)`. For the original untouched version, calculate the mean TWICE: once as usual, and once with the added argument `na.rm=TRUE` provided to `mean()`.
+
+```{r}
+## calculate the SIX means here (read directions to know what this means - one for each new dataset, and two for the original)
+```
+
+**Compare your outputs** - are they all the same? Which one is correct? Below, explain briefly which one(s) give(s) the right answer, and why the wrong ones are wrong.
+
+
+<answer>
+REPLACE THIS TEXT WITH YOUR ANSWER
+</answer>
+
+
+#### Question 6
+
+For this question, we'll work with conditional mutation using the dataset `pima.csv`, which contains information about Pima Native women in the North American southwest who, as a population, tend to have elevated rates of Type II Diabetes.
+
+```{r}
+## read in, save, print dataset here
+```
+
+
++ Create a new column called "glucose_status" using the functions `mutate()` and `case_when()` that recodes `glucose` into levels "low" (<= 70), "average" (>70, <=120), "above-average" (>120, <=160), and "high" (>160). For an _added challenge_, use the function `dplyr::between()` as part of your code!!
+```{r}
+# wrangle
+```
+
++ Visualize the relationship between your new column `glucose_status` and `diabetic`: Do you see a relationship between these variables? (Hint: how can we see TWO categorical variables in one plot? You've done this before!)
+```{r}
+# your plot! make it nice!
+```
+
+<answer>
+REPLACE THIS TEXT WITH YOUR ANSWER (relationship b/w variables)
+</answer>
+
++ Use `if_else()` and `mutate()` to create a new column called "pregnant" to say "Yes" if the individual ever was pregant, and "No" if the individual never had a pregnancy.
+```{r}
+#ifelse
+```
+
+
++ _Replace_ the column `diabetic` with a new version that says `TRUE` and `FALSE` instead of Yes and No. Do this in two ways: with `if_else()` and with `case_when()`. Be careful not to overwrite the original version of the data itself!!
+
+```{r}
+# solution with if_else
+```
+
+```{r}
+# solution with case_when
+```
+
+
+#### Question 7
+
+The `chickwts` dataset (built-in to base R) contains information on the weight of chicks after being fed different feed supplements. The different feed supplements are labeled casein, horsebean, linseed, meatmeal, soybean, and sunflower in the `feed` column. I have created a new dataset in `feed_protein.csv` that contains the grams of protein per cup for each of these feeds.
+
+```{r}
+## look at chickwts, read/save/look at the external data set here
+```
+
+
+Using your `dplyr` functions, combine the two data-frames so that there is an additional `g_protein` column and all of the original columns and rows in chickwts are retained (but don't overwrite anything! save it to something else!). Hint: you'll need to make sure the datasets are compatible before you can join them!
+
+```{r}
+## wrangle it here
+```
+
+Finally, make a visualization (specifically a scatterplot) showing the relationship between _median_ chicken weight across nutritional content (measured as grams of protein per cup). Each point should be additionally labeled with the name of its corresponding feed. First, do this with `geom_point()` and `geom_text()` (don't spend much time here, the punchline is the next task - style the figure appropriately but don't try to "fix" it - you'll see what I mean).:
+```{r}
+### version of plot with point/text
+```
+
+Now, feel disappointed in the viz and feel thrilled to learn about the library [`ggrepel`](https://cran.r-project.org/web/packages/ggrepel/vignettes/ggrepel.html). (GO OVER THE POST! GO OVER THE POST!) 
+Load this library in the setup chunk (not here!), and use it below to make an updated version of the figure but instead of `geom_text()`, use EITHER `geom_text_repel()` or `geom_label_repel()` - your choice! Ensure a compelling and attractive figure (to the extent possible with this data..)
+
+```{r}
+###fig using ggrepel
+```
+
 
 
 
