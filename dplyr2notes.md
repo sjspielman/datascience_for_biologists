@@ -59,10 +59,12 @@ it does not have to be a fancy flipbook like she goes into at the end, but it ne
 HINT: In order to use flipbookr you have to install it. Do NOT keep any install code in your submitted docs.
 it does need to have at least TWO customized features such as background color, code styling, etc.
 write 2-4 sentences on what your flipbook reveals! This should be a text annotation under the final figure? is it possible?
+
 =======================================================
 
 r blogging
 https://resources.rstudio.com/rstudio-conf-2020/rebecca-barter
+
 ================================
 
 

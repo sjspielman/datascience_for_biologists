@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Stats and geoms, and some best coding practices</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Stephanie J. Spielman" />
+    <script src="slides_statgeom_bestpractices_files/jquery-1.11.3/jquery.min.js"></script>
+    <script src="slides_statgeom_bestpractices_files/elevate-section-attrs-2.0/elevate-section-attrs.js"></script>
+    <link href="slides_statgeom_bestpractices_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="slides_statgeom_bestpractices_files/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Stats and geoms, and some best coding practices
+### Stephanie J. Spielman
+### Data Science for Biologists, Spring 2020
+
+---
+
+&lt;style type="text/css"&gt;
+pre {
+  white-space: pre-wrap;
+}
+
+ul:first-child, ol:first-child {
+    margin: 0;
+}
+
+
+.remark-code, .remark-inline-code { 
+    color: #326369;
+    font-weight: 600;
+}
+/* Code block code */
+.hljs .remark-code-line { font-weight: normal; }
+
+.pull-left2{
+  float: left;
+  width: 60%;
+}
+
+.pull-right2{
+  float: right;
+  width: 35%;
+}
+&lt;/style&gt;
+
+
+
+
+## Where `geom` and `stat` meet
+
+
+```r
+ggplot(iris, aes(x = Sepal.Length)) + 
+  geom_histogram(fill = "violet",   
+                 color = "navy")    
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+```
+
+![](slides_statgeom_bestpractices_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+
+---
+
+## Where `geom` and `stat` meet
+
+
+```r
+ggplot(iris, aes(x = Sepal.Length)) + 
+* stat_bin(fill = "violet",
+*          color = "navy")
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+```
+
+![](slides_statgeom_bestpractices_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+
+---
+
+## `?geom_histogram`
+
+![Help menu for `geom_histogram`](geom_histogram.png)
+
+---
+
+## Using `geom_freqpoly`
+
+.pull-left2[
+
+```r
+ggplot(iris, 
+       aes(x = Sepal.Length)) -&gt; p_shared
+
+p1 &lt;- p_shared + 
+*       geom_freqpoly(color = "navy")
+
+p2 &lt;- p_shared + 
+*      geom_histogram(fill = "violet",
+*                     color = "navy")
+
+p3 &lt;- p_shared + 
+*      geom_histogram(fill = "violet",
+*                     color = "navy") +
+*      geom_freqpoly(color = "black",
+*                    size = 1)
+
+p1 + p2 + plot_spacer() + p3 + plot_layout(ncol=1)
+```
+]
+
+.pull-right2[
+![](slides_statgeom_bestpractices_files/figure-html/plot-label-out-1.png)&lt;!-- --&gt;
+]
+
+
+---
+
+## `?geom_histogram`
+
+![Help menu for `geom_histogram`](geom_histogram.png)
+
+---
+
+## Examining stat and geom interplay
+
+
+```r
+ggplot(iris, aes(x = Sepal.Length)) + 
+* stat_bin(geom = "point",
+*          color = "navy")
+```
+
+![](slides_statgeom_bestpractices_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+
+---
+
+## Examining stat and geom interplay
+
+
+```r
+ggplot(iris, aes(x = Sepal.Length)) + 
+  stat_bin(geom = "point", 
+           color = "navy") +
+* stat_bin(geom = "line",
+*          color = "red")
+```
+
+![](slides_statgeom_bestpractices_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+
+---
+## `?geom_area`
+.pull-left[
+![](geom_area1.png)
+]
+---
+
+
+## Examining stat and geom interplay
+
+
+```r
+ggplot(iris, aes(x = Sepal.Length)) +  
+  geom_area(fill = "violet",
+            color = "navy") 
+## Error: geom_area requires the following missing aesthetics: y
+```
+
+![](slides_statgeom_bestpractices_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+
+---
+## `?geom_area`
+.pull-left[
+![](geom_area1.png)
+]
+
+.pull-right[
+![](geom_area2.png)
+]
+
+---
+
+
+## Examining stat and geom interplay
+
+
+```r
+ggplot(iris, aes(x = Sepal.Length,
+*                y = ..count..)) +
+  geom_area(fill = "violet",
+            color = "navy")
+## Error: Aesthetics must be valid computed stats. Problematic aesthetic(s): y = ..count... 
+## Did you map your stat in the wrong layer?
+```
+
+![](slides_statgeom_bestpractices_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+
+---
+
+## Examining stat and geom interplay
+
+
+```r
+ggplot(iris, aes(x = Sepal.Length,
+*                y = ..count..)) +
+  geom_area(fill = "violet",
+            color = "navy",
+*           stat = "bin")
+```
+
+![](slides_statgeom_bestpractices_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+
+---
+
+## `geom_bar` vs `geom_col`
+
+Look it up and practice the same concepts!
+
+---
+
+## Best practices (a limited set)
+
++ Know your namespace
++ Use meaningful variable names
++ Avoid hardcoding 
++ Set checkpoints ("assertions")
++ Whenever you copy/paste more than twice, write a function
+
+---
+
+## Know your namespace
+
+.pull-left[
+
+```r
+diamonds %&gt;%
+  select(cut)
+## # A tibble: 53,940 x 1
+##    cut      
+##    &lt;ord&gt;    
+##  1 Ideal    
+##  2 Premium  
+##  3 Good     
+##  4 Premium  
+##  5 Good     
+##  6 Very Good
+##  7 Very Good
+##  8 Very Good
+##  9 Fair     
+## 10 Very Good
+## # … with 53,930 more rows
+```
+]
+
+--
+
+.pull-right[
+
+```r
+diamonds %&gt;%
+  select(cut)
+## Error in select(., cut): unused argument (cut)
+```
+]
+
+---
+
+## `?select`
+![](helpselect.png)
+
+
+---
+
+## For safety, be explicit with your namespace
+
+
+```r
+diamonds %&gt;%
+* dplyr::select(cut)
+## # A tibble: 53,940 x 1
+##    cut      
+##    &lt;ord&gt;    
+##  1 Ideal    
+##  2 Premium  
+##  3 Good     
+##  4 Premium  
+##  5 Good     
+##  6 Very Good
+##  7 Very Good
+##  8 Very Good
+##  9 Fair     
+## 10 Very Good
+## # … with 53,930 more rows
+```
+
+
+---
+## Know exactly the order R searches for commands/object
+
+
+```r
+search()
+##  [1] ".GlobalEnv"        "package:MASS"      "package:magrittr" 
+##  [4] "package:patchwork" "package:xaringan"  "package:forcats"  
+##  [7] "package:stringr"   "package:purrr"     "package:readr"    
+## [10] "package:tidyr"     "package:tibble"    "package:ggplot2"  
+## [13] "package:tidyverse" "package:stats"     "package:graphics" 
+## [16] "package:grDevices" "package:utils"     "package:datasets" 
+## [19] "package:methods"   "Autoloads"         "package:base"
+```
+
+
+```r
+detach(package:MASS)
+search()
+##  [1] ".GlobalEnv"        "package:magrittr"  "package:patchwork"
+##  [4] "package:xaringan"  "package:forcats"   "package:stringr"  
+##  [7] "package:purrr"     "package:readr"     "package:tidyr"    
+## [10] "package:tibble"    "package:ggplot2"   "package:tidyverse"
+## [13] "package:stats"     "package:graphics"  "package:grDevices"
+## [16] "package:utils"     "package:datasets"  "package:methods"  
+## [19] "Autoloads"         "package:base"
+```
+---
+
+## Know where your conflicts are
+
+
+
+
+```r
+conflicts(detail = TRUE)
+## $`package:MASS`
+## [1] "area" "npk" 
+## 
+## $`package:magrittr`
+## [1] "%&gt;%"       "%&gt;%"       "%&gt;%"       "set_names" "%&gt;%"       "extract"  
+## 
+## $`package:patchwork`
+## [1] "area"
+## 
+## $`package:forcats`
+## [1] "%&gt;%" "%&gt;%" "%&gt;%" "%&gt;%"
+## 
+## $`package:stringr`
+## [1] "%&gt;%" "%&gt;%" "%&gt;%" "%&gt;%"
+## 
+## $`package:purrr`
+## [1] "%&gt;%"       "%&gt;%"       "%&gt;%"       "set_names" "%&gt;%"      
+## 
+## $`package:tidyr`
+## [1] "%&gt;%"       "%&gt;%"       "%&gt;%"       "%&gt;%"       "extract"   "as_tibble"
+## [7] "tibble"    "tribble"  
+## 
+## $`package:tibble`
+## [1] "as_tibble" "tibble"    "tribble"  
+## 
+## $`package:ggplot2`
+## [1] "Position"
+## 
+## $`package:datasets`
+## [1] "npk"
+## 
+## $`package:methods`
+## [1] "body&lt;-"    "kronecker"
+## 
+## $`package:base`
+## [1] "body&lt;-"    "kronecker" "Position"
+```
+
+---
+
+## Know where your conflicts are
+
+
+```r
+tidyverse_conflicts()
+## ── Conflicts ────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## x magrittr::extract()   masks tidyr::extract()
+## x magrittr::set_names() masks purrr::set_names()
+```
+
+---
+
+
+## Namespace and variables
+
+
+```r
+diamonds &lt;- 25
+```
+
+.pull-left[
+
+```r
+head(diamonds)
+## [1] 25
+```
+]
+
+.pull-right[
+
+```r
+head(ggplot2::diamonds)
+## # A tibble: 6 x 10
+##   carat cut       color clarity depth table price     x     y     z
+##   &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 0.23  Ideal     E     SI2      61.5    55   326  3.95  3.98  2.43
+## 2 0.21  Premium   E     SI1      59.8    61   326  3.89  3.84  2.31
+## 3 0.23  Good      E     VS1      56.9    65   327  4.05  4.07  2.31
+## 4 0.290 Premium   I     VS2      62.4    58   334  4.2   4.23  2.63
+## 5 0.31  Good      J     SI2      63.3    58   335  4.34  4.35  2.75
+## 6 0.24  Very Good J     VVS2     62.8    57   336  3.94  3.96  2.48
+```
+]
+
+
+---
+
+## Use meaningful variable names
+
++ Reserve single letters for integers
+  + `x &lt;- 10`
+  + NOT `x &lt;- ggplot(...)`
+  + NOT `x &lt;- iris %&gt;% filter(...)`
+
+--
+
++ Use underscores for multiple words
+  + `my_plot &lt;- ggplot(...)`
+  + NOT `myPlot`, NOT `myplot`, NOT `my-plot`, NOT `my.plot`
+
+--
+
++ You should always be able to have a _sense_ of what a variable is from its name. It's fun to be fun, but too fun leads to bugs. Be KIND to:
+  + **You**, returning to code after a week (or 2 minutes.)
+  + **Others**, trying to interpret your code 
+
+--
+
++ What do you think `sepal_histogram` is? **A histogram of sepals, somehow**
++ What do you think `sillypopculturereference` is? **haha funny! no clue.**
+
+
+---
+
+## Official styleguide
+
+ [http://stat405.had.co.nz/r-style.html](http://stat405.had.co.nz/r-style.html)
+
+---
+
+## Avoid Hardcoding
+
+
+You **love** seagreen and navy, so you use them everywhere!
+
+```r
+ggplot(iris, aes(x = Sepal.Length)) + 
+  geom_histogram(fill = "seagreen",
+                 color = "navy") -&gt; p1
+
+ggplot(iris, aes(x = Petal.Length)) + 
+  geom_histogram(fill = "seagreen",
+                 color = "navy") -&gt; p2
+
+ggplot(iris, aes(x = Petal.Width)) + 
+  geom_histogram(fill = "seagreen",
+                 color = "navy") -&gt; p3
+```
+
+...But what happens if you change your mind?
+
+---
+
+## Avoid Hardcoding
+
+```r
+favorite_fill  &lt;- "seagreen"
+favorite_color &lt;- "navy"
+
+ggplot(iris, aes(x = Sepal.Length)) + 
+  geom_histogram(fill = favorite_fill,
+                 color = favorite_color) -&gt; p1
+
+ggplot(iris, aes(x = Petal.Length)) + 
+  geom_histogram(fill = favorite_fill,
+                 color = favorite_color) -&gt; p2
+
+ggplot(iris, aes(x = Petal.Width)) + 
+  geom_histogram(fill = favorite_fill,
+                 color = favorite_color) -&gt; p3
+```
+
+---
+
+## Avoid Hardcoding
+
++ If you use a **value** more than ONE TIME, make it a VARIABLE
++ Define at the **top** of your script or Rmarkdown (e.g. in setup chunk?)
+  + Let's talk about scope real quick.
+---
+
+## Set checkpoints ("assertions")
+
++ Assertion are small checks you put in your code that make sure "is this thing that should be true actually true?"
+  + If true, keep chugging along
+  + If false, stop all program execution because something is _really_ wrong
+
+--
+
+
+```r
+## What NEEDS to be true for this code to work?
+mean(iris$Sepal.Length)
+## [1] 5.843333
+```
+
+--
+
+
+```r
+typeof(iris$Sepal.Length)
+## [1] "double"
+```
+
+--
+
+```r
+length(iris)
+## [1] 5
+```
+
+---
+
+## Adding an assertion
+
+**If statements** check if a logical condition is `TRUE` or `FALSE`
+  ```
+  if (THING IS TRUE) 
+  {
+        &lt;run this code only if it's true&gt;
+  }
+  ```
+--
+  
+
+```r
+if (nrow(iris) == 150)
+{
+  print("there are 150 rows in iris")
+}
+## [1] "there are 150 rows in iris"
+```
+
+--
+
+
+```r
+if ("definitely-not-a-column" %in% names(iris)) 
+{
+  print("this is totally a column in iris")
+}
+```
+
+---
+
+## Adding assertions with `stop()`
+
++ `stop()` stops R from reading the code, and you get to add your own error message
+
+
+```r
+if ( typeof(iris$Sepal.Length) != "double")
+{
+  stop("Don't try to take mean of non-numbers!!") 
+}
+# Run code after we've confirmed everything is ok
+mean(iris$Sepal.Length)
+## [1] 5.843333
+```
+
+--
+
+```r
+*if ( typeof(iris$Sepal.Length) != "double"  &amp; length(iris$Sepal.Length) &gt; 0 )
+{
+  stop("Don't try to take mean of non-numbers!!") 
+}
+# Run code after we've confirmed everything is ok
+mean(iris$Sepal.Length)
+## [1] 5.843333
+```
+
+
+---
+
+## Assertions should be sufficiently general
+
+What if I want the mean of diamond `price` and/or `carat`?
+
+```r
+diamonds %&gt;%
+  dplyr::select(price, carat)
+## # A tibble: 53,940 x 2
+##    price carat
+##    &lt;int&gt; &lt;dbl&gt;
+##  1   326 0.23 
+##  2   326 0.21 
+##  3   327 0.23 
+##  4   334 0.290
+##  5   335 0.31 
+##  6   336 0.24 
+##  7   336 0.24 
+##  8   337 0.26 
+##  9   337 0.22 
+## 10   338 0.23 
+## # … with 53,930 more rows
+```
+
+---
+
+
+```r
+*if ( typeof(diamonds$price) != "integer")
+{
+  stop("Don't try to take mean of non-numbers!!") 
+}
+mean(diamonds$price)
+## [1] 3932.8
+```
+
+--
+
+
+```r
+*if ( typeof(diamonds$carat) != "integer")
+{
+  stop("Don't try to take mean of non-numbers!!") 
+}
+## Error in eval(expr, envir, enclos): Don't try to take mean of non-numbers!!
+```
+
+--
+
+
+```r
+*if ( !( typeof(diamonds$price) %in% c("integer", "double") ) )
+{
+  stop("Don't try to take mean of non-numbers!!") 
+}
+mean(diamonds$price)
+## [1] 3932.8
+```
+---
+
+We can add the `else` construct to do something if `FALSE`. If does NOT check specific T/F.
+
+
+```r
+if (nrow(iris) == 150)
+{
+  print("there are 150 rows in iris")
+*} else
+*{ 
+* print("there are NOT 150 rows in iris")
+*} 
+## [1] "there are 150 rows in iris"
+```
+
+We can add the `else if` construct as well. It checks another logical condition.
+
+```r
+if (nrow(iris) == 150)
+{
+  print("there are 150 rows in iris")
+*} else if (nrow(iris) &gt; 150)
+*{ 
+* print("there are MORE than 150 rows in iris")
+*} else
+{ 
+  print("there are FEWER than 150 rows in iris") 
+} 
+## [1] "there are 150 rows in iris"
+```
+
+
+---
+
+## At home, write some:
+
+**READ THIS:** [https://www.datamentor.io/r-programming/if-else-statement/](https://www.datamentor.io/r-programming/if-else-statement/)
+
+
++ Is the sum of array `c(3,5,7,22,13)` greater than 10? **Do not calculate the sum except as part of your `if` statement.**
+  + If TRUE, define `x&lt;-10`. If FALSE, define `x&lt;-20`
+  + **After the if/else**, print out `x`
+  + HINT: use the `sum()` function
++ Now check: is the sum of array greater than 50? (This one will be TRICKY!!! Why, I wonder?)
+
++ For Wednesday, we will NEED to understand if/else logic!!
+    
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightLines": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
