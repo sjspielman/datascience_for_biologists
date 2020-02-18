@@ -251,42 +251,42 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    background-color: #2a211c;
-    color: #bdae9d;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #bdae9d;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
-  { color: #bdae9d; background-color: #2a211c; }
+  { color: #cccccc; background-color: #303030; }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ffff00; } /* Alert */
-code span.an { color: #0066ff; font-weight: bold; font-style: italic; } /* Annotation */
+code span.al { color: #ffcfaf; } /* Alert */
+code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
 code span.at { } /* Attribute */
-code span.bn { color: #44aa43; } /* BaseN */
+code span.bn { color: #dca3a3; } /* BaseN */
 code span.bu { } /* BuiltIn */
-code span.cf { color: #43a8ed; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #049b0a; } /* Char */
-code span.cn { } /* Constant */
-code span.co { color: #0066ff; font-weight: bold; font-style: italic; } /* Comment */
-code span.do { color: #0066ff; font-style: italic; } /* Documentation */
-code span.dt { text-decoration: underline; } /* DataType */
-code span.dv { color: #44aa43; } /* DecVal */
-code span.er { color: #ffff00; font-weight: bold; } /* Error */
+code span.cf { color: #f0dfaf; } /* ControlFlow */
+code span.ch { color: #dca3a3; } /* Char */
+code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code span.co { color: #7f9f7f; } /* Comment */
+code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code span.do { color: #7f9f7f; } /* Documentation */
+code span.dt { color: #dfdfbf; } /* DataType */
+code span.dv { color: #dcdccc; } /* DecVal */
+code span.er { color: #c3bf9f; } /* Error */
 code span.ex { } /* Extension */
-code span.fl { color: #44aa43; } /* Float */
-code span.fu { color: #ff9358; font-weight: bold; } /* Function */
+code span.fl { color: #c0bed1; } /* Float */
+code span.fu { color: #efef8f; } /* Function */
 code span.im { } /* Import */
-code span.in { color: #0066ff; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #43a8ed; font-weight: bold; } /* Keyword */
-code span.op { } /* Operator */
-code span.pp { font-weight: bold; } /* Preprocessor */
-code span.sc { color: #049b0a; } /* SpecialChar */
-code span.ss { color: #049b0a; } /* SpecialString */
-code span.st { color: #049b0a; } /* String */
+code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+code span.kw { color: #f0dfaf; } /* Keyword */
+code span.op { color: #f0efd0; } /* Operator */
+code span.ot { color: #efef8f; } /* Other */
+code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+code span.sc { color: #dca3a3; } /* SpecialChar */
+code span.ss { color: #cc9393; } /* SpecialString */
+code span.st { color: #cc9393; } /* String */
 code span.va { } /* Variable */
-code span.vs { color: #049b0a; } /* VerbatimString */
-code span.wa { color: #ffff00; font-weight: bold; } /* Warning */
+code span.vs { color: #cc9393; } /* VerbatimString */
+code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
 
 </style>
 <script>
@@ -495,7 +495,7 @@ summary {
 <!-- SETUP CODE CHUNK -->
 <div id="instructions" class="section level2">
 <h2>Instructions</h2>
-<p><strong>This assignment must be submitted as an RMarkdown document on Blackboard by <em>Thursday February 26th at 10:00 am</em>.</strong></p>
+<p><strong>This assignment must be submitted as an RMarkdown document on Blackboard by <em>Thursday February 27th at 10:00 am</em>.</strong></p>
 <div id="you-will-be-graded-on-the-following-criteria" class="section level4">
 <h4>You will be graded on the following criteria:</h4>
 <ul>
@@ -520,6 +520,10 @@ summary {
 <!-- HEY HAVE YOU KNITTED YET? IT'S VERY HARD TO READ INSTRUCTIONS IN RMD! -->
 </div>
 </div>
+<div id="prequel-do-not-hardcode-your-path-to-the-data." class="section level2">
+<h2>PREQUEL: DO NOT HARDCODE YOUR PATH TO THE DATA.</h2>
+<p>Watch in class, I will show you the way!</p>
+</div>
 <div id="questions" class="section level2">
 <h2>Questions</h2>
 <p>For this lab/assignment, you will be using several datasets that are either built-in to R or an R package, or, is available as a CSV file in the <code>data/dplyr_lab2/</code> directory. For these, you’ll need to read in the data to use it. <strong>Read in the CSV files for use at the BEGINNING of the question they are used for.</strong> Once a dataset is read in, you don’t need to read it in again! Seriously, only read in a dataset once (this counts for grading!!) - otherwise you can accidentally introduce bugs, and bugs are bad. Whenever reading in a dataset, you should ALWAYS IMMEDIATELY PRINT THE DATA (tibbles only print 10 rows by default - you can just type the name of the tibble to see these). This allows readers of your reproducible and sharable document to see the data being used!</p>
@@ -532,108 +536,115 @@ summary {
 <li>herbivores (should have values “yes” and “no”)</li>
 <li>abundance (numeric values)</li>
 </ul>
-<p>To accomplish this, you will need to manipulate the data using both <code>mutate()</code> and <code>bind_rows()</code>. Plan how you will do this first, and then implement below. <em>Your final tibble should be exported to a CSV simply called <code>algae.csv</code></em>.</p>
+<p>To accomplish this, you will need to manipulate the data using both <code>mutate()</code> and <code>bind_rows()</code>. Plan how you will do this first, and then implement below. <em>Your final tibble should be exported to a CSV simply called <code>algae.csv</code></em>. In addition, if you do NOT print your final tibble, then you WILL LOSE POINTS - <strong>you must ALWAYS LOOK AT YOUR DATA!!!</strong></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">## This code chunk should read in, save, print the datasets only</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">## This code chunk should perform the analysis, and export the final CSV</span></span></code></pre></div>
 </div>
 <div id="question-2" class="section level4">
 <h4>Question 2</h4>
-<p>Consider the two datasets named <code>mammals_diet.csv</code> and <code>mammals_info.csv</code>. These two datasets contain information about several different, including their diet, adult average body weight in kg, and the average amount of hours they sleep per night. Read in these two data sets, and then combine them (using the SAME ORDER of arguments each time!) with each of the functions <code>left_join()</code>, <code>right_join()</code>, <code>inner_join()</code>, and finally <code>anti_join()</code>. Examine and visually compare their outputs to understand the differences among these functions. Explain <em>using a markdown bulleted list</em> the differences among these functions in the space below (short explanations please!).</p>
+<p>Consider the two datasets named <code>mammals_diet.csv</code> and <code>mammals_info.csv</code>. These two datasets contain information about several different, including their diet, adult average body weight in kg, and the average amount of hours they sleep per night. Read in these two data sets, and then combine them (using the SAME ORDER of arguments each time!) with each of the functions <code>left_join()</code>, <code>right_join()</code>, <code>inner_join()</code>, and finally <code>anti_join()</code>. Examine and visually compare their outputs to understand the differences among these functions. Explain <em>using a markdown bulleted list</em> the differences among these functions in the space below (short explanations please!). PS: Don’t plagiarize from the documentation. That’s an IAV.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">## This code chunk should read in, save, print the datasets only</span></span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">## perform joins here, and print the output to compare!</span></span></code></pre></div>
 <p><answer> REPLACE THIS TEXT WITH YOUR ANSWER </answer></p>
 </div>
 <div id="question-3" class="section level4">
 <h4>Question 3</h4>
-<p>Now, consider the additional dataset named <code>diet_foods.csv</code> which gives some example foods that different “vores” might eat. Combine this dataset with the previous other two mammal datasets to <em>create the largest table possible (i.e. with the most number of mammals) that DOES NOT contain NAs.</em> Your final output should ordered based ascending body weights.</p>
+<p>Now, consider the additional dataset named <code>diets_foods.csv</code> which gives some example foods that different “vores” might eat. Combine this dataset with the previous other two mammal datasets to <em>create the largest table possible (i.e. with the most number of mammals) that DOES NOT contain NAs.</em> There may be multiple versions of this solution (in terms of table w/ most number of rows), but only give one. Your final output must be ordered based ascending body weights.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">## This code chunk should read in, save, print the dataset only</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co">## perform tasks here</span></span></code></pre></div>
 </div>
 <div id="question-4" class="section level4">
 <h4>Question 4</h4>
-<p>We’ll practice some more joining now, using data from the <code>nycflights13</code> library (pre-loaded in the setup chunk). There are five datasets from this package: <code>flights</code>, <code>planes</code>, <code>airlines</code>, <code>airport</code>, and <code>weather</code>. Examine these by printing in the chunk below first:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">## look at the data here. do NOT PRINT ALL ROWS.</span></span></code></pre></div>
-<p>Perform the following tasks to understand various <em>relationships</em> in this data:</p>
-<div id="question-4.1-relationship-between-arrival-delay-and-age-of-plane" class="section level5">
-<h5>Question 4.1: Relationship between arrival delay and age of plane</h5>
-<p><code>flights</code> contains information about individual departures. Individual planes are indicated by their tail number (<code>tailnum</code>). Information about individual planes is available in the data <code>planes</code>. In particular, this tibble lists the year each individual plane was manufactured. From <code>flights</code> and <code>planes</code>, make a combined tibble that contains the following columns:</p>
-<ul>
-<li>tail number</li>
-<li>year of manufacture for each plane.</li>
-<li>month of departure</li>
-<li>mean arrival delay (HINT! is this a column already? do you need to make it?!)</li>
-</ul>
-<p>You should ONLY CONSIDER planes that flew to LAX (<code>dest</code>) in summer months June, July, and August (<code>month</code>). Once you have created your beautifully wrangled data, make a figure of mean arrival delay across year of manufacture, where summer months are clearly distinguished. Consider best-plotting principles and choose your own stylstic adventure. In 1-2 sentences below, describe trends you observe.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># R code goes here.</span></span></code></pre></div>
-<p><answer> REPLACE THIS TEXT WITH YOUR ANSWER </answer></p>
-</div>
-<div id="question-4.2-relationship-between-arrival-delay-and-temperature" class="section level5">
-<h5>Question 4.2: Relationship between arrival delay and temperature</h5>
-<p>Calculate the mean arrival delay for each day of the year from the <code>flights</code> tibble, and store in a variable called <code>daily_delays</code>.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># R code goes here.</span></span></code></pre></div>
-<p>We want to examine whether there is a relationship between delays and the temperature of each day in the New York City area. The data frame <code>weather</code> holds temperature measurements for each hour of each day:</p>
-<p>Create a single tibble with the following information, from <code>flights</code> and <code>weather</code>:</p>
-<ul>
-<li>The mean arrival delay for each day of the year, considering ALL planes</li>
-<li>The mean temperature for each day</li>
-</ul>
-<p>HINT: You will want to FIRST create your summary tibbles, THEN join the two summaries. Once your dataset is made, make a figure showing the mean delay across mean temperature. Consider best-plotting principles and choose your own stylstic adventure. In 1-2 sentences below, describe trends you observe.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># R code goes here.</span></span></code></pre></div>
-<p><answer> REPLACE THIS TEXT WITH YOUR ANSWER </answer></p>
-</div>
-</div>
-<div id="question-5" class="section level4">
-<h4>Question 5</h4>
 <p>This question will consider the <code>ggplot2</code> dataset (it’s built-in to the library and loaded already!) called <code>msleep</code> which, you guessed it, is what I used to make questions 2-3. This dataset contains many missing values. Examine the dataset visually with <code>View()</code> from the console to get a full sense. We’ll use this dataset to practice working with missing data in a variety of ways.</p>
 <ul>
 <li>Create <strong>four</strong> new versions of this data, each one saved to a new variable of its own <em>with a meaningful name</em>! The new versions should be as follows (each is independent; don’t “build” instructions on top of each other). Be sure to use <code>dplyr</code> command(s)!!
 <ol style="list-style-type: decimal">
 <li>All rows with NA are removed, using <code>drop_na()</code>.</li>
 <li>All rows with NA in the <code>conservation</code> column ONLY are removed, using <code>drop_na()</code>. The result will still have NA’s, just not in this column.</li>
-<li>All rows with NA in the <code>bodywt</code> column ONLY are removed, using <code>drop_na()</code>. The result will still have NA’s, just not in this column.</li>
-<li>All NAs in the column <code>bodywt</code> are replaced with the number 0, using <code>replace_na()</code>. (But think: should you ever actually do this in real data analysis? ..NO.)</li>
+<li>All rows with NA in the <code>brainwt</code> column ONLY are removed, using <code>drop_na()</code>. The result will still have NA’s, just not in this column.</li>
+<li>All NAs in the column <code>brainwt</code> are replaced with the number 0, using <code>replace_na()</code>. (But think: should you ever actually do this in real data analysis? ..NO.)</li>
 </ol></li>
 </ul>
 <p>Be sure to print the output for each new version!</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co">## define the FOUR new data frames here</span></span></code></pre></div>
-<p>Then, for each version AND the original untouched <code>msleep</code>, calculate the mean body weight using simply <code>mean(dataframe$column-with-weight)</code>. For the original untouched version, calculate the mean TWICE: once as usual, and once with the added argument <code>na.rm=TRUE</code> provided to <code>mean()</code>.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co">## calculate the SIX means here (read directions to know what this means - one for each new dataset, and two for the original)</span></span></code></pre></div>
-<p><strong>Compare your outputs</strong> - are they all the same? Which one is correct? Below, explain briefly which one(s) give(s) the right answer, and why the wrong ones are wrong.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">## define the FOUR new data frames here</span></span></code></pre></div>
+<p>Then, for each version AND the original untouched <code>msleep</code>, calculate the mean brain weight (<code>brainwt</code> - NOT BODY WEIGHT!) using simply <code>mean(dataframe$column-with-weight)</code>. For the original untouched version, calculate the mean TWICE: once as usual, and once with the added argument <code>na.rm=TRUE</code> provided to <code>mean()</code>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co">## calculate the SIX means here (read directions to know what this means - one for each new dataset, and two for the original)</span></span></code></pre></div>
+<p><strong>Compare your outputs</strong> - are they all the same? Which one(s) is(are) correct? Below, explain briefly which one(s) give(s) the right answer, and why the wrong ones are wrong. <strong>This can/should be a bulleted list.</strong></p>
 <p><answer> REPLACE THIS TEXT WITH YOUR ANSWER </answer></p>
+</div>
+<div id="question-5" class="section level4">
+<h4>Question 5</h4>
+<p>For this question, we’ll work with conditional mutation using the dataset <code>pima.csv</code>, which contains information about Pima Native women in the North American southwest who, as a population, tend to have elevated rates of Type II Diabetes.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co">## read in, save, print dataset here</span></span></code></pre></div>
+<ul>
+<li>Create a new column called <code>glucose_status</code> using the functions <code>mutate()</code> and <code>case_when()</code> that recodes <code>glucose</code> into levels “low” (&lt;= 70), “average” (&gt;70, &lt;=120), “above-average” (&gt;120, &lt;=160), and “high” (&gt;160). Save your result to a new variable and print the output to confirm. <strong>HINT!!</strong> You may need to refer back to the intro lab to remind yourself about <code>&amp;</code>.</li>
+</ul>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># wrangle</span></span></code></pre></div>
+<ul>
+<li>Visualize the relationship between your new column <code>glucose_status</code> and <code>diabetic</code>. Hint: how can we see TWO categorical variables in one plot? You’ve done this before! It’s a barplot! <strong>Make sure it is DODGED</strong> and not stacked. <strong>Importantly</strong> when you first make this plot it will likely have undesirable visual features. To fix this, read over <a href="https://ggplot2.tidyverse.org/reference/position_dodge.html">this documentation</a> and find the solution to implement here (2nd plot from the top).</li>
+</ul>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># your plot! make it nice!</span></span></code></pre></div>
+<ul>
+<li>Use <code>if_else()</code> and <code>mutate()</code> to create a new column called “pregnant” to say “Yes” if the individual ever was pregant, and “No” if the individual never had a pregnancy. Save the output for subsequent use.</li>
+</ul>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co">#ifelse</span></span></code></pre></div>
+<ul>
+<li>Check that your new pregnant variable is correct by wrting code to reveal: Is the sum of npreg for all rows where pregnant is “No” 0? If this is true, it worked! This can be done entirely with <code>dplyr</code> commands. This is how one might write an assertion - ask if this condition is true, and if not, the script should die. For an added challenge, actually write an assertion in the code chunk (to this end, check out the function <code>dplyr::pull()</code>. Super useful.)</li>
+</ul>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co">## check here</span></span></code></pre></div>
+<ul>
+<li>From the original dataset, <em>replace</em> the column <code>diabetic</code> with a new version that says <code>TRUE</code> and <code>FALSE</code> instead of Yes and No. Do this in two ways: with <code>if_else()</code> and with <code>case_when()</code>. Be careful not to actually overwrite the original version of the data itself!!</li>
+</ul>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># solution with if_else</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># solution with case_when</span></span></code></pre></div>
 </div>
 <div id="question-6" class="section level4">
 <h4>Question 6</h4>
-<p>For this question, we’ll work with conditional mutation using the dataset <code>pima.csv</code>, which contains information about Pima Native women in the North American southwest who, as a population, tend to have elevated rates of Type II Diabetes.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co">## read in, save, print dataset here</span></span></code></pre></div>
-<ul>
-<li>Create a new column called “glucose_status” using the functions <code>mutate()</code> and <code>case_when()</code> that recodes <code>glucose</code> into levels “low” (&lt;= 70), “average” (&gt;70, &lt;=120), “above-average” (&gt;120, &lt;=160), and “high” (&gt;160). For an <em>added challenge</em>, use the function <code>dplyr::between()</code> as part of your code!!</li>
-</ul>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># wrangle</span></span></code></pre></div>
-<ul>
-<li>Visualize the relationship between your new column <code>glucose_status</code> and <code>diabetic</code>: Do you see a relationship between these variables? (Hint: how can we see TWO categorical variables in one plot? You’ve done this before!)</li>
-</ul>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># your plot! make it nice!</span></span></code></pre></div>
-<p><answer> REPLACE THIS TEXT WITH YOUR ANSWER (relationship b/w variables) </answer></p>
-<ul>
-<li>Use <code>if_else()</code> and <code>mutate()</code> to create a new column called “pregnant” to say “Yes” if the individual ever was pregant, and “No” if the individual never had a pregnancy.</li>
-</ul>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co">#ifelse</span></span></code></pre></div>
-<ul>
-<li><em>Replace</em> the column <code>diabetic</code> with a new version that says <code>TRUE</code> and <code>FALSE</code> instead of Yes and No. Do this in two ways: with <code>if_else()</code> and with <code>case_when()</code>. Be careful not to overwrite the original version of the data itself!!</li>
-</ul>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># solution with if_else</span></span></code></pre></div>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># solution with case_when</span></span></code></pre></div>
-</div>
-<div id="question-7" class="section level4">
-<h4>Question 7</h4>
 <p>The <code>chickwts</code> dataset (built-in to base R) contains information on the weight of chicks after being fed different feed supplements. The different feed supplements are labeled casein, horsebean, linseed, meatmeal, soybean, and sunflower in the <code>feed</code> column. I have created a new dataset in <code>feed_protein.csv</code> that contains the grams of protein per cup for each of these feeds.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co">## look at chickwts, read/save/look at the external data set here</span></span></code></pre></div>
-<p>Using your <code>dplyr</code> functions, combine the two data-frames so that there is an additional <code>g_protein</code> column and all of the original columns and rows in chickwts are retained (but don’t overwrite anything! save it to something else!). Hint: you’ll need to make sure the datasets are compatible before you can join them!</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co">## wrangle it here</span></span></code></pre></div>
-<p>Finally, make a visualization (specifically a scatterplot) showing the relationship between <em>median</em> chicken weight across nutritional content (measured as grams of protein per cup). Each point should be additionally labeled with the name of its corresponding feed. First, do this with <code>geom_point()</code> and <code>geom_text()</code> (don’t spend much time here, the punchline is the next task - style the figure appropriately but don’t try to “fix” it - you’ll see what I mean).:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co">### version of plot with point/text</span></span></code></pre></div>
-<p>Now, feel disappointed in the viz and feel thrilled to learn about the library <a href="https://cran.r-project.org/web/packages/ggrepel/vignettes/ggrepel.html"><code>ggrepel</code></a>. (GO OVER THE POST! GO OVER THE POST!) Load this library in the setup chunk (not here!), and use it below to make an updated version of the figure but instead of <code>geom_text()</code>, use EITHER <code>geom_text_repel()</code> or <code>geom_label_repel()</code> - your choice! Ensure a compelling and attractive figure (to the extent possible with this data..)</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co">###fig using ggrepel</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co">## look at chickwts, read/save/look at the external data set here</span></span></code></pre></div>
+<p>Using your <code>dplyr</code> functions, combine the two data-frames so that there is an additional <code>g_protein</code> column and all of the original columns and rows in chickwts are retained (but don’t overwrite anything! save it to something else!). Hint: you’ll need to make sure the datasets are compatible before you can join them (check out <code>dplyr::rename()</code> and be sure to specify arguments in the right order!). <strong>For another bonus</strong>, write an assertion to check that the final data frame contains at least TWO correct components, and do NOT DO ANY HARDCODING!!! You will not lose points for a bad assertion here, just don’t leave any majors bugs behind you.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co">## wrangle it here</span></span></code></pre></div>
+<p>Finally, make a visualization (specifically a scatterplot) showing the relationship between <em>median</em> chicken weight across nutritional content (measured as grams of protein per cup). Each point should be additionally labeled with the name of its corresponding feed. First, do this with <code>geom_point()</code> and <code>geom_text()</code> (don’t spend much time here, the punchline is the next task - style the figure appropriately but don’t try to “fix” it - you’ll see what I mean). OMG another hint!! Summarize will remove unnecessary columns from your data too. To re-get those columns, either: a) also group by them (IF IT MAKES SENSE), or b) you’ll need to use some join magic.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co">### version of plot with point/text</span></span></code></pre></div>
+<p>Now, feel disappointed in the viz and feel thrilled to learn about the library <a href="https://cran.r-project.org/web/packages/ggrepel/vignettes/ggrepel.html"><code>ggrepel</code></a>. (GO OVER THE POST! GO OVER THE POST! The word ggrepel back there is a LINK!) Load this library in the setup chunk (not here!), and use it below to make an updated version of the figure but instead of <code>geom_text()</code>, use EITHER <code>geom_text_repel()</code> or <code>geom_label_repel()</code> - your choice! Ensure a compelling and attractive figure (to the extent possible with this data..)</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co">###fig using ggrepel</span></span></code></pre></div>
+<div id="question-7" class="section level5">
+<h5>Question 7</h5>
+<p>One more big one and you’re done! (Un)happily, this question uses <em>all the skillz</em>. For this question, you will using data from the <code>nycflights13</code> library (pre-loaded in the setup chunk). There are five datasets from this package, and we will focus on the two <code>flights</code> and <code>planes</code>. Examine these using <code>View()</code> from the console (not in this Rmarkdown!).</p>
+<p><code>flights</code> contains information about individual departures. Individual planes are indicated by their tail number (<code>tailnum</code>). Information about individual planes is available in the data <code>planes</code>. In particular, this tibble lists the year each individual plane was manufactured. From <code>flights</code> and <code>planes</code>, make a combined tibble that contains the following columns:</p>
+<ul>
+<li>tail number</li>
+<li>year of manufacture for each plane.</li>
+<li>month of departure</li>
+<li>mean air time for each plane at each month basis (HINT! does this exist already or do you to make it? You have to make it. Sounds like a grouping and summarizing to me, just saying.)</li>
+</ul>
+<p>You should ONLY CONSIDER planes that flew to LAX (<code>dest</code>) in summer months June, July, and August (<code>month</code>). Once you have created your beautifully wrangled data, make a scatterplot of mean arrival delay across year of manufacture, )</p>
+<p>Consider best-plotting principles and choose your own stylstic adventure. In 1-2 sentences below, describe trends you observe, or fail to observe as the case may be!</p>
+<p>HINTS AND RULES:</p>
+<ul>
+<li>Wrangle hints/rules:
+<ul>
+<li>First subset and wrangle each of the two data frames to only the columns/rows of interest. Then join together the subsetted versions. When joining, you should do so by ONLY CONSIDERING the info shared by both tibbles (which join is this?)</li>
+<li>Do NOT hardcode months or destination of LAX when you filter!!!!! Predefine what destination, months you are interested in and then use them in your code</li>
+<li>For months, don’t forget <code>%in%</code>!</li>
+<li>Remember - the only shared names between dataframes you want to join should be the names you want to join by. This is important!!! Hint2: year in <code>flights</code> is NOT the same as year in <code>planes</code>.</li>
+<li>Are your means being funky? Did you apply your new question 4 knowledge? Definitely not a great idea to keep around NA’s <strong>in the <code>arr_time</code> column specifically.</strong></li>
+<li>All wrangling should be in a SINGLE PIPE! Do not even attempt to write this all at once. Write one line at a time, check it, and then keep tacking on the pipes.</li>
+<li>For your plot, you will months to be their NAMES not NUMBERS! This involves…recoding your data using your new conditional mutation skills during the wrangling stage! (You can hardcode month names for this recoding.)</li>
+</ul></li>
+<li>Plot hints/rules:
+<ul>
+<li>Summer months should be clearly distinguished through faceting, and color if you wish - but NOT THE DEFAULT COLORS!</li>
+<li>Make sure there is a separate trend line for each month. The line should be NOT be curvy! Straight line!</li>
+<li>Make sure the trend lines are black and NOT the same color as the points</li>
+<li>Appropriate labels and all that jazz</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="co">### wrangle here</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co">## r code to plot goes here</span></span></code></pre></div>
+<p><strong>For an absolutely ridiculous bonus</strong>, use emojis instead of points. <a href="https://cran.r-project.org/web/packages/emojifont/vignettes/emojifont.html">See this vignette</a>. Note: This package is already installed in the cloud but it is not loaded. Please make sure to use only the most absurd emoji(s) for your points.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co">### emoji plot</span></span></code></pre></div>
+</div>
 </div>
 </div>
 

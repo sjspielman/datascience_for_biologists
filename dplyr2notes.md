@@ -106,6 +106,7 @@ bind_rows()
 (use planets.csv)
 
 ## Working with strings in stringr
+paste/paste0
 str_to_upper()
 str_to_lower()
 str_to_title()

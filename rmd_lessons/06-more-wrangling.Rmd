@@ -4,7 +4,7 @@ subtitle: "Data Science for Biologists, Spring 2020"
 author: "YOUR NAME GOES HERE"
 output: 
   html_document:
-    highlight: espresso
+    highlight: zenburn
     theme: sandstone
 css: static/sjs-style.css
 ---
@@ -14,14 +14,15 @@ css: static/sjs-style.css
 ## Change the default figure width and height to your liking, but within reason.
 knitr::opts_chunk$set(echo = TRUE, fig.width=6, fig.height=3.5)
 library(tidyverse)
-#library(tidylog) # This must be loaded _AFTER_ tidyverse!, if you want it
-theme_set(theme_classic())  ### If you want to set a global theme, do so here
+library(nycflights13)
+## if you need more packages you load them here, but you DO NOT INSTALL HERE!
+theme_set(theme_classic())  ### If you want to set a global theme, do so here. You can change mine!!
 ```
 
 
 ## Instructions
 
-**This assignment must be submitted as an RMarkdown document on Blackboard by _Thursday February 26th at 10:00 am_.** 
+**This assignment must be submitted as an RMarkdown document on Blackboard by _Thursday February 27th at 10:00 am_.** 
 
 #### You will be graded on the following criteria:
 
@@ -39,6 +40,9 @@ theme_set(theme_classic())  ### If you want to set a global theme, do so here
 
 <!-- HEY HAVE YOU KNITTED YET? IT'S VERY HARD TO READ INSTRUCTIONS IN RMD! -->
 
+## PREQUEL: DO NOT HARDCODE YOUR PATH TO THE DATA. 
+Watch in class, I will show you the way!
+
 
 ## Questions
 
@@ -55,7 +59,7 @@ Create a _single tibble_ containing all information from both datasets. Your fin
 + herbivores (should have values "yes" and "no")
 + abundance (numeric values)
 
-To accomplish this, you will need to manipulate the data using both `mutate()` and `bind_rows()`. Plan how you will do this first, and then implement below. *Your final tibble should be exported to a CSV simply called `algae.csv`*.
+To accomplish this, you will need to manipulate the data using both `mutate()` and `bind_rows()`. Plan how you will do this first, and then implement below. *Your final tibble should be exported to a CSV simply called `algae.csv`*. In addition, if you do NOT print your final tibble, then you WILL LOSE POINTS - **you must ALWAYS LOOK AT YOUR DATA!!!**
 
 
 ```{r}
@@ -71,9 +75,8 @@ To accomplish this, you will need to manipulate the data using both `mutate()` a
 
 #### Question 2
 
-
 Consider the two datasets named `mammals_diet.csv` and `mammals_info.csv`. These two datasets contain information about several different, including their diet, adult average body weight in kg, and the average amount of hours they sleep per night.
-Read in these two data sets, and then combine them (using the SAME ORDER of arguments each time!) with each of the functions `left_join()`, `right_join()`, `inner_join()`, and finally `anti_join()`. Examine and visually compare their outputs to understand the differences among these functions. Explain _using a markdown bulleted list_ the differences among these functions in the space below (short explanations please!). 
+Read in these two data sets, and then combine them (using the SAME ORDER of arguments each time!) with each of the functions `left_join()`, `right_join()`, `inner_join()`, and finally `anti_join()`. Examine and visually compare their outputs to understand the differences among these functions. Explain _using a markdown bulleted list_ the differences among these functions in the space below (short explanations please!). PS: Don't plagiarize from the documentation. That's an IAV.
 
 ```{r}
 ## This code chunk should read in, save, print the datasets only
@@ -90,7 +93,9 @@ REPLACE THIS TEXT WITH YOUR ANSWER
 
 #### Question 3
 
-Now, consider the additional dataset named `diet_foods.csv` which gives some example foods that different "vores" might eat. Combine this dataset with the previous other two mammal datasets to *create the largest table possible (i.e. with the most number of mammals) that DOES NOT contain NAs.* Your final output should ordered based ascending body weights.
+Now, consider the additional dataset named `diets_foods.csv` which gives some example foods that different "vores" might eat. Combine this dataset with the previous other two mammal datasets to *create the largest table possible (i.e. with the most number of mammals) that DOES NOT contain NAs.* There may be multiple versions of this solution (in terms of table w/ most number of rows), but only give one. Your final output must be ordered based ascending body weights.
+
+
 ```{r}
 ## This code chunk should read in, save, print the dataset only
 ```
@@ -99,69 +104,16 @@ Now, consider the additional dataset named `diet_foods.csv` which gives some exa
 ## perform tasks here
 ```
 
+
 #### Question 4
-
-We'll practice some more joining now, using data from the `nycflights13` library (pre-loaded in the setup chunk). There are five datasets from this package: `flights`, `planes`, `airlines`, `airport`, and `weather`. Examine these by printing in the chunk below first:
-
-```{r}
-## look at the data here. do NOT PRINT ALL ROWS.
-```
-
-Perform the following tasks to understand various _relationships_ in this data:
-
-##### Question 4.1: Relationship between arrival delay and age of plane
-
-`flights` contains information about individual departures. Individual planes are indicated by their tail number (`tailnum`). Information about individual planes is available in the data `planes`. In particular, this tibble lists the year each individual plane was manufactured. From `flights` and `planes`, make a combined tibble that contains the following columns:
-
-+ tail number
-+ year of manufacture for each plane.
-+ month of departure
-+ mean arrival delay (HINT! is this a column already? do you need to make it?!)
-
-You should ONLY CONSIDER planes that flew to LAX (`dest`) in summer months June, July, and August (`month`). Once you have created your beautifully wrangled data, make a figure of mean arrival delay across year of manufacture, where summer months are clearly distinguished. Consider best-plotting principles and choose your own stylstic adventure. In 1-2 sentences below, describe trends you observe.
-
-
-```{r}
-# R code goes here.
-```
-
-<answer>
-REPLACE THIS TEXT WITH YOUR ANSWER
-</answer>
-
-
-##### Question 4.2: Relationship between arrival delay and temperature
-
-
-Calculate the mean arrival delay for each day of the year from the `flights` tibble, and store in a variable called `daily_delays`.
-```{r}
-# R code goes here.
-```
-
-We want to examine whether there is a relationship between delays and the temperature of each day in the New York City area. The data frame `weather` holds temperature measurements for each hour of each day:
-
-Create a single tibble with the following information, from `flights` and `weather`:
-
-+ The mean arrival delay for each day of the year, considering ALL planes
-+ The mean temperature for each day 
-
-HINT: You will want to FIRST create your summary tibbles, THEN join the two summaries. Once your dataset is made, make a figure showing the mean delay across mean temperature. Consider best-plotting principles and choose your own stylstic adventure. In 1-2 sentences below, describe trends you observe.
-```{r}
-# R code goes here.
-```
-<answer>
-REPLACE THIS TEXT WITH YOUR ANSWER
-</answer>
-
-#### Question 5
 
 This question will consider the `ggplot2` dataset (it's built-in to the library and loaded already!) called `msleep` which, you guessed it, is what I used to make questions 2-3. This dataset contains many missing values. Examine the dataset visually with `View()` from the console to get a full sense. We'll use this dataset to practice working with missing data in a variety of ways.
 
 + Create **four** new versions of this data, each one saved to a new variable of its own _with a meaningful name_! The new versions should be as follows (each is independent; don't "build" instructions on top of each other). Be sure to use `dplyr` command(s)!!
   1. All rows with NA are removed, using `drop_na()`.
   2. All rows with NA in the `conservation` column ONLY are removed, using `drop_na()`. The result will still have NA's, just not in this column.
-  3. All rows with NA in the `bodywt` column ONLY are removed, using `drop_na()`. The result will still have NA's, just not in this column.
-  4. All NAs in the column `bodywt` are replaced with the number 0, using `replace_na()`. (But think: should you ever actually do this in real data analysis? ..NO.) 
+  3. All rows with NA in the `brainwt` column ONLY are removed, using `drop_na()`. The result will still have NA's, just not in this column.
+  4. All NAs in the column `brainwt` are replaced with the number 0, using `replace_na()`. (But think: should you ever actually do this in real data analysis? ..NO.) 
 
 Be sure to print the output for each new version!
 
@@ -169,13 +121,14 @@ Be sure to print the output for each new version!
 ## define the FOUR new data frames here
 ```
 
-Then, for each version AND the original untouched `msleep`, calculate the mean body weight using simply `mean(dataframe$column-with-weight)`. For the original untouched version, calculate the mean TWICE: once as usual, and once with the added argument `na.rm=TRUE` provided to `mean()`.
+Then, for each version AND the original untouched `msleep`, calculate the mean brain weight (`brainwt` - NOT BODY WEIGHT!) using simply `mean(dataframe$column-with-weight)`. For the original untouched version, calculate the mean TWICE: once as usual, and once with the added argument `na.rm=TRUE` provided to `mean()`.
 
 ```{r}
 ## calculate the SIX means here (read directions to know what this means - one for each new dataset, and two for the original)
 ```
 
-**Compare your outputs** - are they all the same? Which one is correct? Below, explain briefly which one(s) give(s) the right answer, and why the wrong ones are wrong.
+
+**Compare your outputs** - are they all the same? Which one(s) is(are) correct? Below, explain briefly which one(s) give(s) the right answer, and why the wrong ones are wrong. **This can/should be a bulleted list.**
 
 
 <answer>
@@ -183,7 +136,7 @@ REPLACE THIS TEXT WITH YOUR ANSWER
 </answer>
 
 
-#### Question 6
+#### Question 5
 
 For this question, we'll work with conditional mutation using the dataset `pima.csv`, which contains information about Pima Native women in the North American southwest who, as a population, tend to have elevated rates of Type II Diabetes.
 
@@ -192,27 +145,31 @@ For this question, we'll work with conditional mutation using the dataset `pima.
 ```
 
 
-+ Create a new column called "glucose_status" using the functions `mutate()` and `case_when()` that recodes `glucose` into levels "low" (<= 70), "average" (>70, <=120), "above-average" (>120, <=160), and "high" (>160). For an _added challenge_, use the function `dplyr::between()` as part of your code!!
++ Create a new column called `glucose_status` using the functions `mutate()` and `case_when()` that recodes `glucose` into levels "low" (<= 70), "average" (>70, <=120), "above-average" (>120, <=160), and "high" (>160). Save your result to a new variable and print the output to confirm. **HINT!!** You may need to refer back to the intro lab to remind yourself about `&`.
+
 ```{r}
 # wrangle
 ```
 
-+ Visualize the relationship between your new column `glucose_status` and `diabetic`: Do you see a relationship between these variables? (Hint: how can we see TWO categorical variables in one plot? You've done this before!)
++ Visualize the relationship between your new column `glucose_status` and `diabetic`. Hint: how can we see TWO categorical variables in one plot? You've done this before! It's a barplot! **Make sure it is DODGED** and not stacked. **Importantly** when you first make this plot it will likely have undesirable visual features. To fix this, read over [this documentation](https://ggplot2.tidyverse.org/reference/position_dodge.html) and find the solution to implement here (2nd plot from the top).
 ```{r}
 # your plot! make it nice!
 ```
 
-<answer>
-REPLACE THIS TEXT WITH YOUR ANSWER (relationship b/w variables)
-</answer>
++ Use `if_else()` and `mutate()` to create a new column called "pregnant" to say "Yes" if the individual ever was pregant, and "No" if the individual never had a pregnancy. Save the output for subsequent use.
 
-+ Use `if_else()` and `mutate()` to create a new column called "pregnant" to say "Yes" if the individual ever was pregant, and "No" if the individual never had a pregnancy.
 ```{r}
 #ifelse
 ```
 
++ Check that your new pregnant variable is correct by wrting code to reveal: Is the sum of npreg for all rows where pregnant is "No" 0? If this is true, it worked! This can be done entirely with `dplyr` commands. This is how one might write an assertion - ask if this condition is true, and if not, the script should die. For an added challenge, actually write an assertion in the code chunk (to this end, check out the function `dplyr::pull()`. Super useful.)
 
-+ _Replace_ the column `diabetic` with a new version that says `TRUE` and `FALSE` instead of Yes and No. Do this in two ways: with `if_else()` and with `case_when()`. Be careful not to overwrite the original version of the data itself!!
+```{r}
+## check here
+```
+
+
++ From the original dataset, _replace_ the column `diabetic` with a new version that says `TRUE` and `FALSE` instead of Yes and No. Do this in two ways: with `if_else()` and with `case_when()`. Be careful not to actually overwrite the original version of the data itself!!
 
 ```{r}
 # solution with if_else
@@ -223,7 +180,7 @@ REPLACE THIS TEXT WITH YOUR ANSWER (relationship b/w variables)
 ```
 
 
-#### Question 7
+#### Question 6
 
 The `chickwts` dataset (built-in to base R) contains information on the weight of chicks after being fed different feed supplements. The different feed supplements are labeled casein, horsebean, linseed, meatmeal, soybean, and sunflower in the `feed` column. I have created a new dataset in `feed_protein.csv` that contains the grams of protein per cup for each of these feeds.
 
@@ -232,28 +189,72 @@ The `chickwts` dataset (built-in to base R) contains information on the weight o
 ```
 
 
-Using your `dplyr` functions, combine the two data-frames so that there is an additional `g_protein` column and all of the original columns and rows in chickwts are retained (but don't overwrite anything! save it to something else!). Hint: you'll need to make sure the datasets are compatible before you can join them!
+Using your `dplyr` functions, combine the two data-frames so that there is an additional `g_protein` column and all of the original columns and rows in chickwts are retained (but don't overwrite anything! save it to something else!). Hint: you'll need to make sure the datasets are compatible before you can join them (check out `dplyr::rename()` and be sure to specify arguments in the right order!).
+**For another bonus**, write an assertion to check that the final data frame contains at least TWO correct components, and do NOT DO ANY HARDCODING!!! You will not lose points for a bad assertion here, just don't leave any majors bugs behind you.
 
 ```{r}
 ## wrangle it here
 ```
 
-Finally, make a visualization (specifically a scatterplot) showing the relationship between _median_ chicken weight across nutritional content (measured as grams of protein per cup). Each point should be additionally labeled with the name of its corresponding feed. First, do this with `geom_point()` and `geom_text()` (don't spend much time here, the punchline is the next task - style the figure appropriately but don't try to "fix" it - you'll see what I mean).:
+
+Finally, make a visualization (specifically a scatterplot) showing the relationship between _median_ chicken weight across nutritional content (measured as grams of protein per cup). Each point should be additionally labeled with the name of its corresponding feed. First, do this with `geom_point()` and `geom_text()` (don't spend much time here, the punchline is the next task - style the figure appropriately but don't try to "fix" it - you'll see what I mean).
+OMG another hint!! Summarize will remove unnecessary columns from your data too. To re-get those columns, either: a) also group by them (IF IT MAKES SENSE), or b) you'll need to use some join magic.
+
 ```{r}
 ### version of plot with point/text
 ```
 
-Now, feel disappointed in the viz and feel thrilled to learn about the library [`ggrepel`](https://cran.r-project.org/web/packages/ggrepel/vignettes/ggrepel.html). (GO OVER THE POST! GO OVER THE POST!) 
-Load this library in the setup chunk (not here!), and use it below to make an updated version of the figure but instead of `geom_text()`, use EITHER `geom_text_repel()` or `geom_label_repel()` - your choice! Ensure a compelling and attractive figure (to the extent possible with this data..)
+Now, feel disappointed in the viz and feel thrilled to learn about the library [`ggrepel`](https://cran.r-project.org/web/packages/ggrepel/vignettes/ggrepel.html). (GO OVER THE POST! GO OVER THE POST! The word ggrepel back there is a LINK!) Load this library in the setup chunk (not here!), and use it below to make an updated version of the figure but instead of `geom_text()`, use EITHER `geom_text_repel()` or `geom_label_repel()` - your choice! Ensure a compelling and attractive figure (to the extent possible with this data..)
 
 ```{r}
 ###fig using ggrepel
 ```
 
 
+##### Question 7
+
+One more big one and you're done! (Un)happily, this question uses _all the skillz_. For this question, you will using data from the `nycflights13` library (pre-loaded in the setup chunk). There are five datasets from this package, and we will focus on the two `flights` and `planes`. Examine these using `View()` from the console (not in this Rmarkdown!). 
+
+`flights` contains information about individual departures. Individual planes are indicated by their tail number (`tailnum`). Information about individual planes is available in the data `planes`. In particular, this tibble lists the year each individual plane was manufactured. From `flights` and `planes`, make a combined tibble that contains the following columns:
+
++ tail number
++ year of manufacture for each plane.
++ month of departure
++ mean air time for each plane at each month basis (HINT! does this exist already or do you to make it? You have to make it. Sounds like a grouping and summarizing to me, just saying.) 
+
+You should ONLY CONSIDER planes that flew to LAX (`dest`) in summer months June, July, and August (`month`). Once you have created your beautifully wrangled data, make a scatterplot of mean arrival delay across year of manufacture, ) 
+
+Consider best-plotting principles and choose your own stylstic adventure. In 1-2 sentences below, describe trends you observe, or fail to observe as the case may be!
+
+HINTS AND RULES: 
+
++ Wrangle hints/rules:
+  + First subset and wrangle each of the two data frames to only the columns/rows of interest. Then join together the subsetted versions. When joining, you should do so by ONLY CONSIDERING the info shared by both tibbles (which join is this?)
+  + Do NOT hardcode months or destination of LAX when you filter!!!!! Predefine what destination, months you are interested in and then use them in your code
+  + For months, don't forget `%in%`!
+  + Remember - the only shared names between dataframes you want to join should be the names you want to join by. This is important!!! Hint2: year in `flights` is NOT the same as year in `planes`.
+  + Are your means being funky? Did you apply your new question 4 knowledge? Definitely not a great idea to keep around NA's **in the `arr_time` column specifically.**
+  + All wrangling should be in a SINGLE PIPE! Do not even attempt to write this all at once. Write one line at a time, check it, and then keep tacking on the pipes.
+  + For your plot, you will months to be their NAMES not NUMBERS! This involves...recoding your data using your new conditional mutation skills during the wrangling stage! (You can hardcode month names for this recoding.)
+
++ Plot hints/rules:
+  + Summer months should be clearly distinguished through faceting, and color if you wish - but NOT THE DEFAULT COLORS!
+  + Make sure there is a separate trend line for each month. The line should be NOT be curvy! Straight line! 
+  + Make sure the trend lines are black and NOT the same color as the points
+  + Appropriate labels and all that jazz
+
+```{r}
+### wrangle here
+
+```
+```{r}
+## r code to plot goes here
+
+```
 
 
+**For an absolutely ridiculous bonus**, use emojis instead of points. [See this vignette](https://cran.r-project.org/web/packages/emojifont/vignettes/emojifont.html). Note: This package is already installed in the cloud but it is not loaded. Please make sure to use only the most absurd emoji(s) for your points.
 
-
-
-
+```{r}
+### emoji plot
+```
