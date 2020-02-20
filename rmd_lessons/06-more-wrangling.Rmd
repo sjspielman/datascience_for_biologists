@@ -46,7 +46,7 @@ Watch in class, I will show you the way!
 
 ## Questions
 
-For this lab/assignment, you will be using several datasets that are either built-in to R or an R package, or, is available as a CSV file in the `data/dplyr_lab2/` directory. For these, you'll need to read in the data to use it. **Read in the CSV files for use at the BEGINNING of the question they are used for.** Once a dataset is read in, you don't need to read it in again! Seriously, only read in a dataset once (this counts for grading!!) - otherwise you can accidentally introduce bugs, and bugs are bad. Whenever reading in a dataset, you should ALWAYS IMMEDIATELY PRINT THE DATA (tibbles only print 10 rows by default - you can just type the name of the tibble to see these). This allows readers of your reproducible and sharable document to see the data being used!
+For this lab/assignment, you will be using several datasets that are either built-in to R or an R package, or, is available as a CSV file in the `dplyr_lab2/` directory. For these, you'll need to read in the data to use it. **Read in the CSV files for use at the BEGINNING of the question they are used for.** Once a dataset is read in, you don't need to read it in again! Seriously, only read in a dataset once (this counts for grading!!) - otherwise you can accidentally introduce bugs, and bugs are bad. Whenever reading in a dataset, you should ALWAYS IMMEDIATELY PRINT THE DATA (tibbles only print 10 rows by default - you can just type the name of the tibble to see these). This allows readers of your reproducible and sharable document to see the data being used!
 
 
 #### Question 1
@@ -57,7 +57,7 @@ Create a _single tibble_ containing all information from both datasets. Your fin
 
 + tide (should have values "high" and "low")
 + herbivores (should have values "yes" and "no")
-+ abundance (numeric values)
++ area (numeric values)
 
 To accomplish this, you will need to manipulate the data using both `mutate()` and `bind_rows()`. Plan how you will do this first, and then implement below. *Your final tibble should be exported to a CSV simply called `algae.csv`*. In addition, if you do NOT print your final tibble, then you WILL LOSE POINTS - **you must ALWAYS LOOK AT YOUR DATA!!!**
 

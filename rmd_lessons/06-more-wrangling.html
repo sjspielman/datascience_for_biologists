@@ -526,7 +526,7 @@ summary {
 </div>
 <div id="questions" class="section level2">
 <h2>Questions</h2>
-<p>For this lab/assignment, you will be using several datasets that are either built-in to R or an R package, or, is available as a CSV file in the <code>data/dplyr_lab2/</code> directory. For these, you’ll need to read in the data to use it. <strong>Read in the CSV files for use at the BEGINNING of the question they are used for.</strong> Once a dataset is read in, you don’t need to read it in again! Seriously, only read in a dataset once (this counts for grading!!) - otherwise you can accidentally introduce bugs, and bugs are bad. Whenever reading in a dataset, you should ALWAYS IMMEDIATELY PRINT THE DATA (tibbles only print 10 rows by default - you can just type the name of the tibble to see these). This allows readers of your reproducible and sharable document to see the data being used!</p>
+<p>For this lab/assignment, you will be using several datasets that are either built-in to R or an R package, or, is available as a CSV file in the <code>dplyr_lab2/</code> directory. For these, you’ll need to read in the data to use it. <strong>Read in the CSV files for use at the BEGINNING of the question they are used for.</strong> Once a dataset is read in, you don’t need to read it in again! Seriously, only read in a dataset once (this counts for grading!!) - otherwise you can accidentally introduce bugs, and bugs are bad. Whenever reading in a dataset, you should ALWAYS IMMEDIATELY PRINT THE DATA (tibbles only print 10 rows by default - you can just type the name of the tibble to see these). This allows readers of your reproducible and sharable document to see the data being used!</p>
 <div id="question-1" class="section level4">
 <h4>Question 1</h4>
 <p>Consider the two datasets named <code>algae_lowtide.csv</code> and <code>algae_hightide.csv</code>. These two datasets contain information about algal abundance measured during experiments carried out under low tide and high tide conditions, respectively. The datasets also contain information about whether there were herbivores (i.e. algae predators!) present.</p>
@@ -534,7 +534,7 @@ summary {
 <ul>
 <li>tide (should have values “high” and “low”)</li>
 <li>herbivores (should have values “yes” and “no”)</li>
-<li>abundance (numeric values)</li>
+<li>area (numeric values)</li>
 </ul>
 <p>To accomplish this, you will need to manipulate the data using both <code>mutate()</code> and <code>bind_rows()</code>. Plan how you will do this first, and then implement below. <em>Your final tibble should be exported to a CSV simply called <code>algae.csv</code></em>. In addition, if you do NOT print your final tibble, then you WILL LOSE POINTS - <strong>you must ALWAYS LOOK AT YOUR DATA!!!</strong></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">## This code chunk should read in, save, print the datasets only</span></span></code></pre></div>

@@ -1,0 +1,52 @@
+---
+title: 'Tidy Tuesday Week 1 (week 8 in regards to the data)'
+author: "Paige Richards"
+date: "2/18/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(gganimate)
+library(tidytuesdayR)
+library(patchwork)
+```
+
+
+```{r}
+tidytuesdayR::tt_load(2020, week=8) -> tidytuesdata
+view(tidytuesdata)
+tidytuesdata$food_consumption -> tidytuesdata2
+print(tidytuesdata2)
+```
+
+```{r, fig.height=10,fig.width=20}
+tidytuesdata2 %>%
+  dplyr::filter(country==c('Kazakhstan','Egypt'))%>%
+  dplyr::filter(food_category=='Eggs')%>%
+  ggplot(aes(y=co2_emmission, x=country))+
+    geom_col(aes(fill=country), width=0.5) +
+    scale_fill_manual(values=c('darkorange', 'darkred'))+
+  theme_classic()+
+  labs(y='CO2 Emmission', x='Country')+
+  theme(legend.position='none')+
+ theme(plot.title = element_text(size = rel(2.8)), axis.title=element_text(size=rel(2)), axis.text= element_text(size=rel(1.5)), axis.ticks.length.x= unit(0.3, "cm"), axis.ticks.length.y=unit(0.3, 'cm'))+
+  ggtitle('Consumption of Eggs')-> eggs_graph
+tidytuesdata2 %>%
+  dplyr::filter(country==c('Kazakhstan','Egypt'))%>%
+  dplyr::filter(food_category=='Soybeans')%>%
+  ggplot(aes(y=co2_emmission, x=country))+
+    geom_col(aes(fill=country), width=0.5)+
+  scale_fill_manual(values=c('darkorange', 'darkred'))+
+  theme_classic()+
+  labs(y='CO2 Emmission', x='Country')+
+  theme(legend.position='none')+ 
+  theme(plot.title = element_text(size = rel(2.8)), axis.title=element_text(size=rel(2)),axis.text= element_text(size=rel(1.5)), axis.ticks.length.x= unit(0.3, "cm"), axis.ticks.length.y=unit(0.3, 'cm'))+
+  ggtitle('Consumption of Soybeans')-> soybeans_graph
+soybeans_graph + eggs_graph -> soybean_egg_combined_graph
+print(soybean_egg_combined_graph)
+ggsave('tidy_tuesday_graph.png',soybean_egg_combined_graph)
+```
+
+Although this plot has a **ton** of code that is unnecessary and able to be distilled down, it was extremely helpful to write it this way. I tried to use gganimate, but I found that it may not be a useful technique for this type of information. I had a graph that was slightly animated but it looked confusing and did not make sense for the information I was trying to convey. I found that it may be best used for something that has time included in the data. I gained experience and practice with dplyr and patchwork! I feel more comfortable understanding how dplyr filtering works and creating a graph from it. It was also helpful learning how to wrangle this data to figure out what I wanted to show. I learned how to make the text larger of the title, axis, and axis ticks! It was interesting to learn all of the ways I could customize the graph.

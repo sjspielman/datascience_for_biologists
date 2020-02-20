@@ -1,0 +1,38 @@
+---
+title: '#TidyTuesday Submission'
+subtitle: "Data Science for Biologists, Spring 2020"
+author: "Nicholas Paterna"
+date: "February 17, 2020"
+output:
+  html_document:
+    highlight: espresso
+    theme: yeti
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.align = "center")
+library(tidyverse)
+library(tidylog)
+theme_set(theme_bw())
+
+food_consumption <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv')
+```
+
+
+### TidyTuesday Week 8
+> Hi, this is my first time attempting to make a figure for #TidyTuesday! I am a student at Rowan University in Biochemistry with **_ZERO_** experience in coding at all. R is my first language and I am very happy to be learning it, I hope to apply the knowledge I gain from this trend in my own research in Rowan's molecular biology department where I do work with Benjamin Carone, PhD. Let me know what you think!!
+
+```{r TT_Week8.2, warning=FALSE, fig.height=4, fig.width=6}
+food_consumption %>%
+  group_by(food_category) %>%
+  summarize("total_consumption" = sum(consumption)) %>%
+  
+  ggplot(aes(y = total_consumption, x = fct_reorder(food_category, total_consumption), fill = food_category)) +
+  geom_col(position = "dodge") +
+  labs(x = "", y = "Total Consumption", fill = "Food Category", title = "Cumulative Food Consumption by Category") +
+  theme(axis.text.x=element_text(angle=45, hjust=1), legend.position= "NONE") -> plot1
+ggsave("titdytuesday_week8.png", plot1, height = 4, width = 6)
+plot1
+```
+
+>In my data science course we are currently working through the basics of dplyr for piping commands and manipulating data to our liking. In the figure I made above I decided to examine the easiest portion of the food consumption data to understand; actual consumption. The data represented is the sum of all the categories per country. I was surprised that dairy products were the most consumed globally, I assumed that one of the meats would surpass this category. I really enjoyed playing around with this data set and actually tried creating several different figures before settling on this one specifically. Manipulating the data as I did here helped me learn how to use a little bit of the **forcats** package and apply skills I have already learned in class!
