@@ -21,7 +21,7 @@ tidytuesdata$food_consumption -> tidytuesdata2
 print(tidytuesdata2)
 ```
 
-```{r, fig.height=10,fig.width=20}
+```{r, fig.height=6,fig.width=10}
 tidytuesdata2 %>%
   dplyr::filter(country==c('Kazakhstan','Egypt'))%>%
   dplyr::filter(food_category=='Eggs')%>%
@@ -31,7 +31,7 @@ tidytuesdata2 %>%
   theme_classic()+
   labs(y='CO2 Emmission', x='Country')+
   theme(legend.position='none')+
- theme(plot.title = element_text(size = rel(2.8)), axis.title=element_text(size=rel(2)), axis.text= element_text(size=rel(1.5)), axis.ticks.length.x= unit(0.3, "cm"), axis.ticks.length.y=unit(0.3, 'cm'))+
+ theme(plot.title = element_text(size = rel(1.8)), axis.title=element_text(size=rel(1)), axis.text= element_text(size=rel(1)), axis.ticks.length.x= unit(0.3, "cm"), axis.ticks.length.y=unit(0.3, 'cm'))+
   ggtitle('Consumption of Eggs')-> eggs_graph
 tidytuesdata2 %>%
   dplyr::filter(country==c('Kazakhstan','Egypt'))%>%
@@ -42,7 +42,7 @@ tidytuesdata2 %>%
   theme_classic()+
   labs(y='CO2 Emmission', x='Country')+
   theme(legend.position='none')+ 
-  theme(plot.title = element_text(size = rel(2.8)), axis.title=element_text(size=rel(2)),axis.text= element_text(size=rel(1.5)), axis.ticks.length.x= unit(0.3, "cm"), axis.ticks.length.y=unit(0.3, 'cm'))+
+  theme(plot.title = element_text(size = rel(1.8)), axis.title=element_text(size=rel(1)),axis.text= element_text(size=rel(1)), axis.ticks.length.x= unit(0.3, "cm"), axis.ticks.length.y=unit(0.3, 'cm'))+
   ggtitle('Consumption of Soybeans')-> soybeans_graph
 soybeans_graph + eggs_graph -> soybean_egg_combined_graph
 print(soybean_egg_combined_graph)

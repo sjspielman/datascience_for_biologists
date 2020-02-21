@@ -31,7 +31,7 @@ food_consumption %>%
   geom_col(position = "dodge") +
   labs(x = "", y = "Total Consumption", fill = "Food Category", title = "Cumulative Food Consumption by Category") +
   theme(axis.text.x=element_text(angle=45, hjust=1), legend.position= "NONE") -> plot1
-ggsave("titdytuesday_week8.png", plot1, height = 4, width = 6)
+ggsave("tidytuesday_week8.png", plot1, height = 4, width = 6)
 plot1
 ```
 
