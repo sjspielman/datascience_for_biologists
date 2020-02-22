@@ -1,0 +1,53 @@
+---
+title: "Tidy Tuesday"
+subtitle: "Data Science for Biologists, Spring 2020"
+author: "Julianne Gallagher"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    highlight: tango
+---
+
+<!-- SETUP CODE CHUNK -->
+```{r setup, include=FALSE}
+## Change the default figure width and height to your liking, but within reason.
+knitr::opts_chunk$set(echo = TRUE, fig.width=4, fig.height=3)
+library(tidyverse)
+library(patchwork)
+theme_set(theme_classic())
+```
+
+
+
+```{r, factor-sex-1}
+##load in data
+food_consumption <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv')
+
+food_tibble <- as_tibble(food_consumption)
+
+food_consumption
+```
+
+
+
+
+```{r survival-barplot, fig.height= 4, fig.width= 8}
+food_consumption %>%
+  dplyr::filter(country %in% c("USA", "Brazil")) %>%
+ggplot(aes(x=food_category, y=consumption)) + 
+geom_col(position= "dodge", aes(fill= country)) + 
+scale_fill_manual(values= c("mediumpurple2", "mediumpurple4")) + 
+labs(x= "Type of Food", y= "Consumption", title= "Consumption of Food in Brazil vs. USA", fill= "Country") + 
+scale_x_discrete(labels= c("Wheat and Wheat Products" = "Wheat", "Nuts inc. Peanut Butter" = "Nuts", "Milk - inc. cheese" = "Dairy")) +
+theme_classic() +
+theme(plot.title = element_text(face= "bold")) -> tidytues_bar
+
+tidytues_bar
+
+ggsave("first_tidy_tues.png", tidytues_bar, height = 4, width = 8)
+
+```
+    
+    
+**I gained more confidence in working with %in% this #tidytuesday and also reconfirmed some elements in the more practice with ggplot2 assignment. I also learned from this #tidytuesday how to bold the title of my graph. In addition I learned how to abreviate/change the names of labels on the x-axis so they are shorter and do not overlap. By changing the names slightly to make them shorter I was able to make the graph more legable then it previously was.**
+

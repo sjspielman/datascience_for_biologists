@@ -1,0 +1,78 @@
+---
+title: "Tidy_Tuesday"
+author: "Joseph Gabriel"
+date: "2/22/2020"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(patchwork)
+theme_set(theme_linedraw())
+```
+
+
+##### Here is my first contribution to Tidy Tuesdays an aspiring biologist it is awesome that Tidy Tuesdays allow me to share what I have made and collaborate with other  scientists. This goes to show how important open accessible data is. I'm Happy to be apart of this tight knit community!  
+```{r, echo=FALSE}
+
+food_consumption <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv')
+
+    food_consumption %>%     
+    filter(consumption != 0) %>% 
+    mutate(co2perfood = co2_emmission/consumption, food_category) %>%  
+    group_by(food_category) %>% 
+    summarise(element6  = mean(co2perfood)) %>%
+    ggplot(aes(x = reorder(food_category, element6), y = element6, fill =              food_category)) + 
+    geom_col(colour = "Black") +
+    coord_flip() +
+    theme(legend.position = "none") + 
+    labs(x = "Type of Food" , y = "CO2 Emmissions (KgCO2/person/year)") + 
+      ggtitle(" Carbon Dioxide Emmissions for Various Animal and Non Animal Products ") +   theme(plot.title = element_text(hjust = 0.5)) +
+    scale_y_continuous(expand = c(0,0)) -> Sotomayor
+    ggsave("Sotomayor.png", width = 8, height = 5)
+
+#had to use dpylr to manipulate the data, this took me a while but I am satisfied with the final product. 
+
+```
+
+```{r, echo=FALSE}
+  food_consumption%>% 
+  group_by(country) %>% 
+  summarise(element10 = mean(co2_emmission)) -> Supreme
+
+  ggplot(Supreme, aes(x = country, y = element10, fill = element10)) + 
+  geom_col() + 
+  coord_flip() -> Court
+    
+     
+  Court + scale_fill_gradient2( high = "firebrick") + 
+  theme(legend.position = "none") + 
+  labs(x = "Country" , y = "Carbon Dioxide Production (Kg CO2/person/year)") +     ggtitle("Food-Related Carbon Emissions Per Capita") + 
+  theme(plot.title = element_text(hjust = 0.5)) +
+  scale_y_continuous(expand = c(0,0)) -> Ginsburg
+  ggsave("Ginsburg.png", width = 7, height = 15)
+  #This is looks at the carbon footprint of 130 nations 
+  
+```
+
+>Figure 1
+
+```{r, echo = FALSE, fig.width = 8, fig.height = 5}
+plot(Sotomayor)
+
+```
+
+>Figure 2 
+
+```{r, echo = FALSE, fig.width = 8, fig.height = 15}
+plot(Ginsburg)
+```
+
+
+
+
+
+
+
+
+> For this tidytuesday I made two graphs both using the average co2 emissions. I had to use dplyr to manipulate the data...this proved to be harder than I thought. I worked on this for a couple hours using a ton of resources, mainly cheat sheets and the <ins>Fundamentals of Data Visualization</ins> book. By doing this I added several new commands to my "R" arsenal such as geom_col, coord_flip, scale_y_continuous and more. But I mainly wanted to polish up my ggplot, dplyr, and r-markdown skills. Figure one is very interesting as I was not expecting the data to show almost a ten fold discrepancy between lamb, goat , and beef versus the rest. Form figure one I can conclude that lamb and goat are ecologically inefficient. This is also goes for beef. For figure 2 it looks at the annual co2 emmissions per person for 130 nations. It is crazy to see that Argentina has such a large carbon footprint along with China, America, New Zealand. 
