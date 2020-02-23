@@ -1,0 +1,188 @@
+---
+title: "INSTRUCTIONS: Working with untidy and tidy data"
+subtitle: "Data Science for Biologists, Spring 2020"
+author: "Stephanie J. Spielman"
+output: 
+  html_document:
+    highlight: tango
+css: static/sjs-style.css
+params:
+  data_path: "data/"
+---
+
+<!-- SETUP CODE CHUNK -->
+```{r setup, include=FALSE}
+## Change the default figure width and height to your liking, but within reason.
+knitr::opts_chunk$set(echo = TRUE, fig.width=6, fig.height=3.5)
+library(tidyverse)
+library(kableExtra) # helpful to print fancy tables in RMarkdown
+theme_set(theme_classic())  ### If you want to set a global theme, do so here
+```
+
+
+## Instructions
+
+**This assignment must be submitted as an RMarkdown document on Blackboard by _Thursday March 5th at 10:00 am_.** 
+
+#### You will be graded on the following criteria:
+
++ Did you enter your name appropriately into the YAML front matter?
++ Does the document knit without errors? *Adding `eval=FALSE` to code chunks with errors will not avoid penalty.*
++ Does your code in the R chunks have appropriate *comments*? 
++ Is your submission appropriately _professional_? 
+  + *You need to run SPELL CHECK before submitting*, available under `Edit->Check Spelling`.
++ Do all figures have clean and **LEGIBLE** axis labels? (Titles are optional). There should NOT be any underscores in axis labels.
++ Did you write your written answers in the <answer>answer style</answer>?
++ Have you addressed the questions as they are asked? Be sure to limit your code and your answers to the scope of the question!
+  + If you write code that is not ultimately part of your final answer, you must either: delete it, comment it out, OR move it to a different R chunk with the added chunk options `eval=FALSE, echo=FALSE`. 
++ Is all work your own, including code and written answers?
+  + If ANY of your submitted work is not your own (with the exception of what you have been provided), you will receive a 0 on the assignment. You will be reported for a Level 2 or 3 Academic Integrity Violation, depending on the severity of the issue.
+
+<!-- HEY HAVE YOU KNITTED YET? IT'S VERY HARD TO READ INSTRUCTIONS IN RMD! -->
+
+
+# <mark>Questions</mark>
+
+#### Preface Question
+
+Look at the YAML front matter: there is something NEW! Read about params [here](https://rmarkdown.rstudio.com/lesson-6.html). In this case we set a global parameter for the RMarkdown file that corresponds to the path where data lives! We can proceed to use this as a variable like so (always `params$`, like a column in a data frame!). Use this variable for your paths, e.g. `read_csv(paste0(params$data_path, <NAMEOFFILE>))`
+```{r}
+params$data_path
+```
+
+#### Question 1
+
+Consider the dataset in `data/mcv_immunized_percent_of_one_year_olds.csv`. This dataset contains records for the number of one-year olds who were vaccinated for Measles (MCV) in countries around the world. This dataset was obtained from the REMARKABLE [gapminder](https://www.gapminder.org/) database (have a look - click the "data" tab up top!).
+
+Convert this tibble into a *tidy dataset*. Hint: the variables in your data are "country", "year", and "percent" (or however you'd like to name them). Consider whether the table should be made LONGER (`pivot_longer()`) or WIDER (`pivot_wider()`) and then implement your strategy below. Remember: when referring to columns that are NUMBERS you need to use backticks: `1988` NOT 1988.
+
+#### Question 2
+
+Using your tidied data from question 1, make a figure showing the number of vaccinations over time to compare _two countries of your choosing_ (preferably coutries without too many NAs). (I'd recommend either a bar plot or line plot for this, faceted by country? colored by country? filled by country? It's YOUR plot!). Style your figure using best principles from "Fundamentals of Data Visualization." In a few sentences below the figure, discuss the trends you observe. **Protip: if the Y-axis is misleading**, you may need to use the function `ggplot2::ylim()` (or, `ggplot2::lims()`) to set custom axis limits!
+
+#### Question 3
+
+Consider another dataset from Gapminder called `data/dtp3_immunized_percent_of_one_year_olds.csv`. This dataset contains records for the number of one-year olds who were vaccinated with the triple vaccine "Diphtheria-tetanus-pertussis." Tidy this dataset, *and then combine it with the MEASLES data*. 
+Hints:
+
++ Make sure each dataset is tidy
++ Make sure there is information in each dataset for *what kind of vaccine is represented* (`mutate`!!)
++ THEN combine the datasets (hint: they share the EXACT SAME columns, so this is a `bind_rows()` scenario)
++ THEN look at the combined data: You'll see that `year` is being treated as a character but we need to it to be a number. Recode it by tacking onto your pipe, `mutate(year = as.numeric(year))`.
+
+After the datasets have been combined, visualize the number of vaccinations for both measles and DTP vaccinations in a single country of your choosing during the period (inclusive) 2005-2011. Make sure to choose a country WITHOUT NA's during these years!
+
+> If you want, try to use the `dplyr::between` function for this if you like. Learn about this function by running `iris %>% filter(between(Sepal.Length, 5, 5.5))` in the console and examining the output.
+
+I again recommend a bar plot or line plot, but you'll want to color and/or fill by the vaccine type to distinguish. Style your plot to your liking - as long as it clearly COMMUNICATES the message. In a few sentences below the figure, discuss the trends you observe. 
+
+#### Question 4
+
+Consider the dataset `data/seals.csv` which shows results from a study where researchers measured how much oxygen 10 seals used (units unknown, don't worry!) when either feeding or not feeding. Each seal was measured under feeding and non-feeding conditions. Researchers predicted that oxygen use would increase when seals were feeding. In its present form, this data is _tidy_ with three variables: `seal` (1-10: the subjects), `oxygen_use`, and `feeding`.
+
+The goal for this question is to make TWO plots showing the difference between oxygen use with/without feeding:
+
++ First, make YOUR CHOICE OF violin plot, density plot, histogram, sina plot, or jitter plot to visualize the two distributions of oxygen use with/without feeding. Use best principles of plotting! The goal here is to remind you not to overthink: You've been able to make this type of plot since week 2!
++ Second, make a scatterplot showing oxygen use when NOT feeding on the x-axis, and when feeding on the y-axis. 
+  + *In order to do this*, you need X and Y to be columns themselves - so this dataset actually needs to be UNTIDIED before we can make a scatterplot from it! (CONVINCE YOURSELF THIS IS TRUE BEFORE PROCEEDING). Make your plan of attack with either `pivot_longer()` or `pivot_wider()` to untidy the data!
+  + To help use visualize which values are greater, we will also add the line `y=x` (represents equal values on X/Y) using the function `geom_abline()` (it's default is the line `y=x` but look it up to understand more about it). Make make sure the line color is a DIFFERENT from the points.
+  + Make sure your axis labels are _meaningful_ 
+  + For the most clarity, the `y=x` line should be a diagonal through the plot, which means you should intelligently set axis limits with `xlim()` and `ylim()` (or `lims()`).
+  + **BONUS PLOT OPTION**: Use the function `ggplot2::annotate()` to add a text annotation near the line, but not on top of points! that shows the line formula "y=x".
+
+In a few sentences below the figure, discuss whether EACH FIGURE shows evidence for the researchers' prediction.
+
+
+
+#### Question 5
+
+The entire purpose of this question is to show you how awesome the function `tidyr::separate_rows()` is. Read in and examine the (admittedly nerdy) dataset `data/planets.csv` (look at the file - it is delimited by ";" so you should use `read_delim()` and specify the delim as ";"). It is mostly tidy, *except* for the terrain column which contains too many observations!
+Clean it up by literally just running this code: `planets %>% separate_rows(terrain)`. Examine the output to understand how unbelievably helpful this function is.
+
+**Then**, there is ONE other column which would benefit from this function. Figure out which one (it's the other one with multiple observations in the rows!) Clean `planets` up with `separate_rows`, and save your final dataset to a new variable. The new variable should have both `terrain` and the other column cleaned properly.
+
+
+
+#### Question 6
+
+We will now practice working with columns using `unite` (puts two columns into one - usually but not always makes data "less tidy") and `separate` (separates one column into two - usually but not always makes data "more tidy"). For this question, consider the final dataset you made in question 5 (after all columns that needed it were cleaned with `separate_rows()`.)
+
+Your final answer should pipe all of this together, but build it up STEP BY STEP!!! Don't try to attempt the whole thing at once!!!
+
++ First, consider the `edited` column - it contains two variables implicity: date and time. You'll also notice it has a new type: `dttm` which is specifically a format of date and time (that's all we'll really say about this, but read more [here](https://r4ds.had.co.nz/dates-and-times.html)). We want a column for each, so you'll need to separate (perhaps you could use `separate()`?) the column into two (`edited_date` containing just the date, and `edited_time` containing just the time).
++ Second, create a new column called `ratio_period_rotation_orbital` that contains the ratio of `rotation_period` to `orbital_period`. Hint: The purpose of this part is to remind you not to forget `dplyr`! 
++ Third (for practice-sake), unite the columns `name` and `population` to end up with, for example "Alderaan-2000000000", and call this column `name_pop`.
++ Fourth, subset the data to only contain observations (rows!) where the terrain is "mountains". This part serves the same purpose as part 2! Don't forget `dplyr`!
++ Finally, save the dataset such that it is ordered (synyonym: arranged!) by *descending* `ratio_period_rotation_orbital`. Print out the data to show your final result!
+
+#### Question 7
+
+In fact, it is possible to create tibbles within R directly! There are many strategies for this; below are two different strategies option that uses the `tibble` library within the `tidyverse` (see [here](https://r4ds.had.co.nz/tibbles.html)). The three tibbles defined below represent, respectively, number of frogs collected and their colors for two different species, and then the full names of these totally and completely real frog species:
+
+```{r}
+
+## defines each column as an array
+tibble(
+  color        = c("blue", "green", "turquoise"),
+  male         = c(25, 36, 52),
+  female       = c(28, 17, 33),
+  species_abbr = c("sp1", "sp1", "sp1")
+) -> frogs_sp1
+
+## defines tibble in a format like the tibble would end up appearing
+## spacing is helpful!
+tribble(
+  ~color, ~male, ~female, ~species_abbr,
+  "orange", 13,   17,    "sp2",
+  "red",    45,   36,    "sp2",
+  "pink",  31,    25,    "sp2"
+) -> frogs_sp2
+
+## Like strategy one
+tibble(
+  species_name = c("Frogus firstus", "Frogus secondus"),
+  species_abbr = c("sp1", "sp2")
+) -> species_names
+
+### ADD CODE HERE TO PRINT OUT THESE THREE DATASETS!!! YOU HAVE TO LOOK AT THEM TO USE THEM!!
+frogs_sp1
+frogs_sp2
+species_names
+```
+
+For this question, we want to create a SINGLE tibble containing all information from both species. In its tidiest interpretation, there are in fact SIX variables here:
+
++ `color`
++ `sex`
++ `number` (how many frogs)
++ `genus`
++ `species`
++ `species_abbr` (but we don't want to keep this, read on!)
+
+To accomplish this task, you will need to both tidy these data sets and combine them. Hint and rule:
+
++ For merging these datasets together, think: are they RELATIONAL and should be joined, or are do they already share columns and should be BOUND? Maybe BOTH binding and joining are needed? Hmm.... (Hint, yes both are needed - only two commands needed to merge!) 
++ In addtion, your final tibble should NOT include species abbreviations (`species_abbr`) - only the species names....but SEPARATED (hint!) into *genus* and *species* columns. 
++ The correct tidied dataset should contain 12 rows and 5 columns.
+
+
+Once you have tidied and joined, use your `dplyr` skills to answer some questions. The output from your dplyr commands should clearly reveal the answer (no extra rows that don't contribute to answering). **Remember the `summarize()` function for SUMMARIZING data!**
+
++ Are there more female green frogs or female blue frogs from the species *Frogus firstus*? HINT: Not many, if any, operations are needed here.
++ Which species has the most number of male frogs?
++ For *Frogus secondus*, which color has the highest RATIO of male:female frogs? There had better be a ratio in your output! **HINT!!!!** This question will require you to untidy the data to obtain those ratios! Godspeed to you!
+
+As always, we FIRST subset the data to the rows/columns of interest, and only then do we perform any further operations that might be needed.
+
+#### Question 8
+
+Take this opportunity to learn a very cool new RMarkdown thing (libraries already loaded for you in the setup chunk) - [`kableExtra`](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html). `kable` is a function in `knitr` that allows you to turn tibbles from your R code into pretty embedded tables, and `kableExtra` lets you format these tables in very exciting ways (Note: this ONLY WORKS when you knit to HTML - NOT PDF or WORD!). Use the linked information about `kableExtra` to make your own beautiful rendering of the tidy frog tibble you created in question 7.
+
+HINT: The simplest way is to just pass the tibble into the `kable()` function, i.e. `iris %>% kable()`. For this question, you must add least TWO CUSTOMIZED features on top of that baseline - have fun!! See what this looks like first passing it into `kable()`, and then fancy it up. **Always make sure to KNIT to see the final output - the "preview" output can be misleading.**
+
+I strongly encourage (but do not require) you to color rows based on the frog color! You can't really automate this in R; you need to know which rows to color *a priori* as described in the link above.
+
+
+#### BONUS QUESTION
+
+Head to [https://www.gapminder.org/data/](https://www.gapminder.org/data/) and download one or more datasets of YOUR choosing, and make a beautiful visualization below! Have fun with it! In a few sentences below the figure, discuss the trends you observe. **If you do this, you MUST SUBMIT THE DATASETS WITH YOUR RMD FILE ON BLACKBOARD!!** If you do NOT submit the datasets, I will not be able to run your code, and you will a) lose credit overall for a document that doesn't knit, and b) not get any bonus points.

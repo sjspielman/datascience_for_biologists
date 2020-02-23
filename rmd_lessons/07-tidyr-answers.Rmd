@@ -1,0 +1,177 @@
+---
+title: "ANSWERS: Working with untidy and tidy data"
+subtitle: "Data Science for Biologists, Spring 2020"
+author: "YOUR NAME GOES HERE"
+output: 
+  html_document:
+    highlight: tango
+css: static/sjs-style.css
+params:
+  data_path: "data/"
+---
+
+<!-- SETUP CODE CHUNK -->
+```{r setup, include=FALSE}
+## Change the default figure width and height to your liking, but within reason.
+knitr::opts_chunk$set(echo = TRUE, fig.width=6, fig.height=3.5)
+library(tidyverse)
+library(kableExtra) # helpful to print fancy tables in RMarkdown
+theme_set(theme_classic())  ### If you want to set a global theme, do so here
+```
+
+
+# <mark>Questions</mark>
+
+#### Preface Question
+
+Look at the YAML front matter: there is something NEW! Read about params [here](https://rmarkdown.rstudio.com/lesson-6.html). In this case we set a global parameter for the RMarkdown file that corresponds to the path where data lives! We can proceed to use this as a variable like so (always `params$`, like a column in a data frame!). Use this variable for your paths, e.g. `read_csv(paste0(params$data_path, <NAMEOFFILE>))`
+```{r}
+params$data_path
+```
+
+#### Question 1
+
+```{r}
+# Code chunk to read in and examine the data with head()
+```
+
+
+```{r}
+# Code chunk to convert data to tidy
+```
+#### Question 2
+
+
+```{r}
+# Code chunk to plot the data
+```
+
+<answer>
+Replace this text with your answer.
+</answer>
+
+#### Question 3
+
+
+```{r}
+# Code chunk to read in and examine the data with head()
+```
+
+
+```{r}
+# Code chunk to convert data to tidy and combine with question 1 data
+```
+
+```{r}
+# Code chunk to plot the data
+```
+
+<answer>
+Replace this text with your answer.
+</answer>
+
+#### Question 4
+
+
+```{r}
+# Code chunk to read in and examine the data with head()
+```
+
+
+```{r}
+# Code chunk for distributions (violin, sina, etc.)
+# If sina make sure to load `ggforce()` in SETUP CHUNK!
+```
+
+```{r}
+# Code chunk for data un-tidying and scatterplot
+```
+
+<answer>
+Replace this text with your answer.
+</answer>
+
+#### Question 5
+
+
+```{r}
+# Code chunk to read in and examine the data with head()
+```
+
+
+```{r}
+# Code chunk for tidying
+```
+
+
+#### Question 6
+
+```{r}
+# Code chunk for allllll the wrangling and tidying
+# should END UP as a single piped command - but build it up LINE AT A TIME!
+```
+
+
+#### Question 7
+
+
+```{r}
+## defines each column as an array
+tibble(
+  color        = c("blue", "green", "turquoise"),
+  male         = c(25, 36, 52),
+  female       = c(28, 17, 33),
+  species_abbr = c("sp1", "sp1", "sp1")
+) -> frogs_sp1
+
+## defines tibble in a format like the tibble would end up appearing
+## spacing is helpful!
+tribble(
+  ~color, ~male, ~female, ~species_abbr,
+  "orange", 13,   17,    "sp2",
+  "red",    45,   36,    "sp2",
+  "pink",  31,    25,    "sp2"
+) -> frogs_sp2
+
+## Like strategy one
+tibble(
+  species_name = c("Frogus firstus", "Frofus secondus"),
+  species_abbr = c("sp1", "sp2")
+) -> species_names
+
+### ADD CODE HERE TO PRINT OUT THESE THREE DATASETS!!! YOU HAVE TO LOOK AT THEM TO USE THEM!!
+```
+
+
+
+```{r}
+# Code chunk to tidy and combine the three datasets
+```
+
+```{r}
+# Code chunk to for dplyr task 1
+```
+
+```{r}
+# Code chunk to for dplyr task 2
+```
+
+```{r}
+# Code chunk to for dplyr task 3
+```
+
+
+
+#### Question 8
+
+```{r}
+# Code chunk for kable()
+```
+
+#### BONUS QUESTION
+
+*Add your own chunks if you choose to do this adventure.*
+
+<answer>
+Replace this text with your answer.
+</answer>
