@@ -1,0 +1,114 @@
+---
+title: "TidyTuesday2_18"
+author: "Dominic Ruggiero"
+date: "2/20/2020"
+output: html_document
+---
+
+```{r setup}
+library(tidyverse)
+library(RColorBrewer)
+food_consumption <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv')
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Everybody loves cows, so let's take a look at production of both beef and milk to see just how much CO2 these industries are moo-ving into the environment.
+
+```{r}
+
+
+cows<-food_consumption %>%
+  filter(food_category %in% c("Beef","Milk - inc. cheese"))
+print(cows)
+#use %in% operator to select multiple character values.
+```
+
+There's so many countries from around the world included in the dataset, so let's try to sort them by continent. First, we'll need a bit of help.
+
+```{r}
+location<-readr::read_csv('https://raw.githubusercontent.com/dbouquin/IS_608/master/NanosatDB_munging/Countries-Continents.csv')
+print(location)
+```
+
+First, we will rename "country" from "Country" to standardize the name for the variable across datasets.
+
+```{r}
+location<-location %>%
+  rename(country=Country)
+
+```
+
+Now let's try to combine the two datasets.
+```{r}
+Moo_nited_Nations<-cows %>% 
+  left_join(location)
+print(Moo_nited_Nations)
+
+```
+
+Not all nations are included in both tables, as shown by "NA" values, either due to lack of inclusion in one dataset or a difference in name. So,  to circumvent the complexity of international politics, we will add these other nations or states to the "location" file after some brief research or renaming.
+
+```{r}
+location<-location %>%
+  add_row(Continent="North America", country= "USA")%>%
+  add_row(Continent="North America", country= "Bermuda")%>%
+  add_row(Continent="Asia", country= "Hong Kong SAR. China")%>%
+  add_row(Continent="Oceania", country= "French Polynesia") %>%
+  add_row(Continent="Asia", country= "Russia")%>%
+  add_row(Continent="Oceania", country= "New Caledonia")%>%
+  add_row(Continent="Europe", country= "Czech Republic")%>%
+  add_row(Continent="Asia", country="Myanmar")%>%
+  add_row(Continent="Asia", country="South Korea")%>%
+  add_row(Continent="Asia", country= "Taiwan. ROC")
+print(location)
+```
+
+Now we try to combine them again:
+```{r}
+Moo_nited_Nations<-cows %>% 
+  left_join(location)
+print(Moo_nited_Nations)
+
+```
+Now we will separate the two industries so we can combine them into one row for each country.
+```{r}
+beef<-Moo_nited_Nations %>%
+  filter(food_category=="Beef") %>%
+  rename(beef_consumption=consumption) %>%
+  rename(beef_emissions=co2_emmission)
+milk<-Moo_nited_Nations %>%
+  filter(food_category!="Beef")%>%
+  rename(dairy_consumption=consumption) %>%
+  rename(dairy_emissions=co2_emmission)
+```
+Now we'll remove the conflicting columns to combine the data effectively.
+```{r}
+beef<-beef%>%
+  select(-food_category)
+milk<-milk%>%
+  select(-food_category)
+
+```
+
+And now to combine the two back together so we can add the total consumption and emissions for each country.
+```{r}
+moo_nited_nations<-beef %>%
+  right_join(milk)%>%
+  mutate(bovine_consumption=beef_consumption+dairy_consumption)%>%
+  mutate(bovine_emissions=beef_emissions+dairy_emissions)
+
+```
+
+Now, we can visualize how cow-related industry emissions vary across populated continents.
+
+```{r, fig.width=8, fig.height=5.5}
+moo_nited_nations %>%
+  ggplot(aes(x=Continent, y=bovine_emissions, fill=Continent), color="black")+
+  geom_violin()+
+  scale_fill_brewer(palette="Dark2")+
+  ylab("Total Bovine CO2 Emissions (yearly kg/capita)")
+ggsave("cowemissions.png",plot=last_plot(), width=8, height=5.5)
+```
+
+In working with this week's Tidy Tuesday data, I worked with a few unfamiliar skills, including finding and reading in new data files as .csv files, and combining those tibbles using the "join" function. I also built upon my skills in the dplyr library, by isolating data of interest, mutating the data to combine different factors, and piping these commands into one another. I also continued to make use of ggplot to display these skills in a reproducible figure.
