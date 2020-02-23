@@ -1,0 +1,41 @@
+---
+title: "TidyTuesday February 23"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(countrycode)
+library(ggfortify)
+library(tidyverse)
+library(tidylog)
+library(ggrepel)
+```
+
+## Matt Petruncio
+
+```{r, fig.height=6, fig.width=7}
+read_csv(file = "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv") %>% 
+  select(-consumption) %>% #remove consumption column
+  pivot_wider(
+    names_from = food_category,
+    values_from = co2_emmission) %>% #creates a new column for each food type where the values are carbon footprints
+mutate(continent = countrycode::countrycode(sourcevar = country, origin = "country.name", destination = "continent"))->y #creates a new column "continent" using the countrycode package in which values are the strings from column country converted to English names of continents
+
+y %>%
+select(-country,-continent)->m #removes non-numeric variables
+
+prcomp(m)->m.pca
+summary(m.pca)
+autoplot(m.pca, data = y, colour = 'continent', loadings = TRUE, loadings.label = TRUE, loadings.colour = 'blue', loadings.label.colour = 'black', loadings.label.alpha = 0.7,
+loadings.label.repel=TRUE, loadings.label.size =5)+
+labs(title = "Carbon Footprint of Food Type by Country (Kg CO2/person/year)", subtitle = "Plot of First Two Principal Components", caption = "data source: nu3 food carbon footprint index 2018")+
+  theme_minimal()->pca_of_food_co2_emmissions
+pca_of_food_co2_emmissions
+ggsave("footprintpca.png")
+```
+During the data wrangling phase of this TidyTuesday submission, I learned how useful the pivot_wider() function is. For PCA I needed to rearrange the initial tibble so that, rather than being stored in the column "food_category", each food type was a column containing the respective carbon footprint values for an observation (country). This tidying can be accomplished using just two arguments of the pivot_wider() function: names_from = food_category tells the function I want the new column names to come from food_category, and values_from = co2_emmission tells the function I want the values in these new columns to come from co2_emmission. I also learned a bit more about the differences between the functions prcomp() and princomp(). From reading the R documentation and blog posts I found that prcomp() uses the function SVD() on the centered data frame whereas princomp() uses eigen() on the covariance or correlation matrix of the data frame: these approaches result in the same PCA object, but prcomp() is preferred for "numerical accuracy" according to the R development team. It seems that the chief advantage of princomp() is that one may input a covariance matrix directly if they wish rather than just a data frame/tibble using the argument 'covmat'. I left the scale argument on the default (scale = FALSE) for prcomp() because all features of the data frame were measured in the same units (Kg CO2/person/year).
+
+
+
+
