@@ -12,7 +12,9 @@ Course materials for Rowan University Course "Data Science for Biologists" (BIOL
 
 [4. More practice with `ggplot2` ](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/rmd_lessons/04-more-ggplot2.html)
 
-[5. Introduction to `dplyr`](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/rmd_lessons/05-introduction-dplyr.html)
+[5. Data manipulation with `dplyr` I](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/rmd_lessons/05-introduction-dplyr.html)
+
+[6. Data manipulation with `dplyr` II](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/rmd_lessons/06-more-wrangling.html)
 
 <!--
 "TODO" FOR ALL REMINDERS ON DEBUGGING DAY
