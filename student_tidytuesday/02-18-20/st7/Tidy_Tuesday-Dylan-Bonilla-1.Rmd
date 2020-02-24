@@ -1,0 +1,85 @@
+---
+title: "TidyTuesday1"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(patchwork)
+food_consumption <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv')
+
+write_csv(food_consumption, "food_consumption.csv")
+
+```
+
+## My First Tidy Tuesday
+
+After reading in my data I deciede it would be a good idea to write it as well to keep a .csv saved. The next important step was to actually look at my data
+
+```{r}
+food_consumption
+
+```
+
+Already from looking at it 1,430 rows thats alot of information so I began to think of ways to simplify it. 
+
+
+```{r}
+#This chuck will factor my data for use later
+
+food_consumption$food_category<-factor(food_consumption$food_category)
+
+
+```
+
+## Simiplifying my data
+
+After looking at my data I decieded to simplify it to represent only food categories and using their mean consumption and CO2 emmission. Then I selected the Top 5 CO2 Emmmiters
+
+```{r}
+
+food_consumption %>% 
+  group_by(food_category) %>% 
+  summarise(consumption=mean(consumption), co2_emmission=mean(co2_emmission)) %>%
+  arrange(desc(co2_emmission)) %>%
+  top_n(5, co2_emmission)->top_co2_food
+
+top_co2_food
+
+```
+
+After Creating my new tibble I had to create my first plot. This is a bar graph only comparing Food Category to its CO2 Emmision
+
+```{r}
+ggplot(top_co2_food, aes(x=food_category, y=co2_emmission, fill=food_category))+
+  geom_bar(stat="identity")+theme(legend.position = "none")+labs(x="Food Category",y="Mean CO2 Emmission")->B
+
+B
+```
+
+The next plot I created was one comparing the Food Category to the mean Consumption. I did not add the legend or X axis tittle because in my final step I would be combining them. No need for two legends and two X axis if they are going ot be same 
+
+```{r}
+
+
+  ggplot(top_co2_food, aes(x=food_category, y=consumption, fill=food_category))+
+  geom_bar(stat="identity")+theme(legend.position = "none", axis.title.x = element_blank())+labs(y="Mean Consumption")->A
+A
+
+  
+
+```
+
+Finally using patchwork I divided the two variables for the graphs I created to compare both bar graphs. Now in this bar graph we see Worldwide mean food consumption comapred to its mean CO2 emmission based on food category
+
+```{r}
+A/B->consumption_vs_emmission
+
+ggsave("my_first_Tidy.png", consumption_vs_emmission)
+
+consumption_vs_emmission
+
+
+
+```
