@@ -1,0 +1,56 @@
+---
+title: "Tidy_Tuesday1"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+food_consumption <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv')
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(tidyverse)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r, fig.width = 18, fig.height = 6}
+food_consumption
+
+food_consumption %>%
+  dplyr::filter(country %in% c("USA", "Greece")) %>%
+  ggplot(food_consumption, mapping = aes(x = food_category, y = co2_emmission, fill = food_category)) +
+  geom_bar(stat = "identity", position = position_dodge(), width = 0.5) +
+  scale_fill_manual(values = c("darkblue", "cyan", "blueviolet", "darkcyan", "dodgerblue", "lightgoldenrod4", "hotpink4", "forestgreen", "indianred3", "lightgoldenrod", "black")) +
+  facet_wrap(~country) +
+  labs(x = "Type of Food", y = "CO2 Emission", title = "Mediterranean Diet vs. American Diet CO2 Emissions") +
+  theme_grey() +
+  theme(axis.text.x = element_text(angle = 90, size = 10)) +
+  theme(legend.position = "right") 
+
+```
+
+By using the large dataset to create a simple plot, I demonstrated to myself that one can simplify data to answer particular questions, convey a clear message, and reorganize a lot of info into something communicable. I wanted to combine dplyr and ggplot2 in my code, and I am happy I was able to do that using our most recent classroom concepts. I also had the goal of using stat = "identity" because I was still a little unsure of how that worked. I taught myself how to add a subtitle in this code, but was unable to get the whole subtitle to show in the output. Concepts I hope to improve upon are renaming long category names (I tried using mutate, but could not figure out why it was saying "food_category" not found), altering the legend title (because I always forget that function and could not find it in my notes or online), and using a more complex plot in the future (rather than just a boxplot). 
+
+Oftentimes, we hear of the mediterranean diet (consisting of fruits, vegetables, whole grains, nuts, and healthy fats) being better for one's heart than traditional American dietary components. While multiple studies have proven the benefits of 'going Greek' for our bodies, we see that switching to this type of diet may also benefit our planet as well. The considerably higher consumption of lamb and goat in Greece exceeds that within the United States, but the diet overall presents a visibly smaller carbon footprint than an average American diet. Eating healthier is helpful for you, and Mother Earth!
