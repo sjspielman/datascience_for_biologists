@@ -1,0 +1,61 @@
+---
+title: "Tidy Tuesday 02/18/2020"
+author: "Madeline Greene"
+date: "2/20/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+
+#read in packages and data
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(patchwork)
+library(emojifont)
+
+
+load.emojifont("OpenSansEmoji.ttf")
+food_consumption <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-18/food_consumption.csv')
+
+
+
+```
+
+## Food Consumption and CO2 Emissions
+
+This is my interpretation of the data that was provided for this TidyTuesday!
+
+
+
+```{r, echo = TRUE, fig.height= 3, fig.width= 5}
+
+
+emojis <- c(emoji("cow"), emoji("egg"), emoji("fish"), emoji("goat"), emoji("milk_glass"), emoji("peanuts"), emoji("pig"), emoji("chicken"), emoji("rice"), emoji("seedling"), emoji("bread")) # tried, but egg, milk, peanut did not load on graph for some reason
+
+food_consumption %>%
+  group_by(food_category) %>% #only wanted the food categories
+  summarise(mean_co2 = mean(co2_emmission)) %>% #found the average
+  ggplot(aes(x = food_category, y = mean_co2, fill = food_category, color = food_category)) + 
+  geom_bar(stat = "identity") +
+  geom_text(label = emojis, family = "OpenSansEmoji" , size = 10, vjust = -0.3) + # labeled the bar graphs with emojis
+  labs( x = "Type of Food", y = "CO2 Emmissions (kg/person/year)", title = "Consumption of Food Types vs. CO2 Emmissions") +
+  theme_classic() +
+  theme(legend.position = "none") + #took away legend because was big and distracting
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  theme(plot.title = element_text(face= "bold")) -> food_consumption_plot
+
+
+food_consumption_plot
+
+ggsave("tidy_tuesday_week8.png", food_consumption_plot, height=8, width = 8)
+
+
+ 
+```
+
+** Currently in my data science class, we learned dplyr and piping, which I used that in my graph today. My professor mentioned a package for emojis, so I wanted to try that out for my graph. Most of the emojis worked, except three and I am not sure why. I was happy to keep practicing with group_by and summarise, because I was not very confident with that. I also learned about vjust, hjust, and andle for the element_text, which is going to be very useful for future graphs
+
+```
+
+
+
