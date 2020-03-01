@@ -1,0 +1,61 @@
+---
+title: "Tidy_Tuesday_2_28_2020"
+author: "Joseph Gabriel"
+date: "2/28/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+## R Markdown
+
+
+```{r, echo=FALSE}
+Measles <-read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-25/measles.csv') #reading in the data set. 
+
+Measles %>% #the Dataset
+  filter(mmr > 0) %>%  #Fchoose  the mmr data to filter for conditions great than one, that we have mmr data on
+  transmute(state, MMR_vacination = case_when(mmr > 90 ~ "Great", #transmute adds anew varibles and drops new ones, keeping state and mmr data
+                                   TRUE ~"Not Good")) %>%
+  mutate_if(is_character, factor) -> Measles2
+#anything that is a characteris now a factor 
+
+
+#filter speciically pulls out data for rowans
+filter(Measles2, state %in% c("Pennsylvania", "New York", "Massachusetts", "Connecticut", "New Jersey","Maine","Vermont", "Texas", "Arkansas" )) -> Measles3
+
+```
+
+
+```{r}
+Measles3 %>%  #the data set
+  group_by(state) %>% 
+  summarise(mmr = mean(MMR_vacination == "Great")) %>%   #percentages of schools that have the vaccination 
+  ggplot(aes(x= reorder(state, mmr), y = mmr, fill = state)) +
+  geom_col() + coord_flip() + theme(legend.position = "none") + #legend = FALSE removes the legend 
+theme_linedraw() + scale_y_continuous(labels = scales::percent) + labs(x = "State", y = "School's Measles, Mumps, and Rubella (MMR) vaccination rate") + ggtitle("MMR Vaccination Rate in Northern and Southern States") -> Finalmeasle
+
+
+#scales::percent converts the y axis to percent values
+
+
+```
+
+
+This weeks Tidy Tuesday I focused on Dplyr, converting characters into factors, I subsetted the data so it only picks states in the north and south. We can see from the graph the vaccinations rates of schools. We can see that majority of the kids in both northern and southern states are vaccinated for mmr. However, if we look at Arkansas. I learned new dplyr skills such as transmute, it adds variables but preserve existing ones. I kept state and took the mean of mmr rates. I had categorical data so I had to use mutate using is_character. Subsetting data is the most important lesson I learned from this weeks tidy verse, this function will be use full in the future. So far Dplyr has proved to be a tough however it yields serious sanctification when when the final plot is achieved in the way I envisioned. 
+
+```{r}
+Finalmeasle + theme(legend.position = "none") -> Finalplot
+
+
+ggsave("Finalplot.png")
+print(Finalplot) 
+```
+
+
+
+
+
