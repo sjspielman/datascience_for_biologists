@@ -35,7 +35,7 @@ The goal of this weekly extra credit is to develop your visualization and data w
 + Use the wrong week's dataset
 + Your figure is not reasonably well-formatted. The goal of this exercise is NOT to make the most beautiful figure as possible, but please don't actively attempt to make something hideous. Follow best-practices from "Fundamentals of Data Visualization." In addition, make sure the figure aspect ratio is appropriate. If your figure is not readable due to aspect ratio problems, you will not receive credit.
 + Submit code that is not fully reproducible. In other words, if I attempt to run your code and get an error of any kind, you will not receive credit.
-+ Use code that you did not write. This will further subject you to IAV penalties.
-
++ Use code that you did not write. This will further subject you to AIV penalties.
++ Your code chunks are not revealed in the output, e.g. you may NOT USE `echo=F`, `include=F`, or anything that hides your code or its output.
 
  
