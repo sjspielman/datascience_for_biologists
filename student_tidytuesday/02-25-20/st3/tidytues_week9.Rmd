@@ -1,0 +1,54 @@
+---
+title: "#TidyTuesday Submission"
+subtitle: "Data Science for Biologists, Spring 2020"
+author: "Nicholas Paterna"
+date: "February 25, 2020"
+output:
+  html_document:
+    highlight: tango
+    theme: yeti
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.align = "center")
+library(tidyverse)
+library(tidylog)
+theme_set(theme_bw())
+
+measles <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-25/measles.csv')
+```
+
+### TidyTuesday Week 9
+> Hi, this is my second time attempting to make a figure for #TidyTuesday! I am a student at Rowan University in Biochemistry with **_ZERO_** experience in coding at all. R is my first language and I am very happy to be learning it, I hope to work in Bioinformatics one day possibly Medical Genomics. I am open to criticism!
+
+```{r TT_Week9, fig.height=4, fig.width=6}
+
+new_england <- c("Maine", "Vermont", "Massachusetts", "Connecticut")
+#These are the New England states that presented mmr results in this dataset.
+fav_fill <- c("rosybrown3", "lightgoldenrod3", "honeydew3", "royalblue3")
+#Here is where I assigned the fills I wanted to a variable.
+
+measles %>%
+  select(state, mmr) %>%
+  group_by(state) %>%
+  filter(state %in% new_england) %>%
+  summarize(average_vac = mean(mmr)) %>%
+#All of the code above filters out the states of my choosing and then manipulates the data to show only the average vaccination rate per state.
+  ggplot(aes(x = fct_reorder(state, average_vac), y = average_vac)) +
+  geom_col(aes(fill = state)) +
+  scale_fill_manual(values = fav_fill) +
+  labs(x = "State",
+       y = "Average Vaccination Rate",
+       title = "Vaccination Rates in New England States") +
+  theme_minimal() +
+  theme(legend.position = "none") -> vaccine_plot
+
+ggsave("tidytuesday_week8.png", vaccine_plot, height = 4, width = 6)
+vaccine_plot
+```
+
+> I know this isn't much of a figure but I wanted to work more on isolating variables in the data that I want to examine. Here I looked at the states with reported data in the New England region, comparing the average vaccination rate per state. I also tried out something my professor showed us in class; to avoid hard coding fill values for multiple plots you can create a variable with the fills you desire. It worked!
+
+
