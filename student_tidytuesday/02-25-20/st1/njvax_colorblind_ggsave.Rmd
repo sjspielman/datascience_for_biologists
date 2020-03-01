@@ -1,0 +1,40 @@
+---
+title: "TidyTuesday 2020-02-25"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(usmap)
+```
+
+## Wrangling
+
+```{r}
+wsjvaccinedata <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-25/measles.csv') #read in TidyTuesday data
+
+wsjvaccinedata %>% 
+  filter(state=="New Jersey" & county !="#N/A" & overall!=-1) %>% #keep only New Jersey rows with valid county names and overall rates not equal to -1
+  select(state, overall, county) %>% 
+  group_by(county) %>% 
+  mutate(meanoverall=mean(overall))%>% #take mean of overall vaccination rate by county
+  rowwise %>% mutate(fips = fips(state, county))->nj_plot #add fips for each row
+```
+
+## Plot
+
+```{r pressure, fig.height=4, fig.width=5}
+plot_usmap("counties", include = "NJ", values="meanoverall", data = nj_plot)+
+    scale_fill_continuous(low = "gold", high = "darkmagenta", name = "Overall Vaccination Rate")+
+  theme(plot.title = element_text(hjust = 0.5, vjust=1), plot.subtitle = element_text(hjust = 0),
+    plot.caption = element_text(hjust = 0, size = 8), legend.justification = c(1,1), legend.position=c(2,.5))+
+labs(title = "Mean overall vaccination rate by NJ county", subtitle = "2017-18 School Year", caption = "Data from The Wall Street Journal")->finalplot
+finalplot
+ggsave("njvaxcolorblindfriendly.png")
+
+```
+
+In making this Tidy Tuesday submission, I learned that rowwise() is a useful dplyr function if one needs to apply a function to each row of a tibble. Furthermore, I learned that it is a good idea to read the readme documents which accompany unfamiliar R packages if you intend to use those packages, as this is where I discovered that rowwise() could be used in this manner. Finally, I learned that it is important to be aware of how a dataset is coding information: in this case, vaccination rates that were not available were coded in the data as -1, and county names that were not available were coded as "#N/A". Many more NJ rows were missing mmr rates than overall rates, so I chose to build a plot which displayed mean overall rates. However, because I removed all observations with overall rate values of -1 before calculating summary statistics, it is important to remember that the resulting plot may overstate the mean overall vaccination rates by county (if schools with low overall vaccination rates were more likely to have missing data).
+
+```
