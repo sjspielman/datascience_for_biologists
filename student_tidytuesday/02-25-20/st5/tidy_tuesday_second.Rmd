@@ -1,0 +1,51 @@
+---
+title: "tidy_tuesday_second"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(tidylog)
+theme_set(theme_classic())
+```
+
+## R Markdown
+
+
+```{r}
+measles <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-25/measles.csv')
+head(measles)
+```
+
+
+
+```{r, fig.width=8, fig.height=4}
+measles %>%
+  dplyr::filter(state %in% c("Arizona","California","Pennsylvania","New York")) %>% #use only selected states
+  ggplot(aes(x= state, y= mmr, color= state)) + 
+  geom_jitter(shape= 5) + #shape 5 gives the hallow boxes 
+  labs(x= "State", y= "MMR Vaccine Rate", title = "MMR Vaccine Rate in Arizona, California, New York & Pennsylvania") + 
+  # remove legend
+  theme(legend.position = "None") + 
+  #added colors
+  scale_color_manual(values = c("maroon3","mediumorchid4","royalblue1","royalblue4")) + 
+  # made title bold 
+  theme(plot.title = element_text(face= "bold")) + 
+  #added a box around figure
+  theme(plot.background = element_rect(color= "black")) + 
+  ##change font size of tick marks
+  theme(axis.text = (element_text(size= 8, angle= 10, color= "gray12"))) + 
+  ## change font size of axis titles
+  theme(axis.title = element_text(size= 10)) + 
+ #change font size and center title of plot
+  theme(plot.title = element_text(size= 14, hjust = 0.5)) -> tidytues_jitter
+
+tidytues_jitter
+
+ggsave("second_tidy_tues.png", tidytues_jitter, height = 4, width = 8)
+  
+
+```
+#### During this tidy tuesday I learned and became more comfortable with element_text and the different features I can use under it such as changing font size, color, angle font, and center it. I also tested out element_rect and found it put a box around the entire figure. Overall this tidy tuesday increased my ability to make small changes to a figure to make them more visually appealing using theme(element_text) or theme(element_rect). ######
+
