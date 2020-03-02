@@ -1,0 +1,53 @@
+---
+title: "Tidy Tuesday #2"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+
+
+measles <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-25/measles.csv')
+
+```
+
+## First Step Look at the Data
+
+
+
+```{r}
+measles
+```
+
+## Wrangle the data
+
+Then wrangle the data into the what I truly want to compare. In this case I want to compare the average MMR vaccine rate between private schools and public schools according to school year.
+
+```{r}
+measles %>%
+  select (year,type, mmr) %>%
+  drop_na()%>%
+  filter(type %in% c("Public","Private")) %>%
+  group_by(year,type) %>%
+  summarise(mmr=mean(mmr)) %>%
+  rename(average_mmr=mmr)-> average_mmr_school
+
+average_mmr_school
+```
+## Plot the Data
+
+Once everything as been wrangled, I displayed the data in a way that is color-blind friendly. In this graph it can be seen that over the a single school year the MMR vaccinae rate has dropped in private schools across the nation
+
+```{r}
+ggplot(average_mmr_school, aes(x=factor(year), y=average_mmr, fill=type))+
+  geom_bar(stat="identity", position="dodge")+
+  labs(x="School Year", y= "Percentage of Average MMR Vaccination \n Rate ", title = "Percentage National MMR Vaccination Rate \n per School Year In the United States",fill= "School Type")+
+  scale_fill_manual(values=c("black","grey"))->Tidy_tuesday_2
+
+Tidy_tuesday_2
+```
+
+```{r}
+ggsave("tidy_tuesday.png", Tidy_tuesday_2)
+```
