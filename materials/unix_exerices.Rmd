@@ -1,0 +1,85 @@
+---
+title: "UNIX Cheatsheet"
+output: html_document
+css: cheatsheet_style.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Words to the wise
+
++ The terminal is NOT the R Console. If you run UNIX commands in R Console, they won't work! If you run R commands in terminal, they will not work!
++ If/**when** you get the error message "No such file or directory" it means either:
+	+ You are trying to work with a file that is in a different directory from your current directory where you are issuing commands.
+	+ You spelled the file name incorrectly
++ You do NOT need to type quotes in UNIX. Arguments will be appropriately interpreted. In other words, `cd directory` NOT `cd "directory"`.
++ The `<>` symbols are placeholders! If you see `cd <gohere>` you should replace ALL OF `<gohere>` with your version, e.g. `cd Desktop/`.
++ When typing directories, you will see it written sometimes with and sometimes without a trailing "/", e.g. `~/Desktop` or `~/Desktop/`. Generally speaking, it makes no difference and these are equivalent, but including the slash makes it more _explicit_ that you are referring to a directory and not to a file. If you tab-autocompleted a directory name, UNIX will automatically tack on the slash
++ Do not forget the `-r` flag `rm -r` when trying to remove directories!!!!!!!!
+
+
+
+### Tasks
+
+> All of these tasks shoud be conducted in TERMINAL (or git-bash) with typing, NOT BY CLICKING IN FINDER! And also, definitely not in R Console. R != UNIX.
+
+**Don't forget tab autocomplete!!!**
+
+1. Navigate to your home directory. On RStudio Cloud, you are automatically there! It is likely you are also already there if you are also working locally. If not, run any of these to get back home:
+
+	```{bash, eval=F}
+	cd
+	cd ~
+	cd </full/path/to/home/> # replace that with the right path for you!
+	```
+
+2. Create a new file called `my_file.txt` using the command touch: `touch my_file.txt`
+
+3. Run `ls` to list all files and confirm this new file indeed was created.
+
+4. Run `ls -lh` which will list in long format AND show the **h**uman-readable file size - this new file should be O bytes (0B). Then, run `ls -lah`. This new *flag* "a" shows all hidden files as well. Surprising amount of stuff there huh (for those of you local - not much more is there on RStudio Cloud, since it always shows you hidden files in the File Pane by default!)
+
+5. Open the new file `my_file.txt` in a **Text Editor** and write something in it, save as you would normally, and close the file. On RStudio Cloud, click the file in the File Pane and then click "View File" to open it. If you are local, just double click the file (from a finder window! this question ONLY from a finder window!).
+
+6. In terminal, prove to yourself that you indeed modified this file! Run `ls -lh` again to see how the file size has changed now that it has contents. Then, run the command `cat my_file.txt` to reveal the file contents.
+
+7. Make a new directory call `unix_practice` with the command mkdir: `mkdir unix_practice` and then run `ls` to confirm it was made (it will now appear in the listed output).
+
+8. Move your newly created file `my_file.txt` to the new directory with the command `mv`: `mv my_file.txt unix_practice/` (Note: `mv my_file.txt unix_practice/` will work identically!)
+
+9. Navigate to this new directory with `cd unix_practice`, and then run the command `pwd` to see where you now are - it will show the full path to your current location.
+
+10. Now make a copy of this file named `my_duplicate_file.txt` using `cp`: `cp my_file.txt my_duplicate_file.txt`
+
+11. Delete the original file `my_file.txt` with `rm my_file.txt`, and run `ls` to confirm you removed it.
+
+11. Rename the still remaining file `my_duplicate_file.txt` to `my_only_file.txt` with the command `mv my_duplicate_file.txt my_only_file.txt`, and again `ls` to confirm.
+
+12. Navigate back to your home directory with `cd ..` (right? makes sense?). Confirm you made it back by typing `pwd` - your home directory's full path should be revealed!
+
+13. Remove the directory `unix_practice` you created with `rm -r unix_practice`, and `ls` to confirm.
+
+14. Run the command `history` and look at your many commands you ran! Only the ones that did NOT have errors get saved
+
+15. Make a new directory called `unix_more_practice`, and navigate into this directory.
+
+16. Create three files using touch (you can supply multiple files to touch and create them all simultaneously, e.g `touch file1 file2 file3`). These files should be called: 
+	+ `script1.R`
+	+ `otherscript2.R`
+	+ `script3.Rmd`
+
+17. Run the command `ls *R` to see all the R files only. The `*` means "everything", so this will list all files that end with the letter R. 
+
+18. Use `ls` to list all files that *begin* with "s" using a similar strategy to the last question.
+
+19. Make a new directory called `scripts_only` and **copy** all R scripts into that new directory in a single line of code: `cp *R scripts_only`
+
+20. *Without using cd*, list all the files now in `scripts_only` with the command `ls scripts_only/`. 
+
+21. Now, **rm** all files (still in `unix_more_practice`) that begin with "s" - but be careful!! Remove is PERMANENT! Hint: same answer as #18 except you are now using `rm` rather than `ls`.
+
+22. Clear your screen view with `clear`, and then convince yourself that while the screen is cleared, commands weren't deleted! You can cycle back with the up arrow, just like in the R console.
+
+
