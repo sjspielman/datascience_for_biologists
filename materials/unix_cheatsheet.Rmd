@@ -43,7 +43,7 @@ Command | Description &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs
 `ls` | **L**i**s**t files and directories in current directory. |  `ls` <br> `ls -l # display long` <br> `ls -a # show hidden files` <br> `ls *Rmd # list all files that end with "Rmd"`
 `pwd` | Display the path of the current directory (aka **p**rint **w**orking **d**irectory) | `pwd # yup that's it!`
 `rm` | **R**e**m**ove a file or directory (use `rm -r`). **Warning: This is PERMANENT!.** | `rm file_I_dont_need.txt` <br> `rm -r directory_I_dont_need/`
-`cp` | **C**o**p**y a file or directory (_original file unchanged_) | `cp oldfile.txt newfile.txt` <br> `cp oldfile.txt .. # make a copy of the file to live one directory up`
+`cp` | **C**o**p**y a file or directory(use `cp -r`) | `cp oldfile.txt newfile.txt` <br> `cp oldfile.txt .. # make a copy of the file to live one directory up` <br> `cp -r first_directory second_directory`
 `mv` | **M**o**v**e or rename a file or directory (_original file is changed_ - like "cut" aka ctl+X) |  `cp oldfile.txt newfile.txt` <br> `cp oldfile.txt .. # MOVE the file to live one directory up`
 `mkdir` | Create a new directory (aka **m**a**k**e **dir**ectory) | `mkdir new_directory`
 `touch` | Create an empty file. | `touch new_blank_file.txt`
