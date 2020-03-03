@@ -1,0 +1,17 @@
+/* Whole document: */
+body{
+  font-family: Helvetica;
+  font-size: 10pt;
+}
+/* Headers */
+h1{
+  font-size: 20pt;
+}
+h2{
+  font-size: 18pt;
+}
+blockquote {
+  display: block;
+  font-size: 1em;
+  font-weight: 500;
+}

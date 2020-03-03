@@ -1,0 +1,77 @@
+---
+title: "Git Cheatsheet"
+output: html_document
+css: ../rmd_lessons/static/sjs-style.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Words to the wise
++ **These are `git` commands to be run in TERMINAL**: Make sure you are not running them from the R CONSOLE - they are NOT THE SAME!
++ If you are working within RStudio Cloud, you will get this warning message when pushing:
+`error: cannot run rpostback-askpass: No such file or directory`. **Ignore it and do what you're doing!**
++ Be careful with quotes. Programming needs plain quotes, *not curly quotes*. If you ever copy/paste via a Word Document or Google Doc, there is a good chance your quotes became curly. Your commands will NOT WORK in that case!
++ When we type passwords in UNIX, no symbols appear - the password is STILL BEING TYPED, I promise.
+
+### Vocabulary
+
++ A **repository** is a directory that `git` is managing 
++ Files that `git` knows about are **tracked**, i.e they are **under version control**
++ File changed that will become part of the next commit are **staged**
++ The **origin** refers to the remote (i.e., not on your computer - in this case it's `github.com`) repository where your local repository was originally cloned from.
++ The word **master** refers to the primary repository branch. *Don't worry about it in this class*
+    + When you see `origin/master` displayed, interpret this to mean: the repository as it looks on `github.com`
+
+### Initial setup
+
+To avoid being constantly prompted, you need to do this ONE TIME ONLY on your computer (or, in a given RStudio Cloud project) in **terminal**.
+
+```{bash, eval=F}
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
+```
+
+For example, I would type:
+```{bash, eval=F}
+git config --global user.email "spielman@rowan.edu"
+git config --global user.name "Stephanie Spielman"
+```
+
+
+### The _very basic_, non-branch-using `git` command reference
+
+Command | Description
+-------|--------------
+`git clone <URL>` |  Clone the repository to a new computer. **This should only be run ONCE**.
+`git add <filename>` | Stage a file with changes
+`git rm <filename>`  | Remove a file from being tracked by git entirely
+`git mv <filename>` | Move a file and track this move with `git` in a shortcut version of `mv <filename> <newfilename>; git add <newfilename>` (Note: there is no analogous shortcut for `cp`)
+`git commit -m "message"` | Commit files that have been added/removed with a message! **Don't forget to type the `-m "message"` - you will be stuck in VIM if you forget, and that will not be pleasant.**
+`git push` | Send commit(s) to `github.com`
+`git pull` | Obtain commits pushed to `github.com` onto the current machine. **Run this EVERY TIME you return to the project**
+`git status` | Check the status of files
+`git log` | See past commits and associated messages (press the `q` key to exit)
+`git checkout <filename>` | Obtain the current `github.com` version of the file - useful when you screwed something up and want to start from scratch for this commit
+`git diff <filename under VC>` | Compare current UNSTAGED file version to the tracked version of the file
+
+
+
+
+### The individual `git` workflow
+
+> At any and all times, running `git status` will show you what is staged, what is tracked but not staged, and what is not tracked at all.
+
+1. **Obtain** a local version (aka, on your computer) of a repository with `git clone <repository URL>`
+2. **Add files for staging** with `git add <filename>`
+    + Sometimes you will others use `git add .` to add all contents of current directory, or similar `git add *`. **This has the potential for MAJOR DANGER, so you should always specify files INDIVIDUALLY to add.** You may therefore type `git add` several times for each file to add - yes!!
+    + Any time you make a change to a file, it must be re-added
+    + You can also remove files from being tracked entirely by git with `git rm <filename>`
+4. **Stage changes** (add/rm) with `git commit -m "An informative message that broadly says what the commit does"`
+5. **Push** changes to the `github.com` repository versions with `git push`
+    + Depending on your local setup, you may be prompted for your `github.com` username and password every time.
+6. **Update** your local repository with the `github.com` version of the repository with `git pull`
+    + *This is ALWAYS STEP 1 when returning to a project! YOU DON'T WANT CONFLICTS*
+
+
