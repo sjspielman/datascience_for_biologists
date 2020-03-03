@@ -427,6 +427,8 @@ summary {
 <li>If you are working within RStudio Cloud, you will get this warning message when pushing: <code>error: cannot run rpostback-askpass: No such file or directory</code>. <strong>Ignore it and do what you’re doing!</strong></li>
 <li>Be careful with quotes. Programming needs plain quotes, <em>not curly quotes</em>. If you ever copy/paste via a Word Document or Google Doc, there is a good chance your quotes became curly. Your commands will NOT WORK in that case!</li>
 <li>When we type passwords in UNIX, no symbols appear - the password is STILL BEING TYPED, I promise.</li>
+<li>All <code>git</code> commands can be run from anywhere INSIDE the git repository - doesn’t matter which specific directory (doesn’t need to be “top level”) as long as you are in one of them.</li>
+<li>When you make typos (like <code>git pusj</code> misspelling <code>git push</code>), <code>git</code> will try to suggest to you which command you actually want! It’s very helpful.</li>
 </ul>
 </div>
 <div id="vocabulary" class="section level3">
@@ -539,18 +541,36 @@ git config --global user.name &quot;Stephanie Spielman&quot;</code></pre>
 <div id="miscellaneous-troubleshooting" class="section level3">
 <h3>Miscellaneous Troubleshooting</h3>
 <p>Some messages you might see, what they mean, and how to deal with them:</p>
-<div id="when-trying-to-remove-a-file" class="section level5">
-<h5><strong>When trying to remove a file</strong>:</h5>
+<div id="when-trying-to-remove-a-file-with-git-rm-or-directory-with-git-rm--r" class="section level4">
+<h4>When trying to remove a file with <code>git rm</code> (or directory with <code>git rm -r</code>):</h4>
 <pre class="bash"><code>error: the following file has local modifications:
     &lt;name of file&gt;
 (use --cached to keep the file, or -f to force removal)</code></pre>
 <p>This means you want to remove the file, but because you changed the file from its last staged version, <code>git</code> is scared to do this! You have two choices:</p>
 <ol style="list-style-type: decimal">
 <li><p>Tell <code>git</code> no I really DO want to remove this with : <code>git rm -f &lt;name of file&gt;</code></p></li>
-<li><p>Revert the file and then remove it:</p></li>
-</ol>
+<li><p>Revert the file and then remove it:</p>
 <pre class="bash"><code>git checkout &lt;name of file&gt;
-git rm &lt;name of file&gt;</code></pre>
+git rm &lt;name of file&gt;</code></pre></li>
+</ol>
+</div>
+<div id="when-trying-to-add-or-remove-a-file" class="section level4">
+<h4>When trying to add or remove a file:</h4>
+<pre class="bash"><code>fatal: pathspec &lt;name of file&gt; did not match any files</code></pre>
+<p>This means you are trying to add or remove a file that doesn’t exist! Potentially, the file isn’t there at all - (did you spell it wrong? are you in right directory? However, if the file <em>does</em> exist and you can’t <code>git rm</code> it, that’s because the file isn’t actually under version control! <code>git</code> doesn’t already know about the file so it doesn’t want to remove it. Instead, you need to just remove the file regularly with plain <code>rm</code> instead of <code>git rm</code>.</p>
+</div>
+<div id="when-checking-status-or-making-a-commit" class="section level4">
+<h4>When checking <code>status</code> or making a <code>commit</code></h4>
+<pre class="bash"><code>On branch master
+Your branch is up to date with &#39;origin/master&#39;.
+
+nothing to commit, working tree clean</code></pre>
+<p>This means what’s on your computer exactly matches what is on github - there are no changes made and nothing to commit!</p>
+</div>
+<div id="when-trying-to-commit" class="section level4">
+<h4>When trying to <code>commit</code></h4>
+<pre class="bash"><code>error: switch `m&#39; requires a value</code></pre>
+<p>You forgot the commit <em>message</em>! You can’t just type <code>git commit -m</code> - you need <code>git commit -m &quot;YOUR MESSAGE GOES HERE&quot;</code>.</p>
 </div>
 </div>
 

@@ -14,7 +14,8 @@ knitr::opts_chunk$set(echo = TRUE)
 `error: cannot run rpostback-askpass: No such file or directory`. **Ignore it and do what you're doing!**
 + Be careful with quotes. Programming needs plain quotes, *not curly quotes*. If you ever copy/paste via a Word Document or Google Doc, there is a good chance your quotes became curly. Your commands will NOT WORK in that case!
 + When we type passwords in UNIX, no symbols appear - the password is STILL BEING TYPED, I promise.
-
++ All `git` commands can be run from anywhere INSIDE the git repository - doesn't matter which specific directory (doesn't need to be "top level") as long as you are in one of them.
++ When you make typos (like `git pusj` misspelling `git push`), `git` will try to suggest to you which command you actually want! It's very helpful.
 
 ### Vocabulary
 
@@ -79,9 +80,8 @@ Command | Description
 
 Some messages you might see, what they mean, and how to deal with them:
 
-#### When trying to remove a file with `git rm` (or directory with `git rm -r`)
+#### When trying to remove a file with `git rm` (or directory with `git rm -r`):
 
-##### One:
 ```{bash, eval=F}
 error: the following file has local modifications:
     <name of file>
@@ -92,16 +92,32 @@ This means you want to remove the file, but because you changed the file from it
 1. Tell `git` no I really DO want to remove this with : `git rm -f <name of file>`
 
 2. Revert the file and then remove it: 
-```{bash, eval=F}
-git checkout <name of file>
-git rm <name of file>
-```
+    ```{bash, eval=F}
+    git checkout <name of file>
+    git rm <name of file>
+    ```
 
-##### Two:
 
+#### When trying to add or remove a file:
 ```{bash, eval=F}
 fatal: pathspec <name of file> did not match any files
 ```
 
-This means you are trying to remove a file from version control but that file isn't even under version control in the first place! `git` doesn't already know about the file so it doesn't want to remove it. Instead, you need to just remove the file regularly with plain `rm` instead of `git rm`. 
+This means you are trying to add or remove a file that doesn't exist! Potentially, the file isn't there at all - (did you spell it wrong? are you in right directory? However, if the file *does* exist and you can't `git rm` it, that's because the file isn't actually under version control! `git` doesn't already know about the file so it doesn't want to remove it. Instead, you need to just remove the file regularly with plain `rm` instead of `git rm`. 
+
+#### When checking `status` or making a `commit`
+```{bash, eval=F}
+On branch master
+Your branch is up to date with 'origin/master'.
+
+nothing to commit, working tree clean
+```
+This means what's on your computer exactly matches what is on github - there are no changes made and nothing to commit!
+
+#### When trying to `commit`
+```{bash, eval=F}
+error: switch `m' requires a value
+```
+You forgot the commit *message*! You can't just type `git commit -m` - you need `git commit -m "YOUR MESSAGE GOES HERE"`.
+
 
