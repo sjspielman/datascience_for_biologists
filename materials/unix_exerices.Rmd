@@ -1,5 +1,5 @@
 ---
-title: "UNIX Cheatsheet"
+title: "UNIX Exercises"
 output: html_document
 css: cheatsheet_style.css
 ---
