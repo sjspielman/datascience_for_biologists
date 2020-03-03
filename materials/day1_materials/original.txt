@@ -1,0 +1,1 @@
+This is a blank text file for practicing UNIX commands.
