@@ -3,13 +3,7 @@ title: "UNIX Cheatsheet"
 output: html_document
 css: cheatsheet_style.css
 ---
-<style type="text/css">
-.main-container {
-  max-width: 1800px;
-  margin-left: auto;
-  margin-right: auto;
-}
-</style>
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
