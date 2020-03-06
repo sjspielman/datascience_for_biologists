@@ -14,7 +14,9 @@ Course materials for Rowan University Course "Data Science for Biologists" (BIOL
 
 [5. Data manipulation with `dplyr` I](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/rmd_lessons/05-introduction-dplyr.html)
 
-[6. Data manipulation with `dplyr` II](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/rmd_lessons/06-more-wrangling.html)
+[6. Data manipulation with `dplyr` (and some `tidyr`!) II](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/rmd_lessons/06-more-wrangling.html)
+
+[7. Working tidy and untidy data](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/rmd_lessons/07-tidyr-instructions.html)
 
 <!--
 "TODO" FOR ALL REMINDERS ON DEBUGGING DAY
