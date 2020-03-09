@@ -1,0 +1,46 @@
+---
+title: "tidy_tues_third"
+author: "Julianne Gallagher"
+date: "3/8/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(emojifont)
+```
+
+
+
+```{r}
+##load in data set 
+top_250 <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/top_250.csv')
+
+#view data set 
+top_250
+```
+```{r, fig.width= 5, fig.height=3}
+top_250 %>%
+  #top 25 players
+  filter(raw_rank == 1:25) %>%
+  select(player, total_goals) %>%
+  #added medal emoji
+  ggplot(aes(x= player, y= total_goals, label=sample(c(emoji('medal_sports'))))) +
+  #vertically adjusted it so it would be on top of bar & make gold 
+  geom_text(family="EmojiOne", size=6, vjust= 0, col='goldenrod4') +
+  geom_col(fill= "black") +
+  theme_classic() +
+  labs(x= "Player", y= "Total Number of Goals", title = "Top 25 Hockey Players") +
+  #adjusted x-label
+  theme(axis.text.x = element_text(angle= 40, hjust = 1, size= 10)) + 
+  #made title bold
+  theme(plot.title = element_text(face= "bold", size = 14)) -> first_emoji_plot
+#view plot
+first_emoji_plot
+#save as png file
+ggsave("third_tidy_tues.png",first_emoji_plot, height = 3, width = 5)
+
+```
+### This tidy tuesday I learned how to use emojis. I figured out how to search for the emoji I want and then applied it to my figure. I was able to then adjust the emoji so that it was on top of the bars instead of behind them. Overall, this tidytuesday was a lot of fun! ###
+
