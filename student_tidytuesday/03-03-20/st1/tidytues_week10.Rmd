@@ -1,0 +1,67 @@
+---
+title: "#TidyTuesday Submission"
+subtitle: "Data Science for Biologists, Spring 2020"
+author: "Nicholas Paterna"
+date: "March 6, 2020"
+output:
+  html_document:
+    highlight: tango
+    theme: yeti
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.align = "center")
+library(tidyverse)
+library(tidylog)
+theme_set(theme_bw())
+
+game_goals <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/game_goals.csv')
+
+top_250 <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/top_250.csv')
+
+season_goals <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-03/season_goals.csv')
+
+```
+
+### TidyTuesday Week 10
+Hi, this is my third time attempting to make a figure for #TidyTuesday! I am a student at Rowan University in Biochemistry with **_a little_** experience in coding thanks to Dr. Stephanie Spielman. R is my first language and I am very happy to be learning it, I hope to work in Bioinformatics one day possibly Medical Genomics. I am open to criticism!
+
+```{r TT_Week9, fig.height=4, fig.width=6}
+
+fav_fills <- c("darkorange2", "grey18")
+#Assigned fills to the figure, lets go FLyers.
+position_labels <- c("Center", "Left-Wing", "Right-Wing")
+#New labels for each of the positions.
+
+season_goals %>%
+  distinct(player, .keep_all = TRUE) %>%
+#Function removes duplicates of the players  
+  select(player, hand, position) %>%
+#Specifies which columns I am concerned with.  
+  drop_na(hand) %>%
+#Removes players who do not have a dominant hand specified in the dataset.  
+  filter(position %in% c("C", "LW", "RW")) %>%
+#This figure pertains only to offensive players, denfensemen are therefore excluded.
+  mutate(position = factor(position, labels = c(position_labels))) %>%
+#Defined position as a factor and assigned new labels to improve the figure.  
+  ggplot(aes(x = hand, fill = hand)) +
+  geom_bar() +
+  scale_fill_manual(values = fav_fills) +
+  facet_grid(~ position) +
+  labs(x = "",
+       y = "No. of Players",
+       fill = "Hand") +
+  theme_grey() -> hockey_plot
+
+ggsave("tidytuesday_week10.png", hockey_plot, height = 4, width = 6)
+hockey_plot
+
+```
+
+This week I wanted to try my hand (pun intended) at re-applying all the skills I have learned in my Data Science course. I attempted to use the 'pivot_wider' function to create a numeric value for right / left hands but realized this was not necessary as 'geom_bar' would perform a count for me. I decided to create a figure representing the comparision between right and left handed players by their position, only focusing on offensive positions.
+
+The data set this week is significant to me as my best friend loves hockey and her favorite team is the Philadelphia Flyers. The Flyers have become my favorite team as well; when Samantha's younger brother, another lifelong Flyers fan, was diagnosed with Leukemia for the second time the team reached out to their family and showered them with love, support, and the opportunity to interact with the team that they love. 
+
+If you would like to donate to the Children's Hospital of Pennsylvania, who administer treatment for Sam's little brother and thousands of other children suffering from cancer, [Donate Here](https://give2.chop.edu/give/241805/#!/donation/checkout).
