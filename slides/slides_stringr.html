@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Working with strings with stringr</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Stephanie J. Spielman" />
+    <link href="slides_stringr_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="slides_stringr_files/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Working with strings with <code>stringr</code>
+### Stephanie J. Spielman
+### Data Science for Biologists, Spring 2020
+
+---
+
+&lt;style type="text/css"&gt;
+pre {
+  white-space: pre-wrap;
+  
+}
+
+ul:first-child, ol:first-child {
+    margin: 0;
+}
+
+
+.remark-code, .remark-inline-code { 
+    color: #326369;
+    font-weight: 600;
+}
+/* Code block code */
+.hljs .remark-code-line { 
+  font-weight: normal;
+}
+
+.pull-left2{
+  float: left;
+  width: 60%;
+}
+
+.pull-right2{
+  float: right;
+  width: 35%;
+}
+&lt;/style&gt;
+
+
+
+
+## Working with strings
+
+
+
+```r
+# https://www.kentuckyderby.com/horses
+horse1 &lt;- "Silver Prospector" 
+horse2 &lt;- "Candy Tycoon"
+horse3 &lt;- "Shoplifted"
+
+all_horses &lt;- c(horse1, horse2, horse3)
+print(all_horses)
+## [1] "Silver Prospector" "Candy Tycoon"      "Shoplifted"
+```
+
+---
+
+## Useful `stringr` functions
+
+side = c("both", "left", "right")
++ General template: `str_ACTION(input_string, ...)`
+
++ `str_count(input_string, character_to_count)` ==&gt; integer
++ `str_detect(input_string, substring_to_detect)` ==&gt; logical
++ `str_replace(input_string, search, replace)` ==&gt; string
+  + `str_replace_all()` replace ALL occurrences instead of only first
++ `str_remove(input_string, substring_to_remove)` ==&gt; string
+  + `str_remove_all()` removes ALL occurrences instead of only first
++ `str_starts(input_string, substring)` ==&gt; logical
++ `str_ends(input_string, substring)` ==&gt; logical
++ `str_to_upper(input_string)` ==&gt; string (totally uppercase)
++ `str_to_lower(input_string)` ==&gt; string (totally lowercase)
++ `str_to_title(input_string)` ==&gt; string (totally cap'd after space)
++ `str_trim(input_string, side)` ==&gt; trimmed string 
+  + side is one of `c("both", "left", "right")`
++ `str_squish(input_string)` ==&gt; trimmed string 
+
+
+---
+
+## Counting instances of substrings `str_count()`
+
+
+```r
+horse1
+## [1] "Silver Prospector"
+all_horses 
+## [1] "Silver Prospector" "Candy Tycoon"      "Shoplifted"
+```
+
+
+```r
+str_count(horse1, "c")
+## [1] 1
+str_count(horse1, "spec")
+## [1] 1
+str_count(all_horses, "c")
+## [1] 1 1 0
+str_count(all_horses, "C")
+## [1] 0 1 0
+```
+
+---
+
+## Detecting instances of substrings `str_detect()`
+
+
+```r
+horse1
+## [1] "Silver Prospector"
+all_horses 
+## [1] "Silver Prospector" "Candy Tycoon"      "Shoplifted"
+```
+
+
+```r
+str_detect(horse1, "c")
+## [1] TRUE
+str_detect(horse1, "spec")
+## [1] TRUE
+str_detect(all_horses, "c")
+## [1]  TRUE  TRUE FALSE
+str_detect(all_horses, "C")
+## [1] FALSE  TRUE FALSE
+
+str_detect(horse1, "Sil", negate=T)
+## [1] FALSE
+!(str_detect(horse1, "Sil"))
+## [1] FALSE
+```
+
+---
+
+## Replacing instances of substrings `str_detect()`
+
+
+```r
+horse1
+## [1] "Silver Prospector"
+horse2
+## [1] "Candy Tycoon"
+all_horses 
+## [1] "Silver Prospector" "Candy Tycoon"      "Shoplifted"
+```
+
+
+```r
+str_replace(horse1, "c", "!!!")
+## [1] "Silver Prospe!!!tor"
+str_replace(all_horses, "c", "!!!")
+## [1] "Silver Prospe!!!tor" "Candy Ty!!!oon"      "Shoplifted"
+
+str_replace_all(horse2, "y", "WHY")
+## [1] "CandWHY TWHYcoon"
+```
+
+---
+
+## Checking beginnings, endings
+
+
+```r
+horse3
+## [1] "Shoplifted"
+all_horses 
+## [1] "Silver Prospector" "Candy Tycoon"      "Shoplifted"
+```
+
+
+```r
+str_starts(horse3, "S")
+## [1] TRUE
+str_starts(horse3, "s")
+## [1] FALSE
+str_starts(horse3, "Silver")
+## [1] FALSE
+str_starts(horse3, "Full")
+## [1] FALSE
+
+str_ends(horse3, "definitely not how horse3 ends")
+## [1] FALSE
+
+str_starts(all_horses, "Partial")
+## [1] FALSE FALSE FALSE
+```
+
+---
+
+## Changing cases
+
+
+```r
+horse3
+## [1] "Shoplifted"
+all_horses 
+## [1] "Silver Prospector" "Candy Tycoon"      "Shoplifted"
+```
+
+
+```r
+str_to_upper(horse3)
+## [1] "SHOPLIFTED"
+str_to_lower(horse3)
+## [1] "shoplifted"
+
+new_horse &lt;- "mischevious alex"
+str_to_title(new_horse)
+## [1] "Mischevious Alex"
+
+str_to_upper(all_horses)
+## [1] "SILVER PROSPECTOR" "CANDY TYCOON"      "SHOPLIFTED"
+```
+
+---
+
+### Trimming whitespace
+
+
+```r
+
+newer_horse &lt;- "Tiz the Law\n\n\n"
+str_trim(newer_horse)
+## [1] "Tiz the Law"
+```
+--
+
+```r
+newest_horse &lt;- "\r\r\rUntitled"
+str_trim(newest_horse)
+## [1] "Untitled"
+```
+--
+
+```r
+str_trim(newest_horse, side = "right")
+## [1] "\r\r\rUntitled"
+str_trim(newest_horse, side = "left")
+## [1] "Untitled"
+```
+
+---
+
+## What is whitespace?
+
+&gt; These can all be used as **regular expressions**
+
+
+| Symbol | Type of whitespace |
+|-------|---------------------|
+|`\s`    | any type of whitespace | 
+| `\t`   | a tab stroke | 
+| `\n`   | a new line (enter on UNIX) | 
+| `\r`   | return carriage (enter on PC) |
+| `" "`    | I literally typed the space key (but in quotes so you can see there is a space). There's no special symbol, just space!
+
+---
+
+## How to integrate with data analysis?
+
++ Many ways, but for you guys...
+  + `mutate()` new columns based on existing string columns
+  + `filter()` rows based on fulfilling certain conditions
+
+
+```r
+names(msleep)
+##  [1] "name"         "genus"        "vore"         "order"       
+##  [5] "conservation" "sleep_total"  "sleep_rem"    "sleep_cycle" 
+##  [9] "awake"        "brainwt"      "bodywt"
+msleep %&gt;%
+  ## select all columns that are characters (fancy select thing!!!)
+  dplyr::select_if(is.character)-&gt; msleep_str
+
+head(msleep_str, 3)
+## # A tibble: 3 x 5
+##   name            genus      vore  order     conservation
+##   &lt;chr&gt;           &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;       
+## 1 Cheetah         Acinonyx   carni Carnivora lc          
+## 2 Owl monkey      Aotus      omni  Primates  &lt;NA&gt;        
+## 3 Mountain beaver Aplodontia herbi Rodentia  nt
+```
+
+
+---
+
+## Examples!
+
+
+```r
+## capitalize genius
+msleep_str %&gt;%
+  dplyr::mutate(genus_upper = str_to_upper(genus)) %&gt;%
+  dplyr::select(genus, genus_upper) %&gt;%
+  head(2) ## only show top 3 rows
+## # A tibble: 2 x 2
+##   genus    genus_upper
+##   &lt;chr&gt;    &lt;chr&gt;      
+## 1 Acinonyx ACINONYX   
+## 2 Aotus    AOTUS
+```
+--
+
+```r
+## title name
+msleep_str %&gt;%
+  dplyr::mutate(name_titled = str_to_title(name)) %&gt;%
+  dplyr::select(name, name_titled) %&gt;%
+  head(3)
+## # A tibble: 3 x 2
+##   name            name_titled    
+##   &lt;chr&gt;           &lt;chr&gt;          
+## 1 Cheetah         Cheetah        
+## 2 Owl monkey      Owl Monkey     
+## 3 Mountain beaver Mountain Beaver
+```
+
+---
+
+
+```r
+## any monkeys?!?!??!!!
+msleep_str %&gt;%
+  dplyr::filter(str_detect(name, "monkey"))
+## # A tibble: 3 x 5
+##   name            genus        vore  order    conservation
+##   &lt;chr&gt;           &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;       
+## 1 Owl monkey      Aotus        omni  Primates &lt;NA&gt;        
+## 2 Patas monkey    Erythrocebus omni  Primates lc          
+## 3 Squirrel monkey Saimiri      omni  Primates &lt;NA&gt;
+```
+--
+
+```r
+## any rats? trust me this is going somewhere
+msleep_str %&gt;%
+  dplyr::filter(str_detect(name, "rat"))
+## # A tibble: 5 x 5
+##   name                      genus      vore  order    conservation
+##   &lt;chr&gt;                     &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;       
+## 1 African giant pouched rat Cricetomys omni  Rodentia &lt;NA&gt;        
+## 2 Round-tailed muskrat      Neofiber   herbi Rodentia nt          
+## 3 Laboratory rat            Rattus     herbi Rodentia lc          
+## 4 Cotton rat                Sigmodon   herbi Rodentia &lt;NA&gt;        
+## 5 Mole rat                  Spalax     &lt;NA&gt;  Rodentia &lt;NA&gt;
+```
+
+---
+
+## Introducing REGULAR EXPRESSIONS!
+
++ `\\b` means "word boundary"
+
+
+```r
+msleep_str %&gt;%
+  ## Look for pattern: rat must be its OWN WORD
+* dplyr::filter(str_detect(name, "\\brat\\b"))
+## # A tibble: 4 x 5
+##   name                      genus      vore  order    conservation
+##   &lt;chr&gt;                     &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;       
+## 1 African giant pouched rat Cricetomys omni  Rodentia &lt;NA&gt;        
+## 2 Laboratory rat            Rattus     herbi Rodentia lc          
+## 3 Cotton rat                Sigmodon   herbi Rodentia &lt;NA&gt;        
+## 4 Mole rat                  Spalax     &lt;NA&gt;  Rodentia &lt;NA&gt;
+```
+---
+## One more..
+
++ `[]` means set of matching characters
+
+
+```r
+msleep_str %&gt;%
+  ## Now, either case
+* dplyr::filter(str_detect(name, "\\b[Rr]at\\b"))
+## # A tibble: 4 x 5
+##   name                      genus      vore  order    conservation
+##   &lt;chr&gt;                     &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;       
+## 1 African giant pouched rat Cricetomys omni  Rodentia &lt;NA&gt;        
+## 2 Laboratory rat            Rattus     herbi Rodentia lc          
+## 3 Cotton rat                Sigmodon   herbi Rodentia &lt;NA&gt;        
+## 4 Mole rat                  Spalax     &lt;NA&gt;  Rodentia &lt;NA&gt;
+```
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightLines": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  /* Replace <script> tags in slides area to make them executable
+   *
+   * Runs after post-processing of markdown source into slides and replaces only
+   * <script>s on the last slide of continued slides using the .has-continuation
+   * class added by xaringan. Finally, any <script>s in the slides area that
+   * aren't executed are commented out.
+   */
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container:not(.has-continuation) script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+  var scriptsNotExecuted = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container.has-continuation script'
+  );
+  if (!scriptsNotExecuted.length) return;
+  for (var i = 0; i < scriptsNotExecuted.length; i++) {
+    var comment = document.createComment(scriptsNotExecuted[i].outerHTML)
+    scriptsNotExecuted[i].parentElement.replaceChild(comment, scriptsNotExecuted[i])
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

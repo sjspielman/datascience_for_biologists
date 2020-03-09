@@ -1,0 +1,283 @@
+---
+title: "Working with strings with `stringr`"
+author: "Stephanie J. Spielman"
+date: "Data Science for Biologists, Spring 2020"
+output:
+  xaringan::moon_reader:
+    nature:
+      highlightLines: true
+---
+```{css, echo=F}
+pre {
+  white-space: pre-wrap;
+  
+}
+
+ul:first-child, ol:first-child {
+    margin: 0;
+}
+
+
+.remark-code, .remark-inline-code { 
+    color: #326369;
+    font-weight: 600;
+}
+/* Code block code */
+.hljs .remark-code-line { 
+  font-weight: normal;
+}
+
+.pull-left2{
+  float: left;
+  width: 60%;
+}
+
+.pull-right2{
+  float: right;
+  width: 35%;
+}
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, collapse=TRUE, fig.height = 4, fig.width = 5)
+library(tidyverse)
+library(xaringan)
+library(patchwork)
+```
+
+
+## Working with strings
+
+
+```{r, collapse=T}
+# https://www.kentuckyderby.com/horses
+horse1 <- "Silver Prospector" 
+horse2 <- "Candy Tycoon"
+horse3 <- "Shoplifted"
+
+all_horses <- c(horse1, horse2, horse3)
+print(all_horses)
+```
+
+---
+
+## Useful `stringr` functions
+
+side = c("both", "left", "right")
++ General template: `str_ACTION(input_string, ...)`
+
++ `str_count(input_string, character_to_count)` ==> integer
++ `str_detect(input_string, substring_to_detect)` ==> logical
++ `str_replace(input_string, search, replace)` ==> string
+  + `str_replace_all()` replace ALL occurrences instead of only first
++ `str_remove(input_string, substring_to_remove)` ==> string
+  + `str_remove_all()` removes ALL occurrences instead of only first
++ `str_starts(input_string, substring)` ==> logical
++ `str_ends(input_string, substring)` ==> logical
++ `str_to_upper(input_string)` ==> string (totally uppercase)
++ `str_to_lower(input_string)` ==> string (totally lowercase)
++ `str_to_title(input_string)` ==> string (totally cap'd after space)
++ `str_trim(input_string, side)` ==> trimmed string 
+  + side is one of `c("both", "left", "right")`
++ `str_squish(input_string)` ==> trimmed string 
+
+
+---
+
+## Counting instances of substrings `str_count()`
+
+```{r}
+horse1
+all_horses 
+```
+
+```{r}
+str_count(horse1, "c")
+str_count(horse1, "spec")
+str_count(all_horses, "c")
+str_count(all_horses, "C")
+```
+
+---
+
+## Detecting instances of substrings `str_detect()`
+
+```{r}
+horse1
+all_horses 
+```
+
+```{r}
+str_detect(horse1, "c")
+str_detect(horse1, "spec")
+str_detect(all_horses, "c")
+str_detect(all_horses, "C")
+
+str_detect(horse1, "Sil", negate=T)
+!(str_detect(horse1, "Sil"))
+```
+
+---
+
+## Replacing instances of substrings `str_detect()`
+
+```{r}
+horse1
+horse2
+all_horses 
+```
+
+```{r}
+str_replace(horse1, "c", "!!!")
+str_replace(all_horses, "c", "!!!")
+
+str_replace_all(horse2, "y", "WHY")
+```
+
+---
+
+## Checking beginnings, endings
+
+```{r}
+horse3
+all_horses 
+```
+
+```{r}
+str_starts(horse3, "S")
+str_starts(horse3, "s")
+str_starts(horse3, "Silver")
+str_starts(horse3, "Full")
+
+str_ends(horse3, "definitely not how horse3 ends")
+
+str_starts(all_horses, "Partial")
+```
+
+---
+
+## Changing cases
+
+```{r}
+horse3
+all_horses 
+```
+
+```{r}
+str_to_upper(horse3)
+str_to_lower(horse3)
+
+new_horse <- "mischevious alex"
+str_to_title(new_horse)
+
+str_to_upper(all_horses)
+```
+
+---
+
+### Trimming whitespace
+
+```{r}
+
+newer_horse <- "Tiz the Law\n\n\n"
+str_trim(newer_horse)
+```
+--
+```{r}
+newest_horse <- "\r\r\rUntitled"
+str_trim(newest_horse)
+```
+--
+```{r}
+str_trim(newest_horse, side = "right")
+str_trim(newest_horse, side = "left")
+```
+
+---
+
+## What is whitespace?
+
+> These can all be used as **regular expressions**
+
+
+| Symbol | Type of whitespace |
+|-------|---------------------|
+|`\s`    | any type of whitespace | 
+| `\t`   | a tab stroke | 
+| `\n`   | a new line (enter on UNIX) | 
+| `\r`   | return carriage (enter on PC) |
+| `" "`    | I literally typed the space key (but in quotes so you can see there is a space). There's no special symbol, just space!
+
+---
+
+## How to integrate with data analysis?
+
++ Many ways, but for you guys...
+  + `mutate()` new columns based on existing string columns
+  + `filter()` rows based on fulfilling certain conditions
+
+```{r}
+names(msleep)
+msleep %>%
+  ## select all columns that are characters (fancy select thing!!!)
+  dplyr::select_if(is.character)-> msleep_str
+
+head(msleep_str, 3)
+```
+
+
+---
+
+## Examples!
+
+```{r}
+## capitalize genius
+msleep_str %>%
+  dplyr::mutate(genus_upper = str_to_upper(genus)) %>%
+  dplyr::select(genus, genus_upper) %>%
+  head(2) ## only show top 3 rows
+```
+--
+```{r}
+## title name
+msleep_str %>%
+  dplyr::mutate(name_titled = str_to_title(name)) %>%
+  dplyr::select(name, name_titled) %>%
+  head(3)
+```
+
+---
+
+```{r}
+## any monkeys?!?!??!!!
+msleep_str %>%
+  dplyr::filter(str_detect(name, "monkey"))
+```
+--
+```{r}
+## any rats? trust me this is going somewhere
+msleep_str %>%
+  dplyr::filter(str_detect(name, "rat"))
+```
+
+---
+
+## Introducing REGULAR EXPRESSIONS!
+
++ `\\b` means "word boundary"
+
+```{r}
+msleep_str %>%
+  ## Look for pattern: rat must be its OWN WORD
+  dplyr::filter(str_detect(name, "\\brat\\b")) #<<
+```
+---
+## One more..
+
++ `[]` means set of matching characters
+
+```{r}
+msleep_str %>%
+  ## Now, either case
+  dplyr::filter(str_detect(name, "\\b[Rr]at\\b")) #<<
+```
