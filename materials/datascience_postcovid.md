@@ -43,7 +43,7 @@ Your final grade will now be determined from:
 		+ Wrangling with `dplyr`
 		+ More wrangling with `dplyr`
 		+ The never-ending `tidyr` assignemnt
-	+ **6** coming up after break:
+	+ **6** coming up after break (tentative topics):
 		+ Permutation testing assignment
 		+ Linear modeling assignment
 		+ Logistic regression assignment
