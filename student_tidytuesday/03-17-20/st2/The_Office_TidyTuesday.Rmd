@@ -4,6 +4,8 @@ author: "Poonam Shah"
 date: "3/21/2020"
 output:
   html_document: default
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
