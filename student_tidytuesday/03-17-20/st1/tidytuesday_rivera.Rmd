@@ -1,0 +1,52 @@
+---
+title: "The Office - Tidy Tuesday"
+author: "Jordan Rivera-Davis"
+date: "3/22/2020"
+output:
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+```
+
+
+```{r}
+##read in data
+office_ratings <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-17/office_ratings.csv')
+
+##view data set
+office_ratings
+
+##this is my first Tidy-Tuesday submission. I love watching The Office, so I wanted to contribute! 
+
+##wrangling the data that I want to analyze, then saving it as a new data set
+office_ratings %>%
+  select (season, imdb_rating) %>%
+  drop_na()%>%
+  group_by(season) %>%
+  summarize(imdb_rating = mean(imdb_rating)) -> p1
+ 
+##plotting data
+ggplot(p1, aes(x = season, y = imdb_rating)) + 
+  xlim("1", "2", "3", "4", "5", "6","7","8", "9") +
+  geom_point(shape = 25, fill = "red", color = "blue", size = 3) + 
+  labs(x = "Season", y = "Average Rating", title = "Average Rating of The Office per Season") +
+  theme_light() -> office_plot
+  
+
+
+##as you can see, there was a drop in ratings after season 7, which is the season that Michael left. Not surprised.
+```
+
+
+
+
+```{r}
+
+ggsave("tidy_tuesday_the_office.png", office_plot, height = 5, width = 9)
+
+##I wanted to practice on making geom_point plots since it was difficult when I first learned about it. I really enjoy the show, so making this plot motivated me to participate in this week's tidy tuesday. It helped me visualize the data easier, compared to other data sets that I've worked with.
+```
+
+
