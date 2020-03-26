@@ -1,0 +1,186 @@
+---
+title: "Introduction to Linear Modeling"
+author: "Stephanie J. Spielman"
+date: "3/25/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(patchwork)
+library(broom) 
+```
+
+> CAUTION: This is NOT a full-fledged statistics course. This document focuses on performing and interpretting linear models rather than their mathematical underpinnings.
+
+## Resources
+
++ ["Statistical Inference via Data Science" Chapters 5-6](https://bookdown.org/cteplovs/ismaykim/6-regression.html)
+
+## What is a linear model?
+
+In statistics and data science, we often want to describe how the value of one variable *depends on and/or can be predicted by* the value of one or more other variables. For example, if we know an individual's height, could we reasonably predict their weight? Potentially - we might want to also consider a lot more information like the person's age, biological sex, health and diet, etc, in addition to just their height. The variable we are interested in predicting (here, *weight*) is known as the **response or dependent variable**. We are interested in seeing how certain other variables can provide meaningful information about weight, and we call these other variables **predictor or independent variables**.
+
+The term "linear model" implies a statistical framework for quantifying to what degree *one or more predictor variables* describes the variation seen in a *response variable*. Linear models can answer questions like...
++ Which of the predictor variables show a significant relationship with the response variable?
+  + In this case, *significant* (more or less..) implies that the predictor variable's values influence, to some degree, values of the response variable. An *insignificant* (again, more or less..) predictor is one whose influence on the response is no different from random chance.
++ How does the response value change when the predictor value changes?
++ How much variation in the response variable does each predictor variable explain?
+
+
+As described above, linear models can only model **numeric response variables.** There are other types of closely-related statistical models that one can use for modeling categorical response variables. For example, the pr
+
+
+The mathematical formula, generally speaking, for the simplest linear model:
+
+\begin{equation} 
+  Y = \beta_1X_1 + \beta_0 + \epsilon
+\end{equation} 
+
+
+The $Y$ is our response, and all $X$ variables are our predictors - in the simple example above, there is a single predictor $X_1$. Each $\beta$ (Greek letter "beta") is a given predictor's *coefficient*, and they quantify the relationship between each predictor and the response. The $\epsilon$ (Greek letter "epsilon") represents the *error* in the model, or in other words, what percent of variation in the response variable can NOT be explained by the predictor variable(s)? In fact, the formula above is actually the formula for a line, or as you may be used to seeing it, $Y= mX + B$;  the $\beta_1$ is the slope $m$, and the $\beta_0$ is the intercept $B$. 
+
+More generally for $N$ predictors, we can write the formula as (rearranged slightly)
+
+\begin{equation} \label{eq:full}
+  Y =  \beta_0 + \beta_1X_1 + \beta_2X_2 + \beta_3X_3 ... + \beta_NX_N + \epsilon
+\end{equation} 
+
+
+The error term $\epsilon$ is known as the model's *residuals* - how many variation in the response is residual (left over) after considering all the predictors? It is virtually never true that the predictors will capture 100% of the variation in the response, and the uncaptured percent falls into that $\epsilon$ term. Practically, what does this mean? We can visualize this most easily with a simple linear regression where a *line of best fit* is **FIT** (get it? line of best FIT?) to the data. This line of best fit IS the linear model - we will call it the regression line. 
+
+One of the most common procedures for fitting a model is called ["Ordinary Least Squares,"](https://en.wikipedia.org/wiki/Ordinary_least_squares) which is an algorithm that finds the line which minimizes the "sum of squares" of the residuals. The residuals themselves are the *distance* between each point and the regression line, and the sum of squares in this case is the summed of the residuals sqursquared distances of all data points to regression line (loosely). 
+
+**Consider this example** (images from [this book](https://www.amazon.com/Analysis-Biological-Data-Michael-Whitlock/dp/1936221489)) that shows the relationship between the age of a given lion the the proportion of its nose that is black (nose color changes over time for cats and dogs! awwww):
+
+![](./lm_files/whitlock_17.1-1.png){width=200px}
+
+A linear model for this data would be the simple regression, $Y = \beta_1X_1 + \beta_0$ aka a line.
+The computer (hooray!) will try to find the best combination of slope ($\beta_1$) and Y-intercept ($\beta_0$) that makes the residual sum of squares as small as possible by testing out hundreds or thousands of different values. This is what we mean by **fitting a model**: What set of *parameter* (fancy word for variables) match the data the best?
+
+In the three images below, we see three different ways this regression line could be drawn. Each line segment from the the point to the regression line is a residual!
+
+![](./lm_files/whitlock_17.1-2.png){width=500px}
+
++ "Large deviations": Very high sum of squares. This line is a poor fit to the data.
++ "Smaller deviations": A low sum of squares. The line is a better, but not best, fit to the data.
++ "Smallest deviations": This line represents the line that minimizes the residuals (which the computer found after trying hundreds or thousands of options!. Its corresponding slope and intercept are our *model parameters*. It turns out this slope is about $\beta_1 = 10.64$ and the intercept is about $\beta_0 = 0.88$. Our final fitted model would therefore be $Y = 10.64X_1 + 0.88 + \epsilon$. In the coming sections we will learn how to interpret these quantities.
+
+
+### Assumptions
+
+In this class, we will talk about two general (NOTE: this is a pun, because actually we are talking about "generalized linear models". You should be aware that my language choice is actually really funny) types of linear models:
+
++ "Linear regression", which are used to model **NUMERIC response variables** (this document)
++ "Logistic regression", which are used to model **BINARY (categorical) response variables** (e.g., "Yes/No" categories) (a forthcoming document)
+
+These models make several key assumptions about the underlying predictors and response variable. These assumptions represent properties in the data itself which must be satisified in order for the statistics to be reliably interpreted.
+
++ Linear regression models assume:
+  + *Numeric predictors* have a linear relationship with the numeric response. For example, in the two plots below, the LEFT shows a linear relationship: This data is suitable for analysis with a linear regression The RIGHT shows a non-linear relationship: This data is not suitable for analysis with a regression (unless you transform\*) the data. 
+```{r, echo=F, warning = F, message=F, fig.width = 8, fig.height=4}
+tibble(y = 10:60) %>%
+  mutate(x1 = y * runif(51, 1.5, 2), x2 = y**3) -> dat
+ggplot(dat, aes(x = x1, y=y))  +geom_point() + geom_smooth(method = "lm", se =F) + ggtitle("Reasonably linearly related") + xlab("X") + ylab("Y")-> p1
+ggplot(dat, aes(x = x2, y=y))  +geom_point() + geom_smooth(method = "lm", se =F) + ggtitle("Clearly NOT linearly related")+ xlab("X") + ylab("Y")-> p2
+p1 + p2
+```
+  + *Categorical predictors* should have uniformly-distributed variance. 
+
+  + The *residuals* of the model should be normally-distributed (a bell curve).
+```{r, echo=F, warning = F, message=F, fig.width = 8, fig.height=4}
+tibble(x = rnorm(500)) %>%
+  ggplot(aes(x = x)) +geom_density(fill = "cadetblue") + xlab("residuals") + ggtitle("Reasonably normally distributed") -> p1
+tibble(x = rexp(500)) %>%
+  ggplot(aes(x = x)) +geom_density(fill = "darkorchid3") + xlab("residuals") + ggtitle("Clearly NOT normally distributed")-> p2
+p1 + p2
+```
+  + Your numeric data itelf should also be normally distributed, but thanks to the [Central Limit Theorem](https://en.wikipedia.org/wiki/Central_limit_theorem) we can largely "ignore" this assumption for most circumstances we'll see (aka more than 100 or so data points.)
+
+### Analyses that are actually all linear regression models
+
+You will often hear these fancy statistical names for different tests. Fundamentally, they are all linear regressions with different types of predictors. Really there is no need to distinguish them!! You just need to know how to interpret predictor coefficients, and you can make any model you want. Again, all linear regressions have a **numeric response**. 
+
++ Simple linear regression: Models with a single *numeric* predictor variable
++ Multiple linear regression: Models with several  *numeric* predictor variable
++ ANOVA (**An**alysis **o**f **Va**riance): Models with a single *categorical* predictor variable
++ MANOVA (**M**ultivariate **An**alysis **o**f **Va**riance): Models with a multiple *categorical* predictor variables
++ ANCOVA (**An**alysis of **Cova**riance): Models with a single *categorical* AND one or more *numeric* predictor variables
++ MANCOVA (**M**ultivariate **An**alysis of **Cova**riance): Models with multiple *categorical* AND multiple *numeric* predictor variables
+
+
+
+## Examples and interpretation
+
+
+#### This code chunk is your function cheatsheet
+```{r, eval=F, error=T}
+# Single predictor
+lm(Y ~ X, data = <dataframe>) -> lm_output
+
+# Multiple independent predictors
+lm(Y ~ X + X1 + X2, data = <dataframe>) -> lm_output
+
+# Multiple predictors with an interaction effect
+lm(Y ~ X*X1, data = <dataframe>) -> lm_output
+
+broom::tidy(lm_output)   ## See output of model but tidy!
+broom::glance(lm_output) ## See other output of model but tidy!
+broom::augment(lm_output) ## Get mmmooorrree information
+```
+
+> All examples will use the external dataset `sparrows`
+
+```{r}
+sparrows <- read_csv()
+head(sparrows)
+glimpse(sparrows)
+skim(sparrows)
+```
+
+### Simple linear regression
+
+Let's begin with a simple regression to examine the relationship between **diamond price** and **diamond carat**. We wish to know whether diamond price can be predicted from carat. Therefore, carat is our predictor (X) variable, and price is our response (Y) variable. To simplify, let's look at ONLY "Ideal" diamonds. 
+```{r}
+
+## Data of interest
+diamonds %>%
+  dplyr::filter(cut == "Ideal") %>%
+  dplyr::select(carat, price) -> ideal_diamonds
+```
+
+
+**The very first thing we should do is VISUALIZE our data** (when there are $\leq2$ predictors, it's doable). Get an initial sense of what to expect, and *and* see if data are indeed linearly related.
+
+```{r}
+# predictor goes on X, response goes on Y
+ggplot(ideal_diamonds, aes(x = carat, y = price)) + 
+  geom_point()
+```
+ We perform regressions using the function `lm()` (any guesses what this stands for?).
+
+```{r}
+## perform linear regression and save as model_fit
+model_fit <- lm(price ~ carat, data = ideal_diamonds)
+
+## view output with summary(). Ugly, useful for getting a visual overview.
+summary(model_fit)
+```
+
+
+
+### When would you need to transform??
+
+Below are some examples of when data transformation is needed:
+
+1. In the `diamonds` dataset price and carat should be logged
+2. In the `msleep`dataset weight needs to be logged
+
+
+```{r}
+## view output with broom::tidy() and broom::glance(). Pretty, useful for tibble-oriented data analysis
+broom::tidy(model_fit)
+broom::glance(model_fit)
+```
+
