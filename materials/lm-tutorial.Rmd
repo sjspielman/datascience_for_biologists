@@ -1,8 +1,10 @@
 ---
-title: "Introduction to Linear Modeling"
+title: "Introduction to Linear Modeling: Part 1"
 author: "Stephanie J. Spielman"
 date: "3/25/2020"
 output: html_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
@@ -14,9 +16,12 @@ library(broom)
 
 > CAUTION: This is NOT a full-fledged statistics course. This document focuses on performing and interpretting linear models rather than their mathematical underpinnings.
 
+<!--
 ## Resources
 
 + ["Statistical Inference via Data Science" Chapters 5-6](https://bookdown.org/cteplovs/ismaykim/6-regression.html)
+-->
+
 
 ## What is a linear model?
 
@@ -86,9 +91,9 @@ ggplot(dat, aes(x = x1, y=y))  +geom_point() + geom_smooth(method = "lm", se =F)
 ggplot(dat, aes(x = x2, y=y))  +geom_point() + geom_smooth(method = "lm", se =F) + ggtitle("Clearly NOT linearly related")+ xlab("X") + ylab("Y")-> p2
 p1 + p2
 ```
-  + *Categorical predictors* should have uniformly-distributed variance. 
+  + *Categorical predictors* should have uniformly-distributed variance. **TODO**
 
-  + The *residuals* of the model should be normally-distributed (a bell curve).
+  + The *residuals* of the model should be normally-distributed (a bell curve). There is another type of plot we will see later in this document for more carefully examining residuals.
 ```{r, echo=F, warning = F, message=F, fig.width = 8, fig.height=4}
 tibble(x = rnorm(500)) %>%
   ggplot(aes(x = x)) +geom_density(fill = "cadetblue") + xlab("residuals") + ggtitle("Reasonably normally distributed") -> p1
@@ -111,7 +116,10 @@ You will often hear these fancy statistical names for different tests. Fundament
 
 
 
+
+
 ## Examples and interpretation
+
 
 
 #### This code chunk is your function cheatsheet
@@ -133,40 +141,147 @@ broom::augment(lm_output) ## Get mmmooorrree information
 > All examples will use the external dataset `sparrows`
 
 ```{r}
-sparrows <- read_csv()
-head(sparrows)
-glimpse(sparrows)
-skim(sparrows)
+sparrows <- read_csv("https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/materials/lm_files/sparrows.csv")
+dplyr::glimpse(sparrows)
 ```
 
-### Simple linear regression
+### Simple linear regression: Single numeric predictor
 
-Let's begin with a simple regression to examine the relationship between **diamond price** and **diamond carat**. We wish to know whether diamond price can be predicted from carat. Therefore, carat is our predictor (X) variable, and price is our response (Y) variable. To simplify, let's look at ONLY "Ideal" diamonds. 
-```{r}
-
-## Data of interest
-diamonds %>%
-  dplyr::filter(cut == "Ideal") %>%
-  dplyr::select(carat, price) -> ideal_diamonds
-```
+Let's begin with a simple regression to examine the relationship between **Weight** and **Skull Length**. We wish to know whether weight can be predicted from skull length. Therefore, skull lengthis our predictor (X) variable, and weight is our response (Y) variable.
 
 
-**The very first thing we should do is VISUALIZE our data** (when there are $\leq2$ predictors, it's doable). Get an initial sense of what to expect, and *and* see if data are indeed linearly related.
+**The very first thing we should do is VISUALIZE our data** (when there are $\leq2$ predictors, it's doable). Get an initial sense of what to expect, and *and* see if data are indeed linearly related. Indeed, this relationship looks fairly linear, and apparantly positively related, so we are good to go.
 
-```{r}
+```{r, fig.width = 3, fig.height = 3}
 # predictor goes on X, response goes on Y
-ggplot(ideal_diamonds, aes(x = carat, y = price)) + 
+ggplot(sparrows, aes(x = Skull_Length, y = Weight)) + 
   geom_point()
 ```
- We perform regressions using the function `lm()` (any guesses what this stands for?).
+
+
+
+We perform regressions using the function `lm()` (any guesses what this stands for?).
 
 ```{r}
 ## perform linear regression and save as model_fit
-model_fit <- lm(price ~ carat, data = ideal_diamonds)
+model_fit <- lm(Weight ~ Skull_Length, data = sparrows)
 
 ## view output with summary(). Ugly, useful for getting a visual overview.
 summary(model_fit)
 ```
+
+
+Let's go line-by-line through the output:
+
++ **Call** simply reminds us of the linear model formula we specified when using `lm()`
++ **Residuals** shows the *five-number summary* of the residuals (in this case, distance of each point to the line of best-fit).
++ **Coefficients** tell us our $\beta$ values. Their *Estimate* is the value the model returned, Their *Std. Error* indicates how close/far these model estimates, derived from the sample, likely are from the "true" population values. The *t value* is *t* statistic associated with the estimate's significance, and the final column *Pr(>|t|)  * is the P-value associated with the *t* statistic - it tells us if the coefficient is significant or not.
+  + **Intercept**: This is our $\beta_0$ and it tells us: **What is the EXPECTED VALUE of the response variable when the numeric predictor value is 0?** In this case, what do we expect the Weight will be when Skull Length is 0? Here, we expect -8.149  - this is of course NOT realistic and illustrates perfectly that you need to be careful to INTERPRET COEFFICIENTS WITH BIOLOGICAL INTUITION!! Just because the computer spits out a number doesn't mean it's meaningful. No sparrow will have a skull length of 0.
+    + **Intercept significance**: The P-value for the intercept is derived from a standard null hypotheis: "The intercept = 0." Significant P-values can be interpreted to mean that it is unlikely the true intercept is 0 (but caution, this is NOT exactly what P-values mean). In this case, the intercept is actually NOT significant (P=0.0998) - therefore, we can only conclude that "there is no evidence the intercept differs from 0."
+  + **Skull_Length**: This is our $\beta_1$ and it tells us: **What is the EXPECTED change of the response the predictor increases by a unit of 1?** In this case, by how much do we expect Skull Width will increase/decrease when the Skull Length goes up by 1? Here, we expect for every unit change in skull length, skull width *increases* by 1.0663. Remember in this case, this value is the slope!!!
+    + **Coefficient significance**: The P-value for any numeric intercept is derived from a standard null hypotheis: "The coefficient = 0." Significant P-values can be interpreted to mean that it is unlikely the true coefficient is 0 (but caution, this is NOT exactly what P-values mean). The P-value here is highly significant ($P=2.45e-10$), so we are reasonably confident that the true value indeed differs from 0.
++ **Residual standard error**: The standard error associated with residuals. Don't worry much about this line for thsi class.
++ **Multiple R-squared** and	**Adjusted R-squared** give the **R^2** associated with the model!! This is SUPER important. The "adjusted R^2" is somewhat more reliable for consideration - it corrects for any overfitting artifacts inherent in modeling, so focus on this value. **A model's R^2 tells you the percent of variation in the response that can be explained by the predictors**. It's associated P-value is on the next line (here, `p-value: 2.446e-10`), and the associated standard null for this P-value is "R^2 = 0."
+  + **In this model, 25.388% of the variation in skull widths can be explained by skull lengths. 74.62% of the varation in skull widths is therefore UNEXPLAINED by our model.** That 74.62% is sneakily hidden in the $\epsilon$ term of the linear model equation. 
+  
+  
+**From this model, we have discovered the following:**
+
++ ~25.3% of variation in sparrow skull widths can be explained by skull lengths. While highly significant, this is a relatively low $R^2$ (perhaps we would have benefitted by including more information in our model!). Remember: effect size is NOT the same as significance!
++ For every unit increase in skull length, we expect weight to increase, on average, by ~1.0663.
++ We did not reject the null that the intercept is 0, so we expect expect the average sparrow with a skull length of 0 to have a weight of 0. But we also recognize that this is ridiculous and just because the math says it doesn't mean it's biologically meaningful.
+
+
+### Simple ANOVA: Single categorical predictor
+
+What if, rather than a numeric predictor (Skull Length), we had a *categorical* predictor, say Age? Here we might ask: **Does age predict weight in sparrows**? 
+
+Again, begin with a quick-and-dirty visualization. Here we'd like to see that the distribution of skull widths has similar *spread* between ages (assumption of equal variance for categorical predictors!). Indeed, these two distributions show similar amounts of spread (how much relative space along the Y axis they take up), so assumption is met.
+
+```{r, fig.width = 3, fig.height = 3}
+ggplot(sparrows, aes(x = Age, y = Weight, color=Age)) + geom_jitter()
+```
+
+
+Let's run the model:
+```{r}
+## perform linear model and save as model_fit
+model_fit <- lm(Weight ~ Age, data = sparrows)
+
+## view output with summary(). 
+summary(model_fit)
+```
+
+*This is where factors become really important*: All linear model output when categorical predictors are used assumes a given LEVEL of the categorical variable. Unless you re-factor a variable explicitly, levels will be used in alphabetical order - here, "Adult" comes before "Young".
+
+We see the intercept is highly significant ($P<2e-16$) with a value of 25.49. For a model with a categorical predictor, this value means: *What is the expected weight for your average ADULT (the first level of Age) sparrow*? 
+
+The coefficient here is associated with `AgeYoung` - it means, on average, we expect YOUNG birds to have weights on average 0.0765 units larger compared to Adult birds. Notably, for a categorical variable with $N$ levels, there will be see $N-1$ coefficients (one for each of the non-default). *Interpret categorical coefficients as the relative increase (or decrease if negative!) of response for this predictor level compared to the first/default predictor level.* The default here is Adult (alphabet!!). In this case, however, the P-value is NOT significant (P=0.772). Similarly our adjusted $R^2$ is not significant.
+
+**This model therefore tells us: Age is NOT predictive of weight in sparrows!**
+ 
+
+### LM with numeric and categorical predictors
+
+Let's see how to run and interpret a model with BOTH numeric and categorical predictors. We will examine how Age AND Skull Length might be predictive of Weight in sparrows. Importantly, when you have multiple predictors, the model assumes they are FULLY INDEPENDENT and ENTIRELT UNRELATED. Of course this is not always true, and the next section shows how to deal with that issue.
+
+Let's run the model with multiple predictors, which we simply add together in the formula
+```{r}
+## perform linear model and save as model_fit
+model_fit <- lm(Weight ~ Age + Skull_Length, data = sparrows)
+
+## view output with summary(). 
+summary(model_fit)
+```
+
+When considering BOTH Age and Skull Length, we find:
+
++ The intercept means your average Adult bird with a skull length of 0 has a weight of -8.26. It's insigificant and unrealistic - moving on.
++ The "AgeYoung" means *when controlling for skull length*, each Young bird will weigh ~0.118 more than an Adult bird. Again, it's insigificant so we actually have no evidence the weight increase between Adult/Young differs from 0.
++ The "Skull_Length" coefficient means *when controlling for age*, the average bird's weight increases by 1.07 for each unit increase in skull length, and it's highly significant! Something! 
++ The predictors explain $~24.9%$ of the variation in weight. **Critically, this is LESS THAN the model with Skull_Length as the only predictor** (before, $R^=0.2538$). By including the Age predictor, we in fact added NOISE rather than INFORMATION to the model - so we are actually LESS predictive.
++ ~75% of variation in weight is unexplained by the significant predictor skull_length.
+
+
+### LM with multiple numeric predictors
+
+Now we will look at a model with multiple numeric predictors, Skull Width *and* Skull Length. We know already that skull length has a linear relationship with weight from earlier in this document, so let's just check out the linearity of weight/skull width. Indeed, the relationship is linear, so let's proceed.
+
+```{r, fig.width = 3, fig.height = 3}
+ggplot(sparrows, aes(x = Skull_Length, y = Weight)) + geom_point()
+```
+
+ summary(lm(Weight ~ Skull_Width + Skull_Length, data = sparrows))
+
+### LM with interaction effects
+
+
+ summary(lm(Weight ~ Femur_Length * Skull_Length, data = sparrows))
+
+ summary(lm(Weight ~ Femur_Length * Skull_Length, data = sparrows))
+
+The problem with the last two analyses was that they ASSUMED the predictors were fully independent of one another - this assumption of independent predictors is in fact a key assumption of linear models. But of course, it is not always the case that predictors are completely independent - Age and Skull Length, and almost certainly Skull Length and Skull Width, themselves are probably related to a degree! We can directly test and/or control for this non-independence using **interaction effects**. 
+
+The rule is **significant interacton effects trump significant independent effects.**
+
+width length
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
