@@ -447,29 +447,3 @@ The problem with the last two analyses was that they ASSUMED the predictors were
 The rule is **significant interacton effects trump significant independent effects.**
 
 --> 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--
-### When would you need to transform??
-
-Below are some examples of when data transformation is needed:
-
-1. In the `diamonds` dataset price and carat should be logged
-2. In the `msleep`dataset weight needs to be logged
-
--->
