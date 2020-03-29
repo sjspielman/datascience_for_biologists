@@ -1,8 +1,11 @@
 ---
-title: "Introduction to Linear Modeling: Part 1"
+title: "Introduction to Linear Modeling"
 author: "Stephanie J. Spielman"
-date: "3/25/2020"
-output: html_document
+date: "Data Science for Biologists, Spring 2020"
+output: 
+  html_document:
+    theme: spacelab
+    highlight: zenburn
 editor_options: 
   chunk_output_type: console
 ---
@@ -59,14 +62,14 @@ One of the most common procedures for fitting a model is called ["Ordinary Least
 
 **Consider this example** (images from [this book](https://www.amazon.com/Analysis-Biological-Data-Michael-Whitlock/dp/1936221489)) that shows the relationship between the age of a given lion the the proportion of its nose that is black (nose color changes over time for cats and dogs! awwww):
 
-![](./lm_files/whitlock_17.1-1.png){width=200px}
+![](./lm_files/whitlock_17.1-1.png){width=250px}
 
 A linear model for this data would be the simple regression, $Y = \beta_1X_1 + \beta_0$ aka a line.
 The computer (hooray!) will try to find the best combination of slope ($\beta_1$) and Y-intercept ($\beta_0$) that makes the residual sum of squares as small as possible by testing out hundreds or thousands of different values. This is what we mean by **fitting a model**: What set of *parameter* (fancy word for variables) match the data the best?
 
 In the three images below, we see three different ways this regression line could be drawn. Each line segment from the the point to the regression line is a residual!
 
-![](./lm_files/whitlock_17.1-2.png){width=500px}
+![](./lm_files/whitlock_17.1-2.png){width=600px}
 
 + "Large deviations": Very high sum of squares. This line is a poor fit to the data.
 + "Smaller deviations": A low sum of squares. The line is a better, but not best, fit to the data.
@@ -83,18 +86,31 @@ In this class, we will talk about two general (NOTE: this is a pun, because actu
 These models make several key assumptions about the underlying predictors and response variable. These assumptions represent properties in the data itself which must be satisified in order for the statistics to be reliably interpreted.
 
 + Linear regression models assume:
-  + *Numeric predictors* have a linear relationship with the numeric response. For example, in the two plots below, the LEFT shows a linear relationship: This data is suitable for analysis with a linear regression The RIGHT shows a non-linear relationship: This data is not suitable for analysis with a regression (unless you transform\*) the data. 
-```{r, echo=F, warning = F, message=F, fig.width = 4, fig.height=3}
+  + *Numeric predictors* have a linear relationship with the numeric response. For example, in the two plots below, the LEFT shows a linear relationship: This data is suitable for analysis with a linear regression. The RIGHT shows a non-linear relationship: This data is not suitable for analysis with a regression (unless you transform) the data. 
+```{r, echo=F, warning = F, message=F, fig.width = 6, fig.height=2}
 tibble(y = 10:60) %>%
-  mutate(x1 = y * runif(51, 1.5, 2), x2 = y**3) -> dat
-ggplot(dat, aes(x = x1, y=y))  +geom_point() + geom_smooth(method = "lm", se =F) + ggtitle("Reasonably linearly related") + xlab("X") + ylab("Y")-> p1
-ggplot(dat, aes(x = x2, y=y))  +geom_point() + geom_smooth(method = "lm", se =F) + ggtitle("Clearly NOT linearly related")+ xlab("X") + ylab("Y")-> p2
+  mutate(x1 = y * runif(51, 0.5, 2.5), x2 = y**3) -> dat
+ggplot(dat, aes(x = x1, y=y))  +geom_point() + geom_smooth(method = "lm", se =F, size=0.5) + ggtitle("Reasonably linearly related") + xlab("X") + ylab("Y")-> p1
+ggplot(dat, aes(x = x2, y=y))  +geom_point() + geom_smooth(method = "lm", se =F, size=0.5) + ggtitle("Clearly NOT linearly related")+ xlab("X") + ylab("Y")-> p2
 p1 + p2
 ```
-  + *Categorical predictors* should have uniformly-distributed variance. **TODO**
+  + *Categorical predictors* should have uniformly-distributed variance. For example, in the two plots below, the LEFT shows a numeric variable whose different distributions *across the categorical variable have about the same spread* (although the means differ!): This data is suitable for analysis with a linear regression. The RIGHT shows an example where variance is NOT equally distributed, and this may not be suitable for analysis with a linear regression.
+```{r, echo=F, warning = F, message=F, fig.width = 6, fig.height=2}
+tibble("categorical predictor" = c(rep("category 1", 50), rep("category 2", 50), rep("category 3", 50)),
+       "response values" = c(rnorm(50, 10, 2), rnorm(50, 20, 2), rnorm(50, 5, 2))) %>%
+  ggplot(aes(x = `categorical predictor`, y = `response values`, color = `categorical predictor`)) +  geom_jitter(size=0.5) + theme(legend.position = "none") + ggtitle("Equal variance across groups :)") -> p1
 
-  + The *residuals* of the model should be normally-distributed (a bell curve). There is another type of plot, called a "Q-Q plot" ("quantile-quantile") we will see later in this document for more carefully examining residuals.
-```{r, echo=F, warning = F, message=F, fig.width = 6, fig.height=3}
+
+tibble("categorical predictor" = c(rep("category 1", 50), rep("category 2", 50), rep("category 3", 50)),
+       "response values" = c(rnorm(50, 10, 2), rnorm(50, 20, 7), rnorm(50, 5, 0.2))) %>%
+  ggplot(aes(x = `categorical predictor`, y = `response values`, color = `categorical predictor`)) +  geom_jitter(size=0.5) + theme(legend.position = "none") + ggtitle("UNEQUAL variance across groups :(") -> p2
+
+p1 + p2
+```
+  
+
+  + The *residuals* of the model should be normally-distributed (a bell curve). **There is another type of plot, called a "Q-Q plot" ("quantile-quantile") we will see later in this document for more carefully examining residuals.**
+```{r, echo=F, warning = F, message=F, fig.width = 6, fig.height=2}
 tibble(x = rnorm(500)) %>%
   ggplot(aes(x = x)) +geom_density(fill = "cadetblue") + xlab("residuals") + ggtitle("Reasonably normal") -> p1
 tibble(x = rexp(500)) %>%
@@ -115,7 +131,36 @@ You will often hear these fancy statistical names for different tests. Fundament
 + MANCOVA (**M**ultivariate **An**alysis of **Cova**riance): Models with multiple *categorical* AND multiple *numeric* predictor variables
 
 
+### Let's not forget correlation!
 
+A closely related (both conceptually and mathematically) topic here is *correlation*, which is a quantity that tells us whether two variables appear to be associated, or non-independent. **Correlation does NOT IMPLY causation** - it merely implies an observable pattern of association. There are many different wants to quantify a correlation, but the most commonly-used one is Pearson correlation. This quantity measures strength and direction a of **linear** association between normally-distributed numeric variables. This is measured with the correlation coefficient *r* which can be any value in $-1 \leq r \leq 1$. Below are shown examples of data with PERFECT correlations: there is a perfect x/y association, but the directions are different. There is also an example of NO correlation.
+
+```{r, echo=F, fig.width=6.5,fig.height=2}
+tibble(x = seq(1, 100, 5), y = x*-1, y2 = runif(20, -10, 10)) -> dat
+
+p1 <- ggplot(dat, aes(x=x,y=x)) + geom_point() + geom_abline(color="red", size=0.5) + xlab("Predictor") + ylab("Response") + ggtitle("r = 1")
+
+p2 <- ggplot(dat, aes(x=x,y=y)) + geom_point() + geom_abline(slope = -1, color="red",size=0.5) + xlab("Predictor") + ylab("Response") + ggtitle("r = -1")
+
+p3 <- ggplot(dat, aes(x=x, y=y2)) + geom_point() + geom_hline(yintercept=0, color="red", size=0.5) + xlab("Predictor") + ylab("Response") + ggtitle("r = 0")
+
+p1 + p2 + p3
+```
+
+
+The strength of the relationship is heavily influenced by *noise* (images from [this book](https://www.amazon.com/Analysis-Biological-Data-Michael-Whitlock/dp/1936221489)):
+
+![](./lm_files/whitlock_16.6-1.png){width=600px}
+
+
+**But be careful!!** The computer will still calculate a correlation even if the data is not linearly related! The correlatio below is NOT VALID because the assumption of linearity has not been met. Always plot your data!!!
+
+```{r,echo=F, fig.width=3, fig.height=2.5}
+tibble(x = (1:200)/10, y = exp(x)) -> dat
+ggplot(dat, aes(x=x,y=y)) + geom_point(size=0.25) + ggtitle("r = 0.52, but NOT VALID")
+```
+
+There are other types of correlations that can be employed (for example, Spearman rank correlation) when the data is not linearly related.
 
 
 ## Examples and interpretation
@@ -133,8 +178,12 @@ lm(Y ~ X + X1 + X2, data = <dataframe>) -> lm_output
 # Multiple predictors with an interaction effect
 lm(Y ~ X*X1, data = <dataframe>) -> lm_output
 
-broom::tidy(lm_output)   ## See output of model but tidy!
-broom::glance(lm_output) ## See other output of model but tidy!
+# Standard view of fitted model
+summary(lm_output) 
+
+# Tidy views of fitted model
+broom::tidy(lm_output)   ## Coefficients
+broom::glance(lm_output) ## R^2 and other _model fit_ metrics
 broom::augment(lm_output) ## Get mmmooorrree information
 ```
 
@@ -164,6 +213,8 @@ We perform regressions using the function `lm()` (any guesses what this stands f
 
 ```{r}
 ## perform linear regression and save as model_fit
+## Y ~ X !!!!!!!!!!!!!! 
+## RESPONSE ~ PREDICTOR !!!!!!!!!!!!!!!!1
 model_fit <- lm(Weight ~ Skull_Length, data = sparrows)
 
 ## view output with summary(). Ugly, useful for getting a visual overview.
@@ -182,7 +233,7 @@ Let's go line-by-line through the output:
   + **Skull_Length**: This is our $\beta_1$ and it tells us: **What is the EXPECTED change of the response the predictor increases by a unit of 1?** In this case, by how much do we expect Skull Width will increase/decrease when the Skull Length goes up by 1? Here, we expect for every unit change in skull length, skull width *increases* by 1.0663. Remember in this case, this value is the slope!  We can also write this as $1.0663\pm0.1557$ to show the standard error!!
     + **Coefficient significance**: The P-value for any numeric intercept is derived from a standard null hypotheis: "The coefficient = 0." Significant P-values can be interpreted to mean that it is unlikely the true coefficient is 0 (but caution, this is NOT exactly what P-values mean). The P-value here is highly significant ($P=2.45e-10$), so we are reasonably confident that the true value indeed differs from 0.
 + **Residual standard error**: The standard error associated with residuals. Don't worry much about this line for thsi class.
-+ **Multiple R-squared** and	**Adjusted R-squared** give the **R^2** associated with the model!! This is SUPER important. The "adjusted R^2" is somewhat more reliable for consideration - it corrects for any overfitting artifacts inherent in modeling, so focus on this value. **A model's R^2 tells you the percent of variation in the response that can be explained by the predictors**. It's associated P-value is on the next line (here, `p-value: 2.446e-10`), and the associated standard null for this P-value is "R^2 = 0."
++ **Multiple R-squared** and	**Adjusted R-squared** give the **R^2** associated with the model!! This is SUPER important and *it is actually the squared Pearon correlation coefficient*. The "adjusted R^2" is somewhat more reliable for consideration - it corrects for any overfitting artifacts inherent in modeling, so focus on this value. **A model's R^2 tells you the percent of variation in the response that can be explained by the predictors**. It's associated P-value is on the next line (here, `p-value: 2.446e-10`), and the associated standard null for this P-value is "R^2 = 0."
   + **In this model, 25.388% of the variation in skull widths can be explained by skull lengths. 74.62% of the varation in skull widths is therefore UNEXPLAINED by our model.** That 74.62% is sneakily hidden in the $\epsilon$ term of the linear model equation. 
   
   
@@ -211,7 +262,9 @@ ggplot(sparrows, aes(x = Skull_Length, y = Weight)) +
 ```
 
 
-**Critical followup: What is a confidence interval?** A confidence interval (CI) is meant to help convey *error* in the estimate - in this case, the confidence bands you see (yellow area around the line) represents the error associated with our fitted slope aka our model's $\beta_1$ estimate! Loosely speaking, a *95% CI* (ggplot and many others use 95% confidence interval by default) means: Assuming all the lovely assumptions of our statistical framework, there is 95% probability that the TRUE VALUE OF THE SLOPE is within the CI. For an excellent intuitive understanding of what this means, see [the second plot example in this package's README](https://github.com/wilkelab/ungeviz).
+**Critical followup: What is a confidence interval?** A confidence interval (CI) is meant to help convey *error* in the estimate - in this case, the confidence bands you see (yellow area around the line) represents the error associated with our fitted slope aka our model's $\beta_1$ estimate! Loosely speaking, a *95% CI* (ggplot and many others use 95% confidence interval by default) means: Assuming all the lovely assumptions of our statistical framework, there is 95% probability that the TRUE VALUE OF THE SLOPE is within the CI. Stated more accurately in context: If you took X random samples of sparrows and calculated their regressions of weight across skull length, 95% of the time the line (slope and intercept!) would fall within the 95% shaded area CI.
+
+**For an excellent intuitive understanding of what this means, see [the second plot example in this package's README](https://github.com/wilkelab/ungeviz).**
 
 #### Checking the residuals
 
@@ -222,7 +275,8 @@ We can check this assumption using a **QQ plot**, specifically a NORMAL QQ plot 
 First, we need to get the residuals themselves out of the model - my preferred way for doing this uses the `broom()` package. This packages tidies (sweeps up?...sigh.) model output into nice little tibbles, and it has three main functions we want: `broom::tidy()`, `broom::glance()`, and `broom::augment()`. The first two are nice for collecting the ugly summary data into tibbles. We simply pass in the model output itself.
 
 ```{r}
-# assumes broom library is loaded! it comes installed with tidyverse, but you need to load with library(broom) in the setup chunk.
+# assumes broom library is loaded! 
+# it comes installed with tidyverse, but needs to be loaded with library(broom) in the setup chunk.
 
 # Gives coefficients in tidy form
 broom::tidy(model_fit)
@@ -236,10 +290,11 @@ broom::augment(model_fit)
 
 
 Focusing on the `augment()` output, we see there are 136 rows - indeed there are 136 sparrows!! Each row represents an outcome from the model. The particular columns we may want are `.fitted` and `.resid`:
+
 + `.fitted`: What does the model formula give for the response at this predictor? For example, row 1 is an observation with skull length of 31.2 and weight of 24.5. If I put the *predictor* 31.2 into the model $y = 1.0663x - 8.148$, I'd get: **1.0663*31.2 - 8.149 = 25.1**!! We won't use this quantity now, but it's really nice to know about.
 + `.resid`: The residual associated with that row - this column contains our residuals!!!
 
-For making QQ plots, we'll use the base R functions `qqnorm()` and `qqline()` (in this case base R is a lot easier than ggplot2). They are run as *separate commands entirely*:
+For making QQ plots, we'll use the base R functions `qqnorm()` (for a **norm**al distribution QQ plot) and `qqline()` (in this case base R is a lot easier than ggplot2). They are run as *separate commands entirely*, but R will always assume `qqline()` should go on top of the *most recently run QQ plot*:
 
 ```{r}
 ## plot
@@ -250,7 +305,7 @@ qqnorm(augmented_fit$.resid)
 qqline(augmented_fit$.resid, col = "red")  #Personal preference, I like making it a color. base R uses "col"
 ```
 
-This is pretty good, but could be better - the right tail end of the plot has a bit too much deviation, but not so much that I'd worry. So, I'm satisified with the assumptions being met for this model.
+This is pretty good, but could be better - the tails of the plot has a bit of deviation, but not so much that I'd worry. So, I'm satisified with the assumptions being met for this model.
 
 *Here are examples of how the plot might look when it's time to start worrying:*
 ```{r, echo=F, fig.height=4, fig.width=10}
@@ -259,7 +314,7 @@ par(mfrow=c(1,3))
 x <- log(1:50)
 qqnorm(x)
 qqline(x)
-x <- exp(c(1:10, 50:80))
+x <- c(rnorm(100, 10, 1), rnorm(20, 5, 1), rnorm(20, 15, 1))
 qqnorm(x)
 qqline(x)
 x <- (1:50)**3
@@ -302,15 +357,15 @@ The coefficient here is associated with `AgeYoung` - it means, on average, we ex
 ggplot(sparrows, aes(x = Age, y = Weight, color = Age)) + 
   geom_jitter() + 
   stat_summary(geom = "point",  ## draw a point
-               fun.y = "mean",  ## take the mean along the y-axis
+               fun   = "mean",  ## FUNction to apply: take the mean
                color = "black", size = 4) ## point styling
 ```
 
-As you can see, those means look about identical!! It makes sense that the model did *not* show evidence that Age affects Weights.
+As you can see, those means look about identical!! It makes sense that the model did *not* show evidence that Age is predictive of Weight.
 
 ### LM with numeric and categorical predictors
 
-Let's see how to run and interpret a model with BOTH numeric and categorical predictors. We will examine how Age AND Skull Length might be predictive of Weight in sparrows. Importantly, when you have multiple predictors, the model assumes they are FULLY INDEPENDENT and ENTIRELT UNRELATED. Of course this is not always true, and the next section shows how to deal with that issue.
+Let's see how to run and interpret a model with BOTH numeric and categorical predictors. We will examine how Age AND Skull Length might be predictive of Weight in sparrows. Importantly, when you have multiple predictors, the model assumes they are FULLY INDEPENDENT and ENTIRELY UNRELATED. Of course this is not always true, and the next section shows how to deal with that issue.
 
 Let's run the model with multiple predictors, which we simply add together in the formula
 ```{r}
@@ -326,7 +381,7 @@ When considering BOTH Age and Skull Length, we find:
 + The intercept means your average Adult bird with a skull length of 0 has a weight of -8.26. It's insigificant and unrealistic - moving on.
 + The "AgeYoung" means *when controlling for skull length*, each Young bird will weigh ~0.118 more than an Adult bird. Again, it's insigificant so we actually have no evidence the weight increase between Adult/Young differs from 0.
 + The "Skull_Length" coefficient means *when controlling for age*, the average bird's weight increases by 1.07 for each unit increase in skull length, and it's highly significant! Something! 
-+ The predictors explain $~24.9%$ of the variation in weight. **Critically, this is LESS THAN the model with Skull_Length as the only predictor** (before, $R^=0.2538$). By including the Age predictor, we in fact added NOISE rather than INFORMATION to the model - so we are actually LESS predictive.
++ The predictors explain $~24.9%$ of the variation in weight. **Critically, this is LESS THAN the model with Skull_Length as the only predictor** (before, $R^2=0.2538$). By including the Age predictor, we in fact added NOISE rather than INFORMATION to the model - so we are actually LESS predictive.
 + ~75% of variation in weight is unexplained by the significant predictor Skull Length.
 
 **How can we visualize this model?** We can again make a scatterplot, and show the trend lines for each Age:
@@ -339,17 +394,7 @@ ggplot(sparrows, aes(x = Skull_Length, y = Weight, color = Age)) +
   annotate("text", x = 30.5, y = 30, label = "R^2 == 0.249", parse=T, size=5)
 ```
 
-This visualization shows us what the model did in numbers: See how the confidence bands for Adult and Young are completely overlapping???? This gives us a strong sense that Age does NOT have an effect on weight here - otherwise, the two trend lines would be fully distinct. Instead, since only skull length was significant, a single trend line is more accurate to represent our conclusions:
-
-```{r, fig.width = 6, fig.height = 4}
-ggplot(sparrows, aes(x = Skull_Length, y = Weight)) + 
-  geom_point(aes(color = Age)) + 
-  geom_smooth(method = "lm") +
-  labs(x = "Skull Length") + 
-  annotate("text", x = 30.5, y = 30, label = "R^2 == 0.249", parse=T, size=5)
-```
-
-**All that said**, when we find that certain predictors are NOT significant, it is usually NOT A GOOD IDEA to keep them in the model because they model noise rather than real signal. We'll learn more about this later: *How do you choose which predictors are helpful to include, and which are helpful to exclude, to get the most predictive power?*
+This visualization shows us what the model did in numbers: See how the confidence bands for Adult and Young are completely overlapping???? This gives us a strong sense that Age does NOT have an effect on weight here - otherwise, the two trend lines would be fully distinct. **All that said, when we find that certain predictors are NOT significant, it is usually NOT A GOOD IDEA to keep them in the model because they capture noise rather than real signal.** We'll learn more about this later: How do you choose which predictors are helpful to include, and which are helpful to exclude, to get the most predictive power?*
 
 
 ### LM with multiple numeric predictors
