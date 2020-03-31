@@ -13,8 +13,9 @@ editor_options:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
-library(patchwork)
+library(modelr)
 library(broom) 
+library(patchwork)
 ```
 
 > CAUTION: This is NOT a full-fledged statistics course. This document focuses on performing and interpretting linear models rather than their mathematical underpinnings.
@@ -320,11 +321,15 @@ qqline(x)
 x <- (1:50)**3
 qqnorm(x)
 qqline(x)
-
 ```
 
+**Notably** there is another neat way to get the residuals using the package `modelr` (within `tidyverse`, but needs to be loaded). We will use several more functions from this VERY helpful (but caution, often times very advanced) package soon!. The function `add_residuals()` can be used this way:
 
-
+```{r}
+## first argument is the data itself, second is the model object
+## output column `resid` contains the goods
+add_residuals(sparrows, fitted_model)
+```
 ### Simple ANOVA: Single categorical predictor
 
 What if, rather than a numeric predictor (Skull Length), we had a *categorical* predictor, say Age? Here we might ask: **Does age predict weight in sparrows**? 
@@ -435,6 +440,46 @@ ggplot(sparrows, aes(x = Skull_Length, y = Weight, color = Skull_Width)) +
 
 
 ### LM with interaction effects
+
+So far, we have fit TWO models that have multiple predictors: 1) using Age and Skull length, and 2) using Skull width and skull length. Both models made the assumption that all predictors are independent of one another, e.g. skull width and length are independent (in statistical terms, we'd say those models used "additive effects"). Of course, this is unlikely to be the case. In addition, it is possible that the effects of skull length on weight *depend* on skull width, and vice versa. We would call this an **interaction effect.** 
+
+As an analogy, consider the interaction between variables "rain" and "umbrella." Whether an umbrella is useful *depends on* the "rain status":
++ When it IS raining, umbrellas are helpful and useful to carry around
++ When it is NOT raining, umbrellas are generally not helpful and annoying to have to carry around
+
+**As a general rule, when you have multiple predictors for a linear model, it is usually a good idea to FIRST run the model assuming an interaction effect. If the interaction effect is not significant, use an additive model instead.**
+
+### Interaction Plots
+
+To get a sense of models with interactions, let's look at an *interaction plot* to visually examine whether there is an interaction between *Age and Survival* and their ability to predict Weight. Interaction plots explictly show how the *mean response* (here, mean weight) depends on levels of a categorical predictor: 
+```{r}
+sparrows %>%
+  ## get mean weight per group first
+  group_by(Age, Survival) %>% # the two variables who INTERACTION EFFECT on weight we want to see
+  summarize(mean_weight = mean(Weight)) %>%
+  ggplot(aes(x = Age, y = mean_weight, color = Survival)) + 
+    # point at the means
+    geom_point() +
+    # connect points from ONE of the two predictors to compare effect on response
+    geom_path(aes(group = Survival)) # probably best to match group w/ color aes
+```
+This plot above shows a *potential interaction effect*!! It seems, for birds who survived ("Alive"), adults have higher mean weights compared to the young, but th OPPOSITE appears true for birds who died ("Dead"). Notably, you see the *slopes of these lines do not match.* A linear model will tell us if this potential interaction is significant - but note the tiny tiny breaks on the Y-axis? IF there is a significant interation, it will likely have a very smallm effect size aka "biological significance."
+
+
+<br>
+Below is an example of an interaction plot that does NOT suggest an interaction: It shows how Sex and Survival might jointly affect Weight:
+```{r}
+sparrows %>%
+  ## get mean weight per group first
+  group_by(Sex, Survival) %>% 
+  summarize(mean_weight = mean(Weight)) %>%
+  ggplot(aes(x = Sex, y = mean_weight, color = Survival)) + 
+    geom_point() + 
+    geom_path(aes(group = Survival)) 
+```
+Here, we see both lines have the same slope - the effect of Sex does NOT appear to depend on Survival. Regardless of Survival, the trend of Sex as it relates to Weight appears largely consistent. It is unlikely there is a significant interaction effect here.
+
+
 
 <!--
 
