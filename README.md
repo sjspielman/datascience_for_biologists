@@ -18,6 +18,8 @@ Course materials for Rowan University Course "Data Science for Biologists" (BIOL
 
 [7. Working tidy and untidy data](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/rmd_lessons/07-tidyr-instructions.html)
 
+[8. Tutorial: Introduction to linear regression](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/materials/lm_model_selection.html)
+
 <!--
 "TODO" FOR ALL REMINDERS ON DEBUGGING DAY
 
