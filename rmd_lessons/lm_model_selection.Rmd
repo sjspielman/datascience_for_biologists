@@ -25,7 +25,7 @@ library(patchwork)
 
 Again, let's use some crabs data:
 ```{r, collapse=T}
-crabs <- read_csv("https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/materials/lm_files/crabs.csv")
+crabs <- read_csv("https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/rmd_lessons/lm_files/crabs.csv")
 dplyr::glimpse(crabs)
 ```
 

@@ -52,47 +52,48 @@ modelr::add_residuals(dataframe, lm_output)    # residuals for each observation
 
 ## What is a linear model?
 
-In statistics and data science, we often want to describe how the value of one variable *depends on and/or can be explained/predited by* the value of one or more other variables. For example, if we know an individual's height, could we reasonably predict their body depth? Potentially - we might want to also consider a lot more information like the person's age, biological sex, health and diet, etc, in addition to just their height. The variable we are interested in predicting (here, *body depth*) is known as the **response or dependent variable**. We are interested in seeing how certain other variables can provide meaningful information about body depth, and we call these other variables **predictor or explanatory or independent variables**.
+In statistics and data science, we often want to describe how the value of one variable *depends on and/or can be explained/predited by* the value of one or more other variables. For example, if we know an individual's height, could we reasonably predict their weight? Said otherwise: to what extent can height explain variation we see in weight? Potentially we might want to also consider a lot more information like the person's age, biological sex, health and diet, etc, in addition to just their height. The variable we are interested in predicting (here, *weight*) is known as the **response/dependent variable**. We are interested in seeing how certain other variables can provide meaningful information about body depth, and we call these other variables **predictor/explanatory/independent variables**.
 
 The term "linear model" implies a statistical framework for quantifying to what degree *one or more predictor variables* describes the variation seen in a *response variable*. Linear models can answer questions like...
+
 + Which of the predictor variables show a significant relationship with the response variable?
-  + In this case, *significant* (more or less..) implies that the predictor variable's values influence, to some degree, values of the response variable. An *insignificant* (again, more or less..) predictor is one whose influence on the response is no different from random chance.
-+ How does the response value change when the predictor value changes?
-+ How much variation in the response variable does each predictor variable explain?
+  + In this case, *significant* (more or less..) implies that the predictor variable's values explain, to some degree, variation seen in the response variable. An *insignificant* (again, more or less..) predictor is one whose explanatory abilities on the variation in the response variable are no different from random chance.
++ How does do we expect the response value changes, on average, when the predictor value changes?
++ How much variation in the response variable does each predictor variable explain? And conversely, how much variation in the response variable is unexplained?
 
 
-The mathematical formula, generally speaking, for the simplest linear model:
+The mathematical model form of the _simplest_ linear model is:
 
 \begin{equation} 
   Y = \beta_1X_1 + \beta_0 + \epsilon
 \end{equation} 
 
 
-The $Y$ is our response, and all $X$ variables are our predictors - in the simple example above, there is a single predictor $X_1$. Each $\beta$ (Greek letter "beta") is a given predictor's *coefficient*, and they quantify the relationship between each predictor and the response. The $\epsilon$ (Greek letter "epsilon") represents the *error* in the model, or in other words, what percent of variation in the response variable can NOT be explained by the predictor variable(s)? In fact, the formula above is actually the formula for a line, or as you may be used to seeing it, *Y = mX + B*;  the $\beta_1$ is the slope *m*, and the $\beta_0$ is the intercept *B*. 
-
-More generally for *N* predictors, we can write the formula as (rearranged slightly)
+The $Y$ is our response, and all $X$ variables are our predictors - in the simple example above, there is a single predictor $X_1$. Each $\beta$ (Greek letter "beta") is a given predictor's *coefficient*, and they quantify the relationship between each predictor and the response. The $\epsilon$ (Greek letter "epsilon") represents the *error* in the model (read on!). In fact, the formula above is actually the formula for a line, or as you may be used to seeing it, $Y = mX + B$. In our new statistical notation, this $\beta_1$ is the slope *m*, and this $\beta_0$ is the y-intercept *B*. More generally for *N* predictors, we write the model as (rearranged slightly)
 
 \begin{equation} \label{eq:full}
   Y =  \beta_0 + \beta_1X_1 + \beta_2X_2 + \beta_3X_3 ... + \beta_NX_N + \epsilon
 \end{equation} 
 
+The error term $\epsilon$ is known as the model's *residuals* - how much variation in the response is residual (left over) after considering all the predictors? In other words, what percent of variation in the response variable is unexplained by the predictor variable(s)? It is virtually never true that the predictors will capture 100% of the variation in the response, and the uncaptured percent falls into that $\epsilon$ term. 
 
-The error term $\epsilon$ is known as the model's *residuals* - how much variation in the response is residual (left over) after considering all the predictors? It is virtually never true that the predictors will capture 100% of the variation in the response, and the uncaptured percent falls into that $\epsilon$ term. Practically, what does this mean? We can conceptualize this most easily with a simple linear regression where a *line of best fit* is **FIT** (get it? line of best FIT?) to the data. This line of best fit (namely its associated slope and intercept) IS the linear model - we will call it the regression line. 
 
-One of the most common procedures for fitting a model is called ["Ordinary Least Squares,"](https://en.wikipedia.org/wiki/Ordinary_least_squares) which is an algorithm that finds the line which minimizes the "sum of squares" of the residuals. The residuals themselves are the *distance* between each point and the regression line, and the sum of squares in this case is, you guessed, the sum of the squared residuals. We'll call it "RSS": the **r**esidual **s**um of **s**quares. Consider this example (images from [this book](https://www.amazon.com/Analysis-Biological-Data-Michael-Whitlock/dp/1936221489)) that shows the relationship between the age of a given lion the the proportion of its nose that is black (nose color changes over time for cats and dogs! awwww):
+Practically, what does this formula mean? We can conceptualize this most easily with a simple linear regression ($Y = \beta_1X_1 + \beta_0$). Finding the line-of-best-fit, which we will call the regression line, is an exercise is finding the best values (aka values with the best *fit to the data*) for the coefficients $\beta_1$ and $\beta_0$. 
+
+One of the most common procedures for fitting a model is called ["Ordinary Least Squares,"](https://en.wikipedia.org/wiki/Ordinary_least_squares) an algorithm that finds the line (aka best coefficient values!) that minimizes the "sum of squares" of the residuals. The residuals themselves are the *distance* between each point and the regression line, and the sum of squares in this case is, you guessed, the sum of the squared residuals. We'll call it "RSS": the **r**esidual **s**um of **s**quares. Consider this example (images from [this book](https://www.amazon.com/Analysis-Biological-Data-Michael-Whitlock/dp/1936221489)) that shows the relationship between the age of a given lion the the proportion of its nose that is black (nose color changes over time for cats and dogs! awwww):
 
 ![](./lm_files/whitlock_17.1-1.png){width=250px}
 
-A linear model for this data would be the simple regression, $Y = \beta_1X_1 + \beta_0$ aka a line.
+
 The computer will try to find the best combination of values for the slope ($\beta_1$) and Y-intercept ($\beta_0$) that makes the RSS as small as possible by testing out hundreds or thousands of different values. This is what we mean by **fitting a model**: What set of *parameter values* (fancy word for variables) match the data the best?
 
 In the three images below, we see three different ways this regression line could be drawn. Each line segment from the the point to the regression line is a residual!
 
 ![](./lm_files/whitlock_17.1-2.png){width=600px}
 
-+ "Large deviations": Very high sum of squares. This line is a poor fit to the data.
-+ "Smaller deviations": A low sum of squares. The line is a better, but not best, fit to the data.
-+ "Smallest deviations": This line represents the line that minimizes the residuals (which the computer found after trying hundreds or thousands of options!. Its corresponding slope and intercept are our *model parameters*. It turns out this slope is about $\beta_1 = 10.64$ and the intercept is about $\beta_0 = 0.88$. Our final fitted model would therefore be $Y = 10.64X_1 + 0.88 + \epsilon$. In the coming sections we will learn how to interpret these quantities.
++ "Large deviations": Very high RSS. This line is a poor fit to the data.
++ "Smaller deviations": A low RSS. The line is a better, but not best, fit to the data.
++ "Smallest deviations": This line represents the line that minimizes the RSS. Its corresponding slope and intercept are our *model parameters*. It turns out this slope is about $\beta_1 = 10.64$ and the intercept is about $\beta_0 = 0.88$. Our final fitted model would therefore be $Y = 10.64X_1 + 0.88 + \epsilon$. In the coming sections we will learn how to interpret these quantities.
 
 
 ## Assumption of linear regressions
@@ -102,9 +103,9 @@ In this class, we will talk about two general (NOTE: this is a pun, because actu
 + "Linear regression", which are used to model **NUMERIC response variables** (this document)
 + "Logistic regression", which are used to model **BINARY (categorical) response variables** (e.g., "Yes/No" categories) (a forthcoming document)
 
-These models make several key assumptions about the underlying predictors and response variable. These assumptions represent properties in the data itself which must be satisified in order for the statistics to be reliably interpreted. Linear regressions are only valid if these assumptions are met:
+These models make several key assumptions about the underlying predictors and response variable. These assumptions represent properties in the data itself which must be satisified in order for the models to be reliably interpreted. **Linear regressions are only valid if these assumptions are met:**
 
-+ **Numeric predictors must a linear relationship with the numeric response.** For example, in the two plots below, the LEFT shows a linear relationship: This data is suitable for analysis with a linear regression. The RIGHT shows a non-linear relationship: This data is not suitable for analysis with a regression (unless you transform) the data. 
++ **Numeric predictors must have a linear relationship with the numeric response.** For example, in the two plots below, the LEFT shows a linear relationship: This data is suitable for analysis with a linear regression. The RIGHT shows a non-linear relationship: This data is not suitable for analysis with a regression (unless you transform) the data. 
 ```{r, echo=F, warning = F, message=F, fig.width = 7, fig.height=3}
 tibble(y = 10:60) %>%
   mutate(x1 = y * runif(51, 1.25, 2), x2 = y**3) -> dat
@@ -136,11 +137,12 @@ tibble(x = rexp(500)) %>%
   ggplot(aes(x = x)) +geom_density(fill = "darkorchid3") + xlab("residuals") + ggtitle("NOT normal")-> p2
 p1 + p2
 ```
-  + *A common misconception* for regression is that the data itself must be normally distributed. This is not true! It's the *error* aka residuals that must be normally distributed, which can only be examined after the model is fitted. Again, there is no assumption that numeric predictors or the response be normally distributed!!
+  + *A common misconception* for regression is that the data itself must be normally distributed. This is not true! It's the *residuals* that must be normally distributed, which can only be examined after the model is fitted. Again, there is no requirement that numeric predictors themselves or the response itself be normally distributed!!
+
 
 ### Analyses that are actually all linear regression models
 
-You will often hear these fancy statistical names for different tests. Fundamentally, they are all linear regressions with different types of predictors. Really there is no need to distinguish them!! You just need to know how to interpret predictor coefficients, and you can make any model you want. Again, all linear regressions have a **numeric response**. 
+You will often hear these fancy statistical names for different hypothesis tests. Fundamentally, they are all linear regressions with different types of predictors. Really there is no need to distinguish them!! You just need to know how to interpret predictor coefficients, and you can make any model you want. Again, all linear regressions have a **numeric response**. 
 
 + Correlation: Read on to the the next section!!
 + Simple linear regression: Models with a single *numeric* predictor variable
@@ -150,12 +152,12 @@ You will often hear these fancy statistical names for different tests. Fundament
 + ANCOVA (**An**alysis of **Cova**riance): Models with a single *categorical* AND one or more *numeric* predictor variables
 + MANCOVA (**M**ultivariate **An**alysis of **Cova**riance): Models with multiple *categorical* AND multiple *numeric* predictor variables
 
-In fact, so are hypothesis tests like *t*-tests and ANOVA, and similarly their non-parametric equivalents - Mann-Whitney aka Wilcoxon, sign test, and Kruskal-Wallis test. [This post](https://lindeloev.github.io/tests-as-linear/) goes into extensive depth about the how and why of this Truth.
+In fact, so are hypothesis tests like *t*-tests, and similarly all their non-parametric equivalents - Mann-Whitney aka Wilcoxon, sign test, and Kruskal-Wallis test. [This post](https://lindeloev.github.io/tests-as-linear/) goes into extensive depth about the how and why of this Truth.
 
 
-#### Briefly, correlation
+### Briefly, correlation
 
-A closely related (both conceptually and mathematically) topic here is *correlation*, which is a quantity that tells us whether two variables appear to be associated, or non-independent. **Correlation does NOT IMPLY causation** - it merely implies an observable pattern of association. There are many different wants to quantify a correlation, but perhaps the most commonly-used one is Pearson correlation. This quantity measures strength and direction a of **linear** association between normally-distributed numeric variables. This is measured with the correlation coefficient *r* which can be any value in $-1 \leq r \leq 1$. Below are shown examples of data with PERFECT correlations: there is a perfect x-y association, but the directions are different. There is also an example of NO correlation.
+A closely related (both conceptually and mathematically) topic here is *correlation*, which is a quantity that tells us whether two variables appear to be associated, or non-independent. **Correlation does NOT IMPLY causation** - it merely implies an observable pattern of association. There are many different wants to quantify a correlation, but perhaps the most commonly-used one is Pearson correlation. This quantity measures strength and direction a of **linear** association between normally-distributed numeric variables - it is virtually mathematically equivalent to a simple linear regression. This is measured with the correlation coefficient *r* which can be any value in $-1 \leq r \leq 1$. Below are shown examples of data with PERFECT correlations: there is a perfect x-y association, but the directions are different. There is also an example of NO correlation.
 
 ```{r, echo=F, fig.width=6.5,fig.height=2}
 tibble(x = seq(1, 100, 5), y = x*-1, y2 = runif(20, -10, 10)) -> dat
@@ -188,7 +190,7 @@ There are other types of correlations that can be employed (for example, Spearma
 
 All examples will use the external dataset `crabs` and assume $\alpha=0.05$. This dataset contains physical measurements from 200 crabs, including their sex (M/F), color (orange or blue), and various other quantities measured in millimeters (mm). **The goal of these examples is model body depth in crabs. Therefore, the column `body_depth` is our response variable.**
 ```{r, collapse=T}
-crabs <- read_csv("https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/materials/lm_files/crabs.csv")
+crabs <- read_csv("https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/rmd_lessons/lm_files/crabs.csv")
 dplyr::glimpse(crabs)
 ```
 
@@ -221,31 +223,26 @@ summary(model_fit)
 ```
 
 
-### Interpreting the model
-Let's go line-by-line through the output:
+### Interpreting the model output
 
-**Call** simply reminds us of the linear model formula we specified when using `lm()`
++ **Call** simply reminds us of the linear model formula we specified when using `lm()`.
 
-**Residuals** shows the *five-number summary* of the residuals 
++ **Residuals** shows the *five-number summary* of the distribution of the residuals. 
 
-**Coefficients** tell us our $\beta$ values. Their *Estimate* is the value the model returned, Their *Std. Error* indicates how close/far these model estimates, derived from the sample, likely are from the "true" population values. The *t value* is *t* statistic associated with the estimate's significance, and the final column *Pr(>|t|)* is the P-value associated with the *t* statistic - it tells us if the coefficient is significant or not.
++ **Coefficients** tell us our $\beta$ values. Their *Estimate* is the value the model returned, Their *Std. Error* indicates how close/far these model estimates, derived from the sample, likely are from the "true" population values. The *t value* is *t* statistic associated with the estimate's significance, and the final column *Pr(>|t|)* is the P-value associated with the *t* statistic - it tells us if the coefficient is significant or not. The null hypothesis for any coefficient is "Coefficient = 0." Therefore, a significant predictor coefficient means we are fairly sure it's value is not 0. 
 
-**(Intercept)** is our fitted value for $\beta_0$. It tells us: What is the EXPECTED VALUE of the response variable when the numeric predictor value is 0? In this case, what do we expect the average body depth will be when a crab's carapace length is 0 mm? Here, we expect that crabs will have a body depth of -1.155 mm, on average, when their carapace length is 0. We can also write this as $-1.155\pm0.205$ to acknowledge the standard error! This is of course NOT realistic and illustrates perfectly that you need to be careful to interpret coefficients with biological intuition! Just because the computer spits out a number doesn't mean it's meaningful. No crabs will have a body depth of 0mm. Regardless, this quantity needs to be here to fulfill the mathematical model itself - we're just smart enough to know that the mathematical model is terrible at biology.
-
-  + **Intercept significance**: The P-value for the intercept is derived from a standard null hypothesis: "The intercept = 0." Significant P-values can be interpreted to mean that it is unlikely the true intercept is 0 (but caution, this is NOT exactly what P-values mean). In this case, the intercept is highly significant (*P=6.09e-08*). Therefore, there is evidence the intercept differs from 0.
++ **(Intercept)** is our fitted value for $\beta_0$. It tells us: What is the EXPECTED VALUE of the response variable when the numeric predictor value is 0? In this case, what do we expect the average body depth will be when a crab's carapace length is 0 mm? Here, we expect that crabs will have a body depth of -1.155 mm, on average, when their carapace length is 0. We can also write this as -1.155±0.205 mm to acknowledge the standard error! This is of course NOT realistic and illustrates perfectly that you need to be careful to interpret coefficients with biological intuition! Just because the computer spits out a number doesn't mean it's meaningful. No crabs will have a body depth of 0mm. Regardless, this quantity needs to be here to fulfill the mathematical model itself - we're just smart enough to know that the mathematical model is terrible at biology. The intercept is highly significant (*P=6.09e-08*). Therefore, there is evidence the intercept differs from 0.
     
-**carapace_length** is our fitted value for $\beta_1$. It tells us: What is the EXPECTED change of the response the predictor increases by a unit of 1? In this case, by how much do we expect body depth will increase/decrease when the carapace length goes up by 1? Here, we expect for every 1 mm increase in carapace length, body  depth will *increases* by 0.473 (or, $0.473\pm0.00624$). Remember in this case, this value is the slope! 
++ **carapace_length** is our fitted value for $\beta_1$. It tells us: What is the EXPECTED change of the response the predictor increases by a unit of 1? In this case, by how much do we expect body depth will increase/decrease when the carapace length goes up by 1? Here, we expect for every 1 mm increase in carapace length, body depth will *increases* by 0.473 mm (or, 0.473±0.00624 mm). Remember in this case, this value is the slope (0.473 = rise/run = $\Delta$body depth/$\Delta$carapace length = 0.473/1 = 0.473 increase in body depth for ever 1 increase in carapace length). The P-value here is highly significant at *P<2.2e-16* (this is nearly R's lower bound for reporting tiny P-values), so we quite confident that the true value indeed differs from 0. 
 
-  + **Coefficient significance**: The P-value for any numeric intercept is derived from a standard null hypothesis: "The coefficient = 0." Significant P-values can be interpreted to mean that it is unlikely the true coefficient is 0 (but caution, this is NOT exactly what P-values mean). The P-value here is highly significant at *P<2.2e-16* (this is R's lower bound for reporting tiny P-values), so we quite confident that the true value indeed differs from 0.
++ **Residual standard error**: The standard error associated with residuals. The closer this value is to 0, the better our model fit. We won't focus much on this quantity, but be aware that  large values here indicate the model is rather poor. This value of 0.6266 is fairly small.
 
-**Residual standard error**: The standard error associated with residuals. Don't worry much about this line.
-
- **Multiple R-squared** and	**Adjusted R-squared** give the $R^2$ associated with the model!! **A model's $R^2$ tells you the percent of variation in the response that can be explained by the predictors**. This is SUPER important (and note, it is actually the squared Pearson correlation coefficient!). The "Adjusted R-squares" is somewhat more reliable for consideration - it corrects for any overfitting artifacts inherent in modeling, so focus on this value. It's associated P-value is on the next line (here, *P<2.2e-16*), and the associated null hypothesis for this P-value is $R^2 = 0$. **In this model, 96.65% of the variation in body depth can be explained by carapace lengths. 3.35% of the varation in body depth is therefore UNEXPLAINED by our model.** That 3.35% is sneakily hidden in the *\epsilon* term of the linear model equation. This is _a really really good model_. 
++ **Multiple R-squared** and	**Adjusted R-squared** give the $R^2$ associated with the model. **A model's $R^2$ tells you the percent of variation in the response that can be explained by the predictors**. This is SUPER important (and note, it is actually the squared Pearson correlation coefficient!). The "Adjusted R-squared" is somewhat more reliable for consideration - it corrects for any overfitting artifacts inherent in modeling, so focus on this value. It's associated P-value is on the next line (here, *P<2.2e-16*), and the associated null hypothesis for this P-value is $R^2 = 0$. **In this model, 96.65% of the variation in body depth can be explained by carapace lengths. 3.35% of the varation in body depth is therefore UNEXPLAINED by our model.** That 3.35% is sneakily hidden in the $\epsilon$ term of the fitted linear model formula. This $R^2$ is very close to 1 (100%) - this is _a really really good model_. 
   
 
 #### Conclusions:
 
-+ Our fitted model is $Y = 0.473X - 1.16$
++ Our fitted model is $Y = 0.473X - 1.16 + \epsilon$
 + ~96.65% of variation in crab body depth can be explained by carapace length. 
 + For every 1 mm increase in carapace length, we expect body depth to increase, on average, by 0.473 mm.
 
@@ -274,7 +271,7 @@ ggplot(crabs, aes(x = carapace_length, y = body_depth)) +
 
 **Critical followup: What is a confidence interval?** A confidence interval (CI) is meant to help convey *error* in the estimate - in this case, the confidence bands you see (pink area around the line) represents the error associated with our fitted slope aka our model's $\beta_1$ estimate! It is directly related to "standard error", so in the function `geom_smooth()` you can turn it off as `geom_smooth(lm=F)` to not display it.
 
-Loosely speaking, a *95% CI* (ggplot and many others use 95% confidence interval by default) means: Assuming all the lovely assumptions of our statistical framework, there is 95% probability that the TRUE VALUE OF THE SLOPE is within the CI. Stated more accurately, if you took N random samples of crabs and calculated their regressions of body depth across carapace length, line (slope and intercept!) would fall within the 95% shaded area CI for 95% of the samples. Critically, the 95% CI does not mean that there is a 95% chance the true line is in the CI. It means 95% of the time we try to find the true line, our findings will fall in this area. 
+Loosely speaking, a *95% CI* (ggplot and many others use 95% confidence interval by default) means: Assuming all the lovely assumptions of our statistical framework, there is 95% probability that the TRUE VALUE OF THE SLOPE is within the CI. Stated more accurately, if you took N random samples of crabs and calculated their regressions of body depth across carapace length, line (slope and intercept!) would fall within the 95% shaded area CI for 95% of the samples. 
 
 **For an excellent intuitive understanding of what this means, see [the second plot example in this package's README](https://github.com/wilkelab/ungeviz).**
 
@@ -409,12 +406,19 @@ model_fit <- lm(body_depth ~ color + carapace_length, data = crabs)
 summary(model_fit)
 ```
 
-When considering BOTH sex and carapace Length, we find:
+When considering BOTH color and carapace length as model predictors, we find:
 
 + The intercept means your average blue (the baseline level of `color`) crab _with a carapace length of 0_ has a body depth of -0.997 mm. It's highly sigificant but unrealistic - moving on.
 + The "colororange" means *when controlling for carapace length*, your average orange crab's body depth will be ~1.045 mm larger than an average crab. Again, highly significant.
 + The "carapace_length" coefficient means *when controlling for color*, the average crab's body depth increases by 0.452 per 1 mm increase in carapace length, and it's highly significant.
 + The predictors explain *~98.8%* of the variation in body depth - our model appears to have improved in predictive ability by jointly considering color with carapace length! A mere 1.2% of variation in body depth is unexplained by the two significant predictors.
+
+Let's check our residuals as well with a QQ plot. We find that they are indeed normally distributed, so the model's assumptions have been met and we can rely on its output.
+```{r}
+augment(model_fit) -> augmented_fit
+qqnorm(augmented_fit$.resid)
+qqline(augmented_fit$.resid, col="red")
+```
 
 **How can we visualize this model?** We can again make a scatterplot, and show the trend lines for each sex:
 
@@ -455,6 +459,14 @@ Our model has found:
 + On average, we expect that body depth *increases* by ~0.979 when carapace length increases 1 mm. This is also highly significant.
 + The independent effects of carapace length and width explain roughly 97.76% of variation in body depth, and it is highly significant.
 
+A quick check of residuals also shows normality, so we're all set.
+```{r}
+augment(model_fit) -> augmented_fit
+qqnorm(augmented_fit$.resid)
+qqline(augmented_fit$.resid, col="red")
+```
+
+
 We could visualize this if we want by putting on predictor on the X, and using color to disinguish the other predictor. That said, it is very difficult to make scatterplot visualizations with multiple numeric predictors, especially since we can't draw two trend lines in one set of axes.
 
 ```{r, fig.width = 6, fig.height = 4}
@@ -493,6 +505,14 @@ In this output...
 + **carapace_length** is the *independent* coefficient for carapace_length
 + **colororange** is the *independent* coefficient for color
 + **carapace_length:colororange** is the *interaction effect* coefficient for caparace length x color, and it is in fact significant at *P=0.00394*!! Indeed, there **is** a significant difference in trend between crab colors. However it's quite hard to see in the plot - this is a great example of when statistical significance corresponds to only moderate, in this case, small, effect size. 
+
+
+Our residuals are also normally distributed:
+```{r}
+augment(model_fit) -> augmented_fit
+qqnorm(augmented_fit$.resid)
+qqline(augmented_fit$.resid, col="red")
+```
 
 Upon finding a significant interaction effect, we promptly *ignore* any independent effects - since the interaction tells us these variables are not independent, it does not make sense to consider their independent influence on body depth. We have evidence that the way that carapace length affects body depth depends on color! Similarly, the way that color affects body depth depends on carapace length. 
 
@@ -533,7 +553,13 @@ In this output...
 + **colororange** is the *independent* coefficient for color
 + **sexM:colororange** is the *interaction effect* coefficient for sex x color, and it is moderately significant at *P=0.0355*.
 
-Upon finding a significant interaction effect, we promptly *ignore* any independent effects - since the interaction tells us these variables are not independent, it does not make sense to consider their independent influence on body depth. We have evidence that the way that color affects body depth depends on sex! Similarly, the way that sex affects body depth depends on color. 
+And, residuals again are ok:
+
+```{r}
+augment(model_fit) -> augmented_fit
+qqnorm(augmented_fit$.resid)
+qqline(augmented_fit$.resid, col="red")
+```
 
 The best way to interpret this model is to a) identify if an interaction is significant, and b) compare the means with an interaction plot. We've basically done all those steps, so we are set!
 
