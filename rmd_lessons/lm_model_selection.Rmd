@@ -1,0 +1,115 @@
+---
+title: "Introduction to Model Selection"
+author: "Stephanie J. Spielman"
+date: "Data Science for Biologists, Spring 2020"
+output: 
+  html_document:
+    css: lm_files/lm_style.css
+    highlight: zenburn
+    theme: spacelab
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(modelr)
+library(broom) 
+library(patchwork)
+```
+
+> CAUTION: This is NOT a full-fledged statistics course. This document focuses on general concepts and only a mild foray into model selection
+
+## Setup
+
+Again, let's use some crabs data:
+```{r, collapse=T}
+crabs <- read_csv("https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/materials/lm_files/crabs.csv")
+dplyr::glimpse(crabs)
+```
+
+
+
+
+## Introduction to model selection
+
+Sometimes, we have a specific hypothesis we want to test from an experiment or similar: To what extent do \<these quantities I have measured\> explain \<this quantity I am studying\>? Other times, and in particular in times of BIG DATA, we have a different scenario: There are dozens (hundreds?? thousands??!) of possible variables to use as predictors, and it's not always clear which predictors should (or should not) be included in a given model. How can we tell what information will maximize the signal while reducing noise? What is the appropriate level of complexity for a given model? More parameters (aka, including more predictors) lead to increased complexity, but can also be misleading if those predictors hinder more than they increase the amount of exploratory power.
+
+### Background: Bias-variance tradeoff
+This need leads into two other related key concepts in statistical modeling: a) the tradeoff between bias and variance, and the b) the need to avoid models that *poorly fit* ("overfit" or "underfit") the data. The underlying issue is well-exemplified by some figures from [this concise and informative blog post](https://towardsdatascience.com/understanding-the-bias-variance-tradeoff-165e6942b229):
+
+![](./lm_files/bias_variance.png){width=300px;}
+
+Ultimately, in a data science context, we want to use our models to predict future outcomes. If someone gives us *new information*, can we predict what the response will be with a high degree of accuracy? In an ideal world, we will craft models with *low variance* (predictions are not spread out with excessive noise) and *low bias* (predictions do not systematically deviate from the truth). We also want to craft models that are *well fit* to the data and do not suffer from *underfitting* (model is insufficiently complex and will not do a good job predicting) or *overfitting* (model is too complex and therefore also won't do a good job predicting). 
+
+![](./lm_files/overfit_underfit.png){width=300px;}
+
+When we build a linear regression model, we give the `lm()` function all our data, and we hope to be able to apply the model to future data we receive. The data used to build a model is called the "training data" (another way to phrase "fitting a model" is instead "training the model"). As we will learn soon, building a model and saying "hey that's a nice R^2!" is *seriously insufficient* when it comes to evaluating the performance of a model. Instead, what we really want to know is: How accurately does the model predict the response *when applied to data it has never seen before?* To truly evaluate how well a model performs, then, we'd want to use the trained model to predict outcomes from a set of so-called "test data." Models that are overfit, in particular, tend to do a very poor job on test data - they are so in tune to the training data, that they can't accomodate the fact that not all the data in the world is in the training data itself.
+
+
+### Choosing our predictors 
+
+In addition to evaluating model performance (coming up!), we desire a strategy to choose our predictors wisely: Find which predictors add *meaningful information* and do not add excessive *noise* that would lead to overfitting. We want our model to capture signal - not error or randomness! Collectively, procedures used to determine the best model are known as "model selection": of the set of models we could build (i.e., of all the predictors we could include), which model should we build (i.e., which predictors should be used) that give us the best chance for predictions that are low variance and low bias? 
+
+There are a wide variety of approaches to this task, and we will demonstrate one common approach called "stepwise model selection." In stepwise model selection, the computer will systematically identify one-by-one which predictors are not "helpful," according to some measurement, and proceed to build the model using only those helpful predictors. It can proceed forwards (start with one predictor and ramp up), or backwards (start with all predictors and ramp down).
+
+One way to do this is to systematically remove, one by one, any *insignificant* predictors, stopping when only significant predictors remain. Another way to do this is to check how each predictor influences the model's $R^2$ value - any predictors that worsen $R^2$ should get booted because they lead to, in theory, less explanatory power. Finally, there are other approaches that use measurements called "information theoretic criterion" (such as [Akaike Information Criterion [AIC]](https://towardsdatascience.com/introduction-to-aic-akaike-information-criterion-9c9ba1c96ced)) to perform model selection. These measures ultimately penalize models with too many low-information predictors to help distill the model to only those predictors which increase predictive power while ensuring the overall model is not overly complex. These scores are like "golf" - a lower AIC indicates a model with improved *fit to the data*. They should also be interpreted *relative* to each other, unlike a P-value whose exact value can be directly understood. 
+
+#### AIC stepwise model selection
+
+There are many R libraries that contain functions to perform stepwise model selection, but to simplify our lives we will simply use the base R function `step()`, which uses AIC-based regression model selection. We can perform model selection by building a model with *all possible predictors*, and then letting `step()` figure out the right set to use. This is luckily very easy! Let's do this procedure to get the best model for predicting crab body depth:
+
+```{r}
+# comprehensive model: specify "all other variables" with a period 
+baseline_model_fit <- lm(body_depth ~ ., data = crabs)
+
+# simply give the fitted model to step(), which returns a fitted model with only the retained predictors
+final_model_fit <- step(baseline_model_fit) 
+```
+
+
+In the end, we see that the best model (using AIC to select predictors) is saved into `final_model_fit`:
+```{r}
+summary(final_model_fit)
+```
+
+Importantly, this procedure *does not consider interaction effects* (unless you cook up a fancy tibble that contains columns representing interaction effects - don't do this...) - for our purposes, that's ok! It also has the tendancy to sometimes keep predictors that are not significant, i.e. frontal lobe in this scenario. In fact, these are kept because, according to AIC, these predictors do not *detract* from our predictive ability, so they do not need to be removed. 
+
+**In the end**, our final model for body depth has three predictors (color, frontal lobe, and carapace length), and together these predictors can explain 98.81% of the variation in crab body depth, highly significant at *P<2.2e-16*. 
+
+#### Culling insignificant predictors model selection
+
+Let's do this one other, more tedious way: We'll remove insignificant predictors one at a time (highest P-value gets chucked at each round), until only significant predictors remain. Using `broom::tidy()` makes this experience a lot easier!!
+```{r, collapse=T}
+# start with all predictors
+lm(body_depth ~ ., data = crabs) %>%
+  broom::tidy()
+
+# carapace_width was most insignificant. remove and continue
+crabs %>% select(-carapace_width) -> sub_crabs
+lm(body_depth ~ ., data = sub_crabs) %>%
+  broom::tidy()
+
+# rear_width was most insignificant. remove and continue
+sub_crabs %>% select(-rear_width) -> sub_crabs
+lm(body_depth ~ ., data = sub_crabs) %>%
+  broom::tidy()
+
+# sex was most insignificant. remove and continue
+sub_crabs %>% select(-sex) -> sub_crabs
+lm(body_depth ~ ., data = sub_crabs) %>%
+  broom::tidy()
+
+# frontal_lobe is now the only insignificant. remove and continue
+sub_crabs %>% select(-frontal_lobe) -> sub_crabs
+lm(body_depth ~ ., data = sub_crabs) %>%
+  broom::tidy()
+
+### STOP!!! All significant remain!!!
+final_fit <- lm(body_depth ~ ., data = sub_crabs)
+summary(final_fit)
+```
+
+In the end, we got to the same place as with AIC (but there is no guarantee any two model selection methods will agree!!!), except we removed frontal lobe. You'll note, though, the final $R^2=0.988$ with or without frontal lobe - AIC was "right" that it doesn't hurt to keep frontal lobe in the model.
+

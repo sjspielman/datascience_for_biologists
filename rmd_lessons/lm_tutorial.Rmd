@@ -19,7 +19,7 @@ library(broom)
 library(patchwork)
 ```
 
-> CAUTION: This is NOT a full-fledged statistics course. This document focuses on performing and interpretting linear models rather than their mathematical underpinnings. 
+> CAUTION: This is NOT a full-fledged statistics course. This document focuses on performing and interpretting linear regression models rather than their mathematical underpinnings. 
 
 
 ## Cheatsheet chunk
