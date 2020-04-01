@@ -1,13 +1,13 @@
 ---
-title: "Introduction to Linear Models: Building and Interpreting Linear Regressions"
+title: 'Introduction to Linear Models: Building and Interpreting Linear Regressions'
 author: "Stephanie J. Spielman"
 date: "Data Science for Biologists, Spring 2020"
-output: 
+output:
   html_document:
     css: lm_files/lm_style.css
     highlight: zenburn
     theme: spacelab
-editor_options: 
+editor_options:
   chunk_output_type: console
 ---
 
@@ -52,7 +52,7 @@ modelr::add_residuals(dataframe, lm_output)    # residuals for each observation
 
 ## What is a linear model?
 
-In statistics and data science, we often want to describe how the value of one variable *depends on and/or can be explained/predited by* the value of one or more other variables. For example, if we know an individual's height, could we reasonably predict their weight? Said otherwise: to what extent can height explain variation we see in weight? Potentially we might want to also consider a lot more information like the person's age, biological sex, health and diet, etc, in addition to just their height. The variable we are interested in predicting (here, *weight*) is known as the **response/dependent variable**. We are interested in seeing how certain other variables can provide meaningful information about body depth, and we call these other variables **predictor/explanatory/independent variables**.
+In statistics and data science, we often want to describe how the value of one variable *depends on and/or can be explained/predited by* the value of one or more other variables. For example, if we know an individual's height, could we reasonably predict their weight? Said otherwise: to what extent can height explain variation we see in weight? Potentially we might want to also consider a lot more information like the person's age, biological sex, health and diet, etc, in addition to just their height. The variable we are interested in predicting (here, *weight*) is known as the **response/dependent variable**. We are interested in seeing how certain other variables can provide meaningful information about weight, and we call these other variables **predictor/explanatory/independent variables**.
 
 The term "linear model" implies a statistical framework for quantifying to what degree *one or more predictor variables* describes the variation seen in a *response variable*. Linear models can answer questions like...
 
@@ -106,6 +106,7 @@ In this class, we will talk about two general (NOTE: this is a pun, because actu
 These models make several key assumptions about the underlying predictors and response variable. These assumptions represent properties in the data itself which must be satisified in order for the models to be reliably interpreted. **Linear regressions are only valid if these assumptions are met:**
 
 + **Numeric predictors must have a linear relationship with the numeric response.** For example, in the two plots below, the LEFT shows a linear relationship: This data is suitable for analysis with a linear regression. The RIGHT shows a non-linear relationship: This data is not suitable for analysis with a regression (unless you transform) the data. 
+
 ```{r, echo=F, warning = F, message=F, fig.width = 7, fig.height=3}
 tibble(y = 10:60) %>%
   mutate(x1 = y * runif(51, 1.25, 2), x2 = y**3) -> dat
@@ -115,6 +116,7 @@ p1 + p2
 ```
   
 + **Categorical predictors should have uniformly-distributed variance**. For example, in the two plots below, the LEFT shows a numeric variable whose different distributions *across the categorical variable have about the same spread* (although the means differ!): This data is suitable for analysis with a linear regression. The RIGHT shows an example where variance is NOT equally distributed, and this may not be suitable for analysis with a linear regression.
+
 ```{r, echo=F, warning = F, message=F, fig.width = 7, fig.height=3}
 tibble("categorical predictor" = c(rep("category 1", 50), rep("category 2", 50), rep("category 3", 50)),
        "response values" = c(rnorm(50, 10, 2), rnorm(50, 20, 2), rnorm(50, 5, 2))) %>%
@@ -130,6 +132,7 @@ p1 + p2
   
 
 + **The _residuals_ of the fitted model should be normally-distributed (a bell curve).** There is another type of plot, called a "Q-Q plot" ("quantile-quantile") we will see later in this document for more carefully examining residuals.
+
 ```{r, echo=F, warning = F, message=F, fig.width = 7, fig.height=3}
 tibble(x = rnorm(500)) %>%
   ggplot(aes(x = x)) +geom_density(fill = "cadetblue") + xlab("residuals") + ggtitle("Reasonably normal") -> p1
@@ -254,7 +257,7 @@ We can visualize this output with a scatterplot and `geom_smooth()`! This is why
 ggplot(crabs, aes(x = carapace_length, y = body_depth)) + 
   geom_point(size = 0.5) +        ## making the points small to help see the regression line
   geom_smooth(method = "lm",     ## make a trendline using "lm"
-              color = "navy",    ## make the trendline goldenrod
+              color = "navy",    ## make the trendline navy
               size = 0.5,        ## make the line small to help see the confidence interval for TUTORIAL REASONS
               fill = "deeppink4") + ## fill for the confidence interval
   labs(x = "Carapace length (mm)", 
@@ -269,7 +272,7 @@ ggplot(crabs, aes(x = carapace_length, y = body_depth)) +
 ```
 
 
-**Critical followup: What is a confidence interval?** A confidence interval (CI) is meant to help convey *error* in the estimate - in this case, the confidence bands you see (pink area around the line) represents the error associated with our fitted slope aka our model's $\beta_1$ estimate! It is directly related to "standard error", so in the function `geom_smooth()` you can turn it off as `geom_smooth(lm=F)` to not display it.
+**Critical followup: What is a confidence interval?** A confidence interval (CI) is meant to help convey *error* in the estimate - in this case, the confidence bands you see (pink area around the line) represents the error associated with our fitted slope aka our model's $\beta_1$ estimate! It is directly related to "standard error", so in the function `geom_smooth()` you can turn it off as `geom_smooth(se=F)` to not display it.
 
 Loosely speaking, a *95% CI* (ggplot and many others use 95% confidence interval by default) means: Assuming all the lovely assumptions of our statistical framework, there is 95% probability that the TRUE VALUE OF THE SLOPE is within the CI. Stated more accurately, if you took N random samples of crabs and calculated their regressions of body depth across carapace length, line (slope and intercept!) would fall within the 95% shaded area CI for 95% of the samples. 
 
