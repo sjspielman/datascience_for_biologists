@@ -140,10 +140,10 @@ Finally, make a stylish figure of your findings, choosing your own geom!
 
 Construct a linear model that examines how BOTH *species* and *leaf_len* as independent effects might explain variation in *respiratory rate*. Again, take the following steps one by one:
 
-Make TWO quick plots to make sure assumptions are met for each of our predictors:
+Since we already checked assumptions for `species` in the last question, make an appropriate plot to check the linearity assumption for `leaf_len`:
 
 ```{r}
-### figures to check assumption goes here.
+### figure to check assumption goes here.
 ### no need for fancy, can keep labels as is, etc.
 ```
 
