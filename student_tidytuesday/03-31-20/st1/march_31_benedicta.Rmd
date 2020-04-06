@@ -1,0 +1,51 @@
+---
+title: "Tidy Tuesday"
+author: "Benedicta Sarpong"
+output: 
+  html_document: 
+  highlight: tango
+  theme: yeti
+editor_options:
+  chunk_output_type: console
+---
+
+```{r setup}
+#read in packages and data
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse) 
+library(tidylog)
+theme_set(theme_classic())
+
+```
+## R Markdown 
+
+```{r}
+
+
+beer_states <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-31/beer_states.csv')
+
+```
+
+
+```{r}
+
+ options(scipen=999) # changes y axis from scientific notation to numeric form 
+beer_states%>%
+  filter(state %in% c("TX", "AL", "FL", "LA", "MS"))%>% #selected only the gulf states 
+  filter(year %in% c("2016", "2017","2018", "2019"))%>%  #selected only past 4 years 
+  filter(type %in% "Bottles and Cans")%>% #selected type: Bottles and Cans 
+  ggplot(aes(x=year, y=barrels, fill=state))+
+  geom_bar(stat="identity", position="dodge")+
+  scale_fill_brewer(palette="Accent")+
+  scale_y_log10()+ #disregards linear mapping of y axis 
+  labs(title="Beer produced in Bottles and Cans in the Gulf States")->plot1 
+plot1
+ 
+
+
+#This is my first tidy Tuesday and I used this opportunity to practice some dplyr skills. I mostly focused on using filter to specify the data that I want. I wanted to practice this skill because I struggled with it during the midterm project. I also learned how to change the axis from scientific notation to numeric form. 
+
+
+
+
+```
