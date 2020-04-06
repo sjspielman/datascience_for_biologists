@@ -458,8 +458,8 @@ summary(model_fit)
 Our model has found:
 
 + You average crab with carapace width and carapace length both equal to zero will have, on average, a body depth of -0.65, and this is highly significant at *P=0.000252*. But of course, this is not biologically meaningful - it just is needed to build the model.
-+ On average, we expect that body depth *decreases* by ~0.46 when carapace width increases by 1 mm. This is also highly significant.
-+ On average, we expect that body depth *increases* by ~0.979 when carapace length increases 1 mm. This is also highly significant.
++ On average, we expect that body depth *decreases* by ~0.46 when carapace width increases by 1 mm, *assuming carapace LENGTH is unchanged*. This is also highly significant.
++ On average, we expect that body depth *increases* by ~0.979 when carapace length increases 1 mm, *assuming carapace WIDTH is unchanged*. This is also highly significant.
 + The independent effects of carapace length and width explain roughly 97.76% of variation in body depth, and it is highly significant.
 
 A quick check of residuals also shows normality, so we're all set.
@@ -510,6 +510,9 @@ In this output...
 + **carapace_length:colororange** is the *interaction effect* coefficient for caparace length x color, and it is in fact significant at *P=0.00394*!! Indeed, there **is** a significant difference in trend between crab colors. However it's quite hard to see in the plot - this is a great example of when statistical significance corresponds to only moderate, in this case, small, effect size. 
 
 
+
+
+
 Our residuals are also normally distributed:
 ```{r}
 augment(model_fit) -> augmented_fit
@@ -519,13 +522,28 @@ qqline(augmented_fit$.resid, col="red")
 
 Upon finding a significant interaction effect, we promptly *ignore* any independent effects - since the interaction tells us these variables are not independent, it does not make sense to consider their independent influence on body depth. We have evidence that the way that carapace length affects body depth depends on color! Similarly, the way that color affects body depth depends on carapace length. 
 
-The best way to interpret this model is not to focus on the interaction term coefficient (they're a little tricky..), but rather to make a plot like we did earlier with the two slopes, and see how those slopes potentially cross or interact, or in this case are only barely non-parallel.
+The best way to interpret this model is not to focus on the interaction term coefficient (they're a little tricky..), but rather to make a plot like we did earlier with the two slopes, and see how those slopes potentially cross or interact, or in this case are only barely non-parallel. In fact, although small, these slopes are NOT identical and the lines are NOT exactly parallel - there is a significant interaction! However, it is of course a very small effect size. **The punchline here is that the interaction is significant, so we have evidence that carapace length and color INTERACT when explaining body depth.**
+
+```{r, fig.width = 6, fig.height = 4}
+ggplot(crabs, aes(x = carapace_length, y = body_depth, color = color)) + 
+  geom_point() + 
+  labs(x = "Carapace length (mm)",
+       y = "Body Depth (mm)",
+       color = "Crab color") + 
+  scale_color_manual(values = c("blue", "orange")) +
+  geom_smooth(method = "lm") +
+  annotate("text", x = 20, y = 30, label = "R^2 == 0.988", parse=T, size=5)
+```
+
 
 NOTE: It is possible to directly specify the interaction effect to the linear model like so - in fact the interaction effect is a *third term* in the model:
 ```{r}
 model_fit <- lm(body_depth ~ carapace_length + color + carapace_length:color, data = crabs)
 summary(model_fit)
 ```
+
+
+
 #### Example #2
 
 Let's do another interaction model  by considering two *categorical predictors*, sex and color. This can be visualized with an *interaction plot* which explictly show how the *mean response* (here, mean body depth) depends on levels of two categorical predictor: 
