@@ -349,7 +349,7 @@ modelr::add_residuals(crabs, model_fit)
 
 What if, rather than a numeric predictor (carapace Length), we had a *categorical* predictor, say sex? Here we might ask: **Does sex predict body depth in crabs**? In the context of running an explicit ANOVA, one might phrase it as: **Does the variation in body depth differ across sex in crabs?** They are in fact the same question!
 
-Again, begin with a quick-and-dirty visualization. Here we'd like to see that the distribution of carapace widths has similar *spread* between ages (assumption of equal variance for categorical predictors!). Indeed, these two distributions show similar amounts of spread (how much relative space along the Y axis they take up), so assumption is met.
+Again, begin with a quick-and-dirty visualization. Here we'd like to see that the distribution of body depths has similar *spread* across sex categories (the assumption of equal variance for categorical predictors!). Indeed, these two distributions show similar amounts of spread (how much relative space along the Y axis they take up), so assumption is met.
 
 ```{r, fig.width = 4, fig.height = 3}
 ggplot(crabs, aes(x = sex, y = body_depth, color=sex)) + geom_jitter()
