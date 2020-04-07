@@ -22,7 +22,7 @@ Standard grading criteria apply, except there is no "answer style" - just write 
 
 This assignment will use an external dataset of various physical measurements from 250 adult males. Our goal for this assignment is to build and evaluate a model from this data to **predict body fat percentage** (column `Percent`) in adult males, and then use this model to predict future outcomes. Age is measured in years, weight in pounds, height in inches, and all other measurements are circumference measured in cm.
 
-```{r}
+```{r, collapse=T}
 fatmen <- read_csv("https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/data/bodyfat.csv")
 dplyr::glimpse(fatmen)
 ```
@@ -34,7 +34,7 @@ dplyr::glimpse(fatmen)
 Using the `step()` function, determine the most appropriate model to explain variation in bodyfat percentage in this data. Examine the model output with the `summary` function, and answer questions below. **You will use this model for all model evaluation questions.**
 
 ```{r}
-## Use step() to build and save a model to explain Percent
+## Use step() to build and save a model to explain Percent. PLEASE use the argument trace=F when calling step()!!
 ## Examine output with summary
 ```
 
@@ -58,7 +58,7 @@ Using the `step()` function, determine the most appropriate model to explain var
 4. What is the RMSE of your model? Hint: you need to run some code!
 
     ```{r}
-    ## code to get RMSE of model
+    ## code to get RMSE of model, using the function modelr::rmse()
     ```
   
     + (RMSE answer)
@@ -68,15 +68,19 @@ Using the `step()` function, determine the most appropriate model to explain var
 
 ### Part 2.1: Testing and training approach
 
-**First, use a simple train/test approach**, where the training data is a random subset comprising 65% of the total dataset. Determine the R-squared and RMSE as determined from the training AND testing data.
+**First, use a simple train/test approach**, where the training data is a random subset comprising 65% of the total dataset. Determine the R-squared (`modelr::rsquare()`) and RMSE (`modelr::rmse()`)  as determined from the training AND testing data.
 
 ```{r}
 ## split data into train and test, using this variable as part of your code:
-training_frac < 0.65
+training_frac <- 0.65
 
-## Train model on training data and obtain metrics (R-squared and RMSE). DO NOT USE summary()!!!
+## Train model on training data. DO NOT USE summary(), just fit the model with the training data.
 
-## Determine metrics on test data (R-squared and RMSE)
+## Determine metrics on TRAINING data (R-squared and RMSE), using the trained model
+
+
+## Determine metrics on TESTING data (R-squared and RMSE), using the trained model
+
 ```
 
 #### Part 2.1 questions: Answer the questions in the templated bullets!
@@ -97,9 +101,15 @@ training_frac < 0.65
 Use k-fold cross validation with **15 folds** to evaluate the model. Determine the $R^2$ and RMSE for each fold, and *visualize* the distributions of $R^2$ and RMSE in two separate plots that you *add together with patchwork*. You should also calculate the mean $R^2$ and mean RMSE values.
 
 ```{r}
-## k-fold cross validation, using this variable in your code
+## First define the FUNCTION you will use with purrr::map which contains your linear model
+my_bodyfat_model <- function(input_data){
+  # eh?? what goes in here??  
+}
+
+## perform k-fold cross validation, using this variable in your code
 number_folds <- 15
 
+## Calculate the mean R^2 and RMSE 
 
 ## Make figures for R^2 and RMSE, which clearly show the MEAN values for each distribution using stat_summary() or similar
 ```
@@ -108,28 +118,30 @@ number_folds <- 15
 
 1. Examine your distribution of $R^2$ values. What is the average $R^2$, and how does it compare to the **testing $R^2$** from Part 1?
 
-  + (Answer goes here)
+    + (Answer goes here)
 
 2. Examine your distribution of *RMSE* values. What is the average *RMSE*, and how does it compare to the **testing RMSE** from Part 1?
 
-  + (Answer goes here)
+    + (Answer goes here)
   
 
 
-### Part 2.3: Leave-on-out cross validation
+### Part 2.3: Leave-one-out cross validation (LOOCV)
 
 ```{r}
-## LOOCV
+## perform LOOCV (using the function my_bodyfat_model defined in Part 2.2)
 
 
-## Make figures RMSE, which clearly show the MEAN value for the distribution using stat_summary() 
+## Calculate the mean of RMSE 
+
+## Make figure of RMSE distribution, which clearly shows the MEAN value for the distribution using stat_summary() 
 ```
 
-#### Part 2.3 questions: Answer the questions in the templated bullets!
+#### Part 2.3 question: Answer the questions in the templated bullets!
 
-1. Examine your distribution of *RMSE* values. What is the average *RMSE*, and how does it compare to the **testing RMSE** from Part 1?
+1. Examine your distribution of *RMSE* values. What is the average *RMSE*, and how does it compare to the **testing RMSE** from Part 1? How does it compare to the average *RMSE* from k-fold cross validation?
 
-  + (Answer goes here)
+    + (Answer goes here)
 
 
 ### Part 2.4: Wrap-up
@@ -141,22 +153,44 @@ Considering all three approaches, do you believe this model is highly explanator
 
 ## Part 3: Predictions
 
-New men have arrived, and we need to predict their body fat percentage! Using the function `modelr::add_predictions()`, use our model to predict what the body fat percentages will be for three men with the following physical attributes:
+New men have arrived, and we want to use our model to predict their body fat percentages! Using the function `modelr::add_predictions()` use our model to predict what the body fat percentages will be for three men with the following physical attributes.
 
-+ Man 1
-  + 37 years old
-  + weighs 195 pounds
-  + 39.6 cm neck thickness
-  + 88.6 cm Abdomen thickness
-+ Man 2
-+ Man 3
++ Bob
+  + 37 years of Age
+  + Weight of 195 pounds
+  + 43.6 cm Neck circumference
+  + 110.6 cm Abdomen circumference
+  + 71.7 cm Thigh circumference
+  + 31.2 Forearm circumference
+  + 19.2 Wrist circumference
++ Bill
+  + 65 years of Age
+  + Weight of 183 pounds
+  + 41.2 cm Neck circumference
+  + 90.1 cm Abdomen circumference
+  + 77.5 cm Thigh circumference
+  + 32.2 cm Forearm circumference
+  + 18.2 cm Wrist circumference
++ Fred
+  + 19 years of Age
+  +  Weight of 121 pounds
+  + 30.2 cm Neck circumference
+  + 68 cm Abdomen circumference
+  + 48.1 cm Thigh circumference
+  + 23.8 cm Forearm circumference
+  + 16.1 cm Wrist circumference
 
+```{r}
+## Make a SINGLE tibble with THREE ROWS (one per observed new man), and use this tibble to predict outcomes with `modelr::add_predictions()
+## HINT: See the tidyr assignment for different ways to a tibble directly within R
 
-Age           0.06819    0.03130   2.179 0.030312 *  
-Weight       -0.11853    0.03415  -3.471 0.000614 ***
-Neck         -0.37361    0.22473  -1.663 0.097707 .  
-Abdomen       0.91079    0.07052  12.916  < 2e-16 ***
-Thigh         0.21877    0.11635   1.880 0.061275 .  
-Forearm       0.55219    0.18527   2.980 0.003172 ** 
-Wrist  
-  
+```
+
+#### Part 3 answers:
+
+Stick the answer after the colon for each bullet **in bold**:
+
++ Man 1's predicted body fat percent is: 
++ Man 2's predicted body fat percent is: 
++ Man 3's predicted body fat percent is: 
+
