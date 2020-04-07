@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Introduction to model evaluation/validation</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Stephanie J. Spielman" />
+    <script src="slides_modelevaluation_files/header-attrs-2.1/header-attrs.js"></script>
+    <link href="slides_modelevaluation_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="slides_modelevaluation_files/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Introduction to model evaluation/validation
+### Stephanie J. Spielman
+### Data Science for Biologists, Spring 2020
+
+---
+
+&lt;style type="text/css"&gt;
+pre {
+  white-space: pre-wrap;
+  
+}
+
+ul:first-child, ol:first-child {
+    margin: 0;
+}
+
+
+.remark-code, .remark-inline-code { 
+    color: #326369;
+    font-weight: 600;
+}
+/* Code block code */
+.hljs .remark-code-line { 
+  font-weight: normal;
+  font-size: 15px;
+}
+
+.pull-left2{
+  float: left;
+  width: 35%;
+}
+
+.pull-right2{
+  float: right;
+  width: 55%;
+}
+&lt;/style&gt;
+
+
+
+
+## Model evaluation and prediction
+
++ `\(R^2\)` tells how how much variation is explained **in the data the model was FIT ON**
+  + fit on &lt;===&gt; "trained on"
+  
+
++ How good is the model at explaining variation **in data it does NOT know about?**
+  + Should we even bother using our model to predict future outcomes?
+
+---
+
+## More measures of model evaluation
+
++ RMSE ("Root mean squared error") and MAE ("Mean absolute error")
+  + Easily interpreted in units of "Y"
+  + RMSE is very common! "Average" error we can expect when using this model
++ Less easily interpreted, but also commonly-used evaluation measurements
+  + MSE = mean squared error
+  
+---
+
+## `modelr` makes life easy!!
+
+
+```r
+# use trace = F to suppress excessive output which hurts my eyeballs
+fit &lt;- step( lm(Sepal.Length ~ ., data = iris), trace = F  )
+broom::tidy(fit)
+## # A tibble: 6 x 5
+##   term              estimate std.error statistic  p.value
+##   &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+## 1 (Intercept)          2.17     0.280       7.76 1.43e-12
+## 2 Sepal.Width          0.496    0.0861      5.76 4.87e- 8
+## 3 Petal.Length         0.829    0.0685     12.1  1.07e-23
+## 4 Petal.Width         -0.315    0.151      -2.08 3.89e- 2
+## 5 Speciesversicolor   -0.724    0.240      -3.01 3.06e- 3
+## 6 Speciesvirginica    -1.02     0.334      -3.07 2.58e- 3
+broom::glance(fit)
+## # A tibble: 1 x 11
+##   r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
+##       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     0.867         0.863 0.307      188. 2.67e-61     6  -32.6  79.1  100.
+## # … with 2 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;
+```
+
+--
+
+
+```r
+## Obtain R^2 quickly with modelr
+*modelr::rsquare(fit, iris)
+## [1] 0.8673123
+
+## Obtain RMSE quickly with modelr
+*modelr::rmse(fit, iris)
+## [1] 0.300627
+```
+
+---
+
+## Validation with testing/training
+
++ Randomly **split** your dataset into two parts:
+  + The "training" part (usually 60-80% of the data) **builds** aka **trains** the model
+  + The "testing" part (the remaining 20-40%) evaluates aka **tests** the performance of the model
+  + If model performs terribly on testing data, suggests model was *overfit*
+  + Either way, performance is usually better on training data. **Why?**
+
+---
+
+## Cross validation with training and testing sets
+
+
+```r
+# Use dplyr::sample_frac() to randomly sample a fraction of rows
+training_iris &lt;- sample_frac(iris, 0.7) ## 70% into training
+nrow(training_iris)
+## [1] 105
+```
+--
+
+
+```r
+# Get the "anti training" for testing.. with anti_join()!
+# In anti_join(), the FULL data goes FIRST!!
+testing_iris &lt;- anti_join(iris, training_iris) ## remaining 30% into training
+## Joining, by = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width", "Species")
+nrow(testing_iris)
+## [1] 44
+```
+--
+
+
+```r
+## TRAIN the model on training data: data = training_iris !!
+trained_model &lt;- step( lm(Sepal.Length ~ ., data = training_iris), trace=F   )
+```
+
+---
+
+## Compare training metrics to those on TESTING data
+
+
+```r
+## How does the model do on data it was TRAINED ON?
+modelr::rsquare(trained_model, training_iris)
+## [1] 0.8616469
+modelr::rmse(trained_model, training_iris)
+## [1] 0.2985625
+```
+
+--
+
+
+```r
+## How does the model do on data it has NEVER SEEN? The testing data!!
+modelr::rsquare(trained_model, testing_iris)
+## [1] 0.8788238
+modelr::rmse(trained_model, testing_iris)
+## [1] 0.3078842
+```
+
+---
+
+## K-fold cross validation
+
++ Randomly divide the whole dataset into "K" equal chunks aka folds
++ Perform K iterations of model training and testing
+  + "Hold back" data each time for testing!
++ Get RMSE and `\(R^2\)` for each iteration, and look at full distribution
+
+![](kfold-wiki.png)
+
+---
+
+## More robust: Leave-one-out cross validation (LOOCV)
+
++ K-folds on speed: each "test" size is N=1!!
++ For small datasets, LOOCV probably "better"
+
+![](loocv.png)
+
+---
+
+## Running a K-fold CV to evaluate a model that predict Sepal Lengths
+
+
+```r
+# decide your K!
+folds &lt;- 10
+
+# Use the amazzzzing function modelr::crossv_kfold()
+*crossv_kfold(iris, folds)
+## Warning: `as_data_frame()` is deprecated as of tibble 2.0.0.
+## Please use `as_tibble()` instead.
+## The signature and semantics have changed, see `?as_tibble`.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_warnings()` to see where this warning was generated.
+## # A tibble: 10 x 3
+##    train        test         .id  
+##    &lt;named list&gt; &lt;named list&gt; &lt;chr&gt;
+##  1 &lt;resample&gt;   &lt;resample&gt;   01   
+##  2 &lt;resample&gt;   &lt;resample&gt;   02   
+##  3 &lt;resample&gt;   &lt;resample&gt;   03   
+##  4 &lt;resample&gt;   &lt;resample&gt;   04   
+##  5 &lt;resample&gt;   &lt;resample&gt;   05   
+##  6 &lt;resample&gt;   &lt;resample&gt;   06   
+##  7 &lt;resample&gt;   &lt;resample&gt;   07   
+##  8 &lt;resample&gt;   &lt;resample&gt;   08   
+##  9 &lt;resample&gt;   &lt;resample&gt;   09   
+## 10 &lt;resample&gt;   &lt;resample&gt;   10
+```
+
+---
+
+## A necessary detour: functional programming with `purrr`
+
+
+```r
+## log of a number
+log(5)
+## [1] 1.609438
+
+## log of an array of numbers
+log(1:4)
+## [1] 0.0000000 0.6931472 1.0986123 1.3862944
+```
+
+--
+.pull-left2[
+![](purrrmap.png)
+]
+
+
+
+```r
+## using purrr::map returns a !!!LIST!!!
+*purrr::map( 1:4, log )
+## [[1]]
+## [1] 0
+## 
+## [[2]]
+## [1] 0.6931472
+## 
+## [[3]]
+## [1] 1.098612
+## 
+## [[4]]
+## [1] 1.386294
+```
+
+---
+
+## map_TYPE to specify a different type of output
+
+
+```r
+## purrr, I'd really like an array of *doubles* to come out of this
+*purrr::map_dbl(1:4, log)
+## [1] 0.0000000 0.6931472 1.0986123 1.3862944
+```
+
+--
+
+
+```r
+## map2 means there are TWO inputs
+## recall: log has a second optional argument for BASE! The output is log base 2
+*purrr::map2_dbl(1:4, 2, log)
+## [1] 0.000000 1.000000 1.584963 2.000000
+```
+
+---
+
+## A second necessary detour: writing our own functions
+
+
+```r
+add_two_numbers &lt;- function(a, b) 
+{                                 
+  a + b                           
+}                                
+
+
+add_two_numbers(10, 12)
+## [1] 22
+add_two_numbers(5, -5)
+## [1] 0
+```
+
+---
+
+## Back to K-fold
+
+
+```r
+crossv_kfold(iris, folds) -&gt; iris_kfold
+iris_kfold
+## # A tibble: 10 x 3
+##    train        test         .id  
+##    &lt;named list&gt; &lt;named list&gt; &lt;chr&gt;
+##  1 &lt;resample&gt;   &lt;resample&gt;   01   
+##  2 &lt;resample&gt;   &lt;resample&gt;   02   
+##  3 &lt;resample&gt;   &lt;resample&gt;   03   
+##  4 &lt;resample&gt;   &lt;resample&gt;   04   
+##  5 &lt;resample&gt;   &lt;resample&gt;   05   
+##  6 &lt;resample&gt;   &lt;resample&gt;   06   
+##  7 &lt;resample&gt;   &lt;resample&gt;   07   
+##  8 &lt;resample&gt;   &lt;resample&gt;   08   
+##  9 &lt;resample&gt;   &lt;resample&gt;   09   
+## 10 &lt;resample&gt;   &lt;resample&gt;   10
+```
+
+---
+
+## Using `purrr::map` to run a model at each row
+
+
+```r
+## DEFINE THE FUNCTION!! IT'S JUST THE MODEL!!!
+my_iris_model &lt;- function(input_data){
+  step(lm(Sepal.Length ~ ., data = input_data), trace =  F)
+}
+
+iris_kfold %&gt;%
+* mutate( model_fit = purrr::map( train, my_iris_model ) )
+## # A tibble: 10 x 4
+##    train        test         .id   model_fit   
+##    &lt;named list&gt; &lt;named list&gt; &lt;chr&gt; &lt;named list&gt;
+##  1 &lt;resample&gt;   &lt;resample&gt;   01    &lt;lm&gt;        
+##  2 &lt;resample&gt;   &lt;resample&gt;   02    &lt;lm&gt;        
+##  3 &lt;resample&gt;   &lt;resample&gt;   03    &lt;lm&gt;        
+##  4 &lt;resample&gt;   &lt;resample&gt;   04    &lt;lm&gt;        
+##  5 &lt;resample&gt;   &lt;resample&gt;   05    &lt;lm&gt;        
+##  6 &lt;resample&gt;   &lt;resample&gt;   06    &lt;lm&gt;        
+##  7 &lt;resample&gt;   &lt;resample&gt;   07    &lt;lm&gt;        
+##  8 &lt;resample&gt;   &lt;resample&gt;   08    &lt;lm&gt;        
+##  9 &lt;resample&gt;   &lt;resample&gt;   09    &lt;lm&gt;        
+## 10 &lt;resample&gt;   &lt;resample&gt;   10    &lt;lm&gt;
+```
+
+---
+
+## Using `purrr:map2_dbl` to get our metrics
+
++ Recall: `modelr::rmse(MODEL, DATA)`
++ Recall: `modelr::rsquare(MODEL, DATA)`
+
+
+```r
+iris_kfold %&gt;%
+  mutate( model_fit = purrr::map( train, my_iris_model ) ) %&gt;%
+* mutate( test_rmse = purrr::map2_dbl(model_fit, test, rmse),
+*         test_rsq  = purrr::map2_dbl(model_fit, test, rsquare))
+## # A tibble: 10 x 6
+##    train        test         .id   model_fit    test_rmse test_rsq
+##    &lt;named list&gt; &lt;named list&gt; &lt;chr&gt; &lt;named list&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+##  1 &lt;resample&gt;   &lt;resample&gt;   01    &lt;lm&gt;             0.271    0.874
+##  2 &lt;resample&gt;   &lt;resample&gt;   02    &lt;lm&gt;             0.213    0.932
+##  3 &lt;resample&gt;   &lt;resample&gt;   03    &lt;lm&gt;             0.277    0.732
+##  4 &lt;resample&gt;   &lt;resample&gt;   04    &lt;lm&gt;             0.239    0.936
+##  5 &lt;resample&gt;   &lt;resample&gt;   05    &lt;lm&gt;             0.399    0.611
+##  6 &lt;resample&gt;   &lt;resample&gt;   06    &lt;lm&gt;             0.339    0.807
+##  7 &lt;resample&gt;   &lt;resample&gt;   07    &lt;lm&gt;             0.322    0.872
+##  8 &lt;resample&gt;   &lt;resample&gt;   08    &lt;lm&gt;             0.430    0.860
+##  9 &lt;resample&gt;   &lt;resample&gt;   09    &lt;lm&gt;             0.335    0.860
+## 10 &lt;resample&gt;   &lt;resample&gt;   10    &lt;lm&gt;             0.270    0.884
+```
+
+---
+
+## Put it all together
+
+
+```r
+my_iris_model &lt;- function(input_data){
+  step(lm(Sepal.Length ~ ., data = input_data), trace =  F)
+}
+
+iris_kfold %&gt;%
+  mutate( model_fit = purrr::map( train, my_iris_model ),
+          test_rmse = purrr::map2_dbl(model_fit, test, rmse),  
+          test_rsq  = purrr::map2_dbl(model_fit, test, rsquare)) -&gt; result_iris_kfold
+```
+
+
+---
+
+## Summarizing our results
+
+```r
+result_iris_kfold %&gt;%
+  summarize(mean_rmse = mean(test_rmse),
+            mean_rsq  = mean(test_rsq))
+## # A tibble: 1 x 2
+##   mean_rmse mean_rsq
+##       &lt;dbl&gt;    &lt;dbl&gt;
+## 1     0.309    0.837
+```
+
++ We expect, when used on data the model has never seen, it will predict `\(R^2\)` of variation in sepal lengths 
++ We expect, when used on data the model has never seen, the model predictions will be roughly *RMSE* units off (the average residual is the RMSE value)
+--
+  
+  ```r
+  summary(iris$Sepal.Length)
+  ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  ##   4.300   5.100   5.800   5.843   6.400   7.900
+  ```
+---
+
+## Visualizing our evaluation
+
++ Any kind of standard continuous distribution plot will do here:
+
+
+```r
+result_iris_kfold %&gt;%
+  ggplot(aes(x = "", y = test_rmse)) + geom_boxplot() + 
+  xlab("") + ylab("Mean RMSE")-&gt; rmse_box
+
+result_iris_kfold %&gt;%
+  ggplot(aes(x = "", y = test_rsq)) + geom_boxplot() + 
+  xlab("") + ylab("Mean R^2") -&gt; rsq_box
+
+## using patchwork:
+rmse_box + rsq_box
+```
+
+![](slides_modelevaluation_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
+
+---
+
+## How to do LOOCV?
+
++ Same exact way except use `modelr::crossv_loo()`
+  + BUT I think there's a bug in `rsquare()` when used on LOO output, so let's just do RMSE.
+
+
+```r
+# Reminding you of this function we wrote!
+my_iris_model &lt;- function(input_data){
+  step(lm(Sepal.Length ~ ., data = input_data), trace =  F)
+}
+
+
+*crossv_loo(iris) %&gt;%
+  mutate( model_fit = purrr::map( train, my_iris_model ),
+          test_rmse = purrr::map2_dbl(model_fit, test, rmse)) -&gt; result_iris_loo
+
+# Summary
+result_iris_loo %&gt;%
+  summarize(mean_rmse = mean(test_rmse))
+## # A tibble: 1 x 1
+##   mean_rmse
+##       &lt;dbl&gt;
+## 1     0.253
+```
+
+---
+
+## Making predictions!
+
+Once we have our model, we can predict future outcomes. **Remember: Model evaluation is NOT the same as model fitting.**
+
+
+```r
+## here's our model
+fit &lt;- step( lm(Sepal.Length ~ ., data = iris), trace = F  )
+
+broom::tidy(fit) # just to see which predictors are there - and it's all!!
+## # A tibble: 6 x 5
+##   term              estimate std.error statistic  p.value
+##   &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+## 1 (Intercept)          2.17     0.280       7.76 1.43e-12
+## 2 Sepal.Width          0.496    0.0861      5.76 4.87e- 8
+## 3 Petal.Length         0.829    0.0685     12.1  1.07e-23
+## 4 Petal.Width         -0.315    0.151      -2.08 3.89e- 2
+## 5 Speciesversicolor   -0.724    0.240      -3.01 3.06e- 3
+## 6 Speciesvirginica    -1.02     0.334      -3.07 2.58e- 3
+```
+
+---
+
+## Making predictions!
+
+
+```r
+## Predict using a TIBBLE with columns EXACTLY NAMED as MODEL PREDICTORS
+## Oh look a new observation where we measured PREDICTORS
+new_iris &lt;- tibble(Sepal.Width = 4.1, 
+                   Petal.Length = 3.7, 
+                   Petal.Width = 1.1, 
+                   Species = "virginica")
+
+# arguments in order: NEWDATA, MODEL
+modelr::add_predictions(new_iris, fit)
+## # A tibble: 1 x 5
+##   Sepal.Width Petal.Length Petal.Width Species    pred
+##         &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;
+## 1         4.1          3.7         1.1 virginica  5.90
+
+# or, base R with OPPOSITE arguments. womp.
+predict(fit, new_iris)
+##        1 
+## 5.902445
+```
+
+
+BONUS Q: Why did the `modelr` authors flip these arguments?
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightLines": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
