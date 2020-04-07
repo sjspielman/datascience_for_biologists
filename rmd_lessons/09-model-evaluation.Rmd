@@ -1,0 +1,162 @@
+---
+title: "Introduction to model evaluation"
+subtitle: "Data Science for Biologists, Spring 2020"
+author: "YOUR NAME GOES HERE"
+output: 
+  html_document:
+    highlight: tango
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(broom) 
+library(modelr)
+library(patchwork)
+```
+
+## Instructions
+
+Standard grading criteria apply, except there is no "answer style" - just write out answers normally! **Make sure your bulleted lists render appropriately in the knitted output!!!**
+
+This assignment will use an external dataset of various physical measurements from 250 adult males. Our goal for this assignment is to build and evaluate a model from this data to **predict body fat percentage** (column `Percent`) in adult males, and then use this model to predict future outcomes. Age is measured in years, weight in pounds, height in inches, and all other measurements are circumference measured in cm.
+
+```{r}
+fatmen <- read_csv("https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/data/bodyfat.csv")
+dplyr::glimpse(fatmen)
+```
+
+
+
+## Part 1: Construct a model using model selection
+
+Using the `step()` function, determine the most appropriate model to explain variation in bodyfat percentage in this data. Examine the model output with the `summary` function, and answer questions below. **You will use this model for all model evaluation questions.**
+
+```{r}
+## Use step() to build and save a model to explain Percent
+## Examine output with summary
+```
+
+#### Part 1 questions: Answer the questions in the templated bullets!
+
+1. In a bulleted list below, state the predictor variables for the final model and their P-values. You do not need to worry about coefficients!!
+
+    + (replace with first predictor)
+    + (replace with second predictor)
+    + (etc)
+
+2. What percentage of variation in bodyfat percentage is explained by this model? 
+
+    + (explained answer)
+
+
+3. What percentage of variation in bodyfat percentage is UNEXPLAINED by this model?
+  
+    + (unexplained answer)
+
+4. What is the RMSE of your model? Hint: you need to run some code!
+
+    ```{r}
+    ## code to get RMSE of model
+    ```
+  
+    + (RMSE answer)
+
+
+## Part 2: Evaluate the model using several approaches
+
+### Part 2.1: Testing and training approach
+
+**First, use a simple train/test approach**, where the training data is a random subset comprising 65% of the total dataset. Determine the R-squared and RMSE as determined from the training AND testing data.
+
+```{r}
+## split data into train and test, using this variable as part of your code:
+training_frac < 0.65
+
+## Train model on training data and obtain metrics (R-squared and RMSE). DO NOT USE summary()!!!
+
+## Determine metrics on test data (R-squared and RMSE)
+```
+
+#### Part 2.1 questions: Answer the questions in the templated bullets!
+
+1. Compare the training data $R^2$ to the testing data $R^2$. Which is higher (i.e., does the model run on training or testing data explain more variation in Percent), and is this outcome expected?
+
+  + (Answer goes here)
+
+2. Compare the training data *RMSE* to the testing data *RMSE*. Which is *lower* (i.e., is there more error from the model run on training or testing data), and is this outcome expected?
+
+  + (Answer goes here)
+
+
+
+
+### Part 2.2: K-fold cross validation
+
+Use k-fold cross validation with **15 folds** to evaluate the model. Determine the $R^2$ and RMSE for each fold, and *visualize* the distributions of $R^2$ and RMSE in two separate plots that you *add together with patchwork*. You should also calculate the mean $R^2$ and mean RMSE values.
+
+```{r}
+## k-fold cross validation, using this variable in your code
+number_folds <- 15
+
+
+## Make figures for R^2 and RMSE, which clearly show the MEAN values for each distribution using stat_summary() or similar
+```
+
+#### Part 2.2 questions: Answer the questions in the templated bullets!
+
+1. Examine your distribution of $R^2$ values. What is the average $R^2$, and how does it compare to the **testing $R^2$** from Part 1?
+
+  + (Answer goes here)
+
+2. Examine your distribution of *RMSE* values. What is the average *RMSE*, and how does it compare to the **testing RMSE** from Part 1?
+
+  + (Answer goes here)
+  
+
+
+### Part 2.3: Leave-on-out cross validation
+
+```{r}
+## LOOCV
+
+
+## Make figures RMSE, which clearly show the MEAN value for the distribution using stat_summary() 
+```
+
+#### Part 2.3 questions: Answer the questions in the templated bullets!
+
+1. Examine your distribution of *RMSE* values. What is the average *RMSE*, and how does it compare to the **testing RMSE** from Part 1?
+
+  + (Answer goes here)
+
+
+### Part 2.4: Wrap-up
+
+Considering all three approaches, do you believe this model is highly explanatory of Percent (e.g., how are the $R^2$ values)? Further, do you believe the error in this model is low, moderate or high (e.g., how are the RMSE values)? Answer in 1-2 sentences in the bullet:
+
+  + (Answer goes here)
+  
+
+## Part 3: Predictions
+
+New men have arrived, and we need to predict their body fat percentage! Using the function `modelr::add_predictions()`, use our model to predict what the body fat percentages will be for three men with the following physical attributes:
+
++ Man 1
+  + 37 years old
+  + weighs 195 pounds
+  + 39.6 cm neck thickness
+  + 88.6 cm Abdomen thickness
++ Man 2
++ Man 3
+
+
+Age           0.06819    0.03130   2.179 0.030312 *  
+Weight       -0.11853    0.03415  -3.471 0.000614 ***
+Neck         -0.37361    0.22473  -1.663 0.097707 .  
+Abdomen       0.91079    0.07052  12.916  < 2e-16 ***
+Thigh         0.21877    0.11635   1.880 0.061275 .  
+Forearm       0.55219    0.18527   2.980 0.003172 ** 
+Wrist  
+  
