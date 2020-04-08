@@ -46,12 +46,12 @@ ul:first-child, ol:first-child {
 
 .pull-left2{
   float: left;
-  width: 35%;
+  width: 45%;
 }
 
 .pull-right2{
   float: right;
-  width: 55%;
+  width: 45%;
 }
 &lt;/style&gt;
 
@@ -170,7 +170,7 @@ testing_iris &lt;- anti_join(iris, training_iris) ## remaining 30% into training
 ## Joining, by = c("Sepal.Length", "Sepal.Width", "Petal.Length",
 ## "Petal.Width", "Species")
 nrow(testing_iris)
-## [1] 45
+## [1] 44
 ```
 --
 
@@ -189,9 +189,9 @@ trained_model &lt;- lm(fit$formula, data = training_iris)
 ```r
 ## How does the model do on data it was TRAINED ON?
 modelr::rsquare(trained_model, training_iris)
-## [1] 0.8704271
+## [1] 0.8751447
 modelr::rmse(trained_model, training_iris)
-## [1] 0.3009213
+## [1] 0.303924
 ```
 
 --
@@ -200,9 +200,9 @@ modelr::rmse(trained_model, training_iris)
 ```r
 ## How does the model do on data it has NEVER SEEN? The testing data!!
 modelr::rsquare(trained_model, testing_iris)
-## [1] 0.8502678
+## [1] 0.8330519
 modelr::rmse(trained_model, testing_iris)
-## [1] 0.3090084
+## [1] 0.3034615
 ```
 
 ---
@@ -396,16 +396,16 @@ iris_kfold %&gt;%
 ## # A tibble: 10 x 6
 ##    train        test         .id   model_fit    test_rmse test_rsq
 ##    &lt;named list&gt; &lt;named list&gt; &lt;chr&gt; &lt;named list&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-##  1 &lt;resample&gt;   &lt;resample&gt;   01    &lt;lm&gt;             0.270    0.918
-##  2 &lt;resample&gt;   &lt;resample&gt;   02    &lt;lm&gt;             0.269    0.920
-##  3 &lt;resample&gt;   &lt;resample&gt;   03    &lt;lm&gt;             0.360    0.825
-##  4 &lt;resample&gt;   &lt;resample&gt;   04    &lt;lm&gt;             0.248    0.921
-##  5 &lt;resample&gt;   &lt;resample&gt;   05    &lt;lm&gt;             0.283    0.870
-##  6 &lt;resample&gt;   &lt;resample&gt;   06    &lt;lm&gt;             0.290    0.714
-##  7 &lt;resample&gt;   &lt;resample&gt;   07    &lt;lm&gt;             0.342    0.858
-##  8 &lt;resample&gt;   &lt;resample&gt;   08    &lt;lm&gt;             0.429    0.664
-##  9 &lt;resample&gt;   &lt;resample&gt;   09    &lt;lm&gt;             0.339    0.919
-## 10 &lt;resample&gt;   &lt;resample&gt;   10    &lt;lm&gt;             0.266    0.866
+##  1 &lt;resample&gt;   &lt;resample&gt;   01    &lt;lm&gt;             0.429    0.593
+##  2 &lt;resample&gt;   &lt;resample&gt;   02    &lt;lm&gt;             0.239    0.932
+##  3 &lt;resample&gt;   &lt;resample&gt;   03    &lt;lm&gt;             0.301    0.901
+##  4 &lt;resample&gt;   &lt;resample&gt;   04    &lt;lm&gt;             0.315    0.885
+##  5 &lt;resample&gt;   &lt;resample&gt;   05    &lt;lm&gt;             0.324    0.692
+##  6 &lt;resample&gt;   &lt;resample&gt;   06    &lt;lm&gt;             0.252    0.920
+##  7 &lt;resample&gt;   &lt;resample&gt;   07    &lt;lm&gt;             0.255    0.891
+##  8 &lt;resample&gt;   &lt;resample&gt;   08    &lt;lm&gt;             0.339    0.879
+##  9 &lt;resample&gt;   &lt;resample&gt;   09    &lt;lm&gt;             0.277    0.886
+## 10 &lt;resample&gt;   &lt;resample&gt;   10    &lt;lm&gt;             0.378    0.798
 ```
 
 ---
@@ -442,7 +442,7 @@ result_kfold %&gt;%
 ## # A tibble: 1 x 2
 ##   mean_rmse mean_rsq
 ##       &lt;dbl&gt;    &lt;dbl&gt;
-## 1     0.307    0.852
+## 1     0.307    0.842
 ```
 
 + We expect, when used on data the model has never seen, it will predict `\(R^2\)` of variation in sepal lengths 
@@ -460,22 +460,27 @@ result_kfold %&gt;%
 
 + Any kind of standard continuous distribution plot will do here:
 
+.pull-left2[
 
 ```r
 result_kfold %&gt;%
   ggplot(aes(x = "", y = test_rmse)) + geom_boxplot() + 
-  xlab("") + ylab("Mean RMSE") -&gt; box_rmse
-
-
-result_kfold %&gt;%
-  ggplot(aes(x = "", y = test_rsq)) + geom_boxplot() + 
-  xlab("") + ylab("Mean R^2") -&gt; box_rsw
-
-# patchwork 
-print(box_rmse+box_rsw)
+  xlab("") + ylab("Mean RMSE")
 ```
 
 ![](slides_modelevaluation_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+]
+.pull-right2[
+
+```r
+result_kfold %&gt;%
+  ggplot(aes(x = "", y = test_rsq)) + geom_boxplot() + 
+  xlab("") + ylab("Mean R^2")
+```
+
+![](slides_modelevaluation_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
+]
+
 
 ---
 

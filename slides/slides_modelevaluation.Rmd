@@ -38,12 +38,12 @@ ul:first-child, ol:first-child {
 
 .pull-left2{
   float: left;
-  width: 35%;
+  width: 45%;
 }
 
 .pull-right2{
   float: right;
-  width: 55%;
+  width: 45%;
 }
 ```
 
@@ -332,19 +332,21 @@ result_kfold %>%
 
 + Any kind of standard continuous distribution plot will do here:
 
-```{r, fig.width = 8, fig.height = 4}
+.pull-left2[
+```{r, fig.width = 4, fig.height = 4}
 result_kfold %>%
   ggplot(aes(x = "", y = test_rmse)) + geom_boxplot() + 
-  xlab("") + ylab("Mean RMSE") -> box_rmse
-
-
+  xlab("") + ylab("Mean RMSE")
+```
+]
+.pull-right2[
+```{r, fig.width = 4, fig.height = 4}
 result_kfold %>%
   ggplot(aes(x = "", y = test_rsq)) + geom_boxplot() + 
-  xlab("") + ylab("Mean R^2") -> box_rsw
-
-# patchwork 
-print(box_rmse+box_rsw)
+  xlab("") + ylab("Mean R^2")
 ```
+]
+
 
 ---
 
