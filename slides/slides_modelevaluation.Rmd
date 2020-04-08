@@ -10,11 +10,11 @@ editor_options:
   chunk_output_type: console
 ---
 ```{css, echo=F}
-@media print {
-  .has-continuation {
-    display: block !important;
-  }
-}
+//@media print {
+//  .has-continuation {
+//    display: block !important;
+//  }
+//}
 
 pre {
   white-space: pre-wrap;
@@ -372,7 +372,7 @@ result_iris_loo %>%
 
 ## Making predictions!
 
-Once we have our model, we can predict future outcomes. **Remember: Model evaluation is NOT the same as model fitting.**
+Once we have our model, we can predict future outcomes. 
 
 ```{r}
 # reminder for what our model predictors are
