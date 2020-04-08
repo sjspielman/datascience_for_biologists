@@ -4,7 +4,6 @@
     <title>Introduction to model evaluation/validation</title>
     <meta charset="utf-8" />
     <meta name="author" content="Stephanie J. Spielman" />
-    <script src="slides_modelevaluation_files/header-attrs-2.1/header-attrs.js"></script>
     <link href="slides_modelevaluation_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="slides_modelevaluation_files/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
   </head>
@@ -113,6 +112,29 @@ broom::glance(fit)
 
 ---
 
+## Use that model going forward easily
+
+
+```r
+## reminding you of the fit variable:
+fit &lt;- step( lm(Sepal.Length ~ ., data = iris), trace = F  )
+
+
+## Extract the FORMULA as fit$formula
+lm(fit$formula, data = iris)
+## 
+## Call:
+## lm(formula = fit$formula, data = iris)
+## 
+## Coefficients:
+##       (Intercept)        Sepal.Width       Petal.Length  
+##            2.1713             0.4959             0.8292  
+##       Petal.Width  Speciesversicolor   Speciesvirginica  
+##           -0.3152            -0.7236            -1.0235
+```
+
+---
+
 ## Validation with testing/training
 
 + Randomly **split** your dataset into two parts:
@@ -123,7 +145,7 @@ broom::glance(fit)
 
 ---
 
-## Cross validation with training and testing sets
+## Cross validation with a training and testing split
 
 
 ```r
@@ -139,17 +161,19 @@ nrow(training_iris)
 # Get the "anti training" for testing.. with anti_join()!
 # In anti_join(), the FULL data goes FIRST!!
 testing_iris &lt;- anti_join(iris, training_iris) ## remaining 30% into training
-## Joining, by = c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width", "Species")
+## Joining, by = c("Sepal.Length", "Sepal.Width", "Petal.Length",
+## "Petal.Width", "Species")
 nrow(testing_iris)
-## [1] 44
+## [1] 45
 ```
 --
 
 
 ```r
 ## TRAIN the model on training data: data = training_iris !!
-trained_model &lt;- step( lm(Sepal.Length ~ ., data = training_iris), trace=F   )
+trained_model &lt;- lm(fit$formula, data = training_iris)
 ```
++ We should **NOT** use `step()` here. WHY?????
 
 ---
 
@@ -159,9 +183,9 @@ trained_model &lt;- step( lm(Sepal.Length ~ ., data = training_iris), trace=F   
 ```r
 ## How does the model do on data it was TRAINED ON?
 modelr::rsquare(trained_model, training_iris)
-## [1] 0.8616469
+## [1] 0.8864441
 modelr::rmse(trained_model, training_iris)
-## [1] 0.2985625
+## [1] 0.2881651
 ```
 
 --
@@ -170,9 +194,9 @@ modelr::rmse(trained_model, training_iris)
 ```r
 ## How does the model do on data it has NEVER SEEN? The testing data!!
 modelr::rsquare(trained_model, testing_iris)
-## [1] 0.8788238
+## [1] 0.8025335
 modelr::rmse(trained_model, testing_iris)
-## [1] 0.3078842
+## [1] 0.3530393
 ```
 
 ---
@@ -206,11 +230,6 @@ folds &lt;- 10
 
 # Use the amazzzzing function modelr::crossv_kfold()
 *crossv_kfold(iris, folds)
-## Warning: `as_data_frame()` is deprecated as of tibble 2.0.0.
-## Please use `as_tibble()` instead.
-## The signature and semantics have changed, see `?as_tibble`.
-## This warning is displayed once every 8 hours.
-## Call `lifecycle::last_warnings()` to see where this warning was generated.
 ## # A tibble: 10 x 3
 ##    train        test         .id  
 ##    &lt;named list&gt; &lt;named list&gt; &lt;chr&gt;
@@ -333,8 +352,9 @@ iris_kfold
 
 ```r
 ## DEFINE THE FUNCTION!! IT'S JUST THE MODEL!!!
+## THIS IS IMPORTANT: As written ASSUMES (!!!!!!) fir$formula was defined in code ABOVE this function
 my_iris_model &lt;- function(input_data){
-  step(lm(Sepal.Length ~ ., data = input_data), trace =  F)
+  lm(fit$formula, data = input_data)
 }
 
 iris_kfold %&gt;%
@@ -370,32 +390,38 @@ iris_kfold %&gt;%
 ## # A tibble: 10 x 6
 ##    train        test         .id   model_fit    test_rmse test_rsq
 ##    &lt;named list&gt; &lt;named list&gt; &lt;chr&gt; &lt;named list&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-##  1 &lt;resample&gt;   &lt;resample&gt;   01    &lt;lm&gt;             0.271    0.874
-##  2 &lt;resample&gt;   &lt;resample&gt;   02    &lt;lm&gt;             0.213    0.932
-##  3 &lt;resample&gt;   &lt;resample&gt;   03    &lt;lm&gt;             0.277    0.732
-##  4 &lt;resample&gt;   &lt;resample&gt;   04    &lt;lm&gt;             0.239    0.936
-##  5 &lt;resample&gt;   &lt;resample&gt;   05    &lt;lm&gt;             0.399    0.611
-##  6 &lt;resample&gt;   &lt;resample&gt;   06    &lt;lm&gt;             0.339    0.807
-##  7 &lt;resample&gt;   &lt;resample&gt;   07    &lt;lm&gt;             0.322    0.872
-##  8 &lt;resample&gt;   &lt;resample&gt;   08    &lt;lm&gt;             0.430    0.860
-##  9 &lt;resample&gt;   &lt;resample&gt;   09    &lt;lm&gt;             0.335    0.860
-## 10 &lt;resample&gt;   &lt;resample&gt;   10    &lt;lm&gt;             0.270    0.884
+##  1 &lt;resample&gt;   &lt;resample&gt;   01    &lt;lm&gt;             0.340    0.792
+##  2 &lt;resample&gt;   &lt;resample&gt;   02    &lt;lm&gt;             0.337    0.842
+##  3 &lt;resample&gt;   &lt;resample&gt;   03    &lt;lm&gt;             0.296    0.862
+##  4 &lt;resample&gt;   &lt;resample&gt;   04    &lt;lm&gt;             0.348    0.850
+##  5 &lt;resample&gt;   &lt;resample&gt;   05    &lt;lm&gt;             0.337    0.810
+##  6 &lt;resample&gt;   &lt;resample&gt;   06    &lt;lm&gt;             0.270    0.883
+##  7 &lt;resample&gt;   &lt;resample&gt;   07    &lt;lm&gt;             0.326    0.840
+##  8 &lt;resample&gt;   &lt;resample&gt;   08    &lt;lm&gt;             0.257    0.924
+##  9 &lt;resample&gt;   &lt;resample&gt;   09    &lt;lm&gt;             0.349    0.876
+## 10 &lt;resample&gt;   &lt;resample&gt;   10    &lt;lm&gt;             0.267    0.879
 ```
 
 ---
 
-## Put it all together
+## Putting it all together: model selection and k-fold CV
 
 
 ```r
+# Initial model selection (with ENTIRE data set) to determine predictors
+fit &lt;- step(lm(Sepal.Length ~ ., data = iris), trace =  F)
+
+# Function for use in cross-validation
 my_iris_model &lt;- function(input_data){
-  step(lm(Sepal.Length ~ ., data = input_data), trace =  F)
+  lm(fit$formula, data = input_data)
 }
 
-iris_kfold %&gt;%
-  mutate( model_fit = purrr::map( train, my_iris_model ),
+# Validate your model
+folds &lt;- 10
+crossv_kfold(iris, folds) %&gt;%
+  mutate( model_fit = purrr::map(train, my_iris_model),
           test_rmse = purrr::map2_dbl(model_fit, test, rmse),  
-          test_rsq  = purrr::map2_dbl(model_fit, test, rsquare)) -&gt; result_iris_kfold
+          test_rsq  = purrr::map2_dbl(model_fit, test, rsquare)) -&gt; result_kfold
 ```
 
 
@@ -404,13 +430,13 @@ iris_kfold %&gt;%
 ## Summarizing our results
 
 ```r
-result_iris_kfold %&gt;%
+result_kfold %&gt;%
   summarize(mean_rmse = mean(test_rmse),
             mean_rsq  = mean(test_rsq))
 ## # A tibble: 1 x 2
 ##   mean_rmse mean_rsq
 ##       &lt;dbl&gt;    &lt;dbl&gt;
-## 1     0.309    0.837
+## 1     0.312    0.852
 ```
 
 + We expect, when used on data the model has never seen, it will predict `\(R^2\)` of variation in sepal lengths 
@@ -430,11 +456,11 @@ result_iris_kfold %&gt;%
 
 
 ```r
-result_iris_kfold %&gt;%
+result_kfold %&gt;%
   ggplot(aes(x = "", y = test_rmse)) + geom_boxplot() + 
   xlab("") + ylab("Mean RMSE")-&gt; rmse_box
 
-result_iris_kfold %&gt;%
+result_kfold %&gt;%
   ggplot(aes(x = "", y = test_rsq)) + geom_boxplot() + 
   xlab("") + ylab("Mean R^2") -&gt; rsq_box
 
@@ -442,7 +468,7 @@ result_iris_kfold %&gt;%
 rmse_box + rsq_box
 ```
 
-![](slides_modelevaluation_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
+![](slides_modelevaluation_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -453,9 +479,9 @@ rmse_box + rsq_box
 
 
 ```r
-# Reminding you of this function we wrote!
+# Reminding you of this function, but you only need to define it once
 my_iris_model &lt;- function(input_data){
-  step(lm(Sepal.Length ~ ., data = input_data), trace =  F)
+  lm(fit$formula, data = input_data)
 }
 
 
@@ -480,10 +506,8 @@ Once we have our model, we can predict future outcomes. **Remember: Model evalua
 
 
 ```r
-## here's our model
-fit &lt;- step( lm(Sepal.Length ~ ., data = iris), trace = F  )
-
-broom::tidy(fit) # just to see which predictors are there - and it's all!!
+# reminder for what our model predictors are
+broom::tidy(fit) 
 ## # A tibble: 6 x 5
 ##   term              estimate std.error statistic  p.value
 ##   &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
@@ -499,14 +523,14 @@ broom::tidy(fit) # just to see which predictors are there - and it's all!!
 
 ## Making predictions!
 
++ Predict using a tibble with columns **EXACTLY NAMED** as model predictor variables in the model formula
 
 ```r
-## Predict using a TIBBLE with columns EXACTLY NAMED as MODEL PREDICTORS
 ## Oh look a new observation where we measured PREDICTORS
-new_iris &lt;- tibble(Sepal.Width = 4.1, 
+new_iris &lt;- tibble(Sepal.Width  = 4.1, 
                    Petal.Length = 3.7, 
-                   Petal.Width = 1.1, 
-                   Species = "virginica")
+                   Petal.Width  = 1.1, 
+                   Species      = "virginica")
 
 # arguments in order: NEWDATA, MODEL
 modelr::add_predictions(new_iris, fit)
@@ -572,20 +596,30 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
 })();
 (function() {
   "use strict"
-  // Replace <script> tags in slides area to make them executable
+  /* Replace <script> tags in slides area to make them executable
+   *
+   * Runs after post-processing of markdown source into slides and replaces only
+   * <script>s on the last slide of continued slides using the .has-continuation
+   * class added by xaringan. Finally, any <script>s in the slides area that
+   * aren't executed are commented out.
+   */
   var scripts = document.querySelectorAll(
-    '.remark-slides-area .remark-slide-container script'
+    '.remark-slides-area .remark-slide-container:not(.has-continuation) script'
   );
   if (!scripts.length) return;
   for (var i = 0; i < scripts.length; i++) {
     var s = document.createElement('script');
     var code = document.createTextNode(scripts[i].textContent);
     s.appendChild(code);
-    var scriptAttrs = scripts[i].attributes;
-    for (var j = 0; j < scriptAttrs.length; j++) {
-      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
-    }
     scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+  var scriptsNotExecuted = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container.has-continuation script'
+  );
+  if (!scriptsNotExecuted.length) return;
+  for (var i = 0; i < scriptsNotExecuted.length; i++) {
+    var comment = document.createComment(scriptsNotExecuted[i].outerHTML)
+    scriptsNotExecuted[i].parentElement.replaceChild(comment, scriptsNotExecuted[i])
   }
 })();
 (function() {

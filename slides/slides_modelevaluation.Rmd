@@ -94,6 +94,19 @@ modelr::rmse(fit, iris) #<<
 
 ---
 
+## Use that model going forward easily
+
+```{r}
+## reminding you of the fit variable:
+fit <- step( lm(Sepal.Length ~ ., data = iris), trace = F  )
+
+
+## Extract the FORMULA as fit$formula
+lm(fit$formula, data = iris)
+```
+
+---
+
 ## Validation with testing/training
 
 + Randomly **split** your dataset into two parts:
@@ -104,7 +117,7 @@ modelr::rmse(fit, iris) #<<
 
 ---
 
-## Cross validation with training and testing sets
+## Cross validation with a training and testing split
 
 ```{r}
 # Use dplyr::sample_frac() to randomly sample a fraction of rows
@@ -123,8 +136,9 @@ nrow(testing_iris)
 
 ```{r}
 ## TRAIN the model on training data: data = training_iris !!
-trained_model <- step( lm(Sepal.Length ~ ., data = training_iris), trace=F   )
+trained_model <- lm(fit$formula, data = training_iris)
 ```
++ We should **NOT** use `step()` here. WHY?????
 
 ---
 
@@ -246,8 +260,9 @@ iris_kfold
 
 ```{r}
 ## DEFINE THE FUNCTION!! IT'S JUST THE MODEL!!!
+## THIS IS IMPORTANT: As written ASSUMES (!!!!!!) fir$formula was defined in code ABOVE this function
 my_iris_model <- function(input_data){
-  step(lm(Sepal.Length ~ ., data = input_data), trace =  F)
+  lm(fit$formula, data = input_data)
 }
 
 iris_kfold %>%
@@ -270,17 +285,23 @@ iris_kfold %>%
 
 ---
 
-## Put it all together
+## Putting it all together: model selection and k-fold CV
 
 ```{r}
+# Initial model selection (with ENTIRE data set) to determine predictors
+fit <- step(lm(Sepal.Length ~ ., data = iris), trace =  F)
+
+# Function for use in cross-validation
 my_iris_model <- function(input_data){
-  step(lm(Sepal.Length ~ ., data = input_data), trace =  F)
+  lm(fit$formula, data = input_data)
 }
 
-iris_kfold %>%
-  mutate( model_fit = purrr::map( train, my_iris_model ),
+# Validate your model
+folds <- 10
+crossv_kfold(iris, folds) %>%
+  mutate( model_fit = purrr::map(train, my_iris_model),
           test_rmse = purrr::map2_dbl(model_fit, test, rmse),  
-          test_rsq  = purrr::map2_dbl(model_fit, test, rsquare)) -> result_iris_kfold
+          test_rsq  = purrr::map2_dbl(model_fit, test, rsquare)) -> result_kfold
 ```
 
 
@@ -288,7 +309,7 @@ iris_kfold %>%
 
 ## Summarizing our results
 ```{r}
-result_iris_kfold %>%
+result_kfold %>%
   summarize(mean_rmse = mean(test_rmse),
             mean_rsq  = mean(test_rsq))
 ```
@@ -306,11 +327,11 @@ result_iris_kfold %>%
 + Any kind of standard continuous distribution plot will do here:
 
 ```{r, fig.width = 8, fig.height = 4}
-result_iris_kfold %>%
+result_kfold %>%
   ggplot(aes(x = "", y = test_rmse)) + geom_boxplot() + 
   xlab("") + ylab("Mean RMSE")-> rmse_box
 
-result_iris_kfold %>%
+result_kfold %>%
   ggplot(aes(x = "", y = test_rsq)) + geom_boxplot() + 
   xlab("") + ylab("Mean R^2") -> rsq_box
 
@@ -326,9 +347,9 @@ rmse_box + rsq_box
   + BUT I think there's a bug in `rsquare()` when used on LOO output, so let's just do RMSE.
 
 ```{r}
-# Reminding you of this function we wrote!
+# Reminding you of this function, but you only need to define it once
 my_iris_model <- function(input_data){
-  step(lm(Sepal.Length ~ ., data = input_data), trace =  F)
+  lm(fit$formula, data = input_data)
 }
 
 
@@ -348,24 +369,21 @@ result_iris_loo %>%
 Once we have our model, we can predict future outcomes. **Remember: Model evaluation is NOT the same as model fitting.**
 
 ```{r}
-## here's our model
-fit <- step( lm(Sepal.Length ~ ., data = iris), trace = F  )
-
-broom::tidy(fit) # just to see which predictors are there - and it's all!!
-
+# reminder for what our model predictors are
+broom::tidy(fit) 
 ```
 
 ---
 
 ## Making predictions!
 
++ Predict using a tibble with columns **EXACTLY NAMED** as model predictor variables in the model formula
 ```{r}
-## Predict using a TIBBLE with columns EXACTLY NAMED as MODEL PREDICTORS
 ## Oh look a new observation where we measured PREDICTORS
-new_iris <- tibble(Sepal.Width = 4.1, 
+new_iris <- tibble(Sepal.Width  = 4.1, 
                    Petal.Length = 3.7, 
-                   Petal.Width = 1.1, 
-                   Species = "virginica")
+                   Petal.Width  = 1.1, 
+                   Species      = "virginica")
 
 # arguments in order: NEWDATA, MODEL
 modelr::add_predictions(new_iris, fit)

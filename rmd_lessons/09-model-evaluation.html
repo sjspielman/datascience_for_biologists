@@ -466,11 +466,13 @@ summary {
 <span id="cb1-34"><a href="#cb1-34"></a><span class="co">## $ Forearm &lt;dbl&gt; 27.4, 25.2, 29.4, 30.6, 27.8, 29.0, 31.1, 30.0, 29.4, 30…</span></span>
 <span id="cb1-35"><a href="#cb1-35"></a><span class="co">## $ Wrist   &lt;dbl&gt; 17.1, 16.6, 18.2, 18.8, 17.7, 18.8, 18.2, 19.2, 18.5, 19…</span></span></code></pre></div>
 </div>
-<div id="part-1-construct-a-model-using-model-selection" class="section level2">
-<h2>Part 1: Construct a model using model selection</h2>
-<p>Using the <code>step()</code> function, determine the most appropriate model to explain variation in bodyfat percentage in this data. Examine the model output with the <code>summary</code> function, and answer questions below. <strong>You will use this model for all model evaluation questions.</strong></p>
+<div id="part-1-build-a-model-using-aic-stepwise-model-selection" class="section level2">
+<h2>Part 1: Build a model using AIC stepwise model selection</h2>
+<p>Using the <code>step()</code> function, determine the most appropriate model to explain variation in bodyfat percentage in this data. Examine the model output with the <code>summary</code> function, and answer questions below. <strong>You will use this model (aka you will specify these predictors) for all model evaluation questions.</strong></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co">## Use step() to build and save a model to explain Percent. PLEASE use the argument trace=F when calling step()!!</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="co">## Examine output with summary</span></span></code></pre></div>
+<span id="cb2-2"><a href="#cb2-2"></a></span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co">## Examine output with summary OR broom functions tidy and glance</span></span></code></pre></div>
 <div id="part-1-questions-answer-the-questions-in-the-templated-bullets" class="section level4">
 <h4>Part 1 questions: Answer the questions in the templated bullets!</h4>
 <ol style="list-style-type: decimal">
@@ -498,8 +500,8 @@ summary {
 </div>
 <div id="part-2-evaluate-the-model-using-several-approaches" class="section level2">
 <h2>Part 2: Evaluate the model using several approaches</h2>
-<div id="part-2.1-testing-and-training-approach" class="section level3">
-<h3>Part 2.1: Testing and training approach</h3>
+<div id="part-2.1-training-and-testing-approach" class="section level3">
+<h3>Part 2.1: Training and testing approach</h3>
 <p><strong>First, use a simple train/test approach</strong>, where the training data is a random subset comprising 65% of the total dataset. Determine the R-squared (<code>modelr::rsquare()</code>) and RMSE (<code>modelr::rmse()</code>) as determined from the training AND testing data.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">## split data into train and test, using this variable as part of your code:</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a>training_frac &lt;-<span class="st"> </span><span class="fl">0.65</span></span>
@@ -529,17 +531,18 @@ summary {
 <div id="part-2.2-k-fold-cross-validation" class="section level3">
 <h3>Part 2.2: K-fold cross validation</h3>
 <p>Use k-fold cross validation with <strong>15 folds</strong> to evaluate the model. Determine the <span class="math inline">\(R^2\)</span> and RMSE for each fold, and <em>visualize</em> the distributions of <span class="math inline">\(R^2\)</span> and RMSE in two separate plots that you <em>add together with patchwork</em>. You should also calculate the mean <span class="math inline">\(R^2\)</span> and mean RMSE values.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">## First define the FUNCTION you will use with purrr::map which contains your linear model</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a>my_bodyfat_model &lt;-<span class="st"> </span><span class="cf">function</span>(input_data){</span>
-<span id="cb5-3"><a href="#cb5-3"></a>  <span class="co"># eh?? what goes in here??  </span></span>
-<span id="cb5-4"><a href="#cb5-4"></a>}</span>
-<span id="cb5-5"><a href="#cb5-5"></a></span>
-<span id="cb5-6"><a href="#cb5-6"></a><span class="co">## perform k-fold cross validation, using this variable in your code</span></span>
-<span id="cb5-7"><a href="#cb5-7"></a>number_folds &lt;-<span class="st"> </span><span class="dv">15</span></span>
-<span id="cb5-8"><a href="#cb5-8"></a></span>
-<span id="cb5-9"><a href="#cb5-9"></a><span class="co">## Calculate the mean R^2 and RMSE </span></span>
-<span id="cb5-10"><a href="#cb5-10"></a></span>
-<span id="cb5-11"><a href="#cb5-11"></a><span class="co">## Make figures for R^2 and RMSE, which clearly show the MEAN values for each distribution using stat_summary() or similar</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">## First define the FUNCTION you will use with purrr::map which contains your linear model.</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="co">## Do NOT use step() in here - you should have used step in Part 1 to know which predictors should be included here</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>my_bodyfat_model &lt;-<span class="st"> </span><span class="cf">function</span>(input_data){</span>
+<span id="cb5-4"><a href="#cb5-4"></a>  <span class="co"># eh?? what goes in here??  </span></span>
+<span id="cb5-5"><a href="#cb5-5"></a>}</span>
+<span id="cb5-6"><a href="#cb5-6"></a></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="co">## perform k-fold cross validation, using this variable in your code</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a>number_folds &lt;-<span class="st"> </span><span class="dv">15</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="co">## Calculate the mean R^2 and RMSE </span></span>
+<span id="cb5-11"><a href="#cb5-11"></a></span>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="co">## Make figures for R^2 and RMSE, which clearly show the MEAN values for each distribution using stat_summary() or similar (unless you make a boxplot, which already shows the median)</span></span></code></pre></div>
 <div id="part-2.2-questions-answer-the-questions-in-the-templated-bullets" class="section level4">
 <h4>Part 2.2 questions: Answer the questions in the templated bullets!</h4>
 <ol style="list-style-type: decimal">
@@ -561,7 +564,7 @@ summary {
 <span id="cb6-3"><a href="#cb6-3"></a></span>
 <span id="cb6-4"><a href="#cb6-4"></a><span class="co">## Calculate the mean of RMSE </span></span>
 <span id="cb6-5"><a href="#cb6-5"></a></span>
-<span id="cb6-6"><a href="#cb6-6"></a><span class="co">## Make figure of RMSE distribution, which clearly shows the MEAN value for the distribution using stat_summary() </span></span></code></pre></div>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="co">## Make figure of RMSE distribution, which clearly shows the MEAN value for the distribution using stat_summary() (unless you make a boxplot, which already shows the median)</span></span></code></pre></div>
 <div id="part-2.3-question-answer-the-questions-in-the-templated-bullets" class="section level4">
 <h4>Part 2.3 question: Answer the questions in the templated bullets!</h4>
 <ol style="list-style-type: decimal">
@@ -616,15 +619,16 @@ summary {
 </ul></li>
 </ul>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">## Make a SINGLE tibble with THREE ROWS (one per observed new man), and use this tibble to predict outcomes with `modelr::add_predictions()</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="co">## HINT: See the tidyr assignment for different ways to a tibble directly within R</span></span></code></pre></div>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="co">## HINT: See the tidyr assignment for different ways to make a tibble directly within R</span></span></code></pre></div>
 <div id="part-3-answers" class="section level4">
 <h4>Part 3 answers:</h4>
 <p>Stick the answer after the colon for each bullet <strong>in bold</strong>:</p>
 <ul>
-<li>Man 1’s predicted body fat percent is:</li>
-<li>Man 2’s predicted body fat percent is:</li>
-<li>Man 3’s predicted body fat percent is:</li>
+<li>Bob’s predicted body fat percent is:</li>
+<li>Bill’s predicted body fat percent is:</li>
+<li>Fred’s predicted body fat percent is:</li>
 </ul>
+<p><strong>BONUS QUESTION!</strong> Which of the three predictions (Bob, Bill, and Fred) do you think is LEAST reliable? You may need some code to figure out which one, so add in below as needed!!</p>
 </div>
 </div>
 

@@ -29,13 +29,15 @@ dplyr::glimpse(fatmen)
 
 
 
-## Part 1: Construct a model using model selection
+## Part 1: Build a model using AIC stepwise model selection
 
-Using the `step()` function, determine the most appropriate model to explain variation in bodyfat percentage in this data. Examine the model output with the `summary` function, and answer questions below. **You will use this model for all model evaluation questions.**
+Using the `step()` function, determine the most appropriate model to explain variation in bodyfat percentage in this data. Examine the model output with the `summary` function, and answer questions below. **You will use this model (aka you will specify these predictors) for all model evaluation questions.**
 
 ```{r}
 ## Use step() to build and save a model to explain Percent. PLEASE use the argument trace=F when calling step()!!
-## Examine output with summary
+
+
+## Examine output with summary OR broom functions tidy and glance
 ```
 
 #### Part 1 questions: Answer the questions in the templated bullets!
@@ -66,7 +68,7 @@ Using the `step()` function, determine the most appropriate model to explain var
 
 ## Part 2: Evaluate the model using several approaches
 
-### Part 2.1: Testing and training approach
+### Part 2.1: Training and testing approach
 
 **First, use a simple train/test approach**, where the training data is a random subset comprising 65% of the total dataset. Determine the R-squared (`modelr::rsquare()`) and RMSE (`modelr::rmse()`)  as determined from the training AND testing data.
 
@@ -101,7 +103,8 @@ training_frac <- 0.65
 Use k-fold cross validation with **15 folds** to evaluate the model. Determine the $R^2$ and RMSE for each fold, and *visualize* the distributions of $R^2$ and RMSE in two separate plots that you *add together with patchwork*. You should also calculate the mean $R^2$ and mean RMSE values.
 
 ```{r}
-## First define the FUNCTION you will use with purrr::map which contains your linear model
+## First define the FUNCTION you will use with purrr::map which contains your linear model.
+## Do NOT use step() in here - you should have used step in Part 1 to know which predictors should be included here
 my_bodyfat_model <- function(input_data){
   # eh?? what goes in here??  
 }
@@ -111,7 +114,7 @@ number_folds <- 15
 
 ## Calculate the mean R^2 and RMSE 
 
-## Make figures for R^2 and RMSE, which clearly show the MEAN values for each distribution using stat_summary() or similar
+## Make figures for R^2 and RMSE, which clearly show the MEAN values for each distribution using stat_summary() or similar (unless you make a boxplot, which already shows the median)
 ```
 
 #### Part 2.2 questions: Answer the questions in the templated bullets!
@@ -134,7 +137,7 @@ number_folds <- 15
 
 ## Calculate the mean of RMSE 
 
-## Make figure of RMSE distribution, which clearly shows the MEAN value for the distribution using stat_summary() 
+## Make figure of RMSE distribution, which clearly shows the MEAN value for the distribution using stat_summary() (unless you make a boxplot, which already shows the median)
 ```
 
 #### Part 2.3 question: Answer the questions in the templated bullets!
@@ -173,7 +176,7 @@ New men have arrived, and we want to use our model to predict their body fat per
   + 18.2 cm Wrist circumference
 + Fred
   + 19 years of Age
-  +  Weight of 121 pounds
+  + Weight of 121 pounds
   + 30.2 cm Neck circumference
   + 68 cm Abdomen circumference
   + 48.1 cm Thigh circumference
@@ -182,7 +185,7 @@ New men have arrived, and we want to use our model to predict their body fat per
 
 ```{r}
 ## Make a SINGLE tibble with THREE ROWS (one per observed new man), and use this tibble to predict outcomes with `modelr::add_predictions()
-## HINT: See the tidyr assignment for different ways to a tibble directly within R
+## HINT: See the tidyr assignment for different ways to make a tibble directly within R
 
 ```
 
@@ -190,7 +193,11 @@ New men have arrived, and we want to use our model to predict their body fat per
 
 Stick the answer after the colon for each bullet **in bold**:
 
-+ Man 1's predicted body fat percent is: 
-+ Man 2's predicted body fat percent is: 
-+ Man 3's predicted body fat percent is: 
++ Bob's predicted body fat percent is: 
++ Bill's predicted body fat percent is: 
++ Fred's predicted body fat percent is: 
+
+
+**BONUS QUESTION!**
+Which of the three predictions (Bob, Bill, and Fred) do you think is LEAST reliable? You may need some code to figure out which one, so add in below as needed!!
 
