@@ -335,14 +335,15 @@ result_kfold %>%
 ```{r, fig.width = 8, fig.height = 4}
 result_kfold %>%
   ggplot(aes(x = "", y = test_rmse)) + geom_boxplot() + 
-  xlab("") + ylab("Mean RMSE")-> rmse_box
+  xlab("") + ylab("Mean RMSE") -> box_rmse
+
 
 result_kfold %>%
   ggplot(aes(x = "", y = test_rsq)) + geom_boxplot() + 
-  xlab("") + ylab("Mean R^2") -> rsq_box
+  xlab("") + ylab("Mean R^2") -> box_rsw
 
-## using patchwork:
-rmse_box + rsq_box
+# patchwork 
+print(box_rmse+box_rsw)
 ```
 
 ---
