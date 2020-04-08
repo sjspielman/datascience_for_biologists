@@ -10,6 +10,12 @@ editor_options:
   chunk_output_type: console
 ---
 ```{css, echo=F}
+@media print {
+  .has-continuation {
+    display: block !important;
+  }
+}
+
 pre {
   white-space: pre-wrap;
   

@@ -18,6 +18,12 @@ class: center, middle, inverse, title-slide
 ---
 
 &lt;style type="text/css"&gt;
+@media print {
+  .has-continuation {
+    display: block !important;
+  }
+}
+
 pre {
   white-space: pre-wrap;
   
@@ -183,9 +189,9 @@ trained_model &lt;- lm(fit$formula, data = training_iris)
 ```r
 ## How does the model do on data it was TRAINED ON?
 modelr::rsquare(trained_model, training_iris)
-## [1] 0.8864441
+## [1] 0.8797924
 modelr::rmse(trained_model, training_iris)
-## [1] 0.2881651
+## [1] 0.2977816
 ```
 
 --
@@ -194,9 +200,9 @@ modelr::rmse(trained_model, training_iris)
 ```r
 ## How does the model do on data it has NEVER SEEN? The testing data!!
 modelr::rsquare(trained_model, testing_iris)
-## [1] 0.8025335
+## [1] 0.8119333
 modelr::rmse(trained_model, testing_iris)
-## [1] 0.3530393
+## [1] 0.3214049
 ```
 
 ---
@@ -390,16 +396,16 @@ iris_kfold %&gt;%
 ## # A tibble: 10 x 6
 ##    train        test         .id   model_fit    test_rmse test_rsq
 ##    &lt;named list&gt; &lt;named list&gt; &lt;chr&gt; &lt;named list&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-##  1 &lt;resample&gt;   &lt;resample&gt;   01    &lt;lm&gt;             0.340    0.792
-##  2 &lt;resample&gt;   &lt;resample&gt;   02    &lt;lm&gt;             0.337    0.842
-##  3 &lt;resample&gt;   &lt;resample&gt;   03    &lt;lm&gt;             0.296    0.862
-##  4 &lt;resample&gt;   &lt;resample&gt;   04    &lt;lm&gt;             0.348    0.850
-##  5 &lt;resample&gt;   &lt;resample&gt;   05    &lt;lm&gt;             0.337    0.810
-##  6 &lt;resample&gt;   &lt;resample&gt;   06    &lt;lm&gt;             0.270    0.883
-##  7 &lt;resample&gt;   &lt;resample&gt;   07    &lt;lm&gt;             0.326    0.840
-##  8 &lt;resample&gt;   &lt;resample&gt;   08    &lt;lm&gt;             0.257    0.924
-##  9 &lt;resample&gt;   &lt;resample&gt;   09    &lt;lm&gt;             0.349    0.876
-## 10 &lt;resample&gt;   &lt;resample&gt;   10    &lt;lm&gt;             0.267    0.879
+##  1 &lt;resample&gt;   &lt;resample&gt;   01    &lt;lm&gt;             0.338    0.628
+##  2 &lt;resample&gt;   &lt;resample&gt;   02    &lt;lm&gt;             0.297    0.909
+##  3 &lt;resample&gt;   &lt;resample&gt;   03    &lt;lm&gt;             0.236    0.942
+##  4 &lt;resample&gt;   &lt;resample&gt;   04    &lt;lm&gt;             0.343    0.853
+##  5 &lt;resample&gt;   &lt;resample&gt;   05    &lt;lm&gt;             0.376    0.891
+##  6 &lt;resample&gt;   &lt;resample&gt;   06    &lt;lm&gt;             0.310    0.800
+##  7 &lt;resample&gt;   &lt;resample&gt;   07    &lt;lm&gt;             0.336    0.849
+##  8 &lt;resample&gt;   &lt;resample&gt;   08    &lt;lm&gt;             0.255    0.926
+##  9 &lt;resample&gt;   &lt;resample&gt;   09    &lt;lm&gt;             0.367    0.707
+## 10 &lt;resample&gt;   &lt;resample&gt;   10    &lt;lm&gt;             0.257    0.740
 ```
 
 ---
@@ -436,7 +442,7 @@ result_kfold %&gt;%
 ## # A tibble: 1 x 2
 ##   mean_rmse mean_rsq
 ##       &lt;dbl&gt;    &lt;dbl&gt;
-## 1     0.312    0.852
+## 1     0.313    0.835
 ```
 
 + We expect, when used on data the model has never seen, it will predict `\(R^2\)` of variation in sepal lengths 
