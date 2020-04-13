@@ -10,11 +10,12 @@ editor_options:
   chunk_output_type: console
 ---
 ```{css, echo=F}
-//@media print {
-//  .has-continuation {
-//    display: block !important;
-//  }
-//}
+
+@media print {
+  .has-continuation {
+    display: block !important;
+  }
+}
 
 
 pre {
@@ -89,7 +90,7 @@ knitr::include_graphics("classif_regre.png")
 ]
 
 .pull-right[
-```{r out.width = '250px', echo=F}
+```{r out.width = '200px', echo=F}
 knitr::include_graphics("clustering_vomit.png")
 ```
 ]
@@ -108,7 +109,10 @@ knitr::include_graphics("clustering_vomit.png")
 ---
 
 ```{r}
-biopsy <- read_csv("https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/slides/biopsy.csv")
+# hacking to fit URL on the slide...
+biopsy <- read_csv(
+          paste0("https://raw.githubusercontent.com/sjspielman/",
+                 "datascience_for_biologists/master/slides/biopsy.csv"))
 
 dplyr::glimpse(biopsy)
 ```
@@ -138,7 +142,7 @@ selected_fit       <- step(baseline_logit_fit, trace = F)
 broom::tidy(selected_fit)
 ```
 
-+ For every unit increase in the predictor, the **log odd of success** of the response increases by the coefficient
++ For every unit increase in the predictor, the **log odds of success** of the response increases by the coefficient
  + $Pr(success)$ = probability of *malignant* biopsy for a given set of observations (predictors)
  + $Pr(failure)$ = probability of *benign* biopsy for a given set of observations 
  + **Log odds = $ln\bigg(\frac{Pr(success)}{Pr(failure)}\bigg)$**

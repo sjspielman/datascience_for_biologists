@@ -19,11 +19,12 @@ class: center, middle, inverse, title-slide
 ---
 
 &lt;style type="text/css"&gt;
-//@media print {
-//  .has-continuation {
-//    display: block !important;
-//  }
-//}
+
+@media print {
+  .has-continuation {
+    display: block !important;
+  }
+}
 
 
 pre {
@@ -88,7 +89,7 @@ ul:first-child, ol:first-child {
 ]
 
 .pull-right[
-&lt;img src="clustering_vomit.png" width="250px" /&gt;
+&lt;img src="clustering_vomit.png" width="200px" /&gt;
 ]
 
 ---
@@ -106,7 +107,10 @@ ul:first-child, ol:first-child {
 
 
 ```r
-biopsy &lt;- read_csv("https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/slides/biopsy.csv")
+# hacking to fit URL on the slide...
+biopsy &lt;- read_csv(
+          paste0("https://raw.githubusercontent.com/sjspielman/",
+                 "datascience_for_biologists/master/slides/biopsy.csv"))
 ## Parsed with column specification:
 ## cols(
 ##   clump_thickness = col_double(),
