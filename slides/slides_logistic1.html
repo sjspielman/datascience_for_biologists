@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Introduction to logistic regression</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Stephanie J. Spielman" />
+    <script src="slides_logistic1_files/header-attrs-2.1/header-attrs.js"></script>
+    <link href="slides_logistic1_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="slides_logistic1_files/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Introduction to logistic regression
+### Stephanie J. Spielman
+### Data Science for Biologists, Spring 2020
+
+---
+
+&lt;style type="text/css"&gt;
+//@media print {
+//  .has-continuation {
+//    display: block !important;
+//  }
+//}
+
+
+pre {
+  white-space: pre-wrap;
+  
+}
+
+ul:first-child, ol:first-child {
+    margin: 0;
+}
+
+
+.remark-code, .remark-inline-code { 
+    color: #326369;
+    font-weight: 600;
+}
+/* Code block code */
+.hljs .remark-code-line { 
+  font-weight: normal;
+  font-size: 15px;
+}
+
+.pull-left2{
+  float: left;
+  width: 85%;
+}
+
+.pull-right2{
+  float: right;
+  width: 30%;
+}
+&lt;/style&gt;
+
+
+
+
+## Linear regression vs. logistic regression
+
++ Linear regression: How much do these (linearly-related) predictors explain variation in my *numeric* response variable?
+  
+
++ Logistic regression: How well do these predictors explain variation in my *categorical __binary__* response variable?
+  + E.g. predicting Species in the iris dataset would be a categorical predictor, but NOT binary
+  + Type of classifier
+
+---
+
+
+## Where are we in the "machine learning" universe?
+
+
++ Machine learning = the computer learns through experience
+ + More data = more experience! *Training models on data IS machine learning*
+ + Ignore the AI hype.
+
+
+
+&lt;img src="ML_super_unsuper.png" width="550px" /&gt;
+
+.pull-left[
+&lt;img src="classif_regre.png" width="250px" /&gt;
+]
+
+.pull-right[
+&lt;img src="clustering_vomit.png" width="250px" /&gt;
+]
+
+---
+## Logistic regression
+  
+![](logit_transform_fromlinear.png)  
+  
++ Linear regression: `\(Y =  \beta_0 + \beta_1X_1 + \beta_2X_2 + \beta_3X_3 ... + \beta_NX_N + \epsilon\)`
+
++ Logistic regression *transforms the predictors* 
+  + `\(t =  \beta_0 + \beta_1X_1 + \beta_2X_2 + \beta_3X_3 ... + \beta_NX_N + \epsilon\)`
+  + `\(Y = \frac{1}{1 + e^{-t}}\)` (or, `\(p = ...\)` in image)
+
+---
+
+
+```r
+biopsy &lt;- read_csv("https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/slides/biopsy.csv")
+## Parsed with column specification:
+## cols(
+##   clump_thickness = col_double(),
+##   uniform_cell_size = col_double(),
+##   uniform_cell_shape = col_double(),
+##   marg_adhesion = col_double(),
+##   epithelial_cell_size = col_double(),
+##   bare_nuclei = col_double(),
+##   bland_chromatin = col_double(),
+##   normal_nucleoli = col_double(),
+##   mitoses = col_double(),
+##   outcome = col_character()
+## )
+
+dplyr::glimpse(biopsy)
+## Rows: 683
+## Columns: 10
+## $ clump_thickness      &lt;dbl&gt; 5, 5, 3, 6, 4, 8, 1, 2, 2, 4, 1, 2, 5, 1, 8, 7, …
+## $ uniform_cell_size    &lt;dbl&gt; 1, 4, 1, 8, 1, 10, 1, 1, 1, 2, 1, 1, 3, 1, 7, 4,…
+## $ uniform_cell_shape   &lt;dbl&gt; 1, 4, 1, 8, 1, 10, 1, 2, 1, 1, 1, 1, 3, 1, 5, 6,…
+## $ marg_adhesion        &lt;dbl&gt; 1, 5, 1, 1, 3, 8, 1, 1, 1, 1, 1, 1, 3, 1, 10, 4,…
+## $ epithelial_cell_size &lt;dbl&gt; 2, 7, 2, 3, 2, 7, 2, 2, 2, 2, 1, 2, 2, 2, 7, 6, …
+## $ bare_nuclei          &lt;dbl&gt; 1, 10, 2, 4, 1, 10, 10, 1, 1, 1, 1, 1, 3, 3, 9, …
+## $ bland_chromatin      &lt;dbl&gt; 3, 3, 3, 3, 3, 9, 3, 3, 1, 2, 3, 2, 4, 3, 5, 4, …
+## $ normal_nucleoli      &lt;dbl&gt; 1, 2, 1, 7, 1, 7, 1, 1, 1, 1, 1, 1, 4, 1, 5, 3, …
+## $ mitoses              &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 5, 1, 1, 1, 1, 1, 4, 1, …
+## $ outcome              &lt;chr&gt; "benign", "benign", "benign", "benign", "benign"…
+```
+
+---
+
+## Building the logistic regression
+
+**`glm(response ~ predictors, data = data, family = "binomial")`**
+
+
+```r
+## Ensure the column is a factor, OR it's 0/1 values
+## Help yourself by coding success = 1, failure = 0. This way you don't need alphabetical order
+biopsy %&gt;%
+  mutate(outcome = case_when(outcome == "malignant" ~ 1,  ## "success" in model
+                             outcome == "benign" ~ 0)) -&gt; biopsy_fct
+
+baseline_logit_fit &lt;- glm( outcome ~ ., data = biopsy_fct, family = "binomial")
+selected_fit       &lt;- step(baseline_logit_fit, trace = F)
+```
+
+---
+
+## Interpreting the logistic regression coefficients
+
+
+```r
+broom::tidy(selected_fit)
+## # A tibble: 8 x 5
+##   term               estimate std.error statistic  p.value
+##   &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+## 1 (Intercept)          -9.98     1.13       -8.86 7.66e-19
+## 2 clump_thickness       0.534    0.141       3.79 1.49e- 4
+## 3 uniform_cell_shape    0.345    0.172       2.01 4.43e- 2
+## 4 marg_adhesion         0.342    0.119       2.87 4.07e- 3
+## 5 bare_nuclei           0.388    0.0936      4.15 3.32e- 5
+## 6 bland_chromatin       0.462    0.168       2.75 6.02e- 3
+## 7 normal_nucleoli       0.226    0.111       2.04 4.16e- 2
+## 8 mitoses               0.531    0.324       1.64 1.02e- 1
+```
+
++ For every unit increase in the predictor, the **log odd of success** of the response increases by the coefficient
+ + `\(Pr(success)\)` = probability of *malignant* biopsy for a given set of observations (predictors)
+ + `\(Pr(failure)\)` = probability of *benign* biopsy for a given set of observations 
+ + **Log odds = `\(ln\bigg(\frac{Pr(success)}{Pr(failure)}\bigg)\)`**
+
+---
+
+## Using output from the logistic regression
+
+
+```r
+## USING head() to make it fit on slides!!
+
+## What would have been your Y-values if this were regression
+## YOUR X-AXIS
+*selected_fit$linear.predictors %&gt;% head()
+##         1         2         3         4         5         6 
+## -4.093622  2.032920 -4.773329  1.378604 -3.942642 10.636051
+
+## The logit transformed - PROBABILITIES OF SUCCESS
+## YOUR Y-AXIS
+*selected_fit$fitted.values  %&gt;% head()
+##           1           2           3           4           5           6 
+## 0.016405105 0.884210413 0.008381356 0.798766714 0.019027825 0.999975967
+```
+
+--
+
++ `\(t =  \beta_0 + \beta_1X_1 + \beta_2X_2 + \beta_3X_3 ... + \beta_NX_N + \epsilon\)`
++ `\(Y = \frac{1}{1 + e^{-t}}\)` 
+
+
+```r
+1/(1 + exp(-1 * selected_fit$linear.predictors)) %&gt;% head()
+##           1           2           3           4           5           6 
+## 0.016405105 0.884210413 0.008381356 0.798766714 0.019027825 0.999975967
+```
+
+---
+
+## An option with `broom`, if you dare!
+
++ The `.fitted` column is the x-axis in logit, need to transform directly for y
+
+
+```r
+broom::augment(selected_fit) %&gt;% 
+  select(outcome, .fitted) %&gt;%
+  rename(linear_predictors = .fitted) %&gt;%
+  mutate(probabilities     = 1/(1 + exp(-1 * linear_predictors)) )
+## # A tibble: 683 x 3
+##    outcome linear_predictors probabilities
+##      &lt;dbl&gt;             &lt;dbl&gt;         &lt;dbl&gt;
+##  1       0             -4.09       0.0164 
+##  2       0              2.03       0.884  
+##  3       0             -4.77       0.00838
+##  4       0              1.38       0.799  
+##  5       0             -3.94       0.0190 
+##  6       1             10.6        1.00   
+##  7       0             -2.73       0.0609 
+##  8       0             -5.35       0.00472
+##  9       0             -4.49       0.0110 
+## 10       0             -5.09       0.00612
+## # … with 673 more rows
+```
+
+---
+
+## Visualizing the model
+
+
+```r
+tibble(x = selected_fit$linear.predictors, 
+       y = selected_fit$fitted.values, 
+*      outcome = biopsy$outcome) %&gt;%
+  ggplot(aes(x = x, y = y)) + 
+    geom_line() + 
+    theme(legend.position = "bottom")-&gt; plot_of_model
+
+plot_of_model
+```
+
+![](slides_logistic1_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+
+---
+
+## Visualizing the model
+
+.pull-left[
+
+```r
+plot_of_model +
+  geom_point(aes(color = outcome))
+```
+
+![](slides_logistic1_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+]
+
+--
+.pull-right[
+
+```r
+plot_of_model +
+  geom_point(aes(color = outcome)) + 
+* geom_rug(sides = "tr", aes(color = outcome))
+```
+
+![](slides_logistic1_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+]
+
+
+---
+
+## Visualizing the model
+
+
+```r
+tibble(x = selected_fit$linear.predictors, 
+       outcome = biopsy$outcome) %&gt;% 
+  ggplot(aes(x = x, fill = outcome)) + 
+    geom_density(alpha = 0.6) 
+```
+
+![](slides_logistic1_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+
+---
+
+## Confusion matrix time
+
+&lt;img src="confusionmatrix.jpeg" width="350px" /&gt;
+
+
+--
+
++ A new arthritis drug does help pain clinical trials, even though it actually does reduce arthritis pain.
+
+--
+
++ A person with HIV receives a positive test result for HIV.
+
+--
+
++ A person using illegal performing enhancing drugs passes a test clearing them of drug use.
+
+--
+
++ A study found a significant relationship between neck strain and jogging, when reality there is no relationship.
+
+--
+
++ A healthy individual gets a positive cancer biopsy result.
+
+
+---
+
+
+## Classification metrics (an abbreviated set)
+
+.pull-right2[
+&lt;img src="confusionmatrix.jpeg" width="200px" /&gt;
+]
+
++ True positive rate: `\(TPR = TP/P = \frac{TP}{TP + FN}\)`
+  + AKA *sensitivity* AKA *recall*
+
+--
+
+
+
++ True negative rate: `\(TNR = TN/N = \frac{TN}{FP + TN}\)`
+  + AKA *specificity*
+
+--
+
+
+
++ False positive rate: `\(FPR = FP/N = \frac{FP}{FP + TN}\)`
+  + AKA *1 - specificity*
+
+--
+
+
+
++ Precision: `\(PPV = \frac{TP}{TP + FP}\)`
+  + AKA *positive predictive value*
+
+--
+
+
+
++ Accuracy: `\(\frac{TP + TN}{TP + TN + FP + FN}\)`
+
+---
+
+## Caculating performance measures
+
++ Requires a *threshold* to call malignant/benign outcomes. 
++ For an example, let's say &gt;=0.75 is malignant (success). &lt;0.75 is benign (failure)
++ Accuracy: `\(\frac{TP + TN}{TP + TN + FP + FN}\)`
+
+
+```r
+tibble(x = selected_fit$linear.predictors, 
+       y = selected_fit$fitted.values, 
+       outcome = biopsy$outcome) -&gt; model_tibble
+
+model_tibble
+## # A tibble: 683 x 3
+##        x       y outcome  
+##    &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;    
+##  1 -4.09 0.0164  benign   
+##  2  2.03 0.884   benign   
+##  3 -4.77 0.00838 benign   
+##  4  1.38 0.799   benign   
+##  5 -3.94 0.0190  benign   
+##  6 10.6  1.00    malignant
+##  7 -2.73 0.0609  benign   
+##  8 -5.35 0.00472 benign   
+##  9 -4.49 0.0110  benign   
+## 10 -5.09 0.00612 benign   
+## # … with 673 more rows
+```
+
+
+---
+`\(Accuracy = \frac{TP + TN}{TP + TN + FP + FN}\)`
+
+
+```r
+threshold &lt;- 0.75
+model_tibble %&gt;% 
+* rename(truth = outcome) %&gt;%
+  mutate(pred = if_else(y &gt;= threshold, "pos", "neg")) 
+## # A tibble: 683 x 4
+##        x       y truth     pred 
+##    &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;
+##  1 -4.09 0.0164  benign    neg  
+##  2  2.03 0.884   benign    pos  
+##  3 -4.77 0.00838 benign    neg  
+##  4  1.38 0.799   benign    pos  
+##  5 -3.94 0.0190  benign    neg  
+##  6 10.6  1.00    malignant pos  
+##  7 -2.73 0.0609  benign    neg  
+##  8 -5.35 0.00472 benign    neg  
+##  9 -4.49 0.0110  benign    neg  
+## 10 -5.09 0.00612 benign    neg  
+## # … with 673 more rows
+```
+
+
+---
+`\(Accuracy = \frac{TP + TN}{TP + TN + FP + FN}\)`
+
+
+```r
+threshold &lt;- 0.75
+model_tibble %&gt;% 
+  rename(truth = outcome) %&gt;% 
+* mutate(pred = if_else(y &gt;= threshold, "pos", "neg"))
+## # A tibble: 683 x 4
+##        x       y truth     pred 
+##    &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;
+##  1 -4.09 0.0164  benign    neg  
+##  2  2.03 0.884   benign    pos  
+##  3 -4.77 0.00838 benign    neg  
+##  4  1.38 0.799   benign    pos  
+##  5 -3.94 0.0190  benign    neg  
+##  6 10.6  1.00    malignant pos  
+##  7 -2.73 0.0609  benign    neg  
+##  8 -5.35 0.00472 benign    neg  
+##  9 -4.49 0.0110  benign    neg  
+## 10 -5.09 0.00612 benign    neg  
+## # … with 673 more rows
+```
+
+---
+`\(Accuracy = \frac{TP + TN}{TP + TN + FP + FN}\)`
+
+
+```r
+threshold &lt;- 0.75
+model_tibble %&gt;% 
+  rename(truth = outcome) %&gt;% 
+  mutate(pred = if_else(y &gt;= threshold, "pos", "neg")) %&gt;%
+  mutate(classif = case_when(truth == "malignant" &amp; pred == "pos" ~ "TP", 
+                             truth == "malignant" &amp; pred == "neg" ~ "FN",
+                             truth == "benign"    &amp; pred == "neg" ~ "TN",
+                             truth == "benign"    &amp; pred == "pos" ~ "FP")) -&gt; model_classif
+
+model_classif
+## # A tibble: 683 x 5
+##        x       y truth     pred  classif
+##    &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;  
+##  1 -4.09 0.0164  benign    neg   TN     
+##  2  2.03 0.884   benign    pos   FP     
+##  3 -4.77 0.00838 benign    neg   TN     
+##  4  1.38 0.799   benign    pos   FP     
+##  5 -3.94 0.0190  benign    neg   TN     
+##  6 10.6  1.00    malignant pos   TP     
+##  7 -2.73 0.0609  benign    neg   TN     
+##  8 -5.35 0.00472 benign    neg   TN     
+##  9 -4.49 0.0110  benign    neg   TN     
+## 10 -5.09 0.00612 benign    neg   TN     
+## # … with 673 more rows
+```
+
+---
+
+```r
+model_classif %&gt;%
+  count(classif) #&lt;&lt; short for `group_by(classif) %&gt;% tally()`
+## # A tibble: 4 x 2
+##   classif     n
+##   &lt;chr&gt;   &lt;int&gt;
+## 1 FN         20
+## 2 FP          7
+## 3 TN        437
+## 4 TP        219
+```
+
++ Accuracy = (437 + 219) / (20 + 7 + 437 + 219) = **0.96**
+
+
+--
+
+```r
+model_classif %&gt;%
+  count(classif) %&gt;%
+* pivot_wider(names_from = classif, values_from = n)
+## # A tibble: 1 x 4
+##      FN    FP    TN    TP
+##   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+## 1    20     7   437   219
+```
+
+--
+
+
+```r
+model_classif %&gt;%
+  count(classif) %&gt;%
+  pivot_wider(names_from = classif, values_from = n) %&gt;%
+  mutate(accuracy = (TP + TN)/(TP + TN + FP + FN))
+## # A tibble: 1 x 5
+##      FN    FP    TN    TP accuracy
+##   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;dbl&gt;
+## 1    20     7   437   219    0.960
+```
+
+---
+
+## What did we learn today?
+
++ What is logistic regression?
++ How to perform and visualize logistic regression
+  + **Use `glm()`** NOT `lm()`
+  + **Do not forget to add the argument `family="binomial"`**
++ How to classify basic performance at a given threshold
+
+--
+
+
+
++ **Next up**
+  + What about any threshold???
+  + ROC curve and AUC as performance evaluators
+  + Testing/training splits (code too gross for other cross validation during Remote Times)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightLines": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

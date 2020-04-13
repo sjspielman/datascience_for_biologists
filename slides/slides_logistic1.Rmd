@@ -1,0 +1,398 @@
+---
+title: "Introduction to logistic regression"
+author: "Stephanie J. Spielman"
+date: "Data Science for Biologists, Spring 2020"
+output:
+  xaringan::moon_reader:
+    nature:
+      highlightLines: true
+editor_options: 
+  chunk_output_type: console
+---
+```{css, echo=F}
+//@media print {
+//  .has-continuation {
+//    display: block !important;
+//  }
+//}
+
+
+pre {
+  white-space: pre-wrap;
+  
+}
+
+ul:first-child, ol:first-child {
+    margin: 0;
+}
+
+
+.remark-code, .remark-inline-code { 
+    color: #326369;
+    font-weight: 600;
+}
+/* Code block code */
+.hljs .remark-code-line { 
+  font-weight: normal;
+  font-size: 15px;
+}
+
+.pull-left2{
+  float: left;
+  width: 85%;
+}
+
+.pull-right2{
+  float: right;
+  width: 30%;
+}
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, collapse=TRUE)
+library(tidyverse)
+library(broom)
+library(xaringan)
+theme_set(theme_bw())
+```
+
+
+## Linear regression vs. logistic regression
+
++ Linear regression: How much do these (linearly-related) predictors explain variation in my *numeric* response variable?
+  
+
++ Logistic regression: How well do these predictors explain variation in my *categorical __binary__* response variable?
+  + E.g. predicting Species in the iris dataset would be a categorical predictor, but NOT binary
+  + Type of classifier
+
+---
+
+
+## Where are we in the "machine learning" universe?
+
+
++ Machine learning = the computer learns through experience
+ + More data = more experience! *Training models on data IS machine learning*
+ + Ignore the AI hype.
+
+
+
+```{r out.width = '550px', echo=F}
+knitr::include_graphics("ML_super_unsuper.png") 
+```
+
+.pull-left[
+```{r out.width = '250px', echo=F}
+knitr::include_graphics("classif_regre.png")
+```
+]
+
+.pull-right[
+```{r out.width = '250px', echo=F}
+knitr::include_graphics("clustering_vomit.png")
+```
+]
+
+---
+## Logistic regression
+  
+![](logit_transform_fromlinear.png)  
+  
++ Linear regression: $Y =  \beta_0 + \beta_1X_1 + \beta_2X_2 + \beta_3X_3 ... + \beta_NX_N + \epsilon$
+
++ Logistic regression *transforms the predictors* 
+  + $t =  \beta_0 + \beta_1X_1 + \beta_2X_2 + \beta_3X_3 ... + \beta_NX_N + \epsilon$
+  + $Y = \frac{1}{1 + e^{-t}}$ (or, $p = ...$ in image)
+
+---
+
+```{r}
+biopsy <- read_csv("https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/slides/biopsy.csv")
+
+dplyr::glimpse(biopsy)
+```
+
+---
+
+## Building the logistic regression
+
+**`glm(response ~ predictors, data = data, family = "binomial")`**
+
+```{r}
+## Ensure the column is a factor, OR it's 0/1 values
+## Help yourself by coding success = 1, failure = 0. This way you don't need alphabetical order
+biopsy %>%
+  mutate(outcome = case_when(outcome == "malignant" ~ 1,  ## "success" in model
+                             outcome == "benign" ~ 0)) -> biopsy_fct
+
+baseline_logit_fit <- glm( outcome ~ ., data = biopsy_fct, family = "binomial")
+selected_fit       <- step(baseline_logit_fit, trace = F)
+```
+
+---
+
+## Interpreting the logistic regression coefficients
+
+```{r}
+broom::tidy(selected_fit)
+```
+
++ For every unit increase in the predictor, the **log odd of success** of the response increases by the coefficient
+ + $Pr(success)$ = probability of *malignant* biopsy for a given set of observations (predictors)
+ + $Pr(failure)$ = probability of *benign* biopsy for a given set of observations 
+ + **Log odds = $ln\bigg(\frac{Pr(success)}{Pr(failure)}\bigg)$**
+
+---
+
+## Using output from the logistic regression
+
+```{r}
+## USING head() to make it fit on slides!!
+
+## What would have been your Y-values if this were regression
+## YOUR X-AXIS
+selected_fit$linear.predictors %>% head() #<<
+
+## The logit transformed - PROBABILITIES OF SUCCESS
+## YOUR Y-AXIS
+selected_fit$fitted.values  %>% head() #<<
+```
+
+--
+
++ $t =  \beta_0 + \beta_1X_1 + \beta_2X_2 + \beta_3X_3 ... + \beta_NX_N + \epsilon$
++ $Y = \frac{1}{1 + e^{-t}}$ 
+
+```{r}
+1/(1 + exp(-1 * selected_fit$linear.predictors)) %>% head()
+```
+
+---
+
+## An option with `broom`, if you dare!
+
++ The `.fitted` column is the x-axis in logit, need to transform directly for y
+
+```{r}
+broom::augment(selected_fit) %>% 
+  select(outcome, .fitted) %>%
+  rename(linear_predictors = .fitted) %>%
+  mutate(probabilities     = 1/(1 + exp(-1 * linear_predictors)) )
+```
+
+---
+
+## Visualizing the model
+
+```{r, fig.width = 6, fig.height = 4}
+tibble(x = selected_fit$linear.predictors, 
+       y = selected_fit$fitted.values, 
+       outcome = biopsy$outcome) %>%  #<<
+  ggplot(aes(x = x, y = y)) + 
+    geom_line() + 
+    theme(legend.position = "bottom")-> plot_of_model
+
+plot_of_model
+```
+
+---
+
+## Visualizing the model
+
+.pull-left[
+```{r, fig.width = 6, fig.height = 4}
+plot_of_model +
+  geom_point(aes(color = outcome))
+```
+]
+
+--
+.pull-right[
+```{r, fig.width = 6, fig.height = 4}
+plot_of_model +
+  geom_point(aes(color = outcome)) + 
+  geom_rug(sides = "tr", aes(color = outcome)) #<<
+```
+]
+
+
+---
+
+## Visualizing the model
+
+```{r, fig.width = 8, fig.height = 6}
+tibble(x = selected_fit$linear.predictors, 
+       outcome = biopsy$outcome) %>% 
+  ggplot(aes(x = x, fill = outcome)) + 
+    geom_density(alpha = 0.6) 
+```
+
+---
+
+## Confusion matrix time
+
+```{r out.width = '350px', echo=F}
+knitr::include_graphics("confusionmatrix.jpeg") 
+```
+
+
+--
+
++ A new arthritis drug does help pain clinical trials, even though it actually does reduce arthritis pain.
+
+--
+
++ A person with HIV receives a positive test result for HIV.
+
+--
+
++ A person using illegal performing enhancing drugs passes a test clearing them of drug use.
+
+--
+
++ A study found a significant relationship between neck strain and jogging, when reality there is no relationship.
+
+--
+
++ A healthy individual gets a positive cancer biopsy result.
+
+
+---
+
+
+## Classification metrics (an abbreviated set)
+
+.pull-right2[
+```{r out.width = '200px', echo=F}
+knitr::include_graphics("confusionmatrix.jpeg") 
+```
+]
+
++ True positive rate: $TPR = TP/P = \frac{TP}{TP + FN}$
+  + AKA *sensitivity* AKA *recall*
+
+--
+
+
+
++ True negative rate: $TNR = TN/N = \frac{TN}{FP + TN}$
+  + AKA *specificity*
+
+--
+
+
+
++ False positive rate: $FPR = FP/N = \frac{FP}{FP + TN}$
+  + AKA *1 - specificity*
+
+--
+
+
+
++ Precision: $PPV = \frac{TP}{TP + FP}$
+  + AKA *positive predictive value*
+
+--
+
+
+
++ Accuracy: $\frac{TP + TN}{TP + TN + FP + FN}$
+
+---
+
+## Caculating performance measures
+
++ Requires a *threshold* to call malignant/benign outcomes. 
++ For an example, let's say >=0.75 is malignant (success). <0.75 is benign (failure)
++ Accuracy: $\frac{TP + TN}{TP + TN + FP + FN}$
+
+```{r}
+tibble(x = selected_fit$linear.predictors, 
+       y = selected_fit$fitted.values, 
+       outcome = biopsy$outcome) -> model_tibble
+
+model_tibble
+```
+
+
+---
+$Accuracy = \frac{TP + TN}{TP + TN + FP + FN}$
+
+```{r}
+threshold <- 0.75
+model_tibble %>% 
+  rename(truth = outcome) %>% #<< 
+  mutate(pred = if_else(y >= threshold, "pos", "neg")) 
+```
+
+
+---
+$Accuracy = \frac{TP + TN}{TP + TN + FP + FN}$
+
+```{r}
+threshold <- 0.75
+model_tibble %>% 
+  rename(truth = outcome) %>% 
+  mutate(pred = if_else(y >= threshold, "pos", "neg")) #<< 
+```
+
+---
+$Accuracy = \frac{TP + TN}{TP + TN + FP + FN}$
+
+```{r}
+threshold <- 0.75
+model_tibble %>% 
+  rename(truth = outcome) %>% 
+  mutate(pred = if_else(y >= threshold, "pos", "neg")) %>%
+  mutate(classif = case_when(truth == "malignant" & pred == "pos" ~ "TP", 
+                             truth == "malignant" & pred == "neg" ~ "FN",
+                             truth == "benign"    & pred == "neg" ~ "TN",
+                             truth == "benign"    & pred == "pos" ~ "FP")) -> model_classif
+
+model_classif
+```
+
+---
+```{r}
+model_classif %>%
+  count(classif) #<< short for `group_by(classif) %>% tally()`
+```
+
++ Accuracy = (437 + 219) / (20 + 7 + 437 + 219) = **0.96**
+
+
+--
+```{r}
+model_classif %>%
+  count(classif) %>%
+  pivot_wider(names_from = classif, values_from = n) #<<
+```
+
+--
+
+```{r}
+model_classif %>%
+  count(classif) %>%
+  pivot_wider(names_from = classif, values_from = n) %>%
+  mutate(accuracy = (TP + TN)/(TP + TN + FP + FN))
+```
+
+---
+
+## What did we learn today?
+
++ What is logistic regression?
++ How to perform and visualize logistic regression
+  + **Use `glm()`** NOT `lm()`
+  + **Do not forget to add the argument `family="binomial"`**
++ How to classify basic performance at a given threshold
+
+--
+
+
+
++ **Next up**
+  + What about any threshold???
+  + ROC curve and AUC as performance evaluators
+  + Testing/training splits (code too gross for other cross validation during Remote Times)
