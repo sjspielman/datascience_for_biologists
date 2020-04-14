@@ -108,8 +108,7 @@ tibble(x = selected_fit$linear.predictors,
 extracted_model %&gt;%
   ggplot(aes(x = x, y = y)) + 
     geom_line() +
-    geom_point(aes(color = outcome)) -&gt; plot_of_model
-print(plot_of_model)
+    geom_point(aes(color = outcome)) 
 ```
 
 ![](slides_logistic2_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
@@ -337,9 +336,7 @@ tibble(TPR = model_roc$sensitivities,
   labs(title = "ROC curve to classify biopsy results",
        subtitle = paste("AUC =",round(model_roc$auc, 3)) ) +
   ## this is the y=x line to GUIDE US!!
-  geom_abline(col = "red") -&gt; roc_plot
-
-print(roc_plot)
+  geom_abline(col = "red")
 ```
 
 ![](slides_logistic2_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
@@ -393,8 +390,7 @@ bind_rows(train_data, test_data) %&gt;%
   ggplot(aes(x = FPR, y = TPR, color = model)) + 
     geom_line(aes(size = model)) +
     scale_color_manual(values = c("black", "yellow")) +
-    scale_size_manual(values = c(2,1)) -&gt; roc_plot2
-print(roc_plot2)
+    scale_size_manual(values = c(2,1))
 ```
 
 ![](slides_logistic2_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
@@ -407,13 +403,13 @@ print(roc_plot2)
 
 ```r
 
-model1 &lt;- glm(outcome ~ mitoses, data = biopsy_fct, family = "binomial")
+*model1 &lt;- glm(outcome ~ mitoses, data = biopsy_fct, family = "binomial")
 model1_roc &lt;- roc(biopsy_fct$outcome, model1$linear.predictors, quiet = T)
 
-model2 &lt;- glm(outcome ~ mitoses + marg_adhesion, data = biopsy_fct, family = "binomial")
+*model2 &lt;- glm(outcome ~ mitoses + marg_adhesion, data = biopsy_fct, family = "binomial")
 model2_roc &lt;- roc(biopsy_fct$outcome, model2$linear.predictors, quiet = T)
 
-model3 &lt;- glm(outcome ~ mitoses + marg_adhesion + epithelial_cell_size, data = biopsy_fct, family = "binomial")
+*model3 &lt;- glm(outcome ~ mitoses + marg_adhesion + epithelial_cell_size, data = biopsy_fct, family = "binomial")
 model3_roc &lt;- roc(biopsy_fct$outcome, model3$linear.predictors, quiet = T)
 
 
@@ -446,8 +442,7 @@ model3_data &lt;- tibble(FPR = 1 - model3_roc$specificities,
 bind_rows(model1_data, model2_data) %&gt;%
   bind_rows(model3_data) %&gt;%
   ggplot(aes(x = FPR, y = TPR, color = model)) + 
-    geom_line(size=1) -&gt; roc_model123
-print(roc_model123)
+    geom_line(size=1)
 ```
 
 ![](slides_logistic2_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
@@ -474,8 +469,7 @@ model3_data &lt;- prep_roc(model3_roc, "Model 3")
 bind_rows(model1_data, model2_data) %&gt;%
   bind_rows(model3_data) %&gt;%
   ggplot(aes(x = FPR, y = TPR, color = model)) + 
-    geom_line(size=1) -&gt; roc_model123
-print(roc_model123)
+    geom_line(size=1)
 ```
 
 ![](slides_logistic2_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;

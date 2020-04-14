@@ -106,8 +106,7 @@ tibble(x = selected_fit$linear.predictors,
 extracted_model %>%
   ggplot(aes(x = x, y = y)) + 
     geom_line() +
-    geom_point(aes(color = outcome)) -> plot_of_model
-print(plot_of_model)
+    geom_point(aes(color = outcome)) 
 ```
 
 ---
@@ -296,9 +295,7 @@ tibble(TPR = model_roc$sensitivities,
   labs(title = "ROC curve to classify biopsy results",
        subtitle = paste("AUC =",round(model_roc$auc, 3)) ) +
   ## this is the y=x line to GUIDE US!!
-  geom_abline(col = "red") -> roc_plot
-
-print(roc_plot)
+  geom_abline(col = "red")
 ```
 
 ---
@@ -345,8 +342,7 @@ bind_rows(train_data, test_data) %>%
   ggplot(aes(x = FPR, y = TPR, color = model)) + 
     geom_line(aes(size = model)) +
     scale_color_manual(values = c("black", "yellow")) +
-    scale_size_manual(values = c(2,1)) -> roc_plot2
-print(roc_plot2)
+    scale_size_manual(values = c(2,1))
 ```
 
 
@@ -391,8 +387,7 @@ model3_data <- tibble(FPR = 1 - model3_roc$specificities,
 bind_rows(model1_data, model2_data) %>%
   bind_rows(model3_data) %>%
   ggplot(aes(x = FPR, y = TPR, color = model)) + 
-    geom_line(size=1) -> roc_model123
-print(roc_model123)
+    geom_line(size=1)
 ```
 
 ---
@@ -402,7 +397,7 @@ print(roc_model123)
 + Use functions **anytime you are writing the same code >=2x**
 + Prevents bugs, cleaner to read, cleaner to reproduce
 
-```{r, fig.width = 4, fig.height = 2.3}
+```{r, fig.width = 4, fig.height = 2}
 prep_roc <- function(roc_output, model_name){
   tibble(FPR = 1 - roc_output$specificities,
          TPR = roc_output$sensitivities, 
@@ -416,8 +411,7 @@ model3_data <- prep_roc(model3_roc, "Model 3")
 bind_rows(model1_data, model2_data) %>%
   bind_rows(model3_data) %>%
   ggplot(aes(x = FPR, y = TPR, color = model)) + 
-    geom_line(size=1) -> roc_model123
-print(roc_model123)
+    geom_line(size=1)
 ```
 
 ---
