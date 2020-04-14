@@ -1,0 +1,204 @@
+---
+title: "Logistic Regression"
+subtitle: "Data Science for Biologists, Spring 2020"
+author: "YOUR NAME GOES HERE"
+output: 
+  html_document:
+    highlight: tango
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(broom) 
+library(pROC)
+
+## SET YOUR SEED BELOW!!! Make it YOUR SEED! Uncomment the line, and add your chosen seed number into the parentheses
+#set.seed()
+```
+
+## Instructions
+
+Standard grading criteria apply. Make sure you set your seed, and **proofread to submit YOUR OWN WORDS!!**
+
+This assignment will use an external dataset of various physical measurements from 752 adult Pima Native American women, some of whom are type II diabetic and some are not. Our goal for this assignment is to build and evaluate a model from this data to **predict whether an individual has Type II Diabetes** (column `diabetic`).
+
+```{r, collapse=T}
+pima <- read_csv("https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/data/pima.csv")
+dplyr::glimpse(pima)
+
+# Not severely imbalanced. ROC will be fine.
+pima %>% 
+  count(diabetic)
+```
+
+Columns include:
+
++ `npreg`: number of times pregnant
++ `glucose`: plasma glucose concentration at 2 hours in an oral glucose tolerance test (units: mg/dL)
++ `dpb`: diastolic blood pressure (units: mm Hg)
++ `skin`: triceps skin-fold thickness (units: mm)
++ `insulin`: 2-hour serum insulin level (units: μU/mL)
++ `bmi`: Body Mass Index
++ `age`: age in years
++ `diabetic`: whether or not the individual has diabetes
+
+
+## Part 1: Build THREE models
+
+
+First, you will build THREE distinct models (without stepwise model selection - just build them!) from the full data set.
+
+1. The first model should include *all columns as predictors* (except `diabetic`, of course)
+
+
+2. The second model should include these two predictors ONLY:
+  + `glucose`
+  + `bmi`
+
+3. The third model should include these three predictors ONLY (same as #2, but with `skin` added into the mix):
+  + `glucose`
+  + `bmi`
+  + `skin`
+
+**Before you begin**, modify the `diabetic` column so that **Yes** is a "success" and **No** is a "failure." Rather than recoding as 1/0, instead let's just make the column a factor *with levels ordered Yes, No*! This will ensure "Yes" (has diabetes) is a success in the model.
+
+
+```{r}
+## Re-factor the diabetic column
+## It is OK to overwrite the original pima dataset and the original diabetic column!!!!!!!!!!!
+
+## Show the output to prove to yourself that the factoring worked
+```
+
+```{r}
+## Build model 1
+
+
+## Build model 2 
+
+
+## Build model 3 
+
+```
+
+
+## Part 2: Compare the three models from part 1
+
++ In the space below, determine the AUC associated with each model. 
+
+```{r}
+## Run roc() on each fitted model
+
+## Reveal the three models' AUC values here
+```
+
+
++ Then, plot an ROC curve of all three models in the same panel:
+
+  + Model curves should be distinguished by color
+  + Ensure that the models are *ordered* from best to worst in the legend, using AUC to determine this ranking. 
+  + Models should be named in the legend as *Model X (AUC=...)*. For example, imagine model 1 has an AUC of 0.7 - it should appear in the legend as *Model 1 (AUC = 0.7)*. HINT: Just put whatever the appropriate phrase is as the name of the model when wrangling!! 
+  + **Do not hardcode AUC values.** Always use a VARIABLE. To specifically get the auc value, do something like `roc_output$auc[[1]]` (the two square brackets!).
+  
+```{r}
+## Plot the ROC curves below (which includes some wrangling!!)
+```
+
+
+#### Part 2 Questions
+Answer each in 1-2 sentences each *that are CLEARLY WRITTEN in YOUR OWN WORDS without ELEMENTARY-SCHOOL-LEVEL TYPOS.* We! Are! In! College!
+
+1. Which model has the highest AUC value, and what is its AUC? Given that AUC can range 0.5-1, do you believe this is highly accurate model?
+
+  + (answer goes here)
+
+2. Compare models 2 and 3. What are the AUC values for each? Does including `skin` in the model seem to improve the model's performance?
+
+  + (answer goes here)
+
+## Part 3: Work with the best model
+
+Determine the best model (highest AUC) from Parts 1 and 2, and use this model for Part 3. Perform the following tasks:
+
++ Evaluate it with a training and testing split, where *75%* of the data is in the training split. Do NOT hardcode this 75% value!
+
+```{r}
+## Training and testing code goes here
+```
+
+
++ Plot the logistic regression curve for the training and testing models you build. This will be two plots, which you should add together with patchwork to display, OR use some wrangling skills to make a faceted plot in the first place. 
+  + Do NOT!! color the logistic curve line
+  + DO add colored points for individual observations along the curve
+  + Rugs are optional
+  
+```{r}
+## Plotting, and associated wrangling for plotting, goes here
+```  
+
+
++ Determine the AUC value for each, and plot the ROC curves for training and testing in the space below. Again, use one plotting panel and distinguish the fits with colors.
+```{r}
+## ROC for training/testing goes here
+```
+
+#### Part 3 Question
+
+How does this model perform when considering a training and testing split? Compare their specific AUC values and discuss whether you believe the model suffers from overfitting or not in 1-2 sentences.
+
++ (answer goes here)
+
+
+## Part 4: Evaluating at a given threshold
+
+Determine the following measures for the best model (the FULL fit from part 1, NOT a training/testing split from part 3!!) assuming a *success threshold of 0.8*. Refer to the slides for formulas!
+
++ Accuracy
++ False positive rate
++ Positive predictive value
+
+```{r}
+threshold <- 0.8
+
+## Code to calculate goes here
+```
+
+## Part 5: Predicting outcomes
+
+Determine the probability that these two new women have diabetes, again using the best model. Here is their data (choose which columns to include in your tibbles based on what's needed for the best model):
+
++ Female 1
+  + `npreg`: 5
+  + `glucose`: 110
+  + `dpb`: 78
+  + `skin`: 20
+  + `insulin`: 58
+  + `bmi`: 25
+  + `age`: 26
++ Female 2
+  + `npreg`: 3
+  + `glucose`: 175
+  + `dpb`: 92
+  + `skin`: 28
+  + `insulin`: 222
+  + `bmi`: 38
+  + `age`: 45
+
+
+```{r}
+## code to predict goes here
+## make sure to predict PROBABILITIES!!! 
+## your code MUST PRINT OUT the probabilities for each woman in the end
+```
+
+#### Part 5 Questions:
+
+1. At a threshold of 80%, does the model predict that Woman 1 is diabetic? Answer yes or no!
+
+  + (answer goes here)
+  
+2. At a threshold of 80%, does the model predict that Woman 2 is diabetic? Answer yes or no!
+
+  + (answer goes here)
