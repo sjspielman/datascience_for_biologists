@@ -1,0 +1,436 @@
+---
+title: "Evaluating logistic regression"
+author: "Stephanie J. Spielman"
+date: "Data Science for Biologists, Spring 2020"
+output:
+  xaringan::moon_reader:
+    nature:
+      highlightLines: true
+editor_options: 
+  chunk_output_type: console
+---
+```{css, echo=F}
+
+@media print {
+  .has-continuation {
+    display: block !important;
+  }
+}
+
+
+pre {
+  white-space: pre-wrap;
+  
+}
+
+ul:first-child, ol:first-child {
+    margin: 0;
+}
+
+
+.remark-code, .remark-inline-code { 
+    color: #326369;
+    font-weight: 600;
+}
+/* Code block code */
+.hljs .remark-code-line { 
+  font-weight: normal;
+  font-size: 15px;
+}
+
+.pull-left2{
+  float: left;
+  width: 65%;
+}
+
+.pull-right2{
+  float: right;
+  width: 30%;
+}
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, collapse=TRUE)
+library(tidyverse)
+library(broom)
+library(xaringan)
+theme_set(theme_bw())
+```
+
+
+## Some notes
+
++ Stepwise model selection is *not a rule*
+
++ In linear regression, one often uses $R^2$ and RMSE values to compare different viable models
+
+--
+
++ In *logistic regression*, we use confusion matrix calculations and **AUC** (area under the curve... what curve?)
+
+.pull-left2[
++ $TPR = TP/P = \frac{TP}{TP + FN}$
+  + AKA *sensitivity* AKA *recall*
++ $TNR = TN/N = \frac{TN}{FP + TN}$
+  + AKA *specificity*
++ $FPR = FP/N = \frac{FP}{FP + TN}$
+  + AKA *1 - specificity*
++ Precision: $PPV = \frac{TP}{TP + FP}$
+  + AKA *positive predictive value*
++ Accuracy: $\frac{TP + TN}{TP + TN + FP + FN}$
+]
+
+.pull-right2[
+```{r out.width = '300px', echo=F}
+knitr::include_graphics("confusionmatrix.jpeg") 
+```
+]
+---
+```{r, message=FALSE, fig.width=5, fig.height=3}
+biopsy <- read_csv(paste0("https://raw.githubusercontent.com/sjspielman/",
+                          "datascience_for_biologists/master/slides/biopsy.csv"))
+
+## Build the model
+biopsy %>%
+  mutate(outcome = case_when(outcome == "malignant" ~ 1,  ## "success" in model
+                             outcome == "benign" ~ 0)) -> biopsy_fct
+baseline_logit_fit <- glm( outcome ~ ., data = biopsy_fct, family = "binomial")
+selected_fit       <- step(baseline_logit_fit, trace = F)
+
+## Extract the model
+tibble(x = selected_fit$linear.predictors, 
+       y = selected_fit$fitted.values, 
+       outcome = biopsy$outcome) -> extracted_model
+
+## Plot the model
+extracted_model %>%
+  ggplot(aes(x = x, y = y)) + 
+    geom_line() +
+    geom_point(aes(color = outcome)) -> plot_of_model
+print(plot_of_model)
+```
+
+---
+
+## Predictions with logistic regressions
+
+```{r}
+broom::tidy(selected_fit) %>%
+  dplyr::select(term)
+
+## Predict! The new data is in a tibble
+tibble(clump_thickness    = 3, 
+       uniform_cell_shape = 2,
+       marg_adhesion      = 2,
+       bare_nuclei        = 1,
+       bland_chromatin    = 4,
+       normal_nucleoli    = 2,
+       mitoses            = 3) -> new_biopsy
+```
+
+---
+
+## Predictions with logistic regressions
+
+
+```{r}
+predict(selected_fit, new_biopsy) 
+```
+
+--
+
+```{r}
+predict(selected_fit, new_biopsy, type = "response") #<<
+```
+
+```{r}
+t <- -2.723465
+1 / (1 + exp(-1*t))
+```
+
+---
+
+## Evaluating logistic regressions
+
+.pull-left[
+**Receiver Operating Characteristic** Curve
+  + TPR on Y-axis
+  + FPR (1 - specificity) on X-axis
+  + The AUC (**a**rea **u**nder the **c**urve) is an overall assessment of performance *at any threshold*
+]
+
+.pull-right[
++ $TPR = TP/P = \frac{TP}{TP + FN}$ (*sensitivity* AKA *recall*)
+
+
++ $TNR = TN/N = \frac{TN}{FP + TN}$ (*specificity*)
+
+
++ $FPR = FP/N = \frac{FP}{FP + TN}$ (*1 - specificity*)
+]
+
+  
+```{r out.width = '400px', echo=F}
+knitr::include_graphics("roc-theory-small.png") 
+```
+
++ ROC curves are used to evaluate performance of *ANY binary classifier* (not just logistic regression)
+
+---
+
+## Getting a "feel" for ROC curves
+
+```{r out.width = '800px', echo=F}
+knitr::include_graphics("roc_intuition.png") 
+```
+
+---
+
+## Examples of ROC curves in the literature
+
+.pull-left[
+Keller et al. Genome Biol Evol 2012; 4:80-88 
+
+```{r out.width = '300px', echo=F}
+knitr::include_graphics("roc_keller.png") 
+```
+]
+
+
+.pull-right[
+Imperiale et al. N Engl J Med 2014; 370:1287-1297
+
+```{r out.width = '225px', echo=F}
+knitr::include_graphics("roc_colon.jpeg") 
+```
+]
+
+
+---
+
+## ROC vs PR
+
+
++ ROC curves are suitable when data is *balanced*
+  + Similar amounts of positives, negatives in the dataset
+  + FPR (1 - specificity) on X-axis, TPR on Y-axis
+
++ **Precision-Recall** curves are more suitable for *unbalanced* data
+  + Precision (PPV) on Y-axis, recall (TPR) on X-axis
+
+
+<br><br>
+
++ $TPR = TP/P = \frac{TP}{TP + FN}$ (*recall*)
++ $FPR = FP/N = \frac{FP}{FP + TN}$ 
++ $PPV = \frac{TP}{TP + FP}$ 
+
+---
+
+## Is the biopsy data balanced?
+
+
+```{r}
+biopsy %>%
+  count(outcome)
+```
++ About 2:1::benign:malignant
++ Not very balanced, but it's reasonable. ROC is ok to use!
+
++ *Problematically imbalanced* would be 4000 benign and 5 malignant (or vice versa).
+
+
+---
+
+## Making ROC curves
+
++ Recall:
+  + Our model fit is saved in `selected_fit`
+  + Our data is saved in `biopsy`, but the model was built with `biopsy_fct`!!
+  
+```{r}
+## Installed for you in the cloud, but you need to install locally
+#install.packages("pROC")
+library(pROC)
+```
+
+```{r}
+# Use the function roc()
+model_roc <- roc(biopsy_fct$outcome, selected_fit$linear.predictors) #<<
+
+# This also works the same:
+model_roc <- roc(biopsy_fct$outcome, selected_fit$fitted.values) #<<
+```
+
+---
+
+## Getting information out
+```{r}
+model_roc$auc
+```
++ Models are usually *not this good.* This dataset comes from a package that teaches modeling - it was chosen for a reason..
+
+--
+```{r}
+## Piped into head() to fit on the slide
+
+## True positive rates
+model_roc$sensitivities %>% head()
+
+## True negative rates
+model_roc$specificities %>% head()
+
+## False positives rates
+1 - model_roc$specificities %>% head()
+```
+
+---
+
+## Make an ROC curve
+
+```{r, fig.width = 5, fig.height = 4}
+tibble(TPR = model_roc$sensitivities,
+       FPR = 1 - model_roc$specificities) %>%
+  ggplot(aes(x = FPR, y = TPR)) + 
+  geom_line() +
+  labs(title = "ROC curve to classify biopsy results",
+       subtitle = paste("AUC =",round(model_roc$auc, 3)) ) +
+  ## this is the y=x line to GUIDE US!!
+  geom_abline(col = "red") -> roc_plot
+
+print(roc_plot)
+```
+
+---
+
+## Comparing train, test splits
+
+```{r}
+set.seed(1011) #<<
+biopsy %>%
+  mutate(outcome = case_when(outcome == "malignant" ~ 1,  ## "success" in model
+                             outcome == "benign" ~ 0)) -> biopsy_fct
+baseline_logit_fit <- glm( outcome ~ ., data = biopsy_fct, family = "binomial")
+selected_fit       <- step(baseline_logit_fit, trace = F)
+
+## Training split and testing split
+training_frac <- 0.7
+biopsy_train  <- sample_frac(biopsy_fct, training_frac)
+biopsy_test   <- anti_join(biopsy_fct, biopsy_train)
+
+## Build the model for each
+train_fit <- glm(selected_fit$formula, data = biopsy_train, family = "binomial")
+test_fit <- glm(selected_fit$formula, data = biopsy_test, family = "binomial")
+
+## Send to pROC::roc() function. Add arg quiet=T for shhhh
+train_roc <- roc(biopsy_train$outcome, train_fit$linear.predictors, quiet = T)
+test_roc  <- roc(biopsy_test$outcome, test_fit$linear.predictors, quiet = T)
+```
+
+---
+
+```{r, fig.width = 6, fig.height = 3}
+train_roc$auc
+test_roc$auc
+
+train_data <- tibble(FPR = 1 - train_roc$specificities,
+                     TPR = train_roc$sensitivities, 
+                     model = "Training split")
+test_data <- tibble(FPR = 1 - train_roc$specificities,
+                     TPR = train_roc$sensitivities, 
+                     model = "Testing split")
+
+# Fiddled with size, color since lines are totally overlapping
+bind_rows(train_data, test_data) %>%
+  ggplot(aes(x = FPR, y = TPR, color = model)) + 
+    geom_line(aes(size = model)) +
+    scale_color_manual(values = c("black", "yellow")) +
+    scale_size_manual(values = c(2,1)) -> roc_plot2
+print(roc_plot2)
+```
+
+
+---
+
+## Ok, let's get some "real life" going
+
+```{r}
+
+model1 <- glm(outcome ~ mitoses, data = biopsy_fct, family = "binomial") #<<
+model1_roc <- roc(biopsy_fct$outcome, model1$linear.predictors, quiet = T)
+
+model2 <- glm(outcome ~ mitoses + marg_adhesion, data = biopsy_fct, family = "binomial") #<<
+model2_roc <- roc(biopsy_fct$outcome, model2$linear.predictors, quiet = T)
+
+model3 <- glm(outcome ~ mitoses + marg_adhesion + epithelial_cell_size, data = biopsy_fct, family = "binomial") #<<
+model3_roc <- roc(biopsy_fct$outcome, model3$linear.predictors, quiet = T)
+
+
+model1_roc$auc
+model2_roc$auc
+model3_roc$auc
+```
++ Compared to Model 1...
+  + **Model 2** shows that including `marg_adhesion` as predictor might add a LOT of benefit!
+  + **Model 3** shows that including `epithelial_cell_size` as predictor might add even more benefit
+
+---
+
+## Compare ROC curves all three models
+
+```{r, fig.width = 5.5, fig.height = 3}
+model1_data <- tibble(FPR = 1 - model1_roc$specificities,
+                      TPR = model1_roc$sensitivities, 
+                      model = "Model 1")
+model2_data <- tibble(FPR = 1 - model2_roc$specificities,
+                      TPR = model2_roc$sensitivities, 
+                      model = "Model 2")
+model3_data <- tibble(FPR = 1 - model3_roc$specificities,
+                      TPR = model3_roc$sensitivities, 
+                      model = "Model 3")
+bind_rows(model1_data, model2_data) %>%
+  bind_rows(model3_data) %>%
+  ggplot(aes(x = FPR, y = TPR, color = model)) + 
+    geom_line(size=1) -> roc_model123
+print(roc_model123)
+```
+
+---
+
+## Want to up your game?!!?
+
++ Use functions **anytime you are writing the same code >=2x**
++ Prevents bugs, cleaner to read, cleaner to reproduce
+
+```{r, fig.width = 4, fig.height = 2.3}
+prep_roc <- function(roc_output, model_name){
+  tibble(FPR = 1 - roc_output$specificities,
+         TPR = roc_output$sensitivities, 
+         model = model_name)
+}
+
+model1_data <- prep_roc(model1_roc, "Model 1")
+model2_data <- prep_roc(model2_roc, "Model 2")
+model3_data <- prep_roc(model3_roc, "Model 3")
+
+bind_rows(model1_data, model2_data) %>%
+  bind_rows(model3_data) %>%
+  ggplot(aes(x = FPR, y = TPR, color = model)) + 
+    geom_line(size=1) -> roc_model123
+print(roc_model123)
+```
+
+---
+
+## A note about tidy data
+
+```{r}
+biopsy %>% head()
+```
+
+```{r}
+biopsy %>%
+  pivot_longer(clump_thickness:mitoses, 
+               names_to = "measurement", values_to = "value") %>%
+  head()
+```

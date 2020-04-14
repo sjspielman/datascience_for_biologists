@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Evaluating logistic regression</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Stephanie J. Spielman" />
+    <script src="slides_logistic2_files/header-attrs-2.1/header-attrs.js"></script>
+    <link href="slides_logistic2_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="slides_logistic2_files/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Evaluating logistic regression
+### Stephanie J. Spielman
+### Data Science for Biologists, Spring 2020
+
+---
+
+&lt;style type="text/css"&gt;
+
+@media print {
+  .has-continuation {
+    display: block !important;
+  }
+}
+
+
+pre {
+  white-space: pre-wrap;
+  
+}
+
+ul:first-child, ol:first-child {
+    margin: 0;
+}
+
+
+.remark-code, .remark-inline-code { 
+    color: #326369;
+    font-weight: 600;
+}
+/* Code block code */
+.hljs .remark-code-line { 
+  font-weight: normal;
+  font-size: 15px;
+}
+
+.pull-left2{
+  float: left;
+  width: 65%;
+}
+
+.pull-right2{
+  float: right;
+  width: 30%;
+}
+&lt;/style&gt;
+
+
+
+
+## Some notes
+
++ Stepwise model selection is *not a rule*
+
++ In linear regression, one often uses `\(R^2\)` and RMSE values to compare different viable models
+
+--
+
++ In *logistic regression*, we use confusion matrix calculations and **AUC** (area under the curve... what curve?)
+
+.pull-left2[
++ `\(TPR = TP/P = \frac{TP}{TP + FN}\)`
+  + AKA *sensitivity* AKA *recall*
++ `\(TNR = TN/N = \frac{TN}{FP + TN}\)`
+  + AKA *specificity*
++ `\(FPR = FP/N = \frac{FP}{FP + TN}\)`
+  + AKA *1 - specificity*
++ Precision: `\(PPV = \frac{TP}{TP + FP}\)`
+  + AKA *positive predictive value*
++ Accuracy: `\(\frac{TP + TN}{TP + TN + FP + FN}\)`
+]
+
+.pull-right2[
+&lt;img src="confusionmatrix.jpeg" width="300px" /&gt;
+]
+---
+
+```r
+biopsy &lt;- read_csv(paste0("https://raw.githubusercontent.com/sjspielman/",
+                          "datascience_for_biologists/master/slides/biopsy.csv"))
+
+## Build the model
+biopsy %&gt;%
+  mutate(outcome = case_when(outcome == "malignant" ~ 1,  ## "success" in model
+                             outcome == "benign" ~ 0)) -&gt; biopsy_fct
+baseline_logit_fit &lt;- glm( outcome ~ ., data = biopsy_fct, family = "binomial")
+selected_fit       &lt;- step(baseline_logit_fit, trace = F)
+
+## Extract the model
+tibble(x = selected_fit$linear.predictors, 
+       y = selected_fit$fitted.values, 
+       outcome = biopsy$outcome) -&gt; extracted_model
+
+## Plot the model
+extracted_model %&gt;%
+  ggplot(aes(x = x, y = y)) + 
+    geom_line() +
+    geom_point(aes(color = outcome)) -&gt; plot_of_model
+print(plot_of_model)
+```
+
+![](slides_logistic2_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+
+---
+
+## Predictions with logistic regressions
+
+
+```r
+broom::tidy(selected_fit) %&gt;%
+  dplyr::select(term)
+## # A tibble: 8 x 1
+##   term              
+##   &lt;chr&gt;             
+## 1 (Intercept)       
+## 2 clump_thickness   
+## 3 uniform_cell_shape
+## 4 marg_adhesion     
+## 5 bare_nuclei       
+## 6 bland_chromatin   
+## 7 normal_nucleoli   
+## 8 mitoses
+
+## Predict! The new data is in a tibble
+tibble(clump_thickness    = 3, 
+       uniform_cell_shape = 2,
+       marg_adhesion      = 2,
+       bare_nuclei        = 1,
+       bland_chromatin    = 4,
+       normal_nucleoli    = 2,
+       mitoses            = 3) -&gt; new_biopsy
+```
+
+---
+
+## Predictions with logistic regressions
+
+
+
+```r
+predict(selected_fit, new_biopsy) 
+##         1 
+## -2.723465
+```
+
+--
+
+
+```r
+*predict(selected_fit, new_biopsy, type = "response")
+##          1 
+## 0.06160284
+```
+
+
+```r
+t &lt;- -2.723465
+1 / (1 + exp(-1*t))
+## [1] 0.06160286
+```
+
+---
+
+## Evaluating logistic regressions
+
+.pull-left[
+**Receiver Operating Characteristic** Curve
+  + TPR on Y-axis
+  + FPR (1 - specificity) on X-axis
+  + The AUC (**a**rea **u**nder the **c**urve) is an overall assessment of performance *at any threshold*
+]
+
+.pull-right[
++ `\(TPR = TP/P = \frac{TP}{TP + FN}\)` (*sensitivity* AKA *recall*)
+
+
++ `\(TNR = TN/N = \frac{TN}{FP + TN}\)` (*specificity*)
+
+
++ `\(FPR = FP/N = \frac{FP}{FP + TN}\)` (*1 - specificity*)
+]
+
+  
+&lt;img src="roc-theory-small.png" width="400px" /&gt;
+
++ ROC curves are used to evaluate performance of *ANY binary classifier* (not just logistic regression)
+
+---
+
+## Getting a "feel" for ROC curves
+
+&lt;img src="roc_intuition.png" width="800px" /&gt;
+
+---
+
+## Examples of ROC curves in the literature
+
+.pull-left[
+Keller et al. Genome Biol Evol 2012; 4:80-88 
+
+&lt;img src="roc_keller.png" width="300px" /&gt;
+]
+
+
+.pull-right[
+Imperiale et al. N Engl J Med 2014; 370:1287-1297
+
+&lt;img src="roc_colon.jpeg" width="225px" /&gt;
+]
+
+
+---
+
+## ROC vs PR
+
+
++ ROC curves are suitable when data is *balanced*
+  + Similar amounts of positives, negatives in the dataset
+  + FPR (1 - specificity) on X-axis, TPR on Y-axis
+
++ **Precision-Recall** curves are more suitable for *unbalanced* data
+  + Precision (PPV) on Y-axis, recall (TPR) on X-axis
+
+
+&lt;br&gt;&lt;br&gt;
+
++ `\(TPR = TP/P = \frac{TP}{TP + FN}\)` (*recall*)
++ `\(FPR = FP/N = \frac{FP}{FP + TN}\)` 
++ `\(PPV = \frac{TP}{TP + FP}\)` 
+
+---
+
+## Is the biopsy data balanced?
+
+
+
+```r
+biopsy %&gt;%
+  count(outcome)
+## # A tibble: 2 x 2
+##   outcome       n
+##   &lt;chr&gt;     &lt;int&gt;
+## 1 benign      444
+## 2 malignant   239
+```
++ About 2:1::benign:malignant
++ Not very balanced, but it's reasonable. ROC is ok to use!
+
++ *Problematically imbalanced* would be 4000 benign and 5 malignant (or vice versa).
+
+
+---
+
+## Making ROC curves
+
++ Recall:
+  + Our model fit is saved in `selected_fit`
+  + Our data is saved in `biopsy`, but the model was built with `biopsy_fct`!!
+  
+
+```r
+## Installed for you in the cloud, but you need to install locally
+#install.packages("pROC")
+library(pROC)
+## Type 'citation("pROC")' for a citation.
+## 
+## Attaching package: 'pROC'
+## The following objects are masked from 'package:stats':
+## 
+##     cov, smooth, var
+```
+
+
+```r
+# Use the function roc()
+*model_roc &lt;- roc(biopsy_fct$outcome, selected_fit$linear.predictors)
+## Setting levels: control = 0, case = 1
+## Setting direction: controls &lt; cases
+
+# This also works the same:
+*model_roc &lt;- roc(biopsy_fct$outcome, selected_fit$fitted.values)
+## Setting levels: control = 0, case = 1
+## Setting direction: controls &lt; cases
+```
+
+---
+
+## Getting information out
+
+```r
+model_roc$auc
+## Area under the curve: 0.9963
+```
++ Models are usually *not this good.* This dataset comes from a package that teaches modeling - it was chosen for a reason..
+
+--
+
+```r
+## Piped into head() to fit on the slide
+
+## True positive rates
+model_roc$sensitivities %&gt;% head()
+## [1] 1 1 1 1 1 1
+
+## True negative rates
+model_roc$specificities %&gt;% head()
+## [1] 0.00000000 0.07432432 0.07657658 0.08108108 0.08333333 0.08558559
+
+## False positives rates
+1 - model_roc$specificities %&gt;% head()
+## [1] 1.0000000 0.9256757 0.9234234 0.9189189 0.9166667 0.9144144
+```
+
+---
+
+## Make an ROC curve
+
+
+```r
+tibble(TPR = model_roc$sensitivities,
+       FPR = 1 - model_roc$specificities) %&gt;%
+  ggplot(aes(x = FPR, y = TPR)) + 
+  geom_line() +
+  labs(title = "ROC curve to classify biopsy results",
+       subtitle = paste("AUC =",round(model_roc$auc, 3)) ) +
+  ## this is the y=x line to GUIDE US!!
+  geom_abline(col = "red") -&gt; roc_plot
+
+print(roc_plot)
+```
+
+![](slides_logistic2_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
+
+---
+
+## Comparing train, test splits
+
+
+```r
+*set.seed(1011)
+biopsy %&gt;%
+  mutate(outcome = case_when(outcome == "malignant" ~ 1,  ## "success" in model
+                             outcome == "benign" ~ 0)) -&gt; biopsy_fct
+baseline_logit_fit &lt;- glm( outcome ~ ., data = biopsy_fct, family = "binomial")
+selected_fit       &lt;- step(baseline_logit_fit, trace = F)
+
+## Training split and testing split
+training_frac &lt;- 0.7
+biopsy_train  &lt;- sample_frac(biopsy_fct, training_frac)
+biopsy_test   &lt;- anti_join(biopsy_fct, biopsy_train)
+## Joining, by = c("clump_thickness", "uniform_cell_size", "uniform_cell_shape", "marg_adhesion", "epithelial_cell_size", "bare_nuclei", "bland_chromatin", "normal_nucleoli", "mitoses", "outcome")
+
+## Build the model for each
+train_fit &lt;- glm(selected_fit$formula, data = biopsy_train, family = "binomial")
+test_fit &lt;- glm(selected_fit$formula, data = biopsy_test, family = "binomial")
+
+## Send to pROC::roc() function. Add arg quiet=T for shhhh
+train_roc &lt;- roc(biopsy_train$outcome, train_fit$linear.predictors, quiet = T)
+test_roc  &lt;- roc(biopsy_test$outcome, test_fit$linear.predictors, quiet = T)
+```
+
+---
+
+
+```r
+train_roc$auc
+## Area under the curve: 0.9969
+test_roc$auc
+## Area under the curve: 0.9916
+
+train_data &lt;- tibble(FPR = 1 - train_roc$specificities,
+                     TPR = train_roc$sensitivities, 
+                     model = "Training split")
+test_data &lt;- tibble(FPR = 1 - train_roc$specificities,
+                     TPR = train_roc$sensitivities, 
+                     model = "Testing split")
+
+# Fiddled with size, color since lines are totally overlapping
+bind_rows(train_data, test_data) %&gt;%
+  ggplot(aes(x = FPR, y = TPR, color = model)) + 
+    geom_line(aes(size = model)) +
+    scale_color_manual(values = c("black", "yellow")) +
+    scale_size_manual(values = c(2,1)) -&gt; roc_plot2
+print(roc_plot2)
+```
+
+![](slides_logistic2_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
+
+
+---
+
+## Ok, let's get some "real life" going
+
+
+```r
+
+model1 &lt;- glm(outcome ~ mitoses, data = biopsy_fct, family = "binomial")
+model1_roc &lt;- roc(biopsy_fct$outcome, model1$linear.predictors, quiet = T)
+
+model2 &lt;- glm(outcome ~ mitoses + marg_adhesion, data = biopsy_fct, family = "binomial")
+model2_roc &lt;- roc(biopsy_fct$outcome, model2$linear.predictors, quiet = T)
+
+model3 &lt;- glm(outcome ~ mitoses + marg_adhesion + epithelial_cell_size, data = biopsy_fct, family = "binomial")
+model3_roc &lt;- roc(biopsy_fct$outcome, model3$linear.predictors, quiet = T)
+
+
+model1_roc$auc
+## Area under the curve: 0.7116
+model2_roc$auc
+## Area under the curve: 0.9308
+model3_roc$auc
+## Area under the curve: 0.9689
+```
++ Compared to Model 1...
+  + **Model 2** shows that including `marg_adhesion` as predictor might add a LOT of benefit!
+  + **Model 3** shows that including `epithelial_cell_size` as predictor might add even more benefit
+
+---
+
+## Compare ROC curves all three models
+
+
+```r
+model1_data &lt;- tibble(FPR = 1 - model1_roc$specificities,
+                      TPR = model1_roc$sensitivities, 
+                      model = "Model 1")
+model2_data &lt;- tibble(FPR = 1 - model2_roc$specificities,
+                      TPR = model2_roc$sensitivities, 
+                      model = "Model 2")
+model3_data &lt;- tibble(FPR = 1 - model3_roc$specificities,
+                      TPR = model3_roc$sensitivities, 
+                      model = "Model 3")
+bind_rows(model1_data, model2_data) %&gt;%
+  bind_rows(model3_data) %&gt;%
+  ggplot(aes(x = FPR, y = TPR, color = model)) + 
+    geom_line(size=1) -&gt; roc_model123
+print(roc_model123)
+```
+
+![](slides_logistic2_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
+
+---
+
+## Want to up your game?!!?
+
++ Use functions **anytime you are writing the same code &gt;=2x**
++ Prevents bugs, cleaner to read, cleaner to reproduce
+
+
+```r
+prep_roc &lt;- function(roc_output, model_name){
+  tibble(FPR = 1 - roc_output$specificities,
+         TPR = roc_output$sensitivities, 
+         model = model_name)
+}
+
+model1_data &lt;- prep_roc(model1_roc, "Model 1")
+model2_data &lt;- prep_roc(model2_roc, "Model 2")
+model3_data &lt;- prep_roc(model3_roc, "Model 3")
+
+bind_rows(model1_data, model2_data) %&gt;%
+  bind_rows(model3_data) %&gt;%
+  ggplot(aes(x = FPR, y = TPR, color = model)) + 
+    geom_line(size=1) -&gt; roc_model123
+print(roc_model123)
+```
+
+![](slides_logistic2_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+
+---
+
+## A note about tidy data
+
+
+```r
+biopsy %&gt;% head()
+## # A tibble: 6 x 10
+##   clump_thickness uniform_cell_si… uniform_cell_sh… marg_adhesion
+##             &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;         &lt;dbl&gt;
+## 1               5                1                1             1
+## 2               5                4                4             5
+## 3               3                1                1             1
+## 4               6                8                8             1
+## 5               4                1                1             3
+## 6               8               10               10             8
+## # … with 6 more variables: epithelial_cell_size &lt;dbl&gt;, bare_nuclei &lt;dbl&gt;,
+## #   bland_chromatin &lt;dbl&gt;, normal_nucleoli &lt;dbl&gt;, mitoses &lt;dbl&gt;, outcome &lt;chr&gt;
+```
+
+
+```r
+biopsy %&gt;%
+  pivot_longer(clump_thickness:mitoses, 
+               names_to = "measurement", values_to = "value") %&gt;%
+  head()
+## # A tibble: 6 x 3
+##   outcome measurement          value
+##   &lt;chr&gt;   &lt;chr&gt;                &lt;dbl&gt;
+## 1 benign  clump_thickness          5
+## 2 benign  uniform_cell_size        1
+## 3 benign  uniform_cell_shape       1
+## 4 benign  marg_adhesion            1
+## 5 benign  epithelial_cell_size     2
+## 6 benign  bare_nuclei              1
+```
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightLines": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
