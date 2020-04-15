@@ -381,8 +381,8 @@ test_roc$auc
 train_data &lt;- tibble(FPR = 1 - train_roc$specificities,
                      TPR = train_roc$sensitivities, 
                      model = "Training split")
-test_data &lt;- tibble(FPR = 1 - train_roc$specificities,
-                     TPR = train_roc$sensitivities, 
+test_data &lt;- tibble(FPR = 1 - test_roc$specificities, 
+                     TPR = test_roc$sensitivities, 
                      model = "Testing split")
 
 # Fiddled with size, color since lines are totally overlapping
