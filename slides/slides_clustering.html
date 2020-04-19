@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Introduction to clustering analysis</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Stephanie J. Spielman" />
+    <link href="slides_clustering_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="slides_clustering_files/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Introduction to clustering analysis
+### Stephanie J. Spielman
+### Data Science for Biologists, Spring 2020
+
+---
+
+&lt;style type="text/css"&gt;
+
+@media print {
+  .has-continuation {
+    display: block !important;
+  }
+}
+
+
+pre {
+  white-space: pre-wrap;
+  
+}
+
+ul:first-child, ol:first-child {
+    margin: 0;
+}
+
+
+.remark-code, .remark-inline-code { 
+    color: #326369;
+    font-weight: 600;
+}
+/* Code block code */
+.hljs .remark-code-line { 
+  font-weight: normal;
+  font-size: 15px;
+}
+
+.pull-left2{
+  float: left;
+  width: 85%;
+}
+
+.pull-right2{
+  float: right;
+  width: 30%;
+}
+&lt;/style&gt;
+
+
+
+
+## Clustering
+
++ An **unsupervised** approach to placing observations into clusters 
++ Cluster = previously **unknown/undetected** groupings
++ Requires some approach to measuring distance/similarity among observations
+
+
+&lt;img src="unsup_sup.png" width="800px" /&gt;
+
+---
+
+
+
+## There are MANY algorithms for this
+
+
+
+&lt;img src="clustering_vomit.png" width="800px" /&gt;
++ Image from [https://scikit-learn.org/stable/modules/clustering.html](https://scikit-learn.org/stable/modules/clustering.html)
+
+
+---
+
+# GARBAGE IN, GARBAGE OUT
+
++ All based one some kind of mathematical comparison among data points
+
+---
+
+## k-means clustering
+
+1. Place k (*determined in advanced*) "centroids" in the data
+2. Assign point to cluster k based on Euclidian distance
+3. Re-compute each k centroid based on means of associated points
+4. Re-assign centroids
+5. Repeat until convergence (stops changing)
+
+#### Thanks, internet!
+
++ [https://www.naftaliharris.com/blog/visualizing-k-means-clustering/](https://www.naftaliharris.com/blog/visualizing-k-means-clustering/)
+
+
++ [https://twitter.com/allison_horst/status/1250477975130140672?s=20](https://twitter.com/allison_horst/status/1250477975130140672?s=20)
+
+
++ [https://en.wikipedia.org/wiki/K-means_clustering#/media/File:K-means_convergence.gif](https://en.wikipedia.org/wiki/K-means_clustering#/media/File:K-means_convergence.gif)
+
+---
+
+## Let's cluster
+
+
+```r
+*set.seed(1011)
+
+## just making the URL fit..
+wine_url &lt;- paste0("https://raw.githubusercontent.com/sjspielman/",
+                   "datascience_for_biologists/master/data/wine.csv")
+wine &lt;- read_csv(wine_url)
+dplyr::glimpse(wine)
+## Observations: 178
+## Variables: 9
+## $ Cultivar       &lt;chr&gt; "A", "A", "A", "A", "A", "A", "A", "A", "A", "A",…
+## $ Alcohol        &lt;dbl&gt; 14.23, 13.20, 13.16, 14.37, 13.24, 14.20, 14.39, …
+## $ MalicAcid      &lt;dbl&gt; 1.71, 1.78, 2.36, 1.95, 2.59, 1.76, 1.87, 2.15, 1…
+## $ Ash            &lt;dbl&gt; 2.43, 2.14, 2.67, 2.50, 2.87, 2.45, 2.45, 2.61, 2…
+## $ Magnesium      &lt;dbl&gt; 127, 100, 101, 113, 118, 112, 96, 121, 97, 98, 10…
+## $ TotalPhenol    &lt;dbl&gt; 2.80, 2.65, 2.80, 3.85, 2.80, 3.27, 2.50, 2.60, 2…
+## $ Flavanoids     &lt;dbl&gt; 3.06, 2.76, 3.24, 3.49, 2.69, 3.39, 2.52, 2.51, 2…
+## $ NonflavPhenols &lt;dbl&gt; 0.28, 0.26, 0.30, 0.24, 0.39, 0.34, 0.30, 0.31, 0…
+## $ Color          &lt;dbl&gt; 5.64, 4.38, 5.68, 7.80, 4.32, 6.75, 5.25, 5.05, 5…
+```
+
+---
+
+## Let's cluster with k=3
+
++ **ONLY NUMERIC DATA!!!** You must remove any categorical columns!!!
+
+
+```r
+
+k &lt;- 3 # don't hardcode!
+
+wine %&gt;%
+  # remove the categorical column first
+  select(-Cultivar) %&gt;%
+  kmeans(k) -&gt; wine_k3
+```
+
+---
+
+
+```r
+wine_k3
+## K-means clustering with 3 clusters of sizes 73, 26, 79
+## 
+## Cluster means:
+##    Alcohol MalicAcid      Ash Magnesium TotalPhenol Flavanoids
+## 1 12.70356  2.298356 2.257671  87.21918    2.136438   1.829315
+## 2 13.32769  2.066538 2.511923 125.11538    2.531538   2.463462
+## 3 13.16747  2.460253 2.419241 102.96203    2.363924   2.071139
+##   NonflavPhenols    Color
+## 1      0.3880822 4.363973
+## 2      0.3065385 5.521154
+## 3      0.3558228 5.547089
+## 
+## Clustering vector:
+##   [1] 2 3 3 3 2 3 3 2 3 3 3 1 1 1 3 3 2 2 3 2 2 3 3 1 3 2 1 1 3 3 3 3 3 2 3
+##  [36] 3 3 3 3 2 2 1 3 3 3 3 3 3 3 3 1 1 3 2 2 2 2 3 3 1 3 3 1 1 3 3 1 1 3 2
+##  [71] 3 1 1 2 3 3 1 3 2 3 1 1 1 1 1 3 1 1 1 1 1 1 1 1 3 2 2 1 1 1 3 1 3 1 1
+## [106] 1 1 1 1 1 3 1 3 1 1 1 1 3 1 1 3 2 3 1 1 1 1 1 1 1 2 3 3 3 1 1 1 3 1 3
+## [141] 3 1 3 1 3 3 1 1 1 3 2 3 2 3 3 1 1 3 3 1 1 3 3 3 1 1 3 1 3 3 3 1 1 3 3
+## [176] 2 2 3
+## 
+## Within cluster sum of squares by cluster:
+## [1] 2256.940 3462.511 2843.740
+##  (between_SS / total_SS =  77.3 %)
+## 
+## Available components:
+## 
+## [1] "cluster"      "centers"      "totss"        "withinss"    
+## [5] "tot.withinss" "betweenss"    "size"         "iter"        
+## [9] "ifault"
+```
+
+---
+
+## Which row is in which cluster?
+
+
+```r
+wine_k3$cluster
+##   [1] 2 3 3 3 2 3 3 2 3 3 3 1 1 1 3 3 2 2 3 2 2 3 3 1 3 2 1 1 3 3 3 3 3 2 3
+##  [36] 3 3 3 3 2 2 1 3 3 3 3 3 3 3 3 1 1 3 2 2 2 2 3 3 1 3 3 1 1 3 3 1 1 3 2
+##  [71] 3 1 1 2 3 3 1 3 2 3 1 1 1 1 1 3 1 1 1 1 1 1 1 1 3 2 2 1 1 1 3 1 3 1 1
+## [106] 1 1 1 1 1 3 1 3 1 1 1 1 3 1 1 3 2 3 1 1 1 1 1 1 1 2 3 3 3 1 1 1 3 1 3
+## [141] 3 1 3 1 3 3 1 1 1 3 2 3 2 3 3 1 1 3 3 1 1 3 3 3 1 1 3 1 3 3 3 1 1 3 3
+## [176] 2 2 3
+
+wine %&gt;% 
+  mutate(cluster_k3 = factor(wine_k3$cluster)) -&gt; wine_with_clusters
+wine_with_clusters %&gt;%select(Alcohol, Cultivar, cluster_k3)
+## # A tibble: 178 x 3
+##    Alcohol Cultivar cluster_k3
+##      &lt;dbl&gt; &lt;chr&gt;    &lt;fct&gt;     
+##  1    14.2 A        2         
+##  2    13.2 A        3         
+##  3    13.2 A        3         
+##  4    14.4 A        3         
+##  5    13.2 A        2         
+##  6    14.2 A        3         
+##  7    14.4 A        3         
+##  8    14.1 A        2         
+##  9    14.8 A        3         
+## 10    13.9 A        3         
+## # … with 168 more rows
+```
+
+---
+
+## Average column values within each cluster?
+
+
+
+```r
+wine_k3$centers
+##    Alcohol MalicAcid      Ash Magnesium TotalPhenol Flavanoids
+## 1 12.70356  2.298356 2.257671  87.21918    2.136438   1.829315
+## 2 13.32769  2.066538 2.511923 125.11538    2.531538   2.463462
+## 3 13.16747  2.460253 2.419241 102.96203    2.363924   2.071139
+##   NonflavPhenols    Color
+## 1      0.3880822 4.363973
+## 2      0.3065385 5.521154
+## 3      0.3558228 5.547089
+```
+
+---
+
+## Visualizing the clustering: distributions of variables across clusters
+
+
+```r
+ggplot(wine_with_clusters, aes(x = cluster_k3, y = Alcohol, fill = cluster_k3)) +
+  geom_boxplot() +
+  labs(x = "K-means clusters") +
+  scale_fill_brewer(palette = "Dark2") + 
+  theme(legend.position = "none")
+```
+
+![](slides_clustering_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+
+---
+
+
+```r
+names(wine_with_clusters)
+##  [1] "Cultivar"       "Alcohol"        "MalicAcid"      "Ash"           
+##  [5] "Magnesium"      "TotalPhenol"    "Flavanoids"     "NonflavPhenols"
+##  [9] "Color"          "cluster_k3"
+wine_with_clusters %&gt;%
+  pivot_longer(Alcohol:Color, names_to = "quantity", values_to = "value") 
+## # A tibble: 1,424 x 4
+##    Cultivar cluster_k3 quantity        value
+##    &lt;chr&gt;    &lt;fct&gt;      &lt;chr&gt;           &lt;dbl&gt;
+##  1 A        2          Alcohol         14.2 
+##  2 A        2          MalicAcid        1.71
+##  3 A        2          Ash              2.43
+##  4 A        2          Magnesium      127   
+##  5 A        2          TotalPhenol      2.8 
+##  6 A        2          Flavanoids       3.06
+##  7 A        2          NonflavPhenols   0.28
+##  8 A        2          Color            5.64
+##  9 A        3          Alcohol         13.2 
+## 10 A        3          MalicAcid        1.78
+## # … with 1,414 more rows
+```
+
+---
+
+
+```r
+wine_with_clusters %&gt;%
+  pivot_longer(Alcohol:Color, names_to = "quantity", values_to = "value") %&gt;%
+  ggplot(aes(x = cluster_k3, y = value, fill = cluster_k3)) + 
+    geom_boxplot() + 
+    theme(legend.position = "none") +
+    labs(x = "K-means clusters", y = "Value") +
+    scale_fill_brewer(palette = "Dark2") + 
+    ## different Y-axis for each panel in grid
+*   facet_wrap(~quantity, scales = "free_y", nrow=2)
+```
+
+![](slides_clustering_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+
+---
+
+## Visualizing the clustering: compare clusters with any other known groupings
+
++ Does clustering match with the known cultivars? **Not really!**
+
+
+```r
+ggplot(wine_with_clusters, aes(x = Cultivar, fill = cluster_k3)) + 
+  geom_bar() + 
+  scale_fill_brewer(palette = "Dark2") + 
+  xlab("Known cultivars") + ylab("Count") -&gt; bark
+bark
+```
+
+![](slides_clustering_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+
+---
+
+## Plot variables against each other
+
+
+```r
+ggplot(wine_with_clusters, aes(x = Magnesium, 
+                               y = Alcohol, 
+                               color = cluster_k3)) + 
+  geom_point() + 
+  scale_color_brewer(palette = "Dark2") + 
+  xlab("Magnesium levels") + ylab("Alcohol levels")
+```
+
+![](slides_clustering_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+
+---
+
+## Plot variables against each other
+
+
+```r
+ggplot(wine_with_clusters, aes(x = Magnesium, 
+                               y = Alcohol, 
+                               color = cluster_k3)) + 
+  geom_point() + 
+  scale_color_brewer(palette = "Dark2") + 
+  xlab("Magnesium levels") + ylab("Alcohol levels") + 
+* stat_ellipse()
+```
+
+![](slides_clustering_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+
+---
+
+## K means is STOCHASTIC (random)
+
+
+```r
+wine %&gt;%
+  select(-Cultivar) %&gt;%
+  kmeans(3) -&gt; wine_k3_secondtime
+
+wine %&gt;% 
+  mutate(new_clusters = factor(wine_k3_secondtime$cluster)) %&gt;%
+  ggplot(aes(x = Cultivar, fill = new_clusters)) + 
+    geom_bar() + 
+    scale_fill_brewer(palette = "Dark2") + 
+    xlab("Known cultivars") + ylab("Count") -&gt; bark_secondtime
+
+bark + bark_secondtime
+```
+
+![](slides_clustering_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+
+---
+
+## Choosing the right k: .........
+
+--
+
++ Using sum of squares and the "elbow method"
+
+
+```r
+wine_k3$withinss
+## [1] 2256.940 3462.511 2843.740
+*wine_k3$tot.withinss
+## [1] 8563.191
+wine_k3$betweenss 
+## [1] 29093.74
+wine_k3$totss 
+## [1] 37656.93
+```
+
+---
+
+
+```r
+numeric_wine &lt;- wine %&gt;% select(-Cultivar)
+run_wine_kmeans &lt;- function(k)
+{
+  output_kmeans &lt;- kmeans(numeric_wine, k)
+  output_kmeans$tot.withinss[[1]]
+}
+
+tibble(different_k = 2:10) %&gt;%
+  mutate(withinss = map_dbl(different_k, run_wine_kmeans))
+## # A tibble: 9 x 2
+##   different_k withinss
+##         &lt;int&gt;    &lt;dbl&gt;
+## 1           2   14979.
+## 2           3    8783.
+## 3           4    5472.
+## 4           5    4228.
+## 5           6    3763.
+## 6           7    2937.
+## 7           8    2668.
+## 8           9    2472.
+## 9          10    2976.
+```
+
+---
+
+
+```r
+tibble(different_k = 2:10) %&gt;%
+  mutate(withinss = map_dbl(different_k, run_wine_kmeans)) %&gt;%
+  ggplot(aes(x = different_k, y = withinss)) + 
+    geom_point() + geom_line()
+```
+
+![](slides_clustering_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
+
++ This approach is incredibly unsatisfying. It is also the easiest to do.
++ There is no possibly way to know if more complex approaches "get it right"!!!
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightLines": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  /* Replace <script> tags in slides area to make them executable
+   *
+   * Runs after post-processing of markdown source into slides and replaces only
+   * <script>s on the last slide of continued slides using the .has-continuation
+   * class added by xaringan. Finally, any <script>s in the slides area that
+   * aren't executed are commented out.
+   */
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container:not(.has-continuation) script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+  var scriptsNotExecuted = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container.has-continuation script'
+  );
+  if (!scriptsNotExecuted.length) return;
+  for (var i = 0; i < scriptsNotExecuted.length; i++) {
+    var comment = document.createComment(scriptsNotExecuted[i].outerHTML)
+    scriptsNotExecuted[i].parentElement.replaceChild(comment, scriptsNotExecuted[i])
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

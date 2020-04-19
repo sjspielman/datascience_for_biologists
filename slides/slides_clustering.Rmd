@@ -1,0 +1,302 @@
+---
+title: "Introduction to clustering analysis"
+author: "Stephanie J. Spielman"
+date: "Data Science for Biologists, Spring 2020"
+output:
+  xaringan::moon_reader:
+    nature:
+      highlightLines: true
+editor_options: 
+  chunk_output_type: console
+---
+```{css, echo=F}
+
+@media print {
+  .has-continuation {
+    display: block !important;
+  }
+}
+
+
+pre {
+  white-space: pre-wrap;
+  
+}
+
+ul:first-child, ol:first-child {
+    margin: 0;
+}
+
+
+.remark-code, .remark-inline-code { 
+    color: #326369;
+    font-weight: 600;
+}
+/* Code block code */
+.hljs .remark-code-line { 
+  font-weight: normal;
+  font-size: 15px;
+}
+
+.pull-left2{
+  float: left;
+  width: 85%;
+}
+
+.pull-right2{
+  float: right;
+  width: 30%;
+}
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, collapse=TRUE)
+library(tidyverse)
+library(patchwork)
+library(xaringan)
+theme_set(theme_classic())
+```
+
+
+## Clustering
+
++ An **unsupervised** approach to placing observations into clusters 
++ Cluster = previously **unknown/undetected** groupings
++ Requires some approach to measuring distance/similarity among observations
+
+
+```{r out.width = '800px', echo=F}
+knitr::include_graphics("unsup_sup.png")
+```
+
+---
+
+
+
+## There are MANY algorithms for this
+
+
+
+```{r out.width = '800px', echo=F}
+knitr::include_graphics("clustering_vomit.png")
+```
++ Image from [https://scikit-learn.org/stable/modules/clustering.html](https://scikit-learn.org/stable/modules/clustering.html)
+
+
+---
+
+# GARBAGE IN, GARBAGE OUT
+
++ All based one some kind of mathematical comparison among data points
+
+---
+
+## k-means clustering
+
+1. Place k (*determined in advanced*) "centroids" in the data
+2. Assign point to cluster k based on Euclidian distance
+3. Re-compute each k centroid based on means of associated points
+4. Re-assign centroids
+5. Repeat until convergence (stops changing)
+
+#### Thanks, internet!
+
++ [https://www.naftaliharris.com/blog/visualizing-k-means-clustering/](https://www.naftaliharris.com/blog/visualizing-k-means-clustering/)
+
+
++ [https://twitter.com/allison_horst/status/1250477975130140672?s=20](https://twitter.com/allison_horst/status/1250477975130140672?s=20)
+
+
++ [https://en.wikipedia.org/wiki/K-means_clustering#/media/File:K-means_convergence.gif](https://en.wikipedia.org/wiki/K-means_clustering#/media/File:K-means_convergence.gif)
+
+---
+
+## Let's cluster
+
+```{r, message=F}
+set.seed(1011) #<<
+
+## just making the URL fit..
+wine_url <- paste0("https://raw.githubusercontent.com/sjspielman/",
+                   "datascience_for_biologists/master/data/wine.csv")
+wine <- read_csv(wine_url)
+dplyr::glimpse(wine)
+```
+
+---
+
+## Let's cluster with k=3
+
++ **ONLY NUMERIC DATA!!!** You must remove any categorical columns!!!
+
+```{r}
+
+k <- 3 # don't hardcode!
+
+wine %>%
+  # remove the categorical column first
+  select(-Cultivar) %>%
+  kmeans(k) -> wine_k3
+```
+
+---
+
+```{r}
+wine_k3
+```
+
+---
+
+## Which row is in which cluster?
+
+```{r}
+wine_k3$cluster
+
+wine %>% 
+  mutate(cluster_k3 = factor(wine_k3$cluster)) -> wine_with_clusters
+wine_with_clusters %>%select(Alcohol, Cultivar, cluster_k3)
+```
+
+---
+
+## Average column values within each cluster?
+
+
+```{r}
+wine_k3$centers
+```
+
+---
+
+## Visualizing the clustering: distributions of variables across clusters
+
+```{r, fig.width = 7, fig.height = 4.5}
+ggplot(wine_with_clusters, aes(x = cluster_k3, y = Alcohol, fill = cluster_k3)) +
+  geom_boxplot() +
+  labs(x = "K-means clusters") +
+  scale_fill_brewer(palette = "Dark2") + 
+  theme(legend.position = "none")
+```
+
+---
+
+```{r,}
+names(wine_with_clusters)
+wine_with_clusters %>%
+  pivot_longer(Alcohol:Color, names_to = "quantity", values_to = "value") 
+```
+
+---
+
+```{r, fig.width = 10, fig.height = 5}
+wine_with_clusters %>%
+  pivot_longer(Alcohol:Color, names_to = "quantity", values_to = "value") %>%
+  ggplot(aes(x = cluster_k3, y = value, fill = cluster_k3)) + 
+    geom_boxplot() + 
+    theme(legend.position = "none") +
+    labs(x = "K-means clusters", y = "Value") +
+    scale_fill_brewer(palette = "Dark2") + 
+    ## different Y-axis for each panel in grid
+    facet_wrap(~quantity, scales = "free_y", nrow=2) #<< 
+```
+
+---
+
+## Visualizing the clustering: compare clusters with any other known groupings
+
++ Does clustering match with the known cultivars? **Not really!**
+
+```{r, fig.width = 7, fig.height = 4}
+ggplot(wine_with_clusters, aes(x = Cultivar, fill = cluster_k3)) + 
+  geom_bar() + 
+  scale_fill_brewer(palette = "Dark2") + 
+  xlab("Known cultivars") + ylab("Count") -> bark
+bark
+```
+
+---
+
+## Plot variables against each other
+
+```{r, fig.width = 7, fig.height = 4}
+ggplot(wine_with_clusters, aes(x = Magnesium, 
+                               y = Alcohol, 
+                               color = cluster_k3)) + 
+  geom_point() + 
+  scale_color_brewer(palette = "Dark2") + 
+  xlab("Magnesium levels") + ylab("Alcohol levels")
+```
+
+---
+
+## Plot variables against each other
+
+```{r, fig.width = 7, fig.height = 4}
+ggplot(wine_with_clusters, aes(x = Magnesium, 
+                               y = Alcohol, 
+                               color = cluster_k3)) + 
+  geom_point() + 
+  scale_color_brewer(palette = "Dark2") + 
+  xlab("Magnesium levels") + ylab("Alcohol levels") + 
+  stat_ellipse() #<<
+```
+
+---
+
+## K means is STOCHASTIC (random)
+
+```{r, fig.width = 10, fig.height = 4}
+wine %>%
+  select(-Cultivar) %>%
+  kmeans(3) -> wine_k3_secondtime
+
+wine %>% 
+  mutate(new_clusters = factor(wine_k3_secondtime$cluster)) %>%
+  ggplot(aes(x = Cultivar, fill = new_clusters)) + 
+    geom_bar() + 
+    scale_fill_brewer(palette = "Dark2") + 
+    xlab("Known cultivars") + ylab("Count") -> bark_secondtime
+
+bark + bark_secondtime
+```
+
+---
+
+## Choosing the right k: .........
+
+--
+
++ Using sum of squares and the "elbow method"
+
+```{r}
+wine_k3$withinss
+wine_k3$tot.withinss #<<
+wine_k3$betweenss 
+wine_k3$totss 
+```
+
+---
+
+```{r}
+numeric_wine <- wine %>% select(-Cultivar)
+run_wine_kmeans <- function(k)
+{
+  output_kmeans <- kmeans(numeric_wine, k)
+  output_kmeans$tot.withinss[[1]]
+}
+
+tibble(different_k = 2:10) %>%
+  mutate(withinss = map_dbl(different_k, run_wine_kmeans))
+```
+
+---
+
+```{r, fig.width = 6, fig.height = 4}
+tibble(different_k = 2:10) %>%
+  mutate(withinss = map_dbl(different_k, run_wine_kmeans)) %>%
+  ggplot(aes(x = different_k, y = withinss)) + 
+    geom_point() + geom_line()
+```
+
++ This approach is incredibly unsatisfying. It is also the easiest to do.
++ There is no possible way to know if more complex approaches "get it right"!!!
