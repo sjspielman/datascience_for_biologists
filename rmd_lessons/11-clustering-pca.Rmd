@@ -1,0 +1,125 @@
+---
+title: "Clustering and PCA"
+subtitle: "Data Science for Biologists, Spring 2020"
+author: "YOUR NAME GOES HERE"
+output: 
+  html_document:
+    highlight: tango
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+
+## SET YOUR SEED BELOW!!! Make it YOUR SEED! Uncomment the line, and add your chosen seed number into the parentheses
+#set.seed()
+```
+
+## Instructions
+
+Standard grading criteria apply. And...
+
++ Make sure you set your seed
++ Proofread to submit YOUR OWN WORDS!!
++ Make sure all bullets properly render in the knitted HTML. **YOU WILL LOSE POINTS FOR BULLETED LISTS THAT DO NOT TURN OUT PROPERLY IN THE HTML!!** 
++ Remember that `#` do NOT make comments in markdown. They make HEADERS!! You need to use HTML comments to have comments in your text that don't appear in the knitted HTML. For example, the line below does not appear in html.
+
+<!-- This is an actual comment in markdown. -->
+
+## The data
+
+We will be using a dataset of olives collected from various regions of Italy. The data gives the percentage of different fatty acids that comprise the oil in the olives. [Source](https://rdrr.io/cran/dslabs/man/olive.html)
+
+```{r, collapse=T}
+olives <- read_csv("https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/data/olives.csv")
+dplyr::glimpse(olives)
+```
+
+
+## Part 1: Clustering
+
+Perform TWO k-means cluster analysis, once with **k=3** and once with **k=5**. 
+
+```{r}
+## Perform two clustering analyses here with k=3 and k=5, separately.
+```
+
+
+
+For each analysis, make a SINGLE FIGURE for each clustering analysis (two figures total). Choose your own adventure for each figure! You should explain per figure: a) Why did you decide to visualize the clustering using this particular figure? (~1 sentence) and b) What insights (if any!) does this figure provide (1-2 sentences)? Answer in the bullets below the given figure. 
+
+**You should not make two identical figures - they need to be _somewhat_ different.** For example, two barplots showing the relationship between clusters and regions is a no-go. Two scatterplots but with different x-axis and y-axis variables on the axes is ok! Two boxplots (violin, den sity, histogram, sina, jitter...) but with a different focal variable is ok! Either way, your figure MUST show the clusters.
+
+```{r}
+## Figure for k=3 including all associated wrangling
+
+
+```
+
++ **Answer: Why did you choose this figure?**
++ **Answer: What trends/insights (if any)  does the figure reveal, as they relate to the clusters?**
+
+
+```{r}
+## Figure for k=5 including all associated wrangling
+
+
+```
+
++ **Answer: Why did you choose this figure?**
++ **Answer: What trends/insights (if any) does the figure reveal, as they relate to the clusters?**
+
+
+## Part Two: PCA
+
+Perform a principle components analysis on this dataset, and create TWO figures from your PCA. Each figure should have a brief explanation as a bullet below it. For each figure, your should be labeled to include information about how much variation the given PC explains in the data.
+
+```{r}
+## Code to perform PCA goes here
+
+
+```
+
+1. But first, use code to answer this question! Intepret how variables in the initial dataset **load** on the PCs by examining, you guessed it, the loadings. In the bullets below, state which SINGLE variable load most strongly on PC1 and PC2 each, and which SINGLE variable loads most weakly on PC1 and PC2.
+
+```{r}
+## Code to examine loadings goes here
+```
+
++ **Strongest PC1 loading:**
++ **Strongest PC2 loading:**
++ **Weakest PC1 loading:**
++ **Weakest PC2 loading:**
+
+2. Plot PC2 against PC1 (PC2 is on Y and PC1 is on X) as a scatterplot, where you use color to distinguish among **olive region** (NOT area!). Make sure to show ellipses for each grouping. Do NOT include loading arrows. In the bullet below, _explain in 2-3 sentences_ if and how either PC1 or PC2 discriminates olive region. You may write a bulleted list *as long as it renders properly.*
+
+```{r}
+## Code to make this figure goes here
+```
+
++ **Explanation for figure**
+
+2. Plot PC2 against PC1 as a scatterplot, where you use color to distinguish among **olive area** (the other categorical column!). Make sure to show ellipses for each grouping. Do NOT include loading arrows. In the bullet below, _explain in 2-3 sentences_ if and how either PC1 or PC2 discriminates olive region. You may write a bulleted list *as long as it renders properly.*
+
++ **Explanation for figure**
+
+
+
+## BONUS QUESTION 1
+
+Make a figure of the loadings on PC1 and PC2 in the space below. Make sure it is as legible as possible! No explanation needed, just make a plot!
+```{r}
+## Bonus loadings plot
+```
+
+## BONUS QUESTION 2
+
+Perform a k-means clustering with *k=3* on the PCs to examine whether olive *regions* cluster together. **You must include a clear explanation (1-3 sentences) to receive ANY CREDIT AT ALL for this bonus.**
+```{r}
+## Bonus clustering
+```
++ **Bonus explanation**
+
