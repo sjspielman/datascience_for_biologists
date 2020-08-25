@@ -5,7 +5,7 @@ geometry: margin=0.65in
 
 # #TidyTuesday Extra Credit Instructions
 BIOL01301, Data Science for Biologists
-Spring 2020
+Fall 2020
 
 ## Relevant links:
 
@@ -15,27 +15,42 @@ Spring 2020
 
 + R4DataScience Twitter (they retweet #tidytuesday submissions): [`https://twitter.com/R4DScommunity`](https://twitter.com/R4DScommunity)
 
++ Twitter for R Programmers: [`https://www.t4rstats.com/`](https://www.t4rstats.com/) 
+
++ Link to previous `#DataScienceforBiologists` tweets: [`Click here`](https://twitter.com/search?q=%23datascienceforbiologists&src=typed_query)
+
 
 ## Instructions
 
-The goal of this weekly extra credit is to develop your visualization and data wrangling skills along with the R4DS community. Each week (monday evenings), a new dataset is posted to the R4DS github account. Your task for extra credit will be to create a _reproducible figure_ using this data. **To obtain extra credit of a 1% boost to your OVERALL grade, you must do the following no later the following SUNDAY AT 11:59 PM from when the dataset was released**:
+The goal of this weekly extra credit is to develop your visualization and data wrangling skills along with the R4DS community. Each week (Monday evenings or Tuesday mornings), a new dataset is posted to the R4DS github account. Your task for extra credit will be to create a _reproducible figure_ using this data. You should feel welcome to use this opportunity to either work with particular skill or set of skills you feel you need more practice with, or to master a new skill that we didn't specifically cover in class or labs/assignments. 
 
-+ Write reproducible (i.e. anyone should be able to successfully run it!) R code using `tidyverse` to make a visualization of your choosing from the dataset. *Your code must be in an RMarkdown document. The figure should both be displayed in the document AND saved as a stand-alone image.*
-+ In your document, you should write one paragraph (3-6 sentences at the END) explaining how this particular #tidytuesday plot benefited you and improved your understanding of visualization or data wrangling concepts. For example, you should use this opportunity to either work with particular skill or set of skills you feel you need more practice with, or to master a new skill that we didn't specifically cover in class or labs/assignments. 
-+ Release your Rmd file (or knitted) and figure publically in one of the following ways:
-	+ Tweet your figure and your reproducible code no later than the following Sunday at 11:59 pm. In your tweet you should tag me @stephspiel (or you can tag me in a reply to the main tweet, as long as I am tagged) and include the following two hashtags: #tidytuesday and #DataScienceforBiologists. There are three options for including your code in the tweet:
-		+ Upload the Rmd file directly as a tweet attachment (along with the figure)
+**To obtain extra credit of a 1% boost to your OVERALL grade, you must do the following no later the following FRIDAY AT 11:59 PM from when the dataset was released.** Alternatively, if you complete the `#tidytuesday` by the following SUNDAY AT 11:59 PM from when the dataset was released, you will receive 0.5% extra credit.
+
++ Write reproducible (i.e. anyone should be able to successfully run it!) R code using `tidyverse` to make a visualization of your choosing from the dataset. 
++ You should submit one of the following to Canvas:
+  + A fully reproducible R script which creates *and saves using `ggsave()`* your figure.
+  + A fully reproducible RMarkdown file which creates an embedded figure that is also *saved using `ggsave()`*.
+  + Do NOT submit the saved figure to Canvas! I will run your code to create the figure file, which *must be fully visible with an appropriate aspect ratio!!*
++ You must release your code and figure publicly in one of the following ways:
+	+ Tweet your figure and your reproducible code *from a PUBLIC TWITTER ACCOUNT* no later than the following Friday (or Sunday) at 11:59 pm. In your tweet you should tag me @stephspiel (or you can tag me in a reply to the main tweet, as long as I am tagged) and include the following two hashtags: `#tidytuesday` and `#DataScienceforBiologists`. 
+	There are three options for including your code in the tweet:
+		+ Upload the R script or Rmarkdown file directly as a tweet attachment (along with the figure)
 		+ Include a link to an RStudio Cloud Project *in YOUR workspace, not the class workspace!* where permissions have been updated to allow anyone to view the code. To set these permissions, from within the project, click the gear icon on the top right. Click the "Access" button and make sure the permissions under "Who can view this project" are set to "Everyone." You can then include the link to the project (the actual URL) in your tweet.
-		+ **For an extra 0.5%**: Create a github repository either for your #tidytuesday work. In the github repository, make a folder for each week's work, and save your code and figure in that week's folder. Make sure your github is publically accessible, and include links to the github code in your tweet. *It is NOT anticipated that you will choose this option before we learn github, which will happen soon!* If you elect this option, it will be best to include a list of links to all knitted #tidytuesday works in your README. This will be discussed in class.
-	+ Email me your figure and your reproducible code to tweet on your behalf. In your email, indicate if you would like to remain anonymous or not. If you would like to remain anonymous, make sure your code does not have identifying features.
-
+	  + Email me your figure and your reproducible code to tweet on your behalf. In your email, indicate if you would like to remain anonymous or not. If you would like to remain anonymous, make sure your code does not have identifying features.
+    + **For an EXTRA 0.5%**, include your `#tidytuesday` in a public Github repository. You should first create a repo ALL of your `#tidytuesday` work. For each week you do a `#tidytuesday`, you should create a folder the given week and save your *code and figure* in that folder. Include links to the github code in your tweet. *You will NOT get any extra-extra credit for this option until the entire class has learned github, likely in November.* 
+  
+  
 **You will NOT RECEIVE ANY CREDIT** if you do any of the following:
 
-+ Use base R rather than `tidyverse` versions of code
++ Use base R plotting or wrangling rather than `ggplot2` and `dplyr`/`tidyr` versions of code
 + Use the wrong week's dataset
-+ Your figure is not reasonably well-formatted. The goal of this exercise is NOT to make the most beautiful figure as possible, but please don't actively attempt to make something hideous. Follow best-practices from "Fundamentals of Data Visualization." In addition, make sure the figure aspect ratio is appropriate. If your figure is not readable due to aspect ratio problems, you will not receive credit.
++ Your figure is not reasonably well-formatted. The goal of this exercise is NOT to make the most beautiful figure as possible, but please don't actively attempt to make something hideous. **Follow best-practices from "Fundamentals of Data Visualization."** In addition, make sure the figure aspect ratio is appropriate. If your figure is not fully legible for any reason, you will not receive credit.
 + Submit code that is not fully reproducible. In other words, if I attempt to run your code and get an error of any kind, you will not receive credit.
 + Use code that you did not write. This will further subject you to AIV penalties.
-+ Your code chunks are not revealed in the output, e.g. you may NOT USE `echo=F`, `include=F`, or anything that hides your code or its output.
 
+ 
+ 
+ 
+ 
+ 
  
