@@ -8,6 +8,9 @@ https://rafalab.github.io/dsbook/unix.html
 
 Course materials for Rowan University Course "Data Science for Biologists" (BIOL01301) Spring 2020. Materials developed by Stephanie J. Spielman.
 
+<!--
+Links are bad and I am lazy.
+
 [1. Introduction to R and RStudio](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/rmd_lessons/01-introduction-base-R.html)
 
 [2. Introduction to `ggplot2`](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/rmd_lessons/02-introduction-ggplot2.html)
@@ -25,6 +28,8 @@ Course materials for Rowan University Course "Data Science for Biologists" (BIOL
 [8. Tutorial: Introduction to linear regression](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/rmd_lessons/lm_tutorial.html)
 
 [9. Tutorial: Introduction to (concepts in) model selection](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/rmd_lessons/lm_model_selection.html)
+
+-->
 <!--
 "TODO" FOR ALL REMINDERS ON DEBUGGING DAY
 
