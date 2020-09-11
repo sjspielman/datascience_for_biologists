@@ -61,14 +61,13 @@ paste(c("words", "separated", "by", "exclamations"), sep = "!") # Use the argume
 # Use the `paste()` function and the MEAN VARIABLE you defined in question 7 to print fancier sentences saying "The mean of question7 is ...." where .... is the mean you calculated (not ....). There shoud be NO NUMBERS directly included in your code here. Hint: you still need to print what you pasted!
 
 
-
-## Question 8: Using the same strategy for defining arrays as in question 7, define an array with the values 90-110 called `question9`. Calculate and save the mean of this new variable, and use a logical operator to ask if the mean of `question7` is greater to or equal than the mean of `question9`. When using the logical operator, compare VARIABLES not numbers directly! The code should print TRUE if `question7`'s mean is greater and FALSE otherwise.
-
-
-## Question 9: Again consider the array `question9`. Use a logical operator to ask if values in this array are less than or equal to 100 (this is one quick line of code!). Print out the logical array your code creates.
+## Question 9: Using the same strategy for defining arrays as in question 7, define an array with the values 90-110 called `question9`. Calculate and save the mean of this new variable, and use a logical operator to ask if the mean of `question7` is greater to or equal than the mean of `question9`. When using the logical operator, compare VARIABLES not numbers directly! The code should print TRUE if `question7`'s mean is greater and FALSE otherwise.
 
 
-## Question 10: For this question, you will teach yourself another new function called `seq()` by using the function and observing its behavior. Run the FOUR lines of code given below and closely examine the output. For your answer, provide a COMMENT that describes IN YOUR OWN WORDS what `seq()` does and what each of its three argument do.
+## Question 10: Again consider the array `question9`. Use a logical operator to ask if values in this array are less than or equal to 100 (this is one quick line of code!). Print out the logical array your code creates.
+
+
+## Question 11: For this question, you will teach yourself another new function called `seq()` by using the function and observing its behavior. Run the FOUR lines of code given below and closely examine the output. For your answer, provide a COMMENT that describes IN YOUR OWN WORDS what `seq()` does and what each of its three argument do.
 seq(1,100,3)
 seq(2,12,2)
 seq(2,13,2)
