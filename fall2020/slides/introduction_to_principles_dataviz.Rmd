@@ -1,0 +1,510 @@
+---
+title: "Introduction to principles of data visualization"
+#subtitle: "⚔<br/>with xaringan"
+author: "Stephanie J. Spielman"
+institute: "Data Science for Biologists, Fall 2020"
+#date: "2016/12/12 (updated: `r Sys.Date()`)"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [default, metropolis, metropolis-fonts]
+    nature:
+      highlightStyle:  rainbow
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+<style>
+.remark-slide-content > h1 {
+  font-size:42px;
+  margin-top: -100px;
+}
+</style>
+```{css, echo=F, include=F}
+
+code.r.hljs.remark-code{
+#  background-color: #cccccc;
+    font-size: 13px;
+    font-family:Monaco;
+}
+code.r.hljs.remark-inline-code { 
+    font-size: 13px;
+    font-family:Monaco;
+}
+
+.remark-slide-content > h2:first-of-type {
+  margin-top: 0px;
+}
+
+@media print {
+  .has-continuation {
+    display: block !important;
+  }
+}
+
+
+pre {
+  white-space: pre-wrap;
+  
+}
+
+ul:first-child, ol:first-child {
+    margin: 0;
+}
+
+.pull-left2{
+  float: left;
+  width: 85%;
+}
+
+.pull-right2{
+  float: right;
+  width: 30%;
+}
+```
+
+
+```{r setup, include=FALSE, echo=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(fig.width=6, fig.height=4, echo=FALSE)
+library(xaringan)
+library(tidyverse) 
+library(cowplot)
+library(patchwork)
+library(colorblindr)
+theme_set(theme_cowplot())
+msleep %>% 
+  filter(vore %in% c("herbi", "omni", "carni")) %>%
+  select(name, vore, awake, brainwt, bodywt) %>%
+  mutate(vore = as.factor(vore)) %>%
+  drop_na() -> msleep_subvore
+
+# Make ALL THE PLOTS HERE
+
+msleep_subvore %>%
+  ggplot(aes(x = vore, y = awake)) + 
+    geom_boxplot()+
+    theme(legend.position = "none") -> box_plain
+
+msleep_subvore %>%
+  ggplot(aes(x = vore, y = awake, fill = vore)) + 
+    geom_boxplot()+
+    theme(legend.position = "none") -> box_fill
+
+cvd_grid(box_fill) -> box_fill_cvd_grid
+ggsave("box_fill_cvd_grid.png", box_fill_cvd_grid, width = 8, height = 6)
+
+msleep_subvore %>%
+  ggplot(aes(x = vore, y = awake, fill = vore)) + 
+    geom_boxplot()+
+    scale_fill_brewer(palette = "Dark2") +
+    theme(legend.position = "none") -> box_fill_cb
+cvd_grid(box_fill_cb) -> box_fill_cb_cvd_grid
+ggsave("box_fill_cb_cvd_grid.png", box_fill_cb_cvd_grid, width = 8, height = 6)
+
+msleep_subvore %>%
+  ggplot(aes(x = vore, y = awake, color = vore)) + 
+    geom_boxplot()+
+    scale_color_brewer(palette = "Dark2") +
+    theme(legend.position = "none") -> box_color_cb
+
+msleep_subvore %>%
+  ggplot(aes(x = vore, y = awake)) + 
+  geom_boxplot(fill = "cadetblue") -> box_single_fill
+
+msleep_subvore %>%
+  ggplot(aes(x = vore, y = awake, fill = vore)) + 
+  geom_boxplot(color = "yellow", size=3) + 
+  theme(legend.position = "none")-> box_color_yellow_ugly
+
+msleep_subvore %>%
+  ggplot(aes(x = awake)) + 
+  geom_density(alpha = 0.6, fill = "orchid4") + 
+  theme(legend.position = "top")  -> density_all
+
+
+
+msleep_subvore %>%
+  ggplot(aes(x = awake, fill = vore)) + 
+  geom_density(alpha = 0.6) + 
+  scale_fill_brewer(palette = "Dark2") +
+  theme(legend.position = "bottom")  -> density_fill
+
+
+msleep_subvore %>%
+  ggplot(aes(x = awake, fill = vore)) + 
+  geom_density() + 
+  scale_fill_brewer(palette = "Dark2") +
+  theme(legend.position = "bottom")  -> density_fill_noalpha
+
+msleep_subvore %>%
+  ggplot(aes(x = awake)) + 
+  geom_histogram(color="grey30", fill = "cadetblue", binwidth=2) + 
+  theme(legend.position = "none")-> hist_all
+
+msleep_subvore %>%
+  ggplot(aes(x = awake)) + 
+  geom_histogram(color="grey30", fill = "cadetblue", bins = 5) + 
+  facet_grid(~vore) + theme(legend.position = "none")-> hist_all_facet
+
+
+msleep_subvore %>%
+  ggplot(aes(x = awake, fill = vore)) + 
+  scale_fill_brewer(palette = "Dark2") +
+  geom_histogram(color="grey30", bins = 5) + 
+  facet_grid(~vore) + theme(legend.position = "none")-> hist_fill_facet
+
+msleep_subvore %>%
+  ggplot(aes(x = awake, fill = vore)) + 
+  scale_fill_brewer(palette = "Dark2") +
+  geom_histogram(color="grey30", bins = 5) -> hist_fill_onepanel
+
+msleep_subvore %>%
+  filter(bodywt <= 5) %>%
+  ggplot(aes(x = bodywt, y = brainwt)) + 
+  geom_point() +
+  xlab("Body weight (kg)") + 
+  ylab("Brain weight (kg)") + 
+  ggtitle("Mammal brain vs. body weight") -> scatter_plain
+
+msleep_subvore %>%
+  filter(bodywt <= 5) %>%
+  ggplot(aes(x = bodywt, y = brainwt)) + 
+  geom_point(size = 4) +
+  xlab("Body weight (kg)") + 
+  ylab("Brain weight (kg)") + 
+  ggtitle("Mammal brain vs. body weight") -> scatter_bigpoint
+
+
+msleep_subvore %>%
+  filter(bodywt <= 5) %>%
+  ggplot(aes(x = bodywt, y = brainwt)) + 
+  geom_point(shape = 17, size=4) + 
+  xlab("Body weight (kg)") + ylab("Brain weight (kg)") + ggtitle("Mammal brain vs. body weight")+ theme(legend.position="right") ->scatter_bigpoint_pch17
+
+msleep_subvore %>%
+  filter(bodywt <= 5) %>%
+  ggplot(aes(x = bodywt, y = brainwt, color = vore)) + geom_point(size = 4) + 
+  xlab("Body weight (kg)") + ylab("Brain weight (kg)") + ggtitle("Mammal brain vs. body weight")+ theme(legend.position="right") -> scatter_color_discrete
+
+msleep_subvore %>%
+  filter(bodywt <= 5) %>%
+  ggplot(aes(x = bodywt, y = brainwt, color = awake)) + geom_point(size = 4) + 
+  xlab("Body weight (kg)") + ylab("Brain weight (kg)") + ggtitle("Mammal brain vs. body weight") + theme(legend.position="right") -> scatter_color_cont
+
+msleep_subvore %>%
+  filter(bodywt <= 5) %>%
+  ggplot(aes(x = bodywt, y = brainwt, shape = vore)) + geom_point(color = "hotpink", size = 4) + 
+  xlab("Body weight (kg)") + ylab("Brain weight (kg)") + ggtitle("Mammal brain vs. body weight") + theme(legend.position="right") -> scatter_single_color_shape_vore ## TOO MUCH
+
+msleep_subvore %>%
+  filter(bodywt <= 5) %>%
+  ggplot(aes(x = bodywt, y = brainwt, shape = vore, color = awake)) + geom_point(size = 4) + 
+  xlab("Body weight (kg)") + ylab("Brain weight (kg)") + ggtitle("Mammal brain vs. body weight") + theme(legend.position="right") -> scatter_crazytown ## TOO MUCH
+
+```
+
+---
+class: middle, center
+
+
+```{r out.width = '600px', echo=F}
+knitr::include_graphics("slide_images/ggplot-grammar-of-graphics-stack-1.png")
+```
+
+---
+
+# The dataset
+
+```{r, echo=F}
+msleep_subvore
+```
+
+---
+
+# The dataset
+
+```{r, echo=F}
+summary(msleep_subvore)
+```
+
+---
+
+```{r, echo=F}
+unique(msleep_subvore$name)
+```
+
+---
+
+# Identifying components of a plot
+
+```{r, echo=F, fig.width = 6, fig.height = 4}
+box_plain
+```
+
+#### **Aesthetics**: How is the data *mapped onto* visual components of the plot?
++ X-axis?
++ Y-axis?
++ Colors? Shapes? Sizes?
+
+#### **Geometries**: What *shapes* aka *geometric objects* are displayed in the plot?
+
+
+---
+
+```{r, echo=F, fig.width = 10, fig.height = 4}
+box_plain + box_fill
+```
+
+
+---
+
+```{r out.width = '600px', echo=F}
+knitr::include_graphics("slide_images/box_fill_cvd_grid.png")
+```
+
+---
+
+
+```{r, echo=F, fig.width = 10, fig.height = 4}
+box_fill + box_fill_cb
+```
+
+---
+
+```{r out.width = '600px', echo=F}
+knitr::include_graphics("slide_images/box_fill_cb_cvd_grid.png")
+```
+
+---
+
+```{r, echo=F, fig.width = 10, fig.height = 4}
+box_fill + box_single_fill
+```
+
+---
+
+```{r, echo=F, fig.width = 8, fig.height = 6}
+ box_color_yellow_ugly
+```
+
+
+---
+```{r, echo=F, fig.width = 10, fig.height = 6}
+hist_all
+```
+
+---
+```{r, echo=F, fig.width = 12, fig.height = 6}
+hist_all + hist_all_facet
+```
+---
+
+```{r, echo=F, fig.width = 12, fig.height = 6}
+hist_all_facet + hist_fill_facet
+```
+
+---
+
+```{r, echo=F, fig.width = 16, fig.height = 6}
+hist_fill_facet + hist_fill_onepanel
+```
+
+---
+
+```{r, echo=F, fig.width = 12, fig.height = 6}
+hist_all + density_all
+```
+
+---
+
+```{r, echo=F, fig.width = 14, fig.height = 5}
+density_all + density_fill 
+```
+
+---
+```{r, echo=F, fig.width = 14, fig.height = 5}
+density_fill + density_fill_noalpha
+```
+
+---
+```{r, echo=F, fig.width = 8, fig.height = 6}
+scatter_plain
+```
+
+---
+
+```{r, echo=F, fig.width = 14, fig.height = 6}
+scatter_plain + scatter_bigpoint
+```
+
+---
+
+```{r, echo=F, fig.width = 8, fig.height = 6}
+scatter_bigpoint_pch17
+```
+
+
+---
+
+
+```{r, echo=F, fig.width = 8, fig.height = 6}
+scatter_color_discrete
+```
+
+---
+
+```{r, echo=F, fig.width = 14, fig.height = 6}
+scatter_color_discrete +scatter_color_cont
+```
+
+---
+
+```{r, echo=F, fig.width = 8, fig.height = 6}
+scatter_single_color_shape_vore
+```
+
+---
+
+
+```{r, echo=F, fig.width = 8, fig.height = 6}
+scatter_crazytown
+```
+
+---
+
+
+# Do the axes look at all "strange" to you?
+
+
+.pull-left[
+```{r, echo=F}
+scatter_bigpoint
+```
+]
+
+--
+
+.pull-right[
+```{r, echo=F}
+msleep_subvore %>%
+  ggplot(aes(x = bodywt, y = brainwt)) + geom_point(size = 4) + 
+  xlab("Body weight (kg)") + ylab("Brain weight (kg)") + ggtitle("Mammal brain vs. body weight")
+```
+]
+
+---
+class: center
+
+# Use log scales for data with extreme ranges
+
+```{r, echo=F, fig.width = 10, fig.height = 8}
+msleep_subvore %>%
+  ggplot(aes(x = bodywt, y = brainwt)) + geom_point(size = 4) + 
+  xlab("Body weight (kg)") + ylab("Brain weight (kg)") + ggtitle("Mammal brain vs. body weight") + scale_x_log10() + scale_y_log10()
+```
+
+---
+
+# Let's practice
+
+<br><br>
+
++ What variable is on the X-axis? What *type* of data is it?
+
++ What variable is on the Y-axis? What *type* of data is it?
+
++ Are there colors or fills? Are they "just colors" or are they *aesthetics*?
+
++ What are the geometries in the plot?
+
++ What *interpretations* can we make about the plot? What question does the plot address or not address? (there are MANY right answers here!). 
+
+
+All figures in the following slides are from [Fundamentals of Data Visualization](https://serialmentor.com/dataviz/).
+
+
+---
+class: center
+
+
+# Average daily temperatures
+
+```{r out.width = '600px', echo=F}
+knitr::include_graphics("slide_images/temp-normals-vs-time-1.png")
+```
+
+Daily temperature normals for four selected locations in the U.S. Temperature is mapped to the y axis, day of the year to the x axis, and location to line color. Data source: NOAA.
+
+---
+class: center
+
+
+# Box office income
+
+```{r out.width = '600px', echo=F}
+knitr::include_graphics("slide_images/boxoffice-horizontal-1.png")
+```
+
+Highest grossing movies for the weekend of December 22-24, 2017, displayed as a horizontal bar plot. Data source: Box Office Mojo (http://www.boxofficemojo.com/).
+
+---
+class: center
+
+
+# Median household income
+
+```{r out.width = '600px', echo=F}
+knitr::include_graphics("slide_images/income-by-age-race-dodged-1.png")
+```
+
+2016 median U.S. annual household income versus age group and race. For each age group there are four bars, corresponding to the median income of Asian, white, Hispanic, and black people, respectively. Data source: United States Census Bureau.
+
+
+---
+class:center
+
+# Butterfat from different cows
+
+
+```{r out.width = '600px', echo=F}
+knitr::include_graphics("slide_images/butterfat-densitites-1.png")
+```
+
+
+Density estimates of the butterfat percentage in the milk of four cattle breeds. Data Source: Canadian Record of Performance for Purebred Dairy Cattle.
+
+---
+class: center
+
+# Bluejays
+
+```{r out.width = '600px', echo=F}
+knitr::include_graphics("slide_images/blue-jays-scatter-sex-1.png")
+```
+
+Head length versus body mass for 123 blue jays. The birds’ sex is indicated by color. At the same body mass, male birds tend to have longer heads (and specifically, longer bills) than female birds. Data source: Keith Tarvin, Oberlin College.
+
+---
+
+# Airplane delays
+
+
+.pull-left[
+```{r out.width = '500px', echo=F}
+knitr::include_graphics("slide_images/arrival-delay-vs-distance-1-bad.png")
+```
+]
+
+.pull-right[
+Mean arrival delay versus distance from New York City. Data source: U.S. Dept. of Transportation, Bureau of Transportation Statistics. 
+
+This figure is labeled as “bad” because it is overly complex. Most readers will find it confusing and will not intuitively grasp what it is the figure is showing.
+]
+
+
+--
+
+**"Looking cool" is NOT the same as effectively communicating.**
+
+Analogy: "I don't know what the exam answer is, so I'll just write down literally every buzzword I remember the professor saying." *Don't do this. It does NOT make you look smarter. Same goes for kitchen-sink figures.*
