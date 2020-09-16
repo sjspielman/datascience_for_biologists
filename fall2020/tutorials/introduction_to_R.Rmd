@@ -228,7 +228,7 @@ x
 
 
 
-### Logical variables and operators
+## Logical variables and operators
 
 One of the most important variable types are _logical variables_ (known as "boolean" in many other languages). They help us to compare different quantities and there is a special set of operators for performing comparisons that _return logical values_:
 
@@ -256,7 +256,7 @@ Let's examine their usage:
 ```
 
 
-### Arrays/vectors
+## Arrays/vectors
 
 You will have noticed that all your computations tend to pop up with a `[1]` preceding them in R's output. This is because, in fact, all (ok mostly all) variables are _by default_ **arrays** aka vectors, and our answers are the first (in these cases only) value in the array. As arrays gets longer, new index indicators will appear at the start of new lines. **See [here](https://r4ds.had.co.nz/vectors.html) for a deeper dive into array structures.**
 
@@ -289,26 +289,11 @@ length(my_array_of_arrays)
 ## We can build on arrays in place by redefining them
 my_numeric_array <- c(my_numeric_array, 10000)
 print(my_numeric_array)
-```
-
-<!--
-
-We can pull out specific items from an array using a process called _indexing_, which uses brackets `[]` to specify the position of an item. Indexing in R begins at **one** (if you have programmed in other languages, this will be different. Brace yourself.). 
-
-```{r}
-## Grab the FOURTH value from my_numeric_array
-## This gives us an array of length 1 
-my_numeric_array[4]
-
-## Use a colon to specify an inclusive RANGE of indices
-## This will return an array of length FOUR (indices 2, 3, 4, and 5)
-my_numeric_array[2:5]
 
 ## Colons are also a nice way to quickly make ordered numeric arrays
 values_1_to_20 <- 1:20
 print(values_1_to_20)
 ```
--->
 
 One major benefit of arrays is the concept of **vectorization**, where R by default performs operations on the _entire array at once_. For example, we can get the log of all numbers 1-2 with a single, simple call, and more!
 
@@ -325,7 +310,7 @@ Arrays can also be extended into lists, which we will discuss later during the s
 Finally, we can apply logical expressions to arrays, just we can do for single values.
 
 ```{r}
-example_array <- 2:8 ## Define an array of values ranging from 1-8
+example_array <- 2:8 ## Define an array of values ranging from 2-8
 example_array
 
 ## Which values are <= 3?
