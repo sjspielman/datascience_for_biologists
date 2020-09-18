@@ -98,7 +98,7 @@ Variables include:
 
 + `region`: General region of Italy.
 + `area`: Area of Italy.
-+ *All remaining variables are the percentage of the given acid in the wine.*
++ *All remaining variables are the percentage of the given fatty acid in the olive.*
 
 ```{r, fig.width = 8, fig.height=3}
 ggplot(olives, aes(x = arachidic, y = linolenic, color=region)) + 
