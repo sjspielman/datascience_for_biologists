@@ -1,8 +1,18 @@
 blockquote {
   display: block;
+  line-height: 1.1em;
   font-size: 1em;
-  font-weight: 500;
+  color: #6b6b6b;
+  margin-left: 20px;
 }
+
+
+#TOC {
+  position: fixed;
+  width: 300px;
+  overflow:auto;
+}
+
 
 h2 {
   margin-top: 2em;
@@ -22,10 +32,6 @@ h5 {
   margin-bottom:0.75em;
 }
 
-
-#TOC {
-  width:225px;
-}
 
 
 mark {
