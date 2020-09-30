@@ -60,7 +60,14 @@ Themes are comprised of several different types of elements:
   
 <br>
 
++ **`unit()`**: Some theme components are not strictly elements but are defined in terms of size only and will be termed `unit()` or `grid::unit()`.
+
+
+
+<br>
+
 All theme components can be fully customized, as is overwhelmingly documented [here](https://ggplot2.tidyverse.org/reference/theme.html). As we have previously seen, there are also several [existing complete themes](https://ggplot2.tidyverse.org/reference/ggtheme.html) in `ggplot2`. Now we'd like to learn how to further customize our plots with our own themes.
+
 
 
 All examples below will modify a version of this plot which uses the default `theme_gray()` with no further customization:
@@ -210,6 +217,26 @@ ggplot(iris, aes(x = Sepal.Length)) +
         panel.grid.minor = element_blank())
 ```
 
+### Quick examples of `unit()`
+
+Legend components commonly use `unit()`, which takes two arguments: the target size, and the unit of the target size. There are many units for size, but some popular ones are `"cm"` and `"inches"`!
+
+For example, we might want to change the size of the legend keys to make them smaller:
+```{r, fig.width = 8}
+ggplot(iris, aes(x = Sepal.Length, fill = Species)) + 
+  geom_histogram(color = "black") + 
+  facet_wrap(vars(Species)) + 
+  theme(legend.key.size = unit(0.2, "cm"))
+```
+
+Or larger!
+```{r,  fig.width = 8}
+ggplot(iris, aes(x = Sepal.Length, fill = Species)) + 
+  geom_histogram(color = "black") + 
+  facet_wrap(vars(Species)) + 
+  theme(legend.key.size = unit(2, "cm"))
+```
+
 ## Modifying the theme of an existing plot
 
 
@@ -231,3 +258,7 @@ Rather than adding a theme style onto each individual plot, you can use the func
 
 + To set a complete theme (for example, `theme_classic()` as the default, use: `theme_set(theme_classic())`
 + To set a customized theme, use: `theme_set(theme_classic() + theme(STUFF THAT NORMALLY GOES INTO THEME))`
+
+## Want more?
+
+Want more customization?! There are even more ways to tweak plots, specifically legends and keys, using `guides`. Learn more in the [documentation](https://ggplot2.tidyverse.org/reference/index.html) (scroll to section "Guides: axes and legends")!
