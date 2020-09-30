@@ -52,8 +52,8 @@ Whenever we **map** color or fill as an aesthetic, `ggplot2` uses a default colo
 |:-----------------|:-----------|:---------
 |Discrete          | `colorbrewer` | `scale_<color/fill>_brewer(palette = <name of palette>)` 
 |Continuous        | `colorbrewer` | `scale_<color/fill>_distiller(palette = <name of palette>)`
-|Discrete          | `viridis` | `scale_<color/fill>_viridis(option = <name of palette>)`
-|Continuous        | `viridis` | `scale_<color/fill>_viridis(option = <name of palette>, discrete=TRUE)`
+|Discrete          | `viridis` | `scale_<color/fill>_viridis(option = <name of palette>, discrete=TRUE)`
+|Continuous        | `viridis` | `scale_<color/fill>_viridis(option = <name of palette>)`
 |Discrete        | Custom  | `scale_<color/fill>_manual(values = c(....))` 
 |Continuous, sequential      | Custom  | `scale_<color/fill>_gradient(low = <low color>, high = <high color>)` 
 |Continuous, diverging      | Custom  | `scale_<color/fill>_gradient2(low = <low color>, high = <high color>, mid = <mid color>, midpoint = <number>)` 
