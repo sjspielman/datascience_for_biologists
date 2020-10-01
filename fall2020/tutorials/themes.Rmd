@@ -95,7 +95,7 @@ ggplot(iris, aes(x = Sepal.Length)) +
 
 When customizing a theme, you need to:
 
-+ Search through [the documentation](https://ggplot2.tidyverse.org/reference/element.html) (literally) to find how `ggplot2` refers to the particular plot component you want to change. 
++ Search through [the documentation](https://ggplot2.tidyverse.org/reference/theme.html) (literally) to find how `ggplot2` refers to the particular plot component you want to change. 
 + Use [the documentation](https://ggplot2.tidyverse.org/reference/element.html) (sensing a pattern?) to determine whether that component goes with `element_text()`, `element_line()`, or `element_rect()`. 
   + Or, decide if you want to *entirely remove* that particular plot component. Stay tuned...
 + *Add it* to your plot inside the `theme()` function.
