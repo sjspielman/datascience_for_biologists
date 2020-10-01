@@ -37,6 +37,7 @@ Please read these additional instructions carefully:
   + NEVER CLICK THE "IMPORT DATASET" BUTTON. YOU MUST USE `read_csv()`.
   + NEVER CLICK THE "EXPORT" BUTTON IN THE "Plots" PANE. YOU MUST USE `ggsave()`.
 + All plots must be professionally labeled with clean X and Y axes. You are not required to include a title, subtitle, or caption, but you may include one or more of these labels if you choose.
++ DO NOT RE-MAKE THE SAME PLOTS YOU SAW ON HW #2!! Plots here should be independent of previous assignments and address questions you are asking here.
 + All plots using aesthetic color/fill mappings MUST USE a non-default color scale. Similarly, all legend titles must be professionally re-named from their default.
 + All plots must be clearly legible with an appropriate aspect ratio. This means you may need to change the output plot size using arguments `width` and `height` when calling `ggsave()`. *Make extra sure to LOOK AT YOUR SAVED PLOTS* and tweak the size until it looks clearly professional.
   + You may also need to modify certain theme components to achieve a professional look!
