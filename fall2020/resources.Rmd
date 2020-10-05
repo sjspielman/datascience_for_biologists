@@ -23,6 +23,7 @@ iris <- as_tibble(iris)
 + [R for Data Science](https://r4ds.had.co.nz/) by Garrett Grolemund and Hadley Wickham
 + [Data Visualization: A practical Introduction](https://socviz.co/) by Kieran Healy
 + [`tidyverse` homepage, official documentation, and cheatsheets](https://www.tidyverse.org/)
++ [Tidyverse style guide](https://style.tidyverse.org/)
 + [STAT545 Resources (**EXCELLENT** background)](https://stat545.com/)
 + [Introduction to Data Science e-book](https://rafalab.github.io/dsbook/)
 + [RStudio Resources (all levels of videos/tutorials)](https://resources.rstudio.com/)
