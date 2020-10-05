@@ -1,0 +1,218 @@
+---
+title: "Data Science for Biologists Resources"
+author: "Stephanie J. Spielman, PhD"
+output: 
+  html_document:
+    highlight: tango
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, collapse=TRUE)
+library(tidyverse)
+iris <- as_tibble(iris)
+```
+
+
+## General resources
+
++ [Twitter for R programmers](https://www.t4rstats.com/)
+  + Geared towards programmers but serves as a great general "welcome to the Twitter #rstats community"! 
++ [Fundamentals of Data Visualization](https://clauswilke.com/dataviz) by Claus O. Wilke
++ [R for Data Science](https://r4ds.had.co.nz/) by Garrett Grolemund and Hadley Wickham
++ [Data Visualization: A practical Introduction](https://socviz.co/) by Kieran Healy
++ [`tidyverse` homepage, official documentation, and cheatsheets](https://www.tidyverse.org/)
++ [STAT545 Resources (**EXCELLENT** background)](https://stat545.com/)
++ [Introduction to Data Science e-book](https://rafalab.github.io/dsbook/)
++ [RStudio Resources (all levels of videos/tutorials)](https://resources.rstudio.com/)
++ [Calling Bullshit Course Website](https://callingbullshit.org/) by Carl Bergstrom and Jevin West
+
+## Materials from Dr. Spielman
++ [Introduction to R tutorial](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/fall2020/tutorials/introduction_to_R.html)
++ [Introduction to R exercises](https://rowanbiosci.shinyapps.io/intro_R/)
++ [Introduction to `ggplot2` exercises](https://rowanbiosci.shinyapps.io/intro_ggplot2/)
++ [Introduction to `dplyr` exercises](https://rowanbiosci.shinyapps.io/intro_dplyr/)
+
+## `ggplot2` resources
+
+1. [The official ggplot2 documentation](https://ggplot2.tidyverse.org/reference/) provides information for using `ggplot2` functions and commands
+2. [The ggplot2 CheatSheet](https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf) is an _information rich_ overview of much of `ggplot2`'s functionality
+3. [Chapter Five from "Fundamentals of Data Visualization"](https://serialmentor.com/dataviz/directory-of-visualizations.html) provides a "directory" of different types of plots which exist for different types of data
+4. [Chapter Three from "Data Visualization: A practical introduction"](https://socviz.co/makeplot.html) introduces `ggplot2` usage
+5. [Chapter Three from "R for Data Science"](https://r4ds.had.co.nz/data-visualisation.html) introduces `ggplot2` usage
+6. [All the R colors you ever wanted to use!!](https://github.com/sjspielman/datascience_for_biologists/raw/master/spring2020/rmd_lessons/static/Rcolor.pdf)
+7. [Reference: Customizing Colors and Fills](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/fall2020/tutorials/color_fill_scales.html)
+7. [Reference: Customizing themes](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/fall2020/tutorials/themes.html)
+7. [Reference: Customizing axes](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/fall2020/tutorials/axes.html)
+
+
+## `dplyr` resources
+
+
++ [The official `dplyr` documentation](https://dplyr.tidyverse.org/reference/) provides information for using `dplyr` functions and commands
++ [The `dplyr` CheatSheet](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf) is an _information rich_ overview of much of `dplyr`'s functionality
++ [The `dplyr` vignette](https://dplyr.tidyverse.org/articles/dplyr.html) introduces most of the fundamental `dplyr` functionality
++ [Chapter Five from "R for Data Science"](https://r4ds.had.co.nz/transform.html) introduces `dplyr` usage
++ [Part 3, Chapter 6 from STAT545](https://stat545.com/dplyr-intro.html)
++ [Chapter 4.3 from another Introduction to Data Science e-book](https://rafalab.github.io/dsbook/tidyverse.html#manipulating-data-frames)
++ [RStudio Cloud exercises for "Work with Data"](https://rstudio.cloud/learn/primers/2)
+  + "Working with tibbles" is a general introduction to some useful `tidyverse` and R knowledge
+  + "Isolating data with dplyr" and "Deriving information with dplyr" are most relevant to `dplyr`
+
+
+
+### The greatest hits of `dplyr` one-table verbs
+
+> According to Dr. Spielman. `dplyr` does *a lot more.*
+
+<br>
+
++ **Piping syntax** 
+
+  ```{r demo_pipe, eval=FALSE}
+  # Without piping
+  dplyr_function( data_frame_variable, arguments )
+  
+  # With piping
+  data_frame_variable %>%
+    dplyr_function( arguments )
+  ```
+
+<br>
+
++ **[`filter()`](https://dplyr.tidyverse.org/reference/filter.html): Subset _rows_ based on `TRUE`/`FALSE`**
+
+  ```{r demo_filter, exercise=TRUE, exercise.lines = 7}
+  # only keep rows where Species == "setosa" is TRUE
+  iris %>%
+    filter(Species == "setosa")
+  
+  # only keep rows where the sepal length is greater than 5
+  iris %>%
+    filter(Sepal.Length > 5)
+  ```
+
+<br>
+
+
++ **[`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html): Create new _column_**
+
+  ```{r demo_mutate, exercise=TRUE, exercise.lines = 8}
+  # create new column called `thiscolumnis5` where the value is 5
+  iris %>% 
+    mutate(thiscolumnis5 = 5)
+  
+  # create new column called `sepal_area` as the product of sepal length*width
+  iris %>% 
+    mutate(sepal_area = Sepal.Length * Sepal.Width)
+  ```
+
+<br>
+
+
++ **[`distinct()`](https://dplyr.tidyverse.org/reference/distinct.html): Remove duplicate rows**
+
+  ```{r demo_distinct, exercise=TRUE, exercise.lines = 2}
+  iris %>% 
+    distinct()
+  ```
+
+<br>
+
+
++ **[`arrange()`](https://dplyr.tidyverse.org/reference/arrange.html): Sort rows according to a given column**
+
+  ```{r demo_arrange, exercise=TRUE, exercise.lines = 6}
+  iris %>% 
+    arrange(Sepal.Length)
+  
+  # To arrange in descending order:
+  iris %>% 
+    arrange(desc(Sepal.Length))
+  ```
+
+<br>
+
+
++ **[`rename()`](https://dplyr.tidyverse.org/reference/rename.html): Rename columns**
+
+  ```{r demo_rename, exercise=TRUE, exercise.lines = 3}
+  iris %>% 
+    #       newname     =   oldname    !!!!!!!
+    rename(sepal_length = Sepal.Length)
+  ```
+
+<br>
+
+
++ **[`select()`](https://dplyr.tidyverse.org/reference/select.html): Retain or re-order columns**
+
+  ```{r demo_select, exercise=TRUE, exercise.lines = 8}
+  # only keeps those 2 columns
+  iris %>% 
+    select(Sepal.Length, Sepal.Width)
+  
+  # remove those two columns and keep the rest
+  iris %>% 
+    select(-Sepal.Length, -Sepal.Width)
+  ```
+
+<br>
+
+
++ **[`group_by()`](https://dplyr.tidyverse.org/reference/group_by.html): Create a group for grouped operations**
+  + Use `ungroup()` to undo all existing groupings
+  
+  ```{r demo_group_by, exercise=TRUE, exercise.lines = 10}
+  # set up for grouped operations
+  iris %>% 
+    group_by(Species)
+    
+  # group and upgroup, as a demonstration:
+  iris %>% 
+    group_by(Species) %>%
+    ungroup()
+  ```
+  
+<br>
+
+
+
++ **[`summarize()`](https://dplyr.tidyverse.org/reference/summarise.html): Create a new data frame that is a _collapsed and summarized_ version**
+  
+  ```{r demo_summarize, exercise=TRUE, exercise.lines = 10}
+  iris %>% 
+    summarize(mean_sepal_length = mean(Sepal.Length))
+  
+  # in combo with group_by!
+  iris %>% 
+    group_by(Species) %>%
+    summarize(mean_sepal_length = mean(Sepal.Length)) %>%
+    # to be safe, always ungroup:
+    ungroup()
+  ```
+
+<br>
+
+
++ **[`tally()`](https://dplyr.tidyverse.org/reference/tally.html): Count the number of observations in each group**
+  
+  ```{r demo_tally, exercise=TRUE, exercise.lines = 5}
+  iris %>% 
+    group_by(Species) %>% 
+    tally() %>%
+    # to be safe, always ungroup when you're done
+    ungroup()
+  ```
+
+<br>
+
+
++ **[`count()`](https://dplyr.tidyverse.org/reference/count.html): Handy shortcut to group, tally, ungroup!** 
+  
+  ```{r demo_count, exercise=TRUE, exercise.lines = 2}
+  iris %>% 
+    count(Species) 
+  ```
+
