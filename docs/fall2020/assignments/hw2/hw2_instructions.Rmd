@@ -1,0 +1,165 @@
+---
+title: 'Assignment #2 Instructions'
+author: "Stephanie J. Spielman"
+date: "Data Science for Biologists, Fall 2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message=FALSE, fig.width = 7, fig.height=4)
+library(tidyverse)
+library(cowplot)
+theme_set(theme_cowplot())
+hw2_path <- "~/Teaching/datascience_for_biologists/fall2020/assignments/hw2/"
+
+olives <- read_csv(file.path(hw2_path, "hw2_datasets", "olives.csv"))
+pima <- read_csv(file.path(hw2_path,"hw2_datasets","pima.csv"))
+urine <- read_csv(file.path(hw2_path,"hw2_datasets","urine.csv"))
+wine <-read_csv(file.path(hw2_path,"hw2_datasets","wine.csv"))
+
+dplyr::storms %>% filter(year >= 2000, category >= 1) -> recent_hurricanes_raw
+```
+
+## Instructions
+
+The goal of this assignment is to explore datasets and interpret the visual components of figures created for you from these datasets. You will NOT be submitting any code for this assignment! Instead, you will submit some brief interpretations for each of the five plots given below. However, you should use the `Assignment #2 Datasets` Project in RStudio Cloud to explore the contents of these datasets in order to complete your answers. In this project, I have uploaded all datasets from which the plots have been created so that you can directly explore their contents.
+
+```{r out.width = '600px', echo=F}
+knitr::include_graphics("cloud_datasets_hw2.png")
+```
+
+**For EACH of the five plots, answer all questions in a SEPARATE and CLEARLY ORGANIZED document (with your name on top!) which you should export as a PDF for submission on Canvas.**  Be sure to clearly number your answers. Answer the following questions for each plot (bullet points are ok!).
+
++ Which *variables* (ie, the *actual column names*) in the dataset are on the X and Y axis, if any? If an axis does NOT show a variable but instead contains a summary of the data, indicate that in your answer instead.
+  + For any variables (not summaries) used in the axes, what type of data is it? Options include categorical, quantitative continuous, or quantitative discrete.
++ What type of plot is shown?
+  + Hint: Chapter 5 of [*Fundamentals of Data Visualization*](https://clauswilke.com/dataviz/directory-of-visualizations.html) is your friend!
++ What visual features (including colors/fills, shapes of points, and/or sizes of points) are used to style the plot? Are these aesthetics that map to the data, or are they "just" visual features? For any aesthetic mappings, clearly indicate what variables are mapped to what visual feature. 
++ Are there any summaries displayed in the plot on top of existing geometries (such as an indicator of the average value, or a trend line)?
++ Does the plot contain *facets* across a variable (column), or is it shown in a single panel? If faceting is present, what variable is the faceting along?
++ Provide at least **TWO INTERPRETATIONS** of what you see in the plot. For example, what trends are (are not) apparent? What question about the data does the plot address, or not address? Any kinds of interpretations here are great!
+
+
+## The plots
+
+
+### Plot 1: Created with the `urine` dataset
+
+This dataset contains urinalysis measurements (don't worry about units) from 78 men, indicating whether traces of kidney stones (aka "crystal") were detected their urine samples. 
+Variables include:
+
++ `crystal`: Whether calcium oxalate crystals (kidney stones) were detected
++ `gravity`: The specific gravity of the urine
++ `ph`: The pH of the urine
++ `osmo`: The osmolarity of the urine. Osmolarity is proportional to the concentration of molecules in solution.
++ `conduct`: The conductivity of the urine. Conductivity is proportional to the concentration of charged ions in solution.
++ `urea`: The urea concentration in millimoles per liter
++ `calcium`: The calcium concentration in millimoles per liter
+
+```{r}
+ggplot(urine, aes(x = calcium, fill=crystal, color=crystal)) + 
+  geom_density(alpha = 0.5) +
+  scale_fill_brewer(palette = "Set2",  name = "Kidney stones present") +
+  scale_color_brewer(palette = "Set2", name = "Kidney stones present") + 
+  ylab("Density") + xlab("Calcium content in urine") +
+  theme(legend.position = "bottom") 
+```
+
+<br><br>
+
+### Plot 2: Created with the `wine` dataset
+This dataset contains information from a chemical analysis of three different cultivars (A, B, and C) of wine, including alcohol percentage and amounts of different chemical components.
+
+Variables include:
+
++ `Cultivar`: The wine cultivar (A, B, or C)
++ `Alcohol`: The alcohol percentage of the wine
++ `MalicAcid`: The percentage of the wine that is malic acid
++ `MalicAcid`: The percentage of the wine that is malic acid
++ `Ash`: The percentage of the wine that is ash (it's a wine thing...)
++ `Magnesium`: The percentage of the wine that is magnesium
++ `TotalPhenol`: The percentage of the wine that is phenols
++ `Flavanoids`: The percentage of the wine that is flavanoids
++ `NonflavPhenols`: The percentage of the wine that is non-flavanoid phenols
++ `Color`: The color intensity of the wine, measured numerically
+
+```{r}
+ggplot(wine, aes(y = fct_reorder(Cultivar, Alcohol), x = Alcohol)) + 
+  geom_boxplot(color = "darkslateblue", fill = "darkolivegreen3", alpha = 0.8) +
+  xlab("Alcohol percentage") + ylab("Wine cultivar")
+```
+
+<br><br>
+
+### Plot 3: Created with the `olives` dataset
+This dataset contains information about 572 olives collected from different regions across Italy. The dataset contains information about: a) what region the olive was from, b) what smaller area was the the olive from, c) what are the percentages of different fatty acids in the olive's oil profile.
+
+Variables include:
+
++ `region`: General region of Italy.
++ `area`: Area of Italy.
++ *All remaining variables are the percentage of the given fatty acid in the olive.*
+
+```{r, fig.width = 8, fig.height=3}
+ggplot(olives, aes(x = arachidic, y = linolenic, color=region)) + 
+  geom_point() +
+  facet_grid(~region) + 
+  theme(legend.position = "none") + 
+  panel_border() + 
+  labs(x = "Arachidic acid percentage",
+       y = "Linolenic acid percentage") + 
+  geom_smooth(method = "lm", se=F, color="grey30")
+```
+
+<br><br>
+
+
+### Plot 4: Created with the `pima` dataset
+This dataset contains physical measurements from Pima Indian women from the American southwest. This population has been heavily studied by epidemiologists since they tend to have high levels of Diabetes. The diamonds shown in the plot represent *averages.*
+
+Variables include:
+
++ `npreg`: number of times the woman was pregnant
++ `glucose`: plasma glucose concentration at 2 hours in an oral glucose tolerance test (units: mg/dL)
++`dpb`: diastolic blood pressure (units: mm Hg)
++ `skin`: triceps skin-fold thickness (units: mm)
++ `insulin`: 2-hour serum insulin level (units: μU/mL)
++ `bmi`: Body Mass Index
++ `age`: age in years
++ `diabetic`: whether or not the individual has diabetes
+
+```{r}
+ggplot(pima, aes(x = diabetic, y = glucose)) + 
+  geom_violin(pch = 21, color = "black", fill = "indianred3", alpha = 0.6, scale="width") + 
+  stat_summary(size = 1, shape=18) +
+  xlab("Diabetic") + ylab("Fasting blood glucose level")
+```
+
+<br><br>
+
+### Plot 5: Created with the `recent_hurricanes` dataset
+Thie dataset contains information collected from the NOAA Atlantic Hurricane database and includes data from storms that have been recorded since 2000. This plot shows information from storms at their FINAL recorded measurement each.
+
+Variables include:
+
++ `name`: Storm Name
++ `year`, ``month`, `day`, and `hour` indicate the date of the recorded information
++ `lat` and `long` indicate the location of the storm center at the time of record
++ `status`: Tropical Depression, Tropical Storm, or Hurricane
++ `category`: Saffir-Simpson storm category hurricane category 1-5 
++ `wind`: storm's maximum sustained wind speed (in knots)
++ `pressure`: Air pressure at the storm's center (in millibars)
++ `ts_diameter`: Diameter of the area experiencing tropical storm strength winds (34 knots or above)
++ `hu_diameter`: Diameter of the area experiencing hurricane strength winds (64 knots or above)
+
+```{r}
+recent_hurricanes_raw %>% 
+  group_by(name) %>% 
+  filter(hour == max(hour))  %>%
+ggplot(aes(x = year, fill = category)) + 
+  geom_bar() + 
+  scale_fill_viridis_d(name = "Hurricane category") +
+  xlab("Year") + ylab("Count") 
+```
+
+
