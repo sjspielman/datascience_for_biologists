@@ -1,7 +1,3 @@
----
-layout: index
-title: Home
----
 
 This website contains all materials used in BIOL 01301 Fall 2020 at Rowan University with Dr. Spielman (`spielman <at> rowan <dot> edu`). This course meets remotely Monday and Thursday 2-3:15 pm and Wednesday 3:30-6:15 pm. **Zoom links can be found in [Canvas](https://rowan.instructure.com/). All grading and assignment submissions (unless otherwise stated) will be hosted on [Canvas](https://rowan.instructure.com/), but course materials will be posted on this site and/or within the [rstudio.cloud](https://rstudio.cloud) BIOL01301 workspace.**
 
