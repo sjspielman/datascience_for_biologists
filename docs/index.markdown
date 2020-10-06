@@ -19,24 +19,26 @@ This website contains all materials used in BIOL 01301 Fall 2020 at Rowan Univer
 > Materials are subject to change up until the Monday of the EACH week. Below is a ROUGH OUTLINE of what we'll be doing. 
 
 
-| <div style="width:25px">No.</div> | <div style="width:50px">Date</div> |<div style="width:200px">Topic</div> | <div style="width:225px">In-class materials</div>  | <div style="width:275px">Recommended Background</div>  | <div style="width:300px">Assignment</div>  
-------|----------|--------------------------------------------------|-----------------------------|---------------------|-----------------
-1     | W 9/2   | Introduction and logistics | None | None | **Assigned:** Fill out the class survey (link on Canvas) **TODAY** if you have not yet done so
-2     | R 9/3   | Student introductions | None | None | None 
-3     | W 9/9   | Introduction to R, Part I| None | [Introduction to R Tutorial](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/fall2020/tutorials/introduction_to_R.html) | **["Assignment: Introduction to R"](https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/fall2020/assignments/hw1.R) due Wednesday 9/16/20 by 3:00 pm to Canvas** 
-4     | R 9/10  | Introduction to R, Part II | [Interactive Exercises: Intro to R](https://rowanbiosci.shinyapps.io/intro_R/) | Same as W 9/9 | None
-5     | M 9/14  | Introduction to R, Part III | Finish Thursday 9/10 exercises| None | None
-6     | W 9/16  | Miscellaneous R'ing, and Introduction to the "grammar of graphics" | [Slides](https://github.com/sjspielman/datascience_for_biologists/raw/master/fall2020/slides/introduction_to_principles_dataviz.pdf) | *Chapters 1-5* from [Fundamentals of Data Visualization](https://clauswilke.com/dataviz) |  **[Assignment #2](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/fall2020/assignments/hw2/hw2_instructions.html) due Wednesday 9/23/20 by 3:00 pm to Canvas**
-7     | R 9/17  | Grammar of graphics | Slides from 9/16, continued | None | None <!-- **Assigned:** "Grammar of graphics" due TBD --><!--Sunday 9/21/20 by 11:59 pm to Canvas-->
-8     | M 9/21  | Introduction to data visualization with `ggplot2` | None | None | None
-9     | W 9/23  | Introduction to data visualization with `ggplot2` | [Interactive Exercises: Intro to `ggplot2`](https://rowanbiosci.shinyapps.io/intro_ggplot/) <br> Website backup option is available in RStudio Cloud  | None | None
-10    | R 9/24  | *Open work day* | None | None |  **Assignment #3 R script due Thursday 10/1/20 by 12:01 pm (noon) to Canvas.** [Link to instructions](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/fall2020/assignments/hw3/hw3_plots_to_recreate.html)
-11    | M 9/28  | Reading and writing data files | Copy the RStudio Cloud `reading-writing-files` project, and follow along | ["Data Import" chapter from R4DS](https://r4ds.had.co.nz/data-import.html)| None
-12    | W 9/30  | More data visualization with `ggplot2` | None | [Background: Customizing colors and fills](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/fall2020/tutorials/color_fill_scales.html) <br> [Background: Customizing themes](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/fall2020/tutorials/themes.html) <br> [Background: Customizing axes](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/fall2020/tutorials/axes.html)  | None
-13    | R 10/1  | *Open work day* | None | None | **Assignment #4 R script due Thursday 10/8/20 by 12:01 pm (noon) to Canvas.** [Link to instructions](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/fall2020/assignments/hw4/hw4_instructions.html) [Instructions PDF](https://github.com/sjspielman/datascience_for_biologists/raw/master/fall2020/assignments/hw4/hw4_instructions.pdf)
-14 | M 10/5 | Introduction to data wrangling with `dplyr` | [In-class R script by Dr. Spielman](https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/fall2020/inclass/class_notes_10-5-20.R) | [Tidyverse style guide](https://style.tidyverse.org/) | None
-15 | W 10/7 | Introduction to data wrangling with `dplyr` | [Interactive Exercises and Resource links](https://rowanbiosci.shinyapps.io/intro_dplyr/) | None | None
-16 | R 10/8 | *Open work day* (and introducing extra credit!) | None | None | Assignment TBD
+<!--| <div style="width:25px">No.</div> | <div style="width:50px">Date</div> |<div style="width:200px">Topic</div> | <div style="width:225px">In-class materials</div>  | <div style="width:275px">Recommended Background</div>  | <div style="width:300px">Assignment</div>   -->
+
+  Date     |Topic                                            | In-class materials           | Recommended Background  | Assignment
+----------|--------------------------------------------------|-----------------------------|---------------------|-----------------
+ W 9/2   | Introduction and logistics | None | None | **Assigned:** Fill out the class survey (link on Canvas) **TODAY** if you have not yet done so
+ R 9/3   | Student introductions | None | None | None 
+ W 9/9   | Introduction to R, Part I| None | [Introduction to R Tutorial](./fall2020/tutorials/introduction_to_R.html) | **"Assignment: Introduction to R" due Wednesday 9/16/20 by 3:00 pm to Canvas** 
+ R 9/10  | Introduction to R, Part II | [Interactive Exercises: Intro to R](https://rowanbiosci.shinyapps.io/intro_R/) | Same as W 9/9 | None
+ M 9/14  | Introduction to R, Part III | Finish Thursday 9/10 exercises| None | None
+ W 9/16  | Miscellaneous R'ing, and Introduction to the "grammar of graphics" | [Slides](https://github.com/sjspielman/datascience_for_biologists/raw/master/fall2020/slides/introduction_to_principles_dataviz.pdf) | *Chapters 1-5* from [Fundamentals of Data Visualization](https://clauswilke.com/dataviz) |  **[Assignment #2](./fall2020/assignments/hw2/hw2_instructions.html) due Wednesday 9/23/20 by 3:00 pm to Canvas**
+ R 9/17  | Grammar of graphics | Slides from 9/16, continued | None | None <!-- **Assigned:** "Grammar of graphics" due TBD --><!--Sunday 9/21/20 by 11:59 pm to Canvas-->
+ M 9/21  | Introduction to data visualization with `ggplot2` | None | None | None
+ W 9/23  | Introduction to data visualization with `ggplot2` | [Interactive Exercises: Intro to `ggplot2`](https://rowanbiosci.shinyapps.io/intro_ggplot/) <br> Website backup option is available in RStudio Cloud  | None | None
+ R 9/24  | *Open work day* | None | None |  **Assignment #3 R script due Thursday 10/1/20 by 12:01 pm (noon) to Canvas.** [Link to instructions](./fall2020/assignments/hw3/hw3_plots_to_recreate.html)
+ M 9/28  | Reading and writing data files | Copy the RStudio Cloud `reading-writing-files` project, and follow along | ["Data Import" chapter from R4DS](https://r4ds.had.co.nz/data-import.html)| None
+ W 9/30  | More data visualization with `ggplot2` | None | [Background: Customizing colors and fills](./fall2020/tutorials/color_fill_scales.html) <br> [Background: Customizing themes](./fall2020/tutorials/themes.html) <br> [Background: Customizing axes](./fall2020/tutorials/axes.html)  | None
+ R 10/1  | *Open work day* | None | None | **Assignment #4 R script due Thursday 10/8/20 by 12:01 pm (noon) to Canvas.** [Link to instructions](./fall2020/assignments/hw4/hw4_instructions.html) [Instructions PDF](https://github.com/sjspielman/datascience_for_biologists/raw/master/fall2020/assignments/hw4/hw4_instructions.pdf)
+ M 10/5 | Introduction to data wrangling with `dplyr` | [In-class R script by Dr. Spielman](./fall2020/inclass/class_notes_10-5-20.R) | [Tidyverse style guide](https://style.tidyverse.org/) | None
+ W 10/7 | Introduction to data wrangling with `dplyr` | [Interactive Exercises and Resource links](https://rowanbiosci.shinyapps.io/intro_dplyr/) | None | None
+ R 10/8 | *Open work day* (and introducing extra credit!) | None | None | Assignment TBD
 
 
 
