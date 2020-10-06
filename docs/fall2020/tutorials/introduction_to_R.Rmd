@@ -9,7 +9,6 @@ output:
     toc: true
     toc_float: true
     theme: united
-css: static/sjs-style.css
 ---
 
 ```{r setup, include=FALSE}
@@ -25,7 +24,7 @@ library(emo)
 
 ## Learning Goals
 
-Today's lesson will teach you to:
+This tutorial lesson will teach you to:
 
 + Navigate the RStudio environment
 + Use R for simple calculations, both mathematical and logical

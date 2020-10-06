@@ -30,7 +30,7 @@ iris <- as_tibble(iris)
 + [Calling Bullshit Course Website](https://callingbullshit.org/) by Carl Bergstrom and Jevin West
 
 ## Materials from Dr. Spielman
-+ [Introduction to R tutorial](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/fall2020/tutorials/introduction_to_R.html)
++ [Introduction to R tutorial](./tutorials/introduction_to_R.html)
 + [Introduction to R exercises](https://rowanbiosci.shinyapps.io/intro_R/)
 + [Introduction to `ggplot2` exercises](https://rowanbiosci.shinyapps.io/intro_ggplot2/)
 + [Introduction to `dplyr` exercises](https://rowanbiosci.shinyapps.io/intro_dplyr/)
@@ -43,9 +43,9 @@ iris <- as_tibble(iris)
 4. [Chapter Three from "Data Visualization: A practical introduction"](https://socviz.co/makeplot.html) introduces `ggplot2` usage
 5. [Chapter Three from "R for Data Science"](https://r4ds.had.co.nz/data-visualisation.html) introduces `ggplot2` usage
 6. [All the R colors you ever wanted to use!!](https://github.com/sjspielman/datascience_for_biologists/raw/master/spring2020/rmd_lessons/static/Rcolor.pdf)
-7. [Reference: Customizing Colors and Fills](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/fall2020/tutorials/color_fill_scales.html)
-7. [Reference: Customizing themes](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/fall2020/tutorials/themes.html)
-7. [Reference: Customizing axes](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/fall2020/tutorials/axes.html)
+7. [Reference: Customizing Colors and Fills](./tutorials/color_fill_scales.html)
+7. [Reference: Customizing themes](./tutorials/themes.html)
+7. [Reference: Customizing axes](./tutorials/axes.html)
 
 
 ## `dplyr` resources
