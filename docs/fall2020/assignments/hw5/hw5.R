@@ -16,7 +16,7 @@
 
 
 ## Load libraries ------------------------------------------------
-library(tidyverse) # way easier than loadin each of ggplot2, dplyr, and readr!
+library(tidyverse) # way easier than loading each of ggplot2, dplyr, and readr!
 
 
 ## Code to read in the dataset --------------------------------------------------------
