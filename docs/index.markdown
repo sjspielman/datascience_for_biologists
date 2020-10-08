@@ -38,7 +38,7 @@ This website contains all materials used in BIOL 01301 Fall 2020 at Rowan Univer
  R 10/1  | *Open work day* | None | None | **Assignment #4 R script due Thursday 10/8/20 by 12:01 pm (noon) to Canvas.** [Link to instructions](./fall2020/assignments/hw4/hw4_instructions.html) [Instructions PDF](https://github.com/sjspielman/datascience_for_biologists/raw/master/fall2020/assignments/hw4/hw4_instructions.pdf)
  M 10/5 | Introduction to data wrangling with `dplyr` | [In-class R script by Dr. Spielman](./fall2020/inclass/class_notes_10-5-20.R) | [Tidyverse style guide](https://style.tidyverse.org/) | None
  W 10/7 | Introduction to data wrangling with `dplyr` | [Interactive Exercises and Resource links](https://rowanbiosci.shinyapps.io/intro_dplyr/) | None | None
- R 10/8 | *Open work day* (and introducing extra credit!) | None | None | Assignment TBD
+ R 10/8 | *Open work day* (and introducing extra credit!) | None | None | **Assignment #5: hw5.R script due Thursday 10/15/20 by 12:01 pm (noon) to Canvas.** [Link to instructions](./fall2020/assignments/hw5/hw5_instructions.html) 
 
 
 
