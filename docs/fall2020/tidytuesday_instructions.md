@@ -37,9 +37,8 @@ The goal of this weekly extra credit is to develop your visualization and data w
 		+ Upload the R script or Rmarkdown file directly as a tweet attachment (along with the figure)
 		+ Include a link to an RStudio Cloud Project *in YOUR workspace, not the class workspace!* where permissions have been updated to allow anyone to view the code. To set these permissions, from within the project, click the gear icon on the top right. Click the "Access" button and make sure the permissions under "Who can view this project" are set to "Everyone." You can then include the link to the project (the actual URL) in your tweet.
 	  + Email me your figure and your reproducible code to tweet on your behalf. In your email, indicate if you would like to remain anonymous or not. If you would like to remain anonymous, make sure your code does not have identifying features.
-<!-- SCHEDULE REORGANIZED TO HAVE MODELING FIRST, THIS CAN'T HAPPEN 
-    + **For an EXTRA 0.5%**, include your `#tidytuesday` in a public Github repository. You should first create a repo ALL of your `#tidytuesday` work. For each week you do a `#tidytuesday`, you should create a folder the given week and save your *code and figure* in that folder. Include links to the github code in your tweet. *You will NOT get any extra-extra credit for this option until the entire class has learned github, likely in November.* 
--->
+
+
   
 **You will NOT RECEIVE ANY CREDIT** if you do any of the following:
 
