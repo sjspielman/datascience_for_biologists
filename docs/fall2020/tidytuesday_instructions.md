@@ -36,7 +36,7 @@ The goal of this weekly extra credit is to develop your visualization and data w
 	There are three options for including your code in the tweet:
 		+ Upload the R script or Rmarkdown file directly as a tweet attachment (along with the figure)
 		+ Include a link to an RStudio Cloud Project *in YOUR workspace, not the class workspace!* where permissions have been updated to allow anyone to view the code. To set these permissions, from within the project, click the gear icon on the top right. Click the "Access" button and make sure the permissions under "Who can view this project" are set to "Everyone." You can then include the link to the project (the actual URL) in your tweet.
-	  + Email me your figure and your reproducible code to tweet on your behalf. In your email, indicate if you would like to remain anonymous or not. If you would like to remain anonymous, make sure your code does not have identifying features.
+	  + Indicate in your submission with a TEXT COMMENT (not in the script; a text comment in CANVAS) that you would like me to tweet on your behalf. In your comment, indicate if you would like to remain anonymous or not. If you would like to remain anonymous, make sure your R script does not have identifying features.
 
 
   
