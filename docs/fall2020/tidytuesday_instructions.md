@@ -24,7 +24,7 @@ Fall 2020
 
 The goal of this weekly extra credit is to develop your visualization and data wrangling skills along with the R4DS community. Each week (Monday evenings or Tuesday mornings), a new dataset is posted to the R4DS github account. Your task for extra credit will be to create a _reproducible figure_ using this data. You should feel welcome to use this opportunity to either work with particular skill or set of skills you feel you need more practice with, or to master a new skill that we didn't specifically cover in class or labs/assignments. 
 
-**To obtain extra credit of a 1% boost to your OVERALL grade, you must do the following no later the following FRIDAY AT 11:59 PM from when the dataset was released.** Alternatively, if you complete the `#tidytuesday` by the following SUNDAY AT 11:59 PM from when the dataset was released, you will receive 0.5% extra credit.
+**To obtain extra credit of a _1.25%_ boost to your OVERALL grade, you must do the following no later the following FRIDAY AT 11:59 PM from when the dataset was released. Alternatively, if you complete the `#tidytuesday` by the following SUNDAY AT 11:59 PM from when the dataset was released, you will receive _1%_ extra credit.**
 
 + Write reproducible (i.e. anyone should be able to successfully run it!) R code using `tidyverse` libraries to make a visualization of your choosing from the dataset. 
 + You should submit one of the following to Canvas:
