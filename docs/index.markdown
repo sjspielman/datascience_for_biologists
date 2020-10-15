@@ -41,7 +41,7 @@ This website contains all materials used in BIOL 01301 Fall 2020 at Rowan Univer
  R 10/8 | *Open work day* (and introducing extra credit!) | None | None | **Assignment #5: hw5.R script due Thursday 10/15/20 by 12:01 pm (noon) to Canvas.** [Link to instructions](./fall2020/assignments/hw5/hw5_instructions.html) and [Template hw5.R script](./fall2020/assignments/hw5/hw5.R) (if needed)
  M 10/12 | Debugging | "Practice Script Debugging" RStudio Cloud Project | None | None
  W 10/14 | Continued data wrangling with `dplyr` | [Interactive Exercises and Resource links](https://rowanbiosci.shinyapps.io/intro_dplyr/) | None | None
- R 10/15 | *Open work day*  | None | None | **Assignment #6: hw6.R script due Thursday 10/22/20 by 12:01 pm (noon) to Canvas.** [Link to instructions](./fall2020/assignments/hw6/hw6_instructions.html) and [Template hw5.R script](./fall2020/assignments/hw6/hw6.R) (if needed)
+ R 10/15 | *Open work day*  | None | None | **Assignment #6: hw6.R script due Thursday 10/22/20 by 12:01 pm (noon) to Canvas.** [Link to instructions](./fall2020/assignments/hw6/hw6_instructions.html) and [Template hw6.R script](./fall2020/assignments/hw6/hw6.R) (if needed)
 
 
 
