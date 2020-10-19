@@ -1,0 +1,124 @@
+---
+title: "HW7 Instructions"
+subtitle: "Data Science for Biologists, Spring 2020"
+author: "R script due Thursday 10/29/20 by 12:01 PM to Canvas"
+output: 
+  html_document:
+    highlight: tango
+    theme: readable
+    css: custom-css.css
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE, echo = FALSE, include = FALSE)
+library(tidyverse)
+coffee_ratings <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-07-07/coffee_ratings.csv')
+planets <- readr::read_delim("planets.csv", delim = ";")
+# do this and save to file, and turn into a question
+chickwts %>% mutate(weight = paste(weight, "g")) %>% write_csv("chick_weights.csv") 
+chick <- read_csv("chick_weights.csv")
+chick %>%
+  separate(weight, into=c("weight", "units"), sep = " ")
+
+cap <- read_csv("us-state-capitals.csv")
+cap %>% unite(capital, city, state, sep = ", ") 
+cap %>% unite(capital, city, state, sep = ", ", remove=FALSE) 
+
+# simplest case: 
+#replace_na("unknown")
+```
+
+
+## Instructions
+
+For your assignment, you will be practicing data tidying skills with `tidyr` using several different datasets, all stored in the directory `data`/.
+
+Please read these additional instructions carefully:
+
++ **ALWAYS RUN AND CHECK CODE ONE LINE AT A TIME!!!**
++ Any answers without corresponding code will receive no credit.
++ All plots must be professionally labeled with clean X and Y axes. You are not required to include a title, subtitle, or caption, but you may include one or more of these labels if you choose.
++ All plots using aesthetic color/fill mappings _MUST USE_ a non-default color scale. Similarly, all legend titles must be professionally re-named from their default.
++ When applicable, all saved plots must be clearly legible with an appropriate aspect ratio. This means you may need to change the output plot size using arguments `width` and `height` when calling `ggsave()`. *Make extra sure to LOOK AT YOUR SAVED PLOTS* and tweak the size until it looks clearly professional.
+  + You may also need to modify certain theme components to achieve a professional look!
++ Ask me for help AT LEAST 24 hours before the deadline. I cannot guarantee time to help you if only short notice is given. Given my schedule, I can probably (unfortunately) guarantee that I won't have time to help.
++ Write all code yourself and include COMMENTS for each plot you create.
++ Please *comment out* (add `#` in front of) code that causes errors or bugs. This will ensure that your code runs without errors, while also showing me your code attempt if you only got part-way through recreating the plot.
+
+## Questions
+
+> All questions should be answered in the provided hw7.R script template. 
+
+<br>
+
+```
+# https://dplyr.tidyverse.org/reference/select.html
+coffee_ratings %>% select(where(is.numeric))
+coffee_ratings %>% select(contains("altitude"))
+```
+
+## Part 1: Practicing `select()` magic
+
+When pivoting, we often need to list a bunch of columns. It is often easier to list these columns using `select()` magic. We have previously seen the magic of `everything()` (select *everything else*!). For this first set of questions, you will teach yourself some more magic by following examples and applying the concept to a new scenario
+
+1. `starts_with()`
+2. `contains()`
+3. `ends_with()`
+4. `where()`
+5. using colons
+
+
+
+## Part 2: Pivoting datasets
+
+4 questions just pivoting back and forth
+
+
+## Part 3: Uniting and separating columns
+
+2 questions
+
+
+## Part 4: Putting it all together
+
+3 questions
+
+
+
+1. Consider the dataset in `data/abalone.csv`. This dataset contains measurements from several hundred individual abalones, which are sea snails.
+
+2. Create a new version that is pivoted and answer questions about the data
+
+
+3. Consider the coffee dataset, specifically columns XX and that-that. Convert it to a new dataset that has this structure:
+
+
+4. Reading in ugly data: work with the planets dataset. **THIS ONE ONLY CAN BE READ IN DOWN HERE.** OTHER DATASETS SHOULD ALL BE READ IN AT THE VERY TOP OF THE FILE. 
+
+
+5. 
+
+
+
+#### Question 5
+
+The entire purpose of this question is to show you how awesome the function `tidyr::separate_rows()` is. Read in and examine the (admittedly nerdy) dataset `data/planets.csv` (look at the file - it is delimited by ";" so you should use `read_delim()` and specify the delim as ";"). It is mostly tidy, *except* for the terrain column which contains too many observations!
+Clean it up by literally just running this code: `planets %>% separate_rows(terrain)`. Examine the output to understand how unbelievably helpful this function is.
+
+**Then**, there is ONE other column which would benefit from this function. Figure out which one (it's the other one with multiple observations in the rows!) Clean `planets` up with `separate_rows`, and save your final dataset to a new variable. The new variable should have both `terrain` and the other column cleaned properly.
+
+
+
+#### Question 6
+
+We will now practice working with columns using `unite` (puts two columns into one - usually but not always makes data "less tidy") and `separate` (separates one column into two - usually but not always makes data "more tidy"). For this question, consider the final dataset you made in question 5 (after all columns that needed it were cleaned with `separate_rows()`.)
+
+Your final answer should pipe all of this together, but build it up STEP BY STEP!!! Don't try to attempt the whole thing at once!!!
+
++ First, consider the `edited` column - it contains two variables implicitly: date and time. You'll also notice it has a new type: `dttm` which is specifically a format of date and time (that's all we'll really say about this, but read more [here](https://r4ds.had.co.nz/dates-and-times.html)). We want a column for each, so you'll need to separate (perhaps you could use `separate()`?) the column into two (`edited_date` containing just the date, and `edited_time` containing just the time). NOTE: The "UTC" is a nice feature of tidyverse printing and isn't actually in the data (womp). This will separate into two components only, which are currently separated by a space!
++ Second, create a new column called `ratio_period_rotation_orbital` that contains the ratio of `rotation_period` to `orbital_period`. Hint: The purpose of this part is to remind you not to forget `dplyr`! 
++ Third (for practice-sake), unite the columns `name` and `population` to end up with, for example "Alderaan-2000000000", and call this column `name_pop`.
++ Fourth, subset the data to only contain observations (rows!) where the terrain is "mountains". This part serves the same purpose as part 2! Don't forget `dplyr`!
++ Finally, save the dataset such that it is ordered (synyonym: arranged!) by *descending* `ratio_period_rotation_orbital`. Print out the data to show your final result!
