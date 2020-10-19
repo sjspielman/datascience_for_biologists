@@ -42,7 +42,9 @@ This website contains all materials used in BIOL 01301 Fall 2020 at Rowan Univer
  M 10/12 | Debugging | "Practice Script Debugging" RStudio Cloud Project | None | None
  W 10/14 | Continued data wrangling with `dplyr` | [Interactive Exercises and Resource links](https://rowanbiosci.shinyapps.io/intro_dplyr/) | None | None
  R 10/15 | *Open work day*  | None | None | **Assignment #6: hw6.R script due Thursday 10/22/20 by 12:01 pm (noon) to Canvas.** [Link to instructions](./fall2020/assignments/hw6/hw6_instructions.html) and [Template hw6.R script](./fall2020/assignments/hw6/hw6.R) (if needed)
-
+ M 10/19 | Introduction to tidy data | "Introduction to Tidy Data" RStudio Cloud Project | [Tidy data vignette](https://tidyr.tidyverse.org/articles/tidy-data.html) <br><br> [Ch 12 from R4DS: Tidy Data](https://r4ds.had.co.nz/tidy-data.html) <br><br> ["Tidy Data" original paper](http://www.jstatsoft.org/v59/i10/paper) | None
+ W 10/21 | Tidying data with `tidyr` | TBD | [Pivoting vignette (more advanced)](https://tidyr.tidyverse.org/articles/pivot.html) | None
+ R 10/22 | *Open work day*  | None | None | **TBD Assignment #7: hw7.R script due Thursday 10/30/20 by 12:01 pm (noon) to Canvas.**
 
 
 
