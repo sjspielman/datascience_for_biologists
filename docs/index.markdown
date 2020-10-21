@@ -43,10 +43,10 @@ This website contains all materials used in BIOL 01301 Fall 2020 at Rowan Univer
  W 10/14 | Continued data wrangling with `dplyr` | [Interactive Exercises and Resource links](https://rowanbiosci.shinyapps.io/intro_dplyr/) | None | None
  R 10/15 | *Open work day*  | None | None | **Assignment #6: hw6.R script due Thursday 10/22/20 by 12:01 pm (noon) to Canvas.** [Link to instructions](./fall2020/assignments/hw6/hw6_instructions.html) and [Template hw6.R script](./fall2020/assignments/hw6/hw6.R) (if needed)
  M 10/19 | Introduction to tidy data | "Introduction to Tidy Data" RStudio Cloud Project | [Tidy data vignette](https://tidyr.tidyverse.org/articles/tidy-data.html) <br><br> [Ch 12 from R4DS: Tidy Data](https://r4ds.had.co.nz/tidy-data.html) <br><br> ["Tidy Data" original paper](http://www.jstatsoft.org/v59/i10/paper) | None
- W 10/21 | Tidying data with `tidyr` | "Introduction to Tidy Data" RStudio Cloud Project <br><br> AND we will begin to work on HW7 in class together. | [Pivoting vignette (more advanced)](https://tidyr.tidyverse.org/articles/pivot.html) | **Assignment #7: hw7.R script due Thursday 10/29/20 by 12:01 pm (noon) to Canvas.** [Link to instructions](./fall2020/assignments/hw7/hw7_instructions.html) and [Template hw7.R script](./fall2020/assignments/hw7/hw7.R) (if needed)
- R 10/22 | *Open work day*  | None | None | Assignment posted on 10/21
- M 10/26 | Working with `dplyr` two-table verbs | TBD | [Reference](https://stat545.com/multiple-tibbles.html#bind)  | None
- W 10/28 | More data tidying with `tidyr` | TBD | None | None
+ W 10/21 | Tidying data with `tidyr` | "Introduction to Tidy Data" RStudio Cloud Project <br><br> AND  | [Pivoting vignette (more advanced)](https://tidyr.tidyverse.org/articles/pivot.html) | **Assignment #7: hw7.R script due Thursday 10/29/20 by 12:01 pm (noon) to Canvas.** [Link to instructions](./fall2020/assignments/hw7/hw7_instructions.html) and [Template hw7.R script](./fall2020/assignments/hw7/hw7.R) (if needed)
+ R 10/22 | Work on HW7 in class *together* | None | None | Assignment posted on 10/21
+ M 10/26 | Work on HW7 in class *together* | None | None  | None
+ W 10/28 | Working with `dplyr` two-table verbs, and more data tidying with `tidyr` | TBD | [Reference](https://stat545.com/multiple-tibbles.html#bind) | None
  R 10/29 | *Open work day*  | None | None |  **Assignment #8: hw8.R script due Thursday 11/12/20 (TWO WEEKS!) by 12:01 pm (noon) to Canvas.** 
  M 11/2 | *Open work day* | None | None | None
  W 11/4 | *Open work day* | None | None | None
