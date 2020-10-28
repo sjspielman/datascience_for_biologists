@@ -765,6 +765,7 @@ summary {
 <div id="part-2-practicing-tidy-select-magic" class="section level2">
 <h2>Part 2: Practicing <code>tidy-select</code> magic</h2>
 <p>When pivoting, we often need to provide a bunch of columns. It is often easier to list these columns some <code>select()</code> magic. We have previously seen the magic of <code>everything()</code> (select <em>everything else</em>!). This magic actually comes to us from <a href="https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html">tidy-select</a>, functionality in <code>dplyr</code> for cleanly specifying a set of columns.</p>
+<p><strong>You need to use our old standard <code>coffee_ratings</code> dataset for this part of the HW.</strong> <a href="https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-07-07/readme.md">Link to coffee</a>.</p>
 <p>For this set of questions, you will teach yourself some more magic by following examples and applying the concept to a new scenario. All examples use the subsetted <code>iris9</code> dataset created for these demos.</p>
 <p><br><br></p>
 <p>2.1. Use <code>starts_with()</code> to select all columns in <code>coffee_ratings</code> that start with the lowercase letter “b”.</p>
@@ -941,7 +942,8 @@ summary {
 <p><br><br></p>
 <p>3.4. Consider your wrangled data you made in question 3.3. Use it to create a plot showing the relationship (scatterplot!) between TWO of the point measures of your choosing. <strong>YOU WILL GET NO POINTS FOR THIS QUESTION IF YOU USE the original <code>coffee_ratings</code> dataset!</strong> Your code should in one single pipeline directly into ggplot. Follow all best practices we have learned!</p>
 <blockquote>
-<p><strong>IMPORTANT:</strong> If you were unable to wrangle the data in question3.3, you may directly plot the CSV file you read in without penalty. The data is not currently formatted in a way that makes this plot easy!! You may need some pivoting first!</p>
+<p><strong>IMPORTANT:</strong> If you were unable to wrangle the data in question3.3, you may directly plot the CSV file you read in without penalty.</p>
+<p>The data is not currently formatted in a way that makes this plot easy!! You may need some pivoting first!</p>
 </blockquote>
 <p><br><br></p>
 <p>3.5. Again consider the dataset you wrangled into existence from 3.3. Use it to plot the relationship between <code>aroma</code> and ALL OTHER point categories, where the plot is organized into panels. You should create a plot that looks conceptually like this (but with themes and colors customized to your liking, if you like!):</p>
