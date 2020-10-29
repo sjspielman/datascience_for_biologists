@@ -47,7 +47,7 @@ This website contains all materials used in BIOL 01301 Fall 2020 at Rowan Univer
  R 10/22 | *Short class today for announcements* | None | None | Assignment posted on 10/21
  M 10/26 | Work on HW7 in class *together* | None | None  | None
  W 10/28 | Work on HW7 in class *together*  | None | None | None
- R 10/29 | Working with `dplyr` two-table verbs, and more data tidying with `tidyr` | [Reference](https://stat545.com/multiple-tibbles.html#bind) | None |  **Assignment #8: hw8.R script due Thursday 11/12/20 (TWO WEEKS!) by 12:01 pm (noon) to Canvas.**  [Link to instructions](./fall2020/assignments/hw8/hw8_instructions.html) and [Template hw8.R script](./fall2020/assignments/hw8/hw8.R) (if needed)
+ R 10/29 | Working with `dplyr` two-table verbs, and more data tidying with `tidyr` | [In-class R script notes](./fall2020/inclass/class_notes_10-29-20.R) <br><br> [REALLY GOOD Reference](https://stat545.com/multiple-tibbles.html#bind) | None |  **Assignment #8: hw8.R script due Thursday 11/12/20 (TWO WEEKS!) by 12:01 pm (noon) to Canvas.**  [Link to instructions](./fall2020/assignments/hw8/hw8_instructions.html) and [Template hw8.R script](./fall2020/assignments/hw8/hw8.R) (if needed)
  M 11/2 | *Open work day* | None | None | None
  W 11/4 | *Open work day* | None | None | None
  R 11/5 | *Open work day*  | None | None | None
