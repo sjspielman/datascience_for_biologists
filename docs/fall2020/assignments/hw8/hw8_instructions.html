@@ -720,8 +720,30 @@ summary {
 </blockquote>
 <p><br></p>
 <ol start="8" style="list-style-type: decimal">
-<li>As we have seen, it is possible to create tibbles within R directly. There are many strategies for this, two of which are used in this question. In the code template, you see three tibbles are defined providing some information about some totally and completely real frog species. These tibbles represent number of frogs collected and their colors for two different species, and then the full names of these species.</li>
+<li>As we have seen, it is possible to create tibbles within R directly. There are many strategies for this, two of which are used in this question. Below, you see three tibbles are defined providing some information about some totally and completely real frog species. These tibbles represent number of frogs collected and their colors for two different species, and then the full names of these species. <strong>DIRECTLY copy and paste these definitions into question 8 in your homework script to define these datasets!</strong></li>
 </ol>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="co">## defines each column as an array</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="kw">tibble</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a>  <span class="dt">color        =</span> <span class="kw">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;turquoise&quot;</span>),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a>  <span class="dt">male         =</span> <span class="kw">c</span>(<span class="dv">25</span>, <span class="dv">36</span>, <span class="dv">52</span>),</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a>  <span class="dt">female       =</span> <span class="kw">c</span>(<span class="dv">28</span>, <span class="dv">17</span>, <span class="dv">33</span>),</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a>  <span class="dt">species_abbr =</span> <span class="kw">c</span>(<span class="st">&quot;sp1&quot;</span>, <span class="st">&quot;sp1&quot;</span>, <span class="st">&quot;sp1&quot;</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a>) -&gt;<span class="st"> </span>frogs_sp1</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true"></a><span class="co">## defines tibble in a format like the tibble would end up appearing</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true"></a><span class="co">## spacing is helpful!</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true"></a><span class="kw">tribble</span>(</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true"></a>  <span class="op">~</span>color, <span class="op">~</span>male, <span class="op">~</span>female, <span class="op">~</span>species_abbr,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true"></a>  <span class="st">&quot;orange&quot;</span>, <span class="dv">13</span>,   <span class="dv">17</span>,    <span class="st">&quot;sp2&quot;</span>,</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true"></a>  <span class="st">&quot;red&quot;</span>,    <span class="dv">45</span>,   <span class="dv">36</span>,    <span class="st">&quot;sp2&quot;</span>,</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true"></a>  <span class="st">&quot;pink&quot;</span>,  <span class="dv">31</span>,    <span class="dv">25</span>,    <span class="st">&quot;sp2&quot;</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true"></a>) -&gt;<span class="st"> </span>frogs_sp2</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true"></a><span class="co">## Like strategy one</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true"></a><span class="kw">tibble</span>(</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true"></a>  <span class="dt">species_name =</span> <span class="kw">c</span>(<span class="st">&quot;Frogus firstus&quot;</span>, <span class="st">&quot;Frogus secondus&quot;</span>),</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true"></a>  <span class="dt">species_abbr =</span> <span class="kw">c</span>(<span class="st">&quot;sp1&quot;</span>, <span class="st">&quot;sp2&quot;</span>)</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true"></a>) -&gt;<span class="st"> </span>species_names</span></code></pre></div>
 <p>For this question, we want to create a SINGLE tibble containing all information from both species. You should save this new tibble to a variable <code>tidy_frogs</code>. In its tidiest interpretation, there are in fact SIX variables here:</p>
 <ul>
 <li><code>color</code></li>
