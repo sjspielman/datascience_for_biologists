@@ -7,15 +7,16 @@ output:
     css: lm_files/lm_style.css
     highlight: pygments
     theme: spacelab
+    toc: true
+    toc_float: true
 editor_options:
   chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, collapse=TRUE)
 library(tidyverse)
-#library(modelr)
-#library(broom) 
+library(broom) 
 library(patchwork)
 ```
 
@@ -149,6 +150,19 @@ qqnorm(notnorm$x)
 qqline(notnorm$x)
 ```
 
+*Here are examples of how the QQ plot might look when it's time to REALLY start worrying that the data isn't normal:*
+```{r, echo=F, fig.height=4, fig.width=10}
+par(mfrow=c(1,3))
+x <- log(1:50)
+qqnorm(x)
+qqline(x)
+x <- c(rnorm(100, 10, 1), rnorm(20, 5, 1), rnorm(20, 15, 1))
+qqnorm(x)
+qqline(x)
+x <- (1:50)**3
+qqnorm(x)
+qqline(x)
+```
 
 
 
@@ -174,11 +188,11 @@ A closely related (both conceptually and mathematically) topic here is *correlat
 
 There are many different wants to quantify a correlation, but perhaps the most commonly-used one is Pearson correlation. This quantity measures strength and direction a of **LINEAR** association between normally-distributed numeric variables - it is virtually mathematically equivalent to a simple linear regression. This is measured with the correlation coefficient *r* which can be any value in $-1 \leq r \leq 1$. Below are shown examples of data with PERFECT correlations: there is a perfect x-y association, but the directions are different. There is also an example of NO correlation.
 
-```{r, echo=F, fig.width=7,fig.height=2}
+```{r, echo=F, fig.width=8.5,fig.height=2}
 tibble(x = seq(1, 100, 5), y = x*-1, y2 = runif(20, -10, 10)) -> dat
 
 p1 <- ggplot(dat, aes(x=x,y=x)) + geom_point() + geom_abline(color="red", size=0.5) + xlab("Predictor") + ylab("Response") + ggtitle("Perfect positive relationship: r = 1") + 
-  theme(plot.title = element_text(size = 9))
+  theme(plot.title = element_text(size = 8.))
 
 p2 <- ggplot(dat, aes(x=x,y=y)) + geom_point() + geom_abline(slope = -1, color="red",size=0.5) + xlab("Predictor") + ylab("Response") + ggtitle("Perfect negative relationship: r = -1") +  theme(plot.title = element_text(size = 9))
 
@@ -214,10 +228,12 @@ dplyr::glimpse(crabs)
 
 
 
-## Simple linear regression: Single numeric predictor
+### Linear regression: Single numeric predictor
 
 Let's begin with a simple regression to examine the relationship between **carapace length** and **body depth**, specifically to what extent body depth can be explained by carapace length. Therefore, carapace length is our predictor (X) variable, and body depth is our response (Y) variable.
 
+
+#### Check linearity assumption 
 
 **The very first thing we should do is VISUALIZE our data** . Make sure that each numeric predictor (in this case there is only 1!) indeed has a roughly *linear relationship* to the response. Indeed, this relationship looks linear, and apparantly (quite strongly!) positively related, so we are good to go.
 
@@ -228,6 +244,8 @@ ggplot(crabs, aes(x = carapace_length, y = body_depth)) +
 ```
 
 
+#### Build model
+
 We perform regressions using the function `lm()` (any guesses what this stands for?).
 
 ```{r}
@@ -235,38 +253,76 @@ We perform regressions using the function `lm()` (any guesses what this stands f
 ## Y ~ X !!!!!!!!!!!!!! 
 ## RESPONSE ~ PREDICTOR !!!!!!!!!!!!!!!!
 model_fit <- lm(body_depth ~ carapace_length, data = crabs)
-
-## view output with summary(). Ugly, useful for getting a visual overview.
-summary(model_fit)
 ```
 
+#### Check residuals assumption
 
-### Interpreting the model output
+Before we proceed to examine our model, we need to make sure that another model assumption is satisfied: *Normally-distributed residuals.* Because residuals are calculated as part of the model itself, we can only check this assumption AFTER the model is built. If the residuals look ok, then we know our model is valid and we can proceed to interpret it. If the residuals are severely not normal, it means there were some problems with the model itself and you need to rethink your approach - which predictors to include/exclude? add in interaction effect [keep reading!!]? transform some of the data?
+
+We can check this assumption using a **QQ plot**, specifically a NORMAL QQ plot which shows the relationship between your data and a *theoretical prediction* for what the data would like if it were normally distributed. For making QQ plots, we'll use the **base R functions** `qqnorm()` (for a **norm**al distribution QQ plot) AND `qqline()` (in this case base R is a lot easier than ggplot2). They are run as *separate commands entirely*, but R will always assume `qqline()` should go on top of the *most recently run QQ normal plot*:
+
+```{r, collapse=TRUE}
+# you can access residuals from the model with: $residuals
+# I use head() here to make the output more manageable - only see the first 6 values!
+head(model_fit$residuals)
+
+# plot a normal QQ plot of residuals, and add a line for visual guidance. LINE IS NECESSARY!!!!!!
+qqnorm(model_fit$residuals)
+qqline(model_fit$residuals)
+```
+
+This is pretty good, but could be better - the tails of the plot, in particular the right, have a bit of deviation, but not so much that I'd worry. We can be satisfied that the assumptions are met for this model, so we can proceed to interpret it.
+
+#### Interpret the model output
+
+We can observe the model output with:
+```{r}
+## view output with summary(). Ugly, useful for getting a visual overview.
+summary(model_fit)
+
+# Or, using broom::tidy() and broom::glance()
+broom::tidy(model_fit)
+broom::glance(model_fit)
+```
 
 + **Call** simply reminds us of the linear model formula we specified when using `lm()`.
 
 + **Residuals** shows the *five-number summary* of the distribution of the residuals. 
 
-+ **Coefficients** tell us our $\beta$ values. Their *Estimate* is the value the model returned, Their *Std. Error* indicates how close/far these model estimates, derived from the sample, likely are from the "true" population values. The *t value* is *t* statistic associated with the estimate's significance, and the final column *Pr(>|t|)* is the P-value associated with the *t* statistic - it tells us if the coefficient is significant or not. The null hypothesis for any coefficient is "Coefficient = 0." Therefore, a significant predictor coefficient means we are fairly sure it's value is not 0. 
++ **Coefficients** tell us our $\beta$ values. 
+  + Their *Estimate* is the value the model returned
+  + Their *Std. Error* indicates how close/far these model estimates, derived from the sample, likely are from the "true" population values. 
+  + The *t value* is *t* statistic associated with the estimate's significance.
+  + The final column *Pr(>|t|)* is the P-value associated with the *t* statistic - it tells us if the coefficient is significant or not. 
+    + **The null hypothesis for ANY coefficient is "Coefficient = 0." Therefore, a significant predictor coefficient means we have statistical evidence that the true value is not 0.**
 
-+ **(Intercept)** is our fitted value for $\beta_0$. It tells us: What is the EXPECTED VALUE of the response variable when the numeric predictor value is 0? In this case, what do we expect the average body depth will be when a crab's carapace length is 0 mm? Here, we expect that crabs will have a body depth of -1.155 mm, on average, when their carapace length is 0. We can also write this as -1.155±0.205 mm to acknowledge the standard error! This is of course NOT realistic and illustrates perfectly that you need to be careful to interpret coefficients with biological intuition! Just because the computer spits out a number doesn't mean it's meaningful. No crabs will have a body depth of 0mm. Regardless, this quantity needs to be here to fulfill the mathematical model itself - we're just smart enough to know that the mathematical model is terrible at biology. The intercept is highly significant (*P=6.09e-08*). Therefore, there is evidence the intercept differs from 0.
++ **(Intercept)** is our fitted value for the $\beta_0$ coefficient. It tells us: What is the EXPECTED VALUE of the response when the predictor value is 0? 
+  + In this case, what do we expect the average body depth will be when a crab's carapace length is 0 mm? 
+  + Here, we expect that crabs will have a body depth of -1.155 mm, on average, when their carapace length is 0. We can also write this as -1.155±0.205 mm to acknowledge the standard error! This is of course NOT realistic and illustrates perfectly that you need to be careful to interpret coefficients with biological intuition! Just because the computer spits out a number doesn't mean it's meaningful. No crabs will have a body depth of 0mm. Regardless, this quantity needs to be here to fulfill the mathematical model itself - we're just smart enough to know that the mathematical model is terrible at biology. The intercept is highly significant (*P=6.09e-08*). Therefore, there is evidence the intercept differs from 0.
     
-+ **carapace_length** is our fitted value for $\beta_1$. It tells us: What is the EXPECTED change of the response the predictor increases by a unit of 1? In this case, by how much do we expect body depth will increase/decrease when the carapace length goes up by 1? Here, we expect for every 1 mm increase in carapace length, body depth will *increases* by 0.473 mm (or, 0.473±0.00624 mm). Remember in this case, this value is the slope (0.473 = rise/run = $\Delta$body depth/$\Delta$carapace length = 0.473/1 = 0.473 increase in body depth for ever 1 increase in carapace length). The P-value here is highly significant at *P<2.2e-16* (this is nearly R's lower bound for reporting tiny P-values), so we quite confident that the true value indeed differs from 0. 
++ **carapace_length** is our fitted value for the $\beta_1$ coefficient. It tells us: What is the EXPECTED change of the response the predictor increases by a unit of 1? 
+  + In this case, by how much do we expect body depth will increase/decrease when the carapace length goes up by 1? 
+  + Here, we expect for every 1 mm increase in carapace length, body depth will *increases* by 0.473 mm (or, 0.473±0.00624 mm). Remember in this case, this value is the slope (0.473 = rise/run = $\Delta$body depth/$\Delta$carapace length = 0.473/1 = 0.473 increase in body depth for every 1 unit increase in carapace length). The P-value here is highly significant at *P<2.2e-16* (this is nearly R's lower bound for reporting tiny P-values), so we quite confident that the true value indeed differs from 0. 
 
 + **Residual standard error**: The standard error associated with residuals. The closer this value is to 0, the better our model fit. We won't focus much on this quantity in this class, but be aware that large values here indicate the model is rather poor. This value of 0.6266 is fairly small.
 
-+ **Multiple R-squared** and	**Adjusted R-squared** give the $R^2$ associated with the model. **A model's $R^2$ tells you the percent of variation in the response that can be explained by the predictors**. This is SUPER important (and note, it is actually the squared Pearson correlation coefficient!). The "Adjusted R-squared" is somewhat more reliable for consideration - it corrects for any overfitting artifacts inherent in modeling, so focus on this value. It's associated P-value is on the next line (here, *P<2.2e-16*), and the associated null hypothesis for this P-value is $R^2 = 0$. **In this model, 96.65% of the variation in body depth can be explained by carapace lengths. 3.35% of the varation in body depth is therefore UNEXPLAINED by our model.** That 3.35% is sneakily hidden in the $\epsilon$ term of the fitted linear model formula. This $R^2$ is very close to 1 (100%) - this is _a really really good model_. 
++ **Multiple R-squared** and	**Adjusted R-squared** give the $R^2$ associated with the model. **A model's $R^2$ tells you the percent of variation in the response that can be explained by the predictors**. This is SUPER important (and note, it is actually the squared Pearson correlation coefficient!). 
+  + The "Adjusted R-squared" is somewhat more reliable, so focus on this value. It's associated P-value is on the next line (here, *P<2.2e-16*), and the associated null hypothesis for this P-value is $R^2 = 0$. 
+  + **In this model, 96.65% of the variation in body depth can be explained by carapace lengths. 3.35% of the varation in body depth is therefore UNEXPLAINED by our model.** That 3.35% is sneakily hidden in the $\epsilon$ term of the fitted linear model formula. This $R^2$ is very close to 1 (100%).
   
 
 #### Conclusions:
 
 + Our fitted model is $Y = 0.473X - 1.16$ (full form: $Y = 0.473X - 1.16 + \epsilon$)
-+ ~96.65% of variation in crab body depth can be explained by carapace length. 
-+ For every 1 mm increase in carapace length, we expect body depth to increase, on average, by 0.473 mm.
+  + We expect a crab with carapace length of 0 to have a body depth of -1.16. 
+  + For every 1 mm increase in carapace length, we expect body depth to increase, on average, by 0.473 mm.
++ ~96.65% of variation in crab body depth can be explained by carapace length. This is a strong model that implies body depth can be well-predicted by carapace length.
 
-### Visualizing the model
+
+#### Visualizing the model
 
 We can visualize this output with a scatterplot and `geom_smooth()`! This is why we've been saying `method = "lm"` in `geom_smooth()` - this function adds a trendline, and by specify "lm" we are telling `geom_smooth()` to use a linear model to determine the trendline:
+
 ```{r, fig.width = 6, fig.height = 4}
 # predictor goes on X, response goes on Y
 ggplot(crabs, aes(x = carapace_length, y = body_depth)) + 
@@ -287,75 +343,38 @@ ggplot(crabs, aes(x = carapace_length, y = body_depth)) +
 ```
 
 
-**Critical followup: What is a confidence interval?** A confidence interval (CI) is meant to help convey *error* in the estimate - in this case, the confidence bands you see (pink area around the line) represents the error associated with our fitted slope aka our model's $\beta_1$ estimate! It is directly related to "standard error", so in the function `geom_smooth()` you can turn it off as `geom_smooth(se=F)` to not display it.
+####  What is a confidence interval? 
+
+A confidence interval (CI) is meant to help convey *error* in the estimate - in this case, the confidence bands you see (pink area around the line) represents the error associated with our fitted slope aka our model's $\beta_1$ estimate! It is directly related to "standard error", so in the function `geom_smooth()` you can turn it off as `geom_smooth(se=F)` to not display it.
 
 Loosely speaking, a *95% CI* (ggplot and many others use 95% confidence interval by default) means: Assuming all the lovely assumptions of our statistical framework, there is 95% probability that the TRUE VALUE OF THE SLOPE is within the CI. Stated more accurately, if you took N random samples of crabs and calculated their regressions of body depth across carapace length, line (slope and intercept!) would fall within the 95% shaded area CI for 95% of the samples. 
 
 **For an excellent intuitive understanding of what this means, see [the second plot example in this package's README](https://github.com/wilkelab/ungeviz).**
 
-### Checking the assumption of normal residuals
-
-One of the assumptions of linear regressions is that residuals should be normally distributed. Residuals are calculated as part of the model itself, so the goal is to check the residuals AFTER you perform the model to see if it worked out ok. If the residuals are severely not normal, it means there were some problems with the model itself and you need to rethink your approach - which predictors to include/exclude? add in interaction effect [keep reading!!]? transform some of the data?
-
-We can check this assumption using a **Q-Q plot**, specifically a NORMAL QQ plot which shows the relationship between your data and a *theoretical prediction* for what the data would like if it were normally distributed. If the data falls roughly in a straight line, the data is distributed normally!!! If not, not normal :( 
-
-For making QQ plots, we'll use the **base R functions** `qqnorm()` (for a **norm**al distribution QQ plot) AND `qqline()` (in this case base R is a lot easier than ggplot2). They are run as *separate commands entirely*, but R will always assume `qqline()` should go on top of the *most recently run QQ normal plot*:
-
-```{r, collapse=TRUE}
-# you can access residuals from the model with:
-model_fit$residuals
-
-# plot a normal QQ plot of residuals, and add a line for visual guidance. LINE IS NECESSARY!!!!!!
-qqnorm(model_fit$residuals)
-qqline(model_fit$residuals)
-```
-
-This is pretty good, but could be better - the tails of the plot, in particular the right, have a bit of deviation, but not so much that I'd worry. I'm satisfied with the assumptions being met for this model.
-
-*Here are examples of how the plot might look when it's time to start worrying:*
-```{r, echo=F, fig.height=4, fig.width=10}
-
-par(mfrow=c(1,3))
-x <- log(1:50)
-qqnorm(x)
-qqline(x)
-x <- c(rnorm(100, 10, 1), rnorm(20, 5, 1), rnorm(20, 15, 1))
-qqnorm(x)
-qqline(x)
-x <- (1:50)**3
-qqnorm(x)
-qqline(x)
-```
 
 
-<!--
-**Notably** there is another neat way to get the residuals using the package `modelr` (within `tidyverse`, but needs to be loaded). We will use several more functions from this VERY helpful (but caution, often times very advanced) package soon!. The function `add_residuals()` can be used this way:
-
-```{r}
-## first add_residuals is the data itself, second is the model object
-## output column `resid` contains the goods
-modelr::add_residuals(crabs, model_fit)
-```
--->
-
-
-### Simple ANOVA: Single categorical predictor
+### Simple "ANOVA": Single categorical predictor
 
 What if, rather than a numeric predictor (carapace Length), we had a *categorical* predictor, say sex? Here we might ask: **Does sex predict body depth in crabs**? In the context of running an explicit ANOVA, one might phrase it as: **Does the variation in body depth differ across sex in crabs?** They are in fact the same question!
+
+#### Check equal variance assumption
+
 
 Again, begin with a quick-and-dirty visualization. Here we'd like to see that the distribution of body depths has similar *spread* across sex categories (the assumption of equal variance for categorical predictors!). Indeed, these two distributions show similar amounts of spread (how much relative space along the Y axis they take up), so assumption is met.
 
 ```{r, fig.width = 4, fig.height = 3}
 # using points is an easy way to assess equal spread. 
-# ugly but HIGHLY effective for the GOAL of the plot
-ggplot(crabs, aes(x = sex, y = body_depth, color=sex)) + geom_point()
+# this "bad" plot is actually GREAT for this PURPOSE
+# it's ugly but HIGHLY effective for the GOAL of the plot
+ggplot(crabs, aes(x = sex, y = body_depth)) + geom_point()
 ```
 
+#### Build the model and check residual assumption
 
-Let's run the model, and then check our other assumption of normal residuals:
 ```{r}
 ## perform linear model and save as model_fit
 model_fit <- lm(body_depth ~ sex, data = crabs)
+
 
 # Check for roughly normal residuals
 qqnorm(model_fit$residuals)
@@ -364,17 +383,37 @@ qqline(model_fit$residuals)
 
 There are some deviations at the tails, but the *vast* majority of points are following the guiding line. Therefore, the residuals are roughly normally distributed, and we can proceed to interpret our model results:
 
+#### Interpret the model output
+
 ```{r}
 summary(model_fit)
 ```
 
 **This is where the order of categorical variables become really important**: All linear model output when categorical predictors are used assumes a given level of the categorical variable. Unless you re-factor a variable explicitly, levels will be used in alphabetical order - here, "F" comes before "M". 
 
-+ We see the intercept is highly significant (*P<2e-16*) with a value of 13.724. **Intercepts for a model with a categorical predictor mean: What is the expected body depth of the baseline level, which in this case is "F" (female)?**. We expect the average female crab to have a body depth of 13.72 mm. This is the "categorical" analogy of a standard intercept that would be interpreted as, "what is body depth when sex is 0?". Of course, as a categorical variable, sex cannot be 0 - it's F or M in this dataset. 
++ We see the intercept is highly significant (*P<2e-16*) with a value of 13.724. **Intercepts for a model with a categorical predictor mean: What is the expected body depth of the baseline level, which in this case is "F" (female)?**. 
+  + We expect the average female crab to have a body depth of 13.72 mm. This is the "categorical" analogy of a standard intercept that would be interpreted as, "what is body depth when sex is 0?". Of course, as a categorical variable, sex cannot be 0 - it's F or M in this dataset. 
 
 + The coefficient associated with `SexM` means, **How does being male influence body depth relative to the factor baseline, female?** On average, males have body depth 0.613 mm larger than females. (Notably, for a categorical variable with *N* levels, there will be see *N-1* coefficients). In this case, however, the P-value is NOT significant (P=0.206). Similarly our adjusted *R^2* is not significant. Therefore, we actually do not see evidence that the average male body depth differs from the average female body depth.
 
-**This model therefore tells us: sex is NOT explanatory of body depth in crabs!** Either way, let's think how we might visualize the model results. These models operate on _means_, so it might be useful to actually visualize the means specifically. Below, I show a strip plot, but any kind of plot that compares *numeric distributions of body depth between sex* is a great viz.
++ These values are therefore EXACTLY: a) the female mean, and b) the difference between male - female means:
+
+```{r}
+crabs %>% 
+  group_by(sex) %>% 
+  summarize(mean_bd = mean(body_depth))
+
+# see, female - male mean is indeed 0.6!!
+14.3 - 13.7
+```
+
+
++ **This model therefore tells us: sex is NOT explanatory of body depth in crabs, since there is no significant difference between male and female body depths.** 
+
+
+#### Visualizing the model
+
+Either way, let's think how we might visualize the model results. These models operate on _means_, so it might be useful to actually visualize the means specifically. Below, I show a strip plot, but any kind of plot that compares *numeric distributions of body depth between sex* is a great viz.
 
 ```{r, fig.width = 6, fig.height = 4}
 ggplot(crabs, aes(x = sex, y = body_depth, color = sex)) + 
@@ -563,4 +602,90 @@ In this output...
 + **sexM:colororange** is the *interaction effect* coefficient for sex x color, and it is moderately significant at *P=0.0355*.
 
 The best way to interpret this model is to a) identify if an interaction is significant, and b) compare the means with an interaction plot. We've basically done all those steps, so we are set!
+
+
+
+
+
+## Introduction to model selection
+
+Sometimes, we have a specific hypothesis we want to test from an experiment or similar: To what extent do \<these quantities I have measured\> explain \<this quantity I am studying\>? Other times, and in particular in times of BIG DATA, we have a different scenario: There are dozens (hundreds?? thousands??!) of possible variables to use as predictors, and it's not always clear which predictors should (or should not) be included in a given model. How can we tell what information will maximize the signal while reducing noise? What is the appropriate level of complexity for a given model? More parameters (aka, including more predictors) lead to increased complexity, but can also be misleading if those predictors hinder more than they increase the amount of exploratory power.
+
+### Background: Bias-variance tradeoff
+This need leads into two other related key concepts in statistical modeling: a) the tradeoff between bias and variance, and the b) the need to avoid models that *poorly fit* ("overfit" or "underfit") the data. The underlying issue is well-exemplified by some figures from [this concise and informative blog post](https://towardsdatascience.com/understanding-the-bias-variance-tradeoff-165e6942b229):
+
+![](./lm_files/bias_variance.png){width=300px;}
+
+Ultimately, in a data science context, we want to use our models to predict future outcomes. If someone gives us *new information*, can we predict what the response will be with a high degree of accuracy? In an ideal world, we will craft models with *low variance* (predictions are not spread out with excessive noise) and *low bias* (predictions do not systematically deviate from the truth). We also want to craft models that are *well fit* to the data and do not suffer from *underfitting* (model is insufficiently complex and will not do a good job predicting) or *overfitting* (model is too complex and therefore also won't do a good job predicting). 
+
+![](./lm_files/overfit_underfit.png){width=300px;}
+
+When we build a linear regression model, we give the `lm()` function all our data, and we hope to be able to apply the model to future data we receive. The data used to build a model is called the "training data" (another way to phrase "fitting a model" is instead "training the model"). As we will learn soon, building a model and saying "hey that's a nice R^2!" is *seriously insufficient* when it comes to evaluating the performance of a model. Instead, what we really want to know is: How accurately does the model predict the response *when applied to data it has never seen before?* To truly evaluate how well a model performs, then, we'd want to use the trained model to predict outcomes from a set of so-called "test data." Models that are overfit, in particular, tend to do a very poor job on test data - they are so in tune to the training data, that they can't accomodate the fact that not all the data in the world is in the training data itself.
+
+
+### Choosing our predictors 
+
+In addition to evaluating model performance (coming up!), we desire a strategy to choose our predictors wisely: Find which predictors add *meaningful information* and do not add excessive *noise* that would lead to overfitting. We want our model to capture signal - not error or randomness! Collectively, procedures used to determine the best model are known as "model selection": of the set of models we could build (i.e., of all the predictors we could include), which model should we build (i.e., which predictors should be used) that give us the best chance for predictions that are low variance and low bias? 
+
+There are a wide variety of approaches to this task, and we will demonstrate one common approach called "stepwise model selection." In stepwise model selection, the computer will systematically identify one-by-one which predictors are not "helpful," according to some measurement, and proceed to build the model using only those helpful predictors. It can proceed forwards (start with one predictor and ramp up), or backwards (start with all predictors and ramp down).
+
+One way to do this is to systematically remove, one by one, any *insignificant* predictors, stopping when only significant predictors remain. Another way to do this is to check how each predictor influences the model's $R^2$ value - any predictors that worsen $R^2$ should get booted because they lead to, in theory, less explanatory power. Finally, there are other approaches that use measurements called "information theoretic criterion" (such as [Akaike Information Criterion [AIC]](https://towardsdatascience.com/introduction-to-aic-akaike-information-criterion-9c9ba1c96ced)) to perform model selection. These measures ultimately penalize models with too many low-information predictors to help distill the model to only those predictors which increase predictive power while ensuring the overall model is not overly complex. These scores are like "golf" - a lower AIC indicates a model with improved *fit to the data*. They should also be interpreted *relative* to each other, unlike a P-value whose exact value can be directly understood. 
+
+#### AIC stepwise model selection
+
+There are many R libraries that contain functions to perform stepwise model selection, but to simplify our lives we will simply use the base R function `step()`, which uses AIC-based regression model selection. We can perform model selection by building a model with *all possible predictors*, and then letting `step()` figure out the right set to use. This is luckily very easy! Let's do this procedure to get the best model for predicting crab body depth:
+
+```{r}
+# comprehensive model: specify "all other variables" with a period 
+baseline_model_fit <- lm(body_depth ~ ., data = crabs)
+
+# simply give the fitted model to step(), which returns a fitted model with only the retained predictors
+final_model_fit <- step(baseline_model_fit) 
+```
+
+
+In the end, we see that the best model (using AIC to select predictors) is saved into `final_model_fit`:
+```{r}
+summary(final_model_fit)
+```
+
+Importantly, this procedure *does not consider interaction effects* (unless you cook up a fancy tibble that contains columns representing interaction effects - don't do this...) - for our purposes, that's ok! It also has the tendancy to sometimes keep predictors that are not significant, i.e. frontal lobe in this scenario. In fact, these are kept because, according to AIC, these predictors do not *detract* from our predictive ability, so they do not need to be removed. 
+
+**In the end**, our final model for body depth has three predictors (color, frontal lobe, and carapace length), and together these predictors can explain 98.81% of the variation in crab body depth, highly significant at *P<2.2e-16*. 
+
+#### Culling insignificant predictors model selection
+
+Let's do this one other, more tedious way: We'll remove insignificant predictors one at a time (highest P-value gets chucked at each round), until only significant predictors remain. Using `broom::tidy()` (see [here](https://cran.r-project.org/web/packages/broom/vignettes/broom.html)) makes this experience a lot easier!!
+```{r, collapse=T}
+# start with all predictors
+lm(body_depth ~ ., data = crabs) %>%
+  broom::tidy()
+
+# carapace_width was most insignificant. remove and continue
+crabs %>% select(-carapace_width) -> sub_crabs
+lm(body_depth ~ ., data = sub_crabs) %>%
+  broom::tidy()
+
+# rear_width was most insignificant. remove and continue
+sub_crabs %>% select(-rear_width) -> sub_crabs
+lm(body_depth ~ ., data = sub_crabs) %>%
+  broom::tidy()
+
+# sex was most insignificant. remove and continue
+sub_crabs %>% select(-sex) -> sub_crabs
+lm(body_depth ~ ., data = sub_crabs) %>%
+  broom::tidy()
+
+# frontal_lobe is now the only insignificant. remove and continue
+sub_crabs %>% select(-frontal_lobe) -> sub_crabs
+lm(body_depth ~ ., data = sub_crabs) %>%
+  broom::tidy()
+
+### STOP!!! All significant remain!!!
+final_fit <- lm(body_depth ~ ., data = sub_crabs)
+summary(final_fit)
+```
+
+In the end, we got to the same place as with AIC (but there is no guarantee any two model selection methods will agree!!!), except we removed frontal lobe. You'll note, though, the final $R^2=0.988$ with or without frontal lobe - AIC was "right" that it doesn't hurt to keep frontal lobe in the model.
+
 
