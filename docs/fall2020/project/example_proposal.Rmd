@@ -1,0 +1,55 @@
+---
+title: "EXAMPLE PROPOSAL"
+subtitle: "Data Science for Biologists, Fall 2020"
+author: "Stephanie J. Spielman"
+output: 
+  html_document:
+    theme: simplex
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE, echo = TRUE, include = TRUE)
+# Load all libraries you use HERE
+library(tidyverse)
+```
+
+<br>
+
+### Description
+
+For my project, I will be analyzing a [dataset of coffee ratings](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-07-07/readme.md) from the `#tidytuesday` repository. This dataset contains information about coffees and their ratings from around the world. I chose this dataset because I love (too much?) to drink coffee!
+
+<br>
+
+### Data
+
+```{r read-data}
+coffee_ratings <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-07-07/coffee_ratings.csv')
+
+coffee_ratings
+```
+
+
+<br>
+
+### Modeling question
+
+For my model question, I will use a linear regression to ask extent a coffee's processing method can explain its flavor rating. The predictor variable is `processing_method`, and the response variable is `flavor`. 
+
+<br>
+
+### Practice plot
+
+```{r practice-plot, fig.width = 6, fig.height = 4}
+ggplot(coffee_ratings, aes(x = species, y = aroma, fill = species)) + 
+  geom_violin(alpha = 0.8) + 
+  scale_fill_manual(values=c("purple", "chocolate4")) + 
+  theme_bw()
+```
+
+### Github account
+
+My github account is named `sjspielman`.
+

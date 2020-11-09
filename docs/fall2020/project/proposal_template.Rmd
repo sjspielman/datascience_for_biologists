@@ -1,0 +1,44 @@
+---
+title: "Project Proposal"
+subtitle: "Data Science for Biologists, Fall 2020"
+author: "Your name goes here"
+output: 
+  html_document:
+    theme: simplex
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE, echo = TRUE, include = TRUE)
+# Load all libraries you use HERE
+library(tidyverse)
+```
+
+
+
+### Description
+
+
+
+### Data
+
+```{r read-data}
+
+```
+
+
+
+### Modeling question
+
+
+
+### Practice plot
+
+```{r practice-plot}
+
+```
+
+
+### Github account
+

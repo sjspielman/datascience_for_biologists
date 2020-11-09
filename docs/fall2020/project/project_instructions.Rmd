@@ -1,0 +1,125 @@
+---
+title: "Project and Project Proposal Instructions"
+subtitle: "Data Science for Biologists, Fall 2020"
+output: 
+  html_document:
+    highlight: tango
+    theme: readable
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE, echo = FALSE, include = FALSE)
+library(tidyverse)
+```
+
+
+## Overall Instructions
+
+For your final project, you will be analyzing a dataset of your choosing. Your goal will be to ask **FOUR** scientific/explanatory questions about your dataset, and answer each question with associated wrangling, modeling, and visualization. Ground rules:
+
+
++ You must complete your proposal (counted as an assignment) and project each using the respective Rmarkdown template. Documents must knit without errors for full credit.
++ Both Rmarkdown documents must use an Rmarkdown [theme of your choosing](https://www.datadreaming.org/post/r-markdown-theme-gallery/).
++ You must ensure that all rendered plots are fully visible and legible with an appropriate aspect ratio. You do not need to separately save figures as independent files. 
++ All plots that use colors/fills MUST use a non-default color scheme that is colorblind accessible. 
++ It does not matter which geoms you use for your plots, as long as the plots are properly made and are relevant to/address your given exploratory question. 
+  + In other words: IT IS OK if you have the same type of plot for multiple (or all!) questions, as long each plot answers your question appropriately!
++ At least ONE of the four questions MUST use a model (either linear regression or logistic regression) to answer it. 
+
+
+## Specific Proposal instructions
+
+**Due Tuesday December 1st by 11:59 PM.** Timely submission is extremely important so that I can **approve** your proposal in time so that you can actually do the final project. This proposal will be counted as an *assignment.*
+
+For your proposal, you will identify a dataset to analyze. You must choose a dataset that we have NOT used in class. Some fantastic options for finding data include:
+
++ The `#tidytuesday` repository has a dataset for each week since 2018
+  + https://github.com/rfordatascience/tidytuesday
++ The statistics website FiveThirtyEight has a bunch of datasets they have compiled (some of which have been used as `#tidytuesday`, actually!)
+  + https://data.fivethirtyeight.com/
++ The website "Kaggle" has a *lot* of compiled datasets. You need to make a free account on the website to download the data, but you do NOT have to pay.
+  + https://www.kaggle.com/datasets
++ The Gapminder website we have previously seen has a lot of great datasets
+  + https://www.gapminder.org/data/
++ The UCI Machine Learning database
+  + https://archive.ics.uci.edu/ml/datasets.php
++ This website lists *a bunch* of other options! Again, if you need help obtaining the data
+  + https://www.dataquest.io/blog/free-datasets-for-projects/
++ If you have read a scientific paper that you think has accessible data you want to use, *please reach out to me and I will help you track it down*
++ If there is a specific of data from a certain field you want to use but you don't know where to find it, *reach out to me and I will help see if I can find one for you!*
+
+
+For your proposal, you will...
+
++ Introduce and *briefly* describe your dataset, including why you chose it for your project. 
++ Read in and display the dataset
++ Propose your MODELING QUESTION ONLY, including which variables will be used as response and predictor(s). 
+  + To be clear: You do NOT need to come up with all four questions in advance. You ONLY need to determine what your question will be that uses a linear or logistic regression. 
++ Make one plot *of any kind* from the dataset to practice making and *sizing* plots in Rmarkdown
+  + This plot does NOT need to be used in your final project, but it can be. It does not even have to be related to your final questions. It just needs to be *some kind of plot* (made with ggplot) from your data.
+  
+
+If your dataset is being read in from a FILE, you must upload BOTH your **Rmarkdown** file (NOT the knitted HTML) and the **dataset as a CSV (or tsv, etc) file** to Canvas for this submission. If your dataset is being read in from a URL (similar to`#tidytuesday` as we have seen!), you do NOT need to upload a CSV file with your proposal - only the Rmd file.
+
+**You must also create a FREE account on the website [https://github.com](https://github.com).** Include your account name in the project proposal. This will allow me to set you up to work on the project itself. Don't worry at all about using the website - just make your account, and make sure not to forget your password for when we use the website after Thanksgiving!!
+
+## Specific Project Instructions
+
+**For a 10% bonus, submit by Wednesday December 16th at 11:59 PM.**
+
+**Final deadline for full credit is Sunday December 20th at 11:59 PM.** Unless you have specifically arranged an extension with me, submissions will NOT be accepted after this date, as it represents the _literal end_ of the Fall 2020 semester. Note that extensions for this assignment will likely mean you will have an "Incomplete" grade for the class.
+
+
+You must complete your final project using the template Rmarkdown file in *your forked copy of the project github repository.* Your final repository must have at least *THREE* commits associated with your work for the project (the first of which we will do together). You must submit your final project by filing a *Pull Request* to my repository by the deadline. 
+
+Your final repository should contain only these files: 
+
++ `README.md` (I have written this file for you)
++ Your final project as an Rmarkdown named `<lastname>_final_project.Rmd`. 
+  + For example, I would call this `Spielman_final_project.Rmd`
++ Your final knitted project `<lastname>_final_project.html`. 
++ Your dataset named `<lastname>_dataset.csv` (or `.tsv`, etc. depending on the file type)
+  + If your data is being directly read in from a URL, you do NOT need to include it in your final project. If you are including your dataset, make sure it is named appropriately *and that your Rmarkdown file expects that name.*
+
+### How will you be graded?
+
+This project is worth 20% of your final grade. This project will be worth 150 points as follows:
+
++ **20 points for each** successfully-completed question and answer (total 80 points)
+  + Remember to *fully format your plots with professional labels, and DO NOT use the default color schemes!*
++ **15 points** for adhering to the format. This includes...
+  + Placing code into their intended code chunk. For example, libraries should only be loaded in the setup code chunk.
+  + Labeling all code chunks
+  + NOT using "forbidden" code like `View()`, `install.packages()`, or `cvd_grid()`
+  + Setting your custom Rmarkdown theme 
++ **15 points** for *agreement between Rmarkdown and HTML files*. 
+  + When I knit your Rmarkdown file, I should exactly recover your HTML file.
++ **40 points** for successfully completing the project with git version control
+  + **15 points** are for your three required commits (5 points each)
+  + **20 points** are for successfully forking the repository, working in the repository, and submitting a pull request
+  + **5 points** for a properly organized repository
+  + If you do not use git for your final project, you can still get credit but you will lose these 40 points.
++ Remember: Submitting early gets you a 10% (15 points!) bonus
+
+
+
+
+## Examples
+
+Below are linked examples for roughly how you are expected to do the proposal and project. The project example is limited to 2 questions for simplicity.
+
++ Please refer to [this example proposal]() to see the target scope for the proposal.
+  + Its source Rmarkdown file is available [here](). 
+  + *Hint:* You can use this to see how to insert your Rmarkdown theme, and more!
+
++ Please refer to [this example project]() to see the target scope for the project.
+  + Its source Rmarkdown file is available [here](). 
+
+
+
+
+
+
+

@@ -1,0 +1,118 @@
+---
+title: "EXAMPLE PROJECT"
+subtitle: "Data Science for Biologists, Fall 2020"
+author: "Stephanie J. Spielman"
+output: 
+  html_document:
+    theme: simplex
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE, echo = TRUE, include = TRUE)
+# Load all libraries you use HERE
+library(tidyverse)
+library(broom)
+```
+
+## Introduction
+
+In this project, I analyze a [dataset of coffee ratings](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-07-07/readme.md) from the `#tidytuesday` repository. This dataset contains information about coffees and their ratings from around the world:
+
+```{r read-data}
+coffee_ratings <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-07-07/coffee_ratings.csv')
+
+coffee_ratings
+```
+
+
+## Question 1
+
+### Do Arabica or Robusta coffees have a higher mean flavor value?
+
+#### Methods
+
+```{r question1, fig.width = 4, fig.height=3}
+# calculate mean flavors for each species
+coffee_ratings %>%
+  group_by(species) %>%
+  summarize(mean_flavor = mean(flavor))
+
+# visualize flavor distributions and means per species
+ggplot(coffee_ratings, aes(x = species, y = flavor, fill = species)) + 
+  geom_violin(alpha = 0.8) + 
+  scale_fill_manual(values=c("purple", "chocolate4")) + 
+  theme_bw() + 
+  stat_summary()
+```
+
+#### Answer
+Robusta has a slightly higher mean flavor at 7.63 compared to Arabica's mean flavor of 7.51.
+
+
+
+## Question 2
+
+### To what extent does a coffee's processing method explain its flavor rating?
+
+#### Methods
+
+First, I prepare the data to model.
+```{r question2-prep}
+# prepare data to model
+coffee_ratings %>%
+  select(flavor, processing_method) %>%
+  drop_na() -> coffee_ratings_model_data
+
+# display data
+coffee_ratings_model_data
+```
+
+Then, I assess the assumption of equal variance across groups. The "Washed/Wet" category has a larger spread compared to the other distributions, but the difference is not severe. 
+```{r question2-assumptions, fig.width = 4, fig.height=3}
+# Assess assumption of roughly equal variance among processing_method groups
+ggplot(coffee_ratings_model_data, aes(x = processing_method, y = flavor)) + geom_point()
+```
+
+Now, I build the model and assess the assumption of normal residuals. In the QQ plot, most points fall along the line, so the residuals are indeed normally distributed.
+
+```{r question2-buildmodel, fig.width = 4, fig.height=3}
+# build model
+fit <- lm(flavor ~ processing_method, data = coffee_ratings_model_data)
+
+# Assess assumption of normal residuals
+qqnorm(fit$residuals)
+qqline(fit$residuals)
+```
+
+Now, I examine model output:
+
+```{r question2-examinemodel}
+# coefficients:
+broom::tidy(fit)
+
+# r-squared:
+broom::glance(fit)
+```
+
+Finally, I make a figure to accompany my model:
+
+```{r question2-plotmodel, fig.width = 7, fig.height=4}
+ggplot(coffee_ratings_model_data, aes(x = fct_reorder(processing_method,flavor), y = flavor)) + 
+  # reorder x axis based on flavor
+  geom_boxplot(aes(fill = fct_reorder(processing_method,flavor))) + 
+  scale_fill_brewer(palette = "Dark2") + 
+  xlab("Processing method") + ylab("Coffee flavor") + 
+  theme(legend.position = "none", 
+        # smaller font to fit on axis
+        axis.text.x = element_text(size=7.5))
+```
+
+
+#### Answer
+This regression yielded an $R^2 = 0.01637$ with a P-value of 0.0002. These results suggest that processing method, while significant, is not a strong predictor of coffee flavor, but is actually a very weak predictor. The mean flavor for "Natural/Dry" coffees is 7.59. The model reports that that the flavor score for "Washed/Wet" coffees is, on average, 0.105 lower than "Natural/Dry" coffees (P=1.94e-5). Similarly, "Other" coffee flavors are, on average, 0.14 points lower than are "Natural/Dry" coffees (P=0.0365). There is no statistical evidence that "Pulped natural/honey" or "Semi-washed / Semi-pulped" have different average flavors from "Natural/Dry". This result is exemplified in the figure, which shows highly similar means among flavor distributions.
+
+
+
+
