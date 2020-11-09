@@ -9,7 +9,7 @@ This website contains all materials used in BIOL 01301 Fall 2020 at Rowan Univer
 
 <br>
 
-## Class resources, all in one place: [Resources](./fall2020/resources.html)
+## Class `tidyverse` resources, all in one place: [Resources](./fall2020/resources.html)
 
 
 <br> 
@@ -51,8 +51,8 @@ This website contains all materials used in BIOL 01301 Fall 2020 at Rowan Univer
  M 11/2 | *Open work day* | None | None | None
  W 11/4 | *Open work day* | None | None | None
  R 11/5 | *Open work day*  | None | None | None
- M 11/9 | Introduction to regression and linear modeling | TBD | TBD | None
- W 11/11 | Linear modeling | TBD | TBD | None
+ M 11/9 | Introduction to regression and linear modeling | None | [Linear modeling tutorial](./fall2020/tutorials/lm_tutorial.html) | None
+ W 11/11 | Linear modeling | None | TBD | None
  R 11/12 | *Open work day*  | None | None | **Assignment #9: hw9.R script due Thursday 11/19/20 by 12:01 pm (noon) to Canvas.** 
  M 11/16 | Introduction to logistic regression | TBD | TBD | None
  W 11/18 | Logistic regression  | TBD | TBD | None
