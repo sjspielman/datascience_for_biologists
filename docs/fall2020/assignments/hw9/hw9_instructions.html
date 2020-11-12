@@ -537,16 +537,17 @@ summary {
 <blockquote>
 <p>All questions should be answered in the provided hw9.R script template.</p>
 </blockquote>
-<ol start="0" style="list-style-type: decimal">
-<li>Before we begin, we will need to slightly modify the coffee dataset. Filter the dataset to <em>remove all rows</em> whose <code>total_cup_score</code> is 0, and save the result to a new tibble called <code>coffee_ratings_clean</code>. <strong>You will use <code>coffee_ratings_clean</code> for all questions on this HW.</strong></li>
-</ol>
+<div id="part-0" class="section level3">
+<h3>Part 0</h3>
+<p>Before we begin, we will need to slightly modify the coffee dataset. Filter the dataset to <em>remove all rows</em> whose <code>total_cup_score</code> is 0. Save the result to a new tibble called <code>coffee_ratings_clean</code>, which you should use for all subsequent questions.</p>
 <p><br></p>
+</div>
 <div id="part-1" class="section level3">
 <h3>Part 1</h3>
 <p>Construct a linear model that examines how coffee <em>balance</em> might explain variation in <em>aroma</em>, for all coffees in the dataset. Take the following steps to do so (code as you go through the steps!)</p>
 <ul>
 <li><p>Make a quick scatterplot to make sure the “linear relationship” assumption is met for this data. Be sure to have your predictor and response on the correct axis! You do NOT need to use any “fancy styling” - this should be a quick, simple, <em>purely exploratory</em> plot to check for a linear relationship. <em>In a comment BELOW your plotting code,</em> indicate whether a linear relationship appears present.</p></li>
-<li><p>Now that you have confirmed the relationship is linear (hint: it is linear), build your linear model. Then, <em>BEFORE</em> you examine its output, evaluate whether the model residuals were normally distributed with a QQ-plot. <em>In a comment BELOW your plotting code,</em> indicate whether the residuals are normally distributed. If they are not normally distributed, explain why this assumption is still met.</p></li>
+<li><p>Now that you have confirmed the relationship is linear (hint: it is linear), build your linear model. Then, <em>BEFORE</em> you examine its output, evaluate whether the model residuals were normally distributed with a QQ-plot. <em>In a comment BELOW your plotting code,</em> indicate whether the residuals are normally distributed.</p></li>
 <li><p>Now that you have confirmed the residuals are roughly normally distributed (hint: they are), examine the output from your linear model. In the templated comments below your code, provide answers to the given questions as <em>1-2 sentences EACH</em>. <strong>Follow the templated comments please!!!</strong></p></li>
 <li><p>Finally, make a stylish scatterplot of your findings. You should save this plot to a file called <code>part1.png</code>. Your scatterplot should:</p>
 <ul>
@@ -590,15 +591,12 @@ summary {
 <p>Construct a linear model that examines how BOTH <em>country of origin</em> and <em>balance</em> might explain variation in <em>aroma</em>. You should again only consider Arabica coffees from Ethiopia, Mexico, and Colombia for this question. Since we already checked our equal variance assumption for coffee of origin, and we effectively already checked balance linearity in part 1, we can skip those for part 3!</p>
 <ul>
 <li><p>Build TWO linear models: one with and without an interaction effect between country and balance. Evaluate both models for the assumption of normally distributed residuals.</p></li>
-<li><p>Now that you have confirmed the residuals are roughly normally distributed (hint: they are), examine the output from your linear model. In the templated comments below your code, provide answers to the given questions as <em>1-2 sentences each</em>.</p>
-<ul>
-<li>It is indeed correct that the template has fewer interpretation slots here!</li>
-</ul></li>
+<li><p>Now that you have confirmed the residuals are roughly normally distributed (hint: they are), examine the output from your linear model. In the templated comments below your code, provide answers to the given questions as <em>1-2 sentences each</em>. (It is indeed correct that the template has fewer interpretation slots here!)</p></li>
 <li><p>Finally, make a stylish <em>scatterplot</em> of your model,and save the figure to a file called <code>part3.png</code>:</p>
 <ul>
 <li>Use your favorite ggplot theme (it’s allowed to like the default!)</li>
 <li>Make sure that countries are well-distinguished using an <em>accessible color scheme</em></li>
-<li>Make sure to show a regression lines for EACH country! <strong>NOTICE in these lines</strong> how they are consistent with your conclusions about country being a significant predictor. You do not have to write anything, just notice!</li>
+<li>Make sure to show a regression lines for EACH country!</li>
 <li>Include a meaningful title. You do NOT need to include the formula as a subtitle!</li>
 <li>Include a well-placed annotation that gives the model’s <span class="math inline">\(R^2\)</span></li>
 <li>Be fully legible in the file.</li>
@@ -654,7 +652,7 @@ summary {
 <div id="part-bonus" class="section level3">
 <h3>Part BONUS</h3>
 <p>This is ENTIRELY optional for the statistically-inclined. To do this part, please carefully read and engage with the final section “Introduction to model selection” in the linear model tutorial.</p>
-<p>Using <strong>AIC-based</strong> model selection with the <code>step()</code> function, determine the optimal predictors for a model to explain variation in <em>aroma</em>. To do this, use the subsetted coffee dataset you created for part 2, but further subset it to contain ONLY these columns.</p>
+<p>Using <strong>AIC-based</strong> model selection with the <code>step()</code> function, determine the optimal predictors for a model to explain variation in <em>aroma</em>. To do this, use the filtered coffee dataset you created for part 2, but further subset it to contain ONLY these columns.</p>
 <ul>
 <li><code>country_of_origin</code></li>
 <li><code>aroma</code><br />
@@ -675,7 +673,7 @@ summary {
 </li>
 <li><code>sweetness</code></li>
 </ul>
-<p>You do not need to worry about checking assumptions for this bonus question - simply use stepwise model selection to build the model, and provide a brief 2-3 sentence explanation of the model coefficients (including which predictors are retained in the end!) and its <span class="math inline">\(R^2\)</span>.</p>
+<p>You do not need to worry about checking assumptions for this bonus question - simply use stepwise model selection to build the model. Provide a brief (1-2 sentence) explanation of your findings, specifically: how does this model differ from part 3’s preferred model, which model has the best <span class="math inline">\(R^2\)</span>, and whether the model is a weak, moderate, or strong predictor.</p>
 </div>
 </div>
 
