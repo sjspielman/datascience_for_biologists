@@ -1,6 +1,6 @@
 ##########################################################################################
 ## Homework 9
-## Due Thursday 11/12/20 by 12:01 PM (noon) to Canvas 
+## Due Thursday 11/19/20 by 12:01 PM (noon) to Canvas 
 ## Provide your code AND associated comments in the space below each question.
 ## Do NOT delete the questions! Please keep formatting as is. 
 ## This document must run with "Source" without errors or bugs for full credit. 
@@ -43,13 +43,11 @@ library(tidyverse)
 # Interpret the slope (balance coefficient) on the next line(s) as comments:
 # REPLACE THIS COMMENT WITH SLOPE INTERPRETATION
 
-# Interpret the R^2 value on the next line(s) as comments:
+# Interpret the R^2 value on the next line(s) as comments, and conclude whether balance is a weak/moderate/strong predictor of aroma.
 # REPLACE THIS COMMENT WITH R^2 INTERPRETATION
 
-# Conclude whether balance is a strong or weak predictor of aroma, considering both "biological significance" (effect size!) as well as statistical significance.
-# REPLACE THIS COMMENT WITH OVERALL MODEL CONCLUSION
 
-### Visualize model result
+### Visualize model result and save to file `part1.png` (you do NOT need to submit the png file!!)
 
 
 ## Part 2 -----------------------------------------------------------------
@@ -76,14 +74,12 @@ library(tidyverse)
 # Interpret all country coefficients on the next line(s) as comments:
 # REPLACE THIS COMMENT WITH INTERPRETATIONS OF COEFFICIENTS:
 
-# Interpret the R^2 value on the next line(s) as comments:
+# Interpret the R^2 value on the next line(s) as comments, and conclude whether country is a weak/moderate/strong predictor of aroma.
 # REPLACE THIS COMMENT WITH R^2 INTERPRETATION:
 
-# Conclude whether country is a strong or weak predictor of aroma, considering both "biological significance" (effect size!) as well as statistical significance.
-# REPLACE THIS COMMENT WITH OVERALL MODEL CONCLUSION
 
 
-### Visualize model result
+### Visualize model result and save to file `part2.png` (you do NOT need to submit the png file!!)
 
 
 ## Part 3 -----------------------------------------------------------------
@@ -98,34 +94,33 @@ library(tidyverse)
 ### Interpret:
 
 # Which model is preferred: model with or without interaction? Clearly explain below.
+# Hint: If an interaction effect is significant, it is the preferred model. If the interaction effects are NOT significant, we prefer the independent-effects model
 # REPLACE THIS COMMENT WITH YOUR CONCLUSION FOR WHICH MODEL IS PREFERRED
 
-# Considering the PREFERRED model, Interpret the R^2 value on the next line(s) as comments:
+# Considering the PREFERRED model, Interpret the R^2 value on the next line(s) as comments. Is this model a weak/moderate/strong predictor of aroma?
 # REPLACE THIS COMMENT WITH R^2 INTERPRETATION:
 
-# Considering the PREFERRED model, whether country and balance provide a strong or weak predictor of aroma, considering both "biological significance" (effect size!) as well as statistical significance.
-# REPLACE THIS COMMENT WITH OVERALL MODEL CONCLUSION
 
 
-### Visualize model result
+### Visualize model result and save to file `part3.png` (you do NOT need to submit the png file!!)
 
 
 
 ## Part 4 -----------------------------------------------------------------
 
-## Predict:
+# Prediction code:
 
 
 
-## Answer:
+# Answer as a comment:
 
 
 ## Bonus part -----------------------------------------------------------------
 
-# Model selection:
+# Model selection code:
 
 
 # Interpretation:
-# on this/next line(s) 
+
 
 
