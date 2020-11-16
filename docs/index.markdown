@@ -54,7 +54,7 @@ This website contains all materials used in BIOL 01301 Fall 2020 at Rowan Univer
  M 11/9 | Introduction to regression and linear modeling | None | [Linear modeling tutorial](./fall2020/tutorials/lm_tutorial.html) | None
  W 11/11 | Linear modeling | [In-class R script notes](./fall2020/inclass/class_notes_11-11-20.R) | None | **NOTE:** Unfortunately (so sorry!!) I forgot to re-press the Record button after the class break, so only the first half is recorded. *All information you need for the HW is definitely in the linear modeling tutorial, and I am very glad to help with any questions in office hours as always!!!*
  R 11/12 | *Open work day*  | None | None | **Assignment #9: hw9.R script due Thursday 11/19/20 by 12:01 pm (noon) to Canvas.**  [Link to instructions](./fall2020/assignments/hw9/hw9_instructions.html) and [Template hw9.R script](./fall2020/assignments/hw9/hw9.R) (if needed)
- M 11/16 | Introduction to logistic regression | TBD | TBD | None
+ M 11/16 | Introduction to logistic regression | None | [Slides](./fall2020/slides/slides_logistic1.html) | None
  W 11/18 | Logistic regression  | TBD | TBD | None
  R 11/19 | *Open work day*  | None | None | **Assignment #10: hw10.R script due Friday 11/27/20 by 11:59 pm to Canvas.**  (Extra day for Thanksgiving logistics)
  M 11/23 | Introduction to Rmarkdown | TBD | TBD | None
