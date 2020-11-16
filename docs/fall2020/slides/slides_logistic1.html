@@ -81,15 +81,12 @@ ul:first-child, ol:first-child {
  + Ignore the AI hype.
 
 
-
-&lt;img src="img_logistic/ML_super_unsuper.png" width="550px" /&gt;
-
 .pull-left[
-&lt;img src="img_logistic/classif_regre.png" width="250px" /&gt;
+&lt;img src="img_logistic/ML_super_unsuper.png" width="500px" /&gt;
 ]
 
 .pull-right[
-&lt;img src="img_logistic/clustering_vomit.png" width="200px" /&gt;
+&lt;img src="img_logistic/classif_regre.png" width="500px" /&gt;
 ]
 
 ---
@@ -110,73 +107,62 @@ ul:first-child, ol:first-child {
 
 
 ```r
-biopsy &lt;- read_csv("biopsy.csv")
-## 
-## ── Column specification ────────────────────────────────────────────────────────
-## cols(
-##   clump_thickness = col_double(),
-##   uniform_cell_size = col_double(),
-##   uniform_cell_shape = col_double(),
-##   marg_adhesion = col_double(),
-##   epithelial_cell_size = col_double(),
-##   bare_nuclei = col_double(),
-##   bland_chromatin = col_double(),
-##   normal_nucleoli = col_double(),
-##   mitoses = col_double(),
-##   outcome = col_character()
-## )
-          #paste0("https://raw.githubusercontent.com/sjspielman/",
-          #       "datascience_for_biologists/master/docs/fall2020/",
-          #       "slides/biopsy.csv"))
+
+# too large to fit on slide..
+data_url &lt;- paste0("https://raw.githubusercontent.com/sjspielman/",
+                   "datascience_for_biologists/master/docs/",
+                   "fall2020/slides/biopsy.csv")
+                   
+biopsy &lt;- read_csv(data_url)
 
 dplyr::glimpse(biopsy)
 ## Rows: 683
 ## Columns: 10
-## $ clump_thickness      &lt;dbl&gt; 5, 5, 3, 6, 4, 8, 1, 2, 2, 4, 1, 2, 5, 1, 8, 7, …
-## $ uniform_cell_size    &lt;dbl&gt; 1, 4, 1, 8, 1, 10, 1, 1, 1, 2, 1, 1, 3, 1, 7, 4,…
-## $ uniform_cell_shape   &lt;dbl&gt; 1, 4, 1, 8, 1, 10, 1, 2, 1, 1, 1, 1, 3, 1, 5, 6,…
-## $ marg_adhesion        &lt;dbl&gt; 1, 5, 1, 1, 3, 8, 1, 1, 1, 1, 1, 1, 3, 1, 10, 4,…
-## $ epithelial_cell_size &lt;dbl&gt; 2, 7, 2, 3, 2, 7, 2, 2, 2, 2, 1, 2, 2, 2, 7, 6, …
-## $ bare_nuclei          &lt;dbl&gt; 1, 10, 2, 4, 1, 10, 10, 1, 1, 1, 1, 1, 3, 3, 9, …
-## $ bland_chromatin      &lt;dbl&gt; 3, 3, 3, 3, 3, 9, 3, 3, 1, 2, 3, 2, 4, 3, 5, 4, …
-## $ normal_nucleoli      &lt;dbl&gt; 1, 2, 1, 7, 1, 7, 1, 1, 1, 1, 1, 1, 4, 1, 5, 3, …
-## $ mitoses              &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 5, 1, 1, 1, 1, 1, 4, 1, …
-## $ outcome              &lt;chr&gt; "benign", "benign", "benign", "benign", "benign"…
+## $ clump_thickness      &lt;dbl&gt; …
+## $ uniform_cell_size    &lt;dbl&gt; …
+## $ uniform_cell_shape   &lt;dbl&gt; …
+## $ marg_adhesion        &lt;dbl&gt; …
+## $ epithelial_cell_size &lt;dbl&gt; …
+## $ bare_nuclei          &lt;dbl&gt; …
+## $ bland_chromatin      &lt;dbl&gt; …
+## $ normal_nucleoli      &lt;dbl&gt; …
+## $ mitoses              &lt;dbl&gt; …
+## $ outcome              &lt;chr&gt; …
 ```
 
 ---
 
 ## Building the logistic regression: Prepare the data
 
-**`glm(response ~ predictors, data = data, family = "binomial")`**
-
 
 ```r
 ## Ensure the column is a factor, OR it has 0/1 values
 ## Help yourself by coding success = 1, failure = 0. This way you don't need alphabetical order
-
 biopsy %&gt;%
-  mutate(outcome_01 = case_when(outcome == "malignant" ~ 1,  ## "success" in model
+  mutate(outcome_01 = case_when(outcome == "malignant" ~ 1, # "success" 
                                 outcome == "benign" ~ 0)) %&gt;%
-  select(-outcome) -&gt; biopsy_outcome01
+  select(-outcome) %&gt;%
+  select(outcome_01, everything()) -&gt; biopsy_outcome01
 
-biopsy_outcome01
-## # A tibble: 683 x 10
-##    clump_thickness uniform_cell_si… uniform_cell_sh… marg_adhesion
-##              &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;         &lt;dbl&gt;
-##  1               5                1                1             1
-##  2               5                4                4             5
-##  3               3                1                1             1
-##  4               6                8                8             1
-##  5               4                1                1             3
-##  6               8               10               10             8
-##  7               1                1                1             1
-##  8               2                1                2             1
-##  9               2                1                1             1
-## 10               4                2                1             1
-## # … with 673 more rows, and 6 more variables: epithelial_cell_size &lt;dbl&gt;,
-## #   bare_nuclei &lt;dbl&gt;, bland_chromatin &lt;dbl&gt;, normal_nucleoli &lt;dbl&gt;,
-## #   mitoses &lt;dbl&gt;, outcome_01 &lt;dbl&gt;
+head(biopsy_outcome01)
+## # A tibble: 6 x 10
+##   outcome_01 clump_thickness
+##        &lt;dbl&gt;           &lt;dbl&gt;
+## 1          0               5
+## 2          0               5
+## 3          0               3
+## 4          0               6
+## 5          0               4
+## 6          1               8
+## # … with 8 more variables:
+## #   uniform_cell_size &lt;dbl&gt;,
+## #   uniform_cell_shape &lt;dbl&gt;,
+## #   marg_adhesion &lt;dbl&gt;,
+## #   epithelial_cell_size &lt;dbl&gt;,
+## #   bare_nuclei &lt;dbl&gt;,
+## #   bland_chromatin &lt;dbl&gt;,
+## #   normal_nucleoli &lt;dbl&gt;,
+## #   mitoses &lt;dbl&gt;
 ```
 
 ---
@@ -186,42 +172,33 @@ biopsy_outcome01
 
 
 ```r
-head(biopsy_outcome01)
-## # A tibble: 6 x 10
-##   clump_thickness uniform_cell_si… uniform_cell_sh… marg_adhesion
-##             &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;         &lt;dbl&gt;
-## 1               5                1                1             1
-## 2               5                4                4             5
-## 3               3                1                1             1
-## 4               6                8                8             1
-## 5               4                1                1             3
-## 6               8               10               10             8
-## # … with 6 more variables: epithelial_cell_size &lt;dbl&gt;, bare_nuclei &lt;dbl&gt;,
-## #   bland_chromatin &lt;dbl&gt;, normal_nucleoli &lt;dbl&gt;, mitoses &lt;dbl&gt;,
-## #   outcome_01 &lt;dbl&gt;
-# remember: we do NOT want the original outcome as a predictor!!
+
 baseline_logit_fit &lt;- glm(outcome_01 ~ ., data = biopsy_outcome01, family = "binomial")
-fit                &lt;- step(baseline_logit_fit, trace = F) # Read "Introduction to Model Selection"!!
+
+fit &lt;- step(baseline_logit_fit, trace = F) # Read "Introduction to Model Selection"!!
 ```
 
 ---
 
-## Interpreting the logistic regression coefficients... don't.
+## Interpreting the logistic regression coefficients
 
 
 ```r
 broom::tidy(fit)
 ## # A tibble: 8 x 5
-##   term               estimate std.error statistic  p.value
-##   &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-## 1 (Intercept)          -9.98     1.13       -8.86 7.66e-19
-## 2 clump_thickness       0.534    0.141       3.79 1.49e- 4
-## 3 uniform_cell_shape    0.345    0.172       2.01 4.43e- 2
-## 4 marg_adhesion         0.342    0.119       2.87 4.07e- 3
-## 5 bare_nuclei           0.388    0.0936      4.15 3.32e- 5
-## 6 bland_chromatin       0.462    0.168       2.75 6.02e- 3
-## 7 normal_nucleoli       0.226    0.111       2.04 4.16e- 2
-## 8 mitoses               0.531    0.324       1.64 1.02e- 1
+##   term  estimate std.error
+##   &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+## 1 (Int…   -9.98     1.13  
+## 2 clum…    0.534    0.141 
+## 3 unif…    0.345    0.172 
+## 4 marg…    0.342    0.119 
+## 5 bare…    0.388    0.0936
+## 6 blan…    0.462    0.168 
+## 7 norm…    0.226    0.111 
+## 8 mito…    0.531    0.324 
+## # … with 2 more variables:
+## #   statistic &lt;dbl&gt;,
+## #   p.value &lt;dbl&gt;
 ```
 
 + For every unit increase in the predictor, the **log odds of success** of the response increases by the coefficient
@@ -234,7 +211,10 @@ broom::tidy(fit)
 
 ## Visualizing the logistic regression
 
-&lt;img src="img_logistic/logit_transform_fromlinear.png" width="400px" /&gt;
+&lt;img src="img_logistic/logit_transform_fromlinear.png" width="600px" /&gt;
+
+
+---
 
 
 ```r
@@ -243,14 +223,20 @@ broom::tidy(fit)
 ## What would have been your Y-values if this were regression
 ## YOUR X-AXIS !!
 *head(fit$linear.predictors)
-##         1         2         3         4         5         6 
-## -4.093622  2.032920 -4.773329  1.378604 -3.942642 10.636051
+##         1         2         3 
+## -4.093622  2.032920 -4.773329 
+##         4         5         6 
+##  1.378604 -3.942642 10.636051
 
 ## The logit transformed - PROBABILITIES OF SUCCESS
 ## YOUR Y-AXIS !!
 *head(fit$fitted.values)
-##           1           2           3           4           5           6 
-## 0.016405105 0.884210413 0.008381356 0.798766714 0.019027825 0.999975967
+##           1           2 
+## 0.016405105 0.884210413 
+##           3           4 
+## 0.008381356 0.798766714 
+##           5           6 
+## 0.019027825 0.999975967
 ```
 
 --
@@ -258,11 +244,17 @@ broom::tidy(fit)
 + `\(t =  \beta_0 + \beta_1X_1 + \beta_2X_2 + \beta_3X_3 ... + \beta_NX_N + \epsilon\)`
 + `\(Y = \frac{1}{1 + e^{-t}}\)` 
 
+--
+
 
 ```r
 1/(1 + exp(-1 * fit$linear.predictors)) %&gt;% head()
-##           1           2           3           4           5           6 
-## 0.016405105 0.884210413 0.008381356 0.798766714 0.019027825 0.999975967
+##           1           2 
+## 0.016405105 0.884210413 
+##           3           4 
+## 0.008381356 0.798766714 
+##           5           6 
+## 0.019027825 0.999975967
 ```
 
 ---
@@ -298,7 +290,7 @@ fit_tibble
 
 ## Visualizing the model
 
-.left[
+.pull-left[
 
 ```r
 head(fit_tibble)
@@ -314,7 +306,7 @@ head(fit_tibble)
 ```
 ]
 
-.right[
+.pull-right[
 
 ```r
 ggplot(fit_tibble, aes(x = x, y = y)) + 
@@ -322,12 +314,12 @@ ggplot(fit_tibble, aes(x = x, y = y)) +
  theme(legend.position = "bottom")
 ```
 
-![](slides_logistic1_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+![](slides_logistic1_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
 ]
 ---
 
 ## Visualizing the model FULLY!!!
-.left[
+.pull-left[
 
 ```r
 head(fit_tibble)
@@ -343,15 +335,18 @@ head(fit_tibble)
 ```
 ]
 
-.right[
+.pull-right[
 
 ```r
-*ggplot(fit_tibble, aes(x = x, y = y, color = outcome)) +
+ggplot(fit_tibble, aes(x = x, y = y)) +
  geom_line() +
- theme(legend.position = "bottom")
+*geom_point(aes(color = outcome)) +
+ theme(legend.position = "bottom") + 
+  labs(x = "Linear predictors",
+       y = "Probability malignant")
 ```
 
-![](slides_logistic1_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
+![](slides_logistic1_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -360,28 +355,31 @@ head(fit_tibble)
 
 &lt;img src="img_logistic/confusionmatrix.jpeg" width="350px" /&gt;
 
-+ First ask: is the result positive or negative?
-+ Then ask: should we have gotten that result though? If yes, *TRUE*. If not, *FALSE*.
++ **First ask:** is the result positive or negative? **Then ask:** should we have gotten that result though? 
+  + If yes, *TRUE*. If not, *FALSE*.
+
+---
+
+## What is it?
+
+
+A new arthritis drug does help pain clinical trials, even though it actually does reduce arthritis pain.
 
 --
 
-+ A new arthritis drug does help pain clinical trials, even though it actually does reduce arthritis pain.
+A person with HIV receives a positive test result for HIV.
 
 --
 
-+ A person with HIV receives a positive test result for HIV.
+A person using illegal performing enhancing drugs passes a test clearing them of drug use.
 
 --
 
-+ A person using illegal performing enhancing drugs passes a test clearing them of drug use.
+A study found a significant relationship between neck strain and jogging, when reality there is no relationship.
 
 --
 
-+ A study found a significant relationship between neck strain and jogging, when reality there is no relationship.
-
---
-
-+ A healthy individual gets a positive cancer biopsy result.
+A healthy individual gets a positive cancer biopsy result.
 
 
 ---
@@ -465,46 +463,21 @@ fit_tibble %&gt;%
 * rename(truth = outcome) %&gt;%
   mutate(pred = if_else(y &gt;= threshold, "P", "N")) 
 ## # A tibble: 683 x 4
-##        x       y truth     pred 
-##    &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;
-##  1 -4.09 0.0164  benign    N    
-##  2  2.03 0.884   benign    P    
-##  3 -4.77 0.00838 benign    N    
-##  4  1.38 0.799   benign    P    
-##  5 -3.94 0.0190  benign    N    
-##  6 10.6  1.00    malignant P    
-##  7 -2.73 0.0609  benign    N    
-##  8 -5.35 0.00472 benign    N    
-##  9 -4.49 0.0110  benign    N    
-## 10 -5.09 0.00612 benign    N    
+##        x       y truth   pred 
+##    &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;
+##  1 -4.09 0.0164  benign  N    
+##  2  2.03 0.884   benign  P    
+##  3 -4.77 0.00838 benign  N    
+##  4  1.38 0.799   benign  P    
+##  5 -3.94 0.0190  benign  N    
+##  6 10.6  1.00    malign… P    
+##  7 -2.73 0.0609  benign  N    
+##  8 -5.35 0.00472 benign  N    
+##  9 -4.49 0.0110  benign  N    
+## 10 -5.09 0.00612 benign  N    
 ## # … with 673 more rows
 ```
 
-
----
-`\(Accuracy = \frac{TP + TN}{TP + TN + FP + FN}\)`
-
-
-```r
-threshold &lt;- 0.75
-fit_tibble %&gt;% 
-  rename(truth = outcome) %&gt;% 
-* mutate(pred = if_else(y &gt;= threshold, "P", "N"))
-## # A tibble: 683 x 4
-##        x       y truth     pred 
-##    &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;
-##  1 -4.09 0.0164  benign    N    
-##  2  2.03 0.884   benign    P    
-##  3 -4.77 0.00838 benign    N    
-##  4  1.38 0.799   benign    P    
-##  5 -3.94 0.0190  benign    N    
-##  6 10.6  1.00    malignant P    
-##  7 -2.73 0.0609  benign    N    
-##  8 -5.35 0.00472 benign    N    
-##  9 -4.49 0.0110  benign    N    
-## 10 -5.09 0.00612 benign    N    
-## # … with 673 more rows
-```
 
 ---
 `\(Accuracy = \frac{TP + TN}{TP + TN + FP + FN}\)`
@@ -522,22 +495,26 @@ fit_tibble %&gt;%
 
 model_classif
 ## # A tibble: 683 x 5
-##        x       y truth     pred  classif
-##    &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;  
-##  1 -4.09 0.0164  benign    N     TN     
-##  2  2.03 0.884   benign    P     FP     
-##  3 -4.77 0.00838 benign    N     TN     
-##  4  1.38 0.799   benign    P     FP     
-##  5 -3.94 0.0190  benign    N     TN     
-##  6 10.6  1.00    malignant P     TP     
-##  7 -2.73 0.0609  benign    N     TN     
-##  8 -5.35 0.00472 benign    N     TN     
-##  9 -4.49 0.0110  benign    N     TN     
-## 10 -5.09 0.00612 benign    N     TN     
-## # … with 673 more rows
+##        x       y truth   pred 
+##    &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;
+##  1 -4.09 0.0164  benign  N    
+##  2  2.03 0.884   benign  P    
+##  3 -4.77 0.00838 benign  N    
+##  4  1.38 0.799   benign  P    
+##  5 -3.94 0.0190  benign  N    
+##  6 10.6  1.00    malign… P    
+##  7 -2.73 0.0609  benign  N    
+##  8 -5.35 0.00472 benign  N    
+##  9 -4.49 0.0110  benign  N    
+## 10 -5.09 0.00612 benign  N    
+## # … with 673 more rows, and 1
+## #   more variable:
+## #   classif &lt;chr&gt;
 ```
 
 ---
+
+
 
 ```r
 model_classif %&gt;%
@@ -552,10 +529,14 @@ model_classif %&gt;%
 ## 4 TP        219
 ```
 
+`\(Accuracy = \frac{TP + TN}{TP + TN + FP + FN}\)`
+
 + Accuracy = (437 + 219) / (20 + 7 + 437 + 219) = **0.96**
 
 
 --
+
+.pull-left[
 
 ```r
 model_classif %&gt;%
@@ -566,9 +547,9 @@ model_classif %&gt;%
 ##   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
 ## 1    20     7   437   219
 ```
+]
 
---
-
+.pull-right[
 
 ```r
 model_classif %&gt;%
@@ -576,32 +557,23 @@ model_classif %&gt;%
   pivot_wider(names_from = classif, values_from = n) %&gt;%
   mutate(accuracy = (TP + TN)/(TP + TN + FP + FN))
 ## # A tibble: 1 x 5
-##      FN    FP    TN    TP accuracy
-##   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;dbl&gt;
-## 1    20     7   437   219    0.960
+##      FN    FP    TN    TP
+##   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+## 1    20     7   437   219
+## # … with 1 more variable:
+## #   accuracy &lt;dbl&gt;
 ```
-
+]
 ---
 
 ## How good is the model?
 
 + In linear regression, we often uses `\(R^2\)` values to compare different viable models. Higher `\(R^2\)` often (but not always!) means, "more predictive model"
 
---
 
-+ In *logistic regression*, we use confusion matrix calculations and **AUC** (area under the curve... what curve?)
-
-.pull-left2[
-+ `\(TPR = TP/P = \frac{TP}{TP + FN}\)`
-  + AKA *sensitivity* AKA *recall*
-+ `\(TNR = TN/N = \frac{TN}{FP + TN}\)`
-  + AKA *specificity*
-+ `\(FPR = FP/N = \frac{FP}{FP + TN}\)`
-  + AKA *1 - specificity*
-+ Precision: `\(PPV = \frac{TP}{TP + FP}\)`
-  + AKA *positive predictive value*
-+ Accuracy: `\(\frac{TP + TN}{TP + TN + FP + FN}\)`
-]
++ In logistic regression, performance **depends** on your chosen threshold! So, how do we choose a threshold?
+  + Usually, find the threshold that makes the false positive rate &lt;5%&gt; 
++ We also use **AUC** (area under the curve... what curve?)
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
