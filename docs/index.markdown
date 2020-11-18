@@ -56,7 +56,7 @@ This website contains all materials used in BIOL 01301 Fall 2020 at Rowan Univer
  R 11/12 | *Open work day*  | None | None | **Assignment #9: hw9.R script due Thursday 11/19/20 by 12:01 pm (noon) to Canvas.**  [Link to instructions](./fall2020/assignments/hw9/hw9_instructions.html) and [Template hw9.R script](./fall2020/assignments/hw9/hw9.R) (if needed)
  M 11/16 | Introduction to logistic regression | "Logistic regression" RStudio Cloud project  | [Slides in browser](./fall2020/slides/slides_logistic.html) and [Slides as PDF](./fall2020/slides/slides_logistic.pdf) | None
  W 11/18 | Logistic regression  | "Logistic regression" RStudio Cloud project | Same slides as Monday (note, they have been updated with more slides!)| None
- R 11/19 | *Open work day*  | None | None | **Assignment #10: hw10.R script due Friday 11/27/20 by 11:59 pm to Canvas.**  (Extra day for Thanksgiving logistics)
+ R 11/19 | *Open work day*  | None | None | **Assignment #10: hw10.R script due Friday 11/27/20 by 11:59 pm to Canvas.**  (Extra day for Thanksgiving logistics). [Link to instructions](./fall2020/assignments/hw10/hw10_instructions.html) and [Template hw9.R script](./fall2020/assignments/hw10/hw10.R) (if needed)
  M 11/23 | Introduction to Rmarkdown | TBD | TBD | None
  W 11/25 | Introduction to Rmarkdown  | TBD | TBD | None
  R 11/27 | *NO CLASS, HAPPY THANKSGIVING!!!*  | None | None | **Assignment #11: Rmarkdown Project Proposal due 12/1/20 by 11:59 pm to Canvas.** 
