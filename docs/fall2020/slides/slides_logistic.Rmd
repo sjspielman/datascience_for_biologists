@@ -1,6 +1,6 @@
 ---
 title: "Introduction to logistic regression"
-author: "Stephanie J. Spielman"
+author: "Stephanie J. Spielman, PhD"
 date: "Data Science for Biologists, Fall 2020"
 output:
   xaringan::moon_reader:
@@ -324,24 +324,32 @@ knitr::include_graphics("img_logistic/confusionmatrix.jpeg")
 
 ---
 
+## Recall our model:
+
+```{r}
+# Recall:
+biopsy %>%
+  mutate(outcome_01 = case_when(outcome == "malignant" ~ 1, # "success" 
+                                outcome == "benign" ~ 0)) %>%
+  select(-outcome) %>%
+  select(outcome_01, everything()) -> biopsy_outcome01
+baseline_logit_fit <- glm(outcome_01 ~ ., data = biopsy_outcome01, family = "binomial")
+fit <- step(baseline_logit_fit, trace = F) # Read "Introduction to Model Selection"!!
+
+tibble(x = fit$linear.predictors, 
+       y = fit$fitted.values, 
+       outcome = biopsy$outcome) -> fit_tibble
+
+head(fit_tibble)
+```
+
+---
+
 ## Caculating performance measures
 
 + Requires a *threshold* to call malignant/benign outcomes. 
 + For an example, let's say >=0.75 is malignant (success). <0.75 is benign (failure)
 + Accuracy: $\frac{TP + TN}{TP + TN + FP + FN}$
-
-```{r}
-# Reminder:
-tibble(x = fit$linear.predictors, 
-       y = fit$fitted.values, 
-       outcome = biopsy$outcome) -> fit_tibble
-
-fit_tibble
-```
-
-
----
-$Accuracy = \frac{TP + TN}{TP + TN + FP + FN}$
 
 ```{r}
 threshold <- 0.75
@@ -409,3 +417,237 @@ model_classif %>%
 + In logistic regression, performance **depends** on your chosen threshold! So, how do we choose a threshold?
   + Usually, find the threshold that makes the false positive rate <5%> 
 + We also use **AUC** (area under the curve... what curve?)
+
+---
+
+
+## Evaluating logistic regressions
+
+.pull-left[
+**Receiver Operating Characteristic** Curve
+  + TPR on Y-axis
+  + FPR (1 - specificity) on X-axis
+  + The AUC (**a**rea **u**nder the **c**urve) is an overall assessment of performance *at any threshold*
+]
+
+.pull-right[
++ $TPR = TP/P = \frac{TP}{TP + FN}$ (*sensitivity* AKA *recall*)
+
+
++ $TNR = TN/N = \frac{TN}{FP + TN}$ (*specificity*)
+
+
++ $FPR = FP/N = \frac{FP}{FP + TN}$ (*1 - specificity*)
+]
+
+  
+```{r out.width = '400px', echo=F}
+knitr::include_graphics("img_logistic/roc-theory-small.png") 
+```
+
++ ROC curves are used to evaluate performance of *ANY binary classifier* (not just logistic regression)
+
+---
+
+## Getting a "feel" for ROC curves
+
+```{r out.width = '800px', echo=F}
+knitr::include_graphics("img_logistic/roc_intuition.png") 
+```
+
+---
+
+## Examples of ROC curves in the literature
+
+.pull-left[
+Keller et al. Genome Biol Evol 2012; 4:80-88 
+
+```{r out.width = '300px', echo=F}
+knitr::include_graphics("img_logistic/roc_keller.png") 
+```
+]
+
+
+.pull-right[
+Imperiale et al. N Engl J Med 2014; 370:1287-1297
+
+```{r out.width = '225px', echo=F}
+knitr::include_graphics("img_logistic/roc_colon.jpeg") 
+```
+]
+
+
+---
+
+## ROC vs PR
+
+
++ ROC curves are suitable when data is *balanced*
+  + Similar amounts of positives, negatives in the dataset
+  + FPR (1 - specificity) on X-axis, TPR on Y-axis
+
++ **Precision-Recall** curves are more suitable for *unbalanced* data
+  + Precision (PPV) on Y-axis, recall (TPR) on X-axis
+
+
+<br><br>
+
++ $TPR = TP/P = \frac{TP}{TP + FN}$ (*recall*)
++ $FPR = FP/N = \frac{FP}{FP + TN}$ 
++ $PPV = \frac{TP}{TP + FP}$ 
+
+---
+
+## Is the biopsy data balanced?
+
+
+```{r}
+biopsy %>%
+  count(outcome)
+```
++ About 2:1::benign:malignant
++ Not very balanced, but it's reasonable. ROC is ok to use!
+
++ *Problematically imbalanced* would be 4000 benign and 5 malignant (or vice versa).
+
+
+---
+
+## Making ROC curves
+
++ Recall:
+  + Our model fit is saved in `fit`
+  + Our model was built with `biopsy_outcome01` dataset
+  
+```{r}
+## Use the pROC library to help you
+#install.packages("pROC")
+library(pROC)
+```
+
+```{r}
+# Use the function roc(), and data with the 0/1 coded outcome!!
+model_roc <- roc(biopsy_outcome01$outcome_01, fit$linear.predictors) #<<
+
+# This also works the same:
+model_roc <- roc(biopsy_outcome01$outcome_01, fit$fitted.values) #<<
+```
+
+---
+
+## Getting information out
+```{r}
+model_roc$auc
+```
++ Models are usually *not this good.* This dataset comes from a package that teaches modeling - it was chosen for a reason...
+
+--
+```{r}
+## Piped into head() to fit on the slide
+
+## True positive rates
+model_roc$sensitivities %>% head()
+
+## True negative rates
+model_roc$specificities %>% head()
+
+## False positives rates
+1 - model_roc$specificities %>% head()
+```
+
+---
+
+## Make an ROC curve
+
+```{r, fig.width = 5, fig.height = 4}
+tibble(TPR = model_roc$sensitivities,
+       FPR = 1 - model_roc$specificities) %>%
+  ggplot(aes(x = FPR, y = TPR)) + 
+  geom_line() +
+  labs(title = "ROC curve to classify biopsy results",
+       subtitle = paste("AUC =",round(model_roc$auc, 3)) ) +
+  ## this is the y=x line to GUIDE US and help us interpret the curve
+  geom_abline(col = "red")
+```
+
+---
+
+## Using ROC to determine the reliable model
+
++ Build your candidate models 
++ Determine their AUC value using the pROC package
++ The highest AUC is the most reliable model
++ ...and of course, make a visualization!
+
+---
+
+## Build your candidate models
+
+
+```{r}
+names(biopsy_outcome01)
+
+# fit1: Predict outcome with mitoses and clump_thickness, for example
+fit1 <- glm(outcome_01 ~ mitoses + clump_thickness, data = biopsy_outcome01, family = "binomial")
+
+# fit2: Predict outcome with mitoses and normal_nucleoli
+fit2 <- glm(outcome_01 ~ mitoses + normal_nucleoli, data = biopsy_outcome01, family = "binomial")
+
+# fit3: Predict outcome with mitoses, normal_nucleoli, and clump_thickness
+fit3 <- glm(outcome_01 ~ mitoses + normal_nucleoli + clump_thickness, data = biopsy_outcome01, family = "binomial")
+```
+
+---
+
+## Determine their AUC values
+
+```{r}
+fit1_roc <- roc(biopsy_outcome01$outcome_01, fit1$linear.predictors) 
+fit1_roc$auc
+
+fit2_roc <- roc(biopsy_outcome01$outcome_01, fit2$linear.predictors) 
+fit2_roc$auc
+
+fit3_roc <- roc(biopsy_outcome01$outcome_01, fit3$linear.predictors) 
+fit3_roc$auc
+```
+
+---
+
+
+## Visualize: Create the data for plotting
+
++ Need to combine all values into ONE tibble
+
+```{r}
+tibble(TPR = fit1_roc$sensitivities,
+       FPR = 1 - fit1_roc$specificities, 
+       model = "fit1") -> fit1_tibble
+
+tibble(TPR = fit2_roc$sensitivities,
+       FPR = 1 - fit2_roc$specificities, 
+       model = "fit2") -> fit2_tibble
+
+tibble(TPR = fit3_roc$sensitivities,
+       FPR = 1 - fit3_roc$specificities, 
+       model = "fit3") -> fit3_tibble
+
+bind_rows(fit1_tibble, fit2_tibble) %>%
+  bind_rows(fit3_tibble) -> final_tibble
+```
+
+---
+
+## Visualize: Plot away!
+
+
+```{r, fig.width = 6, fig.height=5}
+ggplot(final_tibble, aes(x = FPR, y = TPR, color = model, group = model)) + 
+  geom_line() +
+  labs(title = "ROC curves for candidate models",
+       x = "FPR", y = "TPR") +
+  scale_color_brewer(palette = "Dark2") +
+  ## this is the y=x line to GUIDE US and help us interpret the curve
+  geom_abline()
+```
+
