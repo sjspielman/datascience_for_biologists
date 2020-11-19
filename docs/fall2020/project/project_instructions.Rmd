@@ -108,14 +108,14 @@ This project is worth 20% of your final grade. This project will be worth 150 po
 
 ## Examples
 
-Below are linked examples for roughly how you are expected to do the proposal and project. The project example is limited to 2 questions for simplicity.
+Below are linked examples for roughly how you are expected to do the proposal and project. The project example is limited to 2 questions for simplicity. **You will be provided with a final project template, as well. Make sure to follow it similar to how the example does!**
 
-+ Please refer to [this example proposal]() to see the target scope for the proposal.
-  + Its source Rmarkdown file is available [here](). 
++ Please refer to [this example proposal](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/docs/fall2020/project/example_proposal.html) to see the target scope for the proposal.
+  + Its source Rmarkdown file is available [here](https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/docs/fall2020/project/example_proposal.Rmd).   
   + *Hint:* You can use this to see how to insert your Rmarkdown theme, and more!
 
-+ Please refer to [this example project]() to see the target scope for the project.
-  + Its source Rmarkdown file is available [here](). 
++ Please refer to [this example project](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/docs/fall2020/project/example_project.html) to see the target scope for the project.
+  + Its source Rmarkdown file is available [here](https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/docs/fall2020/project/example_project.Rmd). 
 
 
 

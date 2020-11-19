@@ -59,7 +59,7 @@ This website contains all materials used in BIOL 01301 Fall 2020 at Rowan Univer
  R 11/19 | *Open work day*  | None | None | **Assignment #10: hw10.R script due Friday 11/27/20 by 11:59 pm to Canvas.**  (Extra day for Thanksgiving logistics). [Link to instructions](./fall2020/assignments/hw10/hw10_instructions.html) and [Template hw10.R script](./fall2020/assignments/hw10/hw10.R) (if needed)
  M 11/23 | Introduction to Rmarkdown | TBD | TBD | None
  W 11/25 | Introduction to Rmarkdown  | TBD | TBD | None
- R 11/27 | *NO CLASS, HAPPY THANKSGIVING!!!*  | None | None | **Assignment #11: Rmarkdown Project Proposal due 12/1/20 by 11:59 pm to Canvas.** 
+ R 11/27 | *NO CLASS, HAPPY THANKSGIVING!!!*  | None | None | **Assignment #11: Rmarkdown Project Proposal due 12/1/20 by 11:59 pm to Canvas.** [Link to FULL PROJECT AND PROPOSAL INSTRUCTIONS](./fall2020/project/project_instructions.html) <br><br> [Example Proposal](./fall2020/project/example_proposal.html) <br><br> [Example Project](./fall2020/project/example_project.html)
  M 11/30 | Introduction to UNIX and the terminal | TBD | TBD | None
  W 12/2 | Introduction to UNIX and the terminal   | TBD | TBD | None
  R 12/3 | Introduction to version control with git  | None | None | None
