@@ -89,6 +89,7 @@ This project is worth 20% of your final grade. This project will be worth 150 po
 
 + **20 points for each** successfully-completed question and answer (total 80 points)
   + Remember to *fully format your plots with professional labels, and DO NOT use the default color schemes!*
+  + Each answer **MUST** have at least one figure to complement your findings.
 + **15 points** for adhering to the format. This includes...
   + Placing code into their intended code chunk. For example, libraries should only be loaded in the setup code chunk.
   + Labeling all code chunks
