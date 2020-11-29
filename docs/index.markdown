@@ -60,8 +60,8 @@ This website contains all materials used in BIOL 01301 Fall 2020 at Rowan Univer
  M 11/23 | Introduction to RMarkdown | "Introduction to RMarkdown" RStudio Cloud Project | [RMarkdown Reference](https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf) | None
  W 11/25 | Introduction to RMarkdown  | Continue with Monday, and begin project proposals | None | **Assignment #11: Rmarkdown Project Proposal due 12/1/20 by 11:59 pm to Canvas.** [Link to FULL PROJECT AND PROPOSAL INSTRUCTIONS](./fall2020/project/project_instructions.html) <br><br> [Example Proposal](./fall2020/project/example_proposal.html) <br><br> [Example Project](./fall2020/project/example_project.html)
  R 11/27 | *NO CLASS, HAPPY THANKSGIVING!!!*  | None | None | None
- M 11/30 | Introduction to UNIX and the terminal | TBD | TBD | None
- W 12/2 | Introduction to UNIX and the terminal   | TBD | TBD | None
+ M 11/30 | Introduction to UNIX and the terminal | [UNIX cheatsheet](./fall2020/tutorials/unix_cheatsheet.html)| None | None
+ W 12/2 | Introduction to UNIX and the terminal   | [UNIX exercises](./fall2020/tutorials/unix_exercises.html) | None | None
  R 12/3 | Introduction to version control with git  | None | None | None
  M 12/7 | Version controlling your projects | TBD | TBD | None
  W 12/9 | Version controlling your projects  | TBD | TBD | **Final Project due 12/16/20 by 11:59 PM for 10% bonus, or 12/20/20 11:59 PM no bonus/no penalty.**

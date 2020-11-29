@@ -1,0 +1,78 @@
+---
+title: "Basic UNIX Exercises"
+output: html_document
+css: ../static/sjs-style.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Words to the wise
+
++ The terminal is NOT the R Console. If you run UNIX commands in R Console, they won't work! If you run R commands in terminal, they will not work!
++ If/**when** you get the error message **"no such file or directory"** it means either:
+	+ You are trying to work with a file that is in a different directory from your current directory where you are issuing commands.
+	+ You spelled the file name incorrectly
++ You do NOT need to type quotes in UNIX. Arguments will be appropriately interpreted. In other words, `cd directory` NOT `cd "directory"`.
++ When typing directories, you will see it written sometimes with and sometimes without a trailing "/", e.g. `~/Desktop` or `~/Desktop/`. Generally speaking, it makes no difference and these are equivalent, but including the slash makes it more _explicit_ that you are referring to a directory and not to a file. If you tab-autocompleted a directory name, UNIX will automatically tack on the slash
+
+
+### Tasks
+
+> All of these tasks shoud be conducted in TERMINAL with typing commands. Remember,  the R CONSOLE IS NOT THE TERMINAL!
+
+1. Run `pwd` to determine what directory you are in. `ls` to list all the files and folders (directories!), and confirm what you see is "right" by looking at the normal Finder window in this directory.
+    + If you are using your personal computer's terminal, it is likely you are starting in your *home directory*.
+    + If you are using the terminal in RStudio Cloud, you are starting in the directory `/cloud/project/`.
+  
+2.  Create a new empty file called `my_file.txt` using the command touch: `touch my_file.txt`. 
+
+3. Run `ls` to list all files, which can help confirm this new file indeed was created. You should also now see the file `my_file.txt` in the Finder window.
+
+4. Open the new file `my_file.txt` in the **Text Editor** and write something in it, save as you would normally, and close the file. 
+    + On RStudio Cloud, click the file in the File Pane and then click "View File" to open it. 
+    + If you are you your computer, just double click the file (from a finder window! this question ONLY from a finder window!).
+
+5. Make a new directory call `unix_practice` with the command mkdir: `mkdir unix_practice`, and then run `ls` to confirm it was made (it will now appear in the listed output).
+
+6. Make a COPY of the file `my_file.txt` to be called `my_file_copy.txt`. To do this, use the command: `cp my_file.txt my_file_copy.txt`. Again, `ls` to confirm the file was created.
+
+7. MOVE the copied file `my_file_copy.txt` into the new directory `unix_practice`. To do this, use the command: `mv my_file_copy.txt unix_practice/`. 
+    + Protip: By explicitly typing the forward slash at the end of the directory `unix_practice/`, it helps YOU to visually see that it is a directory and not a file!.
+  
+8. Now, actual go into that directory using the `cd` (change directory) command: `cd unix_practice`. 
+    + Type `pwd` to confirm you actually changed directories properly
+    + Type `ls` to see all files inside `unix_practice` - there should only be `my_file_copy.txt`!
+
+9. Now, *rename* this file. We use the `mv` command for this task as well - `mv` both moves and renames files (in fact, renaming is just another type of moving - moving it to a different name!). Change the file name from `my_file_copy.txt` to `my_file_copy_renamed.txt` using the command: `mv my_file_copy.txt my_file_copy_renamed.txt`. 
+    + Type `ls` to confirm the file was renamed. You should also see it changed in the File Pane/Finder!
+
+10. Now, delete the file `my_file_copy_renamed.txt` using the `rm` command like this: `rm my_file_copy_renamed.txt`. **THIS PERMANENTLY DELETES THE FILE - NO RECOVERY!**
+
+
+12. Go *back* one directory, so you are no longer inside `unix_practice/`. To go backwards ONE directory, use the shortcut `..` with cd with the command: `cd ..`.
+    + Type `pwd` to confirm where you are and that you have left `unix_practice/`.
+
+
+12. Delete the directory `unix_practice/` you created with the `rm` command. To delete DIRECTORIES (instead of files), you need to use the flag `-r`, as in: `rm -r unix_practice`, and finally `ls` to confirm the directory was removed.
+    + If you try to delete a directory but forget to use `-r`, you will get an error message like this: `rm: unix_practice: is a directory`.
+
+13. Run the command `history` and look at your many commands you ran! Only the ones that did NOT have errors get saved!
+
+
+14. Clear your screen view with `clear`, and then convince yourself that while the screen is cleared, commands weren't deleted! You can cycle back with the up arrow, just like in the R console.
+
+15. Finally, let's practice a little more with our paths. Take the follow steps:
+    + Create a new directory called `new_directory`: `mkdir new_directory`
+    + Create TWO new file _inside that directory_ called `file1.txt` and `file2.txt`. Use a different strategy to create each one:
+       + To create `file1.txt`, `cd` into `new_directory/`, then make the new file with `touch`. Then, navigate back out of `new_directory` with `cd ..`.
+       + To create `file2.txt` WITHOUT `cd`'ing into `new_directory/`, simply make new file with `touch` that will live inside `new_directory/`. In other words, `touch new_directory/file2.txt` (paths for the win!).
+
+16. Now, make sure you are NOT inside `new_directory/` (use `pwd` to confirm you are one directory level ABOVE it). Without running `cd`, use the `mv` command to rename `file1.txt` to `file1_renamed.txt`: `mv new_directory/file1.txt new_directory/file1_renamed.txt`.
+
+17. Use the same strategy as in #16 to rename `file2.txt` to `file2_renamed.txt`.
+
+18. Finally, use `rm -r` to remove the `new_directory/` and all of its contents.
+
+

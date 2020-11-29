@@ -1,0 +1,53 @@
+---
+title: "UNIX Cheatsheet"
+output: html_document
+css: ../static/sjs-style.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+> **This document is NOWHERE NEAR COMPREHENSIVE.** To learn more, visit Dr. Spielman's website and see "Resources"!
+
+
+
+
+### Directory
+  - A *folder* on your computer which contains files. UNIX filesystems are organized as hierarchical directories. 
+  - Forward slashes divide levels in the nested hierarchy of directories, e.g. `/top_level_directory/second_level_directory`
+  - The directory at the top of this hierarchy is called the **root** directory and is denoted simply as `/`. 
+
+### Path
+  - The *address* to a directory or file on your computer. There are, generally, two types of paths:
+    - **Absolute/full path** represents the path of a given directory/file beginning at the root directory.
+    - **Relative path** represents the path of a given directory/file relative to the working/current directory.
+
+
+### Basic UNIX commands
+
+> Note that # also represent comments in UNIX!
+
+Command | Description &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Examples
+-------|--------------|----------- 
+`touch` | Create an empty file. | `touch new_blank_file.txt`
+`pwd` | Display the path of the current directory (aka **p**rint **w**orking **d**irectory) | `pwd # yup that's it!`
+`ls` | **L**i**s**t files and directories in current directory. |  `ls` <br> `ls -l # display long` <br> `ls -a # show hidden files` <br> `ls -lah # display long, show hidden files, and show Human-readable file sizes` 
+`cd` | **C**hange **d**irectory |  `cd Desktop` <br> `cd .. # one directory back` <br> `cd ~ # shortcut to go home`
+`cp` | **C**o**p**y a file or directory(use `cp -r`) | `cp oldfile.txt newfile.txt` <br> `cp oldfile.txt .. # make a copy of the file to live one directory up` <br> `cp -r first_directory second_directory`
+`mv` | **M**o**v**e or rename a file or directory (_original file is changed_ - like "cut" aka ctl+X) |  `mv oldfile.txt newfile.txt #rename file from oldfile.txt to newfile.txt` <br> `cp oldfile.txt into_this_directory/ # MOVE oldfile.txt to live in the directory into_this_directory/` <br> `cp oldfile.txt .. # MOVE oldfile.txt to live one directory back`
+`mkdir` | Create a new directory (aka **m**a**k**e **dir**ectory) | `mkdir new_directory`
+`rm` | **R**e**m**ove a file or directory (use `rm -r`). **Warning: This is PERMANENT!.** | `rm file_I_dont_need.txt` <br> `rm -r directory_I_dont_need/`
+`clear` | **Clear** screen (simply scroll up for past commands). Can also use Ctrl + L | `clear # yup that's it!`
+`history`| View history of recent past commands | `history # yup that's it!`
+
+## Shortcuts and symbols
+
+Shortcut/symbol | Description
+----------|-----
+`Ctrl + C` | Kills current process/command
+`tab` (tab key) | autocomplete word
+`↑` (up arrow)| scroll back through previous commands
+`.` | Current directory
+`..` | One directory level up 
+
