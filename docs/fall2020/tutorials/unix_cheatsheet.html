@@ -428,6 +428,30 @@ summary {
 <blockquote>
 <p><strong>This document is NOWHERE NEAR COMPREHENSIVE.</strong> To learn more, visit Dr. Spielman’s website and see “Resources”!</p>
 </blockquote>
+<pre class="css"><code>&lt;style&gt;
+table th:first-of-type {
+    width: 20%;
+}
+table th:nth-of-type(2) {
+    width: 40%;
+}
+table th:nth-of-type(3) {
+    width: 40%;
+}
+&lt;/style&gt;</code></pre>
+<style type="text/css">
+<style>
+table th:first-of-type {
+    width: 20%;
+}
+table th:nth-of-type(2) {
+    width: 40%;
+}
+table th:nth-of-type(3) {
+    width: 40%;
+}
+</style>
+</style>
 <div id="directory" class="section level3">
 <h3>Directory</h3>
 <ul>
@@ -453,14 +477,22 @@ summary {
 </blockquote>
 <table>
 <colgroup>
-<col width="21%" />
-<col width="43%" />
-<col width="34%" />
+<col width="20%" />
+<col width="40%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="28%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th>Command</th>
-<th>Description           </th>
+<th>Description</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
 <th>Examples</th>
 </tr>
 </thead>
@@ -468,51 +500,91 @@ summary {
 <tr class="odd">
 <td><code>touch</code></td>
 <td>Create an empty file.</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
 <td><code>touch new_blank_file.txt</code></td>
 </tr>
 <tr class="even">
 <td><code>pwd</code></td>
 <td>Display the path of the current directory (aka <strong>p</strong>rint <strong>w</strong>orking <strong>d</strong>irectory)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
 <td><code>pwd # yup that&#39;s it!</code></td>
 </tr>
 <tr class="odd">
 <td><code>ls</code></td>
 <td><strong>L</strong>i<strong>s</strong>t files and directories in current directory.</td>
-<td><code>ls</code> <br> <code>ls -l # display long</code> <br> <code>ls -a # show hidden files</code> <br> <code>ls -lah # display long, show hidden files, and show Human-readable file sizes</code></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td><code>ls</code> <br> <code>ls -l # display long</code> <br> <code>ls -a # show hidden files</code> <br> <code>ls -la # display long and show hidden files</code></td>
 </tr>
 <tr class="even">
 <td><code>cd</code></td>
 <td><strong>C</strong>hange <strong>d</strong>irectory</td>
-<td><code>cd Desktop</code> <br> <code>cd .. # one directory back</code> <br> <code>cd ~ # shortcut to go home</code></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td><code># Go into Desktop (assumed in the current directory!</code> <br> <code>cd Desktop</code> <br><br> <code># Go one directory BACK</code> <br> <code>cd .. # one directory back</code></td>
 </tr>
 <tr class="odd">
 <td><code>cp</code></td>
-<td><strong>C</strong>o<strong>p</strong>y a file or directory(use <code>cp -r</code>)</td>
-<td><code>cp oldfile.txt newfile.txt</code> <br> <code>cp oldfile.txt .. # make a copy of the file to live one directory up</code> <br> <code>cp -r first_directory second_directory</code></td>
+<td><strong>C</strong>o<strong>p</strong>y a file or directory (use <code>cp -r</code>)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td><code>Make a copy of oldfile.txt called newfile.txt</code> <br> <code>cp oldfile.txt newfile.txt</code> <br><br> <code># Make a copy of oldfile.txt (same name!) that will live one directory back</code> <br> <code>cp oldfile.txt ..</code> <br><br> <code># Copy the whole directory first_directory called second_directory</code> <br> <code>cp -r first_directory second_directory</code></td>
 </tr>
 <tr class="even">
 <td><code>mv</code></td>
 <td><strong>M</strong>o<strong>v</strong>e or rename a file or directory (<em>original file is changed</em> - like “cut” aka ctl+X)</td>
-<td><code>mv oldfile.txt newfile.txt #rename file from oldfile.txt to newfile.txt</code> <br> <code>cp oldfile.txt into_this_directory/ # MOVE oldfile.txt to live in the directory into_this_directory/</code> <br> <code>cp oldfile.txt .. # MOVE oldfile.txt to live one directory back</code></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td><code># RENAME file from oldfile.txt to newfile.txt</code> <br> <code>mv oldfile.txt newfile.txt</code> <br><br> <code># MOVE oldfile.txt to live in the directory into_this_directory/</code><br> <code>cp oldfile.txt into_this_directory/</code> <br><br> <code># MOVE oldfile.txt to live one directory back</code> <br> <code>cp oldfile.txt ..</code></td>
 </tr>
 <tr class="odd">
 <td><code>mkdir</code></td>
 <td>Create a new directory (aka <strong>m</strong>a<strong>k</strong>e <strong>dir</strong>ectory)</td>
-<td><code>mkdir new_directory</code></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td><code># Create a new folder called new_directory</code> <br> <code>mkdir new_directory</code></td>
 </tr>
 <tr class="even">
 <td><code>rm</code></td>
-<td><strong>R</strong>e<strong>m</strong>ove a file or directory (use <code>rm -r</code>). <strong>Warning: This is PERMANENT!.</strong></td>
-<td><code>rm file_I_dont_need.txt</code> <br> <code>rm -r directory_I_dont_need/</code></td>
+<td><strong>R</strong>e<strong>m</strong>ove a file or directory (use <code>rm -r</code>). <strong>This is PERMANENT!</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td><code># PERMANENTLY delete a file</code> <br> <code>rm file_I_dont_need.txt</code> <br><br> <code># PERMANENTLY delete a folder</code> <br> <code>rm -r directory_I_dont_need/</code></td>
 </tr>
 <tr class="odd">
 <td><code>clear</code></td>
 <td><strong>Clear</strong> screen (simply scroll up for past commands). Can also use Ctrl + L</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
 <td><code>clear # yup that&#39;s it!</code></td>
 </tr>
 <tr class="even">
 <td><code>history</code></td>
 <td>View history of recent past commands</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
 <td><code>history # yup that&#39;s it!</code></td>
 </tr>
 </tbody>

@@ -10,6 +10,19 @@ knitr::opts_chunk$set(echo = TRUE)
 
 > **This document is NOWHERE NEAR COMPREHENSIVE.** To learn more, visit Dr. Spielman's website and see "Resources"!
 
+```{css}
+<style>
+table th:first-of-type {
+    width: 20%;
+}
+table th:nth-of-type(2) {
+    width: 40%;
+}
+table th:nth-of-type(3) {
+    width: 40%;
+}
+</style>
+```
 
 
 
@@ -28,18 +41,18 @@ knitr::opts_chunk$set(echo = TRUE)
 
 > Note that # also represent comments in UNIX!
 
-Command | Description &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Examples
--------|--------------|----------- 
-`touch` | Create an empty file. | `touch new_blank_file.txt`
-`pwd` | Display the path of the current directory (aka **p**rint **w**orking **d**irectory) | `pwd # yup that's it!`
-`ls` | **L**i**s**t files and directories in current directory. |  `ls` <br> `ls -l # display long` <br> `ls -a # show hidden files` <br> `ls -lah # display long, show hidden files, and show Human-readable file sizes` 
-`cd` | **C**hange **d**irectory |  `cd Desktop` <br> `cd .. # one directory back` <br> `cd ~ # shortcut to go home`
-`cp` | **C**o**p**y a file or directory(use `cp -r`) | `cp oldfile.txt newfile.txt` <br> `cp oldfile.txt .. # make a copy of the file to live one directory up` <br> `cp -r first_directory second_directory`
-`mv` | **M**o**v**e or rename a file or directory (_original file is changed_ - like "cut" aka ctl+X) |  `mv oldfile.txt newfile.txt #rename file from oldfile.txt to newfile.txt` <br> `cp oldfile.txt into_this_directory/ # MOVE oldfile.txt to live in the directory into_this_directory/` <br> `cp oldfile.txt .. # MOVE oldfile.txt to live one directory back`
-`mkdir` | Create a new directory (aka **m**a**k**e **dir**ectory) | `mkdir new_directory`
-`rm` | **R**e**m**ove a file or directory (use `rm -r`). **Warning: This is PERMANENT!.** | `rm file_I_dont_need.txt` <br> `rm -r directory_I_dont_need/`
-`clear` | **Clear** screen (simply scroll up for past commands). Can also use Ctrl + L | `clear # yup that's it!`
-`history`| View history of recent past commands | `history # yup that's it!`
+Command | Description | | | | |Examples
+-------|--------------|-|-|-|-|---------- 
+`touch` | Create an empty file. |||||`touch new_blank_file.txt`
+`pwd` | Display the path of the current directory (aka **p**rint **w**orking **d**irectory) ||||| `pwd # yup that's it!`
+`ls` | **L**i**s**t files and directories in current directory. |||||  `ls` <br> `ls -l # display long` <br> `ls -a # show hidden files` <br> `ls -la # display long and show hidden files` 
+`cd` | **C**hange **d**irectory |||||  `# Go into Desktop (assumed in the current directory!` <br> `cd Desktop` <br><br> `# Go one directory BACK` <br> `cd .. # one directory back` 
+`cp` | **C**o**p**y a file or directory (use `cp -r`) ||||| `Make a copy of oldfile.txt called newfile.txt` <br> `cp oldfile.txt newfile.txt` <br><br>  ` # Make a copy of oldfile.txt (same name!) that will live one directory back` <br> `cp oldfile.txt ..` <br><br> ` # Copy the whole directory first_directory called second_directory` <br> `cp -r first_directory second_directory`
+`mv` | **M**o**v**e or rename a file or directory (_original file is changed_ - like "cut" aka ctl+X) |||||  `# RENAME file from oldfile.txt to newfile.txt` <br> `mv oldfile.txt newfile.txt`  <br><br> `# MOVE oldfile.txt to live in the directory into_this_directory/`<br> `cp oldfile.txt into_this_directory/`  <br><br> `# MOVE oldfile.txt to live one directory back` <br> `cp oldfile.txt ..`
+`mkdir` | Create a new directory (aka **m**a**k**e **dir**ectory) ||||| `# Create a new folder called new_directory` <br> `mkdir new_directory`
+`rm` | **R**e**m**ove a file or directory (use `rm -r`). **This is PERMANENT!** ||||| `# PERMANENTLY delete a file` <br> `rm file_I_dont_need.txt` <br><br> `# PERMANENTLY delete a folder` <br> `rm -r directory_I_dont_need/`
+`clear` | **Clear** screen (simply scroll up for past commands). Can also use Ctrl + L ||||| `clear # yup that's it!`
+`history`| View history of recent past commands ||||| `history # yup that's it!`
 
 ## Shortcuts and symbols
 
