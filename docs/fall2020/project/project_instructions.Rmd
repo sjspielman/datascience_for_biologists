@@ -28,6 +28,62 @@ For your final project, you will be analyzing a dataset of your choosing. Your g
   + In other words: IT IS OK if you have the same type of plot for multiple (or all!) questions, as long each plot answers your question appropriately!
 + At least ONE of the four questions MUST use a model (either linear regression or logistic regression) to answer it. 
 
+## Examples
+
+Below are linked examples for roughly how you are expected to do the proposal and project. The project example is limited to 2 questions for simplicity. **You will be provided with a final project template, as well. Make sure to follow it similar to how the example does!**
+
++ Please refer to [this example proposal](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/docs/fall2020/project/example_proposal.html) to see the target scope for the proposal.
+  + Its source Rmarkdown file is available [here](https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/docs/fall2020/project/example_proposal.Rmd).   
+  + *Hint:* You can use this to see how to insert your Rmarkdown theme, and more!
+
++ Please refer to [this example project](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/docs/fall2020/project/example_project.html) to see the target scope for the project.
+  + Its source Rmarkdown file is available [here](https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/docs/fall2020/project/example_project.Rmd). 
+
+## Specific Project Instructions
+
+**For a 10% bonus, submit by Wednesday December 16th at 11:59 PM.**
+
+**Final deadline for full credit is Sunday December 20th at 11:59 PM.** Unless you have specifically arranged an extension with me, submissions will NOT be accepted after this date, as it represents the _literal end_ of the Fall 2020 semester. Note that extensions for this assignment will likely mean you will have an "Incomplete" grade for the class.
+
+
+You must complete your final project using the template Rmarkdown file in *your forked copy of the project github repository.* Your final repository must have at least *THREE* commits associated with your work for the project (the first of which we will do together). You must submit your final project by filing a *Pull Request* to my repository by the deadline. 
+
+Your final repository should contain only these files: 
+
++ `README.md` (I have written this file for you)
++ Your final project as an Rmarkdown named `<lastname>_final_project.Rmd`. 
+  + For example, I would call this `Spielman_final_project.Rmd`
++ Your final knitted project `<lastname>_final_project.html`. 
++ Your dataset named `<lastname>_dataset.csv` (or `.tsv`, etc. depending on the file type)
+  + If your data is being directly read in from a URL, you do NOT need to include it in your final project. If you are including your dataset, make sure it is named appropriately *and that your Rmarkdown file expects that name.*
+
+### How will you be graded?
+
+This project is worth 20% of your final grade. This project will be worth 150 points as follows:
+
++ **20 points for each** successfully-completed question and answer (total 80 points)
+  + Remember to *fully format your plots with professional labels, and DO NOT use the default color schemes!*
+  + Each answer **MUST** have at least one figure to complement your findings.
+  + Your modeling answer must incorporate...
+    + Linear regression: All necessary plots to check assumptions and a final plot of the model's line. Your interpretation must include an explanation of $R^2$ value and its significance.
+    + Logistic regression: Two plots are needed: The logistic curve (the model) and the model's ROC curve (which quantifies the model's performance). Your interpretation must include an explanation of the model's AUC value.
++ **15 points** for adhering to the format. This includes...
+  + Placing code into their intended code chunk. For example, libraries should only be loaded in the setup code chunk.
+  + Labeling all code chunks
+  + NOT using "forbidden" code like `View()`, `install.packages()`, or `cvd_grid()`
+  + Setting your custom Rmarkdown theme 
++ **15 points** for *agreement between Rmarkdown and HTML files*. 
+  + When I knit your Rmarkdown file, I should exactly recover your HTML file.
++ **40 points** for successfully completing the project with git version control
+  + **15 points** are for your three required commits (5 points each)
+  + **20 points** are for successfully forking the repository, working in the repository, and submitting a pull request
+  + **5 points** for a properly organized repository
+  + If you do not use git for your final project, you can still get credit but you will lose these 40 points.
++ Remember: Submitting early gets you a 10% (15 points!) bonus
+
+
+
+
 
 ## Specific Proposal instructions
 
@@ -64,66 +120,5 @@ For your proposal, you will...
 If your dataset is being read in from a FILE, you must upload BOTH your **Rmarkdown** file (NOT the knitted HTML) and the **dataset as a CSV (or tsv, etc) file** to Canvas for this submission. If your dataset is being read in from a URL (similar to`#tidytuesday` as we have seen!), you do NOT need to upload a CSV file with your proposal - only the Rmd file.
 
 **You must also create a FREE account on the website [https://github.com](https://github.com).** Include your account name in the project proposal. This will allow me to set you up to work on the project itself. Don't worry at all about using the website - just make your account, and make sure not to forget your password for when we use the website after Thanksgiving!!
-
-## Specific Project Instructions
-
-**For a 10% bonus, submit by Wednesday December 16th at 11:59 PM.**
-
-**Final deadline for full credit is Sunday December 20th at 11:59 PM.** Unless you have specifically arranged an extension with me, submissions will NOT be accepted after this date, as it represents the _literal end_ of the Fall 2020 semester. Note that extensions for this assignment will likely mean you will have an "Incomplete" grade for the class.
-
-
-You must complete your final project using the template Rmarkdown file in *your forked copy of the project github repository.* Your final repository must have at least *THREE* commits associated with your work for the project (the first of which we will do together). You must submit your final project by filing a *Pull Request* to my repository by the deadline. 
-
-Your final repository should contain only these files: 
-
-+ `README.md` (I have written this file for you)
-+ Your final project as an Rmarkdown named `<lastname>_final_project.Rmd`. 
-  + For example, I would call this `Spielman_final_project.Rmd`
-+ Your final knitted project `<lastname>_final_project.html`. 
-+ Your dataset named `<lastname>_dataset.csv` (or `.tsv`, etc. depending on the file type)
-  + If your data is being directly read in from a URL, you do NOT need to include it in your final project. If you are including your dataset, make sure it is named appropriately *and that your Rmarkdown file expects that name.*
-
-### How will you be graded?
-
-This project is worth 20% of your final grade. This project will be worth 150 points as follows:
-
-+ **20 points for each** successfully-completed question and answer (total 80 points)
-  + Remember to *fully format your plots with professional labels, and DO NOT use the default color schemes!*
-  + Each answer **MUST** have at least one figure to complement your findings.
-  + Your modeling answer must incorporate...
-    + Linear regression: Plots to check assumptions and a final plot of the model (if you have too many predictors to visualize in one plot, *make sure you talk to Spielman about what to do*)
-    + Logistic regression: ROC curve AND logistic curve itself
-+ **15 points** for adhering to the format. This includes...
-  + Placing code into their intended code chunk. For example, libraries should only be loaded in the setup code chunk.
-  + Labeling all code chunks
-  + NOT using "forbidden" code like `View()`, `install.packages()`, or `cvd_grid()`
-  + Setting your custom Rmarkdown theme 
-+ **15 points** for *agreement between Rmarkdown and HTML files*. 
-  + When I knit your Rmarkdown file, I should exactly recover your HTML file.
-+ **40 points** for successfully completing the project with git version control
-  + **15 points** are for your three required commits (5 points each)
-  + **20 points** are for successfully forking the repository, working in the repository, and submitting a pull request
-  + **5 points** for a properly organized repository
-  + If you do not use git for your final project, you can still get credit but you will lose these 40 points.
-+ Remember: Submitting early gets you a 10% (15 points!) bonus
-
-
-
-
-## Examples
-
-Below are linked examples for roughly how you are expected to do the proposal and project. The project example is limited to 2 questions for simplicity. **You will be provided with a final project template, as well. Make sure to follow it similar to how the example does!**
-
-+ Please refer to [this example proposal](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/docs/fall2020/project/example_proposal.html) to see the target scope for the proposal.
-  + Its source Rmarkdown file is available [here](https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/docs/fall2020/project/example_proposal.Rmd).   
-  + *Hint:* You can use this to see how to insert your Rmarkdown theme, and more!
-
-+ Please refer to [this example project](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/docs/fall2020/project/example_project.html) to see the target scope for the project.
-  + Its source Rmarkdown file is available [here](https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/docs/fall2020/project/example_project.Rmd). 
-
-
-
-
-
 
 

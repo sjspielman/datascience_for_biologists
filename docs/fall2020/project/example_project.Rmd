@@ -89,11 +89,7 @@ qqline(fit$residuals)
 Now, I examine model output:
 
 ```{r question2-examinemodel}
-# coefficients:
-broom::tidy(fit)
-
-# r-squared:
-broom::glance(fit)
+summary(fit)
 ```
 
 Finally, I make a figure to accompany my model:
@@ -104,6 +100,7 @@ ggplot(coffee_ratings_model_data, aes(x = fct_reorder(processing_method,flavor),
   geom_boxplot(aes(fill = fct_reorder(processing_method,flavor))) + 
   scale_fill_brewer(palette = "Dark2") + 
   xlab("Processing method") + ylab("Coffee flavor") + 
+  annotate("text", x = 1.2, y = 9, label = "R^2 == 0.01289", size=4,  parse=TRUE)  +
   theme(legend.position = "none", 
         # smaller font to fit on axis
         axis.text.x = element_text(size=7.5))
@@ -111,8 +108,7 @@ ggplot(coffee_ratings_model_data, aes(x = fct_reorder(processing_method,flavor),
 
 
 #### Answer
-This regression yielded an $R^2 = 0.01637$ with a P-value of 0.0002. These results suggest that processing method, while significant, is not a strong predictor of coffee flavor, but is actually a very weak predictor. The mean flavor for "Natural/Dry" coffees is 7.59. The model reports that that the flavor score for "Washed/Wet" coffees is, on average, 0.105 lower than "Natural/Dry" coffees (P=1.94e-5). Similarly, "Other" coffee flavors are, on average, 0.14 points lower than are "Natural/Dry" coffees (P=0.0365). There is no statistical evidence that "Pulped natural/honey" or "Semi-washed / Semi-pulped" have different average flavors from "Natural/Dry". This result is exemplified in the figure, which shows highly similar means among flavor distributions.
-
+This regression yielded an adjusted $R^2 = 0.01289$ with a significant P-value of 0.0007458. These results suggest that processing method, while significant, is not a strong predictor of coffee flavor, but is actually a very weak predictor. In other words, there is definitely some kind of relationship between processing method and flavor, but the relationship is extremely weak.
 
 
 
