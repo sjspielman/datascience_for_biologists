@@ -62,7 +62,7 @@ This website contains all materials used in BIOL 01301 Fall 2020 at Rowan Univer
  R 11/27 | *NO CLASS, HAPPY THANKSGIVING!!!*  | None | None | None
  M 11/30 | Introduction to UNIX and the terminal | [UNIX cheatsheet](./fall2020/tutorials/unix_cheatsheet.html)| None | None
  W 12/2 | Introduction to UNIX and the terminal   | [UNIX exercises](./fall2020/tutorials/unix_exercises.html) | None | None
- R 12/3 | Introduction to version control with git  | None | None | None
+ R 12/3 | Introduction to version control with git  | [Git(hub) cheatsheet](./fall2020/tutorials/github_cheatsheet.html) | None | None
  M 12/7 | Version controlling your projects | TBD | TBD | None
  W 12/9 | Version controlling your projects  | TBD | TBD | **Final Project due 12/16/20 by 11:59 PM for 10% bonus, or 12/20/20 11:59 PM no bonus/no penalty.**
 
