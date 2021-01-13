@@ -5,7 +5,9 @@
 layout: home
 ---
 
-This website contains all materials used in BIOL 01301 Fall 2020 at Rowan University with Dr. Spielman (`spielman <at> rowan <dot> edu`). This course meets remotely Monday and Thursday 2-3:15 pm and Wednesday 3:30-6:15 pm. **Zoom links can be found in [Canvas](https://rowan.instructure.com/). All grading and assignment submissions (unless otherwise stated) will be hosted on [Canvas](https://rowan.instructure.com/), but course materials will be posted on this site and/or within the [rstudio.cloud](https://rstudio.cloud) BIOL01301 workspace.**
+This website contains all materials used in BIOL 01301 Spring 2021 at Rowan University with Dr. Spielman (`spielman <at> rowan <dot> edu`). This course meets remotely Tuesday and Thursday 2-3:15 pm and Wednesday 2:00-4:45 pm. **Zoom links can be found in [Canvas](https://rowan.instructure.com/). All grading and assignment submissions (unless otherwise stated) will be hosted on [Canvas](https://rowan.instructure.com/), but course materials will be posted on this site and/or within the [rstudio.cloud](https://rstudio.cloud) BIOL01301 workspace.**
+
+Open office hours (no appointment necessary) will be on Zoom every Monday 11:30 - 1:00 pm. One-on-one meetings are available by appointment only; please email Dr. Spielman to request a meeting *at least one week in advance* of when you'd like to schedule a meeting.
 
 <br>
 
@@ -16,11 +18,66 @@ This website contains all materials used in BIOL 01301 Fall 2020 at Rowan Univer
 
 ## Class Schedule and Materials
 
-> Materials are subject to change up until the Monday of the EACH week. Below is a ROUGH OUTLINE of what we'll be doing. 
+> Materials are subject to change up until the Tuesday of the EACH week. Below is a ROUGH OUTLINE of what we'll be doing. 
+> Topics denoted "Buffer day" mean classtime will either be used to wrap up previous lessons if more time is needed, or if more time is not needed, be effective "open office hours."
 
+  Date  |Topic                                            | In-class materials           | Recommended Background  | Assignment
+--------|--------------------------------------------------|-----------------------------|---------------------|-----------------
+T 1/26  | Introduction and logistics | None | None | **Assigned:** Fill out the class survey (link on Canvas) **TODAY** if you have not yet done so
+W 1/27  | Types of data and visualizations, Part 1 | None | None | None 
+R 1/28  | Types of data and visualizations, Part 2 |
+T 2/2   | Introduction to R and RStudio, Part 1 |
+W 2/3   | Introduction to R and RStudio, Part 2 |
+R 2/4   | Introduction to R and RStudio, Part 3 |
+T 2/9   | The grammar of graphics, Part 1 |
+W 2/10  | The grammar of graphics, Part 2 |
+R 2/11  | Communicating with data visualization |
+T 2/16  | Visualizing data with `ggplot2`, Part 1 |
+W 2/17  | Visualizing data with `ggplot2`, Part 2 |
+R 2/18  | Visualizing data with `ggplot2`, Part 3 |
+T 2/23  | Reading and writing delimited data |
+W 2/24  | Visualizing data with `ggplot2`, Part 4 |
+R 2/25  | *Buffer day* | 
+T 3/2   | Data wrangling with `dplyr`, Part 1 |
+W 3/3   | Data wrangling with `dplyr`, Part 2 |
+R 3/4   | *Buffer day* | 
+T 3/9   | Debugging strategies |
+W 3/10  | Data wrangling with `dplyr`, Part 3 |
+R 3/11  | Data wrangling with `dplyr`, Part 4 |
+T 3/16  | Working with strings with `stringr` |
+W 3/17  | Regular expressions and `stringr` |
+R 3/18  | *Buffer day* |
+T 3/23  | Tidy data and `tidyr`, Part 1 |
+W 3/24  | Tidy data and `tidyr`, Part 2 |
+R 3/25  | *Buffer day* |
+T 3/30  | Introduction to statistical modeling and so-called machine learning |
+W 3/31  | Linear models, Part 1 |
+R 4/1   | Linear models, Part 2 |
+T 4/6   | Linear models, Part 3 |
+W 4/7   | Linear models, Part 4 |
+R 4/8   | Linear models, Part 5 |
+T 4/13  | Logistic regression, Part 1 |
+W 4/14  | Logistic regression, Part 2 |
+R 4/15  | Logistic regression, Part 3 |
+T 4/20  | Working at the command line and UNIX, Part 1 |
+W 4/21  | Working at the command line and UNIX, Part 2 |
+R 4/22  | Working at the command line and UNIX, Part 3 |
+T 4/27  | Version control with git(hub), Part 1 |
+W 4/28  | Version control with git(hub), Part 2 |
+R 4/29  | Version control with git(hub), Part 3 |
+T 5/4   | *Buffer week*
+W 5/5   | *Buffer week*
+R 5/6   | *Buffer week*
+
+
+ 
+ 
 
 <!--| <div style="width:25px">No.</div> | <div style="width:50px">Date</div> |<div style="width:200px">Topic</div> | <div style="width:225px">In-class materials</div>  | <div style="width:275px">Recommended Background</div>  | <div style="width:300px">Assignment</div>   -->
 
+
+<!--
+FALL 2020:
   Date     |Topic                                            | In-class materials           | Recommended Background  | Assignment
 ----------|--------------------------------------------------|-----------------------------|---------------------|-----------------
  W 9/2   | Introduction and logistics | None | None | **Assigned:** Fill out the class survey (link on Canvas) **TODAY** if you have not yet done so
@@ -29,7 +86,7 @@ This website contains all materials used in BIOL 01301 Fall 2020 at Rowan Univer
  R 9/10  | Introduction to R, Part II | [Interactive Exercises: Intro to R](https://rowanbiosci.shinyapps.io/intro_R/) | Same as W 9/9 | None
  M 9/14  | Introduction to R, Part III | Finish Thursday 9/10 exercises| None | None
  W 9/16  | Miscellaneous R'ing, and Introduction to the "grammar of graphics" | [Slides](https://github.com/sjspielman/datascience_for_biologists/raw/master/docs/fall2020/slides/introduction_to_principles_dataviz.pdf) | *Chapters 1-5* from [Fundamentals of Data Visualization](https://clauswilke.com/dataviz) |  **[Assignment #2](./fall2020/assignments/hw2/hw2_instructions.html) due Wednesday 9/23/20 by 3:00 pm to Canvas**
- R 9/17  | Grammar of graphics | Slides from 9/16, continued | None | None <!-- **Assigned:** "Grammar of graphics" due TBD --><!--Sunday 9/21/20 by 11:59 pm to Canvas-->
+ R 9/17  | Grammar of graphics | Slides from 9/16, continued | None | None
  M 9/21  | Introduction to data visualization with `ggplot2` | None | None | None
  W 9/23  | Introduction to data visualization with `ggplot2` | [Interactive Exercises: Intro to `ggplot2`](https://rowanbiosci.shinyapps.io/intro_ggplot/) <br> Website backup option is available in RStudio Cloud  | None | None
  R 9/24  | *Open work day* | None | None |  **Assignment #3 R script due Thursday 10/1/20 by 12:01 pm (noon) to Canvas.** [Link to instructions](./fall2020/assignments/hw3/hw3_plots_to_recreate.html)
@@ -65,6 +122,9 @@ This website contains all materials used in BIOL 01301 Fall 2020 at Rowan Univer
  R 12/3 | Introduction to version control with git  | [Git(hub) cheatsheet](./fall2020/tutorials/github_cheatsheet.html) | None | None
  M 12/7 | Version controlling your projects | TBD | TBD | None
  W 12/9 | Version controlling your projects  | TBD | TBD | **Final Project due 12/16/20 by 11:59 PM for 10% bonus, or 12/20/20 11:59 PM no bonus/no penalty.**
+--> 
+
+
 
 <!-- <li>[(Time pending) Interactive Exercises: Types of Data](https://rowanbiosci.shinyapps.io/intro_data_types/)</li></ul> 
 
