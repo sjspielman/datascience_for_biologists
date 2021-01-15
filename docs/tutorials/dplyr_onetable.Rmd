@@ -1,0 +1,167 @@
+---
+title: "The greatest hits of `dplyr` one-table verbs"
+author: "Stephanie J. Spielman, PhD"
+output: 
+  html_document:
+    highlight: tango
+    theme: flatly
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, collapse=TRUE)
+library(tidyverse)
+iris <- as_tibble(iris)
+```
+
+<br>
+
++ **Piping syntax** 
+
+  ```{r demo_pipe, eval=FALSE}
+  # Without piping
+  dplyr_function( data_frame_variable, arguments )
+  
+  # With piping
+  data_frame_variable %>%
+    dplyr_function( arguments )
+  ```
+
+<br>
+
++ **[`filter()`](https://dplyr.tidyverse.org/reference/filter.html): Subset _rows_ based on `TRUE`/`FALSE`**
+
+  ```{r demo_filter, exercise=TRUE, exercise.lines = 7}
+  # only keep rows where Species == "setosa" is TRUE
+  iris %>%
+    filter(Species == "setosa")
+  
+  # only keep rows where the sepal length is greater than 5
+  iris %>%
+    filter(Sepal.Length > 5)
+  ```
+
+<br>
+
+
++ **[`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html): Create new _column_**
+
+  ```{r demo_mutate, exercise=TRUE, exercise.lines = 8}
+  # create new column called `thiscolumnis5` where the value is 5
+  iris %>% 
+    mutate(thiscolumnis5 = 5)
+  
+  # create new column called `sepal_area` as the product of sepal length*width
+  iris %>% 
+    mutate(sepal_area = Sepal.Length * Sepal.Width)
+  ```
+
+<br>
+
+
++ **[`distinct()`](https://dplyr.tidyverse.org/reference/distinct.html): Remove duplicate rows**
+
+  ```{r demo_distinct, exercise=TRUE, exercise.lines = 2}
+  iris %>% 
+    distinct()
+  ```
+
+<br>
+
+
++ **[`arrange()`](https://dplyr.tidyverse.org/reference/arrange.html): Sort rows according to a given column**
+
+  ```{r demo_arrange, exercise=TRUE, exercise.lines = 6}
+  iris %>% 
+    arrange(Sepal.Length)
+  
+  # To arrange in descending order:
+  iris %>% 
+    arrange(desc(Sepal.Length))
+  ```
+
+<br>
+
+
++ **[`rename()`](https://dplyr.tidyverse.org/reference/rename.html): Rename columns**
+
+  ```{r demo_rename, exercise=TRUE, exercise.lines = 3}
+  iris %>% 
+    #       newname     =   oldname    !!!!!!!
+    rename(sepal_length = Sepal.Length)
+  ```
+
+<br>
+
+
++ **[`select()`](https://dplyr.tidyverse.org/reference/select.html): Retain or re-order columns**
+
+  ```{r demo_select, exercise=TRUE, exercise.lines = 8}
+  # only keeps those 2 columns
+  iris %>% 
+    select(Sepal.Length, Sepal.Width)
+  
+  # remove those two columns and keep the rest
+  iris %>% 
+    select(-Sepal.Length, -Sepal.Width)
+  ```
+
+<br>
+
+
++ **[`group_by()`](https://dplyr.tidyverse.org/reference/group_by.html): Create a group for grouped operations**
+  + Use `ungroup()` to undo all existing groupings
+  
+  ```{r demo_group_by, exercise=TRUE, exercise.lines = 10}
+  # set up for grouped operations
+  iris %>% 
+    group_by(Species)
+    
+  # group and upgroup, as a demonstration:
+  iris %>% 
+    group_by(Species) %>%
+    ungroup()
+  ```
+  
+<br>
+
+
+
++ **[`summarize()`](https://dplyr.tidyverse.org/reference/summarise.html): Create a new data frame that is a _collapsed and summarized_ version**
+  
+  ```{r demo_summarize, exercise=TRUE, exercise.lines = 10}
+  iris %>% 
+    summarize(mean_sepal_length = mean(Sepal.Length))
+  
+  # in combo with group_by!
+  iris %>% 
+    group_by(Species) %>%
+    summarize(mean_sepal_length = mean(Sepal.Length)) %>%
+    # to be safe, always ungroup:
+    ungroup()
+  ```
+
+<br>
+
+
++ **[`tally()`](https://dplyr.tidyverse.org/reference/tally.html): Count the number of observations in each group**
+  
+  ```{r demo_tally, exercise=TRUE, exercise.lines = 5}
+  iris %>% 
+    group_by(Species) %>% 
+    tally() %>%
+    # to be safe, always ungroup when you're done
+    ungroup()
+  ```
+
+<br>
+
+
++ **[`count()`](https://dplyr.tidyverse.org/reference/count.html): Handy shortcut to group, tally, ungroup!** 
+  
+  ```{r demo_count, exercise=TRUE, exercise.lines = 2}
+  iris %>% 
+    count(Species) 
+  ```
+
