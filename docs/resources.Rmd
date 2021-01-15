@@ -4,6 +4,7 @@ author: "Stephanie J. Spielman, PhD"
 output: 
   html_document:
     highlight: tango
+    theme: flatly
 editor_options: 
   chunk_output_type: console
 ---
@@ -17,209 +18,96 @@ iris <- as_tibble(iris)
 
 ## General resources
 
-+ [Twitter for R programmers](https://www.t4rstats.com/)
-  + Geared towards programmers but serves as a great general "welcome to the Twitter #rstats community"! 
-+ [Fundamentals of Data Visualization](https://clauswilke.com/dataviz) by Claus O. Wilke
-+ [R for Data Science](https://r4ds.had.co.nz/) by Garrett Grolemund and Hadley Wickham
-+ [Data Visualization: A practical Introduction](https://socviz.co/) by Kieran Healy
 + [`tidyverse` homepage, official documentation, and cheatsheets](https://www.tidyverse.org/)
+  + Official documentation for using the tidyverse. Reference pages are "how-to" guides for using specific functions. **A go-to resource!**
+    + [`ggplot2` command reference](https://ggplot2.tidyverse.org/reference/) 
+    + [`readr` command reference](https://readr.tidyverse.org/reference/) 
+    + [`dplyr` command reference](https://dplyr.tidyverse.org/reference/) 
+    + [`tidyr` command reference](https://tidyr.tidyverse.org/reference/) 
+    + [`stringr` command reference](https://stringr.tidyverse.org/reference/) 
+    + [`forcats` command reference](https://forcats.tidyverse.org/reference/) 
+  
++ Vignettes: Introductory tutorials for R packages
+  + [`dplyr`: One-table verbs](https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html)
+  + [`dplyr`: Two-table verbs](https://cran.r-project.org/web/packages/dplyr/vignettes/two-table.html)
+  + [Pivoting with `tidyr`](https://cran.r-project.org/web/packages/tidyr/vignettes/pivot.html)
+  + [Introduction to `forcats`](https://cran.r-project.org/web/packages/forcats/vignettes/forcats.html)
+  + [Introduction to `stringr`](https://cran.r-project.org/web/packages/stringr/vignettes/stringr.html)
+  + [Regular expressions with `stringr`](https://cran.r-project.org/web/packages/stringr/vignettes/regular-expressions.html)
+
++ [RStudio Cloud primers](https://rstudio.cloud/learn/primers)
+  + Interactive resources for practicing certain R and `tidyverse` skills
+  + Recommended primers: "The Basics", "Work with Data", "Visualize data", "Tidy your data." The rest are beyond the scope of our class.
++ [R for Data Science](https://r4ds.had.co.nz/) by Garrett Grolemund and Hadley Wickham
+  + The "official" book for working with the tidyverse. Examples in the book may assume more background knowledge than computing novices have.
++ [Data Visualization: A Practical Introduction](https://socviz.co/) by Kieran Healy
+  + Introduces `ggplot2`, including the philosophy of the grammar of graphics and using many geoms. Again, some examples may assume more background knowledge than computing novices have.
+  + Don't buy it! The whole book is there under "Menu."
+  + Chapter 3 in particular introduces `ggplot2`
++ [Fundamentals of Data Visualization](https://clauswilke.com/dataviz) by Claus O. Wilke
+  + Introduces concepts and principles in data visualization. This book does not contain code or teach `ggplot2`.
+  + Chapter 5 in particular catalogs common types of data visualizations
++ [Twitter for Scientists](https://t4scientists.com/) and  [Twitter for R Programmers](https://www.t4rstats.com/)
+  + An excellent and thorough introductions to using twitter and interacting with the extreme;y wonderful `#rstats` community
 + [Tidyverse style guide](https://style.tidyverse.org/)
-+ [STAT545 Resources (**EXCELLENT** background)](https://stat545.com/)
-+ [Introduction to Data Science e-book](https://rafalab.github.io/dsbook/)
+  + A resource of recommended code style when programming in the `tidyverse`. 
 + [RStudio Resources (all levels of videos/tutorials)](https://resources.rstudio.com/)
+  + Expansive set of webinars compiled by RStudio. Many may be beyond the scope of our class.
++ [The "Tidy Data" paper by Hadley Wickham](https://vita.had.co.nz/papers/tidy-data.pdf)
+  + Introduces the philosophy of "tidy data"
+  
+## Other classes with free online materials
+
++ [STAT545 Resources (**EXCELLENT** background)](https://stat545.com/)
+  + E-book that accompanies a different class that teaches many of the same skills we are learning here, but assumes more statistics/programming background
+  + Recommended book sections:
+    + [`ggplot2` Tutorial](https://stat545.com/ggplot2-tutorial.html)
+    + [Introduction to `dplyr`](https://stat545.com/dplyr-intro.html)
+    + [Single-table `dplyr` functions](https://stat545.com/dplyr-single.html)
+    + [When one tibble is not enough](https://stat545.com/multiple-tibbles.html)
+
++ [Introduction to Data Science e-book](https://rafalab.github.io/dsbook/)
+  + Comprehensive data science book. Many topics in this book are more advanced than the scope of this class, but there are also many useful and relevant chapters.
+  + Recommended book sections:
+    + [R basics](https://rafalab.github.io/dsbook/r-basics.html), specifically sections 2.1-2.7
+    + [`ggplot2`](https://rafalab.github.io/dsbook/ggplot2.html), specifically sections 7.1-7.10
+    + [Visualizing data distributions](https://rafalab.github.io/dsbook/distributions.html), specifically sections 8.1, 8.5, 8.6, 8.12-8.17
+    + [Data visualization in practice](https://rafalab.github.io/dsbook/gapminder.html), all sections
+    + [Data visualization principles](https://rafalab.github.io/dsbook/data-visualization-principles.html), all sections
+    + [The `tidyverse`](https://rafalab.github.io/dsbook/tidyverse.html), specifically sections 4.1-4.10 and 4.14
+    + [Importing data](https://rafalab.github.io/dsbook/importing-data.html)
+    + [Organizing with UNIX](https://rafalab.github.io/dsbook/unix.html), specifically sections 38.1 - 38.7
+    + [Git and GitHub](https://rafalab.github.io/dsbook/git.html), all sections
+    + [Reproducible projects with RStudio and R markdown](https://rafalab.github.io/dsbook/reproducible-projects-with-rstudio-and-r-markdown.html), all sections
+    
++ [Data Science in a Box](https://datasciencebox.org/index.html)
+  + A collection of resources, lessons, tutorials, and exercises for mastering data science techniques in R within the `tidyverse` framework. Of particular interest is the [Exploring Data](https://datasciencebox.org/exploring-data.html) section.
 + [Calling Bullshit Course Website](https://callingbullshit.org/) by Carl Bergstrom and Jevin West
 
 
-## Modeling
+## Interactive exercises from Dr. Spielman
 
-+ [Linear modeling tutorial](./tutorials/lm_tutorial.html)
+*Note: These links are only likely to be live during the semester this course is being taught. They will not be available over the summer or winter break. If you would like access to these resources during off-season, please email Dr. Spielman and she will hook you up.*
 
-
-## Exercises from Dr. Spielman
-
-+ [Introduction to R tutorial](./tutorials/introduction_to_R.html)
++ [Introduction to data types](https://rowanbiosci.shinyapps.io/datatypes/)
++ [Understanding the different types of plots](https://rowanbiosci.shinyapps.io/types_of_plots/)
++ [Types of figures and their relationship to data](https://rowanbiosci.shinyapps.io/data_figures/)
 + [Introduction to R exercises](https://rowanbiosci.shinyapps.io/intro_R/)
 + [Introduction to `ggplot2` exercises](https://rowanbiosci.shinyapps.io/intro_ggplot/)
 + [Introduction to `dplyr` exercises](https://rowanbiosci.shinyapps.io/intro_dplyr/)
 
-## `ggplot2` resources
 
-1. [The official ggplot2 documentation](https://ggplot2.tidyverse.org/reference/) provides information for using `ggplot2` functions and commands
-2. [The ggplot2 CheatSheet](https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf) is an _information rich_ overview of much of `ggplot2`'s functionality
-3. [Chapter Five from "Fundamentals of Data Visualization"](https://serialmentor.com/dataviz/directory-of-visualizations.html) provides a "directory" of different types of plots which exist for different types of data
-4. [Chapter Three from "Data Visualization: A practical introduction"](https://socviz.co/makeplot.html) introduces `ggplot2` usage
-5. [Chapter Three from "R for Data Science"](https://r4ds.had.co.nz/data-visualisation.html) introduces `ggplot2` usage
-6. [All the R colors you ever wanted to use!!](https://github.com/sjspielman/datascience_for_biologists/raw/master/spring2020/rmd_lessons/static/Rcolor.pdf)
-7. [Reference: Customizing Colors and Fills](./tutorials/color_fill_scales.html)
-7. [Reference: Customizing themes](./tutorials/themes.html)
-7. [Reference: Customizing axes](./tutorials/axes.html)
+## `ggplot2`-specific resources
 
++ [R for the Rest of Us: Overview of the grammar of graphics](https://rfortherestofus.com/2019/07/a-short-overview-of-the-grammar-of-graphics/)
+  + Short video introducing the conceptual underpinnings of the grammar of graphics
++ [All the R colors you ever wanted to use!!](https://github.com/sjspielman/datascience_for_biologists/raw/master/spring2020/rmd_lessons/static/Rcolor.pdf)
++ [Reference: Customizing Colors and Fills](./tutorials/color_fill_scales.html)
++ [Reference: Customizing themes](./tutorials/themes.html)
++ [Reference: Customizing axes](./tutorials/axes.html)
 
-## `dplyr` resources
+## Tutorials from Dr. Spielman
 
-
-+ [The official `dplyr` documentation](https://dplyr.tidyverse.org/reference/) provides information for using `dplyr` functions and commands
-+ [The `dplyr` CheatSheet](https://github.com/rstudio/cheatsheets/blob/master/data-transformation.pdf) is an _information rich_ overview of much of `dplyr`'s functionality
-+ [The `dplyr` vignette](https://dplyr.tidyverse.org/articles/dplyr.html) introduces most of the fundamental `dplyr` functionality
-+ [Chapter Five from "R for Data Science"](https://r4ds.had.co.nz/transform.html) introduces `dplyr` usage
-+ [Part 3, Chapter 6 from STAT545](https://stat545.com/dplyr-intro.html)
-+ [Chapter 4.3 from another Introduction to Data Science e-book](https://rafalab.github.io/dsbook/tidyverse.html#manipulating-data-frames)
-+ [RStudio Cloud exercises for "Work with Data"](https://rstudio.cloud/learn/primers/2)
-  + "Working with tibbles" is a general introduction to some useful `tidyverse` and R knowledge
-  + "Isolating data with dplyr" and "Deriving information with dplyr" are most relevant to `dplyr`
-
-
-
-### The greatest hits of `dplyr` one-table verbs
-
-
-<br>
-
-+ **Piping syntax** 
-
-  ```{r demo_pipe, eval=FALSE}
-  # Without piping
-  dplyr_function( data_frame_variable, arguments )
-  
-  # With piping
-  data_frame_variable %>%
-    dplyr_function( arguments )
-  ```
-
-<br>
-
-+ **[`filter()`](https://dplyr.tidyverse.org/reference/filter.html): Subset _rows_ based on `TRUE`/`FALSE`**
-
-  ```{r demo_filter, exercise=TRUE, exercise.lines = 7}
-  # only keep rows where Species == "setosa" is TRUE
-  iris %>%
-    filter(Species == "setosa")
-  
-  # only keep rows where the sepal length is greater than 5
-  iris %>%
-    filter(Sepal.Length > 5)
-  ```
-
-<br>
-
-
-+ **[`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html): Create new _column_**
-
-  ```{r demo_mutate, exercise=TRUE, exercise.lines = 8}
-  # create new column called `thiscolumnis5` where the value is 5
-  iris %>% 
-    mutate(thiscolumnis5 = 5)
-  
-  # create new column called `sepal_area` as the product of sepal length*width
-  iris %>% 
-    mutate(sepal_area = Sepal.Length * Sepal.Width)
-  ```
-
-<br>
-
-
-+ **[`distinct()`](https://dplyr.tidyverse.org/reference/distinct.html): Remove duplicate rows**
-
-  ```{r demo_distinct, exercise=TRUE, exercise.lines = 2}
-  iris %>% 
-    distinct()
-  ```
-
-<br>
-
-
-+ **[`arrange()`](https://dplyr.tidyverse.org/reference/arrange.html): Sort rows according to a given column**
-
-  ```{r demo_arrange, exercise=TRUE, exercise.lines = 6}
-  iris %>% 
-    arrange(Sepal.Length)
-  
-  # To arrange in descending order:
-  iris %>% 
-    arrange(desc(Sepal.Length))
-  ```
-
-<br>
-
-
-+ **[`rename()`](https://dplyr.tidyverse.org/reference/rename.html): Rename columns**
-
-  ```{r demo_rename, exercise=TRUE, exercise.lines = 3}
-  iris %>% 
-    #       newname     =   oldname    !!!!!!!
-    rename(sepal_length = Sepal.Length)
-  ```
-
-<br>
-
-
-+ **[`select()`](https://dplyr.tidyverse.org/reference/select.html): Retain or re-order columns**
-
-  ```{r demo_select, exercise=TRUE, exercise.lines = 8}
-  # only keeps those 2 columns
-  iris %>% 
-    select(Sepal.Length, Sepal.Width)
-  
-  # remove those two columns and keep the rest
-  iris %>% 
-    select(-Sepal.Length, -Sepal.Width)
-  ```
-
-<br>
-
-
-+ **[`group_by()`](https://dplyr.tidyverse.org/reference/group_by.html): Create a group for grouped operations**
-  + Use `ungroup()` to undo all existing groupings
-  
-  ```{r demo_group_by, exercise=TRUE, exercise.lines = 10}
-  # set up for grouped operations
-  iris %>% 
-    group_by(Species)
-    
-  # group and upgroup, as a demonstration:
-  iris %>% 
-    group_by(Species) %>%
-    ungroup()
-  ```
-  
-<br>
-
-
-
-+ **[`summarize()`](https://dplyr.tidyverse.org/reference/summarise.html): Create a new data frame that is a _collapsed and summarized_ version**
-  
-  ```{r demo_summarize, exercise=TRUE, exercise.lines = 10}
-  iris %>% 
-    summarize(mean_sepal_length = mean(Sepal.Length))
-  
-  # in combo with group_by!
-  iris %>% 
-    group_by(Species) %>%
-    summarize(mean_sepal_length = mean(Sepal.Length)) %>%
-    # to be safe, always ungroup:
-    ungroup()
-  ```
-
-<br>
-
-
-+ **[`tally()`](https://dplyr.tidyverse.org/reference/tally.html): Count the number of observations in each group**
-  
-  ```{r demo_tally, exercise=TRUE, exercise.lines = 5}
-  iris %>% 
-    group_by(Species) %>% 
-    tally() %>%
-    # to be safe, always ungroup when you're done
-    ungroup()
-  ```
-
-<br>
-
-
-+ **[`count()`](https://dplyr.tidyverse.org/reference/count.html): Handy shortcut to group, tally, ungroup!** 
-  
-  ```{r demo_count, exercise=TRUE, exercise.lines = 2}
-  iris %>% 
-    count(Species) 
-  ```
-
++ [Introduction to R tutorial](./tutorials/introduction_to_R.html)
++ [`dplyr` one-table verbs](./tutorials/dplyr_onetable.html)
++ [Linear modeling tutorial](./tutorials/lm_tutorial.html)
