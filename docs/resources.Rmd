@@ -89,9 +89,8 @@ iris <- as_tibble(iris)
 
 *Note: These links are only likely to be live during the semester this course is being taught. They will not be available over the summer or winter break. If you would like access to these resources during off-season, please email Dr. Spielman and she will hook you up.*
 
-+ [Introduction to data types](https://rowanbiosci.shinyapps.io/datatypes/)
++ [Introduction to data types and their relationship to figures](https://rowanbiosci.shinyapps.io/data_types_figures/)
 + [Understanding the different types of plots](https://rowanbiosci.shinyapps.io/types_of_plots/)
-+ [Types of figures and their relationship to data](https://rowanbiosci.shinyapps.io/data_figures/)
 + [Introduction to R exercises](https://rowanbiosci.shinyapps.io/intro_R/)
 + [Introduction to `ggplot2` exercises](https://rowanbiosci.shinyapps.io/intro_ggplot/)
 + [Introduction to `dplyr` exercises](https://rowanbiosci.shinyapps.io/intro_dplyr/)
