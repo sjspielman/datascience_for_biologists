@@ -6,3 +6,42 @@ $content-width: 75%;
 
 
 @import "minima";
+
+
+
+
+/* Tables */
+table { 
+  border-collapse: collapse; 
+  border-spacing: 0; 
+  width: 100%;
+  font-size: 0.8em;
+}
+
+td { 
+  vertical-align: center; 
+}
+
+table th {
+  font-weight: 700;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+
+table tr:nth-child(even) {
+  background-color: #f0f0f0;
+}
+
+
+
+
+
