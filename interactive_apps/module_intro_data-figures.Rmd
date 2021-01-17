@@ -1,6 +1,6 @@
 ---
 title: "Introduction to data types and figures"
-author: "Stephanie J. Spielman"
+author: "Data Science for Biologists, Spring 2021"
 output: 
   learnr::tutorial:
     theme: united
