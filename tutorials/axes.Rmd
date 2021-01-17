@@ -1,14 +1,13 @@
 ---
-title: "Customizing scales `ggplot2`"
+title: "Customizing axes `ggplot2`"
 date: "Stephanie J. Spielman"
-author: "Data Science for Biologists, Fall 2020"
+author: "Data Science for Biologists"
 output: 
   html_document:
     theme: united
     toc: true
     toc_float: true
     toc_levels: 4
-    css: ../static/sjs-style.css
 editor_options: 
   chunk_output_type: console
 ---
@@ -28,7 +27,7 @@ library(ggplot2)
 
 > WORD TO THE WISE: You will often be tempted to google how to use `ggplot2`. This is absolutely the right thing to do, but be careful!! Not all internet posts are created equally, and _many webpages or blogs may use DIFFERENT VERSIONS of `ggplot2`_. When asking the internet for help, always make sure you can locally (on your computer/in RStudio Cloud) run and understand little code tidbits you find. Remember: just because a page looks helpful doesn't mean it is.
 
-> This tutorial uses some theme customization in some of the plots. You may want to read [this theme tutorial](http://htmlpreview.github.io/?https://github.com/sjspielman/datascience_for_biologists/blob/master/fall2020/tutorials/themes.html) first.
+> This tutorial uses some theme customization in some of the plots. You may want to read [this theme tutorial](https://htmlpreview.github.io/?https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/tutorials/themes.html) first.
 
 The specific ranges and positioning of axes are a type of *scale* in `ggplot2`. This tutorial demonstrates a minimal, but important, subset of ways you can modify the axis scales. All examples below will modify a version of one of these two plots:
 

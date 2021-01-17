@@ -1,14 +1,13 @@
 ---
 title: "Using themes in `ggplot2`"
 date: "Stephanie J. Spielman"
-author: "Data Science for Biologists, Fall 2020"
+author: "Data Science for Biologists"
 output: 
   html_document:
     theme: united
     toc: true
     toc_float: true
     toc_levels: 4
-    css: ../static/sjs-style.css
 editor_options: 
   chunk_output_type: console
 ---

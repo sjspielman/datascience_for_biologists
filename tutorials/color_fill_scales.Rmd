@@ -1,7 +1,7 @@
 ---
 title: "Understanding color scales in `ggplot2`"
 date: "Stephanie J. Spielman"
-author: "Data Science for Biologists, Fall 2020"
+author: "Data Science for Biologists"
 output: 
   html_document:
     theme: united
