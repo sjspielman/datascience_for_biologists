@@ -6,7 +6,9 @@ https://rafalab.github.io/dsbook/unix.html
 -->
 # Data Science for Biologists
 
-Course materials for Rowan University Course "Data Science for Biologists" (BIOL01301) Spring 2020. Materials developed by Stephanie J. Spielman.
+Course materials for Rowan University Course "Data Science for Biologists" (BIOL01301). Materials developed by Stephanie J. Spielman and are generally updated each semester. 
+
+All materials are released under a CC-BY-4.0 license. If you use/modify materials, please credit me by linking back to this repo. Thanks!
 
 <!--
 Links are bad and I am lazy.
