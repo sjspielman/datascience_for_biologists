@@ -1,6 +1,6 @@
 ---
-title: "Data Science for Biologists, Fall 2020"
-author: "Stephanie J. Spielman"
+title: "Introduction to `ggplot2`"
+author: "Data Science for Biologists, Spring 2021"
 output: 
   learnr::tutorial:
     theme: united
@@ -158,13 +158,23 @@ sparrows <- tibble::tribble(
 "Female","Young","Dead",162,245,26.2,32.5,18.5,18.6,28,21.1,15.6,
 "Female","Young","Dead",164,248,26.1,32.3,18.8,18,29.4,20.9,15
 ) %>%
+  dplyr::mutate(Age = case_when(
+                        Weight < 24 ~ "Juvenile",
+                        between(Weight, 24, 25.8) ~ "Young",
+                        Weight > 25.8 ~ "Adult")
+  ) %>%
   dplyr::mutate(Age = as.factor(Age), 
                 Survival = as.factor(Survival), 
                 Sex = as.factor(Sex))
 ```
 
+
+> 
+
 # Introduction to making figures with `ggplot2`
 <br>
+
+#### **Interactively explore and learn more about the different types of plots [here](https://rowanbiosci.shinyapps.io/types_of_plots/)**
 
 
 ## Background: The `ggplot2` package
@@ -213,7 +223,7 @@ Each row in the dataset records a single *observation* - in other words, each ro
 
 + You can also use the functions `nrow()`, `ncol()`, and `names()` to quickly see, respectively, the number of rows in the data frame, the number of columns in the data frame, and the column (variable!) names of the data frame. Try it out below:
 
-```{r nrow-sparrows, exercise=TRUE}
+```{r nrow-sparrows, exercise=TRUE, exercise.lines = 4}
 
 ```
 
@@ -226,7 +236,7 @@ names(sparrows)
 
 
 + You can quickly see all the datatypes of the data frame's columns with the function `str()`. Try it below:
-```{r str-sparrows, exercise=TRUE}
+```{r str-sparrows, exercise=TRUE, exercise.lines = 4}
 
 ```
 
@@ -236,11 +246,11 @@ names(sparrows)
 str(sparrows)
 ```
 
-You will see the dataset has three categorical variables that R refers to as "factors." Each of these variables has two *levels*, which means "categories in the categorical variable." In this dataset, for example, the variable `Age` has two levels: `Adult` and `Young`. You will see the remaining 9 variables are all numeric continuous. 
+You will see the dataset has three categorical variables that R refers to as "factors." Each of these variables has two *levels*, which means "categories in the categorical variable." In this dataset, for example, the variable `Age` has three levels: `Adult`, `Juvenile`, and `Young`. You will see the remaining 9 variables are all numeric continuous. 
 
 + Use the function `summary()` to get something magical: A quick summary of each variable in the dataset! For factor variables, this command tells you the count of each level. For numeric variales, this command gives you the five-number summary and the mean. 
 
-```{r summary-sparrows, exercise=TRUE}
+```{r summary-sparrows, exercise=TRUE, exercise.lines = 4}
 
 ```
 
@@ -253,11 +263,11 @@ summary(sparrows)
 
 + Remember, you can examine individual columns with several helpful functions (summary is easily the most comprehensive) using the dollar sign to reference them from the data frame. Run the code below to see this in action, and then adapt the code to look at the variable `Sex` instead of `Wingspread`.
 
-```{r summary-column, exercise=TRUE}
+```{r summary-column, exercise=TRUE, exercise.lines = 4}
 summary(sparrows$Wingspread)
 ```
 
-```{r summary-column-solution, exercise=TRUE}
+```{r summary-column-hint}
 summary(sparrows$Sex)
 ```
 
@@ -274,9 +284,6 @@ datatable(sparrows)
 
 ## Set 1: Scatterplots
 
-> Explore and learn more about the different types of plots [here](https://rowanbiosci.shinyapps.io/types_of_plots/)
-
-Using `geom_point()` to make scatterplots
 
 Scatterplots show the **relationship** between two variables, and they use the `geom_point()` geometry as shown in this example where sparrow `Weight` is plotted *across* sparrow `Wingspread` (Y goes across X!).
 
@@ -340,9 +347,9 @@ ggplot(sparrows) +
 
 <br>
 
-### **ALERT!** An *extremely common* bug/typo you can now look forward to doing for the rest of your life is accidentally placing a column *outside* of `aes()`. Here's an example of that bug. Run the code and interpret the error message (see hint below!), and then fix the code to actually show points colored based on `Survival`.
+#### **ALERT!** 
+An *extremely common* bug/typo you can now look forward to doing for the rest of your life is accidentally placing a column *outside* of `aes()`. Here's an example of that bug. Run the code and interpret the error message (see hint below!), and then fix the code to actually show points colored based on `Survival`.
 
-After 
 > `ggplot2` can only automatically know that you are referring to a column if it's inside `aes()`. If it's outside an `aes()`, R wants to find a variable with that name. But, `Survival` is not a variable on its own - it only exists as a column within `sparrows`.
 
 ```{r scatter_sidenote, exercise=TRUE}
@@ -396,13 +403,15 @@ ggplot(sparrows) +
 
 <br>
 
-### **PAUSE!** for an important learning opportunity: Look at the solution code provided for the previous exercise. Below, I write the exact same code again, but *all on one line* (the text is "wrapped" in the window you see, so it appears on multiple lines but technically it is not!). As you will notice, it is an absolute pain to read, and *because it is poorly organized*, it is extremely challenging to get any coherent sense of what the code is doing. 
+#### **PAUSE!** for an important learning opportunity
+
+Look at the solution code provided for the previous exercise. Below, I write the exact same code again, but *all on one line* (the text is "wrapped" in the window you see, so it appears on multiple lines but technically it is not!). As you will notice, it is an absolute pain to read, and *because it is poorly organized*, it is extremely challenging to get any coherent sense of what the code is doing. 
 
 ```{r scatter_5_oneline, eval=F}
 ggplot(sparrows) + aes(x = Wingspread, y = Femur_Length, color=Weight) +geom_point() + labs(x = "Wingspread (mm)", y = "Femur Length (mm)", title = "Scatterplot of sparrow wingspread and femur length")
 ```
 
-When crafting plots with `ggplot2`, it is *strongly* recommended to space out your code like my solutions demonstrate. Every time you add the next function, start a new line. Remember to keep the plus sign `+` at the END of a line! If you don't end a line with the `+`, R will think the command is over - it won't know to check if there's a plus sign coming up. You'll also notice in the `labs()` function, I separate arguments one line at a time, again making sure the comma falls at the END of a line and never at the beginning.
+When crafting plots with `ggplot2`, it is **strongly recommended (aka I will absolutely grade you on this)** to space out your code like my solutions demonstrate. Every time you add the next function, start a new line. Remember to keep the plus sign `+` at the END of a line! If you don't end a line with the `+`, R will think the command is over - it won't know to check if there's a plus sign coming up. You'll also notice in the `labs()` function, I separate arguments one line at a time, again making sure the comma falls at the END of a line and never at the beginning.
 
 In other words...
 
@@ -412,18 +421,30 @@ ggplot(sparrows) +
   aes(x = Wingspread, y = Femur_Length) +
   geom_point()
 
+## ALSO YES
+ggplot(sparrows) + 
+  aes(x = Wingspread, 
+      y = Femur_Length) +
+  geom_point()
+
 ## NO - disorganized and hard to read, especially when plots get more complex
 ggplot(sparrows) + aes(x = Wingspread, y = Femur_Length) + geom_point()
 
-## NO - this is a bug in plotting code because you cannot start a line with + (or ,)
+## NO - this is a bug in plotting code because you cannot start a line with +
 ggplot(sparrows) + 
   aes(x = Wingspread, y = Femur_Length) 
   + geom_point()
+
+## NO - this is a bug in plotting code because you cannot start a line with ,
+ggplot(sparrows) + 
+  aes(x = Wingspread
+      , y = Femur_Length) + 
+  geom_point()
 ```
+<br><br>
 
 
-
-6. The code below makes a scatterplot of femur length across wingspread with points colored by _Age_. You'll notice in the legend that "Young" comes before "Adult" - this is because R has, by default, assumed the levels in Age (Adult and Young) should be ordered alphabetically. Run the code to see this in action. 
+6. The code below makes a scatterplot of femur length across wingspread with points colored by _Age_. You'll notice in the legend that the colors are ordered "Adult", "Juvenile", "Young" - this is because R has, by default, assumed the levels in Age should be ordered alphabetically. Run the code to see this in action. 
 
 
 ```{r scatter_6_demo, exercise = TRUE}
@@ -433,47 +454,55 @@ ggplot(sparrows) +
 ```
 
 
-What if we wanted the order to be different and show "Young" before "Adult" along the x-axis? There are several strategies to accomplish this task. We will learn how to do this using a function from the [`forcats`](https://forcats.tidyverse.org/reference/) library, a `tidyverse` library that helps change the order of a factor variable. The package name involves several puns, and the library has been pre-loaded for you in these exercises. 
+What if we wanted the order to be different and show the variables in biological order: "Juvenile", "Young", and finally "Adult" last? There are several strategies to accomplish this task. We will learn how to do this using a function from the package [`forcats`](https://forcats.tidyverse.org/reference/), a `tidyverse` package that helps change the order of a factor variable. The package name involves several puns, and the library has been pre-loaded for you in these exercises. 
 
 Here, we will use the function `fct_relevel()` from `forcats`. This function take TWO arguments: the variable to reorder (`Age`) and an *array* (defined with `c()`!) of the new order of levels you want to plot[^This is only sort of true - there are other advanced ways to use this function which can you explore [here](https://forcats.tidyverse.org/reference/fct_relevel.html) if you want a deeper dive.]. Here, that would be:
 
+> **MAKE SURE TO SPELL THE CATEGORIES EXACTLY AS THEY ALREADY EXIST, WITH THE SAME CAPITALIZATION**! If "Young" is one of the categories and you spell it "Yong" or "young," this strategy will not work.
+
+
 ```{r forcats_demo, eval = FALSE}
-# First argument is the column we want to reorder, Age. This is a column so NO QUOTES!
-# Second argument is an *array* of the new order. These are strings, not columns, so YES QUOTES!
-fct_relevel(Age, c("Adult", "Young"))
+# First argument is the column we want to reorder, Age.
+# Second argument is an *array* of the new order. These are strings, so use quotes!
+fct_relevel(Age, c("Juvenile", "Young", "Adult"))
 
 
 # Or, improve your coding style by creating and using a separate variable for your new order:
 # This removes the hardcoding from your code.
-age_new_order <- c("Adult", "Young")
+age_new_order <- c("Juvenile", "Young", "Adult")
 fct_relevel(Age, age_new_order)
 ```
 
 This code is further *embedded* within the actual `ggplot()` code. Instead of typing to `Age` in the `ggplot()` command, we literally type this whole statement. See for yourself below:
 
+
 > This code will NOT change the `sparrows` data frame at all - the `Age` column's default order remains the same. This code will only modify the order of `Age` levels for the plot.
+
 > When you change the factor level like this, the label comes out like garbage.... We will learn how to change legend titles soon!
 
-```{r scatter_6_demo2, exercise = TRUE}
+
+```{r scatter_6_demo2, exercise = TRUE, exercise.lines = 20}
 # Notice how I space out the aes() arguments on separate lines. MUCH easier to read!
 ggplot(sparrows) + 
   aes(x = Wingspread, 
       y = Femur_Length, 
       # instead of Age, give the whole statement:
-      color = fct_relevel(Age, c("Young", "Adult") )) +  
+      color = fct_relevel(Age, c("Juvenile", "Young", "Adult") )) +  
   geom_point()
+```
 
+```{r scatter_6_demo3, exercise = TRUE, exercise.lines = 20}
 # Or, without hardcoding:
-age_new_order <- c("Adult", "Young")
+age_new_order <- c("Juvenile", "Young", "Adult")
 ggplot(sparrows) + 
   aes(x = Wingspread, 
       y = Femur_Length, 
       color = fct_relevel(Age, age_new_order )) +  
   geom_point()
 ```
+<br><br>
 
-
-7. Using the code above to practice and learn how to manipulate factors, make a scatterplot below of femur length across wingspread, with points colored by `Sex`. First make the plot without considering the order of factors, and then make it again with the order of `Sex` levels reversed using the skills from the previous example.
+7. Using the code above to practice and learn how to manipulate factors for plotting, make a scatterplot below of femur length across wingspread, with points colored by `Sex`. First make the plot without considering the order of factors, and then make it again with the order of `Sex` levels reversed using the skills from the previous example.
 
 > **TIP**: It's really easy to lose count of your parentheses. If you have an error, it's possible that you are missing a parenthesis, have too many parentheses, or you have misplaced your parentheses.
 
@@ -487,13 +516,14 @@ ggplot(sparrows) +
   aes(x = Wingspread, y = Femur_Length, color=Sex) +  
   geom_point()
 
-# New order:
+# New reversed order:
 ggplot(sparrows) + 
   aes(x = Wingspread, 
       y = Femur_Length, 
-      color= fct_relevel(Sex, c("Female", "Male"))) +  
+      color= fct_relevel(Sex, c("Male", "Female"))) +  
   geom_point()
 ```
+<br>
 
 ## Set 2: Visualizing distributions
 
@@ -509,10 +539,11 @@ Violin Plot  | [`geom_violin()`](https://ggplot2.tidyverse.org/reference/geom_vi
 Sina Plot    | [`geom_sina()`](https://ggforce.data-imaginist.com/reference/geom_sina.html)    | The hybrid child of a density plot and a strip plot. *Requires a separate package called `ggforce` to plot.*
 
 
-Our goal here is to visualize the distribution of `Wingspread` to learn how to use each type of plot.
+**To learn how to make each type of plot, we will visualize the distribution of `Wingspread`.**
+
 <br><br>
 
-1. Make a simple histogram of sparrow Wingspread using `geom_histogram()`. Remember: You only should specify the x-axis; `ggplot2` will do the y-axis for you since the y-axis is a *statistical transformation* (count).
+1. Make a histogram of sparrow wingspread using `geom_histogram()`. Remember: You only should specify the x-axis; `ggplot2` will do the y-axis for you since the y-axis is a *statistical transformation* (count).
 
 > For an added insight, try specifying `Wingspread` as the `y` *instead of* as the `x` aesthetic. `ggplot2` will then make a horizontal histogram!
 
@@ -522,9 +553,11 @@ Our goal here is to visualize the distribution of `Wingspread` to learn how to u
 ```
 
 ```{r dist_1-solution}
-ggplot(sparrows, aes(x = Wingspread)) +
+ggplot(sparrows) +
+  aes(x = Wingspread) +
   geom_histogram()
 ```
+<br>
 
 2. You will notice that `ggplot2` returns a *warning message* when you make histograms: "`stat_bin()` using `bins = 30`. Pick better value with `binwidth`." This is an EXPECTED AND NORMAL message. It is `ggplot` telling you: I assumed there should be *30 bins* along your X-axis in your histogram. It suggests ONE way you can customize the binning: Using the argument `binwidth` to `geom_histogram()` to specify how wide along the X-axis a bin should be. Alternatively, can also use the argument `bins` to `geom_histogram()` to specify how many bins there should be (its default is 30! Get it?).
 
@@ -538,25 +571,31 @@ Re-create your histogram in five separate versions, each with a different specif
 
 ```{r dist_2-solution}
 # binwidth of 0.1
-ggplot(sparrows, aes(x = Wingspread)) +
+ggplot(sparrows) +
+  aes(x = Wingspread) +
   geom_histogram(binwidth = 0.1)
 
 # binwidth of 1
-ggplot(sparrows, aes(x = Wingspread)) +
+ggplot(sparrows) +
+  aes(x = Wingspread) +
   geom_histogram(binwidth = 1)
 
 # binwidth of 5
-ggplot(sparrows, aes(x = Wingspread)) +
+ggplot(sparrows) +
+  aes(x = Wingspread) +
   geom_histogram(binwidth = 5)
 
 # binwidth of 10
-ggplot(sparrows, aes(x = Wingspread)) +
+ggplot(sparrows) +
+  aes(x = Wingspread) +
   geom_histogram(binwidth = 10)
 
 # binwidth of 20
-ggplot(sparrows, aes(x = Wingspread)) +
+ggplot(sparrows) +
+  aes(x = Wingspread) +
   geom_histogram(binwidth = 20)
 ```
+<br>
 
 3. This is really where variables start to become important: Let's say you have some R code which creates 50 histograms, and you want 15 bins for all histograms (i.e., `geom_histogram(bins = 15)`). One option is to make all plots and write `15` for the argument. This works well..until you change your mind later and decide that maybe 12 would have been better. Rather than having to find and replace all `15`'s, we could just have a variable used in the code, and simply change the variable and have it automatically apply. 
 
@@ -564,15 +603,18 @@ Run the code below to see this in action, and then *change* the `my_bins` variab
 
 ```{r dist_3, exercise = TRUE}
 my_bins <- 15
-ggplot(sparrows, aes(x = Wingspread)) +
+ggplot(sparrows) +
+  aes(x = Wingspread) +
   geom_histogram(bins = my_bins)
 ```
 
 ```{r dist_3-solution}
 my_bins <- 5
-ggplot(sparrows, aes(x = Wingspread)) +
+ggplot(sparrows) +
+  aes(x = Wingspread) +
   geom_histogram(bins = my_bins)
 ```
+<br>
 
 4. How about some colors? Add "just a fill" and "just a color" of your choosing to the plot. This will also help you to see the boundaries of your bins.
 
@@ -588,11 +630,13 @@ ggplot(sparrows, aes(x = Wingspread)) +
 ```
 
 ```{r dist_4-solution}
-ggplot(sparrows, aes(x = Wingspread)) +
+ggplot(sparrows) +
+  aes(x = Wingspread) +
   geom_histogram(color = "chocolate3", fill = "skyblue")
 
 # Added challenge, with size:
-ggplot(sparrows, aes(x = Wingspread)) +
+ggplot(sparrows) +
+  aes(x = Wingspread) +
   geom_histogram(color = "chocolate3", 
                  fill = "skyblue", 
                  size = 2)
@@ -601,12 +645,14 @@ ggplot(sparrows, aes(x = Wingspread)) +
 hist_color <- "chocolate3"
 hist_fill <- "skyblue"
 hist_line_size <- 2
-ggplot(sparrows, aes(x = Wingspread)) +
+ggplot(sparrows) +
+  aes(x = Wingspread) +
   geom_histogram(color = hist_color, 
                  fill = hist_fill, 
                  size = hist_line_size)
 
 ```
+<br>
 
 
 5. Now let's make a *density plot* of `Wingspread` using `geom_density()`. Since the y-axis of density plots are a transformed value, leave the `y` aesthetic blank just like for histograms. *Start off strong by adding "just a FILL" of your choosing to your density plot!!*
@@ -616,9 +662,11 @@ ggplot(sparrows, aes(x = Wingspread)) +
 ```
 
 ```{r dist_5-solution}
-ggplot(sparrows, aes(x = Wingspread)) +
+ggplot(sparrows) +
+  aes(x = Wingspread) +
   geom_density(fill = "palegreen4")
 ```
+<br>
 
 6. A common visualization feature we often use, especially in density plots, is to make colors *transparent.* To add transparency to colors, we can use the `alpha` argument *given directly to the relevant geom*. Values of alpha range from 0-1, where 0 is fully transparent and 1 is fully opaque. Add an alpha argument (along with a fill argument!) to `geom_density()` to practice this argument.
 
@@ -630,9 +678,11 @@ ggplot(sparrows, aes(x = Wingspread)) +
 
 ```{r dist_6-solution}
 density_alpha <- 0.6
-ggplot(sparrows, aes(x = Wingspread)) +
+ggplot(sparrows) +
+  aes(x = Wingspread) +
   geom_density(fill = "palegreen4", alpha = density_alpha)
 ```
+<br>
 
 7. Let's now look at *both* male and female distributions (`Sex`) in one plot - we need only add a fill aesthetic to accomplish this! Indeed, the x-axis is still `Wingspread`, y-axis is still automatically calculated. Therefore, the only distinction between male and female distributions is their fill! 
 
@@ -644,9 +694,11 @@ ggplot(sparrows, aes(x = Wingspread)) +
 ```
 
 ```{r dist_7-solution}
-ggplot(sparrows, aes(x = Wingspread, fill = Sex)) +
+ggplot(sparrows) +
+  aes(x = Wingspread, fill = Sex) +
   geom_density(alpha = 0.6)
 ```
+<br>
 
 8. Moving on to *boxplots*: Let's make a boxplot of Wingspread for each Sex with `geom_boxplot()`. Axes are not transformed values in boxplots, so we'll need to specify both an x and y variable. **First, DRAW (or conceptualize) BY HAND (yes, by hand), what you want to go in the plot. Doing this by hand is THE BEST WAY to plan your figures!!** Drawing your plot will force you to think abot what variable goes on each axis, which allows you to write the corresponding code.
 
@@ -659,9 +711,11 @@ ggplot(sparrows, aes(x = Wingspread, fill = Sex)) +
 
 ```{r dist_8-solution}
 # Boxplot with "just" a fill
-ggplot(sparrows, aes(x = Sex, y = Wingspread)) +
+ggplot(sparrows) +
+  aes(x = Sex, y = Wingspread) +
   geom_boxplot(fill = "slateblue3")
 ```
+<br>
 
 9. Practice making more boxplots (and learning the principles of `ggplot2`) with the following tasks:
 
@@ -676,19 +730,22 @@ ggplot(sparrows, aes(x = Sex, y = Wingspread)) +
 
 ```{r dist_9-solution}
 # Boxplot filled by Sex - don't forget to remove any straggling "just" fills (see next plot)
-ggplot(sparrows, aes(x = Sex, y = Wingspread, fill = Sex)) +
+ggplot(sparrows) +
+  aes(x = Sex, y = Wingspread, fill = Sex) +
   geom_boxplot()
 
 # The "just blue" fill will OVERRIDE aes(fill = Sex) - be careful!
-ggplot(sparrows, aes(x = Sex, y = Wingspread, fill = Sex)) +
+ggplot(sparrows) +
+  aes(x = Sex, y = Wingspread, fill = Sex) +
   geom_boxplot(fill = "blue")
 
 # Boxplot filled by Survival - make sure you see how the aes mappings lead to the created plot! 
 # Confused? Great! That's why you're in a class and not doing this alone! Ask me questions!!!
-ggplot(sparrows, aes(x = Sex, y = Wingspread, fill = Survival)) +
+ggplot(sparrows) +
+  aes(x = Sex, y = Wingspread, fill = Survival) +
   geom_boxplot()
 ```
-
+<br>
 
 10. Re-make the boxplots above but as a *violin plot* using `geom_violin()`. Your code here will be virtually identical, except for the geom specification. Bravely forge ahead!!
 
@@ -698,18 +755,21 @@ ggplot(sparrows, aes(x = Sex, y = Wingspread, fill = Survival)) +
 
 ```{r dist_10-solution}
 # Violin with "just" a fill
-ggplot(sparrows, aes(x = Sex, y = Wingspread)) +
+ggplot(sparrows) +
+  aes(x = Sex, y = Wingspread) +
   geom_violin(fill = "slateblue3")
 
 # Violin filled by Sex 
-ggplot(sparrows, aes(x = Sex, y = Wingspread, fill = Sex)) +
+ggplot(sparrows) +
+  aes(x = Sex, y = Wingspread, fill = Sex) +
   geom_violin()
 
 # Violin filled by Survival 
-ggplot(sparrows, aes(x = Sex, y = Wingspread, fill = Survival)) +
+ggplot(sparrows) +
+  aes(x = Sex, y = Wingspread, fill = Survival) +
   geom_violin()
 ```
-
+<br>
 
 
 11. Let's now practice strip plots, also known as jitter plots since they "jitter" points along the x-axis. Use `geom_jitter()` to make a strip plot of `Wingspread` across `Sex`.
@@ -725,18 +785,22 @@ ggplot(sparrows, aes(x = Sex, y = Wingspread, fill = Survival)) +
 
 ```{r dist_11-solution}
 # Strip plot
-ggplot(sparrows, aes(x = Sex, y = Wingspread)) +
+ggplot(sparrows) +
+  aes(x = Sex, y = Wingspread) +
   geom_jitter()
 
 # narrower width - compare this to the default above to understand how it works!
-ggplot(sparrows, aes(x = Sex, y = Wingspread)) +
+ggplot(sparrows) +
+  aes(x = Sex, y = Wingspread) +
   geom_jitter(width = 0.1)
 
 # want to change the size? practice learning how these arguments modify the plot!
 # "trial and error" with arguments like width, size, and alpha is how we make plots appealing and clear! 
-ggplot(sparrows, aes(x = Sex, y = Wingspread)) +
+ggplot(sparrows) +
+  aes(x = Sex, y = Wingspread) +
   geom_jitter(width = 0.1, size = 3, alpha = 0.5)
 ```
+<br>
 
 
 12. Re-make the strip plot, but also color by `Survival` (inside `aes()`!). You'll find a result somewhat to the boxplot version of this plot.
@@ -750,13 +814,16 @@ ggplot(sparrows, aes(x = Sex, y = Wingspread)) +
 ```
 
 ```{r dist_12-solution}
-ggplot(sparrows, aes(x = Sex, y = Wingspread, color = Survival)) +
+ggplot(sparrows) +
+  aes(x = Sex, y = Wingspread, color = Survival) +
   geom_jitter(width = 0.1)
 
 # Bonus information: this is actually just a shortcut for...
-ggplot(sparrows, aes(x = Sex, y = Wingspread, color = Survival)) +
+ggplot(sparrows) +
+  aes(x = Sex, y = Wingspread, color = Survival) +
   geom_point(position = position_jitter(width = 0.1))
 ```
+<br>
 
 ## Set 3: Visualizing Amounts/Counts
 
@@ -772,9 +839,11 @@ The most common approach visualizing amounts, or count, data is with barplots, w
 ```
 
 ```{r bar_1-solution}
-ggplot(sparrows, aes(x = Survival)) + 
+ggplot(sparrows) +
+  aes(x = Survival) +
   geom_bar()
 ```
+<br>
 
 2. Customize your barplot by adding a color and fill of your choosing. You may also want to experiment with the `width` argument to `geom_bar()` to find a bar width that suits you (choose a number between 0-1), or a `size` argument to customize the size of bar outlines.
 
@@ -786,9 +855,11 @@ ggplot(sparrows, aes(x = Survival)) +
 ```
 
 ```{r bar_2-solution}
-ggplot(sparrows, aes(x = Survival)) + 
+ggplot(sparrows) + 
+  aes(x = Survival) +
   geom_bar(color = "forestgreen", fill = "beige", width = 0.5)
 ```
+<br>
 
 3. Again modify this barplot of `Survival`, but make the following changes: 1) remove the "just a fill" argument, and 2) replace it with fill that is an *aesthetic mapping* to `Age`. You can keep or remove your color per your choice.
 
@@ -800,9 +871,11 @@ ggplot(sparrows, aes(x = Survival)) +
 ```
 
 ```{r bar_3-solution}
-ggplot(sparrows, aes(x = Survival, fill = Age)) + 
+ggplot(sparrows) + 
+  aes(x = Survival, fill = Age) +
   geom_bar()
 ```
+<br>
 
 4. Re-make the plot again, but this time *switch* `Age` and `Survival` to have `Age` on the x-axis and `Survival` as the color. This plot displays the same data but with a different emphasis.
 
@@ -814,10 +887,11 @@ ggplot(sparrows, aes(x = Survival, fill = Age)) +
 ```
 
 ```{r bar_4-solution}
-ggplot(sparrows, aes(x = Age, fill = Survival)) + 
+ggplot(sparrows) + 
+  aes(x = Age, fill = Survival) +
   geom_bar()
 ```
-
+<br>
 
 5. By default, `ggplot2` makes "stacked" barplots when there are multiple groups. We can also show them "side-by-side", which is called "dodged", by adding this argument to `geom_bar()`: `geom_bar(position = position_dodge())`
 
@@ -828,12 +902,13 @@ ggplot(sparrows, aes(x = Age, fill = Survival)) +
 ```
 
 ```{r bar_5-solution}
-ggplot(sparrows, aes(x = Age, fill = Survival)) + 
+ggplot(sparrows) + 
+  aes(x = Age, fill = Survival) +
   geom_bar(position = position_dodge())
 ```
+<br>
 
-
-6. Don't forget your factors! Remind yourself that you know how to use the `fct_relevel()` function by reordering the previous plot to show Young before Adult on the x-axis.
+6. Don't forget your factors! Remind yourself that you know how to use the `fct_relevel()` function by reordering the previous plot to show the x-axis in order Juvenile, Young, and finally Adult.
 
 > Don't forget to make sure the x-axis ends up with a professional label!
 
@@ -843,15 +918,17 @@ ggplot(sparrows, aes(x = Age, fill = Survival)) +
 ```
 
 ```{r bar_6-solution}
-ggplot(sparrows, aes(x = fct_relevel(Age, c("Young", "Adult")), 
-                     fill = Survival)) + 
+ggplot(sparrows) +
+  aes(x = fct_relevel(Age, c("Juvenile", "Young", "Adult")),
+      fill = Survival) +
   geom_bar(position = position_dodge()) +
   labs(x = "Age")
 ```
+<br>
 
 
 
-7. For fun, make it a *horizontal* barplot!! Simply change the `x` mapping to `y` instead, and don't provide an `x` aesthetic. 
+7. For fun, make it a *horizontal* barplot!! Simply change the `x` mapping to `y` instead, and don't provide an `x` aesthetic. Remember to update on which axis your professional labeling goes!
 
 
 ```{r bar_7, exercise = TRUE}
@@ -860,18 +937,19 @@ ggplot(sparrows, aes(x = fct_relevel(Age, c("Young", "Adult")),
 ```
 
 ```{r bar_7-solution}
-ggplot(sparrows, aes(y = Age, fill = Survival)) + 
+ggplot(sparrows) +
+  aes(y = Age, fill = Survival) +
   geom_bar(position = position_dodge())
 ```
 
 
 ## Set 4: Scatterplots, Part 2
 
-Recall that we make scatterplots with `geom_point()`, and scatterplots are used to show the relationship between two x/y numeric values. In this second scatterplot lesson, we'll learn some additional customization strategies for making scatterplots your own:
+Recall that we make scatterplots with `geom_point()`, and scatterplots are used to show the relationship between two x/y numeric values. In this second scatterplot lesson, we'll learn some additional customization strategies for making scatterplots your own.
 
-1. et's play with point size and shape. [This website](https://www.google.com/url?sa=i&url=http%3A%2F%2Fwww.sthda.com%2Fenglish%2Fwiki%2Fr-plot-pch-symbols-the-different-point-shapes-available-in-r&psig=AOvVaw0OJUM40mKjvj8_grWKRxXT&ust=1600267681741000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCODXw-ez6-sCFQAAAAAdAAAAABAD) shows all the different shapes in R you can use - we specify them with numbers. (Note: this website shows some example plotting using a non-`ggplot2` approach. Ignore that. We only care about the point symbols!) 
+1. Let's play with point size and shape. [This website](http://www.sthda.com/english/wiki/r-plot-pch-symbols-the-different-point-shapes-available-in-r) shows all the different shapes in R you can use - we specify them with numbers. (Note: this website shows some example plotting using a non-`ggplot2` approach. Ignore that. We only care about the point symbols!) 
 
-The plot below contains larger points at size 2, and points shaped like triangles. First run and understand the template code. Then, modify the code to make the points size 3 and with a new point style of your choosing!!
+The plot below contains larger points at size 2, and points shaped like triangles. First run and understand the template code. Then, modify the code to make the points size 3 and using shape 18 (diamond).
 
 > Hint: We are literally providing a single size and shape, NOT mapping size and shape to the data! Therefore, they are regular arguments to `geom_point()`, NOT to `aes()`.
 
@@ -887,7 +965,7 @@ ggplot(sparrows) +
   geom_point(size = 3, shape = 18)
 ```
 
-2. Shapes 21-25 are actually a little different from other shapes - they can be colored *and filled*. Again, for 2D shapes, color means *outline* and fill means *fill*. Re-make the scatterplot but specify shape = 21, and specify a color and fill of your choosing to `geom_point()` to see this in action.
+2. Shapes 21-25 are actually a little different from other shapes - they can be colored *and filled*. They are therefore like 2D points, so for these point shapes only color means *outline* and fill means *fill*. Re-make the scatterplot but specify shape = 21, and specify a color and fill of your choosing to `geom_point()` to see this in action.
 
 > Hint: Don't forget the magical PDF of all the [R colors](https://github.com/sjspielman/datascience_for_biologists/raw/master/spring2020/rmd_lessons/static/Rcolor.pdf) ! Have some fun :)
 
@@ -915,9 +993,8 @@ ggplot(sparrows) +
 # Examine the plot first
 sparrow_wing_femur_plot
 
-# Next, UNCOMMENT the next code and run it to see some awesome. IMPORTANT: this does NOT change the definition of `sparrow_wing_femur_plot`
-#sparrow_wing_femur_plot +
-#  labs(x = "OMG WE ADDED AN X-AXIS LABEL!")
+# Next, UNCOMMENT the next line code and run it to see some awesome. IMPORTANT: this does NOT change the definition of `sparrow_wing_femur_plot`
+# sparrow_wing_femur_plot + labs(x = "OMG WE ADDED AN X-AXIS LABEL!")
 
 # Finally, add both x and y axis labels to the plot below in the space below:
 
@@ -936,7 +1013,7 @@ sparrow_wing_femur_plot +
 
 4. So far, we have been writing separate lines for the `aes()`. In fact, you can include `aes()` in the initial call to `ggplot()` or to any `geom_` function to specify aesthetics for that geom (as we'll learn soon, you can have multiple geoms in a plot!). The code below demonstrates this concept; Run the code below to understand that you can place `aes()` in many locations.
 
-> It is VERY common (in fact it's the norm!!) for people to include `aes()` inside the initial call to `ggplot()`.
+> It is MOST COMMON for people to include `aes()` inside the initial call to `ggplot()`.
 
 ```{r scatter2_4, exercise=TRUE}
 # Place aes in ggplot(). This is EQUIVALENT to aes() on their own line
@@ -971,7 +1048,8 @@ ggplot(sparrows, aes(x = Wingspread, y = Femur_Length)) +
 6. Let's explore the `geom_smooth()` function further by modifying the plot you made for the previous question in the following ways:
  
   + Include the argument `se=FALSE` to `geom_smooth()` to disable the confidence interval bands (`se` stands for "standard error," which is mathematically very closely related to the confidence interval).
-  + Explore what adding `color` and `fill` arguments to geom_smooth does. Use these arguments in the same way you'd provide "just a color/fill" to `geom_point()` (these are not mapped aesthetics). One thing you will discover: `fill` doesn't really do much if `se=FALSE`. Understand why this is by trying lots of code!
+  + Explore what adding `color` and `fill` arguments to `geom_smooth()`. Use these arguments in the same way you'd provide "just a color/fill" to `geom_point()` (these are not mapped aesthetics). 
+    + One thing you will discover: `fill` doesn't really do much if `se=FALSE`. Understand why this is by trying lots of code!
 
 ```{r scatter2_6, exercise=TRUE}
 
@@ -1012,6 +1090,8 @@ ggplot(sparrows, aes(x = Wingspread, y = Femur_Length)) +
 + Place the color aesthetic inside the `geom_smooth()` function *only*
 
 > Hint: Don't forget to actually put `color = Survival` inside of the `aes()` function, no matter its placement!!!!
+
+**NOTE: Insights you gain from this question are CRITICAL to your understanding of `ggplot2`. Don't take this question lightly! Spend some time, take some of your own notes, and ask me questions!**
 
 ```{r scatter2_7, exercise=TRUE}
 
