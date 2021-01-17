@@ -13,7 +13,7 @@ runtime: shiny_prerendered
 knitr::opts_chunk$set(echo = TRUE)
 library(learnr)
 library(ggplot2) ## for msleep dataset
-tutorial_options(exercise.lines = 6)
+tutorial_options(exercise.lines = 10)
 ```
 
 
@@ -1262,3 +1262,85 @@ min_awake <- min(msleep$awake)
 min_awake > min_sleep_rem
 ```
 
+
+
+
+## Set 7: Conditional variable definition
+
+This section will teach you how to use the `ifelse()` function. It allows you to define a variable *based on a certain logical statement* (thing that is `TRUE` or `FALSE`). Here's the anatomy of the function, which takes *three* arguments:
+
+`ifelse(<logical statement>, <value if the statement is TRUE>, <value if the statement is FALSE>)`
+
+Here is an interactive example for you to engage with:
+
+```{r ifelse_example, exercise=TRUE}
+
+# Evaluates to "greater", since the statement is TRUE
+ifelse(10 > 5, "greater", "less than")
+
+
+# Evaluates to "crocodile", since the statement is FALSE
+ifelse(10 == 12, "aligator", "crocodile")
+
+# Save it to a variable!
+beast <- ifelse(10 == 12, "aligator", "crocodile")
+print(beast)
+```
+<br>
+
+Practice using the `ifelse()` function to define several variables as follows...
+
+
+1. Define a variable based on whether 5 is greater than 20. If the condition is `TRUE`, the variable value should be "yup". If the condition is `FALSE`, the variable value should be "nope".
+
+```{r ifelse_1, exercise=TRUE}
+
+```
+```{r ifelse_1-solution}
+var <- ifelse(5 > 20, "yup", "nope")
+# Always *look at* your variable to make sure it worked!
+var
+```
+<br>
+
+2. Define a variable based on whether "Cheetah" is an animal in `msleep` (use the `name`) column. If the condition is `TRUE`, the variable value should be "present". If the condition is `FALSE`, the variable value should be "absent".
+
+> Hint: Don't forget the `%in%` operator!
+
+```{r ifelse_2, exercise=TRUE}
+
+```
+```{r ifelse_2-solution}
+var <- ifelse("Cheetah" %in% msleep$name, "present", "absent")
+var
+```
+<br>
+
+3. Define a variable based on whether the *maximum body weight* in `msleep` is greater than 2000. If the condition is `TRUE`, the variable value should be 1 (the number 1, no quotes!). If the condition is `FALSE`, the variable value should be 0.
+
+```{r ifelse_3, exercise=TRUE}
+
+```
+```{r ifelse_3-solution}
+var <- ifelse(max(msleep$bodywt) > 2000, 1, 0)
+var
+
+# Or more spaced out for clarity:
+max_bodywt <- max(msleep$bodywt)
+var <- ifelse(max_bodywt > 2000, 1, 0)
+var
+```
+<br>
+
+
+4. Define a variable based on whether number of rows in `msleep` equals 80. If the condition is `TRUE`, the variable value should be 10. If the condition is `FALSE`, the variable value should be -10.
+
+
+```{r ifelse_4, exercise=TRUE}
+
+```
+```{r ifelse_4-solution}
+var <- ifelse(nrow(msleep) == 80, 10, -10)
+var
+```
+<br>
