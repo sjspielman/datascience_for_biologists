@@ -93,7 +93,7 @@ iris <- as_tibble(iris)
 + [Introduction to data types and their relationship to figures](https://rowanbiosci.shinyapps.io/data_types_figures/)
 + [Understanding the different types of plots](https://rowanbiosci.shinyapps.io/types_of_plots/)
 + [Introduction to R exercises](https://rowanbiosci.shinyapps.io/intro_R/)
-+ [Introduction to `ggplot2` exercises](https://rowanbiosci.shinyapps.io/intro_ggplot/)
++ [Introduction to `ggplot2` exercises](https://rowanbiosci.shinyapps.io/intro_ggplot2/)
 + [Introduction to `dplyr` exercises](https://rowanbiosci.shinyapps.io/intro_dplyr/)
 
 

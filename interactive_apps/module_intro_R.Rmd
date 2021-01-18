@@ -13,7 +13,7 @@ runtime: shiny_prerendered
 knitr::opts_chunk$set(echo = TRUE)
 library(learnr)
 library(ggplot2) ## for msleep dataset
-tutorial_options(exercise.lines = 10)
+tutorial_options(exercise.lines = 6)
 ```
 
 
