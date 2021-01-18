@@ -1,10 +1,12 @@
 library(shiny)
+library(shinyWidgets)
 library(DT)
 library(palmerpenguins)
 library(ggplot2)
 library(ggforce)
 library(tidyr)
 library(dplyr)
+library(glue)
 theme_set(theme_light() + theme(axis.text = element_text(size = rel(1.5)),
                                 axis.title = element_text(size = rel(1.5)),
                                 strip.text = element_text(size = rel(1.5)),
@@ -34,7 +36,7 @@ rowCallback <- c(
 
 
 ui <- fluidPage(theme = "my_united.css",
-
+ 
     # Application title
     titlePanel("Common types of data visualizations"),
     p("Written by ", a("Stephanie J. Spielman.", href = "https://spielmanlab.github.io"), "The", a("source code", href = "https://github.com/spielmanlab/intro_ds_in_r/tree/master/shiny_apps/types_of_plots"), "is released under a CC-BY 4.0 license."),
@@ -42,6 +44,7 @@ ui <- fluidPage(theme = "my_united.css",
     
 
     tabsetPanel(
+        ## UI: Overview tabPanel --------------------------------------------------
         tabPanel("Overview",
                  br(),
                  penguins_text,
@@ -62,10 +65,35 @@ ui <- fluidPage(theme = "my_united.css",
                      ),
                      
                      mainPanel(
-                         histogram_dataviz,                          
-                         plotOutput("histogram", width = "600px", height = "400px"),
+                         histogram_dataviz,          
+                         fluidRow(
+                           column(1,
+                                  shinyWidgets::dropdownButton(
+                                    h3("Code:"),
+                                     verbatimTextOutput("code_single_histogram"),
+                                     circle = FALSE, status = "warning",
+                                     icon = icon("gear"), width = "600px"
+                                   )
+                           ),
+                           column(11, 
+                                  plotOutput("plot_single_histogram", width = "600px", height = "400px")
+                           ) # column11
+                         ), # fluidRow
                          br(),
-                         plotOutput("faceted_histogram", width = "700px", height = "400px"),
+                         fluidRow(
+                           column(1,
+                                  shinyWidgets::dropdownButton(
+                                    h3("Code:"),
+                                    verbatimTextOutput("code_faceted_histogram"),
+                                    circle = FALSE, status = "warning",
+                                    icon = icon("gear"), width = "600px"
+                                  )
+                           ),
+                           column(11, 
+                                  plotOutput("plot_faceted_histogram", width = "600px", height = "400px")
+                           ) # column11
+                         ), # fluidRow                         
+                         br(),
                          histogram_text
                      )
                  ) # sidePanelLayout
@@ -264,7 +292,7 @@ ui <- fluidPage(theme = "my_united.css",
     
 
 server <- function(input, output) {
-
+  
     ## Server: Overview Panel------------------------------------ 
     output$penguin_table <- renderDT({
         datatable(palmerpenguins::penguins, 
@@ -274,40 +302,71 @@ server <- function(input, output) {
     
     ## Server: Histograms Panel ---------------------------------
     histogram_color <- color_module_server("histogram_color")
-    output$histogram <- renderPlot({
+
+    output$plot_single_histogram  <- renderPlot({eval(parse(text = histogram_plot()$single))})
+    output$code_single_histogram  <- renderText({histogram_plot()$single})
+    output$plot_faceted_histogram <- renderPlot({eval(parse(text = histogram_plot()$faceted))})
+    output$code_faceted_histogram <- renderText({histogram_plot()$faceted})
+    
+    
+    histogram_plot <- reactive({
+      x             <- input$histogram_variable
+      binwidth      <- input$binwidth
+      fill          <- paste0('"', histogram_color()$single_color, '"')
+      facet         <- input$histogram_facet_variable
+      title_single  <- glue::glue('"Histogram of all `{x}` values"')
+      sub_single    <- glue::glue('"All values in `{x}` are shown in this histogram."')
+      title_faceted <- glue::glue('"Faceted histogram of `{x}` values across `{facet}` values"')
+      sub_faceted   <- glue::glue('"A subset of values `{x}` is shown in each panel, also known as a facet."')
       
-        hist_fill <- ifelse(is.null(histogram_color()$single_color), default_color, histogram_color()$single_color)
-        ggplot(penguins, aes(x = !!(sym(input$histogram_variable)))) + 
-            geom_histogram(binwidth = input$binwidth, fill = histogram_color()$single_color, color = "black") + 
-            labs(title = paste0("Histogram of all `", input$histogram_variable, "` values"),
-                 subtitle = paste0("All values of `", input$histogram_variable, "` are shown in this figure.")
-                 )
+      # single
+      glue::glue("ggplot(penguins, aes(x = {x})) + 
+                    geom_histogram(binwidth = {binwidth}, fill = {fill}, color = 'black') +
+                    labs(title    = {title_single},
+                         subtitle = {sub_single})") -> single
+      
+      # faceted
+      faceted <- glue::glue(
+        "penguins %>%
+          # Remove potential NAs for demonstrating visualization
+          drop_na({facet}) %>%
+          ggplot(aes(x = {x})) +
+        "
+      )
+      
+      if (histogram_color()$color_style == color_choices[1])
+      {
+        
+        faceted <- glue::glue(
+          faceted, 
+          "
+      geom_histogram(fill     = {fill},
+                     color    = 'black',
+                     binwidth = {binwidth}) + 
+           ")
+      } else {
+        faceted <- glue::glue(
+          faceted, 
+          "
+      geom_histogram(aes(fill = {facet}),
+                     color    = 'black', 
+                     binwidth = {binwidth}) +
+          ")
+      }
+      
+      faceted <- glue::glue(
+        faceted, 
+        "  
+      facet_wrap(vars({facet})) +
+      labs(title = {title_faceted},
+           subtitle = {sub_faceted})")
+      
+      list("single" = single,
+           "faceted" = faceted)
     })
 
-    output$faceted_histogram <- renderPlot({
-        
-        penguins %>%
-            drop_na(!!(sym(input$histogram_facet_variable))) %>%
-        ggplot(aes(x = !!(sym(input$histogram_variable)))) +
-            facet_wrap(vars(!!(sym(input$histogram_facet_variable)))) +
-            labs(title = paste0("Faceted histogram of `", input$histogram_variable, "` values across `", input$histogram_facet_variable, "` values"),
-                 subtitle = paste0("A subset of values `", input$histogram_variable, "` is shown in each panel, also known as a 'facet.'")
-            ) -> p
-            
-        if (histogram_color()$color_style == color_choices[1])
-        {
-          p + geom_histogram(binwidth = input$binwidth, 
-                             fill = histogram_color()$single_color,
-                             color = "black") -> p
-        } else {
-          p + geom_histogram(binwidth = input$binwidth, 
-                             aes(fill = !!(sym(input$histogram_facet_variable))), 
-                             color = "black") +
-                             scale_fill_brewer(palette = "Set2") -> p
-        }
-        p
-    })    
-
+    
+  
     ## Server: Boxplots Panel ---------------------------------
     boxplot_color <- color_module_server("boxplot_color")
     output$boxplot <- renderPlot({
