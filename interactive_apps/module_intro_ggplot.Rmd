@@ -619,7 +619,7 @@ ggplot(sparrows) +
 4. How about some colors? Add "just a fill" and "just a color" of your choosing to the plot. This will also help you to see the boundaries of your bins.
 
 > Remember: For a 2D shape like a bar in a histogram, the **color=outline** and **fill=fill**.
-> Don't forget [all the R colors you can use!!](https://github.com/sjspielman/datascience_for_biologists/raw/master/spring2020/rmd_lessons/static/Rcolor.pdf)!
+> Don't forget [all the R colors you can use!!](https://github.com/sjspielman/datascience_for_biologists/raw/master/docs/tutorials/Rcolor.pdf)!
 
 + After you make your colored and filled histogram, also add "just a size" (use a value below 3, trust me...) to your histogram with the argument `size` to see what this argument does in histograms.
 + Then, make all your visual features (fill, color, and size) variables to use in your plot rather than the direct values, similar to how you practiced with `my_bins` in the previous question.
@@ -967,7 +967,7 @@ ggplot(sparrows) +
 
 2. Shapes 21-25 are actually a little different from other shapes - they can be colored *and filled*. They are therefore like 2D points, so for these point shapes only color means *outline* and fill means *fill*. Re-make the scatterplot but specify shape = 21, and specify a color and fill of your choosing to `geom_point()` to see this in action.
 
-> Hint: Don't forget the magical PDF of all the [R colors](https://github.com/sjspielman/datascience_for_biologists/raw/master/spring2020/rmd_lessons/static/Rcolor.pdf) ! Have some fun :)
+> Hint: Don't forget the magical PDF of all the [R colors](https://github.com/sjspielman/datascience_for_biologists/raw/master/docs/tutorials/Rcolor.pdf) ! Have some fun :)
 
 ```{r scatter2_2, exercise = TRUE}
 

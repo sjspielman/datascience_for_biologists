@@ -101,7 +101,7 @@ iris <- as_tibble(iris)
 
 + [R for the Rest of Us: Overview of the grammar of graphics](https://rfortherestofus.com/2019/07/a-short-overview-of-the-grammar-of-graphics/)
   + Short video introducing the conceptual underpinnings of the grammar of graphics
-+ [All the R colors you ever wanted to use!!](https://github.com/sjspielman/datascience_for_biologists/raw/master/spring2020/rmd_lessons/static/Rcolor.pdf)
++ [All the R colors you ever wanted to use!!](./tutorials/Rcolor.pdf)
 + [Official `ggplot2` command reference](https://ggplot2.tidyverse.org/reference/) 
 + [Chapter Three from "Data Visualization: A practical introduction"](https://socviz.co/makeplot.html) 
 + [Reference: Customizing Colors and Fills](./tutorials/color_fill_scales.html)
