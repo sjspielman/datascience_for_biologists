@@ -5,7 +5,7 @@
 layout: home
 ---
 
-# THIS PAGE IS CURRENTLY BEING UPDATED FOR SPRING 2021 INSTRUCTION. 
+## THIS PAGE IS CURRENTLY BEING UPDATED FOR SPRING 2021 INSTRUCTION. 
 
 This website contains all materials used in BIOL 01301 Spring 2021 at Rowan University with Dr. Spielman (`spielman <at> rowan <dot> edu`). This course meets remotely Tuesday and Thursday 2-3:15 pm and Wednesday 2:00-4:45 pm. Zoom links can be found in [Canvas](https://rowan.instructure.com/). All grading and assignment submissions (unless otherwise stated) will be hosted on [Canvas](https://rowan.instructure.com/), but course materials will be posted on this site and/or within the [rstudio.cloud](https://rstudio.cloud) BIOL01301 workspace.
 
@@ -13,7 +13,7 @@ Open office hours (no appointment necessary) will be on Zoom every Friday from 1
 
 <br>
 
-**Compiled set of class resources: [here](./fall2020/resources.html)**
+**Compiled set of class resources: [here](./resources.html)**
 
 
 <br> 
