@@ -9,7 +9,7 @@ layout: home
 
 This website contains all materials used in BIOL 01301 Spring 2021 at Rowan University with Dr. Spielman (`spielman <at> rowan <dot> edu`). This course meets remotely Tuesday and Thursday 2-3:15 pm and Wednesday 2:00-4:45 pm. Zoom links can be found in [Canvas](https://rowan.instructure.com/). All grading and assignment submissions (unless otherwise stated) will be hosted on [Canvas](https://rowan.instructure.com/), but course materials will be posted on this site and/or within the [rstudio.cloud](https://rstudio.cloud) BIOL01301 workspace.
 
-Open office hours (no appointment necessary) will be on Zoom every Friday from 11:30-12:30 AND Monday from . One-on-one meetings are available by appointment only; please email Dr. Spielman to request a meeting *at least one week in advance* of when you'd like to schedule a meeting.
+Open office hours (no appointment necessary) will be on Zoom *every Monday and Friday from 11:30 am - 12:30 pm*. One-on-one meetings are available by appointment only; please email Dr. Spielman to request a meeting *at least one week in advance* of when you'd like to schedule a meeting.
 
 <br>
 

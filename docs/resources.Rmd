@@ -1,6 +1,7 @@
 ---
-title: "Data Science for Biologists Resources"
+title: '"Data Science for Biologists" Resources'
 author: "Stephanie J. Spielman, PhD"
+date: "Spring 2021"
 output: 
   html_document:
     highlight: tango
@@ -64,7 +65,7 @@ iris <- as_tibble(iris)
     + [`ggplot2` Tutorial](https://stat545.com/ggplot2-tutorial.html)
     + [Introduction to `dplyr`](https://stat545.com/dplyr-intro.html)
     + [Single-table `dplyr` functions](https://stat545.com/dplyr-single.html)
-    + [When one tibble is not enough](https://stat545.com/multiple-tibbles.html)
+    + [When one tibble is not enough](https://stat545.com/multiple-tibbles.html) **Note: We may not get to this topic during Spring 2021 due to remote instruction limitations.**
 
 + [Introduction to Data Science e-book](https://rafalab.github.io/dsbook/)
   + Comprehensive data science book. Many topics in this book are more advanced than the scope of this class, but there are also many useful and relevant chapters.
@@ -110,5 +111,8 @@ iris <- as_tibble(iris)
 ## Other static tutorials from Dr. Spielman
 
 + [Introduction to R tutorial](./tutorials/introduction_to_R.html)
-<!-- + [`dplyr` one-table verbs](./tutorials/dplyr_onetable.html) -->
-+ [Linear modeling tutorial](./tutorials/lm_tutorial.html)
++ [Reference: Greatest hits of `dplyr`](./tutorials/dplyr_onetable.html) 
++ [Linear modeling tutorial](./tutorials/lm_tutorial.html) 
++ [UNIX cheatsheet](./tutorials/unix_cheatsheet.html)
++ [Git(hub) cheatsheet](./tutorials/github_cheatsheet.html)
++ [Github infographic](./tutorials/github_infographics/github_intro.pdf)
