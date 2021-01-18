@@ -9,18 +9,18 @@ layout: home
 
 This website contains all materials used in BIOL 01301 Spring 2021 at Rowan University with Dr. Spielman (`spielman <at> rowan <dot> edu`). This course meets remotely Tuesday and Thursday 2-3:15 pm and Wednesday 2:00-4:45 pm. Zoom links can be found in [Canvas](https://rowan.instructure.com/). All grading and assignment submissions (unless otherwise stated) will be hosted on [Canvas](https://rowan.instructure.com/), but course materials will be posted on this site and/or within the [rstudio.cloud](https://rstudio.cloud) BIOL01301 workspace.
 
-Open office hours (no appointment necessary) will be on Zoom every TBD. One-on-one meetings are available by appointment only; please email Dr. Spielman to request a meeting *at least one week in advance* of when you'd like to schedule a meeting.
+Open office hours (no appointment necessary) will be on Zoom every Friday from 11:30-12:30 AND Monday from . One-on-one meetings are available by appointment only; please email Dr. Spielman to request a meeting *at least one week in advance* of when you'd like to schedule a meeting.
 
 <br>
 
-## Class `tidyverse` resources, all in one place: [Resources](./fall2020/resources.html)
+**Compiled set of class resources: [here](./fall2020/resources.html)**
 
 
 <br> 
 
 ## Class Schedule and Materials
 
-> Materials are subject to change up until the Tuesday of the EACH week. Below is a ROUGH OUTLINE of what we'll be doing. 
+> Materials are subject to change based on student progress and class pace.
 > Topics denoted "Buffer day" mean classtime will either be used to wrap up previous lessons if more time is needed, or if more time is not needed, class will be "open office hours."
 
  Date  |Topic                                  | In-class materials          | Assignment
@@ -30,7 +30,7 @@ W 1/27  | Types of data and figures, Part 1     | Exercises: Introduction to Dat
 R 1/28  | Types of data and figures, Part 2     | Exercises: Introduction to Data Types Parts 3-4 | **Assignment 1**: Identifying data types and their relationship to figures. Due Tuesday 2/2.
 T 2/2   | Introduction to R and RStudio, Part 1 | Introduction to R tutorial <br> Exercises: Introduction to R Set 1 | None
 W 2/3   | Introduction to R and RStudio, Part 2 | Exercises: Introduction to R Sets 2-5 | None
-R 2/4   | Introduction to R and RStudio, Part 3 | Exercises: Introduction to R Set 6 | **Assignment 2:** Writing an R script. Due Tuesday 2/9.
+R 2/4   | Introduction to R and RStudio, Part 3 | Exercises: Introduction to R Set 6 | **Assignment 2:** Writing an R script. Due Tuesday 2/9. <br> **NOTE: Next Monday is the last day of late add/drop.**
 T 2/9   | Introduction to R and RStudio, Part 4 | Exercises: Introduction to R Set 7 | None
 W 2/10  | The grammar of graphics, Part 1 | Slides TBD | None
 R 2/11  | The grammar of graphics, Part 2 | Slides TBD | **Assignment 3:** Identifying grammatical components of figures. Due Tuesday 2/16.
@@ -41,16 +41,16 @@ T 2/23  | File input/output | Slides TBD | None
 W 2/24  | Manipulating figure scales and themes | [Customizing colors tutorial](https://htmlpreview.github.io/?https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/tutorials/color_fill_scales.html) <br> [Customizing axes tutorial](https://htmlpreview.github.io/?https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/tutorials/axes.html) <br> [Customizing themes tutorial](https://htmlpreview.github.io/?https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/tutorials/themes.html) | None
 R 2/25  | *Buffer day* | TBD | **Assignment 5**: Making more figures with `ggplot2`. Due Tuesday 3/2.
 T 3/2   | Data wrangling with `dplyr`, Part 1 | Slides TBD | None <!-- pipe and filter -->
-W 3/3   | Data wrangling with `dplyr`, Part 2 | Slides TBD <br> Exercises: Begin Introduction to `dplyr`| None <!-- mutate, arrange, distinct, MAYBE select --> 
-R 3/4   | Data wrangling with `dplyr`, Part 3 | Exercises: Complete Introduction to `dplyr` |  **Assignment 6**: Manipulating data with `dplyr`. Due Tuesday 3/9.
+W 3/3   | Data wrangling with `dplyr`, Part 2 | Slides TBD <br> Exercises: Begin Introduction to data wrangling with `dplyr`| None <!-- mutate, arrange, distinct, MAYBE select --> 
+R 3/4   | Data wrangling with `dplyr`, Part 3 | Exercises: Continue Introduction to data wrangling with  `dplyr` |  **Assignment 6**: Data wrangling with `dplyr`. Due Tuesday 3/9.
 T 3/9   | Debugging strategies | In-class script TBD | None
-W 3/10  | Creating professional reports with RMarkdown | In-class script TBD | None
-R 3/11  | Formalizing exploratory analysis | Slides TBD | **Assignment 7**: Exploratory analysis in Rmarkdown. Due Tuesday 3/16.
-T 3/16  | Tidy data and `tidyr`, Part 1 | Slides TBD |  None
-W 3/17  | Tidy data and `tidyr`, Part 2 | Exercises: Tidying data with `tidyr` | None <!-- DO THE HOMEWORK AS A CLASS --> 
+W 3/10  | Data wrangling with `dplyr`, Part 4 | Slides TBD | None
+R 3/11  | Data wrangling with `dplyr`, Part 5 | Exercises: Continue Introduction to data wrangling with  `dplyr` | **Assignment 7**: More data wrangling with `dplyr`. Due Tuesday 3/16.
+T 3/16  | Creating professional reports with RMarkdown | In-class script TBD |  None
+W 3/17  | Rmarkdown for exploratory analyses | Exercises: Tidying data with `tidyr` | None <!-- DO THE HOMEWORK AS A CLASS --> 
 R 3/18  | *Buffer day* | TBD | **Assignment 8:** Tidying your data for exploration. Due Tuesday 3/23.
-T 3/23  | Data wrangling with `dplyr`, Part 4 | Slides TBD | None <!-- bind and join -->
-W 3/24  | Data wrangling with `dplyr`, Part 5 | Exercises: Working with two tables in `dplyr` |  None
+T 3/23  | Tidy data and `tidyr`, Part 1 | Slides TBD |  None
+W 3/24  | Tidy data and `tidyr`, Part 2 | Exercises: Tidying data with `tidyr` | None <!-- DO THE HOMEWORK AS A CLASS --> 
 R 3/25  | *Buffer day* | TBD | **Assignment 9**: Putting it all together. Due Tuesday 3/30.
 T 3/31  | Introduction to modeling and machine-learning (ish) | Slides TBD | None
 W 3/31  | Linear models, Part 1 | Slides TBD <br> Exercises TBD | None
@@ -62,12 +62,13 @@ T 4/13  | Logistic regression, Part 1 | Slides TBD <br> Exercises TBD | None
 W 4/14  | Logistic regression, Part 2 | Slides TBD <br> Exercises TBD | None
 R 4/15  | Logistic regression, Part 3 | Slides TBD <br> Exercises TBD | **Assignment 12:** Building and interpreting logistic regressions. Dues Tuesday 4/20.
 T 4/20  | Final Project Introduction | TBD | **Final Project Proposal Assigned. Due _MONDAY_ 4/26**.
-W 4/21  | Working with strings with `stringr` | Slides TBD <br> Exercises TBD | None
-R 4/22  | Regular expressions | Slides TBD |  **Final project proposal due _MONDAY_ 4/26**
-T 4/27  | Working at the command line and UNIX, Part 1 | None | None
-R 4/29  | Version control with git(hub), Part 1 | None | None 
-T 5/4   | Version control with git(hub), Part 2 | None | **There is no assignment due next week. Please begin working on your final project due 5/15.**
-W 5/5   | Version control with git(hub), Part 3 | None | None 
+W 4/21  | Working at the command line and UNIX, Part 1 | Slides TBD <br> Exercises TBD | None
+R 4/22  | Working at the command line and UNIX, Part 2| Slides TBD |  **Final project proposal due _MONDAY_ 4/26**
+T 4/27  | Version control with git(hub), Part 1 | None | None
+W 4/28  | Version control with git(hub), Part 2 | None | None 
+R 4/29  | Version control with git(hub), Part 3 | None | None 
+T 5/4   | *Buffer day* | None | **There is no assignment due next week. Please begin working on your final project due 5/15.**
+W 5/5   | *Buffer day* | None | None 
 R 5/6   | *Buffer day* | None | **FINAL PROJET DUE ON FRIDAY MAY 15TH AT 11:59 PM**
 
 
