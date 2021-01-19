@@ -90,7 +90,7 @@ ui <- fluidPage(theme = "my_united.css",
                 ),
                 mainPanel(
                   boxplot_dataviz,                          
-                  plotOutput("boxplot", width = "700px", height = "400px"),
+                  display_plot_code_module_ui("boxplot"),
                   boxplot_text
                 )
             ) # sidePanelLayout
@@ -138,8 +138,8 @@ ui <- fluidPage(theme = "my_united.css",
                      ),
                      mainPanel(
                        violin_dataviz,                          
-                       plotOutput("violin"),
-                         br(),
+                       display_plot_code_module_ui("violin"),
+                       br(),
                          violin_text
                      )
                  ) # sidePanelLayout
@@ -162,8 +162,7 @@ ui <- fluidPage(theme = "my_united.css",
                      ),
                      mainPanel(
                        jitter_dataviz,                          
-                       plotOutput("jitter"),
-                         br(),
+                       display_plot_code_module_ui("jitter"),
                          jitter_text
                      )
                  ) # sidePanelLayout
@@ -184,8 +183,7 @@ ui <- fluidPage(theme = "my_united.css",
                    ),
                    mainPanel(
                      sina_dataviz,                          
-                     plotOutput("sina"),
-                     br(),
+                     display_plot_code_module_ui("sina"),
                      sina_text
                    )
                  ) # sidePanelLayout
@@ -278,7 +276,6 @@ server <- function(input, output) {
     
     ## Server: Histograms Panel ---------------------------------
     histogram_color <- color_module_server("histogram_color")
-
     display_plot_code_module_server("single_histogram", plot_string = reactive(histogram_plot()$single))
     display_plot_code_module_server("faceted_histogram", plot_string = reactive(histogram_plot()$faceted))
     
@@ -302,22 +299,18 @@ server <- function(input, output) {
   
     ## Server: Boxplots Panel ---------------------------------
     boxplot_color <- color_module_server("boxplot_color")
-    output$boxplot <- renderPlot({
-      penguins %>%
-        drop_na(!!(sym(input$boxplot_x_variable))) %>%
-      ggplot(aes(x = !!(sym(input$boxplot_x_variable)),
-                 y = !!(sym(input$boxplot_y_variable)))) +
-        labs(title = paste0("Boxplot of `", input$boxplot_y_variable, "` values across `", input$boxplot_x_variable, "` values"))-> p
-        
-      if (boxplot_color()$color_style == color_choices[1])
-      {
-        p + geom_boxplot(fill = boxplot_color()$single_color) -> p
-      } else {
-        p <- p + geom_boxplot(aes(fill = !!(sym(input$boxplot_x_variable)))) +
-          theme(legend.position = "none") +
-          scale_fill_brewer(palette = "Set2") 
-      }
-      p 
+    display_plot_code_module_server("boxplot", plot_string = reactive(boxplot_string()))
+    
+    boxplot_string <- reactive({
+      build_boxplot_violin_string(
+        list(x = input$boxplot_x_variable,
+             y = input$boxplot_y_variable,
+             fill = paste0('"',boxplot_color()$single_color,'"'),
+             color_style = boxplot_color()$color_style,
+             title = glue::glue('"Boxplot of `{input$boxplot_y_variable}` values across `{input$boxplot_x_variable}` values"')
+        ),
+        geom = "geom_boxplot"
+      )
     })
     
     ## Server: Density Panel ---------------------------------
@@ -358,82 +351,52 @@ server <- function(input, output) {
     
     ## Server: Violin Panel ---------------------------------
     violin_color <- color_module_server("violin_color")
-    output$violin <- renderPlot({
-        penguins %>%
-          drop_na(!!(sym(input$violin_x_variable))) %>%
-          ggplot(aes(x = !!(sym(input$violin_x_variable)),
-                     y = !!(sym(input$violin_y_variable)))) +
-                labs(
-                  title = paste0("Violin plot of `", input$violin_y_variable, "` values across `", input$violin_x_variable, "` values"))-> p
-        
-        if (violin_color()$color_style == color_choices[1])
-        {
-          p <- p + geom_violin(fill = violin_color()$single_color)
-        } else {
-          p <- p + geom_violin(aes(fill = !!(sym(input$violin_x_variable)))) +
-                theme(legend.position = "none") +
-                scale_fill_brewer(palette = "Set2") 
-        } 
-        p 
+    display_plot_code_module_server("violin", plot_string = reactive(violin_string()))
+    
+    violin_string <- reactive({
+      build_boxplot_violin_string(
+        list(x = input$violin_x_variable,
+             y = input$violin_y_variable,
+             fill = paste0('"',violin_color()$single_color,'"'),
+             color_style = violin_color()$color_style,
+             title = glue::glue('"Violin plot of `{input$violin_y_variable}` values across `{input$violin_x_variable}` values"')
+        ),
+        geom = "geom_violin"
+      )
     })
+    
     
     ## Server: Strip (jitter) Panel ---------------------------------
     jitter_color <- color_module_server("jitter_color")
-      set.seed(10)
-      output$jitter <- renderPlot({
-        penguins %>%
-            drop_na(!!(sym(input$jitter_x_variable))) %>%
-            ggplot(aes(x = !!(sym(input$jitter_x_variable)),
-                       y = !!(sym(input$jitter_y_variable)))) +
-              labs(title = paste0("Strip/jitter plot of `", input$jitter_y_variable, "` values across `", input$jitter_x_variable, "` values")) -> p
- 
-      
-      
-      
-      if (jitter_color()$color_style == color_choices[1])
-      {
-        if (input$jitter_setting == jitter_choices[1])
-        {
-          p <- p + geom_jitter(width = 0.2, size=2, color = jitter_color()$single_color)
-        } else {
-          p <- p + geom_point(size=2, color = jitter_color()$single_color)
-        }
-      } else {
-        if (input$jitter_setting == jitter_choices[1])
-        {
-          p <- p + geom_jitter(width = 0.2, size=2, 
-                               aes(color = !!(sym(input$jitter_x_variable))))
-        } else {
-          p <- p + geom_point(size=2, aes(color = !!(sym(input$jitter_x_variable))))
-        }
-         p <- p + scale_color_brewer(palette = "Set2") + theme(legend.position = "none")
-      } 
-      p               
-    })    
+    display_plot_code_module_server("jitter", plot_string = reactive(jitter_string()))
+    
+    jitter_string <- reactive({
+      build_jitter_string(
+        list(x = input$jitter_x_variable,
+             y = input$jitter_y_variable,
+             color = paste0('"',jitter_color()$single_color,'"'),
+             color_style = jitter_color()$color_style,
+             jitter_setting = input$jitter_setting,
+             title = glue::glue('"Strip/jitter plot of `{input$jitter_y_variable}` values across `{input$jitter_x_variable}` values"')
+        )
+      )
+    })
     
  
       ## Server: Sina Panel ---------------------------------
       sina_color <- color_module_server("sina_color")
-      output$sina <- renderPlot({
-        penguins %>%
-          drop_na(!!(sym(input$sina_x_variable))) %>%
-          ggplot(aes(x = !!(sym(input$sina_x_variable)),
-                     y = !!(sym(input$sina_y_variable)))) +
-          labs(title = paste0("Sina plot of `", input$sina_y_variable, "` values across `", input$sina_x_variable, "` values")) -> p
-        
-        
-        
-        
-        if (sina_color()$color_style == color_choices[1])
-        {
-            p <- p + geom_sina(size=2, color = sina_color()$single_color)
-        } else {
-            p <- p + geom_sina(size=2, aes(color = !!(sym(input$sina_x_variable)))) + 
-              scale_color_brewer(palette = "Set2") + 
-              theme(legend.position = "none")
-        } 
-        p               
-      })         
+      display_plot_code_module_server("sina", plot_string = reactive(sina_string()))
+      
+      sina_string <- reactive({
+        build_sina_string(
+          list(x = input$sina_x_variable,
+               y = input$sina_y_variable,
+               color = paste0('"',sina_color()$single_color,'"'),
+               color_style = sina_color()$color_style,
+               title = glue::glue('"Sina plot of `{input$sina_y_variable}` values across `{input$sina_x_variable}` values"')
+          )
+        )   
+      })
          
     ## Server: Barplot ----------------------------------
     output$barplot_single <- renderPlot({ 
