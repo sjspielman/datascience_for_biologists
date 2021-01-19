@@ -7,6 +7,7 @@ library(ggforce)
 library(tidyr)
 library(dplyr)
 library(glue)
+# TODO: Define this as a theme and add it to plots, and make it available on site.
 theme_set(theme_light() + theme(axis.text = element_text(size = rel(1.5)),
                                 axis.title = element_text(size = rel(1.5)),
                                 strip.text = element_text(size = rel(1.5)),
