@@ -1,5 +1,6 @@
 library(shiny)
 library(shinythemes)
+library(markdown)
 library(DT)
 library(readr)
 library(dplyr)
@@ -51,7 +52,7 @@ ui <- fluidPage(theme = shinytheme("journal"),
     div(style = "width:75%;font-size:80%;",
     DTOutput("coffee")),
     br(),
-    includeMarkdown("questions.md")
+    shiny::includeMarkdown("questions.md")
 )
 
 server <- function(input, output) {

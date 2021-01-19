@@ -43,13 +43,13 @@
 
 **Instructions: For these questions, simply answer whether the choice of data visualization is appropriate or not with "yes" or "no".** Your answers should be based ONLY on whether the type of plot is technically appropriate for visualizing those data types (don't worry about whether it might "look pretty" or not).
 
-1. You make a *scatterplot* to visualize the distribution of `aroma` coffee gradings.
+1. You make a *scatterplot* to visualize the distribution of aroma coffee gradings.
 
 2. You make a *barplot* to visualize how many coffees come from each country in the dataset.
 
-3. You make a *histogram* to visualize the distribution of `total_cup_points`.
+3. You make a *histogram* to visualize the distribution of total_cup_points.
 
-4. You make a *violin plot* to visualize the distribution of `balance` for each species of coffee.
+4. You make a *violin plot* to visualize the distribution of balance for each species of coffee.
 
 5. You make a *scatterplot* to visualize the relationship between coffee flavor and sweetness grades.
 
@@ -57,7 +57,7 @@
 
 7. You make a *density plot* to visualize the relationship between the number of bags produced and the number of defects found for each coffee.
 
-8. You make a *strip plot* to visualize the distribution of `balance` coffee gradings.
+8. You make a *strip plot* to visualize the distribution of flavor coffee gradings.
 
-9. You make a *barplot* to visualize the distribution of `acidity` coffee gradings.
+9. You make a *barplot* to visualize the distribution of acidity coffee gradings.
 
