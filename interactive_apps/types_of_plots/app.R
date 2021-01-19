@@ -109,14 +109,11 @@ ui <- fluidPage(theme = "my_united.css",
                          colourpicker::colourInput("density_single_fill", "Color of the single density plot?", value = default_color)
                      ),
                      mainPanel(
-                        density_dataviz,                          
-                        plotOutput("density", width = "500px", height = "350px"),
-                        br(),
-                        plotOutput("overlapping_density", width = "750px", height = "350px"),
-                         br(),
-                         plotOutput("faceted_density", width = "750px", height = "350px"),
-                         br(),
-                         density_text
+                        density_dataviz,   
+                        display_plot_code_module_ui("single_density", width = "500px", height = "350px"),
+                        display_plot_code_module_ui("overlapping_density", width = "750px", height = "400px"),
+                        display_plot_code_module_ui("faceted_density", width = "750px", height = "400px"),
+                        density_text
                      )
                  ) # sidePanelLayout                
                  
@@ -193,7 +190,6 @@ ui <- fluidPage(theme = "my_united.css",
         tabPanel("Barplots",
                  sidebarLayout(
                    sidebarPanel(
-                     # TODO color choice for single variable barplot
                      selectInput("barplot_variable", "Select a discrete variable to visualize. This variable will be placed along the x-axis.",
                                  choices = discrete_choices
                      ), 
@@ -209,13 +205,12 @@ ui <- fluidPage(theme = "my_united.css",
                      )
                    ),
                    mainPanel(
-                     barplot_dataviz,                          
-                     plotOutput("barplot_single", width = "500px", height = "300px"),
-                     plotOutput("barplot_double", width = "500px", height = "300px"),
-                     br(),
+                     barplot_dataviz,   
+                     display_plot_code_module_ui("barplot_single", width = "600px", height = "400px"),
+                     display_plot_code_module_ui("barplot_double", width = "700px", height = "400px"),
                      barplot_text,
                      # demonstrates the concept, but is not interactive.
-                     plotOutput("barplot_error", width = "500px", height = "300px")
+                     display_plot_code_module_ui("barplot_errorbar", width = "500px", height = "300px")
                    )
                  ) # sidePanelLayout
         ), # tabpanel barplot
@@ -314,40 +309,26 @@ server <- function(input, output) {
     })
     
     ## Server: Density Panel ---------------------------------
-    output$density <- renderPlot({
-        ggplot(penguins, aes(x = !!(sym(input$density_variable)))) +
-            geom_density(fill = input$density_single_fill) +
-            labs(title = paste0("Density plot of all `", input$density_variable, "` values"),
-                subtitle = paste0("All values of `", input$density_variable, "` are shown in this figure.")
-            )
-    })
+    display_plot_code_module_server("single_density", plot_string = reactive(density_string()$single))
+    display_plot_code_module_server("overlapping_density", plot_string = reactive(density_string()$overlapping))
+    display_plot_code_module_server("faceted_density", plot_string = reactive(density_string()$faceted))
     
-    output$overlapping_density <- renderPlot({
-        penguins %>%
-            drop_na(!!(sym(input$density_fill_variable))) %>%
-            ggplot(aes(x   = !!(sym(input$density_variable)),
-                      fill = !!(sym(input$density_fill_variable)) )) +
-            geom_density(alpha = 0.8) + 
-            scale_fill_brewer(palette = "Set2") +
-            labs(
-              title = paste0("Overlapping density plot of `", input$density_variable, "` values across `", input$density_fill_variable, "` values"),
-              subtitle = "This plot has a single x-axis for all categories, and categories are distinguished by color. Without colors, we could not interpret this plot."
-              )
+    density_string <- reactive({
+      build_density_string(
+        list(
+          x = input$density_variable,
+          fill = paste0('"',input$density_single_fill,'"'),
+          fillby = input$density_fill_variable,
+          title_single = glue::glue('"Density plot of all `{input$density_variable}` values"'),
+          sub_single   = glue::glue('"All values of `{input$density_variable}` are shown in this plot."'),
+          title_overlapping = glue::glue('"Overlapping density plot of `{input$density_variable}` values across `{input$density_fill_variable}` values"'),
+          sub_overlapping = '"This plot has a single x-axis for all categories, and categories are distinguished by color. Without colors, we could not interpret this plot."',
+          title_faceted = glue::glue('"Faceted density plot of `{input$density_variable}` values across `{input$density_fill_variable}` values"'),
+          sub_faceted = '"This plot has a separate x-axis for each category. Colors also distinguish categories, but they are not necessary to interpret the plot."'       
+          )
+      )
     })
-    
-    output$faceted_density <- renderPlot({
-        penguins %>%
-            drop_na(!!(sym(input$density_fill_variable))) %>%
-            ggplot(aes(x   = !!(sym(input$density_variable)),
-                       fill = !!(sym(input$density_fill_variable)) )) +
-            geom_density() + 
-            facet_wrap(vars(!!(sym(input$density_fill_variable)))) +
-            scale_fill_brewer(palette = "Set2") +
-            labs(
-              title = (paste0("Faceted density plot of `", input$density_variable, "` values across `", input$density_fill_variable, "` values")),
-              subtitle = "This plot has a separate x-axis for each category. Colors also distinguish categories, but they are not necessary to interpret the plot."       
-            )
-    })
+
     
     ## Server: Violin Panel ---------------------------------
     violin_color <- color_module_server("violin_color")
@@ -399,50 +380,23 @@ server <- function(input, output) {
       })
          
     ## Server: Barplot ----------------------------------
-    output$barplot_single <- renderPlot({ 
-      penguins %>%
-        drop_na(!!(sym(input$barplot_variable))) %>%
-        ggplot(aes(x = !!(sym(input$barplot_variable)))) + 
-          geom_bar(color = "black", fill = input$barplot_single_fill) + 
-          labs(
-            title("The number of penguin observations in each category.")
-          )
+    display_plot_code_module_server("barplot_single", plot_string = reactive(barplot_string()$single))
+    display_plot_code_module_server("barplot_double", plot_string = reactive(barplot_string()$double))
+    display_plot_code_module_server("barplot_errorbar", plot_string = reactive(barplot_string()$errorbar))
       
-      })
-    
-    output$barplot_double <- renderPlot({ 
-      penguins %>%
-        drop_na(!!(sym(input$barplot_variable)),
-                !!(sym(input$barplot_second_variable))) %>%
-        ggplot(aes(x = !!(sym(input$barplot_variable)),
-                   fill = !!(sym(input$barplot_second_variable))))  + 
-        labs(
-          title("Grouped barplot of the number of penguin observations in each combination of categories.")
-        ) -> p
-      
-      if (input$barplot_position == position_choices[1])
-      {
-        p <- p + geom_bar(color = "black", position = position_dodge(preserve = "single"))
-      } else {
-        p <- p + geom_bar(color = "black")
-      }
-      p + scale_fill_brewer(palette = "Set2")
-      
+    barplot_string <- reactive({
+      build_barplot_string(
+        list(x = input$barplot_variable,
+             fill = paste0('"',input$barplot_single_fill,'"'),
+             fillby = input$barplot_second_variable, 
+             y = input$sina_y_variable,
+             position = input$barplot_position,
+             title_single = '"The number of penguin observations in each category."',
+             title_double = '"Grouped barplot of the number of penguins in each combination of categories."'
+        )
+      )   
     })
-    
-    output$barplot_error <- renderPlot({
-      penguins %>%
-        drop_na(flipper_length_mm, species) %>%
-        group_by(species) %>%
-        summarize(mean_flipper = mean(flipper_length_mm), sd_flipper = sd(flipper_length_mm)) %>%
-        ggplot(aes(x = species, y = mean_flipper, fill = species)) + 
-          geom_col(color = "black") + 
-          geom_errorbar(aes(ymax = mean_flipper + sd_flipper/2, ymin =  mean_flipper - sd_flipper/2), width = 0.05, size=1) + 
-        scale_fill_brewer(palette = "Set2") + 
-        ylab("Mean +/- SD of flipper length (mm)") + 
-        theme(axis.title.y = element_text(size=12))
-    })
-    
+      
   
     
     ## Server: Scatterplot ----------------------------------

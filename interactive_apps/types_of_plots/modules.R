@@ -31,7 +31,7 @@ color_module_server <- function(id) {
 
 
 
-display_plot_code_module_ui <- function(id){
+display_plot_code_module_ui <- function(id, width = "600px", height = "400px"){
   ns <- NS(id)
 
   tagList(
@@ -42,7 +42,7 @@ display_plot_code_module_ui <- function(id){
         circle = FALSE, status = "warning",
         icon = icon("gear"), width = "600px"
       )),
-      column(11, plotOutput(ns("plot"), width = "600px", height = "400px"))
+      column(11, plotOutput(ns("plot"), width = width, height = height))
     ), # fluidRow
     br()
   )
