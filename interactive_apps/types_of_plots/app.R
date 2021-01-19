@@ -7,21 +7,13 @@ library(ggforce)
 library(tidyr)
 library(dplyr)
 library(glue)
-# TODO: Define this as a theme and add it to plots, and make it available on site.
-# TODO: Add a tabPanel giving other information like the the theme that I will define as well as penguins year got factored.
-theme_set(theme_light() + theme(axis.text = element_text(size = rel(1.5)),
-                                axis.title = element_text(size = rel(1.5)),
-                                strip.text = element_text(size = rel(1.5)),
-                                strip.background = element_rect(fill = "grey30"),
-                                plot.title = element_text(size = rel(1.5)),
-                                legend.key.size = unit(1, "cm"),
-                                legend.text = element_text(size = rel(1.5)),
-                                legend.title = element_text(size = rel(1.5)),
-                                legend.position = "bottom"))
+
 source("utils.R")
 source("descriptions.R")
 source("modules.R")
 source("build_plot_strings.R")
+# Sets the theme (yes, we set. sorry/notsorry?)
+eval(parse(text =theme_custom_string))
 
 
 # Thanks, stackoverflow!
@@ -51,16 +43,19 @@ ui <- fluidPage(theme = "my_united.css",
         tabPanel("Overview",
                  br(),
                  penguins_text,
-                 DTOutput("penguin_table")
+                 DTOutput("penguin_table"),
+                 br(),
+                 overview_technical
                  ),
+            
         ## UI: Histogram tabPanel -------------------------------------------------
         tabPanel("Histograms",
                  sidebarLayout(
                      sidebarPanel(
                          selectInput("histogram_variable", "Select a numeric continuous variable to visualize. This variable will be placed along the x-axis.",
                                      choices = numeric_choices),
-                         numericInput("binwidth", "How wide (along the x-axis) should the histogram bins be?",
-                                      value = 1, min = 0.1, max = 20, step = 0.5),
+                         sliderInput("binwidth", "How wide (along the x-axis) should the histogram bins be?",
+                                      value = 1, min = 0.1, max = 100, step = 0.5),
                          selectInput("histogram_facet_variable", "Select a discrete variable to visualize numeric distributions across:",
                                      choices = discrete_choices),
                          color_module_ui("histogram_color", 
@@ -70,8 +65,8 @@ ui <- fluidPage(theme = "my_united.css",
                      mainPanel(
                          histogram_dataviz,
                          br(),
-                         display_plot_code_module_ui("single_histogram"),
-                         display_plot_code_module_ui("faceted_histogram"),
+                         display_plot_code_module_ui("single_histogram", width = "700px"),
+                         display_plot_code_module_ui("faceted_histogram", width = "700px"),
                          histogram_text
                      )
                  ) # sidePanelLayout
@@ -232,12 +227,12 @@ ui <- fluidPage(theme = "my_united.css",
                          selectInput("scatter_y_variable", "Select a numeric variable to place along the y-axis.  This is sometimes called the 'response' variable.",
                                      choices =numeric_choices,
                                      selected = numeric_choices[2]),
-                         radioButtons("bestfit", "Display linear regression line ('line-of-best-fit')",
-                                      choices = c("Yes", "No")),
+                         radioButtons("regression", "Display linear regression line ('line-of-best-fit')",
+                                      choices = regression_choices),
                          
                          ## The module is not well-suited here. it's ok.
                          selectInput("scatter_color_style", "Should all points be the same color, or colored based on their value of another given variable?",
-                                     choices = color_choices),
+                                     choices = color_choices_scatter),
                          conditionalPanel("input.scatter_color_style == 'Single color'",
                                           { 
                                             colourpicker::colourInput("scatter_single_color", "What single color should all points be?",
@@ -246,16 +241,15 @@ ui <- fluidPage(theme = "my_united.css",
                         conditionalPanel("input.scatter_color_style != 'Single color'",
                                           { 
                                               selectInput("scatter_color_variable", "What variable should determine point colors?",
-                                                          choices = c(numeric_choices, discrete_choices)
+                                                          choices = list("Numeric variables" = numeric_choices, "Discrete variables" = discrete_choices)
                                               )
                                           }
                          ) # conditionalpanel
                      ), #sidebarpanel
                      mainPanel(
                        scatter_dataviz,                          
-                       plotOutput("scatter"),
-                         br(),
-                         scatter_text
+                       display_plot_code_module_ui("scatter"),
+                       scatter_text
                      )
                  ) #sidebarlayout
     ) #tabpanelscatterplots
@@ -270,6 +264,17 @@ server <- function(input, output) {
                   options = list(rowCallback = JS(rowCallback)))
         
     })
+    output$penguins_year_factor <- renderText({
+      glue::glue(
+        "penguins <- palmerpenguins::penguins %>% 
+              dplyr::mutate(year = as.factor(year))
+        "
+      )
+    })
+    output$theme_custom_string <- renderText({
+        theme_custom_string
+    })
+    
     
     ## Server: Histograms Panel ---------------------------------
     histogram_color <- color_module_server("histogram_color")
@@ -402,35 +407,21 @@ server <- function(input, output) {
   
     
     ## Server: Scatterplot ----------------------------------
-    output$scatter <- renderPlot({
-        penguins %>%
-            # just drop it all BURN IT ALL DOWN
-            drop_na() %>%
-            ggplot(aes(x = !!(sym(input$scatter_x_variable)),
-                       y = !!(sym(input$scatter_y_variable)))) +
-                ggtitle(paste0("Scatter plot of `", input$scatter_y_variable, "` across `", input$scatter_x_variable, "`")) -> p
-        
-        if (input$scatter_color_style == color_choices[1])
-        {
-            p <- p + geom_point(size = 2, color = input$scatter_single_color) 
-            if (input$bestfit == "Yes") p <- p + geom_smooth(method = "lm")
-        } else {
-            p <- p + geom_point(size = 2,
-                                aes(color = !!(sym(input$scatter_color_variable))))
-            if (!(input$scatter_color_variable %in% numeric_choices)) 
-            {
-              p <- p + scale_color_brewer(palette = "Set2") 
-            } else {
-              p <- p + theme(legend.text = element_text(size = 10))
-            }
-            if (input$bestfit == "Yes") p <- p + geom_smooth(aes(color = !!(sym(input$scatter_color_variable))),
-                                                                 method = "lm")
-            
-        }
-        
-      
-        p 
-    })                           
+    display_plot_code_module_server("scatter", plot_string = reactive(scatter_string()))
+    
+     scatter_string <- reactive({
+      build_scatter_string(
+        list(x = input$scatter_x_variable,
+             y = input$scatter_y_variable,
+             color = paste0('"',input$scatter_single_color,'"'),
+             colorby = input$scatter_color_variable,
+             color_style = input$scatter_color_style,
+             regression = input$regression,
+             title = glue::glue('"Scatter plot of `{input$scatter_y_variable}` across `{input$scatter_x_variable}` values"'),
+             subtitle = glue::glue('"Notice how the regression line sometimes changes direction when you color by a discrete variable - read on!"')
+        )
+      )   
+    })                   
         
 }
 

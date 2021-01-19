@@ -1,5 +1,57 @@
 # Functions to build plot strings
 
+
+build_scatter_string <- function(args)
+{
+
+  if (args$color_style == color_choices[1])
+  {
+    glue::glue("ggplot(penguins, aes(x = {args$x},
+                                     y = {args$y})) + 
+    ") -> plot_string
+  } else {
+    glue::glue("ggplot(penguins, aes(x = {args$x},
+                                     y = {args$y},
+                                     color = {args$colorby})) + 
+    ") -> plot_string
+   
+  }  
+
+  
+  
+  if (args$color_style == color_choices[1])
+  {
+    glue::glue(
+      plot_string,
+      "
+    geom_point(color = {args$color},
+               size  = 2) + 
+      ") -> plot_string    
+  } else {
+    glue::glue(
+      plot_string,
+      "
+    geom_point(size  = 2) + 
+    ") -> plot_string       
+  }
+  if (args$regression == regression_choices[1])
+  {
+    glue::glue(
+      plot_string,
+      "
+      geom_smooth(method = 'lm') + 
+      ") -> plot_string
+  } 
+  glue::glue(
+    plot_string,
+    "
+      labs(title    = {args$title},
+         subtitle = {args$subtitle}) + 
+      theme(legend.text = element_text(size = rel(0.9)))") -> plot_string
+  plot_string
+}
+
+
 build_barplot_string <- function(args)
 {
   glue::glue(
@@ -211,15 +263,15 @@ build_histogram_string <- function(args)
   faceted <- glue::glue(
     faceted, 
     "  
-        facet_wrap(vars({args$facet})) +
-        labs(title = {args$title_faceted},
-             subtitle = {args$sub_faceted})")
+      facet_wrap(vars({args$facet})) +
+      labs(title = {args$title_faceted},
+           subtitle = {args$sub_faceted}) + 
+      theme(axis.text.x = element_text(size = rel(0.8)))")
   
   list("single" = single,
        "faceted" = faceted)
 
 }
-
 
 build_density_string <- function(args)
 {
@@ -239,8 +291,8 @@ build_density_string <- function(args)
             ggplot(aes(x    = {args$x},
                        fill = {args$fillby})) +
               geom_density(alpha = 0.7) +
-            labs(title = {args$title_overlapping},
-                 subtitle = {args$sub_overlapping})"
+              labs(title = {args$title_overlapping},
+                   subtitle = {args$sub_overlapping})"
   ) -> overlapping  
 
   # faceted
@@ -252,7 +304,7 @@ build_density_string <- function(args)
                        fill = {args$fillby})) +
               geom_density() +
               facet_wrap(vars({args$fillby})) +
-            labs(title = {args$title_faceted},
+              labs(title = {args$title_faceted},
                  subtitle = {args$sub_faceted})"
   ) -> faceted  
   

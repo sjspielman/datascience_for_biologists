@@ -3,7 +3,6 @@ library(shiny)
 
 ## Penguins text -------------------------------------------------------
 penguins_text <- shiny::tagList(
-  
   p("To demonstrate the different types of plots, we will use the glorious", 
     a("{palmerpenguins} package's", href = "https://github.com/allisonhorst/palmerpenguins"), 
     tags$code("penguins"), "dataset. As the source describes,"
@@ -13,12 +12,13 @@ penguins_text <- shiny::tagList(
     a('Dr. Kristen Gorman', href = '(https://www.uaf.edu/cfos/people/faculty/detail/kristen-gorman.php'),'and the', a('Palmer Station, Antarctica LTER', href = 'https://pal.lternet.edu/'),'a member of the', a('Long Term Ecological Research Network.', href = 'https://lternet.edu/')
     ),
 
-  tags$img(src = "img/lter_penguins.png", width = "30%"),
+  tags$img(src = "img/lter_penguins.png", width = "40%"),
   div(style = "font-size:0.8em;", 
     p("Artwork by", a("@allison_horst", href="https://github.com/allisonhorst/palmerpenguins"))
   ),
-  br(),
-  
+  p(style = "font-size:0.8em;",
+    "For more technical information about this app, please scroll to the bottom of this page."
+  ),
   p("The dataset contains physical measurements from penuins of three species (Adelie, Chinstrap, and Gentoo), which live on three different islands in Antarctica (Biscoe, Dream, and Torsergen). Measurements were taken from penguins on these islands during the years 2007-2009. The dataset eight different variables (aka columns!), as follows:"),
   tags$ul(
     tags$li("Three categorical variables:"),
@@ -37,8 +37,17 @@ penguins_text <- shiny::tagList(
    tags$li("One numeric discrete variable,", tags$code("year"))
   ),
   p("Explore the dataset below, and use it to make and understand different types of data visualizations in the subsequent tabs. You'll also notice below that many of the data entries say", tags$em("NA"), "instead of containing a value. The",  tags$em("NAs"), "represent missing data that is simply not part of the dataset. There are many reasons why data points are missing, but it doesn't necessarily mean there is something 'wrong' with the dataset! Sometimes, information is just not known."),
+)
+
+overview_technical <- tagList(
+  h3("Additional technical details"),
+  br(),
+  p("The", tags$code("penguins"), "dataset was modified before plotting to recode",tags$code("year"), "as a factor:"),
+  verbatimTextOutput("penguins_year_factor"),
+  br(),
+  p("A custom ggplot2 theme was set for all plots as follows:"),
+  verbatimTextOutput("theme_custom_string"),
   br()
-  
 )
 
 
@@ -176,5 +185,5 @@ scatter_text <- tagList(
   p("You will also see the option to include a", tags$b("linear regression line"), "in the plot, which displays the line-of-best-fit that best summarizes the average linear relationship between x and y values. If you have elected to color points based on different discrete categories, you will see a separate regression line for each group. You will also observe a shaded gray around the line, representing the 95% confidence interval (CI). The 95% CI represents: If you collected different versions of this dataset a bunch of times, 95% of those times, the regression line would fall into that shaded area. More precisely, areas", tags$em("outside"), "the shaded confidence interval represent areas in the plot where you do not expect your line-of-best fit will be. Therefore, narrower CI's suggest that this dataset has really 'honed in' on a robustly inferred line-of-best-fit."),
   p("When interpreting a line-of-best fit, focus on the slope. If the slope is positive, the relationship between x/y is also positive - when x increases, y increases. By contrast, if the slope is negative, when x increases, y decreases, and vice versa. Importantly, if the line is flat, or it is possible to draw a completely flat line within the 95% CI shaded area, this means the slope cannot be statistically distinguished from 0. A slope of 0 represents no relationship between x and y. The", tags$b("strength of the association"), "between x and y also depends on how much noise is in the plot. The closer all points are to the regression line, the stronger the relationship is. If points are very spread out diffusely around the regression line, any potential x/y relationship is weaker."),
   p("It is important to be aware that just because you can draw a linear regression line doesn't mean the data truly are related linearly. The computer will calculate whatever you ask it you, but it is up to YOU to decide whether those calculations are reasonable in the first place. It is therefore critical to look at the plot for yourself (yes, there is lots of subjectivity in statistics!) to determine whether drawing a straight line through the points (as opposed to a curve of some kind) makes sense."),
-  p("Finally, you might notice something odd about the regression lines -  for many combinations of x/y variables, the line has a negative slope when we consider a single regression line for the entire dataset, but when we show a separate regression line for each category of a discrete variable, we see positive slopes! What causes this change, and is the relationship positive or negative? This is a phenomenon known as", a(tags$b("Simpson's paradox"), href = "https://en.wikipedia.org/wiki/Simpson%27s_paradox"), "which states that trends in a dataset can change when you consider different groups at a time. This paradox highlights the absolute importance of always making sure you consider the ways in which natural groupings in the data affect your conclusions about data trends. In this circumstance, the positive slopes are correct, and the negative slopes are actually misleading about the true nature of the data.")
+  p("Finally, you might notice something odd about the regression lines -  for many combinations of x/y variables, the line has a negative slope when we consider a single regression line for the entire dataset, but when we show a separate regression line for each category of a discrete variable, we see positive slopes (or vice versa)! What causes this change, and is the relationship positive or negative? This is a phenomenon known as", a(tags$b("Simpson's paradox"), href = "https://en.wikipedia.org/wiki/Simpson%27s_paradox"), "which states that trends in a dataset can change when you consider different groups at a time. This paradox highlights the absolute importance of always making sure you consider the ways in which natural groupings in the data affect your conclusions about data trends. When modeling with linear regression, it is very important to take natural groupings into account - ignoring groupings within the data can end up misleading your whole statistical adventure.")
 )
