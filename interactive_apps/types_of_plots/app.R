@@ -8,6 +8,7 @@ library(tidyr)
 library(dplyr)
 library(glue)
 # TODO: Define this as a theme and add it to plots, and make it available on site.
+# TODO: Add a tabPanel giving other information like the the theme that I will define as well as penguins year got factored.
 theme_set(theme_light() + theme(axis.text = element_text(size = rel(1.5)),
                                 axis.title = element_text(size = rel(1.5)),
                                 strip.text = element_text(size = rel(1.5)),
