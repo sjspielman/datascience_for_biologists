@@ -28,7 +28,7 @@ W 1/27  | Types of data and figures, Part 1     | Exercises: Introduction to Dat
 R 1/28  | Types of data and figures, Part 2     | Exercises: Introduction to Data Types Parts 3-4 | **Assignment 1**: Identifying data types and their relationship to figures. Due Tuesday 2/2.
 T 2/2   | Introduction to R and RStudio, Part 1 | Introduction to R tutorial <br> Exercises: Introduction to R Set 1 | None
 W 2/3   | Introduction to R and RStudio, Part 2 | Exercises: Introduction to R Sets 2-5 | None
-R 2/4   | Introduction to R and RStudio, Part 3 | Exercises: Introduction to R Set 6 | **Assignment 2:** Writing an R script. Due Tuesday 2/9. <br> **NOTE: Next Monday is the last day of late add/drop.**
+R 2/4   | Introduction to R and RStudio, Part 3 | Exercises: Introduction to R Set 6 | **Assignment 2:** Writing an R script. Due Tuesday 2/9. [Link to instructions](./assignments/hw2/hw2_instructions.html)<br> **NOTE: Next Monday is the last day of late add/drop.**
 T 2/9   | Introduction to R and RStudio, Part 4 | Exercises: Introduction to R Set 7 | None
 W 2/10  | The grammar of graphics, Part 1 | Slides TBD | None
 R 2/11  | The grammar of graphics, Part 2 | Slides TBD | **Assignment 3:** Identifying grammatical components of figures. Due Tuesday 2/16.

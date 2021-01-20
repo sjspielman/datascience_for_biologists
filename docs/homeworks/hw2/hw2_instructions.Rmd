@@ -1,0 +1,92 @@
+---
+title: 'Assignment #2'
+author: "Data Science for Biologists, Spring 2021"
+date: "Due as an RScript to Canvas on Tuesday 2/9/21"
+output: 
+  html_document:
+    theme: lumen
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Instructions
+
+Answer the following questions with R code in the `hw2_template.R` templated script. Please do NOT modify the template but answer questions. 
+
++ You will not receive any credit for answers without corresponding code that produces those answers.
++ All lines of code **MUST** have an associated comment. The purpose of this instruction is to get you in the habit of writing comments. Comments should be brief "plain English" descriptions of what your code does. Even though the code on this homework is relatively straightforward, comments are still important.
+  + Comments may either be written on the line ABOVE the code it refers to, or at the END of the line of the code it refers to. Do NOT write comments on lines after the relevant code.
++ **Make sure your code runs WITHOUT an errors before submitting.** _DO NOT SKIP THIS STEP!_ Ensuring code runs without errors is MORE IMPORTANT than writing code in the first place.
+  + **_Please carefully watch this 10-minute video to help you!!!_** [Link to video](https://youtu.be/OXCIIKKRBqk). I recommend watching this video BEFORE you do your homework, but of course you can watch it anytime. This video will teach you how to deal with errors/bugs in your code. It will also show you (at the very end) how to download your homework R script from the cloud to your computer so you can submit to Canvas.
+  + If there are errors in your code, you should *comment out* the code so that it does not actually run. This is **BETTER** than allowing buggy code to run - it shows me you attempted the code, but understood that it didn't work properly. If you leave buggy code in the script without commenting it out, there will be deductions.
+  + RStudio will help you find bugs in your code! If you see a red "x" circle at the front of a line in your script, this means there is some kind of syntax error (missing a symbol, extra symbol, etc.) in your code. Either FIX IT or COMMENT IT OUT.
++ In the script template, you'll notice a line of code printing the question number at the start of each question. *DO NOT DELETE THESES LINES!* They help us see which question each value you print came from.
+<br>
+
+### Questions
+
+0. **Example Question**: Define a variable `w` as the value 10, and print the variable.
+
+    *This question is answered in the homework script template so you can see the general organization (including for your comments!) for how you should answer the following questions.*
+
+<br>
+
+1. Define two variables `x` and `y` as values 13 and 18, respectively. Use a logical operator to ask if x is greater than y and print the output. **The code should print `TRUE` if x is greater and `FALSE` if not.**
+
+<br>
+
+2. Define two variables `a` and `b` as values 6 and 36, respectively. Use a logical operator and the function `sqrt()` to ask if `a` is equal to the square root of `b`, and print the output. **The code should print `TRUE` if they are equal and `FALSE` if not.
+
+<br> 
+
+3. Define a variable `boop` (gotta keep it fun!) whose values *depends* on a logical comparison, using variables `a` and `b` from the previous question. If `a` squared equals `b`, `boop` should be defined with the value "eureka". If `a` squared does not equal `b`, `boop` should be defined with the value "wompwomp". Print the value of `boop` after it is defined.
+  
+      Hints:
+      
+      + You will need to use the function `ifelse()` in your code.
+      + Do NOT redefine the `a` and `b` variables. You defined them in question #2, and this is still the same R script! We always want to avoid repeating code since it often leads to unexpected bugs.
+
+<br> 
+
+4. Define an array variable called `mammal_vectors` to contain these strings: "camel", "civet", "mink", "bat", "ferret", and "pangolin" (these are all mammals known to be vectors for either SARS-CoV-2 or one of its close relatives SARS and MERS). Use the function `length()` to determine how long the array is, and print the output. The code should print a number which corresponds to the length of the array.
+
+<br>
+
+5. Again consider the `mammal_vectors` array you created. Use the logical operator `%in%` to determine if the string "elephant" is in the array. If "elephant" is in the array, your code should print `TRUE`, and `FALSE` otherwise.
+
+<br>
+
+6. Define an array variable called `dinosaurs` to contain the three strings: "eagle", "ostrich", and "sparrow" (wait, those are all birds?! That's right, birds are dinosaurs!). Then, define two other variables (you can choose what they are called) - one should be the length of the `mammal_vectors` array, and the other should be the length of the `dinosaurs` array. Finally, use a logical operator to compare the these variables. If the length of `mammal_vectors` is longer than the length of `dinosaurs`, your code should print `TRUE`. Otherwise, your code should print `FALSE`.
+
+<br> 
+
+7. Use a colon (`:`) to create a variable called `q7` as an array of numbers in order 100-200. 
+From this variable `q7`, calculate the mean, median, standard deviation, and sum (with functions `mean()`, `median()`, `sd()`,and `sum()`, respectively) of this array. Each calculation should be saved to a variable called, respectively: `q7_mean`, `q7_median`, `q7_sd`, and `q7_sum`. Finally, print these four variables. You do not need to print `q7`.
+
+<br> 
+
+8. There is a super useful function called `paste()` which allows you to strings (characters) together to create a new string. See how this function works below:
+
+      ```{r paste_demo}
+      combined_string <- paste("string 1", "and", "string 2")
+      print(combined_string)
+      
+      # you can also include variables:
+      a_string <- "hello there"
+      combined_string2 <- paste("string 1", a_string, "string 2")
+      print(combined_string2)
+      ```
+
+    Use the `paste()` function and the variable `q7_mean` to print a sentence that says: "The mean of q7 is ...." where .... is the the `q7_mean` value. Your code should NOT include a number directly (don't copy/paste the value of the mean). You may only refer to this number value with the `q7_mean` variable.
+
+<br>
+
+9. Define an array variable (use a colon!) called `q9` with the values -20 - 10 (negative 20 through positive ten). Calculate and save the mean of `q9` as a variable `q9_mean`. Define a variable called `compare_q7_q9` whose value *depends* on a comparison between `q9_mean` and `q7_mean`. If these values are equal, `compare_q7_q9` should be defined as 1. If these values are not equal, `compare_q7_q9` should be defined as 0. Finally, print the value of `compare_q7_q9`.
+
+<br>
+
+10. Again consider the array `q9`. Use a logical operator to ask if values in this array are less than or equal to 0 - simply ask if `q9` is greater than or equal to 0. This code creates a logical array: an array containing `TRUE` or `FALSE` for whether each comparison was T/F. Save the output to a variable called `q9_geq0` ("geq" = "**g**reater than or **eq**ual to"), and print the value of `q9_geq0`.
+
+<br><br><br>
