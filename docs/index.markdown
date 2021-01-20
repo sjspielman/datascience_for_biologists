@@ -21,53 +21,55 @@ Open office hours (no appointment necessary) will be on Zoom *every Monday and F
 > Materials are subject to change based on student progress and class pace.
 > Topics denoted "Buffer day" mean classtime will either be used to wrap up previous lessons if more time is needed, or if more time is not needed, class will be "open office hours."
 
- Date  |Topic                                  | In-class materials          | Assignment
+ Date  |Topic                                  | In-class materials          | Assignment DUE
 --------|---------------------------------------|-----------------------------|---------------------
 T 1/26  | Introduction and logistics            | None                        | Fill out the class survey **TODAY** if you have not yet done so
 W 1/27  | Types of data and figures, Part 1     | Exercises: Introduction to Data Types Parts 1-2 <br> Interactive website: Types of plots | None 
-R 1/28  | Types of data and figures, Part 2     | Exercises: Introduction to Data Types Parts 3-4 | **Assignment 1**: Identifying data types and their relationship to figures. Due Tuesday 2/2.
-T 2/2   | Introduction to R and RStudio, Part 1 | Introduction to R tutorial <br> Exercises: Introduction to R Set 1 | None
+R 1/28  | Types of data and figures, Part 2     | Exercises: Introduction to Data Types Parts 3-4 | None
+T 2/2   | Introduction to R and RStudio, Part 1 | Introduction to R tutorial <br> Exercises: Introduction to R Set 1 | **Homework 1 due** on Canvas as a PDF file.
 W 2/3   | Introduction to R and RStudio, Part 2 | Exercises: Introduction to R Sets 2-5 | None
-R 2/4   | Introduction to R and RStudio, Part 3 | Exercises: Introduction to R Set 6 | **Assignment 2:** Writing an R script. Due Tuesday 2/9. [Link to instructions](./homeworks/hw2/hw2_instructions.html)<br> **NOTE: Next Monday is the last day of late add/drop.**
-T 2/9   | Introduction to R and RStudio, Part 4 | Exercises: Introduction to R Set 7 | None
+R 2/4   | Introduction to R and RStudio, Part 3 | Exercises: Introduction to R Set 6 | None <br> **NOTE: Next Monday is the last day of late add/drop.**
+T 2/9   | Introduction to R and RStudio, Part 4 | Exercises: Introduction to R Set 7 | **Homework 2 due** on Canvas as an R script. [Link to instructions](./homeworks/hw2/hw2_instructions.html)
 W 2/10  | The grammar of graphics, Part 1 | Slides TBD | None
-R 2/11  | The grammar of graphics, Part 2 | Slides TBD | **Assignment 3:** Identifying grammatical components of figures. Due Tuesday 2/16.
-T 2/16  | Visualizing data with `ggplot2`, Part 1 | Exercises: Begin Introduction to `ggplot2` Set 1 | None
+R 2/11  | The grammar of graphics, Part 2 | Slides TBD |None
+T 2/16  | Visualizing data with `ggplot2`, Part 1 | Exercises: Begin Introduction to `ggplot2` Set 1 |  **Homework 3 due** on Canvas as an R script <!-- Identifying grammatical components of figures.-->
 W 2/17  | Visualizing data with `ggplot2`, Part 2 | Exercises: Continue with Introduction to `ggplot2` | None
-R 2/18  | Visualizing data with `ggplot2`, Part 3 | Exercises: Complete with Introduction to `ggplot2` | **Assignment 4:** Making figures in `ggplot2`. Due Tuesday 2/23.
-T 2/23  | File input/output | Slides TBD | None
+R 2/18  | Visualizing data with `ggplot2`, Part 3 | Exercises: Complete with Introduction to `ggplot2` | None
+T 2/23  | File input/output | Slides TBD | **Homework 4 due** on Canvas as an R script.<!-- Making figures in `ggplot2`. Due Tuesday 2/23.-->
 W 2/24  | Manipulating figure scales and themes | [Customizing colors tutorial](https://htmlpreview.github.io/?https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/tutorials/color_fill_scales.html) <br> [Customizing axes tutorial](https://htmlpreview.github.io/?https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/tutorials/axes.html) <br> [Customizing themes tutorial](https://htmlpreview.github.io/?https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/tutorials/themes.html) | None
-R 2/25  | *Buffer day* | TBD | **Assignment 5**: Making more figures with `ggplot2`. Due Tuesday 3/2.
-T 3/2   | Data wrangling with `dplyr`, Part 1 | Slides TBD | None <!-- pipe and filter -->
-W 3/3   | Data wrangling with `dplyr`, Part 2 | Slides TBD <br> Exercises: Begin Introduction to data wrangling with `dplyr`| None <!-- mutate, arrange, distinct, MAYBE select --> 
-R 3/4   | Data wrangling with `dplyr`, Part 3 | Exercises: Continue Introduction to data wrangling with  `dplyr` |  **Assignment 6**: Data wrangling with `dplyr`. Due Tuesday 3/9.
-T 3/9   | Debugging strategies | In-class script TBD | None
+R 2/25  | *Buffer day* | TBD | None
+T 3/2   | Data wrangling with `dplyr`, Part 1 <!-- pipe and filter --> | Slides TBD | **Homework 5 due** on Canvas as an R script.<!-- more ggplot figures -->
+W 3/3   | Data wrangling with `dplyr`, Part 2 <!-- mutate, arrange, distinct, select --> | Slides TBD <br> Exercises: Begin Introduction to data wrangling with `dplyr`| None 
+R 3/4   | Data wrangling with `dplyr`, Part 3 | Exercises: Continue Introduction to data wrangling with  `dplyr` | None
+T 3/9   | Debugging strategies | In-class script TBD | **Homework 6 due** on Canvas as an R script.<!-- dplyr1 -->
 W 3/10  | Data wrangling with `dplyr`, Part 4 | Slides TBD | None
-R 3/11  | Data wrangling with `dplyr`, Part 5 | Exercises: Continue Introduction to data wrangling with  `dplyr` | **Assignment 7**: More data wrangling with `dplyr`. Due Tuesday 3/16.
-T 3/16  | Creating professional reports with RMarkdown | In-class script TBD |  None
-W 3/17  | Rmarkdown for exploratory analyses | Exercises: Tidying data with `tidyr` | None <!-- DO THE HOMEWORK AS A CLASS --> 
-R 3/18  | *Buffer day* | TBD | **Assignment 8:** Tidying your data for exploration. Due Tuesday 3/23.
-T 3/23  | Tidy data and `tidyr`, Part 1 | Slides TBD |  None
+R 3/11  | Data wrangling with `dplyr`, Part 5 | Exercises: Continue Introduction to data wrangling with  `dplyr` | None
+T 3/16  | Creating professional reports with RMarkdown | In-class script TBD |  **Homework 7 due** on Canvas as an R script. <!-- dplyr summarizing -->
+W 3/17  | Rmarkdown for exploratory analyses | TBD | None <!-- DO THE HOMEWORK AS A CLASS --> 
+R 3/18  | *Buffer day* | TBD | None
+T 3/23  | Tidy data and `tidyr`, Part 1 | Slides TBD |  **Homework 8 due** on Canvas as an RMarkdown file. <!-- exploratory analysis HW: ask and answer questions and they need to ask 1-2 as well.-->
 W 3/24  | Tidy data and `tidyr`, Part 2 | Exercises: Tidying data with `tidyr` | None <!-- DO THE HOMEWORK AS A CLASS --> 
-R 3/25  | *Buffer day* | TBD | **Assignment 9**: Putting it all together. Due Tuesday 3/30.
-T 3/31  | Introduction to modeling and machine-learning (ish) | Slides TBD | None
+R 3/25  | *Buffer day* | TBD | None
+T 3/31  | Introduction to modeling and machine-learning (ish) | Slides TBD | **Homework 9 due** on Canvas as an RMarkdown file.  <!-- tidyr homework that we do together -->
 W 3/31  | Linear models, Part 1 | Slides TBD <br> Exercises TBD | None
-R 4/1   | Linear models, Part 2 | Slides TBD <br> Exercises TBD | **Assignment 10:** Building and interpreting more linear models. Dues Tuesday 4/6.
-T 4/6   | Linear models, Part 3 | Slides TBD <br> Exercises TBD | None
+R 4/1   | Linear models, Part 2 | Slides TBD <br> Exercises TBD | None
+T 4/6   | Linear models, Part 3 | Slides TBD <br> Exercises TBD | **Homework 10 due** on Canvas as an RMarkdown file.  <!-- lm 1 -->
 W 4/7   | Linear models, Part 4 | Slides TBD <br> Exercises TBD | None
-R 4/8   | Linear models, Part 5 | Slides TBD <br> Exercises TBD | **Assignment 11:** Building and interpreting more linear models. Dues Tuesday 4/13.
-T 4/13  | Logistic regression, Part 1 | Slides TBD <br> Exercises TBD | None
+R 4/8   | Linear models, Part 5 | Slides TBD <br> Exercises TBD | None
+T 4/13  | Logistic regression, Part 1 | Slides TBD <br> Exercises TBD | **Homework 11 due** <!-- lm 2 -->
 W 4/14  | Logistic regression, Part 2 | Slides TBD <br> Exercises TBD | None
-R 4/15  | Logistic regression, Part 3 | Slides TBD <br> Exercises TBD | **Assignment 12:** Building and interpreting logistic regressions. Dues Tuesday 4/20.
-T 4/20  | Final Project Introduction | TBD | **Final Project Proposal Assigned. Due _MONDAY_ 4/26**.
+R 4/15  | Logistic regression, Part 3 | Slides TBD <br> Exercises TBD | None
+T 4/20  | Final Project Introduction | TBD | **Homework 12 due** <!-- logistic -->
 W 4/21  | Working at the command line and UNIX, Part 1 | Slides TBD <br> Exercises TBD | None
-R 4/22  | Working at the command line and UNIX, Part 2| Slides TBD |  **Final project proposal due _MONDAY_ 4/26**
-T 4/27  | Version control with git(hub), Part 1 | None | None
+R 4/22  | Working at the command line and UNIX, Part 2| Slides TBD |  **Final project proposal due _NEXT MONDAY_ 4/26**
+T 4/27  | Version control with git(hub), Part 1 | None | Nothing is due today, but the proposal was due *last night*
 W 4/28  | Version control with git(hub), Part 2 | None | None 
 R 4/29  | Version control with git(hub), Part 3 | None | None 
-T 5/4   | *Buffer day* | None | **There is no assignment due next week. Please begin working on your final project due 5/15.**
+T 5/4   | *Buffer day* | None | **There is no assignment due. Please begin working on your final project due 5/11.**
 W 5/5   | *Buffer day* | None | None 
-R 5/6   | *Buffer day* | None | **FINAL PROJET DUE ON FRIDAY MAY 15TH AT 11:59 PM**
+R 5/6   | *Buffer day* | None | None
+
+**FINAL PROJET DUE ON TUESDAY MAY 11TH AT 11:59 PM**
 
 
 
