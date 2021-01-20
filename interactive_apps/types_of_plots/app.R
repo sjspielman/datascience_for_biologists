@@ -34,7 +34,7 @@ ui <- fluidPage(theme = "my_united.css",
  
     # Application title
     titlePanel("Common types of data visualizations"),
-    p("Written by ", a("Stephanie J. Spielman.", href = "https://spielmanlab.github.io"), "The", a("source code", href = "https://github.com/spielmanlab/intro_ds_in_r/tree/master/shiny_apps/types_of_plots"), "is released under a CC-BY 4.0 license."),
+    p("Written by ", a("Stephanie J. Spielman.", href = "https://spielmanlab.github.io"), "The", a("source code", href = "https://github.com/sjspielman/datascience_for_biologists/tree/master/interactive_apps/types_of_plots"), "is released under a CC-BY 4.0 license."),
     br(),br(),
     
 
