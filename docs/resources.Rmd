@@ -6,16 +6,7 @@ output:
   html_document:
     highlight: tango
     theme: flatly
-editor_options: 
-  chunk_output_type: console
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, collapse=TRUE)
-library(tidyverse)
-iris <- as_tibble(iris)
-```
-
 
 ## General resources
 
@@ -30,7 +21,8 @@ iris <- as_tibble(iris)
   
 + Vignettes: Introductory tutorials for R packages
   + [`dplyr`: One-table verbs](https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html)
-  + [`dplyr`: Two-table verbs](https://cran.r-project.org/web/packages/dplyr/vignettes/two-table.html)
+  + [`dplyr`: Two-table verbs](https://cran.r-project.org/web/packages/dplyr/vignettes/two-table.html) 
+    + Note: We may not get to this topic during Spring 2021 due to remote instruction limitations.
   + [Pivoting with `tidyr`](https://cran.r-project.org/web/packages/tidyr/vignettes/pivot.html)
   + [Introduction to `forcats`](https://cran.r-project.org/web/packages/forcats/vignettes/forcats.html)
   + [Introduction to `stringr`](https://cran.r-project.org/web/packages/stringr/vignettes/stringr.html)
@@ -49,7 +41,7 @@ iris <- as_tibble(iris)
   + Introduces concepts and principles in data visualization. This book does not contain code or teach `ggplot2`.
   + Chapter 5 in particular catalogs common types of data visualizations
 + [Twitter for Scientists](https://t4scientists.com/) and  [Twitter for R Programmers](https://www.t4rstats.com/)
-  + An excellent and thorough introductions to using twitter and interacting with the extreme;y wonderful `#rstats` community
+  + Comprehensive and clear introductions to using twitter and interacting with the extreme;y wonderful `#rstats` community
 + [Tidyverse style guide](https://style.tidyverse.org/)
   + A resource of recommended code style when programming in the `tidyverse`. 
 + [RStudio Resources (all levels of videos/tutorials)](https://resources.rstudio.com/)
@@ -65,7 +57,8 @@ iris <- as_tibble(iris)
     + [`ggplot2` Tutorial](https://stat545.com/ggplot2-tutorial.html)
     + [Introduction to `dplyr`](https://stat545.com/dplyr-intro.html)
     + [Single-table `dplyr` functions](https://stat545.com/dplyr-single.html)
-    + [When one tibble is not enough](https://stat545.com/multiple-tibbles.html) **Note: We may not get to this topic during Spring 2021 due to remote instruction limitations.**
+    + [When one tibble is not enough](https://stat545.com/multiple-tibbles.html) 
+      + Note: We may not get to this topic during Spring 2021 due to remote instruction limitations.
 
 + [Introduction to Data Science e-book](https://rafalab.github.io/dsbook/)
   + Comprehensive data science book. Many topics in this book are more advanced than the scope of this class, but there are also many useful and relevant chapters.
