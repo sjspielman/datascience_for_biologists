@@ -1,5 +1,5 @@
 ---
-title: 'Assignment #2'
+title: 'Homework #2'
 author: "Data Science for Biologists, Spring 2021"
 date: "Due as an RScript to Canvas on Tuesday 2/9/21"
 output: 
