@@ -1,7 +1,7 @@
 ---
 title: 'Homework #2'
 author: "Data Science for Biologists, Spring 2021"
-date: "Due as an RScript to Canvas on Tuesday 2/9/21"
+date: "Due as an R Script to Canvas on Tuesday 2/9/21"
 output: 
   html_document:
     theme: lumen
@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Instructions
 
-Answer the following questions with R code in the `hw2_template.R` templated script. Please do NOT modify the template but answer questions. 
+Answer the following questions with R code in the `hw2_template.R` templated script, ensuring you retain the overall templated script organization. Do NOT submit a script that does not use this template!
 
 + You will not receive any credit for answers without corresponding code that produces those answers.
 + All lines of code **MUST** have an associated comment. The purpose of this instruction is to get you in the habit of writing comments. Comments should be brief "plain English" descriptions of what your code does. Even though the code on this homework is relatively straightforward, comments are still important.
