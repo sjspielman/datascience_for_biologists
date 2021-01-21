@@ -1,0 +1,392 @@
+---
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [default, my_chocolate.css, chocolate-fonts]
+    nature:
+      highlightStyle:  rainbow
+      highlightLines: true
+      countIncrementalSlides: false
+    seal: false
+---
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(fig.width=6, fig.height=4, echo=FALSE)
+library(xaringan)
+library(tidyverse) 
+library(cowplot)
+library(patchwork)
+library(colorblindr)
+theme_set(theme_cowplot())
+source("grammar_graphics_plots.R")
+```
+
+class: title-slide
+
+<!-- background-image: url(slide_background_images/) -->
+
+.bg-text[
+# The grammar of graphics
+## Data Science for Biologists
+
+<hr />
+**Dr. Spielman (i before e)!** <br>
+**`spielman@rowan.edu`**
+]
+
+---
+# Grammar
+
+The dog runs in a park.
+
+--
+<br><br><br><br><br><br>
+
+The runs in park dog a.
+
+Runs dog park in a the.
+
+In park a the runs dog.
+
+---
+class: middle, center
+
+
+```{r out.width = '600px', echo=F}
+knitr::include_graphics("img/gg/ggplot-grammar-of-graphics-stack-1.png")
+```
+
+### Aesthetics --> *aesthetic mappings*
+
+
+---
+
+# The dataset
+
+```{r, echo=T}
+msleep_subvore
+```
+
+---
+
+# The dataset
+
+```{r, echo=T}
+summary(msleep_subvore)
+```
+
+---
+
+```{r, echo=T}
+unique(msleep_subvore$name)
+```
+
+---
+
+# Identifying components of a plot
+
+```{r, echo=F, fig.width = 6, fig.height = 4}
+box_plain
+```
+
+**Aesthetics**: How is the data *mapped onto* visual components of the plot?
++ X-axis?
++ Y-axis?
++ Colors? Shapes? Sizes?
+
+**Geometries**: What *shapes* aka *geometric objects* are displayed in the plot?
+
+
+---
+
+
+```{r, echo=F, fig.width = 10, fig.height = 4}
+box_fill + box_fill_cb
+```
+
+---
+
+```{r, echo=F, fig.width = 10, fig.height = 4}
+box_fill + box_single_fill
+```
+
+---
+
+```{r, echo=F, fig.width = 8, fig.height = 6}
+ box_color_yellow_ugly
+```
+
+
+---
+```{r, echo=F, fig.width = 10, fig.height = 6}
+hist_all
+```
+
+---
+```{r, echo=F, fig.width = 12, fig.height = 6}
+hist_all + hist_all_facet
+```
+---
+
+```{r, echo=F, fig.width = 12, fig.height = 6}
+hist_all_facet + hist_fill_facet
+```
+
+---
+
+```{r, echo=F, fig.width = 16, fig.height = 6}
+hist_fill_facet + hist_fill_onepanel
+```
+
+---
+
+```{r, echo=F, fig.width = 12, fig.height = 6}
+hist_all + density_all
+```
+
+---
+
+```{r, echo=F, fig.width = 14, fig.height = 5}
+density_all + density_fill 
+```
+
+---
+```{r, echo=F, fig.width = 14, fig.height = 5}
+density_fill + density_fill_noalpha
+```
+
+---
+```{r, echo=F, fig.width = 8, fig.height = 6}
+scatter_plain
+```
+
+---
+
+```{r, echo=F, fig.width = 14, fig.height = 6}
+scatter_plain + scatter_bigpoint
+```
+
+---
+
+```{r, echo=F, fig.width = 8, fig.height = 6}
+scatter_bigpoint_pch17
+```
+
+
+---
+
+
+```{r, echo=F, fig.width = 8, fig.height = 6}
+scatter_color_discrete
+```
+
+---
+
+```{r, echo=F, fig.width = 14, fig.height = 6}
+scatter_color_discrete +scatter_color_cont
+```
+
+---
+
+```{r, echo=F, fig.width = 8, fig.height = 6}
+scatter_single_color_shape_vore
+```
+
+---
+
+
+```{r, echo=F, fig.width = 8, fig.height = 6}
+scatter_crazytown
+```
+
+---
+
+
+# Do the axes look at all "strange" to you?
+
+
+.pull-left[
+```{r, echo=F}
+scatter_bigpoint
+```
+]
+
+--
+
+.pull-right[
+```{r, echo=F}
+msleep_subvore %>%
+  ggplot(aes(x = bodywt, y = brainwt)) + geom_point(size = 4) + 
+  xlab("Body weight (kg)") + ylab("Brain weight (kg)") + ggtitle("Mammal brain vs. body weight")
+```
+]
+
+---
+class: center
+
+# Use log scales for data with extreme ranges
+
+```{r, echo=F, fig.width = 7, fig.height = 7}
+msleep_subvore %>%
+  ggplot(aes(x = bodywt, y = brainwt)) + geom_point(size = 4) + 
+  xlab("Body weight (kg)") + ylab("Brain weight (kg)") + ggtitle("Mammal brain vs. body weight") + scale_x_log10() + scale_y_log10()
+```
+
+---
+
+# Let's practice
+
+<br><br>
+
++ What variable is on the X-axis? What *type* of data is it?
+<br><br>
++ What variable is on the Y-axis? What *type* of data is it?
+<br><br>
++ Are there colors or fills? Are they "just colors" or are they *aesthetics*?
+<br><br>
++ What are the geometries in the plot?
+<br><br>
++ What *interpretations* can we make about the plot? What question does the plot address or not address? (there are MANY right answers here!). 
+<br><br>
++ What might the underlying dataset actually look like? *What variables (columns) are likely present?*
+<br><br>
+<br><br>
+All figures in the following slides are from [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/).
+
+
+---
+
+
+# Butterfat from different cows
+
+
+```{r out.width = '600px', echo=F}
+knitr::include_graphics("img/gg/butterfat-densitites-1.png")
+```
+
+
+Density estimates of the butterfat percentage in the milk of four cattle breeds. Data Source: Canadian Record of Performance for Purebred Dairy Cattle.
+
+---
+
+
+# Average daily temperatures
+
+```{r out.width = '600px', echo=F}
+knitr::include_graphics("img/gg/temp-normals-vs-time-1.png")
+```
+
+Daily temperature normals for four selected locations in the U.S. Temperature is mapped to the y axis, day of the year to the x axis, and location to line color. Data source: NOAA.
+
+---
+
+
+# Temperatures in Lincoln, NE in 2016
+
+```{r out.width = '600px', echo=F}
+knitr::include_graphics("img/gg/lincoln-temp-boxplots-1.png")
+```
+
+---
+
+
+# Temperatures in Lincoln, NE in 2016
+
+```{r out.width = '400px', echo=F}
+knitr::include_graphics("img/gg/lincoln-temp-boxplots-1.png")
+```
+```{r out.width = '500px', echo=F}
+knitr::include_graphics("img/gg/lincoln-temp-violins-1.png")
+```
+
+
+---
+
+# Temperatures in Lincoln, NE in 2016
+
+```{r out.width = '4000px', echo=F}
+knitr::include_graphics("img/gg/lincoln-temp-boxplots-1.png")
+```
+```{r out.width = '400px', echo=F}
+knitr::include_graphics("img/gg/lincoln-temp-violins-1.png")
+```
+```{r out.width = '400px', echo=F}
+knitr::include_graphics("img/gg/lincoln-temp-all-points-1.png")
+```
+
+---
+
+# Temperatures in Lincoln, NE in 2016
+
+```{r out.width = '400px', echo=F}
+knitr::include_graphics("img/gg/lincoln-temp-boxplots-1.png")
+```
+```{r out.width = '400px', echo=F}
+knitr::include_graphics("img/gg/lincoln-temp-violins-1.png")
+```
+```{r out.width = '400px', echo=F}
+knitr::include_graphics("img/gg/lincoln-temp-jittered-1.png")
+```
+
+---
+
+# Box office income
+
+```{r out.width = '700px', echo=F}
+knitr::include_graphics("img/gg/boxoffice-vertical-1.png")
+```
+
+Highest grossing movies for the weekend of December 22-24, 2017. Data source: Box Office Mojo (http://www.boxofficemojo.com/).
+
+---
+
+# Box office income - what's different?
+
+```{r out.width = '600px', echo=F}
+knitr::include_graphics("img/gg/boxoffice-horizontal-1.png")
+```
+
+---
+
+
+# Median household income
+
+```{r out.width = '650px', echo=F}
+knitr::include_graphics("img/gg/income-by-age-race-dodged-1.png")
+```
+
+2016 median U.S. annual household income versus age group and race. For each age group there are four bars, corresponding to the median income of Asian, white, Hispanic, and black people, respectively. Data source: United States Census Bureau.
+
+
+
+---
+
+# Bluejays
+
+```{r out.width = '550px', echo=F}
+knitr::include_graphics("img/gg/blue-jays-scatter-sex-1.png")
+```
+
+Head length versus body mass for 123 blue jays. The birds’ sex is indicated by color. At the same body mass, male birds tend to have longer heads (and specifically, longer bills) than female birds. Data source: Keith Tarvin, Oberlin College.
+
+---
+
+# Airplane delays
+
+
+```{r out.width = '500px', echo=F}
+knitr::include_graphics("img/gg/arrival-delay-vs-distance-1-bad.png")
+```
+
+
+Mean arrival delay versus distance from New York City. Data source: U.S. Dept. of Transportation, Bureau of Transportation Statistics. 
+
+This figure is labeled as “bad” because it is overly complex. Most readers will find it confusing and will not intuitively grasp what it is the figure is showing.
+
+
+
+--
+
+**"Looking cool/smart" is NOT the same as effectively communicating.**" 

@@ -1,0 +1,267 @@
+---
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [default, my_chocolate.css, chocolate-fonts]
+    nature:
+      highlightStyle:  rainbow
+      highlightLines: true
+      countIncrementalSlides: false
+    seal: false
+---
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(fig.width=6, fig.height=4, echo=FALSE)
+library(xaringan)
+library(tidyverse) 
+library(colorblindr)
+library(cowplot)
+library(patchwork)
+theme_set(theme_cowplot())
+img_path <- "img/dataviz_best_practices"
+source("grammar_graphics_plots.R")
+```
+
+class: title-slide
+
+<!-- background-image: url(slide_background_images/) -->
+
+.bg-text[
+# Best practices for data visualization
+## Data Science for Biologists
+
+<hr />
+**Dr. Spielman (i before e)!** <br>
+**`spielman@rowan.edu`**
+]
+
+---
+
+# Guiding principle
+
+### The goal of data visualization is to communicate. 
+
+--
+
+### We do not want to create plots that are...
+
++ **factually misleading**
++ **factually incorrect**
++ **impossible or overly difficult to interpret**
++ **so ugly that you don't even want to try interpreting them**
+
+
+All figures (except the `msleep` figures) in the following slides are from [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/).
+
+---
+
+```{r out.width = '800px', echo=F}
+knitr::include_graphics(file.path(img_path, "hawaii-income-bars-bad-1.png"))
+```
+
+Median income in the five counties of the state of Hawaii. Data source: 2015 Five-Year American Community Survey.
+
+---
+
+# Best Principle: The principle of proportional ink
+
+> The sizes of shaded areas in a visualization need to be proportional to the data values they represent. 
+
+**Truncating the y-axis is highly misleading.** 
+
+--
+
+```{r out.width = '600px', echo=F}
+knitr::include_graphics(file.path(img_path, "hawaii-income-bars-good-1.png"))
+```
+
+---
+
+.left-column[
+Stock price of Facebook (FB) from Oct. 22, 2016 to Jan. 21, 2017.
+]
+.right-column[ 
+```{r out.width = '450px', echo=F}
+knitr::include_graphics(file.path(img_path, "fb-stock-drop-bad-1.png"))
+```
+]
+
+--
+
+```{r out.width = '450px', echo=F}
+knitr::include_graphics(file.path(img_path, "fb-stock-drop-good-1.png"))
+```
+
+---
+
+```{r out.width = '1000px', echo=F}
+knitr::include_graphics(file.path(img_path, "RI-pop-pie-1.png"))
+```
+
+Number of inhabitants in Rhode Island counties. Data source: 2010 Decennial U.S. Census.
+
+---
+
+# Best Principle: Don't use pie charts.
+
+
+Pies are sized based on relative *area*. Human eyes are really bad at properly perceiving area.
+
+.pull-left2[
+```{r out.width = '300px', echo=F}
+knitr::include_graphics(file.path(img_path, "RI-pop-pie-1.png"))
+```
+]
+--
+.pull-right2[
+```{r out.width = '600px', echo=F}
+knitr::include_graphics(file.path(img_path, "RI-pop-bars-1.png"))
+```
+]
+---
+
+```{r out.width = '800px', echo=F}
+knitr::include_graphics(file.path(img_path, "tech-stocks-bad-legend-1.png"))
+```
+
+Stock price over time for four major tech companies. The stock price for each company has been normalized to equal 100 in June 2012. Data source: Yahoo Finance.
+
+---
+
+# Best Principle: Make your viewer's life easy
+
+
+
+```{r out.width = '400px', echo=F}
+knitr::include_graphics(file.path(img_path, "tech-stocks-bad-legend-1.png"))
+```
+
+
+--
+
+```{r out.width = '500px', echo=F}
+knitr::include_graphics(file.path(img_path, "tech-stocks-good-legend-1.png"))
+```
+
+---
+
+
+```{r out.width = '400px', echo=F}
+knitr::include_graphics(file.path(img_path, "Aus-athletes-small-1.png"))
+```
+
+Percent body fat versus height in professional male Australian athletes. (Each point represents one athlete.) Data source: Telford and Cunningham (1991)
+ 
+--
+
+```{r out.width = '400px', echo=F}
+knitr::include_graphics(file.path(img_path, "Aus-athletes-big-ugly-1.png"))
+```
+
+---
+
+# Use trial and error to get the right style
+
+### "Goldilocks" text size:
+
+
+```{r out.width = '600px', echo=F}
+knitr::include_graphics(file.path(img_path, "Aus-athletes-good-1.png"))
+```
+
+---
+
+# Don't annoy your viewers, either
+
+### People are more likely to _want_ to interpret aesthetically pleasing figures
+
+.pull-left[
+```{r out.width = '300px', echo=F}
+knitr::include_graphics(file.path(img_path, "iris-densities-lines-1.png"))
+```
+
+```{r out.width = '300px', echo=F}
+knitr::include_graphics(file.path(img_path, "iris-densities-colored-lines-1.png"))
+```
+]
+
+.pull-right[
+```{r out.width = '500px', echo=F}
+knitr::include_graphics(file.path(img_path, "iris-densities-filled-1.png"))
+```
+]
+
+---
+
+```{r out.width = '700px', echo=F}
+knitr::include_graphics(file.path(img_path, "mpg-cty-displ-solid-1.png"))
+```
+
+City fuel economy versus engine displacement, for popular cars released between 1999 and 2008. Each point represents one car. The point color encodes the drive train: front-wheel drive (FWD), rear-wheel drive (RWD), or four-wheel drive (4WD). 
+
+---
+
+# Best Principle: Make sure your data is visible
+
+
+```{r out.width = '700px', echo=F}
+knitr::include_graphics(file.path(img_path, "mpg-cty-displ-transp-1.png"))
+```
+
+---
+
+```{r out.width = '400px', echo=F}
+knitr::include_graphics(file.path(img_path, "popgrowth-vs-popsize-colored-1.png"))
+```
+
+Population growth from 2000 to 2010 versus population size in 2000, for all 50 U.S. states and the District of Columbia. Every state is marked in a different color. Data source: U.S. Census Bureau
+
+---
+
+# Best principle: More is not better (less is more?)
+
+One possible solution to the "busy-ness":
+
+```{r out.width = '600px', echo=F}
+knitr::include_graphics(file.path(img_path, "popgrowth-vs-popsize-bw-1.png"))
+```
+
+---
+
+# Recall this dataset:
+
+```{r, echo=T}
+msleep_subvore
+```
+
+---
+# How many hours do the different "vores" spend awake?
+
+```{r, fig.width = 8, fig.height = 4}
+box_fill
+```
+
+---
+
+```{r out.width = '800px', echo=F}
+knitr::include_graphics(file.path(img_path, "box_fill_cvd_grid.png"))
+```
+
+---
+
+# Best Principle: Ensure a colorblind-friendly palette
+
+> In this example, color differentiation is not _needed_ to interpret the plot. In other cases when colors are needed, always check that your plot is accessible.
+
+```{r, fig.width = 10, fig.height = 4}
+box_fill +  box_fill_cb
+```
+
+---
+
+```{r out.width = '800px', echo=F}
+knitr::include_graphics(file.path(img_path, "box_fill_cb_cvd_grid.png"))
+```
+

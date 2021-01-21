@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>dataviz_style_slides.utf8</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/chocolate-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my_chocolate.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+class: title-slide
+
+&lt;!-- background-image: url(slide_background_images/) --&gt;
+
+.bg-text[
+# Best practices for data visualization
+## Data Science for Biologists
+
+&lt;hr /&gt;
+**Dr. Spielman (i before e)!** &lt;br&gt;
+**`spielman@rowan.edu`**
+]
+
+---
+
+# Guiding principle
+
+### The goal of data visualization is to communicate. 
+
+--
+
+### We do not want to create plots that are...
+
++ **factually misleading**
++ **factually incorrect**
++ **impossible or overly difficult to interpret**
++ **so ugly that you don't even want to try interpreting them**
+
+
+All figures (except the `msleep` figures) in the following slides are from [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/).
+
+---
+
+&lt;img src="img/dataviz_best_practices/hawaii-income-bars-bad-1.png" width="800px" /&gt;
+
+Median income in the five counties of the state of Hawaii. Data source: 2015 Five-Year American Community Survey.
+
+---
+
+# Best Principle: The principle of proportional ink
+
+&gt; The sizes of shaded areas in a visualization need to be proportional to the data values they represent. 
+
+**Truncating the y-axis is highly misleading.** 
+
+--
+
+&lt;img src="img/dataviz_best_practices/hawaii-income-bars-good-1.png" width="600px" /&gt;
+
+---
+
+.left-column[
+Stock price of Facebook (FB) from Oct. 22, 2016 to Jan. 21, 2017.
+]
+.right-column[ 
+&lt;img src="img/dataviz_best_practices/fb-stock-drop-bad-1.png" width="450px" /&gt;
+]
+
+--
+
+&lt;img src="img/dataviz_best_practices/fb-stock-drop-good-1.png" width="450px" /&gt;
+
+---
+
+&lt;img src="img/dataviz_best_practices/RI-pop-pie-1.png" width="1000px" /&gt;
+
+Number of inhabitants in Rhode Island counties. Data source: 2010 Decennial U.S. Census.
+
+---
+
+# Best Principle: Don't use pie charts.
+
+
+Pies are sized based on relative *area*. Human eyes are really bad at properly perceiving area.
+
+.pull-left2[
+&lt;img src="img/dataviz_best_practices/RI-pop-pie-1.png" width="300px" /&gt;
+]
+--
+.pull-right2[
+&lt;img src="img/dataviz_best_practices/RI-pop-bars-1.png" width="600px" /&gt;
+]
+---
+
+&lt;img src="img/dataviz_best_practices/tech-stocks-bad-legend-1.png" width="800px" /&gt;
+
+Stock price over time for four major tech companies. The stock price for each company has been normalized to equal 100 in June 2012. Data source: Yahoo Finance.
+
+---
+
+# Best Principle: Make your viewer's life easy
+
+
+
+&lt;img src="img/dataviz_best_practices/tech-stocks-bad-legend-1.png" width="400px" /&gt;
+
+
+--
+
+&lt;img src="img/dataviz_best_practices/tech-stocks-good-legend-1.png" width="500px" /&gt;
+
+---
+
+
+&lt;img src="img/dataviz_best_practices/Aus-athletes-small-1.png" width="400px" /&gt;
+
+Percent body fat versus height in professional male Australian athletes. (Each point represents one athlete.) Data source: Telford and Cunningham (1991)
+ 
+--
+
+&lt;img src="img/dataviz_best_practices/Aus-athletes-big-ugly-1.png" width="400px" /&gt;
+
+---
+
+# Use trial and error to get the right style
+
+### "Goldilocks" text size:
+
+
+&lt;img src="img/dataviz_best_practices/Aus-athletes-good-1.png" width="600px" /&gt;
+
+---
+
+# Don't annoy your viewers, either
+
+### People are more likely to _want_ to interpret aesthetically pleasing figures
+
+.pull-left[
+&lt;img src="img/dataviz_best_practices/iris-densities-lines-1.png" width="300px" /&gt;
+
+&lt;img src="img/dataviz_best_practices/iris-densities-colored-lines-1.png" width="300px" /&gt;
+]
+
+.pull-right[
+&lt;img src="img/dataviz_best_practices/iris-densities-filled-1.png" width="500px" /&gt;
+]
+
+---
+
+&lt;img src="img/dataviz_best_practices/mpg-cty-displ-solid-1.png" width="700px" /&gt;
+
+City fuel economy versus engine displacement, for popular cars released between 1999 and 2008. Each point represents one car. The point color encodes the drive train: front-wheel drive (FWD), rear-wheel drive (RWD), or four-wheel drive (4WD). 
+
+---
+
+# Best Principle: Make sure your data is visible
+
+
+&lt;img src="img/dataviz_best_practices/mpg-cty-displ-transp-1.png" width="700px" /&gt;
+
+---
+
+&lt;img src="img/dataviz_best_practices/popgrowth-vs-popsize-colored-1.png" width="400px" /&gt;
+
+Population growth from 2000 to 2010 versus population size in 2000, for all 50 U.S. states and the District of Columbia. Every state is marked in a different color. Data source: U.S. Census Bureau
+
+---
+
+# Best principle: More is not better (less is more?)
+
+One possible solution to the "busy-ness":
+
+&lt;img src="img/dataviz_best_practices/popgrowth-vs-popsize-bw-1.png" width="600px" /&gt;
+
+---
+
+# Recall this dataset:
+
+
+```r
+msleep_subvore
+```
+
+```
+## # A tibble: 46 x 5
+##    name                       vore  awake brainwt  bodywt
+##    &lt;chr&gt;                      &lt;fct&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+##  1 Owl monkey                 omni    7   0.0155    0.48 
+##  2 Greater short-tailed shrew omni    9.1 0.00029   0.019
+##  3 Cow                        herbi  20   0.423   600    
+##  4 Dog                        carni  13.9 0.07     14    
+##  5 Roe deer                   herbi  21   0.0982   14.8  
+##  6 Goat                       herbi  18.7 0.115    33.5  
+##  7 Guinea pig                 herbi  14.6 0.0055    0.728
+##  8 Chinchilla                 herbi  11.5 0.0064    0.42 
+##  9 Star-nosed mole            omni   13.7 0.001     0.06 
+## 10 African giant pouched rat  omni   15.7 0.0066    1    
+## # … with 36 more rows
+```
+
+---
+# How many hours do the different "vores" spend awake?
+
+![](dataviz_style_slides_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+
+---
+
+&lt;img src="img/dataviz_best_practices/box_fill_cvd_grid.png" width="800px" /&gt;
+
+---
+
+# Best Principle: Ensure a colorblind-friendly palette
+
+&gt; In this example, color differentiation is not _needed_ to interpret the plot. In other cases when colors are needed, always check that your plot is accessible.
+
+![](dataviz_style_slides_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+
+---
+
+&lt;img src="img/dataviz_best_practices/box_fill_cb_cvd_grid.png" width="800px" /&gt;
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "rainbow",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
