@@ -5,8 +5,8 @@
     <meta charset="utf-8" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/chocolate.css" rel="stylesheet" />
     <link href="libs/remark-css/chocolate-fonts.css" rel="stylesheet" />
-    <link rel="stylesheet" href="my_chocolate.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -15,17 +15,18 @@
 
 
 
+
+
 class: title-slide
 
-&lt;!-- background-image: url(slide_background_images/) --&gt;
+background-image: url(slide_background_images/student1.png)
 
 .bg-text[
 # The grammar of graphics
 ## Data Science for Biologists
 
 &lt;hr /&gt;
-**Dr. Spielman (i before e)!** &lt;br&gt;
-**`spielman@rowan.edu`**
+**Image collage by Lalita Martin**
 ]
 
 ---
@@ -140,7 +141,7 @@ unique(msleep_subvore$name)
 
 # Identifying components of a plot
 
-![](grammar_graphics_slides_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+![](grammar_graphics_slides_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
 
 **Aesthetics**: How is the data *mapped onto* visual components of the plot?
 + X-axis?
@@ -153,26 +154,22 @@ unique(msleep_subvore$name)
 ---
 
 
-![](grammar_graphics_slides_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
-
----
-
 ![](grammar_graphics_slides_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
 
 ---
 
 ![](grammar_graphics_slides_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
 
-
 ---
+
 ![](grammar_graphics_slides_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+
 
 ---
 ![](grammar_graphics_slides_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+
 ---
-
 ![](grammar_graphics_slides_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
-
 ---
 
 ![](grammar_graphics_slides_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
@@ -186,26 +183,26 @@ unique(msleep_subvore$name)
 ![](grammar_graphics_slides_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
 
 ---
+
 ![](grammar_graphics_slides_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
 
 ---
 ![](grammar_graphics_slides_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
 
 ---
-
 ![](grammar_graphics_slides_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
 
 ---
 
 ![](grammar_graphics_slides_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
 
-
 ---
-
 
 ![](grammar_graphics_slides_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
 
+
 ---
+
 
 ![](grammar_graphics_slides_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
 
@@ -215,8 +212,12 @@ unique(msleep_subvore$name)
 
 ---
 
-
 ![](grammar_graphics_slides_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+
+---
+
+
+![](grammar_graphics_slides_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -225,13 +226,13 @@ unique(msleep_subvore$name)
 
 
 .pull-left[
-![](grammar_graphics_slides_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
+![](grammar_graphics_slides_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
 ]
 
 --
 
 .pull-right[
-![](grammar_graphics_slides_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+![](grammar_graphics_slides_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -239,7 +240,7 @@ class: center
 
 # Use log scales for data with extreme ranges
 
-![](grammar_graphics_slides_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+![](grammar_graphics_slides_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -295,25 +296,25 @@ Daily temperature normals for four selected locations in the U.S. Temperature is
 
 # Temperatures in Lincoln, NE in 2016
 
-&lt;img src="img/gg/lincoln-temp-boxplots-1.png" width="400px" /&gt;
-&lt;img src="img/gg/lincoln-temp-violins-1.png" width="500px" /&gt;
+&lt;img src="img/gg/lincoln-temp-boxplots-1.png" width="350px" /&gt;
+&lt;img src="img/gg/lincoln-temp-violins-1.png" width="450px" /&gt;
 
 
 ---
 
 # Temperatures in Lincoln, NE in 2016
 
-&lt;img src="img/gg/lincoln-temp-boxplots-1.png" width="4000px" /&gt;
-&lt;img src="img/gg/lincoln-temp-violins-1.png" width="400px" /&gt;
-&lt;img src="img/gg/lincoln-temp-all-points-1.png" width="400px" /&gt;
+&lt;img src="img/gg/lincoln-temp-boxplots-1.png" width="300px" /&gt;
+&lt;img src="img/gg/lincoln-temp-violins-1.png" width="300px" /&gt;
+&lt;img src="img/gg/lincoln-temp-all-points-1.png" width="450px" /&gt;
 
 ---
 
 # Temperatures in Lincoln, NE in 2016
 
-&lt;img src="img/gg/lincoln-temp-boxplots-1.png" width="400px" /&gt;
-&lt;img src="img/gg/lincoln-temp-violins-1.png" width="400px" /&gt;
-&lt;img src="img/gg/lincoln-temp-jittered-1.png" width="400px" /&gt;
+&lt;img src="img/gg/lincoln-temp-boxplots-1.png" width="300px" /&gt;
+&lt;img src="img/gg/lincoln-temp-violins-1.png" width="300px" /&gt;
+&lt;img src="img/gg/lincoln-temp-jittered-1.png" width="450px" /&gt;
 
 ---
 
@@ -321,7 +322,7 @@ Daily temperature normals for four selected locations in the U.S. Temperature is
 
 &lt;img src="img/gg/boxoffice-vertical-1.png" width="700px" /&gt;
 
-Highest grossing movies for the weekend of December 22-24, 2017. Data source: Box Office Mojo (http://www.boxofficemojo.com/).
+Highest grossing movies for the weekend of December 22-24, 2017. Data source: Box Office Mojo.
 
 ---
 
@@ -346,7 +347,7 @@ Highest grossing movies for the weekend of December 22-24, 2017. Data source: Bo
 
 &lt;img src="img/gg/blue-jays-scatter-sex-1.png" width="550px" /&gt;
 
-Head length versus body mass for 123 blue jays. The birds’ sex is indicated by color. At the same body mass, male birds tend to have longer heads (and specifically, longer bills) than female birds. Data source: Keith Tarvin, Oberlin College.
+Head length versus body mass for 123 blue jays. The birds’ sex is indicated by color. Data source: Keith Tarvin, Oberlin College.
 
 ---
 

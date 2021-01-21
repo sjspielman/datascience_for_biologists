@@ -2,13 +2,23 @@
 output:
   xaringan::moon_reader:
     lib_dir: libs
-    css: [default, my_chocolate.css, chocolate-fonts]
+    css: [default, chocolate, chocolate-fonts]
     nature:
       highlightStyle:  rainbow
       highlightLines: true
       countIncrementalSlides: false
     seal: false
 ---
+
+```{css, include=FALSE, echo=FALSE}
+.title-slide .bg-text{
+  position: absolute;
+  top: 45%;
+  left: 10%;
+  text-align: left;
+  color: #fff;
+}
+```
 
 
 ```{r setup, include=FALSE}
@@ -25,15 +35,14 @@ source("grammar_graphics_plots.R")
 
 class: title-slide
 
-<!-- background-image: url(slide_background_images/) -->
+background-image: url(slide_background_images/student1.png)
 
 .bg-text[
 # The grammar of graphics
 ## Data Science for Biologists
 
 <hr />
-**Dr. Spielman (i before e)!** <br>
-**`spielman@rowan.edu`**
+**Image collage by Lalita Martin**
 ]
 
 ---
@@ -294,10 +303,10 @@ knitr::include_graphics("img/gg/lincoln-temp-boxplots-1.png")
 
 # Temperatures in Lincoln, NE in 2016
 
-```{r out.width = '400px', echo=F}
+```{r out.width = '350px', echo=F}
 knitr::include_graphics("img/gg/lincoln-temp-boxplots-1.png")
 ```
-```{r out.width = '500px', echo=F}
+```{r out.width = '450px', echo=F}
 knitr::include_graphics("img/gg/lincoln-temp-violins-1.png")
 ```
 
@@ -306,13 +315,13 @@ knitr::include_graphics("img/gg/lincoln-temp-violins-1.png")
 
 # Temperatures in Lincoln, NE in 2016
 
-```{r out.width = '4000px', echo=F}
+```{r out.width = '300px', echo=F}
 knitr::include_graphics("img/gg/lincoln-temp-boxplots-1.png")
 ```
-```{r out.width = '400px', echo=F}
+```{r out.width = '300px', echo=F}
 knitr::include_graphics("img/gg/lincoln-temp-violins-1.png")
 ```
-```{r out.width = '400px', echo=F}
+```{r out.width = '450px', echo=F}
 knitr::include_graphics("img/gg/lincoln-temp-all-points-1.png")
 ```
 
@@ -320,13 +329,13 @@ knitr::include_graphics("img/gg/lincoln-temp-all-points-1.png")
 
 # Temperatures in Lincoln, NE in 2016
 
-```{r out.width = '400px', echo=F}
+```{r out.width = '300px', echo=F}
 knitr::include_graphics("img/gg/lincoln-temp-boxplots-1.png")
 ```
-```{r out.width = '400px', echo=F}
+```{r out.width = '300px', echo=F}
 knitr::include_graphics("img/gg/lincoln-temp-violins-1.png")
 ```
-```{r out.width = '400px', echo=F}
+```{r out.width = '450px', echo=F}
 knitr::include_graphics("img/gg/lincoln-temp-jittered-1.png")
 ```
 
@@ -338,7 +347,7 @@ knitr::include_graphics("img/gg/lincoln-temp-jittered-1.png")
 knitr::include_graphics("img/gg/boxoffice-vertical-1.png")
 ```
 
-Highest grossing movies for the weekend of December 22-24, 2017. Data source: Box Office Mojo (http://www.boxofficemojo.com/).
+Highest grossing movies for the weekend of December 22-24, 2017. Data source: Box Office Mojo.
 
 ---
 
@@ -369,7 +378,7 @@ knitr::include_graphics("img/gg/income-by-age-race-dodged-1.png")
 knitr::include_graphics("img/gg/blue-jays-scatter-sex-1.png")
 ```
 
-Head length versus body mass for 123 blue jays. The birds’ sex is indicated by color. At the same body mass, male birds tend to have longer heads (and specifically, longer bills) than female birds. Data source: Keith Tarvin, Oberlin College.
+Head length versus body mass for 123 blue jays. The birds’ sex is indicated by color. Data source: Keith Tarvin, Oberlin College.
 
 ---
 
