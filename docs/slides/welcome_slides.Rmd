@@ -107,6 +107,22 @@ background-image: url(https://wwwen.uni.lu/var/storage/images/media/images/data_
 - Be a part of the amazing `#rstats` community
 <br><br>
 - You will never _have_ to use Excel again unless you want or need to
+
+---
+# What else will you leave this class with?
+
++ Independence and *autodidacticism*
+<br><br>
++ Confidence, pride, and bragging rights
+<br><br>
++ Vastly improved problem-solving and critical thinking (but *actually* this time) skills
+<br><br>
++ Organizational skills
+
+--
+
+**I cannot directly teach you these skills. I can only provide you with the environment, resources, and support for you to master them yourselves. This class provides that opportunity - _do not squander it!_**
+
 ---
 # What will this class NOT teach you?
 
