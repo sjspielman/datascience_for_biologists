@@ -36,9 +36,9 @@ T 2/16  | Visualizing data with `ggplot2`, Part 1 | Exercises: Begin Introductio
 W 2/17  | Visualizing data with `ggplot2`, Part 2 | Exercises: Continue with Introduction to `ggplot2` | None
 R 2/18  | Visualizing data with `ggplot2`, Part 3 | Exercises: Complete with Introduction to `ggplot2` | None
 T 2/23  | File input/output | Slides TBD | **Homework 4 due** on Canvas as an R script.<!-- Making figures in `ggplot2`. Due Tuesday 2/23.-->
-W 2/24  | Best practices in data visualization | Slides <br> [Customizing colors tutorial](https://htmlpreview.github.io/?https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/tutorials/color_fill_scales.html) <br> [Customizing axes tutorial](https://htmlpreview.github.io/?https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/tutorials/axes.html) <br> [Customizing themes tutorial](https://htmlpreview.github.io/?https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/tutorials/themes.html) | None
-R 2/25  | *Buffer day* | TBD | None
-T 3/2   | Data wrangling with `dplyr`, Part 1 <!-- pipe and filter --> | Slides TBD | **Homework 5 due** on Canvas as an R script.<!-- more ggplot figures -->
+W 2/24  | Best practices in data visualization | Slides | None
+R 2/25  | Implementing best practices in data visualization | [Customizing colors tutorial](https://htmlpreview.github.io/?https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/tutorials/color_fill_scales.html) <br> [Customizing axes tutorial](https://htmlpreview.github.io/?https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/tutorials/axes.html) <br> [Customizing themes tutorial](https://htmlpreview.github.io/?https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/tutorials/themes.html)  | None
+T 3/2   | Data wrangling with `dplyr`, Part 1 <!-- pipe and filter --> | Slides TBD | **Homework 5 due** on Canvas as an R script.<!-- more ggplot figures that USE THE THEMES/AXES/COLORS! -->
 W 3/3   | Data wrangling with `dplyr`, Part 2 <!-- mutate, arrange, distinct, select --> | Slides TBD <br> Exercises: Begin Introduction to data wrangling with `dplyr`| None 
 R 3/4   | Data wrangling with `dplyr`, Part 3 | Exercises: Continue Introduction to data wrangling with  `dplyr` | None
 T 3/9   | Debugging strategies | In-class script TBD | **Homework 6 due** on Canvas as an R script.<!-- dplyr1 -->
