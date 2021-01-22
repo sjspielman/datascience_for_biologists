@@ -98,31 +98,31 @@ log(5)
 
 
 ```r
-head(plant)
+head(diamonds)
 ```
 
 ```
 ## # A tibble: 6 x 5
-##   plant_id origin treatment  co2_conc co2_rate
-##   &lt;ord&gt;    &lt;fct&gt;  &lt;fct&gt;         &lt;dbl&gt;    &lt;dbl&gt;
-## 1 Qn1      Quebec nonchilled       95     16  
-## 2 Qn1      Quebec nonchilled      175     30.4
-## 3 Qn1      Quebec nonchilled      250     34.8
-## 4 Qn1      Quebec nonchilled      350     37.2
-## 5 Qn1      Quebec nonchilled      500     35.3
-## 6 Qn1      Quebec nonchilled      675     39.2
+##   carat cut       color price     x
+##   &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
+## 1  0.23 Very Good E       402  4.01
+## 2  0.72 Ideal     F      2879  5.76
+## 3  1.11 Ideal     F      7823  6.62
+## 4  1.01 Very Good D      4338  6.43
+## 5  0.3  Ideal     G       684  4.31
+## 6  0.23 Very Good E       485  4.02
 ```
 
 ```r
-nrow(plant)
+nrow(diamonds)
 ```
 
 ```
-## [1] 84
+## [1] 20
 ```
 
 ```r
-ncol(plant)
+ncol(diamonds)
 ```
 
 ```
@@ -142,146 +142,136 @@ library(dplyr)
 
 ---
 
+.pull-left[
+
+```r
+print(diamonds)
+```
 
 ```
-##  plant_id origin  treatment co2_conc co2_rate
-##       Qn1 Quebec nonchilled       95     16.0
-##       Qn1 Quebec nonchilled      175     30.4
-##       Qn1 Quebec nonchilled      250     34.8
-##       Qn1 Quebec nonchilled      350     37.2
-##       Qn1 Quebec nonchilled      500     35.3
-##       Qn1 Quebec nonchilled      675     39.2
-##       Qn1 Quebec nonchilled     1000     39.7
-##       Qn2 Quebec nonchilled       95     13.6
-##       Qn2 Quebec nonchilled      175     27.3
-##       Qn2 Quebec nonchilled      250     37.1
-##       Qn2 Quebec nonchilled      350     41.8
-##       Qn2 Quebec nonchilled      500     40.6
-##       Qn2 Quebec nonchilled      675     41.4
-##       Qn2 Quebec nonchilled     1000     44.3
-##       Qn3 Quebec nonchilled       95     16.2
-##       Qn3 Quebec nonchilled      175     32.4
-##       Qn3 Quebec nonchilled      250     40.3
-##       Qn3 Quebec nonchilled      350     42.1
-##       Qn3 Quebec nonchilled      500     42.9
-##       Qn3 Quebec nonchilled      675     43.9
-##       Qn3 Quebec nonchilled     1000     45.5
-##       Qc1 Quebec    chilled       95     14.2
-##       Qc1 Quebec    chilled      175     24.1
-##       Qc1 Quebec    chilled      250     30.3
-##       Qc1 Quebec    chilled      350     34.6
-##       Qc1 Quebec    chilled      500     32.5
-##       Qc1 Quebec    chilled      675     35.4
-##       Qc1 Quebec    chilled     1000     38.7
-##       Qc2 Quebec    chilled       95      9.3
-##       Qc2 Quebec    chilled      175     27.3
-##       Qc2 Quebec    chilled      250     35.0
-##       Qc2 Quebec    chilled      350     38.8
-##       Qc2 Quebec    chilled      500     38.6
-##       Qc2 Quebec    chilled      675     37.5
-##       Qc2 Quebec    chilled     1000     42.4
-##       Qc3 Quebec    chilled       95     15.1
-##       Qc3 Quebec    chilled      175     21.0
-##       Qc3 Quebec    chilled      250     38.1
-##       Qc3 Quebec    chilled      350     34.0
-##       Qc3 Quebec    chilled      500     38.9
+## # A tibble: 20 x 5
+##    carat cut       color price     x
+##    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
+##  1  0.23 Very Good E       402  4.01
+##  2  0.72 Ideal     F      2879  5.76
+##  3  1.11 Ideal     F      7823  6.62
+##  4  1.01 Very Good D      4338  6.43
+##  5  0.3  Ideal     G       684  4.31
+##  6  0.23 Very Good E       485  4.02
+##  7  1.51 Premium   H      9762  7.54
+##  8  0.34 Premium   I       765  4.49
+##  9  0.59 Ideal     E      1607  5.36
+## 10  1.41 Ideal     G     11009  7.22
+## 11  0.35 Ideal     E       767  4.52
+## 12  0.31 Premium   H       558  4.34
+## 13  2.02 Very Good D     15334  8.19
+## 14  1.32 Ideal     H      9572  6.98
+## 15  1    Good      G      5484  6.38
+## 16  0.34 Ideal     D      1272  4.49
+## 17  1.02 Premium   I      4113  6.48
+## 18  0.73 Ideal     H      3463  5.8 
+## 19  1.35 Premium   I      5715  7.26
+## 20  0.55 Premium   F      1354  5.26
 ```
+]
+
+.pull-right[
+`price`: Price in US dollars
+
+`carat`: Weight of the diamond
+
+`cut`: Quality of the diamond
+
+`color`
+
+`x`: width of diamond in mm
+
+
+&lt;img src="img/dplyr/diamond_color_range.jpg" width="400px" /&gt;
+]
 
 ---
 
+# Your first `dplyr` function: `glimpse()`
 
-```
-##  plant_id      origin  treatment co2_conc co2_rate
-##       Mn2 Mississippi nonchilled       95     12.0
-##       Mn2 Mississippi nonchilled      175     22.0
-##       Mn2 Mississippi nonchilled      250     30.6
-##       Mn2 Mississippi nonchilled      350     31.8
-##       Mn2 Mississippi nonchilled      500     32.4
-##       Mn2 Mississippi nonchilled      675     31.1
-##       Mn2 Mississippi nonchilled     1000     31.5
-##       Mn3 Mississippi nonchilled       95     11.3
-##       Mn3 Mississippi nonchilled      175     19.4
-##       Mn3 Mississippi nonchilled      250     25.8
-##       Mn3 Mississippi nonchilled      350     27.9
-##       Mn3 Mississippi nonchilled      500     28.5
-##       Mn3 Mississippi nonchilled      675     28.1
-##       Mn3 Mississippi nonchilled     1000     27.8
-##       Mc1 Mississippi    chilled       95     10.5
-##       Mc1 Mississippi    chilled      175     14.9
-##       Mc1 Mississippi    chilled      250     18.1
-##       Mc1 Mississippi    chilled      350     18.9
-##       Mc1 Mississippi    chilled      500     19.5
-##       Mc1 Mississippi    chilled      675     22.2
-##       Mc1 Mississippi    chilled     1000     21.9
-##       Mc2 Mississippi    chilled       95      7.7
-##       Mc2 Mississippi    chilled      175     11.4
-##       Mc2 Mississippi    chilled      250     12.3
-##       Mc2 Mississippi    chilled      350     13.0
-##       Mc2 Mississippi    chilled      500     12.5
-##       Mc2 Mississippi    chilled      675     13.7
-##       Mc2 Mississippi    chilled     1000     14.4
-##       Mc3 Mississippi    chilled       95     10.6
-##       Mc3 Mississippi    chilled      175     18.0
-##       Mc3 Mississippi    chilled      250     17.9
-##       Mc3 Mississippi    chilled      350     17.9
-##       Mc3 Mississippi    chilled      500     17.9
-```
-
-
----
-
-# Look at the data:
 
 
 ```r
-## your first dplyr function!
-glimpse(plant)
+str(diamonds)
 ```
 
 ```
-## Rows: 84
-## Columns: 5
-## $ plant_id  &lt;ord&gt; Qn1, Qn1, Qn1, Qn1, Qn1, Qn1, Qn1, Qn2, Qn2, Qn2, Qn2, Qn2,…
-## $ origin    &lt;fct&gt; Quebec, Quebec, Quebec, Quebec, Quebec, Quebec, Quebec, Que…
-## $ treatment &lt;fct&gt; nonchilled, nonchilled, nonchilled, nonchilled, nonchilled,…
-## $ co2_conc  &lt;dbl&gt; 95, 175, 250, 350, 500, 675, 1000, 95, 175, 250, 350, 500, …
-## $ co2_rate  &lt;dbl&gt; 16.0, 30.4, 34.8, 37.2, 35.3, 39.2, 39.7, 13.6, 27.3, 37.1,…
+## tibble [20 × 5] (S3: tbl_df/tbl/data.frame)
+##  $ carat: num [1:20] 0.23 0.72 1.11 1.01 0.3 0.23 1.51 0.34 0.59 1.41 ...
+##  $ cut  : Ord.factor w/ 5 levels "Fair"&lt;"Good"&lt;..: 3 5 5 3 5 3 4 4 5 5 ...
+##  $ color: Ord.factor w/ 7 levels "D"&lt;"E"&lt;"F"&lt;"G"&lt;..: 2 3 3 1 4 2 5 6 2 4 ...
+##  $ price: int [1:20] 402 2879 7823 4338 684 485 9762 765 1607 11009 ...
+##  $ x    : num [1:20] 4.01 5.76 6.62 6.43 4.31 4.02 7.54 4.49 5.36 7.22 ...
 ```
 
 --
+&lt;br&gt;&lt;br&gt;
 
 
 ```r
-levels(plant$plant_id)
+glimpse(diamonds)
 ```
 
 ```
-##  [1] "Qn1" "Qn2" "Qn3" "Qc1" "Qc3" "Qc2" "Mn3" "Mn2" "Mn1" "Mc2" "Mc3" "Mc1"
+## Rows: 20
+## Columns: 5
+## $ carat &lt;dbl&gt; 0.23, 0.72, 1.11, 1.01, 0.30, 0.23, 1.51, 0.34, 0.59, 1.41, 0.3…
+## $ cut   &lt;ord&gt; Very Good, Ideal, Ideal, Very Good, Ideal, Very Good, Premium, …
+## $ color &lt;ord&gt; E, F, F, D, G, E, H, I, E, G, E, H, D, H, G, D, I, H, I, F
+## $ price &lt;int&gt; 402, 2879, 7823, 4338, 684, 485, 9762, 765, 1607, 11009, 767, 5…
+## $ x     &lt;dbl&gt; 4.01, 5.76, 6.62, 6.43, 4.31, 4.02, 7.54, 4.49, 5.36, 7.22, 4.5…
 ```
+
+---
+
+# Fully look at the data
+
 
 ```r
-levels(plant$origin)
+glimpse(diamonds)
 ```
 
 ```
-## [1] "Quebec"      "Mississippi"
+## Rows: 20
+## Columns: 5
+## $ carat &lt;dbl&gt; 0.23, 0.72, 1.11, 1.01, 0.30, 0.23, 1.51, 0.34, 0.59, 1.41, 0.3…
+## $ cut   &lt;ord&gt; Very Good, Ideal, Ideal, Very Good, Ideal, Very Good, Premium, …
+## $ color &lt;ord&gt; E, F, F, D, G, E, H, I, E, G, E, H, D, H, G, D, I, H, I, F
+## $ price &lt;int&gt; 402, 2879, 7823, 4338, 684, 485, 9762, 765, 1607, 11009, 767, 5…
+## $ x     &lt;dbl&gt; 4.01, 5.76, 6.62, 6.43, 4.31, 4.02, 7.54, 4.49, 5.36, 7.22, 4.5…
 ```
+&lt;br&gt;&lt;br&gt;
 
 ```r
-levels(plant$treatment)
+summary(diamonds)
 ```
 
 ```
-## [1] "nonchilled" "chilled"
+##      carat              cut    color     price               x        
+##  Min.   :0.230   Fair     :0   D:3   Min.   :  402.0   Min.   :4.010  
+##  1st Qu.:0.340   Good     :1   E:4   1st Qu.:  766.5   1st Qu.:4.490  
+##  Median :0.725   Very Good:4   F:3   Median : 3171.0   Median :5.780  
+##  Mean   :0.822   Premium  :6   G:3   Mean   : 4369.3   Mean   :5.773  
+##  3rd Qu.:1.163   Ideal    :9   H:4   3rd Qu.: 6242.0   3rd Qu.:6.710  
+##  Max.   :2.020                 I:3   Max.   :15334.0   Max.   :8.190  
+##                                J:0
 ```
+
+
+
 
 ---
 
 # Common tasks we perform on datasets 
 
 + Subsetting rows. 
-    + Ex: Work with only Mississippi plants.
-    + Ex: Work with only plants under certain experimental conditions.
+    + Ex: Work with only Mississippi diamondss.
+    + Ex: Work with only diamondss under certain experimental conditions.
 + Removing duplicate rows
 &lt;br&gt;&lt;br&gt;
 + Creating new columns
@@ -299,8 +289,8 @@ levels(plant$treatment)
 # Functions ("verbs") for wrangling datasets
 
 + Subsetting rows. **`filter()`**
-    + Ex: Work with only Mississippi plants.
-    + Ex: Work with only plants under certain experimental conditions.
+    + Ex: Work with only Mississippi diamondss.
+    + Ex: Work with only diamondss under certain experimental conditions.
 + Removing duplicate rows **`distinct()`**
 &lt;br&gt;&lt;br&gt;
 + Creating new columns **`mutate()`**
@@ -328,27 +318,19 @@ All functions *return* a data frame (tibble).
 
 ```r
 # Reminder of the dataset:
-head(plant)
+head(diamonds)
 ```
 
 ```
 ## # A tibble: 6 x 5
-##   plant_id origin treatment  co2_conc co2_rate
-##   &lt;ord&gt;    &lt;fct&gt;  &lt;fct&gt;         &lt;dbl&gt;    &lt;dbl&gt;
-## 1 Qn1      Quebec nonchilled       95     16  
-## 2 Qn1      Quebec nonchilled      175     30.4
-## 3 Qn1      Quebec nonchilled      250     34.8
-## 4 Qn1      Quebec nonchilled      350     37.2
-## 5 Qn1      Quebec nonchilled      500     35.3
-## 6 Qn1      Quebec nonchilled      675     39.2
-```
-
-```r
-levels(plant$origin)
-```
-
-```
-## [1] "Quebec"      "Mississippi"
+##   carat cut       color price     x
+##   &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
+## 1  0.23 Very Good E       402  4.01
+## 2  0.72 Ideal     F      2879  5.76
+## 3  1.11 Ideal     F      7823  6.62
+## 4  1.01 Very Good D      4338  6.43
+## 5  0.3  Ideal     G       684  4.31
+## 6  0.23 Very Good E       485  4.02
 ```
 
 --
@@ -370,25 +352,20 @@ levels(plant$origin)
 
 
 ```r
-# Keep only Mississippi plants:
-filter(plant, origin == "Mississippi")
+# Keep only Premium quality diamonds diamondss:
+filter(diamonds, cut == "Premium")
 ```
 
 ```
-## # A tibble: 42 x 5
-##    plant_id origin      treatment  co2_conc co2_rate
-##    &lt;ord&gt;    &lt;fct&gt;       &lt;fct&gt;         &lt;dbl&gt;    &lt;dbl&gt;
-##  1 Mn1      Mississippi nonchilled       95     10.6
-##  2 Mn1      Mississippi nonchilled      175     19.2
-##  3 Mn1      Mississippi nonchilled      250     26.2
-##  4 Mn1      Mississippi nonchilled      350     30  
-##  5 Mn1      Mississippi nonchilled      500     30.9
-##  6 Mn1      Mississippi nonchilled      675     32.4
-##  7 Mn1      Mississippi nonchilled     1000     35.5
-##  8 Mn2      Mississippi nonchilled       95     12  
-##  9 Mn2      Mississippi nonchilled      175     22  
-## 10 Mn2      Mississippi nonchilled      250     30.6
-## # … with 32 more rows
+## # A tibble: 6 x 5
+##   carat cut     color price     x
+##   &lt;dbl&gt; &lt;ord&gt;   &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
+## 1  1.51 Premium H      9762  7.54
+## 2  0.34 Premium I       765  4.49
+## 3  0.31 Premium H       558  4.34
+## 4  1.02 Premium I      4113  6.48
+## 5  1.35 Premium I      5715  7.26
+## 6  0.55 Premium F      1354  5.26
 ```
 
 ---
@@ -398,31 +375,26 @@ filter(plant, origin == "Mississippi")
 
 ```r
 # Not preferred:
-# filter(plant, origin == "Mississippi")
+# filter(diamonds, cut == "Premium")
 
 # Also not preferred:
-# plant %&gt;% filter(origin == "Mississippi")
+# diamonds %&gt;% filter(cut == "Premium")
 
 # THIS!!!!
-plant %&gt;%
-  filter(origin == "Mississippi")
+diamonds %&gt;%
+  filter(cut == "Premium")
 ```
 
 ```
-## # A tibble: 42 x 5
-##    plant_id origin      treatment  co2_conc co2_rate
-##    &lt;ord&gt;    &lt;fct&gt;       &lt;fct&gt;         &lt;dbl&gt;    &lt;dbl&gt;
-##  1 Mn1      Mississippi nonchilled       95     10.6
-##  2 Mn1      Mississippi nonchilled      175     19.2
-##  3 Mn1      Mississippi nonchilled      250     26.2
-##  4 Mn1      Mississippi nonchilled      350     30  
-##  5 Mn1      Mississippi nonchilled      500     30.9
-##  6 Mn1      Mississippi nonchilled      675     32.4
-##  7 Mn1      Mississippi nonchilled     1000     35.5
-##  8 Mn2      Mississippi nonchilled       95     12  
-##  9 Mn2      Mississippi nonchilled      175     22  
-## 10 Mn2      Mississippi nonchilled      250     30.6
-## # … with 32 more rows
+## # A tibble: 6 x 5
+##   carat cut     color price     x
+##   &lt;dbl&gt; &lt;ord&gt;   &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
+## 1  1.51 Premium H      9762  7.54
+## 2  0.34 Premium I       765  4.49
+## 3  0.31 Premium H       558  4.34
+## 4  1.02 Premium I      4113  6.48
+## 5  1.35 Premium I      5715  7.26
+## 6  0.55 Premium F      1354  5.26
 ```
 ---
 
@@ -430,33 +402,30 @@ plant %&gt;%
 
 
 ```r
-tail(plant)
+head(diamonds)
 ```
 
 ```
 ## # A tibble: 6 x 5
-##   plant_id origin      treatment co2_conc co2_rate
-##   &lt;ord&gt;    &lt;fct&gt;       &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;
-## 1 Mc3      Mississippi chilled        175     18  
-## 2 Mc3      Mississippi chilled        250     17.9
-## 3 Mc3      Mississippi chilled        350     17.9
-## 4 Mc3      Mississippi chilled        500     17.9
-## 5 Mc3      Mississippi chilled        675     18.9
-## 6 Mc3      Mississippi chilled       1000     19.9
+##   carat cut       color price     x
+##   &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
+## 1  0.23 Very Good E       402  4.01
+## 2  0.72 Ideal     F      2879  5.76
+## 3  1.11 Ideal     F      7823  6.62
+## 4  1.01 Very Good D      4338  6.43
+## 5  0.3  Ideal     G       684  4.31
+## 6  0.23 Very Good E       485  4.02
 ```
-
---
 
 
 ```r
-plant %&gt;%
-  filter(origin == "Misissippi")
+diamonds %&gt;%
+  filter(cut == "premium")
 ```
 
 ```
 ## # A tibble: 0 x 5
-## # … with 5 variables: plant_id &lt;ord&gt;, origin &lt;fct&gt;, treatment &lt;fct&gt;,
-## #   co2_conc &lt;dbl&gt;, co2_rate &lt;dbl&gt;
+## # … with 5 variables: carat &lt;dbl&gt;, cut &lt;ord&gt;, color &lt;ord&gt;, price &lt;int&gt;, x &lt;dbl&gt;
 ```
 
 ---
@@ -466,32 +435,31 @@ plant %&gt;%
 
 
 ```r
-tail(plant)
+head(diamonds)
 ```
 
 ```
 ## # A tibble: 6 x 5
-##   plant_id origin      treatment co2_conc co2_rate
-##   &lt;ord&gt;    &lt;fct&gt;       &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;
-## 1 Mc3      Mississippi chilled        175     18  
-## 2 Mc3      Mississippi chilled        250     17.9
-## 3 Mc3      Mississippi chilled        350     17.9
-## 4 Mc3      Mississippi chilled        500     17.9
-## 5 Mc3      Mississippi chilled        675     18.9
-## 6 Mc3      Mississippi chilled       1000     19.9
+##   carat cut       color price     x
+##   &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
+## 1  0.23 Very Good E       402  4.01
+## 2  0.72 Ideal     F      2879  5.76
+## 3  1.11 Ideal     F      7823  6.62
+## 4  1.01 Very Good D      4338  6.43
+## 5  0.3  Ideal     G       684  4.31
+## 6  0.23 Very Good E       485  4.02
 ```
 
 
 
 ```r
-plant %&gt;%
-  filter(origin == "mississippi")
+diamonds %&gt;%
+  filter(cut == "Premuim")
 ```
 
 ```
 ## # A tibble: 0 x 5
-## # … with 5 variables: plant_id &lt;ord&gt;, origin &lt;fct&gt;, treatment &lt;fct&gt;,
-## #   co2_conc &lt;dbl&gt;, co2_rate &lt;dbl&gt;
+## # … with 5 variables: carat &lt;dbl&gt;, cut &lt;ord&gt;, color &lt;ord&gt;, price &lt;int&gt;, x &lt;dbl&gt;
 ```
 
 ---
@@ -500,32 +468,32 @@ plant %&gt;%
 
 
 ```r
-tail(plant)
+head(diamonds)
 ```
 
 ```
 ## # A tibble: 6 x 5
-##   plant_id origin      treatment co2_conc co2_rate
-##   &lt;ord&gt;    &lt;fct&gt;       &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;
-## 1 Mc3      Mississippi chilled        175     18  
-## 2 Mc3      Mississippi chilled        250     17.9
-## 3 Mc3      Mississippi chilled        350     17.9
-## 4 Mc3      Mississippi chilled        500     17.9
-## 5 Mc3      Mississippi chilled        675     18.9
-## 6 Mc3      Mississippi chilled       1000     19.9
+##   carat cut       color price     x
+##   &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
+## 1  0.23 Very Good E       402  4.01
+## 2  0.72 Ideal     F      2879  5.76
+## 3  1.11 Ideal     F      7823  6.62
+## 4  1.01 Very Good D      4338  6.43
+## 5  0.3  Ideal     G       684  4.31
+## 6  0.23 Very Good E       485  4.02
 ```
 
 
 
 ```r
-plant %&gt;%
-  filter(orgin == "Mississippi")
+diamonds %&gt;%
+  filter(quality == "Premium")
 ```
 
 ```
 ## Error: Problem with `filter()` input `..1`.
-## x object 'orgin' not found
-## ℹ Input `..1` is `orgin == "Mississippi"`.
+## x object 'quality' not found
+## ℹ Input `..1` is `quality == "Premium"`.
 ```
 
 ---
@@ -535,32 +503,32 @@ plant %&gt;%
 
 
 ```r
-tail(plant)
+head(diamonds)
 ```
 
 ```
 ## # A tibble: 6 x 5
-##   plant_id origin      treatment co2_conc co2_rate
-##   &lt;ord&gt;    &lt;fct&gt;       &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;
-## 1 Mc3      Mississippi chilled        175     18  
-## 2 Mc3      Mississippi chilled        250     17.9
-## 3 Mc3      Mississippi chilled        350     17.9
-## 4 Mc3      Mississippi chilled        500     17.9
-## 5 Mc3      Mississippi chilled        675     18.9
-## 6 Mc3      Mississippi chilled       1000     19.9
+##   carat cut       color price     x
+##   &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
+## 1  0.23 Very Good E       402  4.01
+## 2  0.72 Ideal     F      2879  5.76
+## 3  1.11 Ideal     F      7823  6.62
+## 4  1.01 Very Good D      4338  6.43
+## 5  0.3  Ideal     G       684  4.31
+## 6  0.23 Very Good E       485  4.02
 ```
 
 
 
 ```r
-plant %&gt;%
-  filter(ORIGIN == "Mississippi")
+diamonds %&gt;%
+  filter(CUT == "Premium")
 ```
 
 ```
 ## Error: Problem with `filter()` input `..1`.
-## x object 'ORIGIN' not found
-## ℹ Input `..1` is `ORIGIN == "Mississippi"`.
+## x object 'CUT' not found
+## ℹ Input `..1` is `CUT == "Premium"`.
 ```
 
 ---
@@ -569,31 +537,66 @@ plant %&gt;%
 
 
 ```r
-tail(plant)
+head(diamonds)
 ```
 
 ```
 ## # A tibble: 6 x 5
-##   plant_id origin      treatment co2_conc co2_rate
-##   &lt;ord&gt;    &lt;fct&gt;       &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;
-## 1 Mc3      Mississippi chilled        175     18  
-## 2 Mc3      Mississippi chilled        250     17.9
-## 3 Mc3      Mississippi chilled        350     17.9
-## 4 Mc3      Mississippi chilled        500     17.9
-## 5 Mc3      Mississippi chilled        675     18.9
-## 6 Mc3      Mississippi chilled       1000     19.9
+##   carat cut       color price     x
+##   &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
+## 1  0.23 Very Good E       402  4.01
+## 2  0.72 Ideal     F      2879  5.76
+## 3  1.11 Ideal     F      7823  6.62
+## 4  1.01 Very Good D      4338  6.43
+## 5  0.3  Ideal     G       684  4.31
+## 6  0.23 Very Good E       485  4.02
 ```
 
 
 
 ```r
-plant 
-  %&gt;% filter(origin == "Mississippi")
+diamonds %&gt;%
+  filter(cut = "Premium")
+```
+
+```
+## Error: Problem with `filter()` input `..1`.
+## x Input `..1` is named.
+## ℹ This usually means that you've used `=` instead of `==`.
+## ℹ Did you mean `cut == "Premium"`?
+```
+
+---
+
+# Cautionary tales
+
+
+```r
+head(diamonds)
+```
+
+```
+## # A tibble: 6 x 5
+##   carat cut       color price     x
+##   &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
+## 1  0.23 Very Good E       402  4.01
+## 2  0.72 Ideal     F      2879  5.76
+## 3  1.11 Ideal     F      7823  6.62
+## 4  1.01 Very Good D      4338  6.43
+## 5  0.3  Ideal     G       684  4.31
+## 6  0.23 Very Good E       485  4.02
+```
+
+
+
+```r
+diamonds 
+  %&gt;% filter(cut == "Premium")
 ```
 
 ```
 ## Error: &lt;text&gt;:2:3: unexpected SPECIAL
-## 1: plant 
+## 1: diamonds 
 ## 2:   %&gt;%
 ##      ^
 ```
@@ -607,25 +610,17 @@ plant
 
 
 ```r
-plant %&gt;%
-  filter(origin == "Mississippi", treatment == "chilled")
+diamonds %&gt;%
+  filter(cut == "Premium", color == "I")
 ```
 
 ```
-## # A tibble: 21 x 5
-##    plant_id origin      treatment co2_conc co2_rate
-##    &lt;ord&gt;    &lt;fct&gt;       &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;
-##  1 Mc1      Mississippi chilled         95     10.5
-##  2 Mc1      Mississippi chilled        175     14.9
-##  3 Mc1      Mississippi chilled        250     18.1
-##  4 Mc1      Mississippi chilled        350     18.9
-##  5 Mc1      Mississippi chilled        500     19.5
-##  6 Mc1      Mississippi chilled        675     22.2
-##  7 Mc1      Mississippi chilled       1000     21.9
-##  8 Mc2      Mississippi chilled         95      7.7
-##  9 Mc2      Mississippi chilled        175     11.4
-## 10 Mc2      Mississippi chilled        250     12.3
-## # … with 11 more rows
+## # A tibble: 3 x 5
+##   carat cut     color price     x
+##   &lt;dbl&gt; &lt;ord&gt;   &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
+## 1  0.34 Premium I       765  4.49
+## 2  1.02 Premium I      4113  6.48
+## 3  1.35 Premium I      5715  7.26
 ```
 
 ---
@@ -635,23 +630,16 @@ plant %&gt;%
 
 
 ```r
-plant %&gt;%
-  filter(origin == "Mississippi", treatment == "chilled", co2_conc &gt;= 500)
+diamonds %&gt;%
+  filter(cut == "Premium", color == "I", carat &gt; 1)
 ```
 
 ```
-## # A tibble: 9 x 5
-##   plant_id origin      treatment co2_conc co2_rate
-##   &lt;ord&gt;    &lt;fct&gt;       &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;
-## 1 Mc1      Mississippi chilled        500     19.5
-## 2 Mc1      Mississippi chilled        675     22.2
-## 3 Mc1      Mississippi chilled       1000     21.9
-## 4 Mc2      Mississippi chilled        500     12.5
-## 5 Mc2      Mississippi chilled        675     13.7
-## 6 Mc2      Mississippi chilled       1000     14.4
-## 7 Mc3      Mississippi chilled        500     17.9
-## 8 Mc3      Mississippi chilled        675     18.9
-## 9 Mc3      Mississippi chilled       1000     19.9
+## # A tibble: 2 x 5
+##   carat cut     color price     x
+##   &lt;dbl&gt; &lt;ord&gt;   &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
+## 1  1.02 Premium I      4113  6.48
+## 2  1.35 Premium I      5715  7.26
 ```
 
 ---
@@ -661,63 +649,44 @@ plant %&gt;%
 
 
 ```r
-plant %&gt;%
-  filter(origin == "Mississippi", 
-         treatment == "chilled", 
-         co2_conc &gt;= 500)
+diamonds %&gt;%
+  filter(cut == "Premium", 
+         color == "I", 
+         carat &gt; 1)
 ```
 
 ```
-## # A tibble: 9 x 5
-##   plant_id origin      treatment co2_conc co2_rate
-##   &lt;ord&gt;    &lt;fct&gt;       &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;
-## 1 Mc1      Mississippi chilled        500     19.5
-## 2 Mc1      Mississippi chilled        675     22.2
-## 3 Mc1      Mississippi chilled       1000     21.9
-## 4 Mc2      Mississippi chilled        500     12.5
-## 5 Mc2      Mississippi chilled        675     13.7
-## 6 Mc2      Mississippi chilled       1000     14.4
-## 7 Mc3      Mississippi chilled        500     17.9
-## 8 Mc3      Mississippi chilled        675     18.9
-## 9 Mc3      Mississippi chilled       1000     19.9
+## # A tibble: 2 x 5
+##   carat cut     color price     x
+##   &lt;dbl&gt; &lt;ord&gt;   &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
+## 1  1.02 Premium I      4113  6.48
+## 2  1.35 Premium I      5715  7.26
 ```
 
 **Caution!!** Make sure the commas are always on at the _end of a line_
 
 ---
 
-# Goal: Subset to plants with concentrations either 95 or 500
+# Goal: Subset to only "Ideal and "Premium" diamonds
 
 
 ```r
-unique(plant$co2_conc)
-```
-
-```
-## [1]   95  175  250  350  500  675 1000
-```
-
---
-
-
-```r
-plant %&gt;%
-  filter(co2_conc == 95, 
-         co2_conc == 500)
+diamonds %&gt;%
+  filter(cut == "Ideal", 
+         cut == "Premium")
 ```
 
 ```
 ## # A tibble: 0 x 5
-## # … with 5 variables: plant_id &lt;ord&gt;, origin &lt;fct&gt;, treatment &lt;fct&gt;,
-## #   co2_conc &lt;dbl&gt;, co2_rate &lt;dbl&gt;
+## # … with 5 variables: carat &lt;dbl&gt;, cut &lt;ord&gt;, color &lt;ord&gt;, price &lt;int&gt;, x &lt;dbl&gt;
 ```
 
 --
 
-**That code DID WORK.** It retained all rows whose `co2_conc` equaled 95 AND 500! ....But there are no such rows!!
+**That code DID WORK.** It retained all rows whose `cut` equaled "Ideal" **AND** "Premium"! ....But there are no such rows!!
 
 
-**To reinterate: The code worked perfectly fine, but it didn't do what you might have expected. This is a type of a bug.**
+**To reiterate: The code worked perfectly fine, but it didn't do what you might have expected. This is a type of a bug.**
 
 
 ---
@@ -744,38 +713,43 @@ colors &lt;- c("red", "orange", "yellow")
 
 ---
 
-# Get rows with _either_ concentration using `%in%`
+# Get rows with _either_ cut using `%in%`
 
 
 ```r
-plant %&gt;%
-  filter(co2_conc %in% c(95, 500))
+diamonds %&gt;%
+  filter(cut %in% c("Ideal", "Premium"))
 ```
 
 ```
-## # A tibble: 24 x 5
-##    plant_id origin treatment  co2_conc co2_rate
-##    &lt;ord&gt;    &lt;fct&gt;  &lt;fct&gt;         &lt;dbl&gt;    &lt;dbl&gt;
-##  1 Qn1      Quebec nonchilled       95     16  
-##  2 Qn1      Quebec nonchilled      500     35.3
-##  3 Qn2      Quebec nonchilled       95     13.6
-##  4 Qn2      Quebec nonchilled      500     40.6
-##  5 Qn3      Quebec nonchilled       95     16.2
-##  6 Qn3      Quebec nonchilled      500     42.9
-##  7 Qc1      Quebec chilled          95     14.2
-##  8 Qc1      Quebec chilled         500     32.5
-##  9 Qc2      Quebec chilled          95      9.3
-## 10 Qc2      Quebec chilled         500     38.6
-## # … with 14 more rows
+## # A tibble: 15 x 5
+##    carat cut     color price     x
+##    &lt;dbl&gt; &lt;ord&gt;   &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
+##  1  0.72 Ideal   F      2879  5.76
+##  2  1.11 Ideal   F      7823  6.62
+##  3  0.3  Ideal   G       684  4.31
+##  4  1.51 Premium H      9762  7.54
+##  5  0.34 Premium I       765  4.49
+##  6  0.59 Ideal   E      1607  5.36
+##  7  1.41 Ideal   G     11009  7.22
+##  8  0.35 Ideal   E       767  4.52
+##  9  0.31 Premium H       558  4.34
+## 10  1.32 Ideal   H      9572  6.98
+## 11  0.34 Ideal   D      1272  4.49
+## 12  1.02 Premium I      4113  6.48
+## 13  0.73 Ideal   H      3463  5.8 
+## 14  1.35 Premium I      5715  7.26
+## 15  0.55 Premium F      1354  5.26
 ```
 
---
+---
+# Don't forget: avoid hardcoding!
 
 
 ```r
-conc_values &lt;- c(95, 500)
-plant %&gt;%
-  filter(co2_conc %in% conc_values)
+cuts &lt;- c("Ideal", "Premium")
+diamonds %&gt;%
+  filter(cut %in% cuts) 
 ```
 
 ---
@@ -784,25 +758,30 @@ plant %&gt;%
 
 
 ```r
-plant %&gt;%
-  filter(plant_id %in% c("Qn1", "Qc1", "Mn1", "Mc1"))
+diamonds %&gt;%
+  filter(cut %in% c("Ideal", "Premium", "Good"))
 ```
 
 ```
-## # A tibble: 28 x 5
-##    plant_id origin treatment  co2_conc co2_rate
-##    &lt;ord&gt;    &lt;fct&gt;  &lt;fct&gt;         &lt;dbl&gt;    &lt;dbl&gt;
-##  1 Qn1      Quebec nonchilled       95     16  
-##  2 Qn1      Quebec nonchilled      175     30.4
-##  3 Qn1      Quebec nonchilled      250     34.8
-##  4 Qn1      Quebec nonchilled      350     37.2
-##  5 Qn1      Quebec nonchilled      500     35.3
-##  6 Qn1      Quebec nonchilled      675     39.2
-##  7 Qn1      Quebec nonchilled     1000     39.7
-##  8 Qc1      Quebec chilled          95     14.2
-##  9 Qc1      Quebec chilled         175     24.1
-## 10 Qc1      Quebec chilled         250     30.3
-## # … with 18 more rows
+## # A tibble: 16 x 5
+##    carat cut     color price     x
+##    &lt;dbl&gt; &lt;ord&gt;   &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
+##  1  0.72 Ideal   F      2879  5.76
+##  2  1.11 Ideal   F      7823  6.62
+##  3  0.3  Ideal   G       684  4.31
+##  4  1.51 Premium H      9762  7.54
+##  5  0.34 Premium I       765  4.49
+##  6  0.59 Ideal   E      1607  5.36
+##  7  1.41 Ideal   G     11009  7.22
+##  8  0.35 Ideal   E       767  4.52
+##  9  0.31 Premium H       558  4.34
+## 10  1.32 Ideal   H      9572  6.98
+## 11  1    Good    G      5484  6.38
+## 12  0.34 Ideal   D      1272  4.49
+## 13  1.02 Premium I      4113  6.48
+## 14  0.73 Ideal   H      3463  5.8 
+## 15  1.35 Premium I      5715  7.26
+## 16  0.55 Premium F      1354  5.26
 ```
 
 ---
@@ -811,105 +790,131 @@ plant %&gt;%
 
 
 ```r
-ggplot(plant, aes(x = treatment, 
-                  y = co2_rate,
-                  fill = treatment)) + 
-  geom_boxplot()
-```
-
-![](dplyr_slides_part1_files/figure-html/unnamed-chunk-39-1.png)&lt;!-- --&gt;
-
---
-
-But what if I *only* want to plot Mississippi plants?
-
----
-
-# Plotting filtered data 
-
-
-```r
-plant %&gt;%
-  filter(origin == "Mississippi") -&gt; plant_miss
-
-ggplot(plant_miss, aes(x = treatment, 
-                  y = co2_rate,
-                  fill = treatment)) + 
-  geom_boxplot()
+ggplot(diamonds, aes(x = carat, 
+                     y = price)) + 
+  geom_point(size = 3)
 ```
 
 ![](dplyr_slides_part1_files/figure-html/unnamed-chunk-40-1.png)&lt;!-- --&gt;
 
+--
+
+But what if I *only* want to plot diamonds that cost less than $1000?
+
 ---
 
 # Plotting filtered data 
 
 
 ```r
-plant %&gt;%
-  filter(origin == "Mississippi") %&gt;%
-  ggplot(aes(x = treatment, 
-             y = co2_rate,
-             fill = treatment)) + 
-    geom_boxplot()
+diamonds %&gt;%
+  filter(price &lt; 1000) -&gt; diamonds_cheaper
+
+ggplot(diamonds_cheaper, aes(x = carat, 
+                     y = price)) + 
+  geom_point(size = 3)
 ```
 
 ![](dplyr_slides_part1_files/figure-html/unnamed-chunk-41-1.png)&lt;!-- --&gt;
 
-**Caution:** Be careful to use `%&gt;%` and `+` in the right place. Using the wrong one in the wrong place is a common mistake!
+---
 
+# Plotting filtered data 
+
+
+```r
+diamonds %&gt;%
+  filter(price &lt; 1000) -&gt; diamonds_cheaper
+
+ggplot(diamonds_cheaper, aes(x = carat, 
+                     y = price)) + 
+  geom_point(size = 3)
+```
+
+
+```r
+diamonds %&gt;%
+  filter(price &lt; 1000) %&gt;%
+  ggplot(aes(x = carat, 
+             y = price)) + 
+    geom_point(size = 3)
+```
+
+![](dplyr_slides_part1_files/figure-html/unnamed-chunk-43-1.png)&lt;!-- --&gt;
+
+.pull-right[
+**Caution:** Be careful to use `%&gt;%` and `+` in the right place. Using the wrong one in the wrong place is a common mistake!
+]
 ---
 
 
-# Removing, keeping, rearranging columns with `select()`
+# Working with columns with `select()`
 
 .pull-left[
 
 ```r
-plant %&gt;%
-  select(plant_id, treatment)
+diamonds %&gt;%
+  select(price, cut)
 ```
 
 ```
-## # A tibble: 84 x 2
-##    plant_id treatment 
-##    &lt;ord&gt;    &lt;fct&gt;     
-##  1 Qn1      nonchilled
-##  2 Qn1      nonchilled
-##  3 Qn1      nonchilled
-##  4 Qn1      nonchilled
-##  5 Qn1      nonchilled
-##  6 Qn1      nonchilled
-##  7 Qn1      nonchilled
-##  8 Qn2      nonchilled
-##  9 Qn2      nonchilled
-## 10 Qn2      nonchilled
-## # … with 74 more rows
+## # A tibble: 20 x 2
+##    price cut      
+##    &lt;int&gt; &lt;ord&gt;    
+##  1   402 Very Good
+##  2  2879 Ideal    
+##  3  7823 Ideal    
+##  4  4338 Very Good
+##  5   684 Ideal    
+##  6   485 Very Good
+##  7  9762 Premium  
+##  8   765 Premium  
+##  9  1607 Ideal    
+## 10 11009 Ideal    
+## 11   767 Ideal    
+## 12   558 Premium  
+## 13 15334 Very Good
+## 14  9572 Ideal    
+## 15  5484 Good     
+## 16  1272 Ideal    
+## 17  4113 Premium  
+## 18  3463 Ideal    
+## 19  5715 Premium  
+## 20  1354 Premium
 ```
 ]
 --
 .pull-right[
 
 ```r
-plant %&gt;%
-  select(-plant_id, -treatment)
+diamonds %&gt;%
+  select(-price, -cut)
 ```
 
 ```
-## # A tibble: 84 x 3
-##    origin co2_conc co2_rate
-##    &lt;fct&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-##  1 Quebec       95     16  
-##  2 Quebec      175     30.4
-##  3 Quebec      250     34.8
-##  4 Quebec      350     37.2
-##  5 Quebec      500     35.3
-##  6 Quebec      675     39.2
-##  7 Quebec     1000     39.7
-##  8 Quebec       95     13.6
-##  9 Quebec      175     27.3
-## 10 Quebec      250     37.1
-## # … with 74 more rows
+## # A tibble: 20 x 3
+##    carat color     x
+##    &lt;dbl&gt; &lt;ord&gt; &lt;dbl&gt;
+##  1  0.23 E      4.01
+##  2  0.72 F      5.76
+##  3  1.11 F      6.62
+##  4  1.01 D      6.43
+##  5  0.3  G      4.31
+##  6  0.23 E      4.02
+##  7  1.51 H      7.54
+##  8  0.34 I      4.49
+##  9  0.59 E      5.36
+## 10  1.41 G      7.22
+## 11  0.35 E      4.52
+## 12  0.31 H      4.34
+## 13  2.02 D      8.19
+## 14  1.32 H      6.98
+## 15  1    G      6.38
+## 16  0.34 D      4.49
+## 17  1.02 I      6.48
+## 18  0.73 H      5.8 
+## 19  1.35 I      7.26
+## 20  0.55 F      5.26
 ```
 ]
 ---
@@ -918,37 +923,50 @@ plant %&gt;%
 
 
 ```r
-head(plant, 2)
+head(diamonds)
 ```
 
 ```
-## # A tibble: 2 x 5
-##   plant_id origin treatment  co2_conc co2_rate
-##   &lt;ord&gt;    &lt;fct&gt;  &lt;fct&gt;         &lt;dbl&gt;    &lt;dbl&gt;
-## 1 Qn1      Quebec nonchilled       95     16  
-## 2 Qn1      Quebec nonchilled      175     30.4
+## # A tibble: 6 x 5
+##   carat cut       color price     x
+##   &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
+## 1  0.23 Very Good E       402  4.01
+## 2  0.72 Ideal     F      2879  5.76
+## 3  1.11 Ideal     F      7823  6.62
+## 4  1.01 Very Good D      4338  6.43
+## 5  0.3  Ideal     G       684  4.31
+## 6  0.23 Very Good E       485  4.02
 ```
 
 ```r
-plant %&gt;%
-  select(co2_rate, everything())
+diamonds %&gt;%
+  select(price, everything())
 ```
 
 ```
-## # A tibble: 84 x 5
-##    co2_rate plant_id origin treatment  co2_conc
-##       &lt;dbl&gt; &lt;ord&gt;    &lt;fct&gt;  &lt;fct&gt;         &lt;dbl&gt;
-##  1     16   Qn1      Quebec nonchilled       95
-##  2     30.4 Qn1      Quebec nonchilled      175
-##  3     34.8 Qn1      Quebec nonchilled      250
-##  4     37.2 Qn1      Quebec nonchilled      350
-##  5     35.3 Qn1      Quebec nonchilled      500
-##  6     39.2 Qn1      Quebec nonchilled      675
-##  7     39.7 Qn1      Quebec nonchilled     1000
-##  8     13.6 Qn2      Quebec nonchilled       95
-##  9     27.3 Qn2      Quebec nonchilled      175
-## 10     37.1 Qn2      Quebec nonchilled      250
-## # … with 74 more rows
+## # A tibble: 20 x 5
+##    price carat cut       color     x
+##    &lt;int&gt; &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;dbl&gt;
+##  1   402  0.23 Very Good E      4.01
+##  2  2879  0.72 Ideal     F      5.76
+##  3  7823  1.11 Ideal     F      6.62
+##  4  4338  1.01 Very Good D      6.43
+##  5   684  0.3  Ideal     G      4.31
+##  6   485  0.23 Very Good E      4.02
+##  7  9762  1.51 Premium   H      7.54
+##  8   765  0.34 Premium   I      4.49
+##  9  1607  0.59 Ideal     E      5.36
+## 10 11009  1.41 Ideal     G      7.22
+## 11   767  0.35 Ideal     E      4.52
+## 12   558  0.31 Premium   H      4.34
+## 13 15334  2.02 Very Good D      8.19
+## 14  9572  1.32 Ideal     H      6.98
+## 15  5484  1    Good      G      6.38
+## 16  1272  0.34 Ideal     D      4.49
+## 17  4113  1.02 Premium   I      6.48
+## 18  3463  0.73 Ideal     H      5.8 
+## 19  5715  1.35 Premium   I      7.26
+## 20  1354  0.55 Premium   F      5.26
 ```
 
 ---
@@ -958,25 +976,34 @@ plant %&gt;%
 
 
 ```r
-plant %&gt;%
+diamonds %&gt;%
   mutate(the_number_5 = 5)
 ```
 
 ```
-## # A tibble: 84 x 6
-##    plant_id origin treatment  co2_conc co2_rate the_number_5
-##    &lt;ord&gt;    &lt;fct&gt;  &lt;fct&gt;         &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;
-##  1 Qn1      Quebec nonchilled       95     16              5
-##  2 Qn1      Quebec nonchilled      175     30.4            5
-##  3 Qn1      Quebec nonchilled      250     34.8            5
-##  4 Qn1      Quebec nonchilled      350     37.2            5
-##  5 Qn1      Quebec nonchilled      500     35.3            5
-##  6 Qn1      Quebec nonchilled      675     39.2            5
-##  7 Qn1      Quebec nonchilled     1000     39.7            5
-##  8 Qn2      Quebec nonchilled       95     13.6            5
-##  9 Qn2      Quebec nonchilled      175     27.3            5
-## 10 Qn2      Quebec nonchilled      250     37.1            5
-## # … with 74 more rows
+## # A tibble: 20 x 6
+##    carat cut       color price     x the_number_5
+##    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;        &lt;dbl&gt;
+##  1  0.23 Very Good E       402  4.01            5
+##  2  0.72 Ideal     F      2879  5.76            5
+##  3  1.11 Ideal     F      7823  6.62            5
+##  4  1.01 Very Good D      4338  6.43            5
+##  5  0.3  Ideal     G       684  4.31            5
+##  6  0.23 Very Good E       485  4.02            5
+##  7  1.51 Premium   H      9762  7.54            5
+##  8  0.34 Premium   I       765  4.49            5
+##  9  0.59 Ideal     E      1607  5.36            5
+## 10  1.41 Ideal     G     11009  7.22            5
+## 11  0.35 Ideal     E       767  4.52            5
+## 12  0.31 Premium   H       558  4.34            5
+## 13  2.02 Very Good D     15334  8.19            5
+## 14  1.32 Ideal     H      9572  6.98            5
+## 15  1    Good      G      5484  6.38            5
+## 16  0.34 Ideal     D      1272  4.49            5
+## 17  1.02 Premium   I      4113  6.48            5
+## 18  0.73 Ideal     H      3463  5.8             5
+## 19  1.35 Premium   I      5715  7.26            5
+## 20  0.55 Premium   F      1354  5.26            5
 ```
 
 ---
@@ -988,30 +1015,220 @@ Again, we can directly reference existing columns:
 
 
 ```r
-plant %&gt;%
-  mutate(co2_rate_x100 = co2_rate * 100)
+# 'x' is measured in mm
+diamonds %&gt;%
+  mutate(x_in_cm = x/10)
 ```
 
 ```
-## # A tibble: 84 x 6
-##    plant_id origin treatment  co2_conc co2_rate co2_rate_x100
-##    &lt;ord&gt;    &lt;fct&gt;  &lt;fct&gt;         &lt;dbl&gt;    &lt;dbl&gt;         &lt;dbl&gt;
-##  1 Qn1      Quebec nonchilled       95     16           1600 
-##  2 Qn1      Quebec nonchilled      175     30.4         3040 
-##  3 Qn1      Quebec nonchilled      250     34.8         3480.
-##  4 Qn1      Quebec nonchilled      350     37.2         3720.
-##  5 Qn1      Quebec nonchilled      500     35.3         3530.
-##  6 Qn1      Quebec nonchilled      675     39.2         3920.
-##  7 Qn1      Quebec nonchilled     1000     39.7         3970.
-##  8 Qn2      Quebec nonchilled       95     13.6         1360 
-##  9 Qn2      Quebec nonchilled      175     27.3         2730 
-## 10 Qn2      Quebec nonchilled      250     37.1         3710 
-## # … with 74 more rows
+## # A tibble: 20 x 6
+##    carat cut       color price     x x_in_cm
+##    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;   &lt;dbl&gt;
+##  1  0.23 Very Good E       402  4.01   0.401
+##  2  0.72 Ideal     F      2879  5.76   0.576
+##  3  1.11 Ideal     F      7823  6.62   0.662
+##  4  1.01 Very Good D      4338  6.43   0.643
+##  5  0.3  Ideal     G       684  4.31   0.431
+##  6  0.23 Very Good E       485  4.02   0.402
+##  7  1.51 Premium   H      9762  7.54   0.754
+##  8  0.34 Premium   I       765  4.49   0.449
+##  9  0.59 Ideal     E      1607  5.36   0.536
+## 10  1.41 Ideal     G     11009  7.22   0.722
+## 11  0.35 Ideal     E       767  4.52   0.452
+## 12  0.31 Premium   H       558  4.34   0.434
+## 13  2.02 Very Good D     15334  8.19   0.819
+## 14  1.32 Ideal     H      9572  6.98   0.698
+## 15  1    Good      G      5484  6.38   0.638
+## 16  0.34 Ideal     D      1272  4.49   0.449
+## 17  1.02 Premium   I      4113  6.48   0.648
+## 18  0.73 Ideal     H      3463  5.8    0.580
+## 19  1.35 Premium   I      5715  7.26   0.726
+## 20  0.55 Premium   F      1354  5.26   0.526
 ```
 
 **New column names should always begin with a LETTER and only contain letters, numbers, and underscores.**
 
 ---
+
+# What if I want my new variable to be first?
+
+
+```r
+# 'x' is measured in mm
+diamonds %&gt;%
+  mutate(x_in_cm = x/10) %&gt;%
+  select(x_in_cm, everything())
+```
+
+```
+## # A tibble: 20 x 6
+##    x_in_cm carat cut       color price     x
+##      &lt;dbl&gt; &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
+##  1   0.401  0.23 Very Good E       402  4.01
+##  2   0.576  0.72 Ideal     F      2879  5.76
+##  3   0.662  1.11 Ideal     F      7823  6.62
+##  4   0.643  1.01 Very Good D      4338  6.43
+##  5   0.431  0.3  Ideal     G       684  4.31
+##  6   0.402  0.23 Very Good E       485  4.02
+##  7   0.754  1.51 Premium   H      9762  7.54
+##  8   0.449  0.34 Premium   I       765  4.49
+##  9   0.536  0.59 Ideal     E      1607  5.36
+## 10   0.722  1.41 Ideal     G     11009  7.22
+## 11   0.452  0.35 Ideal     E       767  4.52
+## 12   0.434  0.31 Premium   H       558  4.34
+## 13   0.819  2.02 Very Good D     15334  8.19
+## 14   0.698  1.32 Ideal     H      9572  6.98
+## 15   0.638  1    Good      G      5484  6.38
+## 16   0.449  0.34 Ideal     D      1272  4.49
+## 17   0.648  1.02 Premium   I      4113  6.48
+## 18   0.580  0.73 Ideal     H      3463  5.8 
+## 19   0.726  1.35 Premium   I      5715  7.26
+## 20   0.526  0.55 Premium   F      1354  5.26
+```
+
+---
+
+
+# Also bring `x` forward for easy comparison
+
+&gt; This is part of checking that your `mutate()` command worked. Use your eyes to confirm that `x_in_cm` really is 10*x
+
+
+```r
+# 'x' is measured in mm
+diamonds %&gt;%
+  mutate(x_in_cm = x/10) %&gt;%
+  select(x_in_cm, x, everything())
+```
+
+```
+## # A tibble: 20 x 6
+##    x_in_cm     x carat cut       color price
+##      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt;
+##  1   0.401  4.01  0.23 Very Good E       402
+##  2   0.576  5.76  0.72 Ideal     F      2879
+##  3   0.662  6.62  1.11 Ideal     F      7823
+##  4   0.643  6.43  1.01 Very Good D      4338
+##  5   0.431  4.31  0.3  Ideal     G       684
+##  6   0.402  4.02  0.23 Very Good E       485
+##  7   0.754  7.54  1.51 Premium   H      9762
+##  8   0.449  4.49  0.34 Premium   I       765
+##  9   0.536  5.36  0.59 Ideal     E      1607
+## 10   0.722  7.22  1.41 Ideal     G     11009
+## 11   0.452  4.52  0.35 Ideal     E       767
+## 12   0.434  4.34  0.31 Premium   H       558
+## 13   0.819  8.19  2.02 Very Good D     15334
+## 14   0.698  6.98  1.32 Ideal     H      9572
+## 15   0.638  6.38  1    Good      G      5484
+## 16   0.449  4.49  0.34 Ideal     D      1272
+## 17   0.648  6.48  1.02 Premium   I      4113
+## 18   0.580  5.8   0.73 Ideal     H      3463
+## 19   0.726  7.26  1.35 Premium   I      5715
+## 20   0.526  5.26  0.55 Premium   F      1354
+```
+
+---
+# This the magic of the pipe
+
+
+```r
+diamonds %&gt;%
+  filter(carat &lt; 0.5) %&gt;%
+  select(carat, price)
+```
+
+```
+## # A tibble: 7 x 2
+##   carat price
+##   &lt;dbl&gt; &lt;int&gt;
+## 1  0.23   402
+## 2  0.3    684
+## 3  0.23   485
+## 4  0.34   765
+## 5  0.35   767
+## 6  0.31   558
+## 7  0.34  1272
+```
+
+---
+
+# ONE LINE AT A TIME
+
+## IF YOU DO NOT GO ONE LINE AT A TIME, YOU WILL DO VERY VERY POORLY.
+
+## I REALLY CANNOT EMPHASIZE THIS ENOUGH. 
+
+## ONE. LINE. AT. A TIME.
+
+---
+
+# Make sure this works FIRST
+
+
+```r
+diamonds %&gt;%
+  filter(carat &lt; 0.5)
+```
+
+```
+## # A tibble: 7 x 5
+##   carat cut       color price     x
+##   &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
+## 1  0.23 Very Good E       402  4.01
+## 2  0.3  Ideal     G       684  4.31
+## 3  0.23 Very Good E       485  4.02
+## 4  0.34 Premium   I       765  4.49
+## 5  0.35 Ideal     E       767  4.52
+## 6  0.31 Premium   H       558  4.34
+## 7  0.34 Ideal     D      1272  4.49
+```
+
+---
+
+# Then, add the next line
+
+
+```r
+diamonds %&gt;%
+  filter(carat &lt; 0.5) %&gt;%
+  select(carat, price)
+```
+
+```
+## # A tibble: 7 x 2
+##   carat price
+##   &lt;dbl&gt; &lt;int&gt;
+## 1  0.23   402
+## 2  0.3    684
+## 3  0.23   485
+## 4  0.34   765
+## 5  0.35   767
+## 6  0.31   558
+## 7  0.34  1272
+```
+
+---
+
+# An smallish example of real-word piping
+
+&gt; This code should not make sense to you, don't worry!
+
+&lt;br&gt;&lt;br&gt;
+
+
+```r
+models %&gt;%
+  separate(name, into=c("id", "dataset", "trash"), sep = "\\.") %&gt;%
+  replace_na(list(dataset = "PANDIT"))  %&gt;%
+  select(-trash) %&gt;%
+  group_by(id, datatype) %&gt;%
+  mutate(num = 1:n()) %&gt;% 
+  ungroup() %&gt;%
+  pivot_longer(AIC:BIC, 
+               names_to = "ic_type", 
+               values_to = "best_model") %&gt;%
+  mutate(best_matrix = str_replace(best_model, "\\+.+", "")) -&gt; processed_models
+```
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

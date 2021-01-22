@@ -40,13 +40,11 @@ library(patchwork)
 library(colorblindr)
 theme_set(theme_cowplot())
 img_path <- "img/dplyr/"
-plant <- as_tibble(CO2) %>%
-  rename(plant_id = Plant,
-         origin = Type,
-         treatment = Treatment,
-         co2_conc = conc,
-         co2_rate = uptake) %>%
-  mutate(plant_id = factor(plant_id))
+
+set.seed(11)
+diamonds %>% 
+  dplyr::select(carat, cut, color, price, x) %>% 
+  sample_n(20) -> diamonds
 ```
 
 class: title-slide
@@ -122,9 +120,9 @@ log(5)
 # Cold tolerance experiment on grass species
 
 ```{r}
-head(plant)
-nrow(plant)
-ncol(plant)
+head(diamonds)
+nrow(diamonds)
+ncol(diamonds)
 ```
 
 ---
@@ -139,45 +137,67 @@ library(dplyr)
 
 ---
 
-```{r, echo=F}
-print.data.frame(plant %>% slice(1:40), row.names=F)
+.pull-left[
+```{r}
+print(diamonds)
 ```
+]
+
+.pull-right[
+`price`: Price in US dollars
+
+`carat`: Weight of the diamond
+
+`cut`: Quality of the diamond
+
+`color`
+
+`x`: width of diamond in mm
+
+
+```{r out.width = '400px', echo=F}
+knitr::include_graphics("img/dplyr/diamond_color_range.jpg")
+```
+]
 
 ---
 
-```{r, echo=F}
-print.data.frame(plant %>% slice(50:82), row.names=F)
-```
+# Your first `dplyr` function: `glimpse()`
 
-
----
-
-# Look at the data:
 
 ```{r}
-## your first dplyr function!
-glimpse(plant)
+str(diamonds)
 ```
 
 --
+<br><br>
 
 ```{r}
-levels(plant$plant_id)
+glimpse(diamonds)
 ```
+
+---
+
+# Fully look at the data
+
 ```{r}
-levels(plant$origin)
+glimpse(diamonds)
 ```
+<br><br>
 ```{r}
-levels(plant$treatment)
+summary(diamonds)
 ```
+
+
+
 
 ---
 
 # Common tasks we perform on datasets 
 
 + Subsetting rows. 
-    + Ex: Work with only Mississippi plants.
-    + Ex: Work with only plants under certain experimental conditions.
+    + Ex: Work with only Mississippi diamondss.
+    + Ex: Work with only diamondss under certain experimental conditions.
 + Removing duplicate rows
 <br><br>
 + Creating new columns
@@ -195,8 +215,8 @@ levels(plant$treatment)
 # Functions ("verbs") for wrangling datasets
 
 + Subsetting rows. **`filter()`**
-    + Ex: Work with only Mississippi plants.
-    + Ex: Work with only plants under certain experimental conditions.
+    + Ex: Work with only Mississippi diamondss.
+    + Ex: Work with only diamondss under certain experimental conditions.
 + Removing duplicate rows **`distinct()`**
 <br><br>
 + Creating new columns **`mutate()`**
@@ -223,8 +243,7 @@ All functions *return* a data frame (tibble).
 
 ```{r}
 # Reminder of the dataset:
-head(plant)
-levels(plant$origin)
+head(diamonds)
 ```
 
 --
@@ -245,8 +264,8 @@ levels(plant$origin)
 
 
 ```{r}
-# Keep only Mississippi plants:
-filter(plant, origin == "Mississippi")
+# Keep only Premium quality diamonds diamondss:
+filter(diamonds, cut == "Premium")
 ```
 
 ---
@@ -255,57 +274,26 @@ filter(plant, origin == "Mississippi")
 
 ```{r}
 # Not preferred:
-# filter(plant, origin == "Mississippi")
+# filter(diamonds, cut == "Premium")
 
 # Also not preferred:
-# plant %>% filter(origin == "Mississippi")
+# diamonds %>% filter(cut == "Premium")
 
 # THIS!!!!
-plant %>%
-  filter(origin == "Mississippi")
+diamonds %>%
+  filter(cut == "Premium")
 ```
 ---
 
 # Cautionary tales
 
 ```{r}
-tail(plant)
+head(diamonds)
 ```
-
---
 
 ```{r, error=TRUE}
-plant %>%
-  filter(origin == "Misissippi")
-```
-
----
-
-
-# Cautionary tales
-
-```{r}
-tail(plant)
-```
-
-
-```{r, error=TRUE}
-plant %>%
-  filter(origin == "mississippi")
-```
-
----
-
-# Cautionary tales
-
-```{r}
-tail(plant)
-```
-
-
-```{r, error=TRUE}
-plant %>%
-  filter(orgin == "Mississippi")
+diamonds %>%
+  filter(cut == "premium")
 ```
 
 ---
@@ -314,13 +302,13 @@ plant %>%
 # Cautionary tales
 
 ```{r}
-tail(plant)
+head(diamonds)
 ```
 
 
 ```{r, error=TRUE}
-plant %>%
-  filter(ORIGIN == "Mississippi")
+diamonds %>%
+  filter(cut == "Premuim")
 ```
 
 ---
@@ -328,13 +316,56 @@ plant %>%
 # Cautionary tales
 
 ```{r}
-tail(plant)
+head(diamonds)
 ```
 
 
 ```{r, error=TRUE}
-plant 
-  %>% filter(origin == "Mississippi")
+diamonds %>%
+  filter(quality == "Premium")
+```
+
+---
+
+
+# Cautionary tales
+
+```{r}
+head(diamonds)
+```
+
+
+```{r, error=TRUE}
+diamonds %>%
+  filter(CUT == "Premium")
+```
+
+---
+
+# Cautionary tales
+
+```{r}
+head(diamonds)
+```
+
+
+```{r, error=TRUE}
+diamonds %>%
+  filter(cut = "Premium")
+```
+
+---
+
+# Cautionary tales
+
+```{r}
+head(diamonds)
+```
+
+
+```{r, error=TRUE}
+diamonds 
+  %>% filter(cut == "Premium")
 ```
 
 ---
@@ -345,8 +376,8 @@ plant
 + Keep all rows where ALL conditions are `TRUE`
 
 ```{r}
-plant %>%
-  filter(origin == "Mississippi", treatment == "chilled")
+diamonds %>%
+  filter(cut == "Premium", color == "I")
 ```
 
 ---
@@ -355,8 +386,8 @@ plant %>%
 
 
 ```{r}
-plant %>%
-  filter(origin == "Mississippi", treatment == "chilled", co2_conc >= 500)
+diamonds %>%
+  filter(cut == "Premium", color == "I", carat > 1)
 ```
 
 ---
@@ -365,36 +396,30 @@ plant %>%
 # Separate onto new lines when code gets too long
 
 ```{r}
-plant %>%
-  filter(origin == "Mississippi", 
-         treatment == "chilled", 
-         co2_conc >= 500)
+diamonds %>%
+  filter(cut == "Premium", 
+         color == "I", 
+         carat > 1)
 ```
 
 **Caution!!** Make sure the commas are always on at the _end of a line_
 
 ---
 
-# Goal: Subset to plants with concentrations either 95 or 500
+# Goal: Subset to only "Ideal and "Premium" diamonds
 
 ```{r}
-unique(plant$co2_conc)
+diamonds %>%
+  filter(cut == "Ideal", 
+         cut == "Premium")
 ```
 
 --
 
-```{r}
-plant %>%
-  filter(co2_conc == 95, 
-         co2_conc == 500)
-```
-
---
-
-**That code DID WORK.** It retained all rows whose `co2_conc` equaled 95 AND 500! ....But there are no such rows!!
+**That code DID WORK.** It retained all rows whose `cut` equaled "Ideal" **AND** "Premium"! ....But there are no such rows!!
 
 
-**To reinterate: The code worked perfectly fine, but it didn't do what you might have expected. This is a type of a bug.**
+**To reiterate: The code worked perfectly fine, but it didn't do what you might have expected. This is a type of a bug.**
 
 
 ---
@@ -409,19 +434,20 @@ colors <- c("red", "orange", "yellow")
 
 ---
 
-# Get rows with _either_ concentration using `%in%`
+# Get rows with _either_ cut using `%in%`
 
 ```{r}
-plant %>%
-  filter(co2_conc %in% c(95, 500))
+diamonds %>%
+  filter(cut %in% c("Ideal", "Premium"))
 ```
 
---
+---
+# Don't forget: avoid hardcoding!
 
 ```{r, eval=FALSE}
-conc_values <- c(95, 500)
-plant %>%
-  filter(co2_conc %in% conc_values)
+cuts <- c("Ideal", "Premium")
+diamonds %>%
+  filter(cut %in% cuts) 
 ```
 
 ---
@@ -429,8 +455,8 @@ plant %>%
 # Have as many options as you want:
 
 ```{r}
-plant %>%
-  filter(plant_id %in% c("Qn1", "Qc1", "Mn1", "Mc1"))
+diamonds %>%
+  filter(cut %in% c("Ideal", "Premium", "Good"))
 ```
 
 ---
@@ -438,61 +464,68 @@ plant %>%
 # One reason filtering is important:
 
 ```{r}
-ggplot(plant, aes(x = treatment, 
-                  y = co2_rate,
-                  fill = treatment)) + 
-  geom_boxplot()
+ggplot(diamonds, aes(x = carat, 
+                     y = price)) + 
+  geom_point(size = 3)
 ```
 
 --
 
-But what if I *only* want to plot Mississippi plants?
+But what if I *only* want to plot diamonds that cost less than $1000?
 
 ---
 
 # Plotting filtered data 
 
 ```{r}
-plant %>%
-  filter(origin == "Mississippi") -> plant_miss
+diamonds %>%
+  filter(price < 1000) -> diamonds_cheaper
 
-ggplot(plant_miss, aes(x = treatment, 
-                  y = co2_rate,
-                  fill = treatment)) + 
-  geom_boxplot()
+ggplot(diamonds_cheaper, aes(x = carat, 
+                     y = price)) + 
+  geom_point(size = 3)
 ```
 
 ---
 
 # Plotting filtered data 
 
-```{r}
-plant %>%
-  filter(origin == "Mississippi") %>%
-  ggplot(aes(x = treatment, 
-             y = co2_rate,
-             fill = treatment)) + 
-    geom_boxplot()
+```{r, eval=FALSE}
+diamonds %>%
+  filter(price < 1000) -> diamonds_cheaper
+
+ggplot(diamonds_cheaper, aes(x = carat, 
+                     y = price)) + 
+  geom_point(size = 3)
 ```
 
+```{r, fig.height = 3, fig.width = 3}
+diamonds %>%
+  filter(price < 1000) %>%
+  ggplot(aes(x = carat, 
+             y = price)) + 
+    geom_point(size = 3)
+```
+
+.pull-right[
 **Caution:** Be careful to use `%>%` and `+` in the right place. Using the wrong one in the wrong place is a common mistake!
-
+]
 ---
 
 
-# Removing, keeping, rearranging columns with `select()`
+# Working with columns with `select()`
 
 .pull-left[
 ```{r}
-plant %>%
-  select(plant_id, treatment)
+diamonds %>%
+  select(price, cut)
 ```
 ]
 --
 .pull-right[
 ```{r}
-plant %>%
-  select(-plant_id, -treatment)
+diamonds %>%
+  select(-price, -cut)
 ```
 ]
 ---
@@ -500,10 +533,10 @@ plant %>%
 # There is a lot of magic in `select()`
 
 ```{r}
-head(plant, 2)
+head(diamonds)
 
-plant %>%
-  select(co2_rate, everything())
+diamonds %>%
+  select(price, everything())
 ```
 
 ---
@@ -512,7 +545,7 @@ plant %>%
 # Creating new columns with `mutate()`
 
 ```{r}
-plant %>%
+diamonds %>%
   mutate(the_number_5 = 5)
 ```
 
@@ -524,10 +557,94 @@ plant %>%
 Again, we can directly reference existing columns: 
 
 ```{r}
-plant %>%
-  mutate(co2_rate_x100 = co2_rate * 100)
+# 'x' is measured in mm
+diamonds %>%
+  mutate(x_in_cm = x/10)
 ```
 
 **New column names should always begin with a LETTER and only contain letters, numbers, and underscores.**
 
 ---
+
+# What if I want my new variable to be first?
+
+```{r}
+# 'x' is measured in mm
+diamonds %>%
+  mutate(x_in_cm = x/10) %>%
+  select(x_in_cm, everything())
+```
+
+---
+
+
+# Also bring `x` forward for easy comparison
+
+> This is part of checking that your `mutate()` command worked. Use your eyes to confirm that `x_in_cm` really is 10*x
+
+```{r}
+# 'x' is measured in mm
+diamonds %>%
+  mutate(x_in_cm = x/10) %>%
+  select(x_in_cm, x, everything())
+```
+
+---
+# This the magic of the pipe
+
+```{r}
+diamonds %>%
+  filter(carat < 0.5) %>%
+  select(carat, price)
+```
+
+---
+
+# ONE LINE AT A TIME
+
+## IF YOU DO NOT GO ONE LINE AT A TIME, YOU WILL DO VERY VERY POORLY.
+
+## I REALLY CANNOT EMPHASIZE THIS ENOUGH. 
+
+## ONE. LINE. AT. A TIME.
+
+---
+
+# Make sure this works FIRST
+
+```{r}
+diamonds %>%
+  filter(carat < 0.5)
+```
+
+---
+
+# Then, add the next line
+
+```{r}
+diamonds %>%
+  filter(carat < 0.5) %>%
+  select(carat, price)
+```
+
+---
+
+# An smallish example of real-word piping
+
+> This code should not make sense to you, don't worry!
+
+<br><br>
+
+```{r, eval=FALSE}
+models %>%
+  separate(name, into=c("id", "dataset", "trash"), sep = "\\.") %>%
+  replace_na(list(dataset = "PANDIT"))  %>%
+  select(-trash) %>%
+  group_by(id, datatype) %>%
+  mutate(num = 1:n()) %>% 
+  ungroup() %>%
+  pivot_longer(AIC:BIC, 
+               names_to = "ic_type", 
+               values_to = "best_model") %>%
+  mutate(best_matrix = str_replace(best_model, "\\+.+", "")) -> processed_models
+```
