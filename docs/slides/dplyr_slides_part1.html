@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>dplyr_slides_part1.utf8</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/chocolate.css" rel="stylesheet" />
+    <link href="libs/remark-css/chocolate-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+
+
+class: title-slide
+
+&lt;!--background-image: url(slide_background_images/) --&gt; 
+
+.bg-text[
+# Introduction to `dplyr`
+## Data Science for Biologists
+
+&lt;hr /&gt;
+**Image by TBD**
+]
+
+
+---
+--- 
+
+
+.pull-left[
+&lt;img src="img/dplyr//dplyr_hex_old.jpg" width="250px" /&gt;
+]
+.pull-right[
+&lt;img src="img/dplyr//dplyr_hex_new.png" width="250px" /&gt;
+]
+
+---
+class: top, center
+
+# The great and powerful **pipe**
+
+&lt;img src="img/dplyr//MagrittePipe.jpg" width="375px" /&gt;
+
+--
+
+&lt;img src="img/dplyr//pipe.png" width="200px" /&gt;
+
+---
+
+# Examples of piping, and formatting goals
+
+
+```r
+## Tired
+log(5)
+```
+
+```
+## [1] 1.609438
+```
+&lt;br&gt;&lt;br&gt;
+--
+
+
+```r
+## Wired
+5 %&gt;% log()
+```
+
+```
+## [1] 1.609438
+```
+&lt;br&gt;&lt;br&gt;
+
+--
+
+
+```r
+## Inspired
+5 %&gt;%
+  log()
+```
+
+```
+## [1] 1.609438
+```
+
+---
+
+# Cold tolerance experiment on grass species
+
+
+```r
+head(plant)
+```
+
+```
+## # A tibble: 6 x 5
+##   plant_id origin treatment  co2_conc co2_rate
+##   &lt;ord&gt;    &lt;fct&gt;  &lt;fct&gt;         &lt;dbl&gt;    &lt;dbl&gt;
+## 1 Qn1      Quebec nonchilled       95     16  
+## 2 Qn1      Quebec nonchilled      175     30.4
+## 3 Qn1      Quebec nonchilled      250     34.8
+## 4 Qn1      Quebec nonchilled      350     37.2
+## 5 Qn1      Quebec nonchilled      500     35.3
+## 6 Qn1      Quebec nonchilled      675     39.2
+```
+
+```r
+nrow(plant)
+```
+
+```
+## [1] 84
+```
+
+```r
+ncol(plant)
+```
+
+```
+## [1] 5
+```
+
+---
+# Loading libraries
+
+
+```r
+## LOAD THE DPLYR LIBRARY
+library(dplyr)
+```
+
+## You must load the library for each R session OR NONE OF THIS WORKS!!
+
+---
+
+
+```
+##  plant_id origin  treatment co2_conc co2_rate
+##       Qn1 Quebec nonchilled       95     16.0
+##       Qn1 Quebec nonchilled      175     30.4
+##       Qn1 Quebec nonchilled      250     34.8
+##       Qn1 Quebec nonchilled      350     37.2
+##       Qn1 Quebec nonchilled      500     35.3
+##       Qn1 Quebec nonchilled      675     39.2
+##       Qn1 Quebec nonchilled     1000     39.7
+##       Qn2 Quebec nonchilled       95     13.6
+##       Qn2 Quebec nonchilled      175     27.3
+##       Qn2 Quebec nonchilled      250     37.1
+##       Qn2 Quebec nonchilled      350     41.8
+##       Qn2 Quebec nonchilled      500     40.6
+##       Qn2 Quebec nonchilled      675     41.4
+##       Qn2 Quebec nonchilled     1000     44.3
+##       Qn3 Quebec nonchilled       95     16.2
+##       Qn3 Quebec nonchilled      175     32.4
+##       Qn3 Quebec nonchilled      250     40.3
+##       Qn3 Quebec nonchilled      350     42.1
+##       Qn3 Quebec nonchilled      500     42.9
+##       Qn3 Quebec nonchilled      675     43.9
+##       Qn3 Quebec nonchilled     1000     45.5
+##       Qc1 Quebec    chilled       95     14.2
+##       Qc1 Quebec    chilled      175     24.1
+##       Qc1 Quebec    chilled      250     30.3
+##       Qc1 Quebec    chilled      350     34.6
+##       Qc1 Quebec    chilled      500     32.5
+##       Qc1 Quebec    chilled      675     35.4
+##       Qc1 Quebec    chilled     1000     38.7
+##       Qc2 Quebec    chilled       95      9.3
+##       Qc2 Quebec    chilled      175     27.3
+##       Qc2 Quebec    chilled      250     35.0
+##       Qc2 Quebec    chilled      350     38.8
+##       Qc2 Quebec    chilled      500     38.6
+##       Qc2 Quebec    chilled      675     37.5
+##       Qc2 Quebec    chilled     1000     42.4
+##       Qc3 Quebec    chilled       95     15.1
+##       Qc3 Quebec    chilled      175     21.0
+##       Qc3 Quebec    chilled      250     38.1
+##       Qc3 Quebec    chilled      350     34.0
+##       Qc3 Quebec    chilled      500     38.9
+```
+
+---
+
+
+```
+##  plant_id      origin  treatment co2_conc co2_rate
+##       Mn2 Mississippi nonchilled       95     12.0
+##       Mn2 Mississippi nonchilled      175     22.0
+##       Mn2 Mississippi nonchilled      250     30.6
+##       Mn2 Mississippi nonchilled      350     31.8
+##       Mn2 Mississippi nonchilled      500     32.4
+##       Mn2 Mississippi nonchilled      675     31.1
+##       Mn2 Mississippi nonchilled     1000     31.5
+##       Mn3 Mississippi nonchilled       95     11.3
+##       Mn3 Mississippi nonchilled      175     19.4
+##       Mn3 Mississippi nonchilled      250     25.8
+##       Mn3 Mississippi nonchilled      350     27.9
+##       Mn3 Mississippi nonchilled      500     28.5
+##       Mn3 Mississippi nonchilled      675     28.1
+##       Mn3 Mississippi nonchilled     1000     27.8
+##       Mc1 Mississippi    chilled       95     10.5
+##       Mc1 Mississippi    chilled      175     14.9
+##       Mc1 Mississippi    chilled      250     18.1
+##       Mc1 Mississippi    chilled      350     18.9
+##       Mc1 Mississippi    chilled      500     19.5
+##       Mc1 Mississippi    chilled      675     22.2
+##       Mc1 Mississippi    chilled     1000     21.9
+##       Mc2 Mississippi    chilled       95      7.7
+##       Mc2 Mississippi    chilled      175     11.4
+##       Mc2 Mississippi    chilled      250     12.3
+##       Mc2 Mississippi    chilled      350     13.0
+##       Mc2 Mississippi    chilled      500     12.5
+##       Mc2 Mississippi    chilled      675     13.7
+##       Mc2 Mississippi    chilled     1000     14.4
+##       Mc3 Mississippi    chilled       95     10.6
+##       Mc3 Mississippi    chilled      175     18.0
+##       Mc3 Mississippi    chilled      250     17.9
+##       Mc3 Mississippi    chilled      350     17.9
+##       Mc3 Mississippi    chilled      500     17.9
+```
+
+
+---
+
+# Look at the data:
+
+
+```r
+## your first dplyr function!
+glimpse(plant)
+```
+
+```
+## Rows: 84
+## Columns: 5
+## $ plant_id  &lt;ord&gt; Qn1, Qn1, Qn1, Qn1, Qn1, Qn1, Qn1, Qn2, Qn2, Qn2, Qn2, Qn2,…
+## $ origin    &lt;fct&gt; Quebec, Quebec, Quebec, Quebec, Quebec, Quebec, Quebec, Que…
+## $ treatment &lt;fct&gt; nonchilled, nonchilled, nonchilled, nonchilled, nonchilled,…
+## $ co2_conc  &lt;dbl&gt; 95, 175, 250, 350, 500, 675, 1000, 95, 175, 250, 350, 500, …
+## $ co2_rate  &lt;dbl&gt; 16.0, 30.4, 34.8, 37.2, 35.3, 39.2, 39.7, 13.6, 27.3, 37.1,…
+```
+
+--
+
+
+```r
+levels(plant$plant_id)
+```
+
+```
+##  [1] "Qn1" "Qn2" "Qn3" "Qc1" "Qc3" "Qc2" "Mn3" "Mn2" "Mn1" "Mc2" "Mc3" "Mc1"
+```
+
+```r
+levels(plant$origin)
+```
+
+```
+## [1] "Quebec"      "Mississippi"
+```
+
+```r
+levels(plant$treatment)
+```
+
+```
+## [1] "nonchilled" "chilled"
+```
+
+---
+
+# Common tasks we perform on datasets 
+
++ Subsetting rows. 
+    + Ex: Work with only Mississippi plants.
+    + Ex: Work with only plants under certain experimental conditions.
++ Removing duplicate rows
+&lt;br&gt;&lt;br&gt;
++ Creating new columns
++ Rearranging, removing, or keeping only certain column
++ Renaming columns
+&lt;br&gt;&lt;br&gt;
++ Arrange the data based on a column
+    + Ex: Arrange in order of CO2 uptake rate
+&lt;br&gt;&lt;br&gt;
++ Summarizing data
+    + Ex: Calculating the mean of a variable
+    + Ex: Calculating the mean for *each group* of a variable
+---
+
+# Functions ("verbs") for wrangling datasets
+
++ Subsetting rows. **`filter()`**
+    + Ex: Work with only Mississippi plants.
+    + Ex: Work with only plants under certain experimental conditions.
++ Removing duplicate rows **`distinct()`**
+&lt;br&gt;&lt;br&gt;
++ Creating new columns **`mutate()`**
++ Rearranging, removing, or keeping only certain column **`select()`**
++ Renaming columns **`rename()`**
+&lt;br&gt;&lt;br&gt;
++ Arrange the data based on a column **`arrange()`**
+    + Ex: Arrange in order of CO2 uptake rate
+&lt;br&gt;&lt;br&gt;
++ Summarizing data **`summarize()`**
+    + Ex: Calculating the mean of a variable
+    + Ex: Calculating the mean for *each group* of a variable
+--
+
+### Data frame in, data frame out.
+
+The *first argument* for all functions is a data frame (tibble).
+All functions *return* a data frame (tibble). 
+
+---
+
+# Diving in with `filter()`
+
+
+
+```r
+# Reminder of the dataset:
+head(plant)
+```
+
+```
+## # A tibble: 6 x 5
+##   plant_id origin treatment  co2_conc co2_rate
+##   &lt;ord&gt;    &lt;fct&gt;  &lt;fct&gt;         &lt;dbl&gt;    &lt;dbl&gt;
+## 1 Qn1      Quebec nonchilled       95     16  
+## 2 Qn1      Quebec nonchilled      175     30.4
+## 3 Qn1      Quebec nonchilled      250     34.8
+## 4 Qn1      Quebec nonchilled      350     37.2
+## 5 Qn1      Quebec nonchilled      500     35.3
+## 6 Qn1      Quebec nonchilled      675     39.2
+```
+
+```r
+levels(plant$origin)
+```
+
+```
+## [1] "Quebec"      "Mississippi"
+```
+
+--
+
++ All common `dplyr` verbs follow this paradigm:
+  + First argument: a data frame
+  + Additional argument(s): **logical statements** (code that gives `TRUE` OR `FALSE`) about which rows you want to keep
+  + *We can directly refer to columns within `dplyr` code*
+
+
+---
+
+# Diving in with `filter()`
+
++ First argument: a data frame
++ Additional argument(s): **logical statements** (code that gives `TRUE` OR `FALSE`) about which rows you want to keep
++ *We can directly refer to columns within `dplyr` code*
+
+
+
+```r
+# Keep only Mississippi plants:
+filter(plant, origin == "Mississippi")
+```
+
+```
+## # A tibble: 42 x 5
+##    plant_id origin      treatment  co2_conc co2_rate
+##    &lt;ord&gt;    &lt;fct&gt;       &lt;fct&gt;         &lt;dbl&gt;    &lt;dbl&gt;
+##  1 Mn1      Mississippi nonchilled       95     10.6
+##  2 Mn1      Mississippi nonchilled      175     19.2
+##  3 Mn1      Mississippi nonchilled      250     26.2
+##  4 Mn1      Mississippi nonchilled      350     30  
+##  5 Mn1      Mississippi nonchilled      500     30.9
+##  6 Mn1      Mississippi nonchilled      675     32.4
+##  7 Mn1      Mississippi nonchilled     1000     35.5
+##  8 Mn2      Mississippi nonchilled       95     12  
+##  9 Mn2      Mississippi nonchilled      175     22  
+## 10 Mn2      Mississippi nonchilled      250     30.6
+## # … with 32 more rows
+```
+
+---
+
+# Using pipe is the preferred style
+
+
+```r
+# Not preferred:
+# filter(plant, origin == "Mississippi")
+
+# Also not preferred:
+# plant %&gt;% filter(origin == "Mississippi")
+
+# THIS!!!!
+plant %&gt;%
+  filter(origin == "Mississippi")
+```
+
+```
+## # A tibble: 42 x 5
+##    plant_id origin      treatment  co2_conc co2_rate
+##    &lt;ord&gt;    &lt;fct&gt;       &lt;fct&gt;         &lt;dbl&gt;    &lt;dbl&gt;
+##  1 Mn1      Mississippi nonchilled       95     10.6
+##  2 Mn1      Mississippi nonchilled      175     19.2
+##  3 Mn1      Mississippi nonchilled      250     26.2
+##  4 Mn1      Mississippi nonchilled      350     30  
+##  5 Mn1      Mississippi nonchilled      500     30.9
+##  6 Mn1      Mississippi nonchilled      675     32.4
+##  7 Mn1      Mississippi nonchilled     1000     35.5
+##  8 Mn2      Mississippi nonchilled       95     12  
+##  9 Mn2      Mississippi nonchilled      175     22  
+## 10 Mn2      Mississippi nonchilled      250     30.6
+## # … with 32 more rows
+```
+---
+
+# Cautionary tales
+
+
+```r
+tail(plant)
+```
+
+```
+## # A tibble: 6 x 5
+##   plant_id origin      treatment co2_conc co2_rate
+##   &lt;ord&gt;    &lt;fct&gt;       &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;
+## 1 Mc3      Mississippi chilled        175     18  
+## 2 Mc3      Mississippi chilled        250     17.9
+## 3 Mc3      Mississippi chilled        350     17.9
+## 4 Mc3      Mississippi chilled        500     17.9
+## 5 Mc3      Mississippi chilled        675     18.9
+## 6 Mc3      Mississippi chilled       1000     19.9
+```
+
+--
+
+
+```r
+plant %&gt;%
+  filter(origin == "Misissippi")
+```
+
+```
+## # A tibble: 0 x 5
+## # … with 5 variables: plant_id &lt;ord&gt;, origin &lt;fct&gt;, treatment &lt;fct&gt;,
+## #   co2_conc &lt;dbl&gt;, co2_rate &lt;dbl&gt;
+```
+
+---
+
+
+# Cautionary tales
+
+
+```r
+tail(plant)
+```
+
+```
+## # A tibble: 6 x 5
+##   plant_id origin      treatment co2_conc co2_rate
+##   &lt;ord&gt;    &lt;fct&gt;       &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;
+## 1 Mc3      Mississippi chilled        175     18  
+## 2 Mc3      Mississippi chilled        250     17.9
+## 3 Mc3      Mississippi chilled        350     17.9
+## 4 Mc3      Mississippi chilled        500     17.9
+## 5 Mc3      Mississippi chilled        675     18.9
+## 6 Mc3      Mississippi chilled       1000     19.9
+```
+
+
+
+```r
+plant %&gt;%
+  filter(origin == "mississippi")
+```
+
+```
+## # A tibble: 0 x 5
+## # … with 5 variables: plant_id &lt;ord&gt;, origin &lt;fct&gt;, treatment &lt;fct&gt;,
+## #   co2_conc &lt;dbl&gt;, co2_rate &lt;dbl&gt;
+```
+
+---
+
+# Cautionary tales
+
+
+```r
+tail(plant)
+```
+
+```
+## # A tibble: 6 x 5
+##   plant_id origin      treatment co2_conc co2_rate
+##   &lt;ord&gt;    &lt;fct&gt;       &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;
+## 1 Mc3      Mississippi chilled        175     18  
+## 2 Mc3      Mississippi chilled        250     17.9
+## 3 Mc3      Mississippi chilled        350     17.9
+## 4 Mc3      Mississippi chilled        500     17.9
+## 5 Mc3      Mississippi chilled        675     18.9
+## 6 Mc3      Mississippi chilled       1000     19.9
+```
+
+
+
+```r
+plant %&gt;%
+  filter(orgin == "Mississippi")
+```
+
+```
+## Error: Problem with `filter()` input `..1`.
+## x object 'orgin' not found
+## ℹ Input `..1` is `orgin == "Mississippi"`.
+```
+
+---
+
+
+# Cautionary tales
+
+
+```r
+tail(plant)
+```
+
+```
+## # A tibble: 6 x 5
+##   plant_id origin      treatment co2_conc co2_rate
+##   &lt;ord&gt;    &lt;fct&gt;       &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;
+## 1 Mc3      Mississippi chilled        175     18  
+## 2 Mc3      Mississippi chilled        250     17.9
+## 3 Mc3      Mississippi chilled        350     17.9
+## 4 Mc3      Mississippi chilled        500     17.9
+## 5 Mc3      Mississippi chilled        675     18.9
+## 6 Mc3      Mississippi chilled       1000     19.9
+```
+
+
+
+```r
+plant %&gt;%
+  filter(ORIGIN == "Mississippi")
+```
+
+```
+## Error: Problem with `filter()` input `..1`.
+## x object 'ORIGIN' not found
+## ℹ Input `..1` is `ORIGIN == "Mississippi"`.
+```
+
+---
+
+# Cautionary tales
+
+
+```r
+tail(plant)
+```
+
+```
+## # A tibble: 6 x 5
+##   plant_id origin      treatment co2_conc co2_rate
+##   &lt;ord&gt;    &lt;fct&gt;       &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;
+## 1 Mc3      Mississippi chilled        175     18  
+## 2 Mc3      Mississippi chilled        250     17.9
+## 3 Mc3      Mississippi chilled        350     17.9
+## 4 Mc3      Mississippi chilled        500     17.9
+## 5 Mc3      Mississippi chilled        675     18.9
+## 6 Mc3      Mississippi chilled       1000     19.9
+```
+
+
+
+```r
+plant 
+  %&gt;% filter(origin == "Mississippi")
+```
+
+```
+## Error: &lt;text&gt;:2:3: unexpected SPECIAL
+## 1: plant 
+## 2:   %&gt;%
+##      ^
+```
+
+---
+
+# We can have multiple conditions in `filter()`
+
++ Using a comma in filter acts as "and" (`&amp;`). 
++ Keep all rows where ALL conditions are `TRUE`
+
+
+```r
+plant %&gt;%
+  filter(origin == "Mississippi", treatment == "chilled")
+```
+
+```
+## # A tibble: 21 x 5
+##    plant_id origin      treatment co2_conc co2_rate
+##    &lt;ord&gt;    &lt;fct&gt;       &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;
+##  1 Mc1      Mississippi chilled         95     10.5
+##  2 Mc1      Mississippi chilled        175     14.9
+##  3 Mc1      Mississippi chilled        250     18.1
+##  4 Mc1      Mississippi chilled        350     18.9
+##  5 Mc1      Mississippi chilled        500     19.5
+##  6 Mc1      Mississippi chilled        675     22.2
+##  7 Mc1      Mississippi chilled       1000     21.9
+##  8 Mc2      Mississippi chilled         95      7.7
+##  9 Mc2      Mississippi chilled        175     11.4
+## 10 Mc2      Mississippi chilled        250     12.3
+## # … with 11 more rows
+```
+
+---
+
+# We can have multiple conditions in `filter()`
+
+
+
+```r
+plant %&gt;%
+  filter(origin == "Mississippi", treatment == "chilled", co2_conc &gt;= 500)
+```
+
+```
+## # A tibble: 9 x 5
+##   plant_id origin      treatment co2_conc co2_rate
+##   &lt;ord&gt;    &lt;fct&gt;       &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;
+## 1 Mc1      Mississippi chilled        500     19.5
+## 2 Mc1      Mississippi chilled        675     22.2
+## 3 Mc1      Mississippi chilled       1000     21.9
+## 4 Mc2      Mississippi chilled        500     12.5
+## 5 Mc2      Mississippi chilled        675     13.7
+## 6 Mc2      Mississippi chilled       1000     14.4
+## 7 Mc3      Mississippi chilled        500     17.9
+## 8 Mc3      Mississippi chilled        675     18.9
+## 9 Mc3      Mississippi chilled       1000     19.9
+```
+
+---
+
+
+# Separate onto new lines when code gets too long
+
+
+```r
+plant %&gt;%
+  filter(origin == "Mississippi", 
+         treatment == "chilled", 
+         co2_conc &gt;= 500)
+```
+
+```
+## # A tibble: 9 x 5
+##   plant_id origin      treatment co2_conc co2_rate
+##   &lt;ord&gt;    &lt;fct&gt;       &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;
+## 1 Mc1      Mississippi chilled        500     19.5
+## 2 Mc1      Mississippi chilled        675     22.2
+## 3 Mc1      Mississippi chilled       1000     21.9
+## 4 Mc2      Mississippi chilled        500     12.5
+## 5 Mc2      Mississippi chilled        675     13.7
+## 6 Mc2      Mississippi chilled       1000     14.4
+## 7 Mc3      Mississippi chilled        500     17.9
+## 8 Mc3      Mississippi chilled        675     18.9
+## 9 Mc3      Mississippi chilled       1000     19.9
+```
+
+**Caution!!** Make sure the commas are always on at the _end of a line_
+
+---
+
+# Goal: Subset to plants with concentrations either 95 or 500
+
+
+```r
+unique(plant$co2_conc)
+```
+
+```
+## [1]   95  175  250  350  500  675 1000
+```
+
+--
+
+
+```r
+plant %&gt;%
+  filter(co2_conc == 95, 
+         co2_conc == 500)
+```
+
+```
+## # A tibble: 0 x 5
+## # … with 5 variables: plant_id &lt;ord&gt;, origin &lt;fct&gt;, treatment &lt;fct&gt;,
+## #   co2_conc &lt;dbl&gt;, co2_rate &lt;dbl&gt;
+```
+
+--
+
+**That code DID WORK.** It retained all rows whose `co2_conc` equaled 95 AND 500! ....But there are no such rows!!
+
+
+**To reinterate: The code worked perfectly fine, but it didn't do what you might have expected. This is a type of a bug.**
+
+
+---
+
+## Recall the `%in%` operator
+
+
+```r
+colors &lt;- c("red", "orange", "yellow")
+"red" %in% colors
+```
+
+```
+## [1] TRUE
+```
+
+```r
+"blue" %in% colors
+```
+
+```
+## [1] FALSE
+```
+
+---
+
+# Get rows with _either_ concentration using `%in%`
+
+
+```r
+plant %&gt;%
+  filter(co2_conc %in% c(95, 500))
+```
+
+```
+## # A tibble: 24 x 5
+##    plant_id origin treatment  co2_conc co2_rate
+##    &lt;ord&gt;    &lt;fct&gt;  &lt;fct&gt;         &lt;dbl&gt;    &lt;dbl&gt;
+##  1 Qn1      Quebec nonchilled       95     16  
+##  2 Qn1      Quebec nonchilled      500     35.3
+##  3 Qn2      Quebec nonchilled       95     13.6
+##  4 Qn2      Quebec nonchilled      500     40.6
+##  5 Qn3      Quebec nonchilled       95     16.2
+##  6 Qn3      Quebec nonchilled      500     42.9
+##  7 Qc1      Quebec chilled          95     14.2
+##  8 Qc1      Quebec chilled         500     32.5
+##  9 Qc2      Quebec chilled          95      9.3
+## 10 Qc2      Quebec chilled         500     38.6
+## # … with 14 more rows
+```
+
+--
+
+
+```r
+conc_values &lt;- c(95, 500)
+plant %&gt;%
+  filter(co2_conc %in% conc_values)
+```
+
+---
+
+# Have as many options as you want:
+
+
+```r
+plant %&gt;%
+  filter(plant_id %in% c("Qn1", "Qc1", "Mn1", "Mc1"))
+```
+
+```
+## # A tibble: 28 x 5
+##    plant_id origin treatment  co2_conc co2_rate
+##    &lt;ord&gt;    &lt;fct&gt;  &lt;fct&gt;         &lt;dbl&gt;    &lt;dbl&gt;
+##  1 Qn1      Quebec nonchilled       95     16  
+##  2 Qn1      Quebec nonchilled      175     30.4
+##  3 Qn1      Quebec nonchilled      250     34.8
+##  4 Qn1      Quebec nonchilled      350     37.2
+##  5 Qn1      Quebec nonchilled      500     35.3
+##  6 Qn1      Quebec nonchilled      675     39.2
+##  7 Qn1      Quebec nonchilled     1000     39.7
+##  8 Qc1      Quebec chilled          95     14.2
+##  9 Qc1      Quebec chilled         175     24.1
+## 10 Qc1      Quebec chilled         250     30.3
+## # … with 18 more rows
+```
+
+---
+
+# One reason filtering is important:
+
+
+```r
+ggplot(plant, aes(x = treatment, 
+                  y = co2_rate,
+                  fill = treatment)) + 
+  geom_boxplot()
+```
+
+![](dplyr_slides_part1_files/figure-html/unnamed-chunk-39-1.png)&lt;!-- --&gt;
+
+--
+
+But what if I *only* want to plot Mississippi plants?
+
+---
+
+# Plotting filtered data 
+
+
+```r
+plant %&gt;%
+  filter(origin == "Mississippi") -&gt; plant_miss
+
+ggplot(plant_miss, aes(x = treatment, 
+                  y = co2_rate,
+                  fill = treatment)) + 
+  geom_boxplot()
+```
+
+![](dplyr_slides_part1_files/figure-html/unnamed-chunk-40-1.png)&lt;!-- --&gt;
+
+---
+
+# Plotting filtered data 
+
+
+```r
+plant %&gt;%
+  filter(origin == "Mississippi") %&gt;%
+  ggplot(aes(x = treatment, 
+             y = co2_rate,
+             fill = treatment)) + 
+    geom_boxplot()
+```
+
+![](dplyr_slides_part1_files/figure-html/unnamed-chunk-41-1.png)&lt;!-- --&gt;
+
+**Caution:** Be careful to use `%&gt;%` and `+` in the right place. Using the wrong one in the wrong place is a common mistake!
+
+---
+
+
+# Removing, keeping, rearranging columns with `select()`
+
+.pull-left[
+
+```r
+plant %&gt;%
+  select(plant_id, treatment)
+```
+
+```
+## # A tibble: 84 x 2
+##    plant_id treatment 
+##    &lt;ord&gt;    &lt;fct&gt;     
+##  1 Qn1      nonchilled
+##  2 Qn1      nonchilled
+##  3 Qn1      nonchilled
+##  4 Qn1      nonchilled
+##  5 Qn1      nonchilled
+##  6 Qn1      nonchilled
+##  7 Qn1      nonchilled
+##  8 Qn2      nonchilled
+##  9 Qn2      nonchilled
+## 10 Qn2      nonchilled
+## # … with 74 more rows
+```
+]
+--
+.pull-right[
+
+```r
+plant %&gt;%
+  select(-plant_id, -treatment)
+```
+
+```
+## # A tibble: 84 x 3
+##    origin co2_conc co2_rate
+##    &lt;fct&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+##  1 Quebec       95     16  
+##  2 Quebec      175     30.4
+##  3 Quebec      250     34.8
+##  4 Quebec      350     37.2
+##  5 Quebec      500     35.3
+##  6 Quebec      675     39.2
+##  7 Quebec     1000     39.7
+##  8 Quebec       95     13.6
+##  9 Quebec      175     27.3
+## 10 Quebec      250     37.1
+## # … with 74 more rows
+```
+]
+---
+
+# There is a lot of magic in `select()`
+
+
+```r
+head(plant, 2)
+```
+
+```
+## # A tibble: 2 x 5
+##   plant_id origin treatment  co2_conc co2_rate
+##   &lt;ord&gt;    &lt;fct&gt;  &lt;fct&gt;         &lt;dbl&gt;    &lt;dbl&gt;
+## 1 Qn1      Quebec nonchilled       95     16  
+## 2 Qn1      Quebec nonchilled      175     30.4
+```
+
+```r
+plant %&gt;%
+  select(co2_rate, everything())
+```
+
+```
+## # A tibble: 84 x 5
+##    co2_rate plant_id origin treatment  co2_conc
+##       &lt;dbl&gt; &lt;ord&gt;    &lt;fct&gt;  &lt;fct&gt;         &lt;dbl&gt;
+##  1     16   Qn1      Quebec nonchilled       95
+##  2     30.4 Qn1      Quebec nonchilled      175
+##  3     34.8 Qn1      Quebec nonchilled      250
+##  4     37.2 Qn1      Quebec nonchilled      350
+##  5     35.3 Qn1      Quebec nonchilled      500
+##  6     39.2 Qn1      Quebec nonchilled      675
+##  7     39.7 Qn1      Quebec nonchilled     1000
+##  8     13.6 Qn2      Quebec nonchilled       95
+##  9     27.3 Qn2      Quebec nonchilled      175
+## 10     37.1 Qn2      Quebec nonchilled      250
+## # … with 74 more rows
+```
+
+---
+
+
+# Creating new columns with `mutate()`
+
+
+```r
+plant %&gt;%
+  mutate(the_number_5 = 5)
+```
+
+```
+## # A tibble: 84 x 6
+##    plant_id origin treatment  co2_conc co2_rate the_number_5
+##    &lt;ord&gt;    &lt;fct&gt;  &lt;fct&gt;         &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;
+##  1 Qn1      Quebec nonchilled       95     16              5
+##  2 Qn1      Quebec nonchilled      175     30.4            5
+##  3 Qn1      Quebec nonchilled      250     34.8            5
+##  4 Qn1      Quebec nonchilled      350     37.2            5
+##  5 Qn1      Quebec nonchilled      500     35.3            5
+##  6 Qn1      Quebec nonchilled      675     39.2            5
+##  7 Qn1      Quebec nonchilled     1000     39.7            5
+##  8 Qn2      Quebec nonchilled       95     13.6            5
+##  9 Qn2      Quebec nonchilled      175     27.3            5
+## 10 Qn2      Quebec nonchilled      250     37.1            5
+## # … with 74 more rows
+```
+
+---
+
+
+# Creating new columns with `mutate()`
+
+Again, we can directly reference existing columns: 
+
+
+```r
+plant %&gt;%
+  mutate(co2_rate_x100 = co2_rate * 100)
+```
+
+```
+## # A tibble: 84 x 6
+##    plant_id origin treatment  co2_conc co2_rate co2_rate_x100
+##    &lt;ord&gt;    &lt;fct&gt;  &lt;fct&gt;         &lt;dbl&gt;    &lt;dbl&gt;         &lt;dbl&gt;
+##  1 Qn1      Quebec nonchilled       95     16           1600 
+##  2 Qn1      Quebec nonchilled      175     30.4         3040 
+##  3 Qn1      Quebec nonchilled      250     34.8         3480.
+##  4 Qn1      Quebec nonchilled      350     37.2         3720.
+##  5 Qn1      Quebec nonchilled      500     35.3         3530.
+##  6 Qn1      Quebec nonchilled      675     39.2         3920.
+##  7 Qn1      Quebec nonchilled     1000     39.7         3970.
+##  8 Qn2      Quebec nonchilled       95     13.6         1360 
+##  9 Qn2      Quebec nonchilled      175     27.3         2730 
+## 10 Qn2      Quebec nonchilled      250     37.1         3710 
+## # … with 74 more rows
+```
+
+**New column names should always begin with a LETTER and only contain letters, numbers, and underscores.**
+
+---
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "rainbow",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

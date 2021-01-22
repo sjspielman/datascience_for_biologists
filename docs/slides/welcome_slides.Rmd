@@ -76,13 +76,28 @@ background-image: url(https://wwwen.uni.lu/var/storage/images/media/images/data_
 # What can you expect?
 
 - Lecture/labs will be "indistinguishable" class time. We will naturally go back and forth among "traditional" lecture (slides), live coding demonstrations, and exercises
-- If we have slides, they will be provided to you after the relevant class.
+- If we use slides, they may be released after the relevant class.
 <br><br>
 - Office hours will be on Zoom every **Monday and Friday 11:30-12:30**
   - One Zoom to rule them all
   - No appointment necessary
 <br><br>
 - All one-on-one appointments should be scheduled via email. *Email me a week in advance of when you want to meet. My time fills up extremely quickly - do not rely on getting last-minute help!*
+
+
+---
+# Communicating with Dr. Spielman *and your classmates*
+
+We will use **Slack** for group discussion. I highly recommend *downloading* the mobile and/or Desktop apps instead of using the browser.
+
+- Email/Slack _availability_ hours are Monday-Thursday 9 am-6 pm and Friday 9 am-4pm
+<br><br>
+- If you write an email, please make sure it is *professional*
+  - Opens with an address ("Dear Dr. Spielman", "Hi Professor", etc.)
+  - *Demonstrates that this email is NOT your first attempt at solving the problem.*
+  - Closes with a signature ("-your name", "Sincerely, your name")
+<br><br>
+- You will not hear back from me if you email speilman@rowan.edu. That's not my name.
 
 
 ---
@@ -128,10 +143,10 @@ background-image: url(https://wwwen.uni.lu/var/storage/images/media/images/data_
 
 - The entire `R` language
 <br><br>
-- "Computer program" in the traditional sense of the term (if/else, for loops, writing functions, functional programming, object-oriented programming, etc.)
+- "Computer programming" in the traditional sense of the term (if/else, for loops, writing functions, functional programming, object-oriented programming, etc.)
   - The skills you learn here will make it *much easier* to pursue "programming" going forward
 <br><br>
-- Web development 
+- Web development or software development
 <br><br>
 - Deep learning/artificial intelligence
   - We will discuss concepts in machine learning, but this is not an ML class
@@ -169,6 +184,7 @@ knitr::include_graphics("img/welcome/foreign_language.jpg")
 - Communicate with me *in a timely fashion* and come to office hours when possible
 
 ---
+
 # How do set yourself up for FAILURE?
 
 - Start assignments within 48 hours of the deadline
