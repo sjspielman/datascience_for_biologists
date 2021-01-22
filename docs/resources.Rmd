@@ -27,12 +27,13 @@ output:
   + [Introduction to `forcats`](https://cran.r-project.org/web/packages/forcats/vignettes/forcats.html)
   + [Introduction to `stringr`](https://cran.r-project.org/web/packages/stringr/vignettes/stringr.html)
   + [Regular expressions with `stringr`](https://cran.r-project.org/web/packages/stringr/vignettes/regular-expressions.html)
-
 + [RStudio Cloud primers](https://rstudio.cloud/learn/primers)
   + Interactive resources for practicing certain R and `tidyverse` skills
   + Recommended primers: "The Basics", "Work with Data", "Visualize data", "Tidy your data." The rest are beyond the scope of our class.
 + [R for Data Science](https://r4ds.had.co.nz/) by Garrett Grolemund and Hadley Wickham
   + The "official" book for working with the tidyverse. Examples in the book may assume more background knowledge than computing novices have.
++ [`ggplot2`: Elegant Graphics for Data Analysis](https://ggplot2-book.org/index.html) by Hadley Wickham, Danielle Navarro, and Thomas Lin Pederse
+  + The `ggplot2` book.
 + [Data Visualization: A Practical Introduction](https://socviz.co/) by Kieran Healy
   + Introduces `ggplot2`, including the philosophy of the grammar of graphics and using many geoms. Again, some examples may assume more background knowledge than computing novices have.
   + Don't buy it! The whole book is there under "Menu."
@@ -90,7 +91,7 @@ output:
 + [Introduction to `dplyr` exercises](https://rowanbiosci.shinyapps.io/intro_dplyr/)
 
 
-## `ggplot2`-specific resources
+## Additional `ggplot2`-specific resources
 
 + [R for the Rest of Us: Overview of the grammar of graphics](https://rfortherestofus.com/2019/07/a-short-overview-of-the-grammar-of-graphics/)
   + Short video introducing the conceptual underpinnings of the grammar of graphics
