@@ -90,6 +90,36 @@ gg_color_gradient(title_size = 12, title="default divergent gradient2 (shown as 
 
 <br><br>
 
+# Working with default scales
+
+The most common aspect of the default color/fill scale (or other like shape or size!) that you will want to modify is its *name*. To do this, you first figure out: 
+
++ What was the aesthetic? Was it color, fill, shape, size, etc?
++ Is the mapped variable type _continuous_ (numbers) or _discrete_ (categories)?
+
+The function you use to customize the legend title is named, `scale_AESTHETIC_TYPE()`. For example, a fill aesthetic mapped from a discrete variable needs the function, `scale_fill_discrete()`. Specify the argument `name` to customize your legend title.
+
+
+```{r, echo=TRUE, fig.width = 7, fig.height = 4}
+ggplot(iris, aes(x = Sepal.Length, fill = Species)) + 
+  geom_density(alpha = 0.6) +
+  scale_fill_discrete(name = "Iris Species") 
+```
+<br>
+
+As another example, this plot maps a continuous variable (`Sepal.Length`) to color, so we use `scale_color_continuous()`:
+
+
+```{r, echo=TRUE, fig.width = 7, fig.height = 4}
+ggplot(iris, aes(x = Sepal.Length, 
+                 y = Sepal.Width,
+                 color = Sepal.Length)) + 
+  geom_point() +
+  scale_color_continuous(name = "Iris Species") 
+```
+
+<br><br>
+
 
 # Customizing qualitative scales for discrete data
 
