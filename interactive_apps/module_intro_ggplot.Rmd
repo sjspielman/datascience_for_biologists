@@ -478,7 +478,7 @@ This code is further *embedded* within the actual `ggplot()` code. Instead of ty
 
 > This code will NOT change the `sparrows` data frame at all - the `Age` column's default order remains the same. This code will only modify the order of `Age` levels for the plot.
 
-> When you change the factor level like this, the label comes out like garbage.... We will learn how to change legend titles soon!
+> **Pay close attention to this question! You will need to know how to use `fct_relevel()`!**
 
 
 ```{r scatter_6_demo2, exercise = TRUE, exercise.lines = 20}
@@ -502,15 +502,35 @@ ggplot(sparrows) +
 ```
 <br><br>
 
-7. Using the code above to practice and learn how to manipulate factors for plotting, make a scatterplot below of femur length across wingspread, with points colored by `Sex`. First make the plot without considering the order of factors, and then make it again with the order of `Sex` levels reversed using the skills from the previous example.
+7. You'll notice the legend title came out a little like garbage in the last plot. Let's learn how to set our own legend titles. Legends will appear when you use an aesthetic mapping - sometimes a `color`, sometimes a `fill`, or even `shape`, `size`, and more. You can customize the legend with the function `scale_AES_manual()`, where you replace `AES` with the type of aesthetic. In this plot, we are mapping Age to *color*, so we use the function `scale_color_manual()`. We can use the argument *name* to change the legend title, as in: `scale_color_manual(name = "Legend title")`.
 
-> **TIP**: It's really easy to lose count of your parentheses. If you have an error, it's possible that you are missing a parenthesis, have too many parentheses, or you have misplaced your parentheses.
+Re-make the plot below with the legend title "Sparrow age":
 
-```{r scatter_7, exercise = TRUE}
+> Hint: Like any `ggplot2()` function, we simply add it to the plot
+
+```{r scatter_7, exercise = TRUE, exercise.lines = 10}
 
 ```
 
 ```{r scatter_7-solution}
+ggplot(sparrows) + 
+  aes(x = Wingspread, 
+      y = Femur_Length, 
+      color = fct_relevel(Age, c("Juvenile", "Young", "Adult") )) +  
+  geom_point() + 
+  scale_color_manual(name = "Sparrow age")
+```
+
+
+8. Using the code above to practice and learn how to manipulate factors for plotting, make a scatterplot below of femur length across wingspread, with points colored by `Sex`. First make the plot without considering the order of factors, and then make it again with the order of `Sex` levels reversed using the skills from the previous example. Make sure you produce a clean legend title!
+
+> **TIP**: It's really easy to lose count of your parentheses. If you have an error, it's possible that you are missing a parenthesis, have too many parentheses, or you have misplaced your parentheses.
+
+```{r scatter_8, exercise = TRUE}
+
+```
+
+```{r scatter_8-solution}
 # Default order:
 ggplot(sparrows) + 
   aes(x = Wingspread, y = Femur_Length, color=Sex) +  
@@ -521,7 +541,8 @@ ggplot(sparrows) +
   aes(x = Wingspread, 
       y = Femur_Length, 
       color= fct_relevel(Sex, c("Male", "Female"))) +  
-  geom_point()
+  geom_point() + 
+  scale_color_manual(name = "Sex")
 ```
 <br>
 
