@@ -1,0 +1,534 @@
+---
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [default, chocolate, chocolate-fonts]
+    nature:
+      highlightStyle:  rainbow
+      highlightLines: true
+      countIncrementalSlides: false
+    seal: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{css, include=FALSE, echo=FALSE}
+.title-slide .bg-text{
+  position: absolute;
+  top: 45%;
+  left: 10%;
+  text-align: left;
+  color: #000;
+}
+```
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(fig.width=6, fig.height=4)
+library(xaringan)
+library(tidyverse) 
+library(cowplot)
+library(patchwork)
+library(colorblindr)
+theme_set(theme_cowplot())
+img_path <- "img/dplyr/"
+
+set.seed(11)
+diamonds %>% 
+  dplyr::select(carat, cut, color, price, x) %>% 
+  sample_n(500) -> diamonds
+```
+
+class: title-slide
+
+<!--background-image: url(slide_background_images/) --> 
+
+.bg-text[
+# Summarizing data with `dplyr`
+## Data Science for Biologists
+
+<hr />
+**Image by TBD**
+]
+
+
+---
+
+# First, we look at the data
+
+.pull-left[
+```{r}
+diamonds
+```
+]
+
+.pull-right[
+`price`: Price in US dollars
+
+`carat`: Weight of the diamond
+
+`cut`: Quality of the diamond
+
+`color`
+
+`x`: width of diamond in mm
+
+
+```{r out.width = '400px', echo=F}
+knitr::include_graphics("img/dplyr/diamond_color_range.jpg")
+```
+]
+
+---
+
+# Functions ("verbs") for wrangling datasets
+
++ Subsetting rows. **`filter()`**
+    + Ex: Work with Premium diamonds.
+    + Ex: Work with only diamonds above a certain carat.
++ Removing duplicate rows **`distinct()`**
+<br><br>
++ Creating new columns **`mutate()`**
++ Rearranging, removing, or keeping only certain columns **`select()`**
++ Renaming columns **`rename()`**
+<br><br>
++ Arrange the data based on a column **`arrange()`**
+    + Ex: Arrange in order of price
+<br>
+
+.red[
++ Summarizing data **`summarize()`**
+   + Ex: Calculating the mean price
+   + Ex: Calculating the mean price for *each* diamond quality category
+]
+
+---
+
+# Summary statistics: From many values to _one value_
+
+```{r, collapse=T}
+# Get 20 random numbers from 1-1000
+x <- sample(1:1000, 20)
+length(x)
+x
+```
+
+
+```{r, collapse=T}
+mean(x)
+median(x)
+min(x)
+max(x)
+sd(x)
+sum(x)
+```
+
+
+---
+
+
+# These functions do not _summarize_
+
+> The operation is performed separately on each value in `x`
+
+```{r, collapse=T}
+x
+```
+
+```{r, collapse=T}
+sqrt(x)
+
+log(x, 10) # log in base 10!
+
+exp(x) # e^x
+
+abs(x) # absolute value. kinda boring here, all numbers are positive
+```
+
+---
+
+# The `dplyr` function `summarize()`
+
+```{r}
+diamonds %>%
+  summarize(mean_price = mean(price))
+```
+
+---
+
+# The `dplyr` function `summarize()`
+
+> It is NOT AT ALL the same as `mutate()`!!
+
+
+```{r, collapse=T}
+diamonds %>%
+  summarize(mean_price = mean(price))
+```
+
+
+```{r, collapse=T}
+diamonds %>%
+  mutate(mean_price = mean(price))
+```
+
+
+---
+
+# Don't forget to name the column!
+
+> Otherwise, it's going to be _really annoying_ to work with
+
+```{r}
+diamonds %>%
+  # Works, but ends up gnarly
+  summarize(mean(price))
+```
+
+
+### When column names contain characters like parentheses, spaces, or other weirdness, you're gonna have a bad time. 
+
+---
+
+# More comparison with `mutate()`
+
+
+> `sqrt()` is not a summary function! 
+
+.pull-left[
+```{r, collapse=T}
+diamonds %>%
+  mutate(price_sqrt = sqrt(price)) %>%
+  # so we can see in the slides:
+  select(price_sqrt, everything())
+```
+]
+
+.pull-right[
+```{r, collapse=T}
+diamonds %>%
+  summarize(price_sqrt = sqrt(price))
+```
+]
+
+--
+
+### The lesson: `summarize()` will get rid of any columns that are not used in the calculation.
+
+---
+
+# Working with grouped data
+
+```{r, collapse=T}
+head(diamonds, 3) # show first three rows only, to fit on slides
+```
+
+```{r, collapse=T}
+diamonds %>%
+  group_by(cut) #<<
+```
+
+---
+
+# Working with grouped data
+
+#### `cut` is the **grouping variable**
+
+```{r, collapse=T}
+diamonds %>%
+  group_by(cut) %>%
+  # Perform calculation for each group separately
+  summarize(mean_price = mean(price))
+```
+
+### Notice how `cut` is retained in the output - the grouping variable was used in the summary calculation.
+---
+
+
+# Working with grouped data
+
+#### `cut` AND `color` are the **grouping variables**
+
+```{r, collapse=T}
+diamonds %>%
+  group_by(cut, color) %>%
+  # Perform calculation for each group separately
+  summarize(mean_price = mean(price))
+```
+
+
+Note: `## 'summarise()' regrouping output by 'cut' (override with '.groups' argument)` is just a message that the output has been ordered by `cut`.
+---
+
+# How would we plot this data?
+
+```{r, collapse=T}
+diamonds %>%
+  group_by(cut) %>%
+  summarize(mean_price = mean(price)) -> diamond_mean_prices
+
+diamond_mean_prices
+```
+
+---
+
+# A barplot is a good choice:
+
+We want `cut` on the X-axis and `mean_price` on the Y-axis. Each bar's height should be the mean price of the diamond cut.
+
+--
+
+```{r, error=T, fig.height = 0.5, fig.width = 0.5}
+ggplot(diamond_mean_prices, 
+       aes(x = cut,
+           y = mean_price)) +
+  geom_bar()
+```
+
+### UH-OH! This code gave an error! 
+
+---
+
+# Let's try again
+
+`geom_bar()` **automatically determines the Y-axis as the COUNT**. So, we shouldn't provide a y-axis when using this geom.
+
+
+--
+
+```{r, fig.height = 3, fig.width = 5}
+ggplot(diamond_mean_prices, 
+       aes(x = cut)) +
+  geom_bar()
+```
+
+### No more error, but this code isn't doing what _we want_ it to do. The computer only knows what you tell it - not what you _want to tell it._
+---
+
+# What happened?
+
+### The only way to figure out what happened is to _look at the data_
+
+```{r}
+diamond_mean_prices
+```
+
+```{r, echo=F, fig.height = 3, fig.width = 5}
+ggplot(diamond_mean_prices, 
+       aes(x = cut)) +
+  geom_bar()
+```
+
+---
+
+# Introducing `geom_col()`
+
+
+
+```{r}
+ggplot(diamond_mean_prices, 
+       aes(x = cut,
+           y = mean_price)) + #<<
+  geom_col() #<<
+```
+
+### Use `geom_col()` when you want to _literally plot a VARIABLE_ (not a count!) on the y-axis 
+
+---
+
+# Do we remember `fct_relevel()` ???
+
+```{r}
+cut_order <- c("Ideal", "Premium", "Very Good", "Good", "Fair")
+ggplot(diamond_mean_prices, 
+       aes(x = fct_relevel(cut, cut_order),#<<
+           y = mean_price)) + 
+  geom_col() 
+```
+
+---
+
+# Introducting `fct_reorder()`
+
+```{r}
+ggplot(diamond_mean_prices, 
+       aes(x = fct_reorder(cut, mean_price),#<<
+           y = mean_price)) + 
+  geom_col() 
+```
+
+### Automatically reorder a factor _based on values of another variable_. Magic.
+
+---
+
+# Introducting `fct_reorder()`
+
+```{r}
+ggplot(diamond_mean_prices, 
+       aes(x = fct_reorder(cut, mean_price),#<<
+           y = mean_price)) + 
+  geom_col() +
+  labs(x = "Diamond cut")
+```
+
+---
+
+# Introducting `fct_reorder()`
+
+```{r, fig.height = 3.5}
+ggplot(diamond_mean_prices, 
+       aes(x = fct_reorder(cut, mean_price, .desc=TRUE),#<<
+           y = mean_price)) + 
+  geom_col() +
+  labs(x = "Diamond cut")
+```
+
+### Use the `fct_reorder()` argument `.desc=TRUE` for descending order
+
+---
+
+# Helpful `dplyr` functions for summarizing and/or grouping
+
++ `ungroup()`: Remove groupings from data. No arguments needed
+  + If grouping is not the last step in your pipeline, ALWAYS ALWAYS **ALWAYS** 
+<br><br>
++ `tally()`: Count all observations in a group
+<br><br>
++ `n()`: Acts as a _variable_ indicating the number of observations in a group
+<br><br>
++ `count()`: Super handy shortcut for `group_by()` %>% `tally()` %>% `ungroup()`
+
+---
+
+# Don't ever forget to `ungroup()`
+
+```{r, collapse=T, message=F}
+diamonds %>%
+  group_by(cut, color) %>%
+  summarize(median_x = median(x)) %>%
+  ungroup() #<<
+```
+
+### _This is absolutely critical. Build the habit now, even if it sometimes seems silly._
+
+---
+
+# Ungrouping matters
+
+```{r, echo=F, include=F}
+set.seed(10)
+diamonds %>%
+  mutate(expensive = ifelse(price >=10000, "yes", "no")) %>%
+  select(expensive, price, carat) %>%
+  group_by(expensive) %>%
+  sample_n(2) %>%
+  ungroup() -> diamonds_tiny
+```
+
+```{r}
+diamonds_tiny
+```
+
+---
+
+# Ungrouping matters
+
+```{r, collapse=T}
+diamonds_tiny %>%
+  group_by(expensive) %>%
+  mutate(mean_price = mean(price)) %>%
+  mutate(mean_carat = mean(carat))
+```
+
+```{r, collapse=T}
+diamonds_tiny %>%
+  group_by(expensive) %>%
+  mutate(mean_price = mean(price)) %>%
+  ungroup() %>% #<<
+  mutate(mean_carat = mean(carat))
+```
+
+---
+
+# Neither of those versions is "right" or "wrong" 
+
+### Instead, it depends which calculation you actually wanted to calculate!
+
+---
+
+# Count observations (rows) with `tally()`
+
+.pull-left[
+```{r}
+# No grouping - counts all rows
+diamonds %>%
+  tally()
+
+diamonds %>%
+  group_by(cut) %>%
+  tally() %>%
+  ungroup()
+```
+]
+
+
+.pull-right[
+```{r}
+# Change `n` with argument "name"
+diamonds %>%
+  group_by(cut) %>%
+  tally(name = "count_cut") %>%
+  ungroup()
+```
+
+**`tally()` returns a tibble with a column (named `n` by default) representing the number of rows**
+
+]
+
+
+
+
+---
+
+# Magically count with `count()`
+
+.pull-left[
+```{r}
+diamonds %>%
+  group_by(cut) %>%
+  tally() %>%
+  ungroup()
+```
+
+**`count()` is a handy shortcut that groups, tallies, and ungroups for you!** 
+]
+
+.pull-right[
+```{r}
+diamonds %>%
+  count(cut)
+
+diamonds %>%
+  count(cut, color)
+```
+]
+
+---
+
+# We can use `count()` just like `tally()`
+
+.pull-left[
+```{r}
+diamonds %>%
+  count(cut, color)
+```
+]
+
+.pull-right[
+```{r}
+diamonds %>%
+  count(cut, color, 
+        name = "count_cut_color")
+```
+]

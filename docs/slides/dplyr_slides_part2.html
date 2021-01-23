@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>dplyr_slides_part2.utf8</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/chocolate.css" rel="stylesheet" />
+    <link href="libs/remark-css/chocolate-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+
+
+class: title-slide
+
+&lt;!--background-image: url(slide_background_images/) --&gt; 
+
+.bg-text[
+# Summarizing data with `dplyr`
+## Data Science for Biologists
+
+&lt;hr /&gt;
+**Image by TBD**
+]
+
+
+---
+
+# First, we look at the data
+
+.pull-left[
+
+```r
+diamonds
+```
+
+```
+## # A tibble: 500 x 5
+##    carat cut       color price     x
+##    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
+##  1  0.23 Very Good E       402  4.01
+##  2  0.72 Ideal     F      2879  5.76
+##  3  1.11 Ideal     F      7823  6.62
+##  4  1.01 Very Good D      4338  6.43
+##  5  0.3  Ideal     G       684  4.31
+##  6  0.23 Very Good E       485  4.02
+##  7  1.51 Premium   H      9762  7.54
+##  8  0.34 Premium   I       765  4.49
+##  9  0.59 Ideal     E      1607  5.36
+## 10  1.41 Ideal     G     11009  7.22
+## # … with 490 more rows
+```
+]
+
+.pull-right[
+`price`: Price in US dollars
+
+`carat`: Weight of the diamond
+
+`cut`: Quality of the diamond
+
+`color`
+
+`x`: width of diamond in mm
+
+
+&lt;img src="img/dplyr/diamond_color_range.jpg" width="400px" /&gt;
+]
+
+---
+
+# Functions ("verbs") for wrangling datasets
+
++ Subsetting rows. **`filter()`**
+    + Ex: Work with Premium diamonds.
+    + Ex: Work with only diamonds above a certain carat.
++ Removing duplicate rows **`distinct()`**
+&lt;br&gt;&lt;br&gt;
++ Creating new columns **`mutate()`**
++ Rearranging, removing, or keeping only certain columns **`select()`**
++ Renaming columns **`rename()`**
+&lt;br&gt;&lt;br&gt;
++ Arrange the data based on a column **`arrange()`**
+    + Ex: Arrange in order of price
+&lt;br&gt;
+
+.red[
++ Summarizing data **`summarize()`**
+   + Ex: Calculating the mean price
+   + Ex: Calculating the mean price for *each* diamond quality category
+]
+
+---
+
+# Summary statistics: From many values to _one value_
+
+
+```r
+# Get 20 random numbers from 1-1000
+x &lt;- sample(1:1000, 20)
+length(x)
+## [1] 20
+x
+##  [1] 337 349 862 946 705  17 220 465 399 304  46 195 434 547 881 553 516 908 789
+## [20] 346
+```
+
+
+
+```r
+mean(x)
+## [1] 490.95
+median(x)
+## [1] 449.5
+min(x)
+## [1] 17
+max(x)
+## [1] 946
+sd(x)
+## [1] 281.8063
+sum(x)
+## [1] 9819
+```
+
+
+---
+
+
+# These functions do not _summarize_
+
+&gt; The operation is performed separately on each value in `x`
+
+
+```r
+x
+##  [1] 337 349 862 946 705  17 220 465 399 304  46 195 434 547 881 553 516 908 789
+## [20] 346
+```
+
+
+```r
+sqrt(x)
+##  [1] 18.357560 18.681542 29.359837 30.757113 26.551836  4.123106 14.832397
+##  [8] 21.563859 19.974984 17.435596  6.782330 13.964240 20.832667 23.388031
+## [15] 29.681644 23.515952 22.715633 30.133038 28.089144 18.601075
+
+log(x, 10) # log in base 10!
+##  [1] 2.527630 2.542825 2.935507 2.975891 2.848189 1.230449 2.342423 2.667453
+##  [9] 2.600973 2.482874 1.662758 2.290035 2.637490 2.737987 2.944976 2.742725
+## [17] 2.712650 2.958086 2.897077 2.539076
+
+exp(x) # e^x
+##  [1] 2.276357e+146 3.704880e+151           Inf           Inf 1.505254e+306
+##  [6]  2.415495e+07  3.505791e+95 8.849813e+201 1.920871e+173 1.060529e+132
+## [11]  9.496119e+19  4.868823e+84 3.046528e+188 3.623111e+237           Inf
+## [16] 1.461667e+240 1.247248e+224           Inf           Inf 1.844551e+150
+
+abs(x) # absolute value. kinda boring here, all numbers are positive
+##  [1] 337 349 862 946 705  17 220 465 399 304  46 195 434 547 881 553 516 908 789
+## [20] 346
+```
+
+---
+
+# The `dplyr` function `summarize()`
+
+
+```r
+diamonds %&gt;%
+  summarize(mean_price = mean(price))
+```
+
+```
+## # A tibble: 1 x 1
+##   mean_price
+##        &lt;dbl&gt;
+## 1      4124.
+```
+
+---
+
+# The `dplyr` function `summarize()`
+
+&gt; It is NOT AT ALL the same as `mutate()`!!
+
+
+
+```r
+diamonds %&gt;%
+  summarize(mean_price = mean(price))
+## # A tibble: 1 x 1
+##   mean_price
+##        &lt;dbl&gt;
+## 1      4124.
+```
+
+
+
+```r
+diamonds %&gt;%
+  mutate(mean_price = mean(price))
+## # A tibble: 500 x 6
+##    carat cut       color price     x mean_price
+##    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;      &lt;dbl&gt;
+##  1  0.23 Very Good E       402  4.01      4124.
+##  2  0.72 Ideal     F      2879  5.76      4124.
+##  3  1.11 Ideal     F      7823  6.62      4124.
+##  4  1.01 Very Good D      4338  6.43      4124.
+##  5  0.3  Ideal     G       684  4.31      4124.
+##  6  0.23 Very Good E       485  4.02      4124.
+##  7  1.51 Premium   H      9762  7.54      4124.
+##  8  0.34 Premium   I       765  4.49      4124.
+##  9  0.59 Ideal     E      1607  5.36      4124.
+## 10  1.41 Ideal     G     11009  7.22      4124.
+## # … with 490 more rows
+```
+
+
+---
+
+# Don't forget to name the column!
+
+&gt; Otherwise, it's going to be _really annoying_ to work with
+
+
+```r
+diamonds %&gt;%
+  # Works, but ends up gnarly
+  summarize(mean(price))
+```
+
+```
+## # A tibble: 1 x 1
+##   `mean(price)`
+##           &lt;dbl&gt;
+## 1         4124.
+```
+
+
+### When column names contain characters like parentheses, spaces, or other weirdness, you're gonna have a bad time. 
+
+---
+
+# More comparison with `mutate()`
+
+
+&gt; `sqrt()` is not a summary function! 
+
+.pull-left[
+
+```r
+diamonds %&gt;%
+  mutate(price_sqrt = sqrt(price)) %&gt;%
+  # so we can see in the slides:
+  select(price_sqrt, everything())
+## # A tibble: 500 x 6
+##    price_sqrt carat cut       color price     x
+##         &lt;dbl&gt; &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
+##  1       20.0  0.23 Very Good E       402  4.01
+##  2       53.7  0.72 Ideal     F      2879  5.76
+##  3       88.4  1.11 Ideal     F      7823  6.62
+##  4       65.9  1.01 Very Good D      4338  6.43
+##  5       26.2  0.3  Ideal     G       684  4.31
+##  6       22.0  0.23 Very Good E       485  4.02
+##  7       98.8  1.51 Premium   H      9762  7.54
+##  8       27.7  0.34 Premium   I       765  4.49
+##  9       40.1  0.59 Ideal     E      1607  5.36
+## 10      105.   1.41 Ideal     G     11009  7.22
+## # … with 490 more rows
+```
+]
+
+.pull-right[
+
+```r
+diamonds %&gt;%
+  summarize(price_sqrt = sqrt(price))
+## # A tibble: 500 x 1
+##    price_sqrt
+##         &lt;dbl&gt;
+##  1       20.0
+##  2       53.7
+##  3       88.4
+##  4       65.9
+##  5       26.2
+##  6       22.0
+##  7       98.8
+##  8       27.7
+##  9       40.1
+## 10      105. 
+## # … with 490 more rows
+```
+]
+
+--
+
+### The lesson: `summarize()` will get rid of any columns that are not used in the calculation.
+
+---
+
+# Working with grouped data
+
+
+```r
+head(diamonds, 3) # show first three rows only, to fit on slides
+## # A tibble: 3 x 5
+##   carat cut       color price     x
+##   &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
+## 1  0.23 Very Good E       402  4.01
+## 2  0.72 Ideal     F      2879  5.76
+## 3  1.11 Ideal     F      7823  6.62
+```
+
+
+```r
+diamonds %&gt;%
+* group_by(cut)
+## # A tibble: 500 x 5
+## # Groups:   cut [5]
+##    carat cut       color price     x
+##    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
+##  1  0.23 Very Good E       402  4.01
+##  2  0.72 Ideal     F      2879  5.76
+##  3  1.11 Ideal     F      7823  6.62
+##  4  1.01 Very Good D      4338  6.43
+##  5  0.3  Ideal     G       684  4.31
+##  6  0.23 Very Good E       485  4.02
+##  7  1.51 Premium   H      9762  7.54
+##  8  0.34 Premium   I       765  4.49
+##  9  0.59 Ideal     E      1607  5.36
+## 10  1.41 Ideal     G     11009  7.22
+## # … with 490 more rows
+```
+
+---
+
+# Working with grouped data
+
+#### `cut` is the **grouping variable**
+
+
+```r
+diamonds %&gt;%
+  group_by(cut) %&gt;%
+  # Perform calculation for each group separately
+  summarize(mean_price = mean(price))
+## `summarise()` ungrouping output (override with `.groups` argument)
+## # A tibble: 5 x 2
+##   cut       mean_price
+##   &lt;ord&gt;          &lt;dbl&gt;
+## 1 Fair           4950.
+## 2 Good           3933.
+## 3 Very Good      4237.
+## 4 Premium        4466.
+## 5 Ideal          3854.
+```
+
+### Notice how `cut` is retained in the output - the grouping variable was used in the summary calculation.
+---
+
+
+# Working with grouped data
+
+#### `cut` AND `color` are the **grouping variables**
+
+
+```r
+diamonds %&gt;%
+  group_by(cut, color) %&gt;%
+  # Perform calculation for each group separately
+  summarize(mean_price = mean(price))
+## `summarise()` regrouping output by 'cut' (override with `.groups` argument)
+## # A tibble: 33 x 3
+## # Groups:   cut [5]
+##    cut   color mean_price
+##    &lt;ord&gt; &lt;ord&gt;      &lt;dbl&gt;
+##  1 Fair  D          6056.
+##  2 Fair  G          5850 
+##  3 Fair  H          3883.
+##  4 Fair  I          2129 
+##  5 Fair  J          5859 
+##  6 Good  D          4818.
+##  7 Good  E          3691.
+##  8 Good  F          3275.
+##  9 Good  G          4121.
+## 10 Good  H          5024.
+## # … with 23 more rows
+```
+
+
+Note: `## 'summarise()' regrouping output by 'cut' (override with '.groups' argument)` is just a message that the output has been ordered by `cut`.
+---
+
+# How would we plot this data?
+
+
+```r
+diamonds %&gt;%
+  group_by(cut) %&gt;%
+  summarize(mean_price = mean(price)) -&gt; diamond_mean_prices
+## `summarise()` ungrouping output (override with `.groups` argument)
+
+diamond_mean_prices
+## # A tibble: 5 x 2
+##   cut       mean_price
+##   &lt;ord&gt;          &lt;dbl&gt;
+## 1 Fair           4950.
+## 2 Good           3933.
+## 3 Very Good      4237.
+## 4 Premium        4466.
+## 5 Ideal          3854.
+```
+
+---
+
+# A barplot is a good choice:
+
+We want `cut` on the X-axis and `mean_price` on the Y-axis. Each bar's height should be the mean price of the diamond cut.
+
+--
+
+
+```r
+ggplot(diamond_mean_prices, 
+       aes(x = cut,
+           y = mean_price)) +
+  geom_bar()
+```
+
+```
+## Error: stat_count() can only have an x or y aesthetic.
+```
+
+![](dplyr_slides_part2_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
+
+### UH-OH! This code gave an error! 
+
+---
+
+# Let's try again
+
+`geom_bar()` **automatically determines the Y-axis as the COUNT**. So, we shouldn't provide a y-axis when using this geom.
+
+
+--
+
+
+```r
+ggplot(diamond_mean_prices, 
+       aes(x = cut)) +
+  geom_bar()
+```
+
+![](dplyr_slides_part2_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
+
+### No more error, but this code isn't doing what _we want_ it to do. The computer only knows what you tell it - not what you _want to tell it._
+---
+
+# What happened?
+
+### The only way to figure out what happened is to _look at the data_
+
+
+```r
+diamond_mean_prices
+```
+
+```
+## # A tibble: 5 x 2
+##   cut       mean_price
+##   &lt;ord&gt;          &lt;dbl&gt;
+## 1 Fair           4950.
+## 2 Good           3933.
+## 3 Very Good      4237.
+## 4 Premium        4466.
+## 5 Ideal          3854.
+```
+
+![](dplyr_slides_part2_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+
+---
+
+# Introducing `geom_col()`
+
+
+
+
+```r
+ggplot(diamond_mean_prices, 
+       aes(x = cut,
+*          y = mean_price)) +
+* geom_col()
+```
+
+![](dplyr_slides_part2_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
+
+### Use `geom_col()` when you want to _literally plot a VARIABLE_ (not a count!) on the y-axis 
+
+---
+
+# Do we remember `fct_relevel()` ???
+
+
+```r
+cut_order &lt;- c("Ideal", "Premium", "Very Good", "Good", "Fair")
+ggplot(diamond_mean_prices, 
+*      aes(x = fct_relevel(cut, cut_order),
+           y = mean_price)) + 
+  geom_col() 
+```
+
+![](dplyr_slides_part2_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+
+---
+
+# Introducting `fct_reorder()`
+
+
+```r
+ggplot(diamond_mean_prices, 
+*      aes(x = fct_reorder(cut, mean_price),
+           y = mean_price)) + 
+  geom_col() 
+```
+
+![](dplyr_slides_part2_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+
+### Automatically reorder a factor _based on values of another variable_. Magic.
+
+---
+
+# Introducting `fct_reorder()`
+
+
+```r
+ggplot(diamond_mean_prices, 
+*      aes(x = fct_reorder(cut, mean_price),
+           y = mean_price)) + 
+  geom_col() +
+  labs(x = "Diamond cut")
+```
+
+![](dplyr_slides_part2_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
+
+---
+
+# Introducting `fct_reorder()`
+
+
+```r
+ggplot(diamond_mean_prices, 
+*      aes(x = fct_reorder(cut, mean_price, .desc=TRUE),
+           y = mean_price)) + 
+  geom_col() +
+  labs(x = "Diamond cut")
+```
+
+![](dplyr_slides_part2_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
+
+### Use the `fct_reorder()` argument `.desc=TRUE` for descending order
+
+---
+
+# Helpful `dplyr` functions for summarizing and/or grouping
+
++ `ungroup()`: Remove groupings from data. No arguments needed
+  + If grouping is not the last step in your pipeline, ALWAYS ALWAYS **ALWAYS** 
+&lt;br&gt;&lt;br&gt;
++ `tally()`: Count all observations in a group
+&lt;br&gt;&lt;br&gt;
++ `n()`: Acts as a _variable_ indicating the number of observations in a group
+&lt;br&gt;&lt;br&gt;
++ `count()`: Super handy shortcut for `group_by()` %&gt;% `tally()` %&gt;% `ungroup()`
+
+---
+
+# Don't ever forget to `ungroup()`
+
+
+```r
+diamonds %&gt;%
+  group_by(cut, color) %&gt;%
+  summarize(median_x = median(x)) %&gt;%
+* ungroup()
+## # A tibble: 33 x 3
+##    cut   color median_x
+##    &lt;ord&gt; &lt;ord&gt;    &lt;dbl&gt;
+##  1 Fair  D         6.27
+##  2 Fair  G         6.20
+##  3 Fair  H         6.35
+##  4 Fair  I         6.05
+##  5 Fair  J         7.43
+##  6 Good  D         5.16
+##  7 Good  E         5.47
+##  8 Good  F         5.67
+##  9 Good  G         6.28
+## 10 Good  H         6.38
+## # … with 23 more rows
+```
+
+### _This is absolutely critical. Build the habit now, even if it sometimes seems silly._
+
+---
+
+# Ungrouping matters
+
+
+
+
+```r
+diamonds_tiny
+```
+
+```
+## # A tibble: 4 x 3
+##   expensive price carat
+##   &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt;
+## 1 no          844  0.3 
+## 2 no          863  0.41
+## 3 yes       10291  1.5 
+## 4 yes       11379  2.03
+```
+
+---
+
+# Ungrouping matters
+
+
+```r
+diamonds_tiny %&gt;%
+  group_by(expensive) %&gt;%
+  mutate(mean_price = mean(price)) %&gt;%
+  mutate(mean_carat = mean(carat))
+## # A tibble: 4 x 5
+## # Groups:   expensive [2]
+##   expensive price carat mean_price mean_carat
+##   &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+## 1 no          844  0.3        854.      0.355
+## 2 no          863  0.41       854.      0.355
+## 3 yes       10291  1.5      10835       1.76 
+## 4 yes       11379  2.03     10835       1.76
+```
+
+
+```r
+diamonds_tiny %&gt;%
+  group_by(expensive) %&gt;%
+  mutate(mean_price = mean(price)) %&gt;%
+* ungroup() %&gt;%
+  mutate(mean_carat = mean(carat))
+## # A tibble: 4 x 5
+##   expensive price carat mean_price mean_carat
+##   &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+## 1 no          844  0.3        854.       1.06
+## 2 no          863  0.41       854.       1.06
+## 3 yes       10291  1.5      10835        1.06
+## 4 yes       11379  2.03     10835        1.06
+```
+
+---
+
+# Neither of those versions is "right" or "wrong" 
+
+### Instead, it depends which calculation you actually wanted to calculate!
+
+---
+
+# Count observations (rows) with `tally()`
+
+.pull-left[
+
+```r
+# No grouping - counts all rows
+diamonds %&gt;%
+  tally()
+```
+
+```
+## # A tibble: 1 x 1
+##       n
+##   &lt;int&gt;
+## 1   500
+```
+
+```r
+diamonds %&gt;%
+  group_by(cut) %&gt;%
+  tally() %&gt;%
+  ungroup()
+```
+
+```
+## # A tibble: 5 x 2
+##   cut           n
+##   &lt;ord&gt;     &lt;int&gt;
+## 1 Fair         10
+## 2 Good         52
+## 3 Very Good   108
+## 4 Premium     128
+## 5 Ideal       202
+```
+]
+
+
+.pull-right[
+
+```r
+# Change `n` with argument "name"
+diamonds %&gt;%
+  group_by(cut) %&gt;%
+  tally(name = "count_cut") %&gt;%
+  ungroup()
+```
+
+```
+## # A tibble: 5 x 2
+##   cut       count_cut
+##   &lt;ord&gt;         &lt;int&gt;
+## 1 Fair             10
+## 2 Good             52
+## 3 Very Good       108
+## 4 Premium         128
+## 5 Ideal           202
+```
+
+**`tally()` returns a tibble with a column (named `n` by default) representing the number of rows**
+
+]
+
+
+
+
+---
+
+# Magically count with `count()`
+
+.pull-left[
+
+```r
+diamonds %&gt;%
+  group_by(cut) %&gt;%
+  tally() %&gt;%
+  ungroup()
+```
+
+```
+## # A tibble: 5 x 2
+##   cut           n
+##   &lt;ord&gt;     &lt;int&gt;
+## 1 Fair         10
+## 2 Good         52
+## 3 Very Good   108
+## 4 Premium     128
+## 5 Ideal       202
+```
+
+**`count()` is a handy shortcut that groups, tallies, and ungroups for you!** 
+]
+
+.pull-right[
+
+```r
+diamonds %&gt;%
+  count(cut)
+```
+
+```
+## # A tibble: 5 x 2
+##   cut           n
+##   &lt;ord&gt;     &lt;int&gt;
+## 1 Fair         10
+## 2 Good         52
+## 3 Very Good   108
+## 4 Premium     128
+## 5 Ideal       202
+```
+
+```r
+diamonds %&gt;%
+  count(cut, color)
+```
+
+```
+## # A tibble: 33 x 3
+##    cut   color     n
+##    &lt;ord&gt; &lt;ord&gt; &lt;int&gt;
+##  1 Fair  D         3
+##  2 Fair  G         2
+##  3 Fair  H         3
+##  4 Fair  I         1
+##  5 Fair  J         1
+##  6 Good  D         8
+##  7 Good  E        12
+##  8 Good  F         9
+##  9 Good  G         9
+## 10 Good  H         6
+## # … with 23 more rows
+```
+]
+
+---
+
+# We can use `count()` just like `tally()`
+
+.pull-left[
+
+```r
+diamonds %&gt;%
+  count(cut, color)
+```
+
+```
+## # A tibble: 33 x 3
+##    cut   color     n
+##    &lt;ord&gt; &lt;ord&gt; &lt;int&gt;
+##  1 Fair  D         3
+##  2 Fair  G         2
+##  3 Fair  H         3
+##  4 Fair  I         1
+##  5 Fair  J         1
+##  6 Good  D         8
+##  7 Good  E        12
+##  8 Good  F         9
+##  9 Good  G         9
+## 10 Good  H         6
+## # … with 23 more rows
+```
+]
+
+.pull-right[
+
+```r
+diamonds %&gt;%
+  count(cut, color, 
+        name = "count_cut_color")
+```
+
+```
+## # A tibble: 33 x 3
+##    cut   color count_cut_color
+##    &lt;ord&gt; &lt;ord&gt;           &lt;int&gt;
+##  1 Fair  D                   3
+##  2 Fair  G                   2
+##  3 Fair  H                   3
+##  4 Fair  I                   1
+##  5 Fair  J                   1
+##  6 Good  D                   8
+##  7 Good  E                  12
+##  8 Good  F                   9
+##  9 Good  G                   9
+## 10 Good  H                   6
+## # … with 23 more rows
+```
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "rainbow",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
