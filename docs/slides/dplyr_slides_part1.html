@@ -235,39 +235,39 @@ summary(diamonds)
 # Common tasks we perform on datasets 
 
 + Subsetting rows. 
-    + Ex: Work with only Mississippi diamondss.
-    + Ex: Work with only diamondss under certain experimental conditions.
+    + Ex: Work with Premium diamonds.
+    + Ex: Work with only diamonds above a certain carat.
 + Removing duplicate rows
 &lt;br&gt;&lt;br&gt;
 + Creating new columns
-+ Rearranging, removing, or keeping only certain column
++ Rearranging, removing, or keeping only certain columns
 + Renaming columns
 &lt;br&gt;&lt;br&gt;
 + Arrange the data based on a column
-    + Ex: Arrange in order of CO2 uptake rate
+    + Ex: Arrange in order of price
 &lt;br&gt;&lt;br&gt;
 + Summarizing data
-    + Ex: Calculating the mean of a variable
-    + Ex: Calculating the mean for *each group* of a variable
+    + Ex: Calculating the mean price
+    + Ex: Calculating the mean price for *each* diamond quality category
 ---
 
 # Functions ("verbs") for wrangling datasets
 
 + Subsetting rows. **`filter()`**
-    + Ex: Work with only Mississippi diamondss.
-    + Ex: Work with only diamondss under certain experimental conditions.
+    + Ex: Work with Premium diamonds.
+    + Ex: Work with only diamonds above a certain carat.
 + Removing duplicate rows **`distinct()`**
 &lt;br&gt;&lt;br&gt;
 + Creating new columns **`mutate()`**
-+ Rearranging, removing, or keeping only certain column **`select()`**
++ Rearranging, removing, or keeping only certain columns **`select()`**
 + Renaming columns **`rename()`**
 &lt;br&gt;&lt;br&gt;
 + Arrange the data based on a column **`arrange()`**
-    + Ex: Arrange in order of CO2 uptake rate
+    + Ex: Arrange in order of price
 &lt;br&gt;&lt;br&gt;
 + Summarizing data **`summarize()`**
-    + Ex: Calculating the mean of a variable
-    + Ex: Calculating the mean for *each group* of a variable
+    + Ex: Calculating the mean price
+    + Ex: Calculating the mean price for *each* diamond quality category
 --
 
 ### Data frame in, data frame out.
@@ -317,7 +317,7 @@ head(diamonds)
 
 
 ```r
-# Keep only Premium quality diamonds diamondss:
+# Keep only Premium quality diamonds diamonds:
 filter(diamonds, cut == "Premium")
 ```
 
