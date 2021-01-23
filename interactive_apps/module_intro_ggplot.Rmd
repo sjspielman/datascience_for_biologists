@@ -502,7 +502,9 @@ ggplot(sparrows) +
 ```
 <br><br>
 
-7. You'll notice the legend title came out a little like garbage in the last plot. Let's learn how to set our own legend titles. Legends will appear when you use an aesthetic mapping - sometimes a `color`, sometimes a `fill`, or even `shape`, `size`, and more. You can customize the legend with the function `scale_AES_manual()`, where you replace `AES` with the type of aesthetic. In this plot, we are mapping Age to *color*, so we use the function `scale_color_manual()`. We can use the argument *name* to change the legend title, as in: `scale_color_manual(name = "Legend title")`.
+7. You'll notice the legend title came out a little like garbage in the last plot. Let's learn how to set our own legend titles. Legends will appear when you use an aesthetic mapping - sometimes a `color`, sometimes a `fill`, or even `shape`, `size`, and more. You can customize the legend with the function `scale_<aesthetic>_<discrete/continuous>()`, where you replace `<aesthetic>` with the type of aesthetic. Further, depending on *the type of variable you are mapping to*, you specify the final part of the function as either `discrete` or `continuous`. 
+
+  In this plot, we are mapping Age to *color*, and Age is discrete. so we use the function `scale_color_discrete()`. We can use the argument *name* to change the legend title, as in: `scale_color_discrete(name = "Legend title")`.
 
 Re-make the plot below with the legend title "Sparrow age":
 
@@ -518,11 +520,11 @@ ggplot(sparrows) +
       y = Femur_Length, 
       color = fct_relevel(Age, c("Juvenile", "Young", "Adult") )) +  
   geom_point() + 
-  scale_color_manual(name = "Sparrow age")
+  scale_color_discrete(name = "Sparrow age")
 ```
 
 
-8. Using the code above to practice and learn how to manipulate factors for plotting, make a scatterplot below of femur length across wingspread, with points colored by `Sex`. First make the plot without considering the order of factors, and then make it again with the order of `Sex` levels reversed using the skills from the previous example. Make sure you produce a clean legend title!
+8. Using the code above to practice and learn how to manipulate factors for plotting, make a scatterplot below of femur length across wingspread, with points colored by `Sex`. First make the plot without considering the order of factors, and then make it again with the order of `Sex` levels reversed using the skills from the previous example. Make sure you produce a clean legend title! Again, we are mapping to color and Sex is discrete, so we use `scale_color_discrete()`.
 
 > **TIP**: It's really easy to lose count of your parentheses. If you have an error, it's possible that you are missing a parenthesis, have too many parentheses, or you have misplaced your parentheses.
 
@@ -542,7 +544,7 @@ ggplot(sparrows) +
       y = Femur_Length, 
       color= fct_relevel(Sex, c("Male", "Female"))) +  
   geom_point() + 
-  scale_color_manual(name = "Sex")
+  scale_color_discrete(name = "Sex")
 ```
 <br>
 
@@ -1155,12 +1157,12 @@ Once the plot is made, think about these design choices. Just because one *can* 
 
 > Note: Some of the legend colors will come out funky - later, we will learn how to deal with this type of situation.
 
-```{r scatter_8, exercise = TRUE}
+```{r scatter2_8, exercise = TRUE}
 
 ```
 
 
-```{r scatter_8-solution}
+```{r scatter2_8-solution}
 ggplot(sparrows, aes(x = Wingspread, y = Femur_Length, color = Survival, size = Weight)) +  
   geom_point(shape = 15) + 
   geom_smooth(method = "lm") +
