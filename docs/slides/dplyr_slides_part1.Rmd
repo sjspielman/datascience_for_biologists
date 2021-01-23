@@ -117,15 +117,7 @@ log(5)
 
 ---
 
-# Cold tolerance experiment on grass species
 
-```{r}
-head(diamonds)
-nrow(diamonds)
-ncol(diamonds)
-```
-
----
 # Loading libraries
 
 ```{r}

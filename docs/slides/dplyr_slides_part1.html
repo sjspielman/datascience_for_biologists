@@ -94,42 +94,7 @@ log(5)
 
 ---
 
-# Cold tolerance experiment on grass species
 
-
-```r
-head(diamonds)
-```
-
-```
-## # A tibble: 6 x 5
-##   carat cut       color price     x
-##   &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
-## 1  0.23 Very Good E       402  4.01
-## 2  0.72 Ideal     F      2879  5.76
-## 3  1.11 Ideal     F      7823  6.62
-## 4  1.01 Very Good D      4338  6.43
-## 5  0.3  Ideal     G       684  4.31
-## 6  0.23 Very Good E       485  4.02
-```
-
-```r
-nrow(diamonds)
-```
-
-```
-## [1] 20
-```
-
-```r
-ncol(diamonds)
-```
-
-```
-## [1] 5
-```
-
----
 # Loading libraries
 
 
@@ -795,7 +760,7 @@ ggplot(diamonds, aes(x = carat,
   geom_point(size = 3)
 ```
 
-![](dplyr_slides_part1_files/figure-html/unnamed-chunk-40-1.png)&lt;!-- --&gt;
+![](dplyr_slides_part1_files/figure-html/unnamed-chunk-39-1.png)&lt;!-- --&gt;
 
 --
 
@@ -815,7 +780,7 @@ ggplot(diamonds_cheaper, aes(x = carat,
   geom_point(size = 3)
 ```
 
-![](dplyr_slides_part1_files/figure-html/unnamed-chunk-41-1.png)&lt;!-- --&gt;
+![](dplyr_slides_part1_files/figure-html/unnamed-chunk-40-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -840,7 +805,7 @@ diamonds %&gt;%
     geom_point(size = 3)
 ```
 
-![](dplyr_slides_part1_files/figure-html/unnamed-chunk-43-1.png)&lt;!-- --&gt;
+![](dplyr_slides_part1_files/figure-html/unnamed-chunk-42-1.png)&lt;!-- --&gt;
 
 .pull-right[
 **Caution:** Be careful to use `%&gt;%` and `+` in the right place. Using the wrong one in the wrong place is a common mistake!
