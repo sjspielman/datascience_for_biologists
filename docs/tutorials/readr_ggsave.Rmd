@@ -1,0 +1,149 @@
+---
+title: "File input/output in the `tidyverse`"
+date: "Stephanie J. Spielman"
+author: "Data Science for Biologists"
+output: 
+  html_document:
+    theme: simplex
+    toc: true
+    toc_float: true
+    toc_depth: 2
+editor_options: 
+  chunk_output_type: console
+---
+```{css, include=FALSE}
+#TOC {
+  position: fixed;
+  width: 300px;
+  overflow:auto;
+}
+blockquote {
+  display: block;
+  line-height: 0.8em;
+  font-size: 0.5em;
+  color: #6b6b6b;
+  margin-left: 20px;
+}
+```
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+library(ggplot2)
+library(viridis)
+library(colorblindr)
+library(patchwork)
+theme_set(theme_classic())
+```
+
+
+
+# Before you begin...
+
+This tutorial explains the commands you use to save figures made with `ggplot2` as well as reading and writing delimited data files with the `readr` package. In _all_ circumstances, when we write to a file (save a figure or a dataset), one of two things will happen:
+
++ If the file *does not* already exist, the file will be automatically created however you specified in your code.
++ If the file *does* already exist, the contents of the file will be *overwritten*. Whatever was already in the file will be *DELETED* and there is *NO TURNING BACK!* Specify your output file names with purpose and intention.
+
+It is additionally assumed you are familiar with **paths** (file or directory addresses on a computer). **In general**, you can assume all file name arguments are specifying *the relative path to the file* you are reading or writing. If no obvious path is present (i.e., it's just a file name), it is implied that the file exists in the working directory.
+
+
+
+# Saving your `ggplot2` plots
+
+```{r, echo=T, eval=F}
+# Save your plot to a variable. Here, the variable is `iris_plot`
+ggplot(iris) + 
+  aes(x = Sepal.Length, y = Petal.Length) + 
+  geom_point() -> iris_plot
+
+# Use ggsave() to save `iris_plot` to the file called "file_where_my_plot_will_be_saved.png"
+# This code will create (or OVERWRITE!) that file
+ggsave("file_where_my_plot_will_be_saved.png", 
+       iris_plot,
+       width = 6,
+       height = 4)
+```
+
+## Using the function `ggsave()`
+
++ First argument: file name for plot, as a string
+
++ Second argument: the _variable_ that contains the plot you want to save
+
++ Third/fourth arguments: the width and height _in inches_ to save the figure in. **Requires trial and error!!!** It is **extremely** important to save your files in an appropriate aspect ratio.
+
+It is extremely important to *ALWAYS* specify the plot variable. Otherwise, your code may not do what you want it to do. Consider the "do-not-do-this" example below:
+
+```{r, echo=T, eval=F}
+## THIS CODE CHUNK DEMONSTRATES WHAT ***NOT*** TO DO
+####################################################
+
+ggplot(iris) + 
+  aes(x = Sepal.Length, y = Petal.Length) + 
+  geom_point() -> iris_plot
+
+# other unsaved plot
+ggplot(iris) + 
+  aes(x = Sepal.Length, y = Sepal.Length) + 
+  geom_point()
+
+# saves the other unsaved plot, NOT iris_plot!!
+ggsave("file_where_my_plot_will_be_saved.png")
+```
+
+Using variables makes your code clear and unambiguous. You should never have to "guess" which plot you are saving - the code should be explicit and obvious which plot `ggsave()` saves.
+
+## File output format is determined by the file extension
+
+You'll notice the file output has a particular extension, `".png"`. This is one of many types of image file formats, which you can learn more about [here](https://clauswilke.com/dataviz/image-file-formats.html). In fact, the file *extension* itself determines the format of the outputted figure. If you were to specify a file named, for example, `"file_where_my_plot_will_be_saved.pdf"`, the image would be exported as a PDF. file. If you were to specify a file named `"file_where_my_plot_will_be_saved.jpg"`, the image would be exported as a jpg file. _Most commonly we save our plots as pdf or png._
+
+# Reading and writing data files
+
+This section describes how to read and write *delimited* data files. A delimited file is a *plain text file* that contains data formatted in rows and columns, and usually the first line in the file is the header for the data. Each entry in the table is separated, aka *delimited* by some symbol, most commonly a comma (`,`) or a tab (looks like spaces, but is technically different from a space).
+
+We refer to situations where commas separate values as "comma-separated values files" (or comma-delimited) files, and we prefer to give them the file extension `.csv`  (or sometimes `.txt`).  Even with this extension, the file is still a plain text file - using the extension `.csv` just helps us to quickly get a sense of the file's format. Similarly, we refer to situations where tabs separate values as "tab-separated values" files (or tab-delimited), and we prefer to give them the file extension `.tsv` (or sometimes `.txt`).
+
+## `readr` functions to read/write data
+
+The `readr` package has some convenient functions to read and write delimited data files, provided in the table below.
+
+Function | Purpose   | Example |
+---------|-----------|---------|
+`read_csv()` | Read a CSV file | my_data <- `read_csv("filename.csv")`
+`read_tsv()` | Read a TSV file | my_data <- `read_tsv("filename.tsv")`
+`read_delim()` | Read a delimited file of any kind. You must specify the delimiting symbol with the argument `delim` (example uses `";"`) | my_data <- `read_delim("filename." delim = ";")`
+`write_csv()` | Write a dataset to a CSV file | `write_csv(dataframe variable, "filename.csv")`
+`write_tsv()` | Write a dataset to a TSV file | `write_tsv(dataframe variable, "filename.tsv")`
+`write_delim()` | Write a dataset to any kind of delimited file. Again, must specify the `delim` argument (example uses `";"`) | `write_delim(dataframe variable, "filename.txt", delim =";")`
+
+
+> There are base R alternatives for these functions, including `read.csv()`, `read.table()`, and `write.table()` - notice how these have *periods and not underscores*! Although there is nothing technically wrong with using these functions, they have some unexpected consequences you don't know how to deal with. **For the purposes of this class, you are not allowed to use these functions in your homeworks or projects.** If/when you become more generally comfortable with R and programming and you have a full understanding of how the `readr` versions differ, *AND* you know how to address all differences yourself, please feel free to choose your own adventure!! 
+
+## Example of using `readr` functions
+
+The code below assumes the scenario: We want to read in a file called `"sparrows_data.csv"` which contains a dataset about some sparrows...
+
+```{r, eval=F, echo=T}
+# Saves the data to a variable `sparrows`
+sparrows <- read_csv("sparrows_data.csv")
+```
+
+<br>
+The code below assumes the scenario: We are working with a data frame called `sparrows` and we want to save it to a new file called`"sparrows_new_data.csv"`.
+
+```{r, eval=F, echo=T}
+# Writes the sparrows data frame to the file "sparrows_new_data.csv
+write_csv(sparrows, "sparrows_new_data.csv")
+```
+
+
+
+## Learn more about `readr`
+
+This tutorial presents only the bare minimum you need know to get going reading and writing delimited data files. Learn more about the many other amazing things you can do with `readr` functions [in Chapter 11 of R4DS](https://r4ds.had.co.nz/data-import.html) and
+[in the `readr` vignette](https://readr.tidyverse.org/articles/readr.html).
