@@ -1,0 +1,134 @@
+---
+title: "Homework #1: Due 2/2/21 as a PDF to Canvas"
+author: "Data Science for Biologists, Spring 2021"
+date: "Dr. Spielman"
+output: 
+  html_document:
+    theme: journal
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(htmlwidgets.TOJSON_ARGS = list(na = 'string'))
+library(DT)
+library(readr)
+library(dplyr)
+set.seed(11)
+readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-07-07/coffee_ratings.csv') %>%
+    dplyr::filter(category_two_defects > 0) %>%
+    dplyr::select(total_cup_points,
+                  species,
+                  variety,
+                  country_of_origin,
+                  region,
+                  farm_name,
+                  number_of_bags,
+                  number_of_defects = category_two_defects,
+                  aroma,
+                  flavor,
+                  acidity,
+                  balance,
+                  sweetness,
+                  moisture) %>%
+    group_by(species) %>%
+    sample_n(10) %>% 
+    ungroup() -> coffee_ratings 
+
+
+coffee_ratings <- coffee_ratings[sample(20),]
+```
+
+
+## Instructions
+
+This dataset, called `coffee_ratings`, provides ratings of different coffee beans made around the world. Each row is a single coffee bean, and each column provides different information about that coffee bean including its total rating (`total_cup_score`, on a scale of 100), what species and variety of coffee it is, information about where the coffee comes from, information about the number of defects detected per coffee, and different graded measurements, on a scale of 10, for various coffee attributes (like aroma or sweetness). It has been subsetted (to only 20 rows and 14 columns) from the full dataset [here](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-07-07/readme.md).
+
+<br>
+You will see some entries in the dataset that are `NA`, which implies a *missing value*. Sometimes, data is missing or unknown, and it doesn't necessarily imply anything is wrong with the dataset. Instead, it implies that data collection can be challenging, and you can't always get all the information you want. 
+
+<br><br>
+
+### Explore the dataset 
+
+> Use the "Show [] entries" dropdown menu below to see all 20 rows.
+>
+> Scroll to the right to see all columns.
+>
+> You can use the "Search" field to find values or variables in the data. CAUTION: Does not work to search for NAs.
+> 
+> Click on a column header to sort the data by that column.
+
+```{r, echo=F}
+datatable(coffee_ratings, 
+          rownames=F, 
+          options = list(
+            initComplete = JS(
+              "function(settings, json) {",
+              "$(this.api().table().header()).css({'background-color': '#996633', 'color': '#000'});",
+              "}")
+))
+```
+
+<br>
+
+## Questions:
+
+> You do not need to write in complete sentences _except_ for one of your answers in Set 2 (see specific instructions below).
+
+### Set 1 
+
+**Instructions: For these questions, simply list the variables.**
+
+1. Which variable(s), if any, in this dataset is/are *categorical*?
+
+2. Which variable(s), if any, in this dataset is/are *numeric continuous*?
+
+3. Which variable(s), if any, in this dataset is/are *numeric discrete*?
+
+4. For which variable(s), if any, do we **NOT** know all values? (in other words, there is missing data)?
+
+### Set 2
+
+**Instructions: For these questions, indicate if the presented information is a _variable_ or a _value_ in the dataset.** If it is a variable, provide one of the values associated with the variable (*don't make it up - find a value in the data!*). If it is a value, tell me what variable the value belongs to. If part of your answer is _ambiguous_ (Hint: one and only one question below is partially ambiguous), explain in 1 sentence why you can't reliably answer the full question.
+
+**Hint: Use the search bar above the table to help you!**
+
+1. `species`
+
+2. `kona`
+
+3. `8`
+
+4. `balance`
+
+5. `region`
+
+6. `moisture`
+
+7. `Bourbon`
+
+8. `79.08`
+
+
+### Set 3
+
+**Instructions: For these questions, simply answer whether the choice of data visualization is appropriate or not with "yes" or "no".** Your answers should be based ONLY on whether the type of plot is technically appropriate for visualizing those data types (don't worry about whether it might "look pretty" or not).
+
+1. You make a *scatterplot* to visualize the distribution of aroma coffee gradings.
+
+2. You make a *barplot* to visualize how many coffees come from each country in the dataset.
+
+3. You make a *histogram* to visualize the distribution of total_cup_points.
+
+4. You make a *violin plot* to visualize the distribution of balance for each species of coffee.
+
+5. You make a *scatterplot* to visualize the relationship between coffee flavor and sweetness grades.
+
+6. You make a *boxplot* to visualize how many coffees of each species there are. 
+
+7. You make a *density plot* to visualize the relationship between the number of bags produced and the number of defects found for each coffee.
+
+8. You make a *strip plot* to visualize the distribution of flavor coffee gradings.
+
+9. You make a *barplot* to visualize the distribution of acidity coffee gradings.
+

@@ -26,7 +26,7 @@ Open office hours (no appointment necessary) will be on Zoom *every Monday and F
 T 1/26  | Introduction and logistics            | None                        | Fill out the class survey **TODAY** if you have not yet done so
 W 1/27  | Types of data and figures, Part 1     | Exercises: Introduction to Data Types Parts 1-2 <br> Interactive website: Types of plots | None 
 R 1/28  | Types of data and figures, Part 2     | Exercises: Introduction to Data Types Parts 3-4 | None
-T 2/2   | Introduction to R and RStudio, Part 1 | Introduction to R tutorial <br> Exercises: Introduction to R Set 1 | **Homework 1 due** on Canvas as a PDF file.
+T 2/2   | Introduction to R and RStudio, Part 1 | Introduction to R tutorial <br> Exercises: Introduction to R Set 1 | **Homework 1 due** on Canvas as a PDF file. [Link to instructions](./homeworks/hw1/hw1_instructions.html)
 W 2/3   | Introduction to R and RStudio, Part 2 | Exercises: Introduction to R Sets 2-5 | None
 R 2/4   | Introduction to R and RStudio, Part 3 | Exercises: Introduction to R Set 6 | None <br> **NOTE: Next Monday is the last day of late add/drop.**
 T 2/9   | Introduction to R and RStudio, Part 4 | Exercises: Introduction to R Set 7 | **Homework 2 due** on Canvas as an R script. [Link to instructions](./homeworks/hw2/hw2_instructions.html)
