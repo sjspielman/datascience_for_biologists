@@ -8,6 +8,9 @@ output:
     theme: flatly
 ---
 
+> Note: Bolded resources were written by Dr. Spielman.
+
+
 ## General resources
 
 + [`tidyverse` homepage, official documentation, and cheatsheets](https://www.tidyverse.org/)
@@ -84,11 +87,11 @@ output:
 
 *Note: These links are only likely to be live during the semester this course is being taught. They will not be available over the summer or winter break. If you would like access to these resources during off-season, please email Dr. Spielman and she will hook you up.*
 
-+ [Introduction to data types and their relationship to figures](https://rowanbiosci.shinyapps.io/data_types_figures/)
-+ [Understanding the different types of plots](https://rowanbiosci.shinyapps.io/types_of_plots/)
-+ [Introduction to R exercises](https://rowanbiosci.shinyapps.io/intro_R/)
-+ [Introduction to `ggplot2` exercises](https://rowanbiosci.shinyapps.io/intro_ggplot2/)
-+ [Introduction to `dplyr` exercises](https://rowanbiosci.shinyapps.io/intro_dplyr/)
++ [**Introduction to data types and their relationship to figures**](https://rowanbiosci.shinyapps.io/data_types_figures/)
++ [**Understanding the different types of plots**](https://rowanbiosci.shinyapps.io/types_of_plots/)
++ [**Introduction to R exercises**](https://rowanbiosci.shinyapps.io/intro_R/)
++ [**Introduction to `ggplot2` exercises**](https://rowanbiosci.shinyapps.io/intro_ggplot2/)
++ [**Introduction to `dplyr` exercises**](https://rowanbiosci.shinyapps.io/intro_dplyr/)
 
 
 ## Additional `ggplot2`-specific resources
@@ -98,15 +101,16 @@ output:
 + [All the R colors you ever wanted to use!!](./tutorials/Rcolor.pdf)
 + [Official `ggplot2` command reference](https://ggplot2.tidyverse.org/reference/) 
 + [Chapter Three from "Data Visualization: A practical introduction"](https://socviz.co/makeplot.html) 
-+ [Reference: Customizing Colors and Fills](./tutorials/color_fill_scales.html)
-+ [Reference: Customizing themes](./tutorials/themes.html)
-+ [Reference: Customizing axes](./tutorials/axes.html)
++ [**Reference: Customizing Colors and Fills**](./tutorials/color_fill_scales.html)
++ [**Reference: Customizing themes**](./tutorials/themes.html)
++ [**Reference: Customizing axes**](./tutorials/axes.html)
 
-## Other static tutorials from Dr. Spielman
+## Other static tutorials 
 
-+ [Introduction to R tutorial](./tutorials/introduction_to_R.html)
-+ [Reference: Greatest hits of `dplyr`](./tutorials/dplyr_onetable.html) 
-+ [Linear modeling tutorial](./tutorials/lm_tutorial.html) 
-+ [UNIX cheatsheet](./tutorials/unix_cheatsheet.html)
-+ [Git(hub) cheatsheet](./tutorials/github_cheatsheet.html)
-+ [Github infographic](./tutorials/github_infographics/github_intro.pdf)
++ [**Introduction to R tutorial**](./tutorials/introduction_to_R.html)
++ [**Reference: Saving plots and reading/writing data**](./tutorials/readr_ggsave.html)
++ [**Reference: Greatest hits of `dplyr`**](./tutorials/dplyr_onetable.html) 
++ [**Linear modeling tutorial**](./tutorials/lm_tutorial.html) 
++ [**UNIX cheatsheet**](./tutorials/unix_cheatsheet.html)
++ [**Git(hub) cheatsheet**](./tutorials/github_cheatsheet.html)
++ [**Github infographic**](./tutorials/github_infographics/github_intro.pdf)

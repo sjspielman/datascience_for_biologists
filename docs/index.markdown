@@ -35,7 +35,7 @@ R 2/11  | The grammar of graphics, Part 2 | Slides TBD |None
 T 2/16  | Visualizing data with `ggplot2`, Part 1 | Exercises: Begin Introduction to `ggplot2` Set 1 |  **Homework 3 due** on Canvas as a PDF file. <!-- Identifying grammatical components of figures.-->
 W 2/17  | Visualizing data with `ggplot2`, Part 2 | Exercises: Continue with Introduction to `ggplot2` | None
 R 2/18  | Visualizing data with `ggplot2`, Part 3 | Exercises: Complete with Introduction to `ggplot2` | None
-T 2/23  | File input/output | Slides TBD | **Homework 4 due** on Canvas as an R script.<!-- Making figures in `ggplot2`. Due Tuesday 2/23.-->
+T 2/23  | File input/output | [Tutorial]((./tutorials/readr_ggsave.html)) | **Homework 4 due** on Canvas as an R script.<!-- Making figures in `ggplot2`. Due Tuesday 2/23.-->
 W 2/24  | Best practices in data visualization | Slides | None
 R 2/25  | Implementing best practices in data visualization | [Customizing colors tutorial](https://htmlpreview.github.io/?https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/docs/tutorials/color_fill_scales.html) <br> [Customizing axes tutorial](https://htmlpreview.github.io/?https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/docs/tutorials/axes.html) <br> [Customizing themes tutorial](https://htmlpreview.github.io/?https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/docs/tutorials/themes.html)  | None
 T 3/2   | Data wrangling with `dplyr`, Part 1 <!-- pipe and filter --> | Slides TBD | **Homework 5 due** on Canvas as an R script.<!-- more ggplot figures that USE THE THEMES/AXES/COLORS! -->
