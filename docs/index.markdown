@@ -35,9 +35,9 @@ R 2/11  | The grammar of graphics, Part 2 | Slides TBD |None
 T 2/16  | Visualizing data with `ggplot2`, Part 1 | Slides TBD |  **Homework 3 due** on Canvas as a PDF file. [Link to instructions](./homeworks/hw3/hw3_instructions.html)<!-- Identifying grammatical components of figures.-->
 W 2/17  | Visualizing data with `ggplot2`, Part 2 | Exercises: Begin with Introduction to `ggplot2` | None
 R 2/18  | Visualizing data with `ggplot2`, Part 3 | Exercises: Complete with Introduction to `ggplot2` | None
-T 2/23  | File input/output | [Tutorial]((./tutorials/readr_ggsave.html)) | **Homework 4 due** on Canvas as an R script. [Link to instructions](./homeworks/hw4/hw4_instructions.html)<!-- Making figures in `ggplot2`. Due Tuesday 2/23.-->
+T 2/23  | File input/output | [Tutorial](./tutorials/readr_ggsave.html) | **Homework 4 due** on Canvas as an R script. [Link to instructions](./homeworks/hw4/hw4_instructions.html)<!-- Making figures in `ggplot2`. Due Tuesday 2/23.-->
 W 2/24  | Best practices in data visualization | Slides | None
-R 2/25  | Implementing best practices in data visualization | [Customizing colors tutorial](https://htmlpreview.github.io/?https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/docs/tutorials/color_fill_scales.html) <br> [Customizing axes tutorial](https://htmlpreview.github.io/?https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/docs/tutorials/axes.html) <br> [Customizing themes tutorial](https://htmlpreview.github.io/?https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/docs/tutorials/themes.html)  | None
+R 2/25  | Implementing best practices in data visualization | [Customizing colors tutorial](./tutorials/color_fill_scales.html) <br> [Customizing axes tutorial](./tutorials/axes.html) <br> [Customizing themes tutorial](./tutorials/themes.html)  | None
 T 3/2   | Data wrangling with `dplyr`, Part 1 <!-- pipe and filter --> | Slides TBD | **Homework 5 due** on Canvas as an R script.<!-- more ggplot figures that USE THE THEMES/AXES/COLORS! -->
 W 3/3   | Data wrangling with `dplyr`, Part 2 <!-- mutate, arrange, distinct, select --> | Slides TBD <br> Exercises: Begin Introduction to data wrangling with `dplyr`| None 
 R 3/4   | Data wrangling with `dplyr`, Part 3 | Exercises: Continue Introduction to data wrangling with  `dplyr` | None
@@ -56,10 +56,10 @@ R 4/1   | Linear models, Part 2 | Slides TBD <br> Exercises TBD | None
 T 4/6   | Linear models, Part 3 | Slides TBD <br> Exercises TBD | **Homework 10 due** on Canvas as an RMarkdown file.  <!-- lm 1 -->
 W 4/7   | Linear models, Part 4 | Slides TBD <br> Exercises TBD | None
 R 4/8   | Linear models, Part 5 | Slides TBD <br> Exercises TBD | None
-T 4/13  | Logistic regression, Part 1 | Slides TBD <br> Exercises TBD | **Homework 11 due** <!-- lm 2 -->
+T 4/13  | Logistic regression, Part 1 | Slides TBD <br> Exercises TBD | **Homework 11 due** on Canvas as an RMarkdown file.<!-- lm 2 -->
 W 4/14  | Logistic regression, Part 2 | Slides TBD <br> Exercises TBD | None
 R 4/15  | Logistic regression, Part 3 | Slides TBD <br> Exercises TBD | None
-T 4/20  | Final Project Introduction | TBD | **Homework 12 due** <!-- logistic -->
+T 4/20  | Final Project Introduction | TBD | **Homework 12 due**  on Canvas as an RMarkdown file. <!-- logistic -->
 W 4/21  | Working at the command line and UNIX, Part 1 | Slides TBD <br> Exercises TBD | None
 R 4/22  | Working at the command line and UNIX, Part 2| Slides TBD |  **Final project proposal due _NEXT MONDAY_ 4/26**
 T 4/27  | Version control with git(hub), Part 1 | None | Nothing is due today, but the proposal was due *last night*
