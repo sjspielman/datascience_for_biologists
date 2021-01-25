@@ -32,8 +32,8 @@ R 2/4   | Introduction to R and RStudio, Part 3 | Exercises: Introduction to R S
 T 2/9   | Introduction to R and RStudio, Part 4 | Exercises: Introduction to R Set 7 | **Homework 2 due** on Canvas as an R script. [Link to instructions](./homeworks/hw2/hw2_instructions.html)
 W 2/10  | The grammar of graphics, Part 1 | Slides TBD | None
 R 2/11  | The grammar of graphics, Part 2 | Slides TBD |None
-T 2/16  | Visualizing data with `ggplot2`, Part 1 | Exercises: Begin Introduction to `ggplot2` Set 1 |  **Homework 3 due** on Canvas as a PDF file. <!-- Identifying grammatical components of figures.-->
-W 2/17  | Visualizing data with `ggplot2`, Part 2 | Exercises: Continue with Introduction to `ggplot2` | None
+T 2/16  | Visualizing data with `ggplot2`, Part 1 | Slides TBD |  **Homework 3 due** on Canvas as a PDF file. [Link to instructions](./homeworks/hw3/hw3_instructions.html)<!-- Identifying grammatical components of figures.-->
+W 2/17  | Visualizing data with `ggplot2`, Part 2 | Exercises: Begin with Introduction to `ggplot2` | None
 R 2/18  | Visualizing data with `ggplot2`, Part 3 | Exercises: Complete with Introduction to `ggplot2` | None
 T 2/23  | File input/output | [Tutorial]((./tutorials/readr_ggsave.html)) | **Homework 4 due** on Canvas as an R script. [Link to instructions](./homeworks/hw4/hw4_instructions.html)<!-- Making figures in `ggplot2`. Due Tuesday 2/23.-->
 W 2/24  | Best practices in data visualization | Slides | None
