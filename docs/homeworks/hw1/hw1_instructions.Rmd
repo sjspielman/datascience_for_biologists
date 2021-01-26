@@ -1,7 +1,6 @@
 ---
 title: "Homework #1: Due 2/2/21 as a PDF to Canvas"
 author: "Data Science for Biologists, Spring 2021"
-date: "Dr. Spielman"
 output: 
   html_document:
     theme: journal
@@ -38,15 +37,19 @@ readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/m
 coffee_ratings <- coffee_ratings[sample(20),]
 ```
 
+```{css, echo=F}
+blockquote{
+  margin-left: 25px;
+  font-size: 1em;
+}
+```
 
 ## Instructions
 
 This dataset, called `coffee_ratings`, provides ratings of different coffee beans made around the world. Each row is a single coffee bean, and each column provides different information about that coffee bean including its total rating (`total_cup_score`, on a scale of 100), what species and variety of coffee it is, information about where the coffee comes from, information about the number of defects detected per coffee, and different graded measurements, on a scale of 10, for various coffee attributes (like aroma or sweetness). It has been subsetted (to only 20 rows and 14 columns) from the full dataset [here](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-07-07/readme.md).
 
-<br>
 You will see some entries in the dataset that are `NA`, which implies a *missing value*. Sometimes, data is missing or unknown, and it doesn't necessarily imply anything is wrong with the dataset. Instead, it implies that data collection can be challenging, and you can't always get all the information you want. 
 
-<br><br>
 
 ### Explore the dataset 
 
@@ -69,7 +72,6 @@ datatable(coffee_ratings,
 ))
 ```
 
-<br>
 
 ## Questions:
 
@@ -97,7 +99,7 @@ datatable(coffee_ratings,
 
 2. `kona`
 
-3. `8`
+3. `7.75`
 
 4. `balance`
 
@@ -109,26 +111,27 @@ datatable(coffee_ratings,
 
 8. `79.08`
 
+9. `bushenyi`
+
 
 ### Set 3
 
 **Instructions: For these questions, simply answer whether the choice of data visualization is appropriate or not with "yes" or "no".** Your answers should be based ONLY on whether the type of plot is technically appropriate for visualizing those data types (don't worry about whether it might "look pretty" or not).
 
-1. You make a *scatterplot* to visualize the distribution of aroma coffee gradings.
+1. You make a *scatterplot* to visualize the distribution of `aroma` coffee gradings.
 
-2. You make a *barplot* to visualize how many coffees come from each country in the dataset.
+2. You make a *barplot* to visualize how many coffees come from each `country_of_origin` in the dataset.
 
-3. You make a *histogram* to visualize the distribution of total_cup_points.
+3. You make a *histogram* to visualize the distribution of `total_cup_points`.
 
-4. You make a *violin plot* to visualize the distribution of balance for each species of coffee.
+4. You make a *violin plot* to visualize the distribution of `balance` for each `species` of coffee.
 
-5. You make a *scatterplot* to visualize the relationship between coffee flavor and sweetness grades.
+5. You make a *scatterplot* to visualize the relationship between coffee `flavor` and `sweetness` grades.
 
-6. You make a *boxplot* to visualize how many coffees of each species there are. 
+6. You make a *boxplot* to visualize how many coffees of each `species` there are. 
 
-7. You make a *density plot* to visualize the relationship between the number of bags produced and the number of defects found for each coffee.
+7. You make a *density plot* to visualize the relationship between the `number_of_bags` produced and the `number_of_defects` found for each coffee.
 
-8. You make a *strip plot* to visualize the distribution of flavor coffee gradings.
+8. You make a *strip plot* to visualize the full distribution of `flavor` coffee gradings values..
 
-9. You make a *barplot* to visualize the distribution of acidity coffee gradings.
-
+9. You make a *barplot* to visualize the full distribution of `acidity` coffee grading values.
