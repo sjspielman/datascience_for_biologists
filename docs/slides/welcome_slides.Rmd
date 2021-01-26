@@ -96,6 +96,9 @@ knitr::include_graphics("img/welcome/data_science_explore.png")
 - Lectures will always be recorded, but technical difficulties can happen leading to "lost" lecture records. This has happened before, and it might happen again. 
 <br><br>
 - NO EXAMS OR QUIZZES.
+<br><br>
+- Weekly extra credit opportunities (stay tuned!)
+  - Remember, extra credit is not a substitute for class work.
   
 ---
 
