@@ -24,18 +24,18 @@ Open office hours (no appointment necessary) will be on Zoom *every Monday and F
  Date  |Topic                                  | In-class materials          | Assignment DUE
 --------|---------------------------------------|-----------------------------|---------------------
 T 1/26  | Introduction and logistics            | None                        | **Do these tasks before class tomorrow**: <br> 1. Create free account on [rstudio.cloud](https://rstudio.cloud) <br> 2. Join the class Slack and make *at least ONE POST* introducing yourself. [Full Slack instructions](./misc/slack_instructions.html)
-W 1/27  | Types of data and figures, Part 1     | [Exercises: Introduction to Data Types and Figures Parts 1-2](https://rowanbiosci.shinyapps.io/types_data_figures/) <br> [Interactive website: Types of plots](https://rowanbiosci.shinyapps.io/types_of_plots/) | None 
+W 1/27  | Types of data and figures, Part 1     | [Exercises: Introduction to Data Types and Figures Parts 1-2](https://rowanbiosci.shinyapps.io/types_data_figures/) <br> [Interactive website: Types of plots](https://rowanbiosci.shinyapps.io/types_of_plots/) | Due **TODAY**: Join the class Slack and make *at least ONE POST* introducing yourself. [Full Slack instructions](./misc/slack_instructions.html) 
 R 1/28  | Types of data and figures, Part 2     | [Exercises: Introduction to Data Types Parts 3-4](https://rowanbiosci.shinyapps.io/types_data_figures/) | None
 T 2/2   | Introduction to R and RStudio, Part 1 | [Introduction to R tutorial](./tutorials/introduction_to_R.html) <br> [Exercises: Introduction to R Set 1](https://rowanbiosci.shinyapps.io/intro_R/) | **Homework 1 due** on Canvas as a PDF file. [Link to instructions](./homeworks/hw1/hw1_instructions.html)
 W 2/3   | Introduction to R and RStudio, Part 2 | [Exercises: Introduction to R Sets 2-5](https://rowanbiosci.shinyapps.io/intro_R/) | None
 R 2/4   | Introduction to R and RStudio, Part 3 | [Exercises: Introduction to R Set 6](https://rowanbiosci.shinyapps.io/intro_R/) | None <br> **NOTE: Next Monday is the last day of late add/drop.**
-T 2/9   | Introduction to R and RStudio, Part 4 | [Exercises: Introduction to R Set 7](https://rowanbiosci.shinyapps.io/intro_R/) | **Homework 2 due** on Canvas as an R script. [Link to instructions](./homeworks/hw2/hw2_instructions.html)
+T 2/9   | Introduction to R and RStudio, Part 4 | [Exercises: Introduction to R Set 7](https://rowanbiosci.shinyapps.io/intro_R/) | **Homework 2 due** on Canvas as an R script. <!--[Link to instructions](./homeworks/hw2/hw2_instructions.html)-->
 W 2/10  | The grammar of graphics, Part 1 | Slides TBD | None
 R 2/11  | The grammar of graphics, Part 2 | Slides TBD |None
-T 2/16  | Visualizing data with `ggplot2`, Part 1 | Slides TBD |  **Homework 3 due** on Canvas as a PDF file. [Link to instructions](./homeworks/hw3/hw3_instructions.html)<!-- Identifying grammatical components of figures.-->
+T 2/16  | Visualizing data with `ggplot2`, Part 1 | Slides TBD |  **Homework 3 due** on Canvas as a PDF file. <!--[Link to instructions](./homeworks/hw3/hw3_instructions.html-->
 W 2/17  | Visualizing data with `ggplot2`, Part 2 | Exercises: Begin with Introduction to `ggplot2` | None
 R 2/18  | Visualizing data with `ggplot2`, Part 3 | Exercises: Complete with Introduction to `ggplot2` | None
-T 2/23  | File input/output | [Tutorial](./tutorials/readr_ggsave.html) | **Homework 4 due** on Canvas as an R script. [Link to instructions](./homeworks/hw4/hw4_instructions.html)<!-- Making figures in `ggplot2`. Due Tuesday 2/23.-->
+T 2/23  | File input/output | [Tutorial](./tutorials/readr_ggsave.html) | **Homework 4 due** on Canvas as an R script. <!--[Link to instructions](./homeworks/hw4/hw4_instructions.html)-->
 W 2/24  | Best practices in data visualization | Slides | None
 R 2/25  | Implementing best practices in data visualization | [Customizing colors tutorial](./tutorials/color_fill_scales.html) <br> [Customizing axes tutorial](./tutorials/axes.html) <br> [Customizing themes tutorial](./tutorials/themes.html)  | None
 T 3/2   | Data wrangling with `dplyr`, Part 1 <!-- pipe and filter --> | Slides TBD | **Homework 5 due** on Canvas as an R script.<!-- more ggplot figures that USE THE THEMES/AXES/COLORS! -->
