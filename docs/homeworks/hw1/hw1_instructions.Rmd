@@ -44,7 +44,7 @@ blockquote{
 }
 ```
 
-## Instructions
+## Background
 
 This dataset, called `coffee_ratings`, provides ratings of different coffee beans made around the world. Each row is a single coffee bean, and each column provides different information about that coffee bean including its total rating (`total_cup_score`, on a scale of 100), what species and variety of coffee it is, information about where the coffee comes from, information about the number of defects detected per coffee, and different graded measurements, on a scale of 10, for various coffee attributes (like aroma or sweetness). It has been subsetted (to only 20 rows and 14 columns) from the full dataset [here](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-07-07/readme.md).
 
@@ -73,9 +73,12 @@ datatable(coffee_ratings,
 ```
 
 
-## Questions:
+## Specific Instructions:
 
-> You do not need to write in complete sentences _except_ for one of your answers in Set 2 (see specific instructions below).
+
+Answer these questions about the dataset variables and how one might visualize the data. Please answer all questions in a professionally-formatted (aka, clearly organized and with spell check) Word/Google docs document with your name on top, and submit a PDF file with your answers. Canvas will not allow you to upload any other format, so you must convert your document to a PDF before submitting!!
+
+You do not need to write in complete sentences _except_ for one of your answers in Set 2 (see specific instructions below).
 
 ### Set 1 
 

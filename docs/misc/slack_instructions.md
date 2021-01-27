@@ -37,7 +37,7 @@ We will use Slack this semester as our "discussion board," and as a convenient p
     + Asking or answering a question on class material or homework
     + Asking or answering a question about using class tech, including RStudio Cloud, exercise websites, etc.
     + Asking or answering a question about finding the right resource for practicing or reading up on a given class topic 
-    + *For the first week*, if you both post your own introduction, and engage with someone else's introduction, you will get the first week's extra credit.
+    + *For the first week*, if you both post your own introduction before class on 1/27, and engage with someone else's introduction before the week ends on Sunday 1/31, you will get the first week's extra credit.
   + The following are great to see but do not count for extra credit:
     + Generic replies, e.g. "great" or "ok" without any direct evidence of engagement
     + Liking posts with emojis
