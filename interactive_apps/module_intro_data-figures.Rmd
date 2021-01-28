@@ -258,7 +258,7 @@ quiz(caption = "",
               answer("`number_of_protons`"),
               answer("`periodic_table_period`"),
               answer("`periodic_table_group`"),
-              answer("`atomic_radius`"),
+              answer("`atomic_radius`", correct = TRUE),
               answer("`electronegativity`", correct = TRUE),
               answer("`metal_type`"),
               answer("`density`", correct = TRUE),
@@ -266,9 +266,9 @@ quiz(caption = "",
               answer("None of the above"),
               allow_retry = TRUE,type = "multiple"
               ),
-     question(" Which variables are *categorical* (either nominal or ordinal)? Select all that apply.",
+     question(" Which variables are *categorical*, specifically nominal or ordinal? Select all that apply.",
               answer("`element_name`", correct = TRUE),
-              answer("`acid_base`", correct = TRUE),
+              answer("`acid_base`"),
               answer("`atomic_mass`"),
               answer("`number_of_protons`"),
               answer("`periodic_table_period`"),
@@ -281,9 +281,9 @@ quiz(caption = "",
               answer("None of the above"),
               allow_retry = TRUE,type = "multiple"
               ),
-          question("Which variables are *binary*? Select all that apply.",
+          question("Which variables are *categorical binary*? Select all that apply.",
               answer("`element_name`"),
-              answer("`acid_base`"),
+              answer("`acid_base`", correct = TRUE),
               answer("`atomic_mass`"),
               answer("`number_of_protons`"),
               answer("`periodic_table_period`"),
@@ -293,15 +293,15 @@ quiz(caption = "",
               answer("`metal_type`"),
               answer("`density`"),
               answer("`specific_heat`"),
-              answer("None of the above", correct = TRUE),
-              allow_retry = TRUE, type = "multiple"
+              answer("None of the above"),
+              allow_retry = TRUE,type = "multiple"
               )
      )
 ```
 
 ## Part 3: Relating data types to figures 
 
-Imagine we want to visualize the some of the variables in this periodic table dataset (each column in a variable). For each scenario, indicate what type(s) of plot(s) could be acceptable choices for the visualization goal.
+Imagine we want to visualize the some of the variables in this periodic table dataset (each column in a variable). For each scenario, indicate what type(s) of plot(s) could be acceptable choices for the visualization goal. **Base your answer only on which plots are appropriate for showing the TYPE of data (numeric or categorical), not whether the plot might look nice.**
 
 ```{r, echo=FALSE}
 elements
@@ -462,19 +462,6 @@ quiz(caption = "",
               type = "multiple"
               )
      )
-#     question("If there is a color or fill, it is 'just a color/fill', or is it  mapped to a variable? If the latter, select which variable to which the color/fill maps.",
-#              answer("NA - there is no color/fill"),
-#              answer("Just a color/fill.", correct = TRUE),
-#              answer("Maps to `element_name`"),
-#              answer("Maps to `element_abbr`"),
-#              answer("Maps to `acid_base`"),
-#              answer("Maps to `atomic_mass`"),
-#              answer("Maps to `number_of_protons`"),
-#              answer("Maps to `electronegativity`"),
-#              answer("Maps to `metal_type`"),
-#              answer("Maps to `specific_heat`"),
-#              allow_retry = TRUE
-#            ) 
 ```
 
 
@@ -763,27 +750,13 @@ quiz(caption = "",
             answer("All points are the same color."),
             answer("Point colors vary based on whether the element is an acid or base.", correct = TRUE),
             answer("This is not the answer."),
-            allow_retry = TRUE),
-     question("What variable does this plot display a distribution of?",
-              answer("`element_name`"),
-              answer("`acid_base`"),
-              answer("`atomic_mass`"),
-              answer("`number_of_protons`"),
-              answer("`periodic_table_period`"),
-              answer("`periodic_table_group`"),
-              answer("`atomic_radius`"),
-              answer("`electronegativity`", correct=TRUE),
-              answer("`metal_type`"),
-              answer("`density`"),
-              answer("`specific_heat`"),
-              allow_retry=TRUE
-      )
+            allow_retry = TRUE)
 )
 ```
 
 <br>
 
-#### Consider this other version of the SAME figure, and answer the subsequent question.
+#### Consider this other version of the same figure, and answer the subsequent question.
 
 ```{r part4_figure6_part2, echo=FALSE}
 set.seed(10)
@@ -805,7 +778,7 @@ quiz(
 
 <br>
 
-#### Consider this _third_ version of the SAME figure**, and answer the subsequent question.
+#### Consider this _third_ version of the figure, and answer the subsequent question.
 
 ```{r part4_figure6_part3, echo=FALSE}
 set.seed(10)
@@ -826,7 +799,7 @@ quiz(
 ```
 
 
-#### Consider this _fourth and final_ version of the SAME figure**, and answer the subsequent question.
+#### Consider this _fourth and final_ version of the same figure, and answer the subsequent question.
 
 ```{r part4_figure6_part4, echo=FALSE}
 set.seed(10)
@@ -851,7 +824,6 @@ quiz(
 ### Figure 7
 
 ```{r part4_figure7, echo=FALSE}
-set.seed(10)
 ggplot(elements, aes(x = electronegativity,
                      fill = acid_base)) + 
   geom_density(alpha = 0.6)+
@@ -919,10 +891,9 @@ quiz(caption = "",
 
 ### Figure 8
 
-(Have you noticed a pattern recently?)
+**Have you noticed a pattern recently? There is a pattern here!**
 
 ```{r part4_figure8, echo=FALSE}
-set.seed(10)
 ggplot(elements, aes(y = electronegativity,
                      x = acid_base, 
                      fill = acid_base)) + 
