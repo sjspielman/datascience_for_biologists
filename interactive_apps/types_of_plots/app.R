@@ -50,124 +50,147 @@ ui <- fluidPage(theme = "my_united.css",
             
         ## UI: Histogram tabPanel -------------------------------------------------
         tabPanel("Histograms",
-                 sidebarLayout(
-                     sidebarPanel(
-                         selectInput("histogram_variable", "Select a numeric continuous variable to visualize. This variable will be placed along the x-axis.",
-                                     choices = numeric_choices),
-                         sliderInput("binwidth", "How wide (along the x-axis) should the histogram bins be?",
-                                      value = 1, min = 0.1, max = 100, step = 0.5),
-                         selectInput("histogram_facet_variable", "Select a discrete variable to visualize numeric distributions across:",
-                                     choices = discrete_choices),
-                         color_module_ui("histogram_color", 
+          tabsetPanel(
+            tabPanel("Description", 
+              histogram_dataviz,
+              histogram_text
+            ),
+            tabPanel("In action!",
+              sidebarLayout(
+                sidebarPanel(
+                  selectInput("histogram_variable", 
+                              "Select a numeric continuous variable to visualize. This variable will be placed along the x-axis.", 
+                              choices = numeric_choices),
+                  sliderInput("binwidth", "How wide (along the x-axis) should the histogram bins be?",
+                              value = 1, min = 0.1, max = 100, step = 0.5),
+                  selectInput("histogram_facet_variable", "Select a discrete variable to visualize numeric distributions across:",
+                              choices = discrete_choices),
+                  color_module_ui("histogram_color", 
                                          label = "Should the faceted histograms be filled with the same color, or filled with a separate color for each category?")
-                     ),
-                     
-                     mainPanel(
-                         histogram_dataviz,
-                         br(),
-                         display_plot_code_module_ui("single_histogram", width = "700px"),
-                         display_plot_code_module_ui("faceted_histogram", width = "700px"),
-                         histogram_text
-                     )
-                 ) # sidePanelLayout
+                ), # sidebarPanel
+                mainPanel(
+                  histogram_dataviz, 
+                  br(),
+                  display_plot_code_module_ui("single_histogram", width = "700px"),
+                  display_plot_code_module_ui("faceted_histogram", width = "700px")
+                ) # mainPanel
+              )))
         ), # tabpanel histograms
         
         ## UI: Boxplot tabPanel -------------------------------------------------
         tabPanel("Boxplots",
-            sidebarLayout(
-                sidebarPanel(
-                    selectInput("boxplot_y_variable", "Select a numeric continuous variable to visualize. This variable will be placed along the y-axis.",
-                                choices = numeric_choices,
-                                selected = "bill_length_mm"),
-                    selectInput("boxplot_x_variable", "Select a discrete variable to visualize numeric distributions across. This variable will be placed along the x-axis. There will be a separate boxplot for each category.",
-                                choices = discrete_choices,
-                                selected = "species"),   
-                    color_module_ui("boxplot_color", 
-                                    label = "Should the boxplots be filled with the same color, or filled with a separate color for each category?")
-                ),
-                mainPanel(
-                  boxplot_dataviz,                          
-                  display_plot_code_module_ui("boxplot"),
-                  boxplot_text
-                )
-            ) # sidePanelLayout
-        ),#boxplot
+                 tabsetPanel(
+                   tabPanel("Description", 
+                            boxplot_dataviz,
+                            boxplot_text
+                   ),
+                   tabPanel("In action!",
+                      sidebarLayout(
+                        sidebarPanel(
+                            selectInput("boxplot_y_variable", "Select a numeric continuous variable to visualize. This variable will be placed along the y-axis.",
+                                        choices = numeric_choices,
+                                        selected = "bill_length_mm"),
+                            selectInput("boxplot_x_variable", "Select a discrete variable to visualize numeric distributions across. This variable will be placed along the x-axis. There will be a separate boxplot for each category.",
+                                        choices = discrete_choices,
+                                        selected = "species"),   
+                            color_module_ui("boxplot_color", 
+                                            label = "Should the boxplots be filled with the same color, or filled with a separate color for each category?")
+                        ),
+                        mainPanel(
+                          boxplot_dataviz,                          
+                          display_plot_code_module_ui("boxplot")
+                        )
+                      )))
+        ), #tabpanel #boxplot
         
         ## UI: Density tabPanel -------------------------------------------------
         tabPanel("Density plots",
-                 sidebarLayout(
-                     sidebarPanel(
-                         
-                         selectInput("density_variable", "Select a numeric continuous variable to visualize. This variable will be placed along the x-axis.",
+                 tabsetPanel(
+                   tabPanel("Description", 
+                            boxplot_dataviz,
+                            boxplot_text
+                   ),
+                   tabPanel("In action!",
+                            sidebarLayout(
+                              sidebarPanel(
+                                selectInput("density_variable", "Select a numeric continuous variable to visualize. This variable will be placed along the x-axis.",
                                      choices = numeric_choices),
-                         
-                         selectInput("density_fill_variable", "Select a discrete variable to visualize numeric distributions across. There will be a separate density plot for each category.",
+
+                                selectInput("density_fill_variable", "Select a discrete variable to visualize numeric distributions across. There will be a separate density plot for each category.",
                                      choices = discrete_choices),
-                         colourpicker::colourInput("density_single_fill", "Color of the single density plot?", value = default_color)
-                     ),
-                     mainPanel(
-                        density_dataviz,   
-                        display_plot_code_module_ui("single_density", width = "500px", height = "350px"),
-                        display_plot_code_module_ui("overlapping_density", width = "750px", height = "400px"),
-                        display_plot_code_module_ui("faceted_density", width = "750px", height = "400px"),
-                        density_text
-                     )
-                 ) # sidePanelLayout                
-                 
-                 
-                 
-                 
-                 
-        ), # density
+                                colourpicker::colourInput("density_single_fill", "Color of the single density plot?", value = default_color)
+                              ),
+                              mainPanel(
+                                density_dataviz,   
+                                display_plot_code_module_ui("single_density", width = "500px", height = "350px"),
+                                display_plot_code_module_ui("overlapping_density", width = "750px", height = "400px"),
+                                display_plot_code_module_ui("faceted_density", width = "750px", height = "400px"),
+                              )
+                            )))
+        ),# tab
+
         ## UI: Violin tabPanel -------------------------------------------------
         tabPanel("Violin plots",
-                 sidebarLayout(
-                     sidebarPanel(
-                         selectInput("violin_y_variable", "Select a numeric continuous variable to visualize. This variable will be placed along the y-axis.",
-                                     choices = numeric_choices),
-                         selectInput("violin_x_variable", "Select a discrete variable to visualize numeric distributions across. This variable will be placed along the x-axis. There will be a separate violin plot for each category.",
-                                     choices = discrete_choices),                         
-                         color_module_ui("violin_color", 
-                                         label = "Should the violin plots be filled with the same color, or filled with a separate color for each category?")
-                     ),
-                     mainPanel(
-                       violin_dataviz,                          
-                       display_plot_code_module_ui("violin"),
-                       br(),
-                         violin_text
-                     )
-                 ) # sidePanelLayout
+                 tabsetPanel(
+                   tabPanel("Description", 
+                            violin_dataviz,
+                            violin_text
+                   ),
+                   tabPanel("In action!",
+                            sidebarLayout(
+                              sidebarPanel(
+                                selectInput("violin_y_variable", "Select a numeric continuous variable to visualize. This variable will be placed along the y-axis.",
+                                       choices = numeric_choices),
+                                selectInput("violin_x_variable", "Select a discrete variable to visualize numeric distributions across. This variable will be placed along the x-axis. There will be a separate violin plot for each category.",
+                                       choices = discrete_choices),
+                                color_module_ui("violin_color", 
+                                           label = "Should the violin plots be filled with the same color, or filled with a separate color for each category?")
+                                ),
+                              mainPanel(
+                                violin_dataviz,
+                                display_plot_code_module_ui("violin")
+                                )
+                            )))
         ),#violin
         
         ## UI: Jitter tabPanel -------------------------------------------------
         tabPanel("Strip (jitter) plots",
-                 sidebarLayout(
-                     sidebarPanel(
-                         
-                         selectInput("jitter_y_variable", "Select a numeric continuous variable to visualize. This variable will be placed along the y-axis.",
+                 tabsetPanel(
+                   tabPanel("Description", 
+                            jitter_dataviz,
+                            jitter_text
+                   ),
+                   tabPanel("In action!",
+                            sidebarLayout(
+                              sidebarPanel(
+                                selectInput("jitter_y_variable", "Select a numeric continuous variable to visualize. This variable will be placed along the y-axis.",
                                      choices = numeric_choices
                          ),
                          selectInput("jitter_x_variable", "Select a discrete variable to visualize numeric distributions across. This variable will be plced along the x-axis. There will be a separate strip/jitter plot for each category.", 
                                      choices = discrete_choices),    
                          color_module_ui("jitter_color",
                                          label = "Should the points all have the same color, or be colored separately for each category?"),
-                         radioButtons("jitter_setting", "Turn off the 'jittering' to see regular points and discover the importance of 'jittering.'",
+                         radioButtons("jitter_setting", "Turn off the 'jittering' to see regular points and discover the importance of 'jittering.'", 
                                       choices = jitter_choices)
-                     ),
-                     mainPanel(
-                       jitter_dataviz,                          
-                       display_plot_code_module_ui("jitter"),
-                         jitter_text
-                     )
-                 ) # sidePanelLayout
+                         ),
+                         mainPanel(
+                           jitter_dataviz,
+                           display_plot_code_module_ui("jitter")
+                           )
+                        )))
         ), # tabpanel jitter
         
         ## UI: Sina tabPanel -------------------------------------------------
         tabPanel("Sina plots",
-                 sidebarLayout(
-                   sidebarPanel(
-                     
-                     selectInput("sina_y_variable", "Select a numeric continuous variable to visualize. This variable will be placed along the y-axis.",
+                 tabsetPanel(
+                   tabPanel("Description", 
+                            sina_dataviz,
+                            sina_text
+                   ),
+                   tabPanel("In action!",
+                            sidebarLayout(
+                              sidebarPanel(
+                                selectInput("sina_y_variable", "Select a numeric continuous variable to visualize. This variable will be placed along the y-axis.",
                                  choices = numeric_choices
                      ),
                      selectInput("sina_x_variable", "Select a discrete variable to visualize numeric distributions across. This variable will be plced along the x-axis. There will be a separate sina plot for each category.", 
@@ -177,50 +200,55 @@ ui <- fluidPage(theme = "my_united.css",
                    ),
                    mainPanel(
                      sina_dataviz,                          
-                     display_plot_code_module_ui("sina"),
-                     sina_text
+                     display_plot_code_module_ui("sina")
                    )
-                 ) # sidePanelLayout
+                 )))
         ), # tabpanel sina
       
         ## UI: Barplot tabPanel ----------------------------------------
         tabPanel("Barplots",
-                 sidebarLayout(
-                   sidebarPanel(
-                     selectInput("barplot_variable", "Select a discrete variable to visualize. This variable will be placed along the x-axis.",
-                                 choices = discrete_choices
-                     ), 
-                     colourpicker::colourInput("barplot_single_fill", 
-                                               "What color should the single barplot's bars be filled with?", value = default_color),
-                     
-                     selectInput("barplot_second_variable", "Select a second discrete variable to visualize in comparison with the first discrete variable in a 'grouped barplot.'",
-                                 choices = discrete_choices,
-                                 selected = discrete_choices[2]
-                     ),
-                     selectInput("barplot_position", "How should the grouped barplot bars be styled?", 
-                                 choices = position_choices
-                     )
+                 tabsetPanel(
+                   tabPanel("Description", 
+                            barplot_dataviz,
+                            barplot_text,
+                            # demonstrates the concept, but is not interactive.
+                            display_plot_code_module_ui("barplot_errorbar", width = "500px", height = "300px")
                    ),
-                   mainPanel(
-                     barplot_dataviz,   
-                     display_plot_code_module_ui("barplot_single", width = "600px", height = "400px"),
-                     display_plot_code_module_ui("barplot_double", width = "700px", height = "400px"),
-                     barplot_text,
-                     # demonstrates the concept, but is not interactive.
-                     display_plot_code_module_ui("barplot_errorbar", width = "500px", height = "300px")
-                   )
-                 ) # sidePanelLayout
+                   tabPanel("In action!",
+                            sidebarLayout(
+                              sidebarPanel(
+                                selectInput("barplot_variable", "Select a discrete variable to visualize. This variable will be placed along the x-axis.",
+                                            choices = discrete_choices
+                                ), 
+                                colourpicker::colourInput("barplot_single_fill", 
+                                                          "What color should the single barplot's bars be filled with?", value = default_color),
+                                
+                                selectInput("barplot_second_variable", "Select a second discrete variable to visualize in comparison with the first discrete variable in a 'grouped barplot.'",
+                                            choices = discrete_choices,
+                                            selected = discrete_choices[2]
+                                ),
+                                selectInput("barplot_position", "How should the grouped barplot bars be styled?", 
+                                            choices = position_choices
+                                )
+                              ),
+                              mainPanel(
+                                barplot_dataviz,   
+                                display_plot_code_module_ui("barplot_single", width = "600px", height = "400px"),
+                                display_plot_code_module_ui("barplot_double", width = "700px", height = "400px")
+                              )
+                            ))) 
         ), # tabpanel barplot
-        
-        
-        
-        
-        
+      
         ## UI: Scatterplot tabPanel ------------------------------------
         tabPanel("Scatterplots",
-                 br(),
-                 sidebarLayout(
-                     sidebarPanel(
+                 tabsetPanel(
+                   tabPanel("Description", 
+                            scatter_dataviz,
+                            scatter_text
+                   ),
+                   tabPanel("In action!",
+                            sidebarLayout(
+                              sidebarPanel(
                          selectInput("scatter_x_variable", "Select a numeric variable to place along the x-axis. This is sometimes called the 'independent' or 'predictor' variable.",
                                      choices =numeric_choices),
 
@@ -248,12 +276,11 @@ ui <- fluidPage(theme = "my_united.css",
                      ), #sidebarpanel
                      mainPanel(
                        scatter_dataviz,                          
-                       display_plot_code_module_ui("scatter"),
-                       scatter_text
-                     )
-                 ) #sidebarlayout
-    ) #tabpanelscatterplots
-)) # end with tabsetpanl, ui
+                       display_plot_code_module_ui("scatter")
+                    )
+                 )))
+)))
+ # end with tabsetpanl, ui
     
 
 server <- function(input, output) {
