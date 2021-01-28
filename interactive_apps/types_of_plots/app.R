@@ -115,8 +115,8 @@ ui <- fluidPage(theme = "my_united.css",
         tabPanel("Density plots",
                  tabsetPanel(
                    tabPanel("Description", 
-                            boxplot_dataviz,
-                            boxplot_text
+                            density_dataviz,
+                            density_text
                    ),
                    tabPanel("In action!",
                             sidebarLayout(
