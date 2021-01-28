@@ -42,6 +42,14 @@ ui <- fluidPage(theme = "my_united.css",
         ## UI: Overview tabPanel --------------------------------------------------
         tabPanel("Overview",
                  br(),
+                 prettyCheckbox(
+                   inputId = "hide_penguins",
+                   label = "Click to hide the penguins", 
+                   value = FALSE,
+                   status = "warning",
+                   shape = "curve"
+                 ),
+                 uiOutput("penguin_image"),
                  penguins_text,
                  DTOutput("penguin_table"),
                  br(),
@@ -291,6 +299,20 @@ server <- function(input, output) {
                   options = list(rowCallback = JS(rowCallback)))
         
     })
+    output$penguin_image <- renderUI({
+      if (input$hide_penguins)
+      {
+        tagList()
+      } else {
+        tagList(
+          tags$img(src = "img/lter_penguins.png", width = "35%"),
+          div(style = "font-size:0.8em;", 
+              p("Artwork by", a("@allison_horst", href="https://github.com/allisonhorst/palmerpenguins"))
+          )
+        )
+      }
+    })
+    
     output$penguins_year_factor <- renderText({
       glue::glue(
         "penguins <- palmerpenguins::penguins %>% 
@@ -301,6 +323,7 @@ server <- function(input, output) {
     output$theme_custom_string <- renderText({
         theme_custom_string
     })
+
     
     
     ## Server: Histograms Panel ---------------------------------

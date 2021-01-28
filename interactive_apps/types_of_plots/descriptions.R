@@ -1,6 +1,10 @@
 # Descriptions of plots for p() in shiny app.
 library(shiny)
 
+
+
+
+
 ## Penguins text -------------------------------------------------------
 penguins_text <- shiny::tagList(
   p("To demonstrate the different types of plots, we will use the glorious", 
@@ -11,11 +15,6 @@ penguins_text <- shiny::tagList(
     "Data were collected and made available by", 
     a('Dr. Kristen Gorman', href = '(https://www.uaf.edu/cfos/people/faculty/detail/kristen-gorman.php'),'and the', a('Palmer Station, Antarctica LTER', href = 'https://pal.lternet.edu/'),'a member of the', a('Long Term Ecological Research Network.', href = 'https://lternet.edu/')
     ),
-
-  tags$img(src = "img/lter_penguins.png", width = "40%"),
-  div(style = "font-size:0.8em;", 
-    p("Artwork by", a("@allison_horst", href="https://github.com/allisonhorst/palmerpenguins"))
-  ),
   p(style = "font-size:0.8em;",
     "For more technical information about this app, please scroll to the bottom of this page."
   ),
