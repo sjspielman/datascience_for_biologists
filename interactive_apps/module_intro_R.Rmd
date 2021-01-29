@@ -3,6 +3,8 @@ title: "Introduction to R"
 author: "Data Science for Biologists, Spring 2021"
 output: 
   learnr::tutorial:
+    progressive: true
+    allow_skip: true
     theme: united
     css: css/custom-css.css
 runtime: shiny_prerendered
@@ -539,6 +541,7 @@ print("second comparison: 2!=2 ?")
 ```{r compound_logical_q4-solution}
 50 >= 35 & 60 == -20
 ```
+
 <br>
 
 
@@ -919,7 +922,103 @@ is_W_there
 <br>
 
 
-## Set 6: Data frames
+
+
+
+## Set 6: Conditional variable definition
+
+This section will teach you how to use the `ifelse()` function. It allows you to define a variable *based on a certain logical statement* (thing that is `TRUE` or `FALSE`). Here's the anatomy of the function, which takes *three* arguments:
+
+`ifelse(<logical statement>, <value if the statement is TRUE>, <value if the statement is FALSE>)`
+
+Here is an interactive example for you to engage with:
+
+```{r ifelse_example, exercise=TRUE, exercise.lines = 15}
+# Evaluates to "greater", since the statement is TRUE
+print("example 1")
+ifelse(10 > 5, "greater", "less than")
+
+# Evaluates to "crocodile", since the statement is FALSE
+print("example 2")
+ifelse(10 == 12, "aligator", "crocodile")
+
+# Save it to a variable!
+print("example 3")
+beast <- ifelse(10 == 12, "aligator", "crocodile")
+print(beast)
+```
+<br>
+
+Practice using the `ifelse()` function to define several variables as follows...
+
+
+1. Define a variable based on whether 5 is greater than 20. If the condition is `TRUE`, the variable value should be "yup". If the condition is `FALSE`, the variable value should be "nope".
+
+```{r ifelse_1, exercise=TRUE}
+
+```
+```{r ifelse_1-solution}
+var <- ifelse(5 > 20, "yup", "nope")
+# Always *look at* your variable to make sure it worked!
+var
+```
+<br>
+
+
+2. Define a variable based on whether the type of value `11` is is a number (or in R terms, its class is "numeric"). If it is a number, the variable value should be "number". If is it not a number, the variable value should be "not a number".
+
+> Hint: Use the function `class()`! Remember also that `numeric` is not a class, but `"numeric"` (with quotes!) is.
+
+
+```{r ifelse_2, exercise=TRUE}
+
+```
+```{r ifelse_2-solution}
+var <- ifelse(class(11) == "numeric", "number", "not a number")
+var
+```
+
+<br>
+
+3. Define a variable based on whether the type of the value `"11"` (it has quotes!) is a number. If it is a number, the variable value should be "number". If is it not a number, the variable value should be "not a number".
+
+```{r ifelse_3, exercise=TRUE}
+
+```
+```{r ifelse_3-solution}
+var <- ifelse(class("11") == "numeric", "number", "not a number")
+var
+```
+
+
+<br>
+
+4. Define a variable based on whether the number of characters in the string "rumbledyhump" (defined for you) is equal to 200. If the condition is `TRUE`, the variable value should be 100. If the condition is `FALSE`, the variable value should be 10.
+
+```{r ifelse_4, exercise=TRUE}
+my_string <- "rumbledyhump"
+```
+```{r ifelse_4-solution}
+my_string <- "rumbledyhump"
+var <- ifelse(nchar(my_string) == 200, 100, 10)
+var
+```
+<br>
+
+5. Define a variable based on whether 6 squared is 36. If this condition is `TRUE`, the variable value should be 4. If this is `FALSE`, the variable value should be 25.
+
+```{r ifelse_5, exercise=TRUE}
+
+```
+```{r ifelse_5-solution}
+var <- ifelse(6**2 == 36, 4, 25)
+var
+```
+<br>
+
+
+
+## Set 7: Data frames
 
 
 ### Exploring data frames
@@ -1269,64 +1368,25 @@ min_awake > min_sleep_rem
 
 
 
+13. Define a variable based on whether "Cheetah" is an animal in `msleep` (use the `name`) column. If the condition is `TRUE`, the variable value should be "present". If the condition is `FALSE`, the variable value should be "absent".
 
-## Set 7: Conditional variable definition
+> Hint: You will need to use `ifelse()` and the `%in%` operator!
 
-This section will teach you how to use the `ifelse()` function. It allows you to define a variable *based on a certain logical statement* (thing that is `TRUE` or `FALSE`). Here's the anatomy of the function, which takes *three* arguments:
-
-`ifelse(<logical statement>, <value if the statement is TRUE>, <value if the statement is FALSE>)`
-
-Here is an interactive example for you to engage with:
-
-```{r ifelse_example, exercise=TRUE}
-
-# Evaluates to "greater", since the statement is TRUE
-ifelse(10 > 5, "greater", "less than")
-
-
-# Evaluates to "crocodile", since the statement is FALSE
-ifelse(10 == 12, "aligator", "crocodile")
-
-# Save it to a variable!
-beast <- ifelse(10 == 12, "aligator", "crocodile")
-print(beast)
-```
-<br>
-
-Practice using the `ifelse()` function to define several variables as follows...
-
-
-1. Define a variable based on whether 5 is greater than 20. If the condition is `TRUE`, the variable value should be "yup". If the condition is `FALSE`, the variable value should be "nope".
-
-```{r ifelse_1, exercise=TRUE}
+```{r msleep2_q13, exercise=TRUE}
 
 ```
-```{r ifelse_1-solution}
-var <- ifelse(5 > 20, "yup", "nope")
-# Always *look at* your variable to make sure it worked!
-var
-```
-<br>
-
-2. Define a variable based on whether "Cheetah" is an animal in `msleep` (use the `name`) column. If the condition is `TRUE`, the variable value should be "present". If the condition is `FALSE`, the variable value should be "absent".
-
-> Hint: Don't forget the `%in%` operator!
-
-```{r ifelse_2, exercise=TRUE}
-
-```
-```{r ifelse_2-solution}
+```{r msleep2_q13-solution}
 var <- ifelse("Cheetah" %in% msleep$name, "present", "absent")
 var
 ```
 <br>
 
-3. Define a variable based on whether the *maximum body weight* in `msleep` is greater than 2000. If the condition is `TRUE`, the variable value should be 1 (the number 1, no quotes!). If the condition is `FALSE`, the variable value should be 0.
+14. Define a variable based on whether the *maximum body weight* in `msleep` is greater than 2000. If the condition is `TRUE`, the variable value should be 1 (the number 1, no quotes!). If the condition is `FALSE`, the variable value should be 0.
 
-```{r ifelse_3, exercise=TRUE}
+```{r msleep2_q14, exercise=TRUE}
 
 ```
-```{r ifelse_3-solution}
+```{r msleep2_q14-solution}
 var <- ifelse(max(msleep$bodywt) > 2000, 1, 0)
 var
 
@@ -1338,13 +1398,13 @@ var
 <br>
 
 
-4. Define a variable based on whether number of rows in `msleep` equals 80. If the condition is `TRUE`, the variable value should be 10. If the condition is `FALSE`, the variable value should be -10.
+15. Define a variable based on whether number of rows in `msleep` equals 80. If the condition is `TRUE`, the variable value should be 10. If the condition is `FALSE`, the variable value should be -10.
 
 
-```{r ifelse_4, exercise=TRUE}
+```{r msleep2_q15, exercise=TRUE}
 
 ```
-```{r ifelse_4-solution}
+```{r msleep2_q15-solution}
 var <- ifelse(nrow(msleep) == 80, 10, -10)
 var
 ```
