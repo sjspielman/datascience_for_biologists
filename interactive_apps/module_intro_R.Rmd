@@ -3,7 +3,6 @@ title: "Introduction to R"
 author: "Data Science for Biologists, Spring 2021"
 output: 
   learnr::tutorial:
-    progressive: true
     theme: united
     css: css/custom-css.css
 runtime: shiny_prerendered
@@ -199,7 +198,7 @@ AP: "You didn't ask me to TELL you 5 times 2. You just asked me to CALCULATE 5 t
 ### Defining and using variables
 
 
-<br><br>
+<br>
   
 1. Define a variable named `banana_price` whose value is 0.55 (aka 55 cents). 
 
@@ -281,6 +280,8 @@ total_cost
 7. Define a variable called `my_favorite_fruit`, and give it the value of...your favorite fruit! This is a *string* variable, so you must enclose the assigned value in quotes. Print your variable to make sure it is correct.
 
 > You are allowed to not have a favorite fruit, in which case please use `my_favorite_food` :).
+> 
+> The goal of this question is to practice defining a STRING variable. No math!
 
 ```{r variables_q7, exercise = TRUE}
 
@@ -289,6 +290,7 @@ total_cost
 my_favorite_fruit <- "papaya"
 my_favorite_fruit
 ```
+
 <br>
 
 
@@ -394,6 +396,7 @@ class("7")
 1. Is 56 greater than 7?
 
 ```{r logical_q1, exercise = TRUE}
+
 ``` 
 
 ```{r logical_q1-solution}
@@ -450,7 +453,7 @@ class("7")
 ```
 <br>
 
-6. Is 75 greater than to 75?
+6. Is 75 greater than 75?
  
 ```{r logical_q6, exercise = TRUE}
 
@@ -491,6 +494,18 @@ Statements with "and" will only evaluate as `TRUE` if BOTH conditions are `TRUE`
 ```{r compound_logical_q1-solution}
 100 == 100 & 66 == 66
 ```
+<br>
+
+#### A side message!
+
+Printing multiple things can be confusing - which line of code printed what value? In above circumstance, there are only two results printed, and two lines of code, so it's easy to see, but this won't last for long! Use `print()` statements to help guide you, as in:
+```{r compound_logical-ex, exercise = TRUE}
+print("first comparison: 1==1 ?")
+1 == 1
+print("second comparison: 2!=2 ?")
+2 != 2
+```
+
 <br>
 
 2. Is 100 greater than 87 *and* is 66 less than 12?
@@ -565,13 +580,15 @@ value1 > value2
 
 ```{r logical_q12-solution}
 value1 <- 7
-value2 <- -5.44
+value2 <- 5.44
 
 value1 == value2
 ```
 <br>
 
 3. Is 18 greater than 5 *and* is 11 less than 100?
+
+> Hint: You need to define four variables here!
 
 ```{r logical_q13, exercise = TRUE}
 
@@ -777,6 +794,7 @@ length(some_numbers) == 5
 6. Create another array with FOUR values, and this time make sure all the values are *strings* (each value should be surrounded by quotes). Use the function `length()` to ask how long the array is. *Then*, ask if the length of the array is equal to 7.
 
 > Hint: Even though each string in the array has multiple characters, each string comprises only one value in the overall array.
+>
 > Hint 2: The output for your logical comparison should be `FALSE` if done correctly.
 
 ```{r array_q6, exercise = TRUE}
@@ -832,45 +850,29 @@ One of the most POWERFUL logical operators is `%in%` - it's literally the word `
 
 Here is an example of this logical operator in action:
 
-```{r in_example, exercise=TRUE, exercise.lines = 15}
+> Notice how **helpful** it is that I added the extra print statements so you know for sure what is being printed when!
+
+```{r in_example, exercise=TRUE, exercise.lines = 20}
 # Define array
 rainbow <- c("red", "orange", "yellow", "green", "blue", "indigo", "violet")
 
 # Will return TRUE
+print("Is 'red' in the rainbow array?")
 "red" %in% rainbow
 
 # Will return FALSE
+print("Is 'black' in the rainbow array?")
 "black" %in% rainbow
 
 # This is _not_ The Way 
 # It asks: Is each value in rainbow equal to "red"?
 # This code technically works, but is not at all the same as using %in%
+print("Does 'red' equal the whole rainbow array?")
 "red" == rainbow
 ```
 
 <br>
 
-**Something else** you'll notice about the above code is that it prints THREE different outputs, in order of the code. It can very be challenging to see exactly which piece of code produced which output, especially when our code gets longer and more involved. **Printing messages along the with the `print()` function to guide you when reading output will be you SAVIOR!! IT'S SO IMPORTANT!** In fact, if you only learn one thing this semester, it's to PRINT PRINT PRINT!
-
-
-```{r in_example_print, exercise=TRUE, exercise.lines = 15}
-# Define array
-rainbow <- c("red", "orange", "yellow", "green", "blue", "indigo", "violet")
-
-# Will return TRUE
-print("Is red in rainbow?")
-"red" %in% rainbow
-
-# Will return FALSE
-print("Is black in rainbow?")
-"black" %in% rainbow
-
-# This is _not_ The Way 
-# This makes a logical array, not a single TRUE/FALSE
-print("This is not The Way.")
-"red" == rainbow
-```
-<br><br>
 
 1. The code below defines an array of different animals. Use the `%in%` operator to ask three separate logical questions:
   
@@ -1032,7 +1034,7 @@ sd(msleep$awake)
 
 
 
-3. Using your new skills, calculate the _median_ hours of REM sleep (columns `sleep_rem`) these mammals get. The output will not look like you expect - instead of a number, you get the output "NA". To start to understand why, view the full contents of this column (i.e. `msleep$sleep_rem`). You will see some values "NA", meaning there is *missing data*. Missing data is very common - real life science (especially biology!) is tricky, and sometimes we can't gather as much data as we want. 
+3. Using your new skills, calculate the _median_ hours of REM sleep (column `sleep_rem`) these mammals get. The output will not look like you expect - instead of a number, you get the output "NA". To start to understand why, view the full contents of this column (i.e. `msleep$sleep_rem`). You will see some values "NA", meaning there is *missing data*. Missing data is very common - real life science (especially biology!) is tricky, and sometimes we can't gather as much data as we want. 
 
 Whenever R encounters NA's in *summary statistics* functions (`mean()`, `median()`, `sd()`, etc.), it gets scared and won't calculate anything at all :(
 
@@ -1141,6 +1143,8 @@ In this section we'll use functions and logical operators to explore and answer 
 3. How many *unique* number of different mammal orders are in this dataset?
 
 > Hint: You need to FIRST determine the unique values in the `order` column with `unique()`, and then ask what the _length_ of that array is. It is extremely important to do one step at a time and print as you go to make sure you're on the right track!!
+>
+> Hint 2: The code needs to actually print out the number that answers the question - don't count yourself, ask R to count for you!
   
 ```{r msleep2_q3, exercise = TRUE}
 
@@ -1201,6 +1205,7 @@ mean(msleep$awake) >= mean(msleep$sleep_total)
 8. Calculate the *median RATIO* of how often mammals are awake vs asleep. 
 
 > Hint: Remember, you can directly work with vectors (columns!) like you would any numbers. Ratios are just divisions.
+>
 > Hint 2: Take this one step at a time. First, calculate a array. of ratios, and then calculate the median value of that array.
 
 ```{r msleep2_q8, exercise = TRUE}
