@@ -37,11 +37,11 @@ Answer the following questions with R code in the `hw2_template.R` templated scr
 
 <br>
 
-2. Define two variables `a` and `b` as values 6 and 36, respectively. Use a logical operator and the function `sqrt()` to ask if `a` is equal to the square root of `b`, and print the output. **The code should print `TRUE` if they are equal and `FALSE` if not.
+2. Define two variables `a` and `b` as values 6 and 36, respectively. Use a logical operator and the function `sqrt()` to ask if `a` is equal to the square root of `b`, and print the output. **The code should print `TRUE` if they are equal and `FALSE` if not.**
 
 <br> 
 
-3. Define a variable `boop` (gotta keep it fun!) whose values *depends* on a logical comparison, using variables `a` and `b` from the previous question. If `a` squared equals `b`, `boop` should be defined with the value "eureka". If `a` squared does not equal `b`, `boop` should be defined with the value "wompwomp". Print the value of `boop` after it is defined.
+3. Define a variable `boop` (gotta keep it fun!) whose values *depends* on a logical comparison, using variables `a` and `b` from the previous question. If `a` squared equals `b`, `boop` should be defined with the value "eureka". Otherwise, if `a` squared does not equal `b`, `boop` should be defined with the value "wompwomp". **Print the value of `boop` after it is defined.**
   
       Hints:
       
@@ -50,20 +50,20 @@ Answer the following questions with R code in the `hw2_template.R` templated scr
 
 <br> 
 
-4. Define an array variable called `mammal_vectors` to contain these strings: "camel", "civet", "mink", "bat", "ferret", and "pangolin" (these are all mammals known to be vectors for either SARS-CoV-2 or one of its close relatives SARS and MERS). Use the function `length()` to determine how long the array is, and print the output. The code should print a number which corresponds to the length of the array.
+4. Define an array variable called `mammal_vectors` to contain these strings: "camel", "civet", "mink", "bat", "ferret", and "pangolin" (these are all mammals known to be vectors for either SARS-CoV-2 or one of its close relatives SARS and MERS). Use the function `length()` to determine how long the array is, and print the output. **The code should print a number which corresponds to the length of the array.**
 
 <br>
 
-5. Again consider the `mammal_vectors` array you created. Use the logical operator `%in%` to determine if the string "elephant" is in the array. If "elephant" is in the array, your code should print `TRUE`, and `FALSE` otherwise.
+5. Again consider the `mammal_vectors` array you created. Use the logical operator `%in%` to determine if the string "elephant" is in the array. **If "elephant" is in the array, your code should print `TRUE`, and `FALSE` otherwise.**
 
 <br>
 
-6. Define an array variable called `dinosaurs` to contain the three strings: "eagle", "ostrich", and "sparrow" (wait, those are all birds?! That's right, birds are dinosaurs!). Then, define two other variables (you can choose what they are called) - one should be the length of the `mammal_vectors` array, and the other should be the length of the `dinosaurs` array. Finally, use a logical operator to compare the these variables. If the length of `mammal_vectors` is longer than the length of `dinosaurs`, your code should print `TRUE`. Otherwise, your code should print `FALSE`.
+6. Define an array variable called `dinosaurs` to contain the three strings: "eagle", "ostrich", and "sparrow" (wait, those are all birds?! That's right, birds are dinosaurs!). Then, define two other variables (you can choose what they are called) - one should be the length of the `mammal_vectors` array, and the other should be the length of the `dinosaurs` array. Finally, use a logical operator to compare the these variables. **If the length of `mammal_vectors` is longer than the length of `dinosaurs`, your code should print `TRUE`. Otherwise, your code should print `FALSE`.**
 
 <br> 
 
 7. Use a colon (`:`) to create a variable called `q7` as an array of numbers in order 100-200. 
-From this variable `q7`, calculate the mean, median, standard deviation, and sum (with functions `mean()`, `median()`, `sd()`,and `sum()`, respectively) of this array. Each calculation should be saved to a variable called, respectively: `q7_mean`, `q7_median`, `q7_sd`, and `q7_sum`. Finally, print these four variables. You do not need to print `q7`.
+From this variable `q7`, calculate the mean, median, standard deviation, and sum (with functions `mean()`, `median()`, `sd()`,and `sum()`, respectively) of this array. Each calculation should be saved to a variable called, respectively: `q7_mean`, `q7_median`, `q7_sd`, and `q7_sum`. **Finally, print these four variables. You do not need to print `q7`.**
 
 <br> 
 
@@ -79,14 +79,14 @@ From this variable `q7`, calculate the mean, median, standard deviation, and sum
       print(combined_string2)
       ```
 
-    Use the `paste()` function and the variable `q7_mean` to print a sentence that says: "The mean of q7 is ...." where .... is the the `q7_mean` value. Your code should NOT include a number directly (don't copy/paste the value of the mean). You may only refer to this number value with the `q7_mean` variable.
+    **Use the `paste()` function and the variable `q7_mean` to print a sentence that says: "The mean of q7 is ...." where .... is the the `q7_mean` value.** Your code should _NOT_ include a number directly (don't copy/paste the value of the mean). You may _ONLY_ refer to this number value with the `q7_mean` variable.
 
 <br>
 
-9. Define an array variable (use a colon!) called `q9` with the values -20 - 10 (negative 20 through positive ten). Calculate and save the mean of `q9` as a variable `q9_mean`. Define a variable called `compare_q7_q9` whose value *depends* on a comparison between `q9_mean` and `q7_mean`. If these values are equal, `compare_q7_q9` should be defined as 1. If these values are not equal, `compare_q7_q9` should be defined as 0. Finally, print the value of `compare_q7_q9`.
+9. Define an array variable (use a colon!) called `q9` with the values -20 - 10 (negative 20 through positive ten). Calculate and save the mean of `q9` as a variable `q9_mean`. Define a variable called `compare_q7_q9` whose value *depends* on a comparison between `q9_mean` and `q7_mean`. If these values are equal, `compare_q7_q9` should be defined as 1. If these values are not equal, `compare_q7_q9` should be defined as 0. **Finally, print the value of `compare_q7_q9`.**
 
 <br>
 
-10. Again consider the array `q9`. Use a logical operator to ask if values in this array are less than or equal to 0 - simply ask if `q9` is greater than or equal to 0. This code creates a logical array: an array containing `TRUE` or `FALSE` for whether each comparison was T/F. Save the output to a variable called `q9_geq0` ("geq" = "**g**reater than or **eq**ual to"), and print the value of `q9_geq0`.
+10. Again consider the array `q9`. Use a logical operator to ask if values in this array are greater than or 0 (aka, is `q9` greater than or equal to 0?). The result of this code will be an array itself containing `TRUE` and `FALSE` values corresponding to whether the $\geq0$ condition was met. Save this resulting array to a variable called `q9_geq0` ("geq" = "**g**reater than or **eq**ual to"), and **print the value of `q9_geq0`.**
 
 <br><br><br>
