@@ -38,12 +38,12 @@ Here are some other great resources for introducing R, but please be aware that 
 
 **R** is a statistical computing language that is _open source_, meaning the underlying code for the language is freely available to anyone. You do not need a special license or set of permissions to use and develop code in R. 
 
-R itself is an _interpreted computer language_ (we will come back to this concept later in the semester) with a full set of programming features, which we refer to as **"base R"** - the functionality that comes bundled with the language itself. There is rich additional functionality provided by **external packages**, or libraries of code that assist in accomplishing certain tasks. These packages, also referred to as libraries, can be freely downloaded and loaded for use. Much of this workshop will be focused on learning how to use some really important data science packages, including [`ggplot2`](https://ggplot2.tidyverse.org/) for data visualization and [`dplyr`](https://dplyr.tidyverse.org/) for data manipulation and "wrangling."
+R itself is an _interpreted computer language_^[so is Python, but there are other languages which are _compiled languages_ like C and C++; Java is a hybrid!]. We use the term **"base R"** to refer to R's functionality that comes bundled with the language itself. There is rich additional functionality provided by **external packages**, or libraries of code that assist in accomplishing certain tasks. These packages, also referred to as libraries, can be freely downloaded and loaded for use. **This class will be focused on learning how to use some really important data science packages, including [`ggplot2`](https://ggplot2.tidyverse.org/) for data visualization and [`dplyr`](https://dplyr.tidyverse.org/) for data manipulation and "wrangling."** We will not focus on using base R.
 
 
 ### What is RStudio?
 
-RStudio is a _graphical environment_ ("integrated development environment" or IDE) for writing and developing R code. RStudio is NOT a separate programming language - it is an interface we use to facilitate R programming. In other words, you can program in R without RStudio, but you can't use the RStudio environment without R.
+RStudio is a _graphical environment_ ("integrated development environment" or IDE) for writing and developing R code. RStudio is NOT a programming language - it is an interface ("app") we use to facilitate R programming. In other words, you can program in R without RStudio, but you can't use the RStudio environment without R^[This is only sort of true - RStudio is so excellent that you can code in other languages in it, too, but we won't be doing that here.]
 
 For more information about RStudio than you ever wanted to know, see this [RStudio IDE Cheatsheet](https://d33wubrfki0l68.cloudfront.net/0dc0efccfaf638de8be4ce43e2bab8a91541d3d2/c4fdc/wp-content/uploads/2018/08/rstudio-ide.png).
 
@@ -65,16 +65,16 @@ There are two main paths to developing in R within the RStudio environment:
 The RStudio environment has four main **panes** (their specific location can be changed under Tools -> Global Options -> Pane Layout).
 ![RStudio Appearance](img/rstudio-cloud-anatomy.png) 
 
-This image presents the **RStudio Cloud** environment within a project I have created called "demo" and an _R script_ called "example.R". 
+This image presents the **RStudio Cloud** environment within a project I have created called "demo" and an _R script_ called "example.R". Note that this screenshot was taken when the R language was at verion 3.6.0. As of January 2021, the language is now at version 4.0.3, but for our purposes this distinction doesn't matter at all.
 
 
-1. The **editor** pane is where you can write R scripts and other documents. This is your _text editor_, which will allow you to save your R code for future use. R scripts can also directly be run from this pane. In this image, you can see an R script called "example.R" which contains some simple R to define and print a variable. **But be aware**, when there is no file open, this pane will automatically collapse and disappear from view. You can always open it again by opening a file.
+1. The **editor pane** is where you can write R scripts and other documents. This is your _text editor_, which will allow you to save your R code for future use. R scripts can also directly be run from this pane. In this image, you can see an R script called "example.R" which contains some simple R to define and print a variable. **But be aware**, when there is no file open, this pane will automatically collapse and disappear from view. You can always open it again by opening a file.
 
-2. The **console** pane is where you can _interactively_ run R code. You can also use this pane as a **terminal** to emulate a UNIX shell (please ignore this if you are unfamiliar with UNIX). In this image, you can see that the user has defined a variable called "y" and printed out its value. In the console, new lines where you can type code are indicated by greater than signs `>` - we do not type these symbols - R places them there to indicate a new line is starting. 
+2. The **console pane** is where you can _interactively_ run R code. You can also use this pane as a **terminal** to emulate a UNIX shell (please ignore this if you are unfamiliar with UNIX). In this image, you can see that the user has defined a variable called "y" and printed out its value. In the console, new lines where you can type code are indicated by greater than signs `>` - we do not type these symbols - R places them there to indicate a new line is starting. 
 
-3. The **environment** pane primarily displays the variables, sometimes known as _objects_ you define during a given R session. You can ignore its other tabs for now. In this image, you can see that a variable "y" has been created with the value "9" (see the "console" code?). You'll also notice that the variable "x" is _not_ listed in the environment pane - that's because the script "example.R" has only been written but not (yet!) run, so R doesn't know about it.
+3. The **environment pane** primarily displays the variables, sometimes known as _objects_ you define during a given R session. You can ignore its other tabs for now. In this image, you can see that a variable "y" has been created with the value "9" (see the "console" code?). You'll also notice that the variable "x" is _not_ listed in the environment pane - that's because the script "example.R" has only been written but not (yet!) run, so R doesn't know about it.
 
-4. The **files, plots, packages, help, viewer** pane has several tabs all of which are pretty important:
+4. The **files, plots, packages, help, viewer pane** has several tabs all of which are pretty important:
     + The **files** tab shows the structure and contents of your _current directory_ (i.e. folder). In the example image, the user is working in a directory (folder!) called "project", and this directory contains THREE files: .Rhistory, project.Rproj, and example.R - the file shown in the editor pane. For now, don't worry about what the first two files are.
     + The **plots** tab will reveal plots when you make them
     + The **packages** tab shows which installed packages have been loaded into your R session
@@ -82,21 +82,16 @@ This image presents the **RStudio Cloud** environment within a project I have cr
     + The **viewer** pane will reveal compiled RMarkdown documents (stay tuned 2 more weeks)
 
 
-You can change your preferred panel organization by clicking on the "grid" icon, which reveals a dropdown menu for moving panes to your preferred side (left/right) or layer (top/bottom).
+You can change your preferred panel organization by clicking on the grid icon, which reveals a dropdown menu for moving panes to your preferred side (left/right) or layer (top/bottom).
 
 
-
-## Basic Calculations
-
-We will begin with _interactive coding_ to explore R's functionality. This means we will run R code directly in the console. This is fast and easy way to run code, but it also means that your code won't be saved. It's a great way to learn about using R, or to try out new skills you're just learning, but in general, it is **NOT** a good way to perform *reproducible analyses.*
-
-### Comments
+## Comments
 
 Arguably the __most important__ aspect of your coding is comments: Small pieces of explanatory text you leave in your code to explain what the code is doing and/or leave notes to yourself or others. Comments are invaluable for communicating your code to others, but they are most important for **Future You**. Future You comes into existence about one second after you write code, and has no idea what on earth Past You was thinking. Help out Future You by adding lots of comments! Future You next week thinks Today You is an idiot, and the only way you can convince Future You that Today You is reasonably competent is by adding comments in your code explaining why Today You is actually not so bad.
 
 R will _ignore_ comments, which are indicated with hashtags. Anything on a given line that appears after a hashtag will be ignored, whether the hashtag is at the beginning of a line or in the middle of a line. You will see many comments in example code below!
 
-### Mathematical operators
+## R as a calculator
 
 The most basic use of R is as a regular calculator:
 
@@ -119,7 +114,12 @@ For example, we can do some simple multiplication like this. In this and followi
 
 ### Defining variables 
 
-To define a variable, we use the _assignment operator_ which looks like an arrow: `<-`, for example `x <- 7` takes the VALUE on the right-hand side of the operator and ASSIGNS it to the VARIABLE NAME on the left-hand side. The opposite is also possible, e.g. ` 7 -> x`, as long as the arrow is pointing towards the VARIABLE NAME.
+To define a variable, we use the _assignment operator_ which looks like an arrow: `<-`. It is a less than sign immediately followed by a minus sign - no spaces!!!
+
+For example `x <- 7` takes the VALUE on the right-hand side of the operator and ASSIGNS it to the VARIABLE NAME on the left-hand side. The opposite is also possible, e.g. ` 7 -> x` (minus sign THEN a *greater than* sign - an arrow pointing the other way.
+
+As long as the arrow is pointing *FROM the value and towards the VARIABLE NAME*, you are good:
+
 ```{r}
 # Define a variable x to equal 7, and print out the value of x
 x <- 7
@@ -129,6 +129,16 @@ x
 7 -> x
 x
 ```
+
+Pointing the other direction leads to errors. 7 is 7 is 7 - you can't make 7 into x:
+```{r, error=T}
+# Not allowed
+x -> 7
+
+# Similarly, not allowed
+7 <- x
+```
+
 
 Some features of variables, considering the example `x <- 7`:
 
