@@ -10,6 +10,15 @@ output:
     seal: false
 ---
 
+```{css, include=FALSE, echo=FALSE}
+.title-slide .bg-text{
+  position: absolute;
+  top: 45%;
+  left: 10%;
+  text-align: left;
+  color: #ffffff;
+}
+```
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
@@ -24,17 +33,18 @@ img_path <- "img/dataviz_best_practices"
 source("grammar_graphics_plots.R")
 ```
 
-class: title-slide
 
-<!-- background-image: url(slide_background_images/) -->
+
+class: title-slide
+background-image: url(slide_background_images/rileysarge.png)
+background-size: contain
 
 .bg-text[
 # Best practices for data visualization
 ## Data Science for Biologists
 
 <hr />
-**Dr. Spielman (i before e)!** <br>
-**`spielman@rowan.edu`**
+**Good doggos from Caitlyn (L) and Kevin (R)**
 ]
 
 ---
