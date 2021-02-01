@@ -64,8 +64,8 @@ a, a > code {
   top: 45%;
   left: 10%;
   text-align: left;
-  color: #000; //#F7F8FA;
 }
+
 
 .title-slide .remark-slide-number {
   display: none;
@@ -73,6 +73,13 @@ a, a > code {
 
 
 /* Helpers */
+.title-color-dataviz-style {
+  color: #F9D71C;
+  -webkit-text-stroke-width: 0.25px;
+  -webkit-text-stroke-color: black;
+}
+
+
 .red { color: red; }
 .large { font-size: 130% }
 .small { font-size: 70% }
