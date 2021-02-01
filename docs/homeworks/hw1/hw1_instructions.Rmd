@@ -94,7 +94,9 @@ You do not need to write in complete sentences _except_ for one of your answers 
 
 ### Set 2
 
-**Instructions: For these questions, indicate if the presented information is a _variable_ or a _value_ in the dataset.** If it is a variable, provide one of the values associated with the variable (*don't make it up - find a value in the data!*). If it is a value, tell me what variable the value belongs to. If part of your answer is _ambiguous_ (Hint: one and only one question below is partially ambiguous), explain in 1 sentence why you can't reliably answer the full question.
+**Instructions: For these questions, indicate if the presented information is a _variable_ or a _value_ in the dataset.** If it is a variable, provide one of the values associated with the variable (*don't make it up - find a value in the data!*). If it is a value, tell me what variable the value belongs to. 
+For all items below, you CAN answer the first part (variable or value?). But, for ONE AND ONLY ONE of the items below, you can't definitively answer the second part of the question (if variable give me a value, or if value give me the variable). For this one _ambiguous_ item, explain in 1 sentence why it is ambiguous.
+
 
 **Hint: Use the search bar above the table to help you!**
 
