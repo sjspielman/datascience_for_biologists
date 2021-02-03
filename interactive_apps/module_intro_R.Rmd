@@ -20,7 +20,7 @@ tutorial_options(exercise.lines = 6)
 
 <br><br>
   
-#### **See [here](http://htmlpreview.github.io/?https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/docs/tutorials/introduction_to_R.html) for the "Introduction to R tutorial"**
+#### **See [here](https://sjspielman.github.io/datascience_for_biologists/tutorials/introduction_to_R.html) for the "Introduction to R tutorial"**
   
 ## Set 1: Using R as a calculator
 
