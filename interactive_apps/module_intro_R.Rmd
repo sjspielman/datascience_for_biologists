@@ -367,8 +367,97 @@ class("7")
 
 
 
+## Set 4: Working with arrays
 
-## Set 4: Working with logical statements
+<br>
+
+##### Note: The terms "array" and "vector" both refer to the same thing and are used interchangeably, but a "list" is something else entirely! These exercises don't consider lists at all.
+
+
+<br>
+
+1. Define an array variable called `array_numbers` that contains the values 1, 2, 3, 4, and 5. Then, print the variable itself to make sure its contents look right.
+
+> Hint: Use the function `c()` ("combine") to define your array. In the template below, I provide code to make (but not save!) a small array with values 8, 9, and 10. Engage with this code and then adapt it to the question.
+
+> Hint 2: Spaces do NOT matter! For example, `c(8,9,10)` and `c(8, 9,   10)` are equivalent.
+
+ 
+```{r array_q1, exercise = TRUE}
+c(8, 9, 10)
+```         
+
+```{r array_q1-solution}
+array_numbers <- c(1, 2, 3, 4, 5)
+array_numbers
+```
+<br>
+
+2. Define an array variable called `array_numbers2` that again contains the values 1, 2, 3, 4, and 5, **but!** this time use a colon `:` instead of `c()`. Again, type the variable name itself to make sure its contents look right.
+     
+> Hint: In the template below, I provide code to make (but not save!) an array using the colon instead of the `c()` function. The array contains value 5,6,7 in order. Engage with this code and then adapt it to the question.
+
+        
+```{r array_q2, exercise = TRUE}
+5:7
+``` 
+```{r array_q2-solution}
+array_numbers2 <- 1:5
+array_numbers2
+```
+
+<br>
+
+
+3. Define an array variable called `even_numbers` that contains the values 2, 4, 6, 8, and 10 using the `c()` function.
+
+> The colon will not work here. The colon can only define an array with whole numbers in exact order.
+  
+```{r array_q3, exercise = TRUE}
+
+``` 
+```{r array_q3-solution}
+even_numbers <- c(2,4,6,8,10)
+even_numbers
+```
+
+
+<br>
+
+4. The function `length()` tells you how many items are in a given array. This function is analogous to the `nchar()` function we previously learned: Just like we use `nchar()` to ask how long a string is, we use `length()` to ask how long an array is. 
+
+Define an array with 5 numbers of your choosing (be brave!!), and use the function `length()` to determine how many values it contains.
+
+> Hint: First make sure (print print print!) that you are defining your array correctly. *Only once* you can see that the array is correct should you calculate its length. **Write your code one line at a time for success!!**
+
+> Hint 2: If you did the question correctly, the length should be 5!
+
+```{r array_q4, exercise = TRUE}
+
+```   
+```{r array_q4-solution}
+some_numbers <- c(10, 11, 2, 19, 6)
+length(some_numbers)
+```
+
+5. One place where R really shines is *vectorization* - it can perform an operation on *all items in a vector* at the same time! The code below multiplies every value in the array `example_array` by 5. Engage with and understand this code, and then modify the the code to instead divide every item in the array by 10.
+
+> Hint: When modifying the code be careful not to delete the definition of `example_array`.
+
+  
+```{r array_q7, exercise = TRUE}
+example_array <- c(5, 78, -3, 11, 6, 0)
+example_array * 5
+```     
+```{r array_q7-solution}
+example_array <- c(5, 78, -3, 11, 6, 0)
+example_array / 10
+```
+
+<br>
+
+
+## Set 5: Working with logical statements
 
 <br><br>
   
@@ -393,7 +482,7 @@ class("7")
 --> 
 <br>
 
-### Basic logical operations
+### Set 5.1: Basic logical operations
 
 1. Is 56 greater than 7?
 
@@ -471,11 +560,11 @@ class("7")
 
 ```
 ```{r logical_q7-solution}
-12^4 > 13^3
+12^4 < 13^3
 ```
 <br>
 
-### Compound logical statements
+### Set 5.2: Compound logical statements
 
 <br>
 
@@ -502,9 +591,9 @@ Statements with "and" will only evaluate as `TRUE` if BOTH conditions are `TRUE`
 
 Printing multiple things can be confusing - which line of code printed what value? In above circumstance, there are only two results printed, and two lines of code, so it's easy to see, but this won't last for long! Use `print()` statements to help guide you, as in:
 ```{r compound_logical-ex, exercise = TRUE}
-print("first comparison: 1==1 ?")
+print("first comparison: 1==1")
 1 == 1
-print("second comparison: 2!=2 ?")
+print("second comparison: 2!=2")
 2 != 2
 ```
 
@@ -545,7 +634,7 @@ print("second comparison: 2!=2 ?")
 <br>
 
 
-### Working with variables and logical statements
+### Set 5.3: Working with variables and logical statements
 
 <br>
 
@@ -554,9 +643,9 @@ For this section, you will perform logical comparisons on _variables_ rather tha
 The first example is templated for you. **Remember: Variables should always start with a letter can should only contain letters, numbers, and underscores.**
 
 
-1. Is 12 greater than -4?
+1. Is 12 greater than -4? **Again, this is templated for you. Engage with and run this code to understand what it's doing.**
   
-```{r logical_q11, exercise = TRUE}
+```{r logical_q11, exercise = TRUE, exercise.lines = 8}
 # First we define variables
 value1 <- 12
 value2 <- -4
@@ -564,14 +653,7 @@ value2 <- -4
 # Then we compare variables INSTEAD OF comparing values 12 and -4
 value1 > value2
 ``` 
-```{r logical_q11-solution}
-# First we define variables
-value1 <- 12
-value2 <- -4
 
-# Then we compare variables INSTEAD OF comparing values 12 and -4
-value1 > value2
-```
 <br>
 
 2. Is 7 is equal to 5.44?
@@ -609,12 +691,12 @@ comp1_val1 > comp1_val2 & comp2_val1 < comp2_val2
 <br>
 
 
-### Logical statements and functions
+### Set 5.4: Logical statements and functions
 
 
-In this section, you will continue practicing logical operations (asking if something is `TRUE` or `FALSE`) incorporating functions into your code. The first question is templated for you.
+In this section, you will continue practicing logical operations (asking if something is `TRUE` or `FALSE`) incorporating functions into your code. **The first question is templated for you.**
 
-1. Is the square root of 36 equal to 5? *Make sure to engage with this code and not just look at it!*
+1. Is the square root of 25 equal to 5? **Run and engage with this code as practice!**
 
 ```{r logical_fxn_1, exercise=TRUE}
 sqrt(25) == 5
@@ -626,17 +708,26 @@ value1 == value2
 ```
 <br>
 
-2. The function `nchar()` asks how many characters are in a string (how long is a string?). See this function in action below:
+2. The function `nchar()` asks how many characters are in a string (how long is a string?). See this function in action below. **Again, run and engage with this code below as practice!**
 
-```{r practice_nchar, exercise=TRUE}
+```{r practice_nchar, exercise=TRUE, exercise.lines = 10}
 nchar("hello")
 
 hello_phrase <- "hi there!" # there are 9 characters in this string including space and !
 # Note that the answer is 9 and NOT 12 (the number of characters in the variable)
 nchar(hello_phrase)
+
+# Does the number of characters equal 10? Nope!
+nchar(hello_phrase) ==  10
 ```
 
 Now, use this function as part of your code to answer: Does the string "blazing" have the same number of characters as "saddles"?
+
+> Hint: You want to compare `nchar("blazing")` to `nchar("saddles")` using a logical operator that asks if two things are equal: `==`. 
+>
+> Hint 2: Your code should print `TRUE` if done correctly (they both have 7 letters).
+>
+> Hint 3: Not a hint, but a suggestion to definitely watch this movie if you've never seen it.
 
 ```{r logical_fxn_2, exercise=TRUE}
 
@@ -656,7 +747,9 @@ nchar(blazing_str) == nchar(saddles_str)
 ```
 <br> 
 
-3. Assign the string value "data science" to a variable called `string1`, and assign the value "for biologists" to a variable called `string2`. Then, ask whether the number of characters in `string1` is greater than or equal to the number of characters in `string2`.
+3. Assign the string value "data science" to a variable called `string1`, and assign the value "for biologists" to a variable called `string2`. Then, ask whether the number of characters in `string1` is *greater than or equal to* the number of characters in `string2`.
+
+> Hint: This is very similar to the previous question, except you _must_ define variables, and you need to use a different logical operator.
 
 ```{r logical_fxn_3, exercise=TRUE}
 
@@ -668,33 +761,18 @@ nchar(string1) >= nchar(string2)
 ```
 <br>
 
-4. Let's combine our skills! Define a variable called `x` whose value is 7 (no quotes!). Then, determine its type with `class()`, but **save this output** to a new variable called `type_x`. Finally, use logical operators with this variable to ask: Is the type of the variable equal to "numeric"? Then ask, is the type of the variable equal to "character"?
   
-> Hint: Don't forget to use `==` when comparing equality of values. 
-
-> Hint 2: If you receive an error, it may be because you forgot to put quotes around "numeric". If you don't use quotes, R thinks you're referring to a variable called `numeric`, but no such variable exists! R doesn't want to use variables that don't exist, because....they don't exist. 
+  
+4. Is the natural log of 10 less than the natural log of 100 *and* is the natural log of 10 equal to 1.5?
+  
+  > Hint: the `log()` function calculates the natural log by default.
+  >
+  > Hint 2: Don't forget to use `&` for multiple comparisons!
 
 ```{r logical_fxn_4, exercise = TRUE}
 
 ```
 ```{r logical_fxn_4-solution}
-x <- 7
-type_x <- class(x)
-type_x == "numeric"
-type_x == "character"
-```
-<br>
-  
-  
-  
-5. Is the natural log of 10 less than the natural log of 100 *and* is the natural log of 10 equal to 1.5?
-  
-  > Hint: the `log()` function calculates the natural log by default
-
-```{r logical_fxn_5, exercise = TRUE}
-
-```
-```{r logical_fxn_5-solution}
 log(10) < log(100) & log(10) == 1.5
 
 # Or, with variables:
@@ -707,98 +785,24 @@ value1 < value2 & value1 == value3
 
 
 
+### Set 5.5: Logical operators and arrays
 
-
-
-## Set 5: Working with arrays
-
-<br>
-
-##### Note: The terms "array" and "vector" both refer to the same thing and are used interchangeably, but a "list" is something else entirely! These exercises don't consider lists at all.
-
-
-<br>
-
-1. Define an array variable called `array_numbers` that contains the values 1, 2, 3, 4, and 5. Then, print the variable itself to make sure its contents look right.
-
-> Hint: Use the function `c()` ("combine") to define your array. In the template below, I provide code to make (but not save!) a small array with values 8, 9, and 10. Engage with this code and then adapt it to the question.
-
-> Hint 2: Spaces do NOT matter! For example, `c(8,9,10)` and `c(8, 9,   10)` are equivalent.
-
- 
-```{r array_q1, exercise = TRUE}
-c(8, 9, 10)
-```         
-
-```{r array_q1-solution}
-array_numbers <- c(1, 2, 3, 4, 5)
-array_numbers
-```
-<br>
-
-2. Define an array variable called `array_numbers2` that again contains the values 1, 2, 3, 4, and 5, **but!** this time use a colon `:` instead of `c()`. Again, type the variable name itself to make sure its contents look right.
-     
-> Hint: In the template below, I provide code to make (but not save!) an array using the colon instead of the `c()` function. The array contains value 5,6,7 in order. Engage with this code and then adapt it to the question.
-
-        
-```{r array_q2, exercise = TRUE}
-5:7
-``` 
-```{r array_q2-solution}
-array_numbers2 <- 1:5
-array_numbers2
-```
-
-<br>
-
-
-3. Define an array variable called `even_numbers` that contains the values 2, 4, 6, 8, and 10 using the `c()` function.
-
-> The colon will not work here. The colon can only define an array with whole numbers in exact order.
-  
-```{r array_q3, exercise = TRUE}
-
-``` 
-```{r array_q3-solution}
-even_numbers <- c(2,4,6,8,10)
-even_numbers
-```
-
-
-<br>
-
-4. The function `length()` tells you how many items are in a given array. This function is analogous to the `nchar()` function we previously learned: Just like we use `nchar()` to ask how long a string is, we use `length()` to ask how long an array is. 
-
-Define an array with 5 numbers of your choosing (be brave!!), and use the function `length()` to determine how many values it contains.
-
-> Hint: First make sure (print print print!) that you are defining your array correctly. *Only once* you can see that the array is correct should you calculate its length. **Write your code one line at a time for success!!**
-
-> Hint 2: If you did the question correctly, the length should be 5!
-
-```{r array_q4, exercise = TRUE}
-
-```   
-```{r array_q4-solution}
-some_numbers <- c(10, 11, 2, 19, 6)
-length(some_numbers)
-```
-
-5. Modify the code from the previous question to use a *logical operator* to ask whether the length of your array equals 5. If done correctly, your answer should be `TRUE`.
+1. The code below defines an array. Use the function `length()` to determine the length of the array, *and then ask* using a logical operator if the length equal 5. If done correctly, your answer should be `FALSE`.
 
 
 ```{r array_q5, exercise = TRUE}
-
+multiples_of_11 <- c(11, 22, 33, 44, 55, 66)
 ```   
 ```{r array_q5-solution}
-some_numbers <- c(10, 11, 2, 19, 6)
-length(some_numbers) == 5
+multiples_of_11 <- c(11, 22, 33, 44, 55, 66)
+length(multiples_of_11) == 5
 ```
 
-6. Create another array with FOUR values, and this time make sure all the values are *strings* (each value should be surrounded by quotes). Use the function `length()` to ask how long the array is. *Then*, ask if the length of the array is equal to 7.
+2. Create an array yourself that contains with *FOUR* values, but this time make sure all the values are *strings* (each value should be surrounded by quotes). Similar to the previous question, use the function `length()` to ask how long the array is. *Then*, ask if the length of the array is equal to 4.
 
 > Hint: Even though each string in the array has multiple characters, each string comprises only one value in the overall array.
 >
-> Hint 2: The output for your logical comparison should be `FALSE` if done correctly.
+> Hint 2: The output for your logical comparison should be `TRUE` if done correctly.
 
 ```{r array_q6, exercise = TRUE}
 
@@ -806,32 +810,17 @@ length(some_numbers) == 5
 ```{r array_q6-solution}
 my_favorite_things <- c("raindrops on roses", "whiskers on kittens", "bright copper kettles", "warm_woolen_mittens")
 length(my_favorite_things)
-length(my_favorite_things) == 7
+length(my_favorite_things) == 4
 ```
 
 <br>
-
-7. One place where R really shines is *vectorization* - it can perform an operation on *all items in a vector* at the same time! The code below multiplies every value in the array `example_array` by 5. Engage with and understand this code, and then modify the the code to instead divide every item in the array by 10.
-
-> Hint: When modifying the code be careful not to delete the definition of `example_array`.
-
   
-```{r array_q7, exercise = TRUE}
-example_array <- c(5, 78, -3, 11, 6, 0)
-example_array * 5
-```     
-```{r array_q7-solution}
-example_array <- c(5, 78, -3, 11, 6, 0)
-example_array / 10
-```
-
-<br>
-
-8. We can also perform logical operations in a vectorized context. The code below asks if all values in `example_array` are greater than 0. Engage with and understand this code, and then modify the the code to instead ask if every item is **equal to 0** (again, be careful not to delete the `example_array` definition when modifying!).
+  
+3. We can also perform logical operations in a vectorized context. The code below asks if all values in `example_array` are greater than 0. Engage with and understand this code, and then modify the the code to instead ask if every item is **equal to 0** (again, be careful not to delete the `example_array` definition when modifying!).
 
 > Note: This type of output would be referred to as a *logical array* - it is an array of `TRUE` or `FALSE` values.
 
-  
+
 ```{r array_q8, exercise = TRUE}
 example_array <- c(5, 78, -3, 1, 6, 0)
 example_array > 0
@@ -843,9 +832,10 @@ example_array == 0
 ```
 <br>
 <br>
+  
 
 
-### Arrays and the new logical operator `%in%`
+### Set 5.6: Arrays and the new logical operator `%in%`
 
 <br>
 
@@ -911,6 +901,7 @@ many_numbers <- 50:500
 
 3. Consider the array defined below. Is the capital letter "W" in the array? *When answering this question*, SAVE the output from your comparison as a variable, and print that variable to see the answer.
 
+> Hint: Don't forget to write "W" with quotes! We are literally asking about the letter "W", not a variable `W`.
 
 ```{r array_logic_q3, exercise = TRUE}
 misc_letters <- c("F", "Z", "U", "t", "g", "b", "R", "O", "i", "P", "e", "o", "I", "q", "M", "N", "D", "m", "y", "s")
