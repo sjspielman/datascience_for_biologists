@@ -10,16 +10,6 @@ output:
     seal: false
 ---
 
-```{css, include=FALSE, echo=FALSE}
-.title-slide .bg-text{
-  position: absolute;
-  top: 45%;
-  left: 10%;
-  text-align: left;
-  color: #fff;
-}
-```
-
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
