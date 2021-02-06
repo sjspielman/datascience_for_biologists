@@ -36,24 +36,23 @@ blockquote{
 
 ## Instructions
 
-The goal of this assignment is to explore datasets and interpret the grammatical components of figures created for you from these datasets. You will NOT be submitting any code for this assignment! Instead, you will submit some brief interpretations for each of the five plots given below. However, you MUST use the `Homework #3 Datasets` Project in RStudio Cloud to explore the contents of these datasets in order to complete your answers. 
+The goal of this assignment is to explore datasets and interpret the grammatical components of figures created for you from two different datasets, described below. You will NOT be submitting any code for this assignment! Instead, you will submit some brief interpretations for each of the plots below. 
 
-In this cloud project, I have uploaded all datasets from which the plots have been created so that you can directly explore their contents, using functions like `head()`, `names()`, etc. to help you answer the questions.
-
+You will need to use the `Homework #3 Datasets` Project in RStudio Cloud to explore the contents of these datasets in order to complete your answers. In this cloud project, I have uploaded all datasets from which the plots have been created so that you can directly explore their contents, using functions like `head()`, `names()`, etc. to help you answer the questions.
 
 For each plot, answer all questions below in a SEPARATE and CLEARLY ORGANIZED document (with your name on top!) which you should save as a **PDF for submission on Canvas.** Note that bullet points are perfectly fine for your answers. In addition, there is an example plot with answers to guide you below.
 
-+ What type of plot is shown? Please use the [Types of Plots application](https://rowanbiosci.shinyapps.io/types_of_plots/) website to help you. (But note: there are _no sina plots_ shown here!)
++ What type of plot is shown? Please use the [Types of Plots application](https://rowanbiosci.shinyapps.io/types_of_plots/) website to help you. (But note: there are _no sina plots_ in this homework!)
 + Which dataset is the plot made from?
 + Which *variables* (ie, the *actual column names*) in the dataset are on the X and Y axis, if any? If an axis does NOT show a variable but instead contains a *statistical transformation* of the data, indicate that in your answer instead.
-  + For axes with actual variables (not transformations!), what *type* of variable is on each axis? Answer either numeric or categorical.
+  + For axes with actual variables (not transformations!), what *type* of variable is on each axis? Answer either *numeric or categorical* - you do not need to go more in-depth than that.
 + What visual features (including colors/fills, shapes of points, and/or sizes of points) are used to style the plot? Are these aesthetics that map to the data, or are they "just" visual features? For any aesthetic mappings, clearly indicate what variables (*actual column name*) are mapped to what visual feature. 
-+ Is there a trend line in the plot?
++ Is there a trend line in the plot (applies to scatterplots only)?
 + Does the plot contain *facets* across a variable (column), or is it shown in a single panel? If faceting is present, what variable (*actual column name*) is the faceting along?
-+ Provide at brief interpretation the plot. For example, what trends are (are not) apparent? What question about the data does the plot address, or not address?
++ Provide one brief interpretation the plot. For example, what trends are (are not) apparent? What question about the data does the plot address, or not address?
 
 
-> Tip: If you are itnerested in formatting your answers to emphasize variables in a different font, I recommend you use the font "Monaco" or "Menlo".
+> Tip: If you are itnerested in formatting your answers to emphasize variables in a different font, I recommend you use the font "Monaco" or "Menlo" (or any other fixed-width font).
 
 
 
@@ -210,3 +209,5 @@ ggplot(olives, aes(x = palmitic, y = oleic, color=region)) +
        y = "Oleic acid percentage") + 
   geom_smooth(method = "lm", color="black")
 ```
+
+<br><br><br>
