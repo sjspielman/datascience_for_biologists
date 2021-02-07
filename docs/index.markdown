@@ -30,9 +30,9 @@ T 2/2   | Introduction to R and RStudio, Part 1 | [Introduction to R tutorial](.
 W 2/3   | Introduction to R and RStudio, Part 2 | [Exercises: Introduction to R](https://rowanbiosci.shinyapps.io/intro_R/) | None
 R 2/4   | Introduction to R and RStudio, Part 3 | Live demonstration; no additional materials | None <br> **NOTE: Next Monday is the last day of late add/drop.**
 T 2/9   | Introduction to R and RStudio, Part 4 | [Exercises: Finish Introduction to R](https://rowanbiosci.shinyapps.io/intro_R/) | **Homework 2 due** on Canvas as an R script. [Link to instructions](./homeworks/hw2/hw2_instructions.html) 
-W 2/10  | The grammar of graphics, Part 1 | Slides TBD | None
-R 2/11  | The grammar of graphics, Part 2 | Slides TBD | None
-T 2/16  | Visualizing data with `ggplot2`, Part 1 | Slides TBD |  **Homework 3 due** on Canvas as a PDF file. <!--[Link to instructions](./homeworks/hw3/hw3_instructions.html--> <br> 
+W 2/10  | The grammar of graphics, Part 1 | [Slides](./slides/dataviz_style_slides.html) | None
+R 2/11  | The grammar of graphics, Part 2 | Finish slides from Wednesday | None
+T 2/16  | Visualizing data with `ggplot2`, Part 1 | Slides TBD |  **Homework 3 due** on Canvas as a PDF file. [Link to instructions](./homeworks/hw3/hw3_instructions.html) <br> 
 W 2/17  | Visualizing data with `ggplot2`, Part 2 | Exercises: Begin with Introduction to `ggplot2` | None
 R 2/18  | Visualizing data with `ggplot2`, Part 3 | Exercises: Complete with Introduction to `ggplot2` | None
 T 2/23  | File input/output | [Tutorial](./tutorials/readr_ggsave.html) | **Homework 4 due** on Canvas as an R script. <!--[Link to instructions](./homeworks/hw4/hw4_instructions.html)-->
