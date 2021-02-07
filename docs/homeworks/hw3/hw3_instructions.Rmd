@@ -40,7 +40,7 @@ The goal of this assignment is to explore datasets and interpret the grammatical
 
 You will need to use the `Homework #3 Datasets` Project in RStudio Cloud to explore the contents of these datasets in order to complete your answers. In this cloud project, I have uploaded all datasets from which the plots have been created so that you can directly explore their contents, using functions like `head()`, `names()`, etc. to help you answer the questions.
 
-For each plot, answer all questions below in a SEPARATE and CLEARLY ORGANIZED document (with your name on top!) which you should save as a **PDF for submission on Canvas.** Note that bullet points are perfectly fine for your answers. In addition, there is an example plot with answers to guide you below.
+For each plot, answer all questions below in a SEPARATE and CLEARLY ORGANIZED document (with your name on top!) which you should save as a **PDF for submission on Canvas.** Note that bullet points are perfectly fine for your answers. In addition, there is an example plot with answers to guide you below. 
 
 + What type of plot is shown? Please use the [Types of Plots application](https://rowanbiosci.shinyapps.io/types_of_plots/) website to help you. (But note: there are _no sina plots_ in this homework!)
 + Which dataset is the plot made from?
@@ -53,12 +53,22 @@ For each plot, answer all questions below in a SEPARATE and CLEARLY ORGANIZED do
 
 
 > Tip: If you are itnerested in formatting your answers to emphasize variables in a different font, I recommend you use the font "Monaco" or "Menlo" (or any other fixed-width font).
-
+>
+> Tip 2: Make sure you write dataset variables (column names) __precisely__ as they are in the dataset! Do not change capitalization, remove underscores, etc.
 
 
 ## The data
 
 All plots (except for the example) are made from one of two datasets, `wine` and `olives`. A description of each is below.
+
+Note that these datasets have been loaded for you into the HW3 RStudio Cloud Project. *If there is a problem* such that the datasets get deleted and you need to reload them, copy/paste this code into **the R _Console_**:
+
+```{r, eval=F, echo=T}
+source("load_data.R")
+```
+
+In theory, you will never need to run this code, but it is an option in case things go wrong.
+
 
 <br>
 
@@ -68,7 +78,6 @@ This dataset contains information from a chemical analysis of three different cu
 
 + `Cultivar`: The wine cultivar (A, B, or C)
 + `Alcohol`: The alcohol percentage of the wine
-+ `MalicAcid`: The percentage of the wine that is malic acid
 + `MalicAcid`: The percentage of the wine that is malic acid
 + `Ash`: The percentage of the wine that is ash (it's a wine thing...)
 + `Magnesium`: The percentage of the wine that is magnesium
@@ -81,13 +90,13 @@ This dataset contains information from a chemical analysis of three different cu
 
 #### The `olives` dataset
 
-This dataset contains information about 572 olives collected from different regions across Italy. The dataset contains information about: what `region` the olive is from, what smaller `area` within each region the is olive from, and the percentage of  percentages of different fatty acids in the olive's oil profile. 
+This dataset contains information about 572 olives collected from different regions across Italy. The dataset contains information about: what `region` the olive is from, what smaller `area` within each region the is olive from, and what percentages different fatty acids comprise in the olive's oil profile. 
 
 <br><br>
 
-## The plots 
+## The plots to explain:
 
-<br><br>
+<br>
 
 
 ### Example Plot
