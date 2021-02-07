@@ -101,9 +101,11 @@ This dataset contains information about 572 olives collected from different regi
 
 ### Example Plot
 
-> Please use the answers to this example guide you on how to interpret the other plots. Notice that when referring to variables, I literally refer to the relevant column name. 
+> Please use the answers to this example guide you on how to interpret the other plots. Notice that when referring to variables in the answer, I literally and precisely refer to the relevant column name. 
+>
+> **Moreover**, the example dataset `iris` is literally built into R, so you can simply type `iris` in any R Console to see the dataset and explore it with functions we have learned. **It is highly recommended** to first explore the `iris` dataset and ensure that you can independently interpret this plot and arrive at the same answers as are shown below. Doing this first will help you understand how to do the rest of the homework.
 
-This plot was created from the `iris` dataset, which is built into R. Please use the example answers from this plot as a guide. In this dataset, each row is an iris flower. The dataset contains five variables:
+This plot was created from the `iris` dataset. In this dataset, each row is an iris flower. The dataset contains five variables:
 
 + `Sepal.Width`, the iris' sepal width in cm
 + `Sepal.Length`, the iris' sepal length in cm
