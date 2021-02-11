@@ -61,13 +61,13 @@ For each plot, answer all questions below in a SEPARATE and CLEARLY ORGANIZED do
 
 All plots (except for the example) are made from one of two datasets, `wine` and `olives`. A description of each is below.
 
-Note that these datasets have been loaded for you into the HW3 RStudio Cloud Project. *If there is a problem* such that the datasets get deleted and you need to reload them, copy/paste this code into **the R _Console_**:
+**YOU MAY NEED TO USE THIS CODE FOR EACH R SESSION TO LOAD THE DATA:**
 
 ```{r, eval=F, echo=T}
 source("load_data.R")
 ```
 
-In theory, you will never need to run this code, but it is an option in case things go wrong.
+Simply copy and paste this into Console, and you will be able to interact with the `wine` and `olives` data frames. (Soon, we will learn exactly what the code in `load_data.R` script does to make this happen!)
 
 
 <br>
