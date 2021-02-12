@@ -3,11 +3,12 @@
 ## Your name: REPLACE LITERALLY THIS TEXT WITH YOUR NAME
 
 ## Load library --------------------------------------
-library(tidyverse)  # lets you use ggplot2 and forcats (among other things we will learn later!)
+library(tidyverse)  # Loads libraries like ggplot2 and forcats in one quick command (among other libraries we will learn later!)
 
 ## Load the data --------------------------------------
 
 # This code will define the data frame sparrows for you to use for plotting:
+# It is technically one line of code, but written across multiple lines for clarity, just like we write ggplot2 code on multiple lines.
 sparrows <- readr::read_csv("data/sparrows.csv", 
   col_types = list(Age = col_factor(),
                    Survival = col_factor(),
