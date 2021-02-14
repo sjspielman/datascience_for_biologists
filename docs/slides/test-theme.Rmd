@@ -1,0 +1,28 @@
+---
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [default, my_chocolate.css, chocolate-fonts]
+    nature:
+      highlightStyle:  rainbow
+      highlightLines: true
+      countIncrementalSlides: false
+    seal: false
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(fig.width=6, fig.height=4)
+library(xaringan)
+library(tidyverse) 
+```
+
+
+```{r}
+msleep  %>% #<<
+  mutate(x=5) %>%
+  select(name) #<<
+```

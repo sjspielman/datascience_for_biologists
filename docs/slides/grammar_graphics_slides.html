@@ -61,18 +61,18 @@ msleep_subvore
 
 ```
 ## # A tibble: 46 x 5
-##    name                       vore  awake brainwt  bodywt
-##    &lt;chr&gt;                      &lt;fct&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
-##  1 Owl monkey                 omni    7   0.0155    0.48 
-##  2 Greater short-tailed shrew omni    9.1 0.00029   0.019
-##  3 Cow                        herbi  20   0.423   600    
-##  4 Dog                        carni  13.9 0.07     14    
-##  5 Roe deer                   herbi  21   0.0982   14.8  
-##  6 Goat                       herbi  18.7 0.115    33.5  
-##  7 Guinea pig                 herbi  14.6 0.0055    0.728
-##  8 Chinchilla                 herbi  11.5 0.0064    0.42 
-##  9 Star-nosed mole            omni   13.7 0.001     0.06 
-## 10 African giant pouched rat  omni   15.7 0.0066    1    
+##    name               vore  awake brainwt  bodywt
+##    &lt;chr&gt;              &lt;fct&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+##  1 Owl monkey         omni    7   0.0155    0.48 
+##  2 Greater short-tai… omni    9.1 0.00029   0.019
+##  3 Cow                herbi  20   0.423   600    
+##  4 Dog                carni  13.9 0.07     14    
+##  5 Roe deer           herbi  21   0.0982   14.8  
+##  6 Goat               herbi  18.7 0.115    33.5  
+##  7 Guinea pig         herbi  14.6 0.0055    0.728
+##  8 Chinchilla         herbi  11.5 0.0064    0.42 
+##  9 Star-nosed mole    omni   13.7 0.001     0.06 
+## 10 African giant pou… omni   15.7 0.0066    1    
 ## # … with 36 more rows
 ```
 
@@ -86,20 +86,20 @@ summary(msleep_subvore)
 ```
 
 ```
-##      name              vore        awake          brainwt        
-##  Length:46          carni: 9   Min.   : 6.00   Min.   :0.000140  
-##  Class :character   herbi:20   1st Qu.:11.50   1st Qu.:0.005125  
-##  Mode  :character   omni :17   Median :14.25   Median :0.016500  
-##                                Mean   :14.39   Mean   :0.339623  
-##                                3rd Qu.:17.70   3rd Qu.:0.173500  
-##                                Max.   :21.10   Max.   :5.712000  
-##      bodywt        
-##  Min.   :   0.005  
-##  1st Qu.:   0.542  
-##  Median :   2.788  
-##  Mean   : 245.575  
-##  3rd Qu.:  47.525  
-##  Max.   :6654.000
+##      name              vore        awake      
+##  Length:46          carni: 9   Min.   : 6.00  
+##  Class :character   herbi:20   1st Qu.:11.50  
+##  Mode  :character   omni :17   Median :14.25  
+##                                Mean   :14.39  
+##                                3rd Qu.:17.70  
+##                                Max.   :21.10  
+##     brainwt             bodywt        
+##  Min.   :0.000140   Min.   :   0.005  
+##  1st Qu.:0.005125   1st Qu.:   0.542  
+##  Median :0.016500   Median :   2.788  
+##  Mean   :0.339623   Mean   : 245.575  
+##  3rd Qu.:0.173500   3rd Qu.:  47.525  
+##  Max.   :5.712000   Max.   :6654.000
 ```
 
 ---
@@ -110,29 +110,52 @@ unique(msleep_subvore$name)
 ```
 
 ```
-##  [1] "Owl monkey"                     "Greater short-tailed shrew"    
-##  [3] "Cow"                            "Dog"                           
-##  [5] "Roe deer"                       "Goat"                          
-##  [7] "Guinea pig"                     "Chinchilla"                    
-##  [9] "Star-nosed mole"                "African giant pouched rat"     
-## [11] "Lesser short-tailed shrew"      "Long-nosed armadillo"          
-## [13] "Tree hyrax"                     "North American Opossum"        
-## [15] "Asian elephant"                 "Horse"                         
-## [17] "Donkey"                         "European hedgehog"             
-## [19] "Patas monkey"                   "Domestic cat"                  
-## [21] "Galago"                         "Gray seal"                     
-## [23] "Gray hyrax"                     "Human"                         
-## [25] "African elephant"               "Macaque"                       
-## [27] "Golden hamster"                 "House mouse"                   
-## [29] "Slow loris"                     "Rabbit"                        
-## [31] "Sheep"                          "Chimpanzee"                    
-## [33] "Jaguar"                         "Baboon"                        
-## [35] "Laboratory rat"                 "Squirrel monkey"               
-## [37] "Cotton rat"                     "Arctic ground squirrel"        
-## [39] "Thirteen-lined ground squirrel" "Pig"                           
-## [41] "Brazilian tapir"                "Tenrec"                        
-## [43] "Tree shrew"                     "Genet"                         
-## [45] "Arctic fox"                     "Red fox"
+##  [1] "Owl monkey"                    
+##  [2] "Greater short-tailed shrew"    
+##  [3] "Cow"                           
+##  [4] "Dog"                           
+##  [5] "Roe deer"                      
+##  [6] "Goat"                          
+##  [7] "Guinea pig"                    
+##  [8] "Chinchilla"                    
+##  [9] "Star-nosed mole"               
+## [10] "African giant pouched rat"     
+## [11] "Lesser short-tailed shrew"     
+## [12] "Long-nosed armadillo"          
+## [13] "Tree hyrax"                    
+## [14] "North American Opossum"        
+## [15] "Asian elephant"                
+## [16] "Horse"                         
+## [17] "Donkey"                        
+## [18] "European hedgehog"             
+## [19] "Patas monkey"                  
+## [20] "Domestic cat"                  
+## [21] "Galago"                        
+## [22] "Gray seal"                     
+## [23] "Gray hyrax"                    
+## [24] "Human"                         
+## [25] "African elephant"              
+## [26] "Macaque"                       
+## [27] "Golden hamster"                
+## [28] "House mouse"                   
+## [29] "Slow loris"                    
+## [30] "Rabbit"                        
+## [31] "Sheep"                         
+## [32] "Chimpanzee"                    
+## [33] "Jaguar"                        
+## [34] "Baboon"                        
+## [35] "Laboratory rat"                
+## [36] "Squirrel monkey"               
+## [37] "Cotton rat"                    
+## [38] "Arctic ground squirrel"        
+## [39] "Thirteen-lined ground squirrel"
+## [40] "Pig"                           
+## [41] "Brazilian tapir"               
+## [42] "Tenrec"                        
+## [43] "Tree shrew"                    
+## [44] "Genet"                         
+## [45] "Arctic fox"                    
+## [46] "Red fox"
 ```
 
 ---
