@@ -1,0 +1,132 @@
+---
+title: "Homework #5: Due 2/23/21 as an R Script to Canvas"
+author: "Data Science for Biologists, Spring 2021"
+date: "Dr. Spielman"
+output: 
+  html_document:
+    theme: journal
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message=FALSE, fig.width = 7, fig.height=4)
+```
+
+```{css, echo=F}
+blockquote{
+  margin-left: 25px;
+  font-size: 1em;
+}
+```
+
+
+## Instructions
+
+For this assignment, you will be formulating your own exploratory analysis questions about FIVE different datasets (one question per dataset), using the `hw5_template.R` script in the Homework #5 RStudio Cloud Project. The datasets are stored as CSV files in the folder `hw5_datasets/` in this RStudio Cloud Project. *Please be careful never to directly open these files - you should only interact with them by using code to read them into R!*
+
+First, as is templated, you will need to read in all of the datasets and save them to variables, using the `read_csv()` function from the `{readr}` package for this step, and using all your new fancy path knowledge! Then, for each dataset:
+
++ Ask a single *exploratory/scientific question* about the dataset. Your question can be about *anything at all* you want to explore in the dataset, and it does not specifically need to have to do with the "purpose" of the dataset. But, it must be a question! It cannot be phrased a task ("make a histogram of that variable" is not a question; it's a task).
+  + For example, there is a dataset in this homework about characteristics of urine samples for individuals with and without kidney stones. You do not have to ask a question that is about differences between individuals with and without kidney stones - you can ask whatever you want about any of the variables you choose.
++ Use `ggplot2` to create a figure *of your choosing and styling* that addresses the question. Each plot should be saved to an output folder called `figures/`. 
+  + Plot files should be named as `<dataset>_figure.png` (e.g., `abalone_figure.png`). *Please name your files PRECISELY!*
+  + You must use `ggsave()` correctly [as described in this reference](https://sjspielman.github.io/datascience_for_biologists/tutorials/readr_ggsave.html) for full credit.
+  + You do *NOT* need to upload your saved figures as part of the submission. Your code just needs to save the plots properly. If your code works properly, it will create these figure files when I run the code.
++ In 1-2 sentences written as comments, answer the question you asked. Interpretations that do not address your question will be considered unanswered.
+  + *As is templated for you*, the question/answer comments should be ABOVE your plotting code.
++ **HUGE HINT!!** One way to think about this assignment is that you could first make some figures of the dataset (play around, move fast, break things, and plot stuff!). Once you have a figure you like, figure out: What does this figure tell me about the data, and how can I phrase that in the form of a question? "Reverse engineering" exploratory data analysis like this when you are first starting out is a great way to get comfortable exploring datasets.
+
+
+### Rules for plotting
+
++ There is no requirement to make certain types of plots. You are not specifically required to make a different plot for each question. There will be no deductions for repeated plots/geoms. 
++ You should make the type of plot that, in your opinion, is able to address your exploratory/scientific question. There will be deductions if your plot is not at all related to your question. 
+  + For example, considering the `iris` dataset, a scatterplot showing the relationship between sepal width and sepal length does *not* address the question, "How many of each species are in the dataset?" (even if the points are colored by species!!!).
++ You **MUST** use a non-default theme (as in, do not use `theme_gray()`) for each plot you make. [Here is the resource for themes](https://sjspielman.github.io/datascience_for_biologists/tutorials/themes.html). The purpose of this instruction is for you to practice customizing your plot themes and to develop your own personal dataviz style. There are several ways to accomplish non-default themes:
+  + Set a different theme for each plot
+  + Set a different theme with `theme_set()` for your entire script
+  + Use `theme_gray()`, but customize certain theme elements
++ When saving your plots, you MUST ensure that they have an appropriate aspect ratio. All text should be fully legible at a reasonable size, and the figure should not appear "stretched" or "squished." *This will almost certainly require some trial and error when specifying the width and height of the output figure.* Specifically, you may find that you need to *customize* certain theme aspects (like axis text size), or you may find that resizing the size of the output file is sufficient to achieve a professional look. 
++ If you specify a color or fill aesthetic, you MUST specify a non-default color scale. [Here is the resource for color scales](https://sjspielman.github.io/datascience_for_biologists/tutorials/color_fill_scales.html). Again, the purpose of this instruction is for you to practice customizing your colors to develop your own personal dataviz style.
++ Ensure professional axis labels. You do not need to include a title/subtitle/caption for any figure, but you may if you want to.
+
+
+
+### Additional instructions for success:
+
++ You will not receive any credit for answers without corresponding code that produces those answers.
++ Make sure your code runs WITHOUT an errors before submitting. *A 10% penalty is automatically applied for submissions with bugs that lead to errors.*
+  + If there are errors in your code, you should *comment out* the code so that it does not actually run. This is **BETTER** than allowing buggy code to run - it shows me you attempted the code, but understood that it didn't work properly. If you leave buggy code in the script without commenting it out, there will be deductions.
++ Make sure you are commenting out any code that does not specifically contribute to the homework. For example, `View()` should never be in scripts. Similar, while exploring a dataset with functions like `head()`, `names()`, or `str()` is completely and entirely necessary for completing this assignment, the code you use to do so is not specifically part of the plots you make. Therefore, either run those commands directly in Console, or comment them out in your final script.
++ **As always, you are encouraged to work together and use the class Slack to help each other out, but you must submit YOUR OWN CODE.** 
++ Take this assignment seriously - your final project will be _doing exactly this_ on a dataset of your choosing! Of course there are a few more components (including learning the rest of the class materials!), but this is the gist. Lessons you learn doing this assignment will begin to prepare you for independent data analysis on the final project.
+
+<br>
+
+## The datasets
+
+<br> 
+
+#### Dataset 1: `pima.csv`
+
+This dataset contains physical measurements from Pima Indian women from the American southwest. This population has been heavily studied by epidemiologists since they tend to have high levels of Type II Diabetes. Variables include:
+
++ `pregnancies` : number of times the woman has been pregnant
++ `glucose` : plasma glucose concentration at 2 hours in an oral glucose tolerance test (units: mg/dL) 
++ `pb` : diastolic blood pressure (units: mm Hg)
++ `skin_thickness` : triceps skin-fold thickness (units: mm)
++ `insulin` : 2-hour serum insulin level (units: μU/mL)
++ `bmi` : Body Mass Index
++ `age` : age in years
++ `diabetic` : whether or not the individual has diabetes
+
+<br>
+
+#### Dataset 2: `urine.csv`
+
+
+This dataset contains urinalysis measurements (don’t worry about units) from 78 men, indicating whether traces of kidney stones (aka "crystal") were detected their urine samples. Variables include:
+
+`crystal` : Whether calcium oxalate crystals (kidney stones) were detected
+`gravity` : The specific gravity of the urine
+`ph` : The pH of the urine
+`osmo` : The osmolarity of the urine. Osmolarity is proportional to the concentration of molecules in solution. 
+`conduct` : The conductivity of the urine. Conductivity is proportional to the concentration of charged ions in
+solution.
+`urea` : The urea concentration in millimoles per liter calcium : The calcium concentration in millimoles per liter
+
+<br>
+
+#### Dataset 3: `bodyfat.csv`
+
+This dataset contains various physical measurements from 250 adult males. Variables include:
+
++ `Percent`: The individual's body fat percentage
++ `Age`: The individual's age in years
++ `Weight`: Measured in pounds
++ `Height`: Measured in inches
++ All other variables are circumference of the named body part, measured in cm
+
+<br>
+
+#### Dataset 4: `biopsy.csv`
+
+This dataset contains biopsy measurements obtained from breast cancer biopsy samples at the University of Wisconsin Hospitals, Madison. Each of nine attributes about the tumor were scored on a scale of 1-10, and the `outcome` column indicates whether the tumor was benign or malignant. 
+
+<br>
+
+
+#### Dataset 5: `wine.csv`
+
+This (familiar!) dataset contains information from a chemical analysis of three different cultivars (A, B, and C) of wine, including alcohol percentage and amounts of different chemical components. Variables include:
+
++ `Cultivar`: The wine cultivar (A, B, or C)
++ `Alcohol`: The alcohol percentage of the wine
++ `MalicAcid`: The percentage of the wine that is malic acid
++ `Ash`: The percentage of the wine that is ash (it's a wine thing...)
++ `Magnesium`: The percentage of the wine that is magnesium
++ `TotalPhenol`: The percentage of the wine that is phenols
++ `Flavanoids`: The percentage of the wine that is flavanoids
++ `NonflavPhenols`: The percentage of the wine that is non-flavanoid phenols
++ `Color`: The color intensity of the wine, measured numerically
