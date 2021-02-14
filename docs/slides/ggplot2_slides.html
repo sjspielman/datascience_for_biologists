@@ -25,9 +25,81 @@ background-size: contain
 ## Data Science for Biologists
 
 &lt;hr /&gt;
-**Rhino jawn from Naman**
+&lt;br&gt;&lt;br&gt;
+**Rhino jawn from Naman Srivastava**
 ]
 
+
+
+---
+
+# Using R libraries/packages
+
+1. **Install** the library/package one time.
+
+
+```r
+install.packages("nameoflib")
+```
+
+2. **Load** the library/package for *each R session or script* where you want to use it.
+
+
+```r
+library(nameoflib)
+```
+
+&lt;br&gt;&lt;br&gt;
+
+**All packages you _need_ have been installed for you in RStudio Cloud Projects inside the Class Workspace.** You have to install them yourself in your Personal Workspace.
+
+---
+
+# We are using the `tidyverse` packages
+
+.extra-large[
+https://www.tidyverse.org/
+]
+---
+
+# Loading the core tidyverse once installed:
+
+
+
+
+
+
+```r
+#library(tidyverse)  &lt;-- without quotes also works here 
+library("tidyverse") 
+```
+
+```
+## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──
+```
+
+```
+## ✓ tibble  3.0.4     ✓ dplyr   1.0.2
+## ✓ tidyr   1.1.2     ✓ stringr 1.4.0
+## ✓ readr   1.4.0     ✓ forcats 0.5.0
+## ✓ purrr   0.3.4
+```
+
+```
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+```
+
+### If you don't load your package, you can't use its functions
+
+&gt; Ok, only kind of. We'll talk more about this later!
+
+
+Example of an error:
+```
+Error in ggplot() : could not find function "ggplot"
+```
 
 ---
 
@@ -119,7 +191,7 @@ summary(msleep_smol)
 ggplot(msleep_smol)
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -131,7 +203,7 @@ ggplot(msleep_smol) +
   aes(x = brainwt, y = bodywt)
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
 
 ### `aes()`   _MAPS_   columns (variables!) onto the plot.
 ---
@@ -165,7 +237,7 @@ ggplot(msleep_smol) +
 * geom_point()
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -176,10 +248,10 @@ ggplot(msleep_smol) +
 ```r
 ggplot(msleep_smol) + 
   aes(x = brainwt, y = bodywt) + 
-* geom_point(color = "cadetblue")
+* geom_point(color = "firebrick")
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -189,10 +261,10 @@ ggplot(msleep_smol) +
 ```r
 ggplot(msleep_smol) + 
   aes(x = brainwt, y = bodywt) + 
-* geom_point(color = "cadetblue", size = 3)
+* geom_point(color = "firebrick", size = 3)
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -202,12 +274,12 @@ ggplot(msleep_smol) +
 ```r
 sleep_scatter &lt;- ggplot(msleep_smol) + 
   aes(x = brainwt, y = bodywt) + 
-  geom_point(color = "cadetblue", size = 3) 
+  geom_point(color = "firebrick", size = 3) 
 
 print(sleep_scatter)
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -217,12 +289,12 @@ print(sleep_scatter)
 ```r
 ggplot(msleep_smol) + 
   aes(x = brainwt, y = bodywt) + 
-  geom_point(color = "cadetblue", size = 3) -&gt; sleep_scatter 
+  geom_point(color = "firebrick", size = 3) -&gt; sleep_scatter 
 
 print(sleep_scatter)
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -232,7 +304,7 @@ print(sleep_scatter)
 ```r
 ggplot(msleep_smol) + 
   aes(x = brainwt, y = bodywt) + 
-  geom_point(color = "cadetblue", size = 3) 
+  geom_point(color = "firebrick", size = 3) 
 ```
 
 
@@ -241,14 +313,17 @@ ggplot(msleep_smol) +
   aes(x = brainwt, y = bodywt) -&gt; sleep_xy
 
 sleep_xy + 
-  geom_point(color = "cadetblue", size = 3)
+  geom_point(color = "firebrick", size = 3)
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
 
 ---
 
 # Quick tangent: The plot theme
+
+
+
 
 &gt; The default theme is `theme_gray()` (`theme_grey()`)
 
@@ -258,13 +333,13 @@ sleep_xy +
 sleep_scatter
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
 
 ```r
 sleep_scatter + theme_classic()
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-14-2.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-18-2.png)&lt;!-- --&gt;
 ]
 
 .pull-left[
@@ -273,13 +348,13 @@ sleep_scatter + theme_classic()
 sleep_scatter + theme_dark()
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
 
 ```r
 sleep_scatter + theme_minimal()
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-15-2.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-19-2.png)&lt;!-- --&gt;
 ]
 
 
@@ -295,20 +370,21 @@ ggplot(msleep_smol) +
 * theme_bw()
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
 
 ---
 
 # Setting a theme for _all plots_
 
 
-All plots created _after_ this line is run will use `theme_classic()`. All remaining plots in the slides will now use this theme as the _new default.
+All plots created _after_ this line is run will use `theme_classic()`. All remaining plots in the slides will now use this theme as the new default.
 &lt;br&gt;&lt;br&gt;
 
 
 ```r
 theme_set(theme_classic())
 ```
+
 
 
 ---
@@ -332,7 +408,7 @@ theme_set(theme_classic())
 ggplot(msleep_smol)
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -344,7 +420,7 @@ ggplot(msleep_smol) +
 * aes(x = awake)
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -361,7 +437,7 @@ ggplot(msleep_smol) +
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -374,7 +450,7 @@ ggplot(msleep_smol) +
 * geom_histogram(bins = 10)
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
 
 ### Use the argument `bins` to specify literally how many bins there should be
 ---
@@ -389,7 +465,7 @@ ggplot(msleep_smol) +
 * geom_histogram(binwidth = 2)
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
 
 ### OR, use the argument `binwidth` to specify how wide the bins should be along the X-axis
 ---
@@ -404,7 +480,7 @@ ggplot(msleep_smol) +
 * geom_histogram(bins = 2)
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
 ]
 
 .pull-right[
@@ -415,7 +491,7 @@ ggplot(msleep_smol) +
 * geom_histogram(bins = 30)
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-29-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -426,10 +502,10 @@ ggplot(msleep_smol) +
 ```r
 ggplot(msleep_smol) + 
   aes(x = awake) + 
-* geom_histogram(binwidth = 2, color = "blue")
+* geom_histogram(binwidth = 2, color = "dodgerblue")
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-30-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -441,12 +517,12 @@ ggplot(msleep_smol) +
 ggplot(msleep_smol) + 
   aes(x = awake) + 
 * geom_histogram(binwidth = 2,
-*                color = "blue")
+*                color = "dodgerblue")
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-31-1.png)&lt;!-- --&gt;
 
-### When code gets long, separate onto multiple lines for clarity. TRUST ME.
+### When code gets long, separate onto multiple lines for clarity. _YOU WILL BE GRADED ON THIS!!!!_
 ---
 
 # Histograms in `ggplot2`
@@ -456,11 +532,11 @@ ggplot(msleep_smol) +
 ggplot(msleep_smol) + 
   aes(x = awake) + 
   geom_histogram(binwidth = 2,   
-                 color = "blue",
+                 color = "dodgerblue",
 *                fill = "orange")
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -471,17 +547,17 @@ ggplot(msleep_smol) +
 ggplot(msleep_smol) + 
   aes(x = awake) + 
   geom_histogram(binwidth = 2,   
-                 color = "blue",
+                 color = "dodgerblue",
                  fill = "orange",
 *                size = 3)
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
-
-### This is _pretty ugly_, but now you've learned about `size`!
+![](ggplot2_slides_files/figure-html/unnamed-chunk-33-1.png)&lt;!-- --&gt;
+&lt;br&gt;
+**This is _pretty ugly_, but now you've learned about `size`!**
 ---
 
-# Histograms in `ggplot2`
+# COMMENT COMMENT COMMENT COMMENT
 
 
 ```r
@@ -490,17 +566,14 @@ ggplot(msleep_smol) +
   aes(x = awake) + 
   geom_histogram(binwidth = 2, # use binwidth of 2  
                  # outline the histogram in blue
-                 color = "blue", 
+                 color = "dodgerblue", 
                  # fill the bars with orange 
                  fill = "orange", 
                  # increase width of histogram lines    
                  size = 3)   
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-29-1.png)&lt;!-- --&gt;
-
-### COMMENT COMMENT COMMENT!!!
-
+![](ggplot2_slides_files/figure-html/unnamed-chunk-34-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -524,7 +597,7 @@ ggplot(msleep_smol) +
 * geom_density()
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-30-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-35-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -534,12 +607,12 @@ ggplot(msleep_smol) +
 ```r
 ggplot(msleep_smol) + 
   aes(x = awake) + 
-* geom_density(fill = "goldenrod1",
-*              color = "navy",
-*              size = 2)
+* geom_density(fill = "cornflowerblue",
+*              color = "chartreuse",
+*              size = 4)
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-31-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-36-1.png)&lt;!-- --&gt;
 
 ### Again, kinda ugly, but look how easy that was to make!!
 
@@ -563,7 +636,7 @@ ggplot(msleep_smol) +
   geom_density()
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-37-1.png)&lt;!-- --&gt;
 
 ### We need to make the density plots _transparent_.
 ---
@@ -578,7 +651,7 @@ ggplot(msleep_smol) +
 * geom_density(alpha = 0.5)
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-33-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-38-1.png)&lt;!-- --&gt;
 
 + `alpha` is NOT a variable, so it does NOT belong in `aes()`. It is a visual aspect of the *density plot*, so we provide the argument to `geom_density()`
   + `alpha = 1`: Completely transparent. 
@@ -598,7 +671,7 @@ ggplot(msleep_smol) +
   geom_density(alpha = 0.5) 
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-34-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-39-1.png)&lt;!-- --&gt;
 
 ### We will learn how to customize these colors next week
 
@@ -622,7 +695,7 @@ ggplot(msleep_smol) +
 * aes(x = vore, y = awake)
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-35-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-40-1.png)&lt;!-- --&gt;
 ---
 
 
@@ -636,7 +709,7 @@ ggplot(msleep_smol) +
 * geom_boxplot()
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-36-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-41-1.png)&lt;!-- --&gt;
 ---
 
 # Boxplots in `ggplot2`
@@ -646,11 +719,11 @@ ggplot(msleep_smol) +
 ```r
 ggplot(msleep_smol) + 
   aes(x = vore, y = awake) +
-* geom_boxplot(color = "hotpink",
-*              fill  = "aquamarine2")
+* geom_boxplot(color = "deeppink",
+*              fill  = "goldenrod1")
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-37-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-42-1.png)&lt;!-- --&gt;
 --
 
 ### What if we want a separate fill _for each vore_?
@@ -667,7 +740,7 @@ ggplot(msleep_smol) +
   geom_boxplot()
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-38-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-43-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -682,7 +755,7 @@ ggplot(msleep_smol) +
 * geom_violin()
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-39-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-44-1.png)&lt;!-- --&gt;
 ]
 
 .pull-right[
@@ -695,7 +768,7 @@ ggplot(msleep_smol) +
   geom_violin() 
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-40-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-45-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -706,11 +779,12 @@ ggplot(msleep_smol) +
 
 ```r
 ggplot(msleep_smol) + 
-  aes(x = vore, y = awake) +  
-* geom_jitter()
+  aes(x = vore, y = awake) +
+  # size = 2 to see more easily in slides
+* geom_jitter(size = 2)
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-41-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-46-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -721,10 +795,11 @@ ggplot(msleep_smol) +
 ```r
 ggplot(msleep_smol) + 
   aes(x = vore, y = awake) +  
-* geom_jitter(width = 0.2)
+* geom_jitter(width = 0.2,
+              size  = 2)
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-42-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-47-1.png)&lt;!-- --&gt;
 
 ### Usually need to pick a width between 0.1 - 0.3, *in my opinion*
 
@@ -738,12 +813,12 @@ ggplot(msleep_smol) +
   aes(x = vore, 
       y = awake, 
 *     color = vore) +
-  geom_jitter(width = 0.2) 
+  geom_jitter(width = 0.2, size = 2) 
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-43-1.png)&lt;!-- --&gt;
-
-### Did you notice the points were a little different each plot version?
+![](ggplot2_slides_files/figure-html/unnamed-chunk-48-1.png)&lt;!-- --&gt;
+&lt;br&gt;
+**Did you notice the points were placed little differently each plot version?**
 ---
 
 
@@ -766,7 +841,7 @@ ggplot(msleep_smol) +
 * geom_bar()
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-44-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-49-1.png)&lt;!-- --&gt;
 
 ---
 # Barplots in `ggplot2`
@@ -775,12 +850,25 @@ ggplot(msleep_smol) +
 ```r
 ggplot(msleep_smol) +
   aes(x = vore) + 
-* geom_bar(fill = "blueviolet",
-*          color = "black")
+* geom_bar(fill = "blueviolet")
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-45-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-50-1.png)&lt;!-- --&gt;
 ---
+# Barplots in `ggplot2`
+
+
+```r
+ggplot(msleep_smol) +
+  aes(x = vore) + 
+* geom_bar(fill = "blueviolet",
+*          color = "black", size = 2)
+```
+
+![](ggplot2_slides_files/figure-html/unnamed-chunk-51-1.png)&lt;!-- --&gt;
+---
+
+
 
 # Barplots in `ggplot2`
 
@@ -792,7 +880,7 @@ ggplot(msleep_smol) +
   geom_bar() 
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-46-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-52-1.png)&lt;!-- --&gt;
 ---
 
 # Barplots in `ggplot2`
@@ -805,7 +893,7 @@ ggplot(msleep_smol) +
 * geom_bar(color = "black")
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-47-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-53-1.png)&lt;!-- --&gt;
 ---
 
 # Barplots in `ggplot2`
@@ -818,7 +906,7 @@ ggplot(msleep_smol) +
   geom_bar() 
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-48-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-54-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -832,7 +920,7 @@ ggplot(msleep_smol) +
 * geom_bar(position = position_dodge())
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-49-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-55-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -846,7 +934,7 @@ ggplot(msleep_smol) +
 * geom_bar(position = position_dodge(preserve="single"))
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-50-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-56-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -861,7 +949,7 @@ ggplot(msleep_smol) +
   geom_bar() 
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-51-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-57-1.png)&lt;!-- --&gt;
 ]
 
 .pull-right[
@@ -873,7 +961,7 @@ ggplot(msleep_smol) +
   geom_bar() 
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-52-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-58-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -888,7 +976,7 @@ ggplot(msleep_smol) +
   geom_bar() 
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-53-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-59-1.png)&lt;!-- --&gt;
 
 ### My first impression of this plot is _feeling overwhelmed_. 
 
@@ -903,14 +991,14 @@ ggplot(msleep_smol) +
 ggplot(msleep_smol) +
   aes(x = vore) +  
   geom_bar()  + 
-  labs(x = "X-axis label",
-       y = "Y-axis label",
-       title = "Plot title",
-       subtitle = "In case you wanted a subtitle",
-       caption = "Would you like a caption?")
+* labs(x = "X-axis label",
+*      y = "Y-axis label",
+*      title = "Plot title",
+*      subtitle = "In case you wanted a subtitle",
+*      caption = "Would you like a caption?")
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-54-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-60-1.png)&lt;!-- --&gt;
 
 Always make sure your x and y axes are professionally labeled (*no underscores!*). Title, subtitle, caption are optional to include.
 
@@ -918,11 +1006,16 @@ Always make sure your x and y axes are professionally labeled (*no underscores!*
 
 # Plots we can make!
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-55-1.png)&lt;!-- --&gt;![](ggplot2_slides_files/figure-html/unnamed-chunk-55-2.png)&lt;!-- --&gt;
+
+
+![](ggplot2_slides_files/figure-html/unnamed-chunk-62-1.png)&lt;!-- --&gt;![](ggplot2_slides_files/figure-html/unnamed-chunk-62-2.png)&lt;!-- --&gt;
 
 ---
 
+
 # Adding panels ("facets") to plots
+
+
 
 
 ```r
@@ -932,7 +1025,7 @@ ggplot(msleep_smol, aes(x = awake)) +
                  fill = "firebrick2")
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-56-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-64-1.png)&lt;!-- --&gt;
 
 ### What if we want a separate histogram for each `vore`?
 
@@ -947,7 +1040,7 @@ ggplot(msleep_smol, aes(x = awake, fill = vore)) +
                  color = "black")
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-57-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-65-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -962,13 +1055,14 @@ ggplot(msleep_smol, aes(x = awake)) +
 * facet_wrap( vars(vore) )
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-58-1.png)&lt;!-- --&gt;
-
-### Faceting is the ONLY TIME we do not use `aes()` to refer to a column!!! We use `vars()` when faceting.
+![](ggplot2_slides_files/figure-html/unnamed-chunk-66-1.png)&lt;!-- --&gt;
+&lt;br&gt;
+**Faceting is the _ONLY TIME_ we do not use `aes()` to refer to a column!!! We use `vars()` when faceting.**
 
 ---
 
 # Adding panels ("facets") to plots
+
 
 
 
@@ -982,7 +1076,7 @@ ggplot(msleep_smol, aes(x = awake)) +
 *             cols = vars(conservation) )
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-59-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-68-1.png)&lt;!-- --&gt;
 
 
 **Use `facet_grid()` to make a panel grid across 2 variables. This plot is _pretty bad_, but it teaches `facet_grid()`!**
@@ -991,7 +1085,7 @@ ggplot(msleep_smol, aes(x = awake)) +
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
-"highlightStyle": "rainbow",
+"highlightStyle": "github",
 "highlightLines": true,
 "countIncrementalSlides": false
 });

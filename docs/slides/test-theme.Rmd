@@ -26,3 +26,7 @@ msleep  %>% #<<
   mutate(x=5) %>%
   select(name) #<<
 ```
+
+## Some `inline code`
+
+More sentence with `inline` More sentence with `inline` More sentence with `inline` More sentence with `inline` More sentence with `inline` More sentence with `inline` 

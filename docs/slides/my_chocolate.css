@@ -2,13 +2,19 @@
 See https://liao961120.github.io/slides/xaringan/index.html for example slide.
 *****/
 
+/* https://github.com/gnab/remark/wiki/Configuration */
 
+.remark-slide-content {
+  background-color: #e1e1e1;
+  
+}
 
 h1, h2, h3, h4 { font-weight: bold; }
 
 .remark-code, .remark-inline-code { 
-    color: #824323;
+    color: #3d3d5c; //#666699; //#000080; // navy instead of the chocolate
     font-weight: 600;
+    background-color: #e6e6e6;
     }
     
 .inverse .remark-inline-code {
@@ -31,10 +37,13 @@ a, a > code {
 }
 
 /* Code block code */
-.hljs .remark-code-line { font-weight: normal; }
+.hljs .remark-code-line { font-size: 1.2em;}
 
 /* Code Chunk Highlight */
-.remark-code-line-highlighted { background-color: rgba(252, 209, 70, 0.4); }
+.remark-code-line-highlighted { background-color: rgba(255,255,136, 0.4);}//255, 255, 179);} //, 0.1);}
+
+// rgba(242, 241, 239, 0.1);}
+
 
 /* Inverse Colors */
 .inverse { background-color: #7F5543; }
@@ -66,6 +75,13 @@ a, a > code {
   text-align: left;
 }
 
+.title-slide .bg-text-low{
+  position: absolute;
+  top: 75%;
+  left: 10%;
+  text-align: left;
+}
+
 
 .title-slide .remark-slide-number {
   display: none;
@@ -82,6 +98,7 @@ a, a > code {
 
 .red { color: red; }
 .large { font-size: 130% }
+.extra-large { font-size: 200% }
 .small { font-size: 70% }
 
 .img90 { width: 90%;}
@@ -117,3 +134,5 @@ ul :last-child, ol :last-child,ul :first-child, ol :first-child {
   float: right;
   width: 60%;
 }
+
+

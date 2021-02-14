@@ -4,7 +4,7 @@ output:
     lib_dir: libs
     css: [default, my_chocolate.css, chocolate-fonts]
     nature:
-      highlightStyle:  rainbow
+      highlightStyle:  github
       highlightLines: true
       countIncrementalSlides: false
     seal: false
@@ -17,20 +17,20 @@ editor_options:
 options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(fig.width=6, fig.height=4)
 library(xaringan)
-library(tidyverse) 
 library(cowplot)
 library(patchwork)
 library(colorblindr)
 img_path <- "img/ggplot2/"
 
-msleep %>%
-  filter(vore %in% c("carni", "herbi", "omni")) %>%
-  select(-genus, -sleep_cycle, -sleep_rem, -sleep_total) %>%
-  filter(bodywt <= 20) %>%
-  mutate(vore = as.factor(vore),
+`%>%` <- dplyr::`%>%`
+ggplot2::msleep %>%
+  dplyr::filter(vore %in% c("carni", "herbi", "omni")) %>%
+  dplyr::select(-genus, -sleep_cycle, -sleep_rem, -sleep_total) %>%
+  dplyr::filter(bodywt <= 20) %>%
+  dplyr::mutate(vore = as.factor(vore),
          order = as.factor(order),
          conservation = as.factor(conservation)) %>%
-  drop_na() -> msleep_smol
+  tidyr::drop_na() -> msleep_smol
 ```
 
 
@@ -43,14 +43,71 @@ background-size: contain
 ## Data Science for Biologists
 
 <hr />
-**Rhino jawn from Naman**
+<br><br>
+**Rhino jawn from Naman Srivastava**
 ]
 
+
+
+---
+
+# Using R libraries/packages
+
+1. **Install** the library/package one time.
+
+```{r, eval=F}
+install.packages("nameoflib")
+```
+
+2. **Load** the library/package for *each R session or script* where you want to use it.
+
+```{r, eval=F}
+library(nameoflib)
+```
+
+<br><br>
+
+**All packages you _need_ have been installed for you in RStudio Cloud Projects inside the Class Workspace.** You have to install them yourself in your Personal Workspace.
+
+---
+
+# We are using the `tidyverse` packages
+
+.extra-large[
+https://www.tidyverse.org/
+]
+---
+
+# Loading the core tidyverse once installed:
+
+
+
+
+
+```{r, message=T, warning=T}
+#library(tidyverse)  <-- without quotes also works here 
+library("tidyverse") 
+```
+
+### If you don't load your package, you can't use its functions
+
+> Ok, only kind of. We'll talk more about this later!
+
+
+Example of an error:
+```
+Error in ggplot() : could not find function "ggplot"
+```
 
 ---
 
 ```{r out.width = '500px', echo=F}
 knitr::include_graphics(file.path(img_path, "ggplot2-hex.png"))
+theme_set(theme_gray() + theme(axis.text = element_text(size = rel(1.75)),
+                               axis.title = element_text(size = rel(1.75)),
+                               legend.title = element_text(size = rel(1.75)),
+                               legend.text = element_text(size = rel(1.75))
+                               ))
 ```
 
 
@@ -131,7 +188,7 @@ ggplot(msleep_smol) +
 ```{r}
 ggplot(msleep_smol) + 
   aes(x = brainwt, y = bodywt) + 
-  geom_point(color = "cadetblue") #<<
+  geom_point(color = "firebrick") #<<
 ```
 
 ---
@@ -141,7 +198,7 @@ ggplot(msleep_smol) +
 ```{r}
 ggplot(msleep_smol) + 
   aes(x = brainwt, y = bodywt) + 
-  geom_point(color = "cadetblue", size = 3) #<<
+  geom_point(color = "firebrick", size = 3) #<<
 ```
 
 ---
@@ -151,7 +208,7 @@ ggplot(msleep_smol) +
 ```{r}
 sleep_scatter <- ggplot(msleep_smol) + 
   aes(x = brainwt, y = bodywt) + 
-  geom_point(color = "cadetblue", size = 3) 
+  geom_point(color = "firebrick", size = 3) 
 
 print(sleep_scatter)
 ```
@@ -160,10 +217,10 @@ print(sleep_scatter)
 
 # Don't forget the _forward_ assignment operator
 
-```{r}
+```{r, fig.width = 5, fig.height = 3}
 ggplot(msleep_smol) + 
   aes(x = brainwt, y = bodywt) + 
-  geom_point(color = "cadetblue", size = 3) -> sleep_scatter 
+  geom_point(color = "firebrick", size = 3) -> sleep_scatter 
 
 print(sleep_scatter)
 ```
@@ -175,20 +232,25 @@ print(sleep_scatter)
 ```{r, eval=F}
 ggplot(msleep_smol) + 
   aes(x = brainwt, y = bodywt) + 
-  geom_point(color = "cadetblue", size = 3) 
+  geom_point(color = "firebrick", size = 3) 
 ```
 
-```{r}
+```{r, fig.width = 5, fig.height = 3}
 ggplot(msleep_smol) + 
   aes(x = brainwt, y = bodywt) -> sleep_xy
 
 sleep_xy + 
-  geom_point(color = "cadetblue", size = 3)
+  geom_point(color = "firebrick", size = 3)
 ```
 
 ---
 
 # Quick tangent: The plot theme
+
+
+```{r, echo=F, include=F}
+theme_set(theme_gray())
+```
 
 > The default theme is `theme_gray()` (`theme_grey()`)
 
@@ -225,7 +287,7 @@ ggplot(msleep_smol) +
 # Setting a theme for _all plots_
 
 
-All plots created _after_ this line is run will use `theme_classic()`. All remaining plots in the slides will now use this theme as the _new default.
+All plots created _after_ this line is run will use `theme_classic()`. All remaining plots in the slides will now use this theme as the new default.
 <br><br>
 
 ```{r}
@@ -233,6 +295,13 @@ theme_set(theme_classic())
 ```
 
 
+```{r, echo=F, include=F}
+theme_set(theme_classic()+ theme(axis.text = element_text(size = rel(1.75)),
+                                 axis.title = element_text(size = rel(1.75)),
+                                 legend.title = element_text(size = rel(1.75)),
+                                 legend.text = element_text(size = rel(1.75))
+                               ))
+```
 ---
 
 # Histograms in `ggplot2`
@@ -322,7 +391,7 @@ ggplot(msleep_smol) +
 ```{r}
 ggplot(msleep_smol) + 
   aes(x = awake) + 
-  geom_histogram(binwidth = 2, color = "blue") #<<  
+  geom_histogram(binwidth = 2, color = "dodgerblue") #<<  
 ```
 
 ---
@@ -334,10 +403,10 @@ ggplot(msleep_smol) +
 ggplot(msleep_smol) + 
   aes(x = awake) + 
   geom_histogram(binwidth = 2,    #<<
-                 color = "blue")    #<<
+                 color = "dodgerblue")    #<<
 ```
 
-### When code gets long, separate onto multiple lines for clarity. TRUST ME.
+### When code gets long, separate onto multiple lines for clarity. _YOU WILL BE GRADED ON THIS!!!!_
 ---
 
 # Histograms in `ggplot2`
@@ -346,7 +415,7 @@ ggplot(msleep_smol) +
 ggplot(msleep_smol) + 
   aes(x = awake) + 
   geom_histogram(binwidth = 2,   
-                 color = "blue",
+                 color = "dodgerblue",
                  fill = "orange")    #<<
 ```
 
@@ -358,31 +427,28 @@ ggplot(msleep_smol) +
 ggplot(msleep_smol) + 
   aes(x = awake) + 
   geom_histogram(binwidth = 2,   
-                 color = "blue",
+                 color = "dodgerblue",
                  fill = "orange",
                  size = 3)    #<<
 ```
-
-### This is _pretty ugly_, but now you've learned about `size`!
+<br>
+**This is _pretty ugly_, but now you've learned about `size`!**
 ---
 
-# Histograms in `ggplot2`
+# COMMENT COMMENT COMMENT COMMENT
 
-```{r}
+```{r, fig.width = 4, fig.height = 3}
 ggplot(msleep_smol) + 
   # specify x on the x-axis 
   aes(x = awake) + 
   geom_histogram(binwidth = 2, # use binwidth of 2  
                  # outline the histogram in blue
-                 color = "blue", 
+                 color = "dodgerblue", 
                  # fill the bars with orange 
                  fill = "orange", 
                  # increase width of histogram lines    
                  size = 3)   
 ```
-
-### COMMENT COMMENT COMMENT!!!
-
 
 ---
 
@@ -412,9 +478,9 @@ ggplot(msleep_smol) +
 ```{r}
 ggplot(msleep_smol) + 
   aes(x = awake) + 
-  geom_density(fill = "goldenrod1",  #<<
-               color = "navy",  #<<
-               size = 2) #<<
+  geom_density(fill = "cornflowerblue",  #<<
+               color = "chartreuse",  #<<
+               size = 4) #<<
 ```
 
 ### Again, kinda ugly, but look how easy that was to make!!
@@ -506,8 +572,8 @@ ggplot(msleep_smol) +
 ```{r}
 ggplot(msleep_smol) + 
   aes(x = vore, y = awake) +
-  geom_boxplot(color = "hotpink",   #<<
-               fill  = "aquamarine2")  #<<
+  geom_boxplot(color = "deeppink",   #<<
+               fill  = "goldenrod1")  #<<
 ```
 --
 
@@ -554,8 +620,9 @@ ggplot(msleep_smol) +
 
 ```{r}
 ggplot(msleep_smol) + 
-  aes(x = vore, y = awake) +  
-  geom_jitter() #<<
+  aes(x = vore, y = awake) +
+  # size = 2 to see more easily in slides
+  geom_jitter(size = 2) #<<
 ```
 
 ---
@@ -566,7 +633,8 @@ ggplot(msleep_smol) +
 ```{r}
 ggplot(msleep_smol) + 
   aes(x = vore, y = awake) +  
-  geom_jitter(width = 0.2) #<<
+  geom_jitter(width = 0.2, #<<
+              size  = 2)
 ```
 
 ### Usually need to pick a width between 0.1 - 0.3, *in my opinion*
@@ -580,10 +648,10 @@ ggplot(msleep_smol) +
   aes(x = vore, 
       y = awake, 
       color = vore) +  #<<
-  geom_jitter(width = 0.2) 
+  geom_jitter(width = 0.2, size = 2) 
 ```
-
-### Did you notice the points were a little different each plot version?
+<br>
+**Did you notice the points were placed little differently each plot version?**
 ---
 
 
@@ -611,10 +679,20 @@ ggplot(msleep_smol) +
 ```{r}
 ggplot(msleep_smol) +
   aes(x = vore) + 
-  geom_bar(fill = "blueviolet",#<<
-           color = "black") #<<
+  geom_bar(fill = "blueviolet") #<<
 ```
 ---
+# Barplots in `ggplot2`
+
+```{r}
+ggplot(msleep_smol) +
+  aes(x = vore) + 
+  geom_bar(fill = "blueviolet",#<<
+           color = "black", size = 2) #<<
+```
+---
+
+
 
 # Barplots in `ggplot2`
 
@@ -638,7 +716,7 @@ ggplot(msleep_smol) +
 
 # Barplots in `ggplot2`
 
-```{r}
+```{r, width = 8, height = 5}
 ggplot(msleep_smol) +
   aes(x = vore,
       fill = conservation) +  #<<
@@ -649,7 +727,7 @@ ggplot(msleep_smol) +
 
 # Barplots in `ggplot2`
 
-```{r}
+```{r, fig.width = 8, fig.height = 5}
 ggplot(msleep_smol) +
   aes(x = vore,
       fill = conservation) + 
@@ -660,7 +738,7 @@ ggplot(msleep_smol) +
 
 # Barplots in `ggplot2`
 
-```{r}
+```{r, fig.width = 8, fig.height = 5}
 ggplot(msleep_smol) +
   aes(x = vore,
       fill = conservation) + 
@@ -693,7 +771,7 @@ ggplot(msleep_smol) +
 
 # Barplots in `ggplot2`
 
-```{r}
+```{r, fig.width = 7, fig.height = 4}
 ggplot(msleep_smol) +
   aes(x = vore,
       fill = order) +  
@@ -712,11 +790,11 @@ ggplot(msleep_smol) +
 ggplot(msleep_smol) +
   aes(x = vore) +  
   geom_bar()  + 
-  labs(x = "X-axis label",
-       y = "Y-axis label",
-       title = "Plot title",
-       subtitle = "In case you wanted a subtitle",
-       caption = "Would you like a caption?")
+  labs(x = "X-axis label",                  #<<
+       y = "Y-axis label",                     #<<
+       title = "Plot title", #<<
+       subtitle = "In case you wanted a subtitle", #<<
+       caption = "Would you like a caption?") #<<
 ```
 
 Always make sure your x and y axes are professionally labeled (*no underscores!*). Title, subtitle, caption are optional to include.
@@ -724,6 +802,10 @@ Always make sure your x and y axes are professionally labeled (*no underscores!*
 ---
 
 # Plots we can make!
+
+```{r, echo=F, include=F}
+theme_set(theme_classic())
+```
 
 ```{r, echo=F, fig.height = 2.5, fig.width = 11, message = F}
 raw <- ggplot(msleep_smol)
@@ -744,7 +826,16 @@ plot_grid(bar , box , violin , jitter, nrow=1)
 
 ---
 
+
 # Adding panels ("facets") to plots
+
+```{r, echo=F, include=F}
+theme_set(theme_classic()+ theme(axis.text = element_text(size = rel(1.75)),
+                                 axis.title = element_text(size = rel(1.75)),
+                                 legend.title = element_text(size = rel(1.75)),
+                                 legend.text = element_text(size = rel(1.75))
+                               ))
+```
 
 ```{r}
 ggplot(msleep_smol, aes(x = awake)) + 
@@ -776,15 +867,18 @@ ggplot(msleep_smol, aes(x = awake)) +
                  fill = "firebrick2")  +
   facet_wrap( vars(vore) ) #<<
 ```
-
-### Faceting is the ONLY TIME we do not use `aes()` to refer to a column!!! We use `vars()` when faceting.
+<br>
+**Faceting is the _ONLY TIME_ we do not use `aes()` to refer to a column!!! We use `vars()` when faceting.**
 
 ---
 
 # Adding panels ("facets") to plots
 
+```{r, echo=F, include=F}
+theme_set(theme_classic())
+```
 
-```{r, fig.height = 5, fig.width = 5}
+```{r, fig.height = 3.5, fig.width = 5}
 ggplot(msleep_smol, aes(x = awake)) + 
   geom_histogram(binwidth = 2, # may need to tweak again!
                  color = "black", 
