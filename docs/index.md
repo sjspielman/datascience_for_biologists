@@ -33,7 +33,7 @@ T 2/9   | Introduction to R and RStudio, Part 4 | Exercises: Introduction to R P
 W 2/10  | The grammar of graphics, Part 1 | Finish Part 7 exercises from Tuesday <br><br> [Slides](./slides/grammar_graphics_slides.pdf) | None 
 R 2/11  | The grammar of graphics, Part 2 | Finish slides from Wednesday | None
 T 2/16  | Visualizing data with `ggplot2`, Part 1 | [PDF Slides](./slides/ggplot2_slides.pdf) <br><br> [Slides in browser](./slides/ggplot2_slides.html) |  **Homework 3 due** on Canvas as a PDF file. [Link to instructions](./homeworks/hw3/hw3_instructions.html) <br> 
-W 2/17  | Visualizing data with `ggplot2`, Part 2 | Exercises: Begin with Introduction to `ggplot2` | None
+W 2/17  | Visualizing data with `ggplot2`, Part 2 | Exercises: Begin with Introduction to `ggplot2` <br><br>[**Link if your last name is A-Mc**](https://rowanbiosci.shinyapps.io/intro_ggplot2_A-Mc/) <br><br>[**Link if your last name is Me-Z**](https://rowanbiosci.shinyapps.io/intro_ggplot2_Me-Z/) | None
 R 2/18  | Visualizing data with `ggplot2`, Part 3 | Exercises: Complete with Introduction to `ggplot2` | None
 T 2/23  | File input/output | [Tutorial](./tutorials/readr_ggsave.html) | **Homework 4 due** on Canvas as an R script.  [Link to instructions](./homeworks/hw4/hw4_instructions.html)
 W 2/24  | Best practices in data visualization | Slides | None
