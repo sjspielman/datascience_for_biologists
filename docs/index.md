@@ -36,9 +36,9 @@ T 2/16  | Visualizing data with `ggplot2`, Part 1 | [PDF Slides](./slides/ggplot
 W 2/17  | Visualizing data with `ggplot2`, Part 2 | Exercises: Begin with Introduction to `ggplot2` <br><br>[**Link if your last name is A-Mc**](https://rowanbiosci.shinyapps.io/intro_ggplot2_A-Mc/) <br><br>[**Link if your last name is Me-Z**](https://rowanbiosci.shinyapps.io/intro_ggplot2_Me-Z/) | None
 R 2/18  | Visualizing data with `ggplot2`, Part 3 | Exercises: Complete with Introduction to `ggplot2` | None
 T 2/23  | File input/output | [Tutorial](./tutorials/readr_ggsave.html) | **Homework 4 due** on Canvas as an R script.  [Link to instructions](./homeworks/hw4/hw4_instructions.html)
-W 2/24  | Best practices in data visualization | Slides | None
-R 2/25  | Implementing best practices in data visualization | [Customizing colors tutorial](./tutorials/color_fill_scales.html) <br> [Customizing axes tutorial](./tutorials/axes.html) <br> [Customizing themes tutorial](./tutorials/themes.html)  | None
-T 3/2   | Data wrangling with `dplyr`, Part 1 <!-- pipe and filter --> | Slides TBD | **Homework 5 due** on Canvas as an R script.<!-- more ggplot figures that USE THE THEMES/AXES/COLORS! -->
+W 2/24  | Best practices in data visualization | Slides <br><br> [Customizing colors tutorial](./tutorials/color_fill_scales.html) <br> [Customizing axes tutorial](./tutorials/axes.html) <br> [Customizing themes tutorial](./tutorials/themes.html) | None
+R 2/25  | Exploratory data analysis | TBD | None
+T 3/2   | Data wrangling with `dplyr`, Part 1 <!-- pipe and filter --> | Slides TBD | **Homework 5 due** on Canvas as an R script.  [Link to instructions](./homeworks/hw5/hw5_instructions.html)
 W 3/3   | Data wrangling with `dplyr`, Part 2 <!-- mutate, arrange, distinct, select --> | Slides TBD <br> Exercises: Begin Introduction to data wrangling with `dplyr`| None 
 R 3/4   | Data wrangling with `dplyr`, Part 3 | Exercises: Continue Introduction to data wrangling with  `dplyr` | None
 T 3/9   | Debugging strategies | In-class script TBD | **Homework 6 due** on Canvas as an R script.<!-- dplyr1 -->

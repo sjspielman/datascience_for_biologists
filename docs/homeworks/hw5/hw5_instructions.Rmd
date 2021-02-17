@@ -25,22 +25,23 @@ blockquote{
 
 For this assignment, you will be formulating your own exploratory analysis questions about FIVE different datasets (one question per dataset), using the `hw5_template.R` script in the Homework #5 RStudio Cloud Project. The datasets are stored as CSV files in the folder `hw5_datasets/` in this RStudio Cloud Project. *Please be careful never to directly open these files - you should only interact with them by using code to read them into R!*
 
-First, as is templated, you will need to read in all of the datasets and save them to variables, using the `read_csv()` function from the `{readr}` package for this step, and using all your new fancy path knowledge! Then, for each dataset:
+First, as is templated, you will need to read in all of the datasets and save them to variables, specifically using the `read_csv()` function from the `readr` package for this step, and using all your new fancy path knowledge! Then, for each dataset:
 
 + Ask a single *exploratory/scientific question* about the dataset. Your question can be about *anything at all* you want to explore in the dataset, and it does not specifically need to have to do with the "purpose" of the dataset. But, it must be a question! It cannot be phrased a task ("make a histogram of that variable" is not a question; it's a task).
   + For example, there is a dataset in this homework about characteristics of urine samples for individuals with and without kidney stones. You do not have to ask a question that is about differences between individuals with and without kidney stones - you can ask whatever you want about any of the variables you choose.
 + Use `ggplot2` to create a figure *of your choosing and styling* that addresses the question. Each plot should be saved to an output folder called `figures/`. 
-  + Plot files should be named as `<dataset>_figure.png` (e.g., `abalone_figure.png`). *Please name your files PRECISELY!*
+  + Plot files should be named as `<dataset>_figure.png` (e.g., `pima_figure.png` for the first one, where `<dataset>` is what the original CSV file was called). *Please name your files PRECISELY according to this instruction!!*
   + You must use `ggsave()` correctly [as described in this reference](https://sjspielman.github.io/datascience_for_biologists/tutorials/readr_ggsave.html) for full credit.
   + You do *NOT* need to upload your saved figures as part of the submission. Your code just needs to save the plots properly. If your code works properly, it will create these figure files when I run the code.
-+ In 1-2 sentences written as comments, answer the question you asked. Interpretations that do not address your question will be considered unanswered.
-  + *As is templated for you*, the question/answer comments should be ABOVE your plotting code.
++ In a brief 1-2 sentences written as comments, answer the question you asked. Interpretations that do not address your question will be considered unanswered.
+  + *As is templated for you in the example*, the question/answer comments should be ABOVE your plotting code.
 + **HUGE HINT!!** One way to think about this assignment is that you could first make some figures of the dataset (play around, move fast, break things, and plot stuff!). Once you have a figure you like, figure out: What does this figure tell me about the data, and how can I phrase that in the form of a question? "Reverse engineering" exploratory data analysis like this when you are first starting out is a great way to get comfortable exploring datasets.
 
 
 ### Rules for plotting
 
 + There is no requirement to make certain types of plots. You are not specifically required to make a different plot for each question. There will be no deductions for repeated plots/geoms. 
++ You can place `aes()` wherever you want, as long as the plot works! You can include aesthetics on their own, within the `ggplot()` call, or within the relevant `geom` function. There is lots of flexibility for how you code aesthetic mappings, so use this opportunity to explore your coding style preference.
 + You should make the type of plot that, in your opinion, is able to address your exploratory/scientific question. There will be deductions if your plot is not at all related to your question. 
   + For example, considering the `iris` dataset, a scatterplot showing the relationship between sepal width and sepal length does *not* address the question, "How many of each species are in the dataset?" (even if the points are colored by species!!!).
 + You **MUST** use a non-default theme (as in, do not use `theme_gray()`) for each plot you make. [Here is the resource for themes](https://sjspielman.github.io/datascience_for_biologists/tutorials/themes.html). The purpose of this instruction is for you to practice customizing your plot themes and to develop your own personal dataviz style. There are several ways to accomplish non-default themes:
@@ -58,9 +59,9 @@ First, as is templated, you will need to read in all of the datasets and save th
 + You will not receive any credit for answers without corresponding code that produces those answers.
 + Make sure your code runs WITHOUT an errors before submitting. *A 10% penalty is automatically applied for submissions with bugs that lead to errors.*
   + If there are errors in your code, you should *comment out* the code so that it does not actually run. This is **BETTER** than allowing buggy code to run - it shows me you attempted the code, but understood that it didn't work properly. If you leave buggy code in the script without commenting it out, there will be deductions.
-+ Make sure you are commenting out any code that does not specifically contribute to the homework. For example, `View()` should never be in scripts. Similar, while exploring a dataset with functions like `head()`, `names()`, or `str()` is completely and entirely necessary for completing this assignment, the code you use to do so is not specifically part of the plots you make. Therefore, either run those commands directly in Console, or comment them out in your final script.
++ Make sure you are commenting out any code that does not specifically contribute to the homework. For example, `View()` should never be in scripts. Similarly, while exploring a dataset with functions like `head()`, `names()`, or `str()` is completely and entirely necessary for completing this assignment, the code you use to do so is not specifically part of the code to create and save plots. Therefore, either run those commands directly in Console, or comment them out in your final script.
 + **As always, you are encouraged to work together and use the class Slack to help each other out, but you must submit YOUR OWN CODE.** 
-+ Take this assignment seriously - your final project will be _doing exactly this_ on a dataset of your choosing! Of course there are a few more components (including learning the rest of the class materials!), but this is the gist. Lessons you learn doing this assignment will begin to prepare you for independent data analysis on the final project.
++ Fun fact: Your final project will be _doing more or less exactly this_ on a dataset of your choosing! Of course there are a few more components (including learning the rest of the class materials!), but this is the gist. Lessons you learn doing this assignment will begin to prepare you for independent data analysis on the final project.
 
 <br>
 
@@ -88,13 +89,12 @@ This dataset contains physical measurements from Pima Indian women from the Amer
 
 This dataset contains urinalysis measurements (don’t worry about units) from 78 men, indicating whether traces of kidney stones (aka "crystal") were detected their urine samples. Variables include:
 
-`crystal` : Whether calcium oxalate crystals (kidney stones) were detected
-`gravity` : The specific gravity of the urine
-`ph` : The pH of the urine
-`osmo` : The osmolarity of the urine. Osmolarity is proportional to the concentration of molecules in solution. 
-`conduct` : The conductivity of the urine. Conductivity is proportional to the concentration of charged ions in
-solution.
-`urea` : The urea concentration in millimoles per liter calcium : The calcium concentration in millimoles per liter
++ `crystal` : Whether calcium oxalate crystals (kidney stones) were detected
++ `gravity` : The specific gravity of the urine
++ `ph` : The pH of the urine
++ `osmo` : The [osmolarity](https://en.wikipedia.org/wiki/Osmotic_concentration) of the urine
++ `conduct` : The [conductivity](https://en.wikipedia.org/wiki/Conductivity_(electrolytic)) of the urine
++ `urea` : The urea concentration
 
 <br>
 
