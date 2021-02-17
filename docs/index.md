@@ -50,8 +50,8 @@ R 3/18  | *Buffer day* | TBD | None
 T 3/23  | Tidy data and `tidyr`, Part 1 | Slides TBD |  **Homework 8 due** on Canvas as an RMarkdown file. <!-- exploratory analysis HW: ask and answer questions and they need to ask 1-2 as well.-->
 W 3/24  | Tidy data and `tidyr`, Part 2 | Exercises: Tidying data with `tidyr` | None <!-- DO THE HOMEWORK AS A CLASS --> 
 R 3/25  | *Buffer day* | TBD | None
-T 3/31  | Introduction to modeling and machine-learning (ish) | Slides TBD | **Homework 9 due** on Canvas as an RMarkdown file.  <!-- tidyr homework that we do together -->
-W 3/31  | Linear models, Part 1 | Slides TBD <br> Exercises TBD | None
+T 3/30  | Introduction to modeling and machine-learning (ish) | Slides TBD | **Homework 9 due** on Canvas as an RMarkdown file.  <!-- tidyr homework that we do together -->
+W 3/31 | Linear models, Part 1 | Slides TBD <br> Exercises TBD | None
 R 4/1   | Linear models, Part 2 | Slides TBD <br> Exercises TBD | None
 T 4/6   | Linear models, Part 3 | Slides TBD <br> Exercises TBD | **Homework 10 due** on Canvas as an RMarkdown file.  <!-- lm 1 -->
 W 4/7   | Linear models, Part 4 | Slides TBD <br> Exercises TBD | None
