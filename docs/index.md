@@ -34,7 +34,7 @@ W 2/10  | The grammar of graphics, Part 1 | Finish Part 7 exercises from Tuesday
 R 2/11  | The grammar of graphics, Part 2 | Finish slides from Wednesday | None
 T 2/16  | Visualizing data with `ggplot2`, Part 1 | [PDF Slides](./slides/ggplot2_slides.pdf) <br><br> [Slides in browser](./slides/ggplot2_slides.html) |  **Homework 3 due** on Canvas as a PDF file. [Link to instructions](./homeworks/hw3/hw3_instructions.html) <br> 
 W 2/17  | Visualizing data with `ggplot2`, Part 2 | Exercises: Begin with Introduction to `ggplot2` <br><br>[**Link if your last name is A-Mc**](https://rowanbiosci.shinyapps.io/intro_ggplot2_A-Mc/) <br><br>[**Link if your last name is Me-Z**](https://rowanbiosci.shinyapps.io/intro_ggplot2_Me-Z/) | None
-R 2/18  | Visualizing data with `ggplot2`, Part 3 | Exercises: Complete with Introduction to `ggplot2` | None
+R 2/18  | Visualizing data with `ggplot2`, Part 3 | [In-class demonstration script by Dr. Spielman](./misc/class_demo_code-2-18-21.R) | None
 T 2/23  | File input/output | [Tutorial](./tutorials/readr_ggsave.html) | **Homework 4 due** on Canvas as an R script.  [Link to instructions](./homeworks/hw4/hw4_instructions.html)
 W 2/24  | Best practices in data visualization | Slides <br><br> [Customizing colors tutorial](./tutorials/color_fill_scales.html) <br> [Customizing axes tutorial](./tutorials/axes.html) <br> [Customizing themes tutorial](./tutorials/themes.html) | None
 R 2/25  | Exploratory data analysis | TBD | None
