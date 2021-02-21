@@ -10,7 +10,6 @@ In the virtual cloud computer you are using on the RStudio Cloud website, by def
 /cloud/project/
 ────────────────────────────────────────────────
 ├── .Rhistory
-├── project.Rproj
 ├── mammals/
 │   ├── marsupials/
 │   │   ├── kangaroo/
@@ -26,6 +25,7 @@ In the virtual cloud computer you are using on the RStudio Cloud website, by def
 │   │   │  └── moles.csv
 │   │   ├── seal_experiment_data/
 │   │   │  └── seals.csv
+├── project.Rproj
 ├── spielman_setup_ignore_this_folder/
 │   └── install.R
 ```
