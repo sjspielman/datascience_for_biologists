@@ -11,8 +11,10 @@ Open office hours (no appointment necessary) will be on Zoom *every Monday and F
 
 <br>
 
-**Compiled set of class resources: [here](./resources.html)**
+## Important links 
 
++ Compiled set of class resources: [here](./resources.html). **IF YOU NEED HELP, START HERE!**
++ `#tidytuesday` extra credit instructions (begins March 1st, 2021): [here](./misc/tidytuesday_instructions.pdf)
 
 <br> 
 
