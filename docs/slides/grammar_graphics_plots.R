@@ -1,4 +1,6 @@
-msleep %>% 
+library(tidyverse)
+
+msleep%>% 
   filter(vore %in% c("herbi", "omni", "carni")) %>%
   select(name, vore, awake, brainwt, bodywt) %>%
   mutate(vore = as.factor(vore)) %>%
@@ -6,7 +8,7 @@ msleep %>%
 
 
 # Make ALL THE PLOTS HERE
-
+theme_set(theme_classic())
 msleep_subvore %>%
   ggplot(aes(x = vore, y = awake)) + 
   geom_boxplot()+
@@ -14,25 +16,21 @@ msleep_subvore %>%
 
 msleep_subvore %>%
   ggplot(aes(x = vore, y = awake, fill = vore)) + 
-  geom_boxplot()+
+  geom_boxplot(size = 1)+
   theme(legend.position = "none") -> box_fill
 
-cvd_grid(box_fill) -> box_fill_cvd_grid
+colorblindr::cvd_grid(box_fill) -> box_fill_cvd_grid
 ggsave("box_fill_cvd_grid.png", box_fill_cvd_grid, width = 8, height = 6)
 
 msleep_subvore %>%
   ggplot(aes(x = vore, y = awake, fill = vore)) + 
-  geom_boxplot()+
-  scale_fill_brewer(palette = "Dark2") +
+  geom_boxplot(size=1)+
+  scale_fill_viridis_d(option = "inferno") +
   theme(legend.position = "none") -> box_fill_cb
-cvd_grid(box_fill_cb) -> box_fill_cb_cvd_grid
+
+colorblindr::cvd_grid(box_fill_cb) -> box_fill_cb_cvd_grid
 ggsave("box_fill_cb_cvd_grid.png", box_fill_cb_cvd_grid, width = 8, height = 6)
 
-msleep_subvore %>%
-  ggplot(aes(x = vore, y = awake, color = vore)) + 
-  geom_boxplot()+
-  scale_color_brewer(palette = "Dark2") +
-  theme(legend.position = "none") -> box_color_cb
 
 msleep_subvore %>%
   ggplot(aes(x = vore, y = awake)) + 

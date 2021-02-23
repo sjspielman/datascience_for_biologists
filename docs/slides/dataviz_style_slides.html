@@ -126,7 +126,7 @@ Percent body fat versus height in professional male Australian athletes. (Each p
  
 --
 
-&lt;img src="img/dataviz_best_practices/Aus-athletes-big-ugly-1.png" width="400px" /&gt;
+&lt;img src="img/dataviz_best_practices/Aus-athletes-big.png" width="400px" /&gt;
 
 ---
 
@@ -227,11 +227,44 @@ msleep_subvore
 
 &lt;img src="img/dataviz_best_practices/box_fill_cb_cvd_grid.png" width="800px" /&gt;
 
+---
+
+# Want manual fills (colors)?
+
+
+
+```r
+myplot &lt;- ggplot(msleep_subvore, 
+       aes(x = vore, y = awake, fill = vore)) + 
+  geom_violin() + 
+* scale_fill_manual(name = "Legend name",
+*                   values = c("cornflowerblue",
+*                              "coral3",
+*                              "blueviolet"))
+
+print(myplot)
+```
+
+![](dataviz_style_slides_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
+
+---
+
+# How to check CVD friendliness
+
+
+```r
+library(colorblindr) # installed for you our RStudio Cloud
+cvd_grid(myplot)
+```
+
+![](dataviz_style_slides_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
+
+---
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
-"highlightStyle": "rainbow",
+"highlightStyle": "github",
 "highlightLines": true,
 "countIncrementalSlides": false
 });
