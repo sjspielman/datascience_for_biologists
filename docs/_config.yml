@@ -17,7 +17,7 @@ title: BIOL01301
 author: Stephanie J. Spielman, PhD
 email: spielman@rowan.edu
 description: > # this means to ignore newlines until "baseurl:"
-  Materials for BIO01301 at Rowan University in Fall 2020
+  Materials for BIO01301 at Rowan University
 baseurl: "/datascience_for_biologists" # the subpath of your site, e.g. /blog
 url: "http://sjspielman.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 
