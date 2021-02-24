@@ -56,7 +56,7 @@ The goal of this weekly extra credit is to develop your visualization and data w
 + Use any of Spielman's Forbidden Script Code. Specifically, these should _never ever be in your scripts_ (unless commented out):
   + `View()`
   + `install.packages()`
-  + Redundant library loads. For example, if you have `library(tidyerse)`, you should not also have `library(ggplot2)`
+  + Redundant library loads. For example, if you have `library(tidyverse)`, you should not also have `library(ggplot2)`
   + Code used only to explore the dataset. This should be commented out
 + **Use code that you did not write. This will further subject you to AIV penalties.** You will NOT have the opportunity to "fix-and-resubmit" unoriginal code. 
 

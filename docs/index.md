@@ -14,7 +14,8 @@ Open office hours (no appointment necessary) will be on Zoom *every Monday and F
 ## Important links 
 
 + Compiled set of class resources: [here](./resources.html). **IF YOU NEED HELP, START HERE!**
-+ `#tidytuesday` extra credit instructions (begins March 1st, 2021): [here](./misc/tidytuesday_instructions.pdf)
++ `#tidytuesday` extra credit instructions (EDITED: begins March 8th, 2021): [here](./misc/tidytuesday_instructions.pdf)
+  + Slack extra credit ends on Sunday March 7th 11:59 PM.
 
 <br> 
 
