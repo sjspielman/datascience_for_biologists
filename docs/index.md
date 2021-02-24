@@ -72,7 +72,7 @@ T 5/4   | *Buffer day* | None | **There is no assignment due. Please begin worki
 W 5/5   | *Buffer day* | None | None 
 R 5/6   | *Buffer day* | None | None
 
-**FINAL PROJET DUE ON TUESDAY MAY 11TH AT 11:59 PM**
+**FINAL PROJECT DUE ON TUESDAY MAY 11TH AT 11:59 PM**
 
 
 
