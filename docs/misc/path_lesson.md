@@ -74,8 +74,10 @@ In other words, the "file name" is NOT a separate entity from "the path to the f
 
 ### Part 2
 
+<br><br>
 1. Use the `read_csv()` function to read the file `moles.csv`, and save the data frame output to `moles_data`. [Recall](https://sjspielman.github.io/datascience_for_biologists/tutorials/readr_ggsave.html#Reading_and_writing_data_files) that `read_csv()` takes ONE argument: the path to the file you want to read in.
-    + Make sure the `moles_data` variable was correctly made by trying to explore its contents, e.g. with `head()`, `summary()`, `names()`, etc. 
+
+  + Make sure the `moles_data` variable was correctly made by trying to explore its contents, e.g. with `head()`, `summary()`, `names()`, etc. 
 
 <br><br>
 2. Perform the same task slightly differently.... 
