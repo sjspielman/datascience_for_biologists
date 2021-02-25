@@ -40,7 +40,7 @@ W 2/17  | Visualizing data with `ggplot2`, Part 2 | Exercises: Begin with Introd
 R 2/18  | Visualizing data with `ggplot2`, Part 3 | [In-class demonstration script by Dr. Spielman](./misc/class_demo_code-2-18-21.R) | None
 T 2/23  | Best practices in data visualization | [Slides](./slides/dataviz_style_slides.html) <br><br> [Customizing colors tutorial](./tutorials/color_fill_scales.html) <br> [Customizing axes tutorial](./tutorials/axes.html) <br> [Customizing themes tutorial](./tutorials/themes.html) | **Homework 4 due** on Canvas as an R script.  [Link to instructions](./homeworks/hw4/hw4_instructions.html)
 W 2/24  | File input/output | [Reference/Tutorial](./tutorials/readr_ggsave.html) <br> [In-class exercise instructions](./misc/path_lesson.html) | None
-R 2/25  | **Meets from 2:30-3:15 PM only.** Concepts in exploratory data analysis | TBD | None
+R 2/25  | **Meets from 2:30-3:15 PM only.** Concepts in exploratory data analysis | Live demonstration (follow along in an RStudio Cloud project per your preference) | None
 T 3/2   | Data wrangling with `dplyr`, Part 1 <!-- pipe and filter --> | Slides TBD | **Homework 5 due** on Canvas as an R script.  [Link to instructions](./homeworks/hw5/hw5_instructions.html)
 W 3/3   | Data wrangling with `dplyr`, Part 2 <!-- mutate, arrange, distinct, select --> | Slides TBD <br> Exercises: Begin Introduction to data wrangling with `dplyr`| None 
 R 3/4   | Data wrangling with `dplyr`, Part 3 | Exercises: Continue Introduction to data wrangling with  `dplyr` | None
