@@ -106,7 +106,7 @@ In other words, the "file name" is NOT a separate entity from "the path to the f
 6. Let's practice actually using the `source()` function. We use this function all the time, to run entire scripts. You may have noticed that some code gets written in Console when you click the Source button - let's see it in action! Copy/paste this code into Console:
 
 ```
-source("mammals/marsupials/koalas/run_koala_code.R")
+source("mammals/marsupials/koala/run_koala_code.R")
 ```
 
 What do you notice happens? What can you also notice is the code in that R script we _sourced_ (you can directly click through in the Files Pane and open the R script itself to see!). Indeed, the Source button is merely a shortcut for using the `source()` function.
