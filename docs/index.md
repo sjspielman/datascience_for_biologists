@@ -49,7 +49,7 @@ W 3/10  | Data wrangling with `dplyr`, Part 4 | Slides TBD | None
 R 3/11  | Data wrangling with `dplyr`, Part 5 | Exercises: Continue Introduction to data wrangling with  `dplyr` | None
 T 3/16  | Creating professional reports with RMarkdown | In-class script TBD |  **Homework 7 due** on Canvas as an R script. <!-- dplyr summarizing -->
 W 3/17  | Rmarkdown for exploratory analyses | TBD | None <!-- DO THE HOMEWORK AS A CLASS --> 
-R 3/18  | *Buffer day* | TBD | None
+R 3/18  | **NO CLASS AT ALL TODAY** (not even asynchronous!) | None | None
 T 3/23  | Tidy data and `tidyr`, Part 1 | Slides TBD |  **Homework 8 due** on Canvas as an RMarkdown file. <!-- exploratory analysis HW: ask and answer questions and they need to ask 1-2 as well.-->
 W 3/24  | Tidy data and `tidyr`, Part 2 | Exercises: Tidying data with `tidyr` | None <!-- DO THE HOMEWORK AS A CLASS --> 
 R 3/25  | *Buffer day* | TBD | None
