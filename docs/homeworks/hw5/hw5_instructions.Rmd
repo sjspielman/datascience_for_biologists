@@ -73,10 +73,10 @@ First, as is templated, you will need to read in all of the datasets and save th
 
 This dataset contains physical measurements from Pima Indian women from the American southwest. This population has been heavily studied by epidemiologists since they tend to have high levels of Type II Diabetes. Variables include:
 
-+ `pregnancies` : number of times the woman has been pregnant
++ `npreg` : number of times the woman has been pregnant
 + `glucose` : plasma glucose concentration at 2 hours in an oral glucose tolerance test (units: mg/dL) 
-+ `pb` : diastolic blood pressure (units: mm Hg)
-+ `skin_thickness` : triceps skin-fold thickness (units: mm)
++ `dpb` : diastolic blood pressure (units: mm Hg)
++ `skin` : triceps skin-fold thickness (units: mm)
 + `insulin` : 2-hour serum insulin level (units: μU/mL)
 + `bmi` : Body Mass Index
 + `age` : age in years
