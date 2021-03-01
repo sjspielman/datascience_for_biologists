@@ -74,8 +74,8 @@ ul > ul {
 
 blockquote {
   display: block;
-  line-height: 0.8em;
-  font-size: 0.8em;
+  line-height: 0.95em;
+  font-size: 1em;
   color: #6b6b6b;
   margin-left: 20px;
   padding:0;

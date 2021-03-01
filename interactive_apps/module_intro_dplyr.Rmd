@@ -4,6 +4,7 @@ author: "Data Science for Biologists, Spring 2021"
 output: 
   learnr::tutorial:
     progressive: true
+    allow_skip: true
     theme: readable
     css: css/custom-css.css
 runtime: shiny_prerendered
@@ -200,6 +201,8 @@ msleep %>%
 
 3. You can also use `select()` to re-order columns. This is often useful, for example, when viewing datasets that have a lot of columns, and you want to move some columns to the front. The code below moves the column `vore` to the front, followed by "everything else", which is represented by the extremely cool and convenient code `everything()`. Engage with this code, and then modify it code below to reorder the columns as: `bodywt`, `brainwt`, then everything else.
 
+> Hint: This means provide THREE arguments to `select()`: The column you want to appear first, the column you want to appear second, and finally everything else.
+
 ``` {r dplyr_select3, exercise = TRUE}
 msleep %>%
   select(vore, everything())
@@ -215,9 +218,9 @@ msleep %>%
 ### Using `mutate()` to create new columns
 
 
-1. Use `mutate()` to create a new column called `class` which literally just contains the string "Mammalia".
+1. Use `mutate()` to create a new column called `class` which literally just contains the string "Mammalia". Indeed, these are all mammals!
 
-> Hint: Use mutate as: `mutate(new-column-name = valuefornewcolumn)`
+> Hint: Use mutate as: `mutate(new_column_name = valuefornewcolumn)`
 
 ```{r dplyr_mutate1, exercise = TRUE}
 
@@ -236,18 +239,18 @@ Use these code chunk to see how `select()` can be used to help you reorganize co
 
 ```{r dplyr_select_demo1, exercise=TRUE}
 msleep %>%
-  # first, add the column class
+  # first, create the column class
   mutate(class = "Mammalia") %>%
-  # second, only keep the column class
+  # second, keep only the column class
   select(class)
 ```
 
 ```{r dplyr_select_demo2, exercise=TRUE, exercise.lines = 8}
 # You can always just list more columns to keep in select():
 msleep %>%
-  # first, add the column class
+  # first, create the column class
   mutate(class = "Mammalia") %>%
-  # first, add the columns class and vore
+  # then, keep only the columns class and vore
   select(class, vore)
 ```
 
@@ -255,7 +258,7 @@ msleep %>%
 # Or, some _real_ magic (we'll learn more later!), reorganize columns using everything() when calling select.
 # This rearranges columns: place `class` first, and then have "everything else"
 msleep %>%
-  # first, add the column class
+  # first, create the column class
   mutate(class = "Mammalia") %>%
   # then, make class the first-appearing column
   select(class, everything())
@@ -263,7 +266,7 @@ msleep %>%
 
 **When writing multiple pipes, always build it up ONE line at a time! DO NOT RUN TO THE FINISH LINE!! For example, if your first command doesn't work properly, there is no chance your second one will work properly. You have to check with your own personal eyeballs that each line of code worked BEFORE appending the next.**
 
-Practice running code one line at a time below by first writing and running the  `mutate()` code. Make sure there is no error. THEN, tack on the `select()` code to keep only the new "class" variable.
+Practice writing code one line at a time below: First, write and run the  `mutate()` code. Make sure there is no error. THEN, tack on the `select()` code to keep only the new "class" variable (like the FIRST example above).
 ```{r demo-one-line, exercise=TRUE}
 
 
@@ -338,18 +341,21 @@ msleep %>%
 ```{r demo_ifelse, exercise=TRUE, exercise.lines = 8}
 animal <- "goat"
 #                      T/F condition     use if T   use if F                       
-is_it_a_goat <- ifelse(animal == "goat", "goat", "not a goat")
+is_it_a_goat <- ifelse(animal == "goat", "totes goat", "goatless")
 
 # FIRST, think about what value you expect `is_it_a_goat` to be. Then, print it in the space below to see:
 ```
 
-`dplyr` actually has *its own* version of this function called `if_else()` (it has an underscore). This version of the function is technically faster and "safer" to use in your `dplyr` code, but either `ifelse()` or `if_else()` will be fine for the purposes of our class, but we'll use `if_else()` to get in the habit!
+`dplyr` actually has *its own* version of this function called `if_else()` (it has an underscore). This version of the function is technically faster and "safer" to use in your `dplyr` code, but either `ifelse()` or `if_else()` will be fine for the purposes of our class. We'll use `if_else()` here to get in the habit! (Come to office hours to learn more about how `ifelse()` differs from `if_else()`!)
 
 We can use this *in combination* with `mutate()` to create new columns whose value is conditioned on something else. For example, the code below creates a new column using `if_else()` to record if a mammal is, or is not, a carnivore. Engage with this code to understand it, and then modify the code to instead make a new column called `are_you_herbi`. This column should contain the value "herbivore" if yes, and "not_an_herbivore" if no.
 
 > Hint: Notice we can still directly refer to existing columns like `vore` even when using `if_else()`, _because it is all part of the `mutate()` code._
 >
-> Hint 2: Again, it's helpful to use `select()` to make sure you did it all correctly!
+> Hint 2: To reiterate, `if_else()` is part of the `mutate()` code - **It is not a stand-alone `dplyr verb whose first argument is a data frame!!**
+>
+> Hint 3: Again, it's helpful to use `select()` to make sure you did it all correctly!
+
 
 ```{r dplyr_mutate6, exercise=TRUE}
 msleep %>%
@@ -365,7 +371,7 @@ msleep %>%
 
 > Hint: What is the logical statement you want to ask if true or false? It will have something to do with the body weight value.
 >
-> Hint 2: For more coding style, use a variable for the value of 100 instead of directly including it in the `mutate()` code.
+> Hint 2: For improved coding style, use a variable for the value of 100 instead of directly including it in the `mutate()` code.
 
 ```{r dplyr_mutate7, exercise=TRUE}
 
@@ -377,7 +383,7 @@ msleep %>%
 ```
 <br>
 
-8. Create a new column in `msleep` called `needs_more_caffeine` where mammals who are awake (`awake`) more than 16 hours a day have the value "definitely" and other mammals have "nope". Make sure to define the value 16 separately to *avoid hardcoding!!*
+8. Create a new column in `msleep` called `needs_more_caffeine` where mammals who are awake (`awake`) more than 16 hours a day have the value "definitely" and other mammals have "nope". Again, for an improved coding style, make sure to define the value 16 separately to *avoid hardcoding!!*
 
 ```{r dplyr_mutate8, exercise=TRUE}
 
@@ -394,6 +400,8 @@ msleep %>%
 1. Use `rename()` to change the name of the column `conservation` to `conservation_status`.
 
 > Hint: `rename()` syntax is: `rename(newname = oldname)`. You do NOT need to use quotes.
+>
+> Hint 2: Spielman gets the arguments backwards all the time, and you probably will too! Just remember if there are bugs, it's `NEWname = OLDname`.
 
 ```{r dplyr_misc1, exercise = TRUE}
 
@@ -438,6 +446,54 @@ msleep %>%
   rename(food_preference = vore)
 ``` 
 <br>
+
+
+### Removing duplicate rows
+
+In many circumstances, we are interested in subsetting data to only keep _unique_ rows and therefore remove duplicates. We simply use the `dplyr` function `distinct()` for this - no arguments! Below shows you how to use the function, but it's not very interesting yet since there are no duplicate rows in `msleep`! This function will get more interesting in Set 2.
+
+
+```{r demo-distinct, exercise=T}
+msleep %>%
+  distinct()
+```
+
+<br>
+
+### Counting the number of rows
+
+Often we need to know "how many rows are in this wrangled data frame?" There are broadly two ways to do this:
+
++ Use the `nrow()` function which you already know! Because `nrow()` takes a data frame as its argument, we can pipe `dplyr` pipelines into it! But it returns a NUMBER, NOT another data frame, so we can't pipe *out* of it
+
+```{r demo-nrow, exercise=T}
+msleep %>%
+  nrow()
+```
+
+
++ Use the `dplyr` function `tally()` which gives you a _tibble_ of the row count. *We will learn more interesting uses of this function later, but for now, you should know that it will count your rows:*
+
+
+```{r demo-tally, exercise=T}
+msleep %>%
+  tally()
+```
+
+
+<br><br>
+
+1. Answer the question: How many mammals weigh more than 2000 kg? To answer this, we'd use filter, and the number of rows in final data frame represents the answer to the question. **HOWEVER**, rather than just looking at our own eyes and determining ourselves how many rows are there, we want to use **code** to figure that out for us. Add `tally()` onto the pipe to see this:
+
+```{r tally_q1, exercise=T}
+
+```
+```{r tally_q1-solution}
+msleep %>%
+  filter(bodywt > 2000) %>%
+  tally()
+```
+
 
 
 <!--
@@ -610,6 +666,37 @@ msleep %>%
 
 ``` 
 <br>
+
+9. Now, let's finally see why `distinct()` is a helpful function. We want to answer this question using a `dplyr` framework: What are the unique vores in the dataset? To address this question, we need to first subset the data to only contain the `vore` column, and then use `distinct()`:
+
+```{r distinct-vore-demo}
+msleep %>%
+  select(vore) %>%
+  distinct()
+```
+
+**For this question,** engage with the code above, and understand _why I had to write it in this order._ Think about why it would NOT work to first get all unique rows and then select only vore. (HINT: Take the time to understand this! Spielman is drawing _stars!_)
+
+<br>
+
+10. Create a tibble that contains just the column `vore` and shows only the unique vores that mammals of the order `"Carnivora"` belong to. In other words, what do carnivores eat? (The answer should make some sense...) 
+
+  > Hint: You first want to filter to the rows of interest (rodents!!), and then figure out how to get the distinct vores for that group.
+  > 
+  > Hint: Don't worry about NAs. We will learn how to deal with those soon.
+
+```{r dplyr_pipe10, exercise=T}
+
+```
+
+
+```{r dplyr_pipe10-solution}
+msleep %>%
+  filter(order == "Carnivora") %>%
+  select(vore) %>%
+  distinct()
+```
+
 
 
 ## Set 3: Summarizing data with `dplyr`
