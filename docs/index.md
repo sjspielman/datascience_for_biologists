@@ -42,9 +42,9 @@ T 2/23  | Best practices in data visualization | [Slides](./slides/dataviz_style
 W 2/24  | File input/output | [Reference/Tutorial](./tutorials/readr_ggsave.html) <br> [In-class exercise instructions](./misc/path_lesson.html) | None
 R 2/25  | **Meets from 2:30-3:15 PM only.** Concepts in exploratory data analysis | Live demonstration (follow along in an RStudio Cloud project per your preference) | None
 T 3/2   | Data wrangling with `dplyr`, Part 1 <!-- pipe and filter --> | Slides TBD | **Homework 5 due** on Canvas as an R script.  [Link to instructions](./homeworks/hw5/hw5_instructions.html)
-W 3/3   | Data wrangling with `dplyr`, Part 2 <!-- mutate, arrange, distinct, select --> | Slides TBD <br> Exercises: Begin Introduction to data wrangling with `dplyr`| None 
+W 3/3   | Data wrangling with `dplyr`, Part 2 <!-- mutate, arrange, distinct, select --> | Exercises: Introduction to data wrangling with `dplyr`| None 
 R 3/4   | Data wrangling with `dplyr`, Part 3 | Exercises: Continue Introduction to data wrangling with  `dplyr` | None
-T 3/9   | Debugging strategies | In-class script TBD | **Homework 6 due** on Canvas as an R script.<!-- dplyr1 -->
+T 3/9   | Debugging strategies | In-class script TBD | **Homework 6 due** on Canvas as an R script.  [Link to instructions](./homeworks/hw6/hw6_instructions.html) 
 W 3/10  | Data wrangling with `dplyr`, Part 4 | Slides TBD | None
 R 3/11  | Data wrangling with `dplyr`, Part 5 | Exercises: Continue Introduction to data wrangling with  `dplyr` | None
 T 3/16  | Creating professional reports with RMarkdown | In-class script TBD |  **Homework 7 due** on Canvas as an R script. <!-- dplyr summarizing -->
