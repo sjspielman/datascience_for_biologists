@@ -42,11 +42,11 @@ T 2/23  | Best practices in data visualization | [Slides](./slides/dataviz_style
 W 2/24  | File input/output | [Reference/Tutorial](./tutorials/readr_ggsave.html) <br> [In-class exercise instructions](./misc/path_lesson.html) | None
 R 2/25  | **Meets from 2:30-3:15 PM only.** Concepts in exploratory data analysis | Live demonstration (follow along in an RStudio Cloud project per your preference) | None
 T 3/2   | Data wrangling with `dplyr`, Part 1 <!-- pipe and filter --> | [PDF Slides](./slides/dplyr_slides_part1.pdf) <br><br> [Slides in browser](./slides/dplyr_slides_part1.html) | **Homework 5 due** on Canvas as an R script.  [Link to instructions](./homeworks/hw5/hw5_instructions.html)
-W 3/3   | Data wrangling with `dplyr`, Part 2 <!-- mutate, arrange, distinct, select --> | Exercises: Introduction to data wrangling with `dplyr`| None 
-R 3/4   | Data wrangling with `dplyr`, Part 3 | Exercises: Continue Introduction to data wrangling with  `dplyr` | None
-T 3/9   | Debugging strategies | In-class script TBD | **Homework 6 due** on Canvas as an R script.  [Link to instructions](./homeworks/hw6/hw6_instructions.html) 
-W 3/10  | Data wrangling with `dplyr`, Part 4 | Slides TBD | None
-R 3/11  | Data wrangling with `dplyr`, Part 5 | Exercises: Continue Introduction to data wrangling with  `dplyr` | None
+W 3/3   | Data wrangling with `dplyr`, Part 2 <!-- mutate, arrange, distinct, select --> | Exercises: Introduction to data wrangling with `dplyr` Set1-2 <br><br>[**Link if your last name is A-M**](https://rowanbiosci.shinyapps.io/intro_dplyr_A-M/) <br><br>[**Link if your last name is N-Z**](https://rowanbiosci.shinyapps.io/intro_dplyr_N-Z/)| None 
+R 3/4   | Data wrangling with `dplyr`, Part 3 | None | None
+T 3/9   | Data wrangling with `dplyr`, Part 4 | Slides TBD | **Homework 6 due** on Canvas as an R script.  [Link to instructions](./homeworks/hw6/hw6_instructions.html) 
+W 3/10  | Data wrangling with `dplyr`, Part 5 | Exercises: Introduction to data wrangling with `dplyr` Set3 <br><br>[**Link if your last name is A-M**](https://rowanbiosci.shinyapps.io/intro_dplyr_A-M/) <br><br>[**Link if your last name is N-Z**](https://rowanbiosci.shinyapps.io/intro_dplyr_N-Z/)| None
+R 3/11  | Debugging strategies | In-class script TBD | None
 T 3/16  | Creating professional reports with RMarkdown | In-class script TBD |  **Homework 7 due** on Canvas as an R script. <!-- dplyr summarizing -->
 W 3/17  | Rmarkdown for exploratory analyses | TBD | None <!-- DO THE HOMEWORK AS A CLASS --> 
 R 3/18  | **NO CLASS AT ALL TODAY** (not even asynchronous!) | None | None

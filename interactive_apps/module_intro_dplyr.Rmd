@@ -23,11 +23,11 @@ tutorial_options(exercise.lines = 6)
   
 #### **See [here](http://htmlpreview.github.io/?https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/docs/tutorials/dplyr_onetable.html) for the greatest hits of `dplyr`.**
   
-> The library `dplyr` has been pre-loaded for use using the command `library(dplyr)`.
+> The library `dplyr` (and more!) has been pre-loaded for use using the command `library(tidyverse)`.
 
 ## Part 1: Examine the data frame you'll be working with
 
-These exercises use a pre-loaded dataset called `msleep` (sound familar?), which provides different physical and behavioral characteristics of mammals, including how much they sleep.
+These exercises use a pre-loaded dataset called `msleep` (sound familiar?), which provides different physical and behavioral characteristics of mammals, including how much they sleep.
 
 Use this code chunk to familiarize yourself with the dataset before you proceed to work with it. In particular, there is a great `dplyr` function `glimpse()` which can reveal a lot of helpful information about a data frame. It's similar to the `str()` function, but the ouptut is much nicer to look at.
 
@@ -701,6 +701,7 @@ msleep %>%
 
 ## Set 3: Summarizing data with `dplyr`
 
+> **FOR WEEK OF 3/8/21**
 
 1. Use `summarize()` to create a summarized dataframe with a column `mean_awake` that contains the mean number of hours spent awake.
 
