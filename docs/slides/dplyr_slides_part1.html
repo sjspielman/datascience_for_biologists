@@ -5,8 +5,8 @@
     <meta charset="utf-8" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
-    <link href="libs/remark-css/chocolate.css" rel="stylesheet" />
     <link href="libs/remark-css/chocolate-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my_chocolate.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -17,16 +17,18 @@
 
 
 
+
 class: title-slide
+background-image: url(slide_background_images/hammybeans.png)
+background-size: contain
 
-&lt;!--background-image: url(slide_background_images/) --&gt; 
-
+&lt;br&gt;&lt;br&gt;
 .bg-text[
 # Introduction to `dplyr`
 ## Data Science for Biologists
 
 &lt;hr /&gt;
-**Image by TBD**
+**Spring 2021, Dr. Spielman**
 ]
 
 
@@ -97,13 +99,16 @@ log(5)
 
 # Loading libraries
 
+## You must load your libraries for each R session OR NONE OF THIS WORKS!!
+
 
 ```r
-## LOAD THE DPLYR LIBRARY
-library(dplyr)
+library(tidyverse) # convenient for "everything"
+#or
+library(dplyr) # if you just want to load dplyr (less common)
 ```
 
-## You must load the library for each R session OR NONE OF THIS WORKS!!
+
 
 ---
 
@@ -179,7 +184,7 @@ str(diamonds)
 
 
 ```r
-glimpse(diamonds)
+*glimpse(diamonds)
 ```
 
 ```
@@ -268,12 +273,21 @@ summary(diamonds)
 + Summarizing data **`summarize()`**
     + Ex: Calculating the mean price
     + Ex: Calculating the mean price for *each* diamond quality category
---
 
-### Data frame in, data frame out.
+---
 
-The *first argument* for all functions is a data frame (tibble).
-All functions *return* a data frame (tibble). 
+# Data frame in, data frame out.
+
+**The _first argument_ for most `dplyr` verbs (functions) is a data frame (tibble).**
+
+**Those verbs all _return_ a data frame (tibble).** 
+
+
+### THIS IS REALLY IMPORTANT!
+
+
+![](https://i.gifer.com/7TmM.gif)
+
 
 ---
 
@@ -283,32 +297,41 @@ All functions *return* a data frame (tibble).
 
 ```r
 # Reminder of the dataset:
-head(diamonds)
+diamonds
 ```
 
 ```
-## # A tibble: 6 x 5
-##   carat cut       color price     x
-##   &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
-## 1  0.23 Very Good E       402  4.01
-## 2  0.72 Ideal     F      2879  5.76
-## 3  1.11 Ideal     F      7823  6.62
-## 4  1.01 Very Good D      4338  6.43
-## 5  0.3  Ideal     G       684  4.31
-## 6  0.23 Very Good E       485  4.02
+## # A tibble: 20 x 5
+##    carat cut       color price     x
+##    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
+##  1  0.23 Very Good E       402  4.01
+##  2  0.72 Ideal     F      2879  5.76
+##  3  1.11 Ideal     F      7823  6.62
+##  4  1.01 Very Good D      4338  6.43
+##  5  0.3  Ideal     G       684  4.31
+##  6  0.23 Very Good E       485  4.02
+##  7  1.51 Premium   H      9762  7.54
+##  8  0.34 Premium   I       765  4.49
+##  9  0.59 Ideal     E      1607  5.36
+## 10  1.41 Ideal     G     11009  7.22
+## 11  0.35 Ideal     E       767  4.52
+## 12  0.31 Premium   H       558  4.34
+## 13  2.02 Very Good D     15334  8.19
+## 14  1.32 Ideal     H      9572  6.98
+## 15  1    Good      G      5484  6.38
+## 16  0.34 Ideal     D      1272  4.49
+## 17  1.02 Premium   I      4113  6.48
+## 18  0.73 Ideal     H      3463  5.8 
+## 19  1.35 Premium   I      5715  7.26
+## 20  0.55 Premium   F      1354  5.26
 ```
-
---
-
-+ All common `dplyr` verbs follow this paradigm:
-  + First argument: a data frame
-  + Additional argument(s): **logical statements** (code that gives `TRUE` OR `FALSE`) about which rows you want to keep
-  + *We can directly refer to columns within `dplyr` code*
-
 
 ---
 
 # Diving in with `filter()`
+
+### Goal: Subset the data to only Premium quality diamonds
+
 
 + First argument: a data frame
 + Additional argument(s): **logical statements** (code that gives `TRUE` OR `FALSE`) about which rows you want to keep
@@ -317,7 +340,7 @@ head(diamonds)
 
 
 ```r
-# Keep only Premium quality diamonds diamonds:
+# Keep only Premium quality diamonds:
 filter(diamonds, cut == "Premium")
 ```
 
@@ -346,8 +369,9 @@ filter(diamonds, cut == "Premium")
 # diamonds %&gt;% filter(cut == "Premium")
 
 # THIS!!!!
-diamonds %&gt;%
-  filter(cut == "Premium")
+# STARS STARS STARS! THIS WAY!
+*diamonds %&gt;%
+* filter(cut == "Premium")
 ```
 
 ```
@@ -576,7 +600,7 @@ diamonds
 
 ```r
 diamonds %&gt;%
-  filter(cut == "Premium", color == "I")
+* filter(cut == "Premium", color == "I")
 ```
 
 ```
@@ -615,9 +639,9 @@ diamonds %&gt;%
 
 ```r
 diamonds %&gt;%
-  filter(cut == "Premium", 
-         color == "I", 
-         carat &gt; 1)
+* filter(cut == "Premium",
+*        color == "I",
+*        carat &gt; 1)
 ```
 
 ```
@@ -678,12 +702,12 @@ colors &lt;- c("red", "orange", "yellow")
 
 ---
 
-# Get rows with _either_ cut using `%in%`
+# Get rows with _either_ cut using `%in%`, NOT `==`
 
 
 ```r
 diamonds %&gt;%
-  filter(cut %in% c("Ideal", "Premium"))
+* filter(cut %in% c("Ideal", "Premium"))
 ```
 
 ```
@@ -708,13 +732,39 @@ diamonds %&gt;%
 ```
 
 ---
-# Don't forget: avoid hardcoding!
+# Helpful tips
+
 
 
 ```r
-cuts &lt;- c("Ideal", "Premium")
+# Avoid hardcoding by defining this separately
+*cuts &lt;- c("Ideal", "Premium")
 diamonds %&gt;%
   filter(cut %in% cuts) 
+```
+
+&lt;br&gt;&lt;br&gt;
+
+### THIS SEEMS LIKE IT WORKS BUT IT DOES NOT!
+
+
+```r
+diamonds %&gt;%
+  # Why is this NO NO NO NO NO NO NO????
+* filter(cut == c("Ideal", "Premium"))
+```
+
+```
+## # A tibble: 7 x 5
+##   carat cut     color price     x
+##   &lt;dbl&gt; &lt;ord&gt;   &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
+## 1  1.11 Ideal   F      7823  6.62
+## 2  0.3  Ideal   G       684  4.31
+## 3  0.34 Premium I       765  4.49
+## 4  0.59 Ideal   E      1607  5.36
+## 5  0.35 Ideal   E       767  4.52
+## 6  0.31 Premium H       558  4.34
+## 7  0.55 Premium F      1354  5.26
 ```
 
 ---
@@ -760,7 +810,7 @@ ggplot(diamonds, aes(x = carat,
   geom_point(size = 3)
 ```
 
-![](dplyr_slides_part1_files/figure-html/unnamed-chunk-39-1.png)&lt;!-- --&gt;
+![](dplyr_slides_part1_files/figure-html/unnamed-chunk-40-1.png)&lt;!-- --&gt;
 
 --
 
@@ -780,7 +830,7 @@ ggplot(diamonds_cheaper, aes(x = carat,
   geom_point(size = 3)
 ```
 
-![](dplyr_slides_part1_files/figure-html/unnamed-chunk-40-1.png)&lt;!-- --&gt;
+![](dplyr_slides_part1_files/figure-html/unnamed-chunk-41-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -796,17 +846,18 @@ ggplot(diamonds_cheaper, aes(x = carat,
   geom_point(size = 3)
 ```
 
+.pull-left[
 
 ```r
 diamonds %&gt;%
-  filter(price &lt; 1000) %&gt;%
+  filter(price &lt; 1000) %&gt;%  
   ggplot(aes(x = carat, 
              y = price)) + 
     geom_point(size = 3)
 ```
 
-![](dplyr_slides_part1_files/figure-html/unnamed-chunk-42-1.png)&lt;!-- --&gt;
-
+![](dplyr_slides_part1_files/figure-html/unnamed-chunk-43-1.png)&lt;!-- --&gt;
+]
 .pull-right[
 **Caution:** Be careful to use `%&gt;%` and `+` in the right place. Using the wrong one in the wrong place is a common mistake!
 ]
@@ -1130,6 +1181,7 @@ diamonds %&gt;%
 # Make sure this works FIRST
 
 
+
 ```r
 diamonds %&gt;%
   filter(carat &lt; 0.5)
@@ -1194,11 +1246,223 @@ models %&gt;%
                values_to = "best_model") %&gt;%
   mutate(best_matrix = str_replace(best_model, "\\+.+", "")) -&gt; processed_models
 ```
+
+---
+
+# So far...
+
++ `glimpse()` for data frame overviews
++ `filter()` for subsetting rows (observations)
++ `select()` for keeping/removing columns
++ `mutate()` for creating columns
+
+
++ Other `dplyr` functions you will see in exercises this week (and will be on the homework)
+  + `arrange()`
+  + `rename()`
+  + `distinct()`
+  + `tally()` (we will learn more about this function next week, too)
+  
+---
+
+# Arranging rows by a variable
+
+
+```r
+diamonds %&gt;%
+* arrange(carat)
+```
+
+```
+## # A tibble: 20 x 5
+##    carat cut       color price     x
+##    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
+##  1  0.23 Very Good E       402  4.01
+##  2  0.23 Very Good E       485  4.02
+##  3  0.3  Ideal     G       684  4.31
+##  4  0.31 Premium   H       558  4.34
+##  5  0.34 Premium   I       765  4.49
+##  6  0.34 Ideal     D      1272  4.49
+##  7  0.35 Ideal     E       767  4.52
+##  8  0.55 Premium   F      1354  5.26
+##  9  0.59 Ideal     E      1607  5.36
+## 10  0.72 Ideal     F      2879  5.76
+## 11  0.73 Ideal     H      3463  5.8 
+## 12  1    Good      G      5484  6.38
+## 13  1.01 Very Good D      4338  6.43
+## 14  1.02 Premium   I      4113  6.48
+## 15  1.11 Ideal     F      7823  6.62
+## 16  1.32 Ideal     H      9572  6.98
+## 17  1.35 Premium   I      5715  7.26
+## 18  1.41 Ideal     G     11009  7.22
+## 19  1.51 Premium   H      9762  7.54
+## 20  2.02 Very Good D     15334  8.19
+```
+
+#### For descending order:
+
+
+```r
+diamonds %&gt;%
+* arrange(desc(carat))
+```
+
+```
+## # A tibble: 20 x 5
+##    carat cut       color price     x
+##    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
+##  1  2.02 Very Good D     15334  8.19
+##  2  1.51 Premium   H      9762  7.54
+##  3  1.41 Ideal     G     11009  7.22
+##  4  1.35 Premium   I      5715  7.26
+##  5  1.32 Ideal     H      9572  6.98
+##  6  1.11 Ideal     F      7823  6.62
+##  7  1.02 Premium   I      4113  6.48
+##  8  1.01 Very Good D      4338  6.43
+##  9  1    Good      G      5484  6.38
+## 10  0.73 Ideal     H      3463  5.8 
+## 11  0.72 Ideal     F      2879  5.76
+## 12  0.59 Ideal     E      1607  5.36
+## 13  0.55 Premium   F      1354  5.26
+## 14  0.35 Ideal     E       767  4.52
+## 15  0.34 Premium   I       765  4.49
+## 16  0.34 Ideal     D      1272  4.49
+## 17  0.31 Premium   H       558  4.34
+## 18  0.3  Ideal     G       684  4.31
+## 19  0.23 Very Good E       402  4.01
+## 20  0.23 Very Good E       485  4.02
+```
+
+---
+
+
+# Renaming columns
+
+
+
+```r
+diamonds %&gt;%
+* rename(width = x)
+```
+
+```
+## # A tibble: 20 x 5
+##    carat cut       color price width
+##    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
+##  1  0.23 Very Good E       402  4.01
+##  2  0.72 Ideal     F      2879  5.76
+##  3  1.11 Ideal     F      7823  6.62
+##  4  1.01 Very Good D      4338  6.43
+##  5  0.3  Ideal     G       684  4.31
+##  6  0.23 Very Good E       485  4.02
+##  7  1.51 Premium   H      9762  7.54
+##  8  0.34 Premium   I       765  4.49
+##  9  0.59 Ideal     E      1607  5.36
+## 10  1.41 Ideal     G     11009  7.22
+## 11  0.35 Ideal     E       767  4.52
+## 12  0.31 Premium   H       558  4.34
+## 13  2.02 Very Good D     15334  8.19
+## 14  1.32 Ideal     H      9572  6.98
+## 15  1    Good      G      5484  6.38
+## 16  0.34 Ideal     D      1272  4.49
+## 17  1.02 Premium   I      4113  6.48
+## 18  0.73 Ideal     H      3463  5.8 
+## 19  1.35 Premium   I      5715  7.26
+## 20  0.55 Premium   F      1354  5.26
+```
+
+
+#### The order is `rename(newname = oldname)`
+
+---
+
+
+# Removing duplicate rows
+
+
+
+```r
+diamonds %&gt;%
+* distinct()
+```
+
+```
+## # A tibble: 20 x 5
+##    carat cut       color price     x
+##    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
+##  1  0.23 Very Good E       402  4.01
+##  2  0.72 Ideal     F      2879  5.76
+##  3  1.11 Ideal     F      7823  6.62
+##  4  1.01 Very Good D      4338  6.43
+##  5  0.3  Ideal     G       684  4.31
+##  6  0.23 Very Good E       485  4.02
+##  7  1.51 Premium   H      9762  7.54
+##  8  0.34 Premium   I       765  4.49
+##  9  0.59 Ideal     E      1607  5.36
+## 10  1.41 Ideal     G     11009  7.22
+## 11  0.35 Ideal     E       767  4.52
+## 12  0.31 Premium   H       558  4.34
+## 13  2.02 Very Good D     15334  8.19
+## 14  1.32 Ideal     H      9572  6.98
+## 15  1    Good      G      5484  6.38
+## 16  0.34 Ideal     D      1272  4.49
+## 17  1.02 Premium   I      4113  6.48
+## 18  0.73 Ideal     H      3463  5.8 
+## 19  1.35 Premium   I      5715  7.26
+## 20  0.55 Premium   F      1354  5.26
+```
+
+#### Not super interesting with `diamonds`, but this is how you use the function!
+
+---
+
+# Counting the number of rows with code
+
+
+
+```r
+# Returns a number
+nrow(diamonds)
+```
+
+```
+## [1] 20
+```
+
+
+
+
+```r
+# Returns a number
+diamonds %&gt;%
+  nrow()
+```
+
+```
+## [1] 20
+```
+
+
+
+```r
+# Returns a TIBBLE
+diamonds %&gt;%
+* tally()
+```
+
+```
+## # A tibble: 1 x 1
+##       n
+##   &lt;int&gt;
+## 1    20
+```
+
+---
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
-"highlightStyle": "rainbow",
+"highlightStyle": "github",
 "highlightLines": true,
 "countIncrementalSlides": false
 });

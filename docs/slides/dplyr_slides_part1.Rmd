@@ -2,13 +2,16 @@
 output:
   xaringan::moon_reader:
     lib_dir: libs
-    css: [default, chocolate, chocolate-fonts]
+    css: [default, my_chocolate.css, chocolate-fonts]
     nature:
-      highlightStyle:  rainbow
+      highlightStyle:  github
       highlightLines: true
       countIncrementalSlides: false
     seal: false
+editor_options: 
+  chunk_output_type: console
 ---
+
 
 ```{css, include=FALSE, echo=FALSE}
 .title-slide .bg-text{
@@ -48,15 +51,16 @@ diamonds %>%
 ```
 
 class: title-slide
+background-image: url(slide_background_images/hammybeans.png)
+background-size: contain
 
-<!--background-image: url(slide_background_images/) --> 
-
+<br><br>
 .bg-text[
 # Introduction to `dplyr`
 ## Data Science for Biologists
 
 <hr />
-**Image by TBD**
+**Spring 2021, Dr. Spielman**
 ]
 
 
@@ -120,12 +124,15 @@ log(5)
 
 # Loading libraries
 
+## You must load your libraries for each R session OR NONE OF THIS WORKS!!
+
 ```{r}
-## LOAD THE DPLYR LIBRARY
-library(dplyr)
+library(tidyverse) # convenient for "everything"
+#or
+library(dplyr) # if you just want to load dplyr (less common)
 ```
 
-## You must load the library for each R session OR NONE OF THIS WORKS!!
+
 
 ---
 
@@ -165,7 +172,7 @@ str(diamonds)
 <br><br>
 
 ```{r}
-glimpse(diamonds)
+glimpse(diamonds) #<<
 ```
 
 ---
@@ -221,12 +228,21 @@ summary(diamonds)
 + Summarizing data **`summarize()`**
     + Ex: Calculating the mean price
     + Ex: Calculating the mean price for *each* diamond quality category
---
 
-### Data frame in, data frame out.
+---
 
-The *first argument* for all functions is a data frame (tibble).
-All functions *return* a data frame (tibble). 
+# Data frame in, data frame out.
+
+**The _first argument_ for most `dplyr` verbs (functions) is a data frame (tibble).**
+
+**Those verbs all _return_ a data frame (tibble).** 
+
+
+### THIS IS REALLY IMPORTANT!
+
+
+![](https://i.gifer.com/7TmM.gif)
+
 
 ---
 
@@ -235,20 +251,15 @@ All functions *return* a data frame (tibble).
 
 ```{r}
 # Reminder of the dataset:
-head(diamonds)
+diamonds
 ```
-
---
-
-+ All common `dplyr` verbs follow this paradigm:
-  + First argument: a data frame
-  + Additional argument(s): **logical statements** (code that gives `TRUE` OR `FALSE`) about which rows you want to keep
-  + *We can directly refer to columns within `dplyr` code*
-
 
 ---
 
 # Diving in with `filter()`
+
+### Goal: Subset the data to only Premium quality diamonds
+
 
 + First argument: a data frame
 + Additional argument(s): **logical statements** (code that gives `TRUE` OR `FALSE`) about which rows you want to keep
@@ -256,7 +267,7 @@ head(diamonds)
 
 
 ```{r}
-# Keep only Premium quality diamonds diamonds:
+# Keep only Premium quality diamonds:
 filter(diamonds, cut == "Premium")
 ```
 
@@ -272,8 +283,9 @@ filter(diamonds, cut == "Premium")
 # diamonds %>% filter(cut == "Premium")
 
 # THIS!!!!
-diamonds %>%
-  filter(cut == "Premium")
+# STARS STARS STARS! THIS WAY!
+diamonds %>%   #<<
+  filter(cut == "Premium")   #<<
 ```
 ---
 
@@ -369,7 +381,7 @@ diamonds
 
 ```{r}
 diamonds %>%
-  filter(cut == "Premium", color == "I")
+  filter(cut == "Premium", color == "I") #<<
 ```
 
 ---
@@ -389,9 +401,9 @@ diamonds %>%
 
 ```{r}
 diamonds %>%
-  filter(cut == "Premium", 
-         color == "I", 
-         carat > 1)
+  filter(cut == "Premium",  #<<
+         color == "I",     #<<
+         carat > 1)      #<<
 ```
 
 **Caution!!** Make sure the commas are always on at the _end of a line_
@@ -426,20 +438,32 @@ colors <- c("red", "orange", "yellow")
 
 ---
 
-# Get rows with _either_ cut using `%in%`
+# Get rows with _either_ cut using `%in%`, NOT `==`
 
 ```{r}
 diamonds %>%
-  filter(cut %in% c("Ideal", "Premium"))
+  filter(cut %in% c("Ideal", "Premium")) #<<
 ```
 
 ---
-# Don't forget: avoid hardcoding!
+# Helpful tips
+
 
 ```{r, eval=FALSE}
-cuts <- c("Ideal", "Premium")
+# Avoid hardcoding by defining this separately
+cuts <- c("Ideal", "Premium") #<<
 diamonds %>%
   filter(cut %in% cuts) 
+```
+
+<br><br>
+
+### THIS SEEMS LIKE IT WORKS BUT IT DOES NOT!
+
+```{r}
+diamonds %>%
+  # Why is this NO NO NO NO NO NO NO????
+  filter(cut == c("Ideal", "Premium")) #<<
 ```
 
 ---
@@ -491,14 +515,15 @@ ggplot(diamonds_cheaper, aes(x = carat,
   geom_point(size = 3)
 ```
 
-```{r, fig.height = 3, fig.width = 3}
+.pull-left[
+```{r, fig.height = 2, fig.width = 3}
 diamonds %>%
-  filter(price < 1000) %>%
+  filter(price < 1000) %>%  
   ggplot(aes(x = carat, 
              y = price)) + 
     geom_point(size = 3)
 ```
-
+]
 .pull-right[
 **Caution:** Be careful to use `%>%` and `+` in the right place. Using the wrong one in the wrong place is a common mistake!
 ]
@@ -604,6 +629,7 @@ diamonds %>%
 
 # Make sure this works FIRST
 
+
 ```{r}
 diamonds %>%
   filter(carat < 0.5)
@@ -640,3 +666,89 @@ models %>%
                values_to = "best_model") %>%
   mutate(best_matrix = str_replace(best_model, "\\+.+", "")) -> processed_models
 ```
+
+---
+
+# So far...
+
++ `glimpse()` for data frame overviews
++ `filter()` for subsetting rows (observations)
++ `select()` for keeping/removing columns
++ `mutate()` for creating columns
+
+
++ Other `dplyr` functions you will see in exercises this week (and will be on the homework)
+  + `arrange()`
+  + `rename()`
+  + `distinct()`
+  + `tally()` (we will learn more about this function next week, too)
+  
+---
+
+# Arranging rows by a variable
+
+```{r}
+diamonds %>%
+  arrange(carat) #<<
+```
+
+#### For descending order:
+
+```{r}
+diamonds %>%
+  arrange(desc(carat)) #<<
+```
+
+---
+
+
+# Renaming columns
+
+
+```{r}
+diamonds %>%
+  rename(width = x) #<<
+```
+
+
+#### The order is `rename(newname = oldname)`
+
+---
+
+
+# Removing duplicate rows
+
+
+```{r}
+diamonds %>%
+  distinct() #<<
+```
+
+#### Not super interesting with `diamonds`, but this is how you use the function!
+
+---
+
+# Counting the number of rows with code
+
+
+```{r}
+# Returns a number
+nrow(diamonds)
+```
+
+
+
+```{r}
+# Returns a number
+diamonds %>%
+  nrow()
+```
+
+
+```{r}
+# Returns a TIBBLE
+diamonds %>%
+  tally() #<<
+```
+
+---
