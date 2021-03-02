@@ -5,8 +5,8 @@
     <meta charset="utf-8" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link href="libs/remark-css/default.css" rel="stylesheet" />
-    <link href="libs/remark-css/chocolate.css" rel="stylesheet" />
     <link href="libs/remark-css/chocolate-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my_chocolate.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -17,16 +17,20 @@
 
 
 
-class: title-slide
 
-&lt;!--background-image: url(slide_background_images/) --&gt; 
+class: title-slide
+background-image: url(slide_background_images/cat_teddy.png)
+background-size: contain
+
+---
+
 
 .bg-text[
 # Summarizing data with `dplyr`
 ## Data Science for Biologists
 
 &lt;hr /&gt;
-**Image by TBD**
+**Spring 2021, Dr. Spielman**
 ]
 
 
@@ -102,68 +106,61 @@ diamonds
 
 
 ```r
-# Get 20 random numbers from 1-1000
-x &lt;- sample(1:1000, 20)
+# Get 10 random numbers from 1-1000
+x &lt;- sample(1:1000, 10)
 length(x)
-## [1] 20
+## [1] 10
 x
-##  [1] 337 349 862 946 705  17 220 465 399 304  46 195 434 547 881 553 516 908 789
-## [20] 346
+##  [1] 337 349 862 946 705  17 220 465 399 304
 ```
 
 
 
 ```r
 mean(x)
-## [1] 490.95
+## [1] 460.4
 median(x)
-## [1] 449.5
+## [1] 374
 min(x)
 ## [1] 17
 max(x)
 ## [1] 946
 sd(x)
-## [1] 281.8063
+## [1] 291.9673
 sum(x)
-## [1] 9819
+## [1] 4604
 ```
 
 
 ---
 
 
-# These functions do not _summarize_
+# These functions do _not summarize_
 
 &gt; The operation is performed separately on each value in `x`
 
 
 ```r
 x
-##  [1] 337 349 862 946 705  17 220 465 399 304  46 195 434 547 881 553 516 908 789
-## [20] 346
+##  [1] 337 349 862 946 705  17 220 465 399 304
 ```
 
 
 ```r
 sqrt(x)
 ##  [1] 18.357560 18.681542 29.359837 30.757113 26.551836  4.123106 14.832397
-##  [8] 21.563859 19.974984 17.435596  6.782330 13.964240 20.832667 23.388031
-## [15] 29.681644 23.515952 22.715633 30.133038 28.089144 18.601075
+##  [8] 21.563859 19.974984 17.435596
 
 log(x, 10) # log in base 10!
 ##  [1] 2.527630 2.542825 2.935507 2.975891 2.848189 1.230449 2.342423 2.667453
-##  [9] 2.600973 2.482874 1.662758 2.290035 2.637490 2.737987 2.944976 2.742725
-## [17] 2.712650 2.958086 2.897077 2.539076
+##  [9] 2.600973 2.482874
 
 exp(x) # e^x
 ##  [1] 2.276357e+146 3.704880e+151           Inf           Inf 1.505254e+306
 ##  [6]  2.415495e+07  3.505791e+95 8.849813e+201 1.920871e+173 1.060529e+132
-## [11]  9.496119e+19  4.868823e+84 3.046528e+188 3.623111e+237           Inf
-## [16] 1.461667e+240 1.247248e+224           Inf           Inf 1.844551e+150
 
 abs(x) # absolute value. kinda boring here, all numbers are positive
-##  [1] 337 349 862 946 705  17 220 465 399 304  46 195 434 547 881 553 516 908 789
-## [20] 346
+##  [1] 337 349 862 946 705  17 220 465 399 304
 ```
 
 ---
@@ -173,7 +170,7 @@ abs(x) # absolute value. kinda boring here, all numbers are positive
 
 ```r
 diamonds %&gt;%
-  summarize(mean_price = mean(price))
+* summarize(mean_price = mean(price))
 ```
 
 ```
@@ -193,7 +190,7 @@ diamonds %&gt;%
 
 ```r
 diamonds %&gt;%
-  summarize(mean_price = mean(price))
+* summarize(mean_price = mean(price))
 ## # A tibble: 1 x 1
 ##   mean_price
 ##        &lt;dbl&gt;
@@ -204,7 +201,7 @@ diamonds %&gt;%
 
 ```r
 diamonds %&gt;%
-  mutate(mean_price = mean(price))
+* mutate(mean_price = mean(price))
 ## # A tibble: 500 x 6
 ##    carat cut       color price     x mean_price
 ##    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;      &lt;dbl&gt;
@@ -232,7 +229,7 @@ diamonds %&gt;%
 ```r
 diamonds %&gt;%
   # Works, but ends up gnarly
-  summarize(mean(price))
+  summarize(mean(price)) 
 ```
 
 ```
@@ -252,12 +249,10 @@ diamonds %&gt;%
 
 &gt; `sqrt()` is not a summary function! 
 
-.pull-left[
 
 ```r
 diamonds %&gt;%
-  mutate(price_sqrt = sqrt(price)) %&gt;%
-  # so we can see in the slides:
+* mutate(price_sqrt = sqrt(price)) %&gt;%
   select(price_sqrt, everything())
 ## # A tibble: 500 x 6
 ##    price_sqrt carat cut       color price     x
@@ -274,13 +269,19 @@ diamonds %&gt;%
 ## 10      105.   1.41 Ideal     G     11009  7.22
 ## # … with 490 more rows
 ```
-]
 
-.pull-right[
+
+---
+
+# More comparison with `mutate()`
+
+
+&gt; `sqrt()` is not a summary function! 
+
 
 ```r
 diamonds %&gt;%
-  summarize(price_sqrt = sqrt(price))
+* summarize(price_sqrt = sqrt(price))
 ## # A tibble: 500 x 1
 ##    price_sqrt
 ##         &lt;dbl&gt;
@@ -296,11 +297,9 @@ diamonds %&gt;%
 ## 10      105. 
 ## # … with 490 more rows
 ```
-]
 
---
 
-### The lesson: `summarize()` will get rid of any columns that are not used in the calculation.
+**The lesson**: `summarize()` will get rid of any columns that are not used in the calculation.
 
 ---
 
@@ -342,7 +341,7 @@ diamonds %&gt;%
 
 # Working with grouped data
 
-#### `cut` is the **grouping variable**
+### `cut` is the *grouping variable*
 
 
 ```r
@@ -350,10 +349,9 @@ diamonds %&gt;%
   group_by(cut) %&gt;%
   # Perform calculation for each group separately
   summarize(mean_price = mean(price))
-## `summarise()` ungrouping output (override with `.groups` argument)
 ## # A tibble: 5 x 2
 ##   cut       mean_price
-##   &lt;ord&gt;          &lt;dbl&gt;
+## * &lt;ord&gt;          &lt;dbl&gt;
 ## 1 Fair           4950.
 ## 2 Good           3933.
 ## 3 Very Good      4237.
@@ -367,7 +365,7 @@ diamonds %&gt;%
 
 # Working with grouped data
 
-#### `cut` AND `color` are the **grouping variables**
+### Both `cut` and `color` are the *grouping variables*
 
 
 ```r
@@ -375,7 +373,7 @@ diamonds %&gt;%
   group_by(cut, color) %&gt;%
   # Perform calculation for each group separately
   summarize(mean_price = mean(price))
-## `summarise()` regrouping output by 'cut' (override with `.groups` argument)
+## `summarise()` has grouped output by 'cut'. You can override using the `.groups` argument.
 ## # A tibble: 33 x 3
 ## # Groups:   cut [5]
 ##    cut   color mean_price
@@ -397,6 +395,8 @@ diamonds %&gt;%
 Note: `## 'summarise()' regrouping output by 'cut' (override with '.groups' argument)` is just a message that the output has been ordered by `cut`.
 ---
 
+
+
 # How would we plot this data?
 
 
@@ -404,12 +404,11 @@ Note: `## 'summarise()' regrouping output by 'cut' (override with '.groups' argu
 diamonds %&gt;%
   group_by(cut) %&gt;%
   summarize(mean_price = mean(price)) -&gt; diamond_mean_prices
-## `summarise()` ungrouping output (override with `.groups` argument)
 
 diamond_mean_prices
 ## # A tibble: 5 x 2
 ##   cut       mean_price
-##   &lt;ord&gt;          &lt;dbl&gt;
+## * &lt;ord&gt;          &lt;dbl&gt;
 ## 1 Fair           4950.
 ## 2 Good           3933.
 ## 3 Very Good      4237.
@@ -474,7 +473,7 @@ diamond_mean_prices
 ```
 ## # A tibble: 5 x 2
 ##   cut       mean_price
-##   &lt;ord&gt;          &lt;dbl&gt;
+## * &lt;ord&gt;          &lt;dbl&gt;
 ## 1 Fair           4950.
 ## 2 Good           3933.
 ## 3 Very Good      4237.
@@ -500,7 +499,7 @@ ggplot(diamond_mean_prices,
 
 ![](dplyr_slides_part2_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
 
-### Use `geom_col()` when you want to _literally plot a VARIABLE_ (not a count!) on the y-axis 
+**Use `geom_col()` when you want to _literally plot a VARIABLE_ (not a count!) on the y-axis**
 
 ---
 
@@ -582,6 +581,8 @@ ggplot(diamond_mean_prices,
 
 # Don't ever forget to `ungroup()`
 
+### _This is absolutely critical. Build the habit now, even if it sometimes seems silly._
+
 
 ```r
 diamonds %&gt;%
@@ -604,7 +605,7 @@ diamonds %&gt;%
 ## # … with 23 more rows
 ```
 
-### _This is absolutely critical. Build the habit now, even if it sometimes seems silly._
+
 
 ---
 
@@ -632,6 +633,7 @@ diamonds_tiny
 # Ungrouping matters
 
 
+
 ```r
 diamonds_tiny %&gt;%
   group_by(expensive) %&gt;%
@@ -646,6 +648,11 @@ diamonds_tiny %&gt;%
 ## 3 yes       10291  1.5      10835       1.76 
 ## 4 yes       11379  2.03     10835       1.76
 ```
+
+---
+
+# Ungrouping matters
+
 
 
 ```r
@@ -698,7 +705,7 @@ diamonds %&gt;%
 ```
 ## # A tibble: 5 x 2
 ##   cut           n
-##   &lt;ord&gt;     &lt;int&gt;
+## * &lt;ord&gt;     &lt;int&gt;
 ## 1 Fair         10
 ## 2 Good         52
 ## 3 Very Good   108
@@ -721,7 +728,7 @@ diamonds %&gt;%
 ```
 ## # A tibble: 5 x 2
 ##   cut       count_cut
-##   &lt;ord&gt;         &lt;int&gt;
+## * &lt;ord&gt;         &lt;int&gt;
 ## 1 Fair             10
 ## 2 Good             52
 ## 3 Very Good       108
@@ -752,7 +759,7 @@ diamonds %&gt;%
 ```
 ## # A tibble: 5 x 2
 ##   cut           n
-##   &lt;ord&gt;     &lt;int&gt;
+## * &lt;ord&gt;     &lt;int&gt;
 ## 1 Fair         10
 ## 2 Good         52
 ## 3 Very Good   108
@@ -773,7 +780,7 @@ diamonds %&gt;%
 ```
 ## # A tibble: 5 x 2
 ##   cut           n
-##   &lt;ord&gt;     &lt;int&gt;
+## * &lt;ord&gt;     &lt;int&gt;
 ## 1 Fair         10
 ## 2 Good         52
 ## 3 Very Good   108
@@ -806,7 +813,7 @@ diamonds %&gt;%
 
 ---
 
-# We can use `count()` just like `tally()`
+# `count()` can also take the `name` argument
 
 .pull-left[
 
@@ -838,7 +845,7 @@ diamonds %&gt;%
 ```r
 diamonds %&gt;%
   count(cut, color, 
-        name = "count_cut_color")
+    name = "count_cut_color")
 ```
 
 ```
@@ -858,11 +865,71 @@ diamonds %&gt;%
 ## # … with 23 more rows
 ```
 ]
+
+---
+
+# The `n()` function
+
+&gt; A special function you can use _with_ other `dplyr` verbs
+
+.pull-left[
+
+```r
+diamonds %&gt;%
+* mutate(how_many_rows = n()) %&gt;%
+  select(how_many_rows)
+```
+
+```
+## # A tibble: 500 x 1
+##    how_many_rows
+##            &lt;int&gt;
+##  1           500
+##  2           500
+##  3           500
+##  4           500
+##  5           500
+##  6           500
+##  7           500
+##  8           500
+##  9           500
+## 10           500
+## # … with 490 more rows
+```
+]
+
+.pull-right[
+
+```r
+diamonds %&gt;%
+* group_by(color) %&gt;%
+* mutate(how_many_rows = n()) %&gt;%
+  ungroup() %&gt;%
+  select(color, how_many_rows)
+```
+
+```
+## # A tibble: 500 x 2
+##    color how_many_rows
+##    &lt;ord&gt;         &lt;int&gt;
+##  1 E                88
+##  2 F                76
+##  3 F                76
+##  4 D                71
+##  5 G               113
+##  6 E                88
+##  7 H                76
+##  8 I                47
+##  9 E                88
+## 10 G               113
+## # … with 490 more rows
+```
+]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
-"highlightStyle": "rainbow",
+"highlightStyle": "github",
 "highlightLines": true,
 "countIncrementalSlides": false
 });

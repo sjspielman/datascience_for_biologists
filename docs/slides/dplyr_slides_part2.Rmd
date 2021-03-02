@@ -2,15 +2,16 @@
 output:
   xaringan::moon_reader:
     lib_dir: libs
-    css: [default, chocolate, chocolate-fonts]
+    css: [default, my_chocolate.css, chocolate-fonts]
     nature:
-      highlightStyle:  rainbow
+      highlightStyle:  github
       highlightLines: true
       countIncrementalSlides: false
     seal: false
 editor_options: 
   chunk_output_type: console
 ---
+
 
 ```{css, include=FALSE, echo=FALSE}
 .title-slide .bg-text{
@@ -19,6 +20,13 @@ editor_options:
   left: 10%;
   text-align: left;
   color: #000;
+}
+
+.huge .remark-code { /*Change made here*/
+  font-size: 200% !important;
+}
+.teenytiny .remark-inline-code { /*Change made here*/
+  font-size: 10% !important;
 }
 ```
 
@@ -41,15 +49,18 @@ diamonds %>%
 ```
 
 class: title-slide
+background-image: url(slide_background_images/cat_teddy.png)
+background-size: contain
 
-<!--background-image: url(slide_background_images/) --> 
+---
+
 
 .bg-text[
 # Summarizing data with `dplyr`
 ## Data Science for Biologists
 
 <hr />
-**Image by TBD**
+**Spring 2021, Dr. Spielman**
 ]
 
 
@@ -108,8 +119,8 @@ knitr::include_graphics("img/dplyr/diamond_color_range.jpg")
 # Summary statistics: From many values to _one value_
 
 ```{r, collapse=T}
-# Get 20 random numbers from 1-1000
-x <- sample(1:1000, 20)
+# Get 10 random numbers from 1-1000
+x <- sample(1:1000, 10)
 length(x)
 x
 ```
@@ -128,7 +139,7 @@ sum(x)
 ---
 
 
-# These functions do not _summarize_
+# These functions do _not summarize_
 
 > The operation is performed separately on each value in `x`
 
@@ -152,7 +163,7 @@ abs(x) # absolute value. kinda boring here, all numbers are positive
 
 ```{r}
 diamonds %>%
-  summarize(mean_price = mean(price))
+  summarize(mean_price = mean(price)) #<<
 ```
 
 ---
@@ -164,13 +175,13 @@ diamonds %>%
 
 ```{r, collapse=T}
 diamonds %>%
-  summarize(mean_price = mean(price))
+  summarize(mean_price = mean(price)) #<<
 ```
 
 
 ```{r, collapse=T}
 diamonds %>%
-  mutate(mean_price = mean(price))
+  mutate(mean_price = mean(price)) #<<
 ```
 
 
@@ -183,7 +194,7 @@ diamonds %>%
 ```{r}
 diamonds %>%
   # Works, but ends up gnarly
-  summarize(mean(price))
+  summarize(mean(price)) 
 ```
 
 
@@ -196,25 +207,27 @@ diamonds %>%
 
 > `sqrt()` is not a summary function! 
 
-.pull-left[
 ```{r, collapse=T}
 diamonds %>%
-  mutate(price_sqrt = sqrt(price)) %>%
-  # so we can see in the slides:
+  mutate(price_sqrt = sqrt(price)) %>% #<<
   select(price_sqrt, everything())
 ```
-]
 
-.pull-right[
+
+---
+
+# More comparison with `mutate()`
+
+
+> `sqrt()` is not a summary function! 
+
 ```{r, collapse=T}
 diamonds %>%
-  summarize(price_sqrt = sqrt(price))
+  summarize(price_sqrt = sqrt(price)) #<<
 ```
-]
 
---
 
-### The lesson: `summarize()` will get rid of any columns that are not used in the calculation.
+**The lesson**: `summarize()` will get rid of any columns that are not used in the calculation.
 
 ---
 
@@ -233,7 +246,7 @@ diamonds %>%
 
 # Working with grouped data
 
-#### `cut` is the **grouping variable**
+### `cut` is the *grouping variable*
 
 ```{r, collapse=T}
 diamonds %>%
@@ -248,7 +261,7 @@ diamonds %>%
 
 # Working with grouped data
 
-#### `cut` AND `color` are the **grouping variables**
+### Both `cut` and `color` are the *grouping variables*
 
 ```{r, collapse=T}
 diamonds %>%
@@ -260,6 +273,8 @@ diamonds %>%
 
 Note: `## 'summarise()' regrouping output by 'cut' (override with '.groups' argument)` is just a message that the output has been ordered by `cut`.
 ---
+
+
 
 # How would we plot this data?
 
@@ -333,7 +348,7 @@ ggplot(diamond_mean_prices,
   geom_col() #<<
 ```
 
-### Use `geom_col()` when you want to _literally plot a VARIABLE_ (not a count!) on the y-axis 
+**Use `geom_col()` when you want to _literally plot a VARIABLE_ (not a count!) on the y-axis**
 
 ---
 
@@ -403,6 +418,8 @@ ggplot(diamond_mean_prices,
 
 # Don't ever forget to `ungroup()`
 
+### _This is absolutely critical. Build the habit now, even if it sometimes seems silly._
+
 ```{r, collapse=T, message=F}
 diamonds %>%
   group_by(cut, color) %>%
@@ -410,7 +427,7 @@ diamonds %>%
   ungroup() #<<
 ```
 
-### _This is absolutely critical. Build the habit now, even if it sometimes seems silly._
+
 
 ---
 
@@ -434,12 +451,18 @@ diamonds_tiny
 
 # Ungrouping matters
 
+
 ```{r, collapse=T}
 diamonds_tiny %>%
   group_by(expensive) %>%
   mutate(mean_price = mean(price)) %>%
   mutate(mean_carat = mean(carat))
 ```
+
+---
+
+# Ungrouping matters
+
 
 ```{r, collapse=T}
 diamonds_tiny %>%
@@ -516,7 +539,7 @@ diamonds %>%
 
 ---
 
-# We can use `count()` just like `tally()`
+# `count()` can also take the `name` argument
 
 .pull-left[
 ```{r}
@@ -529,6 +552,30 @@ diamonds %>%
 ```{r}
 diamonds %>%
   count(cut, color, 
-        name = "count_cut_color")
+    name = "count_cut_color")
+```
+]
+
+---
+
+# The `n()` function
+
+> A special function you can use _with_ other `dplyr` verbs
+
+.pull-left[
+```{r}
+diamonds %>%
+  mutate(how_many_rows = n()) %>%#<<
+  select(how_many_rows)
+```
+]
+
+.pull-right[
+```{r}
+diamonds %>%
+  group_by(color) %>% #<<
+  mutate(how_many_rows = n()) %>% #<<
+  ungroup() %>%
+  select(color, how_many_rows)
 ```
 ]
