@@ -44,7 +44,7 @@ R 2/25  | **Meets from 2:30-3:15 PM only.** Concepts in exploratory data analysi
 T 3/2   | Data wrangling with `dplyr`, Part 1 <!-- pipe and filter --> | [PDF Slides](./slides/dplyr_slides_part1.pdf) <br><br> [Slides in browser](./slides/dplyr_slides_part1.html) | **Homework 5 due** on Canvas as an R script.  [Link to instructions](./homeworks/hw5/hw5_instructions.html)
 W 3/3   | Data wrangling with `dplyr`, Part 2 <!-- mutate, arrange, distinct, select --> | Exercises: Introduction to data wrangling with `dplyr` Set1-2 <br><br>[**Link if your last name is A-M**](https://rowanbiosci.shinyapps.io/intro_dplyr_A-M/) <br><br>[**Link if your last name is N-Z**](https://rowanbiosci.shinyapps.io/intro_dplyr_N-Z/)| None 
 R 3/4   | Data wrangling with `dplyr`, Part 3 | None | None
-T 3/9   | Data wrangling with `dplyr`, Part 4 | Slides TBD | **Homework 6 due** on Canvas as an R script.  [Link to instructions](./homeworks/hw6/hw6_instructions.html) 
+T 3/9   | Data wrangling with `dplyr`, Part 4 | [PDF Slides](./slides/dplyr_slides_part1.pdf) <br><br> [Slides in browser](./slides/dplyr_slides_part1.html)  | **Homework 6 due** on Canvas as an R script.  [Link to instructions](./homeworks/hw6/hw6_instructions.html) 
 W 3/10  | Data wrangling with `dplyr`, Part 5 | Exercises: Introduction to data wrangling with `dplyr` Set3 <br><br>[**Link if your last name is A-M**](https://rowanbiosci.shinyapps.io/intro_dplyr_A-M/) <br><br>[**Link if your last name is N-Z**](https://rowanbiosci.shinyapps.io/intro_dplyr_N-Z/)| None
 R 3/11  | Debugging strategies | In-class script TBD | None
 T 3/16  | Creating professional reports with RMarkdown | In-class script TBD |  **Homework 7 due** on Canvas as an R script. <!-- dplyr summarizing -->
