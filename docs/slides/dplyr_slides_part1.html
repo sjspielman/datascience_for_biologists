@@ -22,8 +22,8 @@ class: title-slide
 background-image: url(slide_background_images/hammybeans.png)
 background-size: contain
 
-&lt;br&gt;&lt;br&gt;
 .bg-text[
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
 # Introduction to `dplyr`
 ## Data Science for Biologists
 
@@ -122,26 +122,26 @@ print(diamonds)
 ## # A tibble: 20 x 5
 ##    carat cut       color price     x
 ##    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
-##  1  0.23 Very Good E       402  4.01
-##  2  0.72 Ideal     F      2879  5.76
-##  3  1.11 Ideal     F      7823  6.62
-##  4  1.01 Very Good D      4338  6.43
-##  5  0.3  Ideal     G       684  4.31
+##  1  0.34 Ideal     D      1272  4.49
+##  2  0.55 Premium   F      1354  5.26
+##  3  0.23 Very Good E       402  4.01
+##  4  0.31 Premium   H       558  4.34
+##  5  1.11 Ideal     F      7823  6.62
 ##  6  0.23 Very Good E       485  4.02
-##  7  1.51 Premium   H      9762  7.54
-##  8  0.34 Premium   I       765  4.49
-##  9  0.59 Ideal     E      1607  5.36
-## 10  1.41 Ideal     G     11009  7.22
-## 11  0.35 Ideal     E       767  4.52
-## 12  0.31 Premium   H       558  4.34
-## 13  2.02 Very Good D     15334  8.19
-## 14  1.32 Ideal     H      9572  6.98
-## 15  1    Good      G      5484  6.38
-## 16  0.34 Ideal     D      1272  4.49
-## 17  1.02 Premium   I      4113  6.48
-## 18  0.73 Ideal     H      3463  5.8 
-## 19  1.35 Premium   I      5715  7.26
-## 20  0.55 Premium   F      1354  5.26
+##  7  1.32 Ideal     H      9572  6.98
+##  8  0.35 Ideal     E       767  4.52
+##  9  0.34 Premium   I       765  4.49
+## 10  1.35 Premium   I      5715  7.26
+## 11  1.41 Ideal     G     11009  7.22
+## 12  1.02 Premium   I      4113  6.48
+## 13  1.51 Premium   H      9762  7.54
+## 14  1    Good      G      5484  6.38
+## 15  0.73 Ideal     H      3463  5.8 
+## 16  1.01 Very Good D      4338  6.43
+## 17  0.72 Ideal     F      2879  5.76
+## 18  2.02 Very Good D     15334  8.19
+## 19  0.59 Ideal     E      1607  5.36
+## 20  0.3  Ideal     G       684  4.31
 ```
 ]
 
@@ -172,11 +172,11 @@ str(diamonds)
 
 ```
 ## tibble [20 × 5] (S3: tbl_df/tbl/data.frame)
-##  $ carat: num [1:20] 0.23 0.72 1.11 1.01 0.3 0.23 1.51 0.34 0.59 1.41 ...
-##  $ cut  : Ord.factor w/ 5 levels "Fair"&lt;"Good"&lt;..: 3 5 5 3 5 3 4 4 5 5 ...
-##  $ color: Ord.factor w/ 7 levels "D"&lt;"E"&lt;"F"&lt;"G"&lt;..: 2 3 3 1 4 2 5 6 2 4 ...
-##  $ price: int [1:20] 402 2879 7823 4338 684 485 9762 765 1607 11009 ...
-##  $ x    : num [1:20] 4.01 5.76 6.62 6.43 4.31 4.02 7.54 4.49 5.36 7.22 ...
+##  $ carat: num [1:20] 0.34 0.55 0.23 0.31 1.11 0.23 1.32 0.35 0.34 1.35 ...
+##  $ cut  : Ord.factor w/ 5 levels "Fair"&lt;"Good"&lt;..: 5 4 3 4 5 3 5 5 4 4 ...
+##  $ color: Ord.factor w/ 7 levels "D"&lt;"E"&lt;"F"&lt;"G"&lt;..: 1 3 2 5 3 2 5 2 6 6 ...
+##  $ price: int [1:20] 1272 1354 402 558 7823 485 9572 767 765 5715 ...
+##  $ x    : num [1:20] 4.49 5.26 4.01 4.34 6.62 4.02 6.98 4.52 4.49 7.26 ...
 ```
 
 --
@@ -190,11 +190,11 @@ str(diamonds)
 ```
 ## Rows: 20
 ## Columns: 5
-## $ carat &lt;dbl&gt; 0.23, 0.72, 1.11, 1.01, 0.30, 0.23, 1.51, 0.34, 0.59, 1.41, 0.3…
-## $ cut   &lt;ord&gt; Very Good, Ideal, Ideal, Very Good, Ideal, Very Good, Premium, …
-## $ color &lt;ord&gt; E, F, F, D, G, E, H, I, E, G, E, H, D, H, G, D, I, H, I, F
-## $ price &lt;int&gt; 402, 2879, 7823, 4338, 684, 485, 9762, 765, 1607, 11009, 767, 5…
-## $ x     &lt;dbl&gt; 4.01, 5.76, 6.62, 6.43, 4.31, 4.02, 7.54, 4.49, 5.36, 7.22, 4.5…
+## $ carat &lt;dbl&gt; 0.34, 0.55, 0.23, 0.31, 1.11, 0.23, 1.32, 0.35, 0.34, 1.35, 1.4…
+## $ cut   &lt;ord&gt; Ideal, Premium, Very Good, Premium, Ideal, Very Good, Ideal, Id…
+## $ color &lt;ord&gt; D, F, E, H, F, E, H, E, I, I, G, I, H, G, H, D, F, D, E, G
+## $ price &lt;int&gt; 1272, 1354, 402, 558, 7823, 485, 9572, 767, 765, 5715, 11009, 4…
+## $ x     &lt;dbl&gt; 4.49, 5.26, 4.01, 4.34, 6.62, 4.02, 6.98, 4.52, 4.49, 7.26, 7.2…
 ```
 
 ---
@@ -209,11 +209,11 @@ glimpse(diamonds)
 ```
 ## Rows: 20
 ## Columns: 5
-## $ carat &lt;dbl&gt; 0.23, 0.72, 1.11, 1.01, 0.30, 0.23, 1.51, 0.34, 0.59, 1.41, 0.3…
-## $ cut   &lt;ord&gt; Very Good, Ideal, Ideal, Very Good, Ideal, Very Good, Premium, …
-## $ color &lt;ord&gt; E, F, F, D, G, E, H, I, E, G, E, H, D, H, G, D, I, H, I, F
-## $ price &lt;int&gt; 402, 2879, 7823, 4338, 684, 485, 9762, 765, 1607, 11009, 767, 5…
-## $ x     &lt;dbl&gt; 4.01, 5.76, 6.62, 6.43, 4.31, 4.02, 7.54, 4.49, 5.36, 7.22, 4.5…
+## $ carat &lt;dbl&gt; 0.34, 0.55, 0.23, 0.31, 1.11, 0.23, 1.32, 0.35, 0.34, 1.35, 1.4…
+## $ cut   &lt;ord&gt; Ideal, Premium, Very Good, Premium, Ideal, Very Good, Ideal, Id…
+## $ color &lt;ord&gt; D, F, E, H, F, E, H, E, I, I, G, I, H, G, H, D, F, D, E, G
+## $ price &lt;int&gt; 1272, 1354, 402, 558, 7823, 485, 9572, 767, 765, 5715, 11009, 4…
+## $ x     &lt;dbl&gt; 4.49, 5.26, 4.01, 4.34, 6.62, 4.02, 6.98, 4.52, 4.49, 7.26, 7.2…
 ```
 &lt;br&gt;&lt;br&gt;
 
@@ -304,26 +304,26 @@ diamonds
 ## # A tibble: 20 x 5
 ##    carat cut       color price     x
 ##    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
-##  1  0.23 Very Good E       402  4.01
-##  2  0.72 Ideal     F      2879  5.76
-##  3  1.11 Ideal     F      7823  6.62
-##  4  1.01 Very Good D      4338  6.43
-##  5  0.3  Ideal     G       684  4.31
+##  1  0.34 Ideal     D      1272  4.49
+##  2  0.55 Premium   F      1354  5.26
+##  3  0.23 Very Good E       402  4.01
+##  4  0.31 Premium   H       558  4.34
+##  5  1.11 Ideal     F      7823  6.62
 ##  6  0.23 Very Good E       485  4.02
-##  7  1.51 Premium   H      9762  7.54
-##  8  0.34 Premium   I       765  4.49
-##  9  0.59 Ideal     E      1607  5.36
-## 10  1.41 Ideal     G     11009  7.22
-## 11  0.35 Ideal     E       767  4.52
-## 12  0.31 Premium   H       558  4.34
-## 13  2.02 Very Good D     15334  8.19
-## 14  1.32 Ideal     H      9572  6.98
-## 15  1    Good      G      5484  6.38
-## 16  0.34 Ideal     D      1272  4.49
-## 17  1.02 Premium   I      4113  6.48
-## 18  0.73 Ideal     H      3463  5.8 
-## 19  1.35 Premium   I      5715  7.26
-## 20  0.55 Premium   F      1354  5.26
+##  7  1.32 Ideal     H      9572  6.98
+##  8  0.35 Ideal     E       767  4.52
+##  9  0.34 Premium   I       765  4.49
+## 10  1.35 Premium   I      5715  7.26
+## 11  1.41 Ideal     G     11009  7.22
+## 12  1.02 Premium   I      4113  6.48
+## 13  1.51 Premium   H      9762  7.54
+## 14  1    Good      G      5484  6.38
+## 15  0.73 Ideal     H      3463  5.8 
+## 16  1.01 Very Good D      4338  6.43
+## 17  0.72 Ideal     F      2879  5.76
+## 18  2.02 Very Good D     15334  8.19
+## 19  0.59 Ideal     E      1607  5.36
+## 20  0.3  Ideal     G       684  4.31
 ```
 
 ---
@@ -348,12 +348,12 @@ filter(diamonds, cut == "Premium")
 ## # A tibble: 6 x 5
 ##   carat cut     color price     x
 ##   &lt;dbl&gt; &lt;ord&gt;   &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
-## 1  1.51 Premium H      9762  7.54
-## 2  0.34 Premium I       765  4.49
-## 3  0.31 Premium H       558  4.34
-## 4  1.02 Premium I      4113  6.48
-## 5  1.35 Premium I      5715  7.26
-## 6  0.55 Premium F      1354  5.26
+## 1  0.55 Premium F      1354  5.26
+## 2  0.31 Premium H       558  4.34
+## 3  0.34 Premium I       765  4.49
+## 4  1.35 Premium I      5715  7.26
+## 5  1.02 Premium I      4113  6.48
+## 6  1.51 Premium H      9762  7.54
 ```
 
 ---
@@ -378,12 +378,12 @@ filter(diamonds, cut == "Premium")
 ## # A tibble: 6 x 5
 ##   carat cut     color price     x
 ##   &lt;dbl&gt; &lt;ord&gt;   &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
-## 1  1.51 Premium H      9762  7.54
-## 2  0.34 Premium I       765  4.49
-## 3  0.31 Premium H       558  4.34
-## 4  1.02 Premium I      4113  6.48
-## 5  1.35 Premium I      5715  7.26
-## 6  0.55 Premium F      1354  5.26
+## 1  0.55 Premium F      1354  5.26
+## 2  0.31 Premium H       558  4.34
+## 3  0.34 Premium I       765  4.49
+## 4  1.35 Premium I      5715  7.26
+## 5  1.02 Premium I      4113  6.48
+## 6  1.51 Premium H      9762  7.54
 ```
 ---
 
@@ -398,11 +398,11 @@ head(diamonds)
 ## # A tibble: 6 x 5
 ##   carat cut       color price     x
 ##   &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
-## 1  0.23 Very Good E       402  4.01
-## 2  0.72 Ideal     F      2879  5.76
-## 3  1.11 Ideal     F      7823  6.62
-## 4  1.01 Very Good D      4338  6.43
-## 5  0.3  Ideal     G       684  4.31
+## 1  0.34 Ideal     D      1272  4.49
+## 2  0.55 Premium   F      1354  5.26
+## 3  0.23 Very Good E       402  4.01
+## 4  0.31 Premium   H       558  4.34
+## 5  1.11 Ideal     F      7823  6.62
 ## 6  0.23 Very Good E       485  4.02
 ```
 
@@ -431,11 +431,11 @@ head(diamonds)
 ## # A tibble: 6 x 5
 ##   carat cut       color price     x
 ##   &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
-## 1  0.23 Very Good E       402  4.01
-## 2  0.72 Ideal     F      2879  5.76
-## 3  1.11 Ideal     F      7823  6.62
-## 4  1.01 Very Good D      4338  6.43
-## 5  0.3  Ideal     G       684  4.31
+## 1  0.34 Ideal     D      1272  4.49
+## 2  0.55 Premium   F      1354  5.26
+## 3  0.23 Very Good E       402  4.01
+## 4  0.31 Premium   H       558  4.34
+## 5  1.11 Ideal     F      7823  6.62
 ## 6  0.23 Very Good E       485  4.02
 ```
 
@@ -464,11 +464,11 @@ head(diamonds)
 ## # A tibble: 6 x 5
 ##   carat cut       color price     x
 ##   &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
-## 1  0.23 Very Good E       402  4.01
-## 2  0.72 Ideal     F      2879  5.76
-## 3  1.11 Ideal     F      7823  6.62
-## 4  1.01 Very Good D      4338  6.43
-## 5  0.3  Ideal     G       684  4.31
+## 1  0.34 Ideal     D      1272  4.49
+## 2  0.55 Premium   F      1354  5.26
+## 3  0.23 Very Good E       402  4.01
+## 4  0.31 Premium   H       558  4.34
+## 5  1.11 Ideal     F      7823  6.62
 ## 6  0.23 Very Good E       485  4.02
 ```
 
@@ -481,7 +481,7 @@ diamonds %&gt;%
 
 ```
 ## Error: Problem with `filter()` input `..1`.
-## x object 'quality' not found
+## ✖ object 'quality' not found
 ## ℹ Input `..1` is `quality == "Premium"`.
 ```
 
@@ -499,11 +499,11 @@ head(diamonds)
 ## # A tibble: 6 x 5
 ##   carat cut       color price     x
 ##   &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
-## 1  0.23 Very Good E       402  4.01
-## 2  0.72 Ideal     F      2879  5.76
-## 3  1.11 Ideal     F      7823  6.62
-## 4  1.01 Very Good D      4338  6.43
-## 5  0.3  Ideal     G       684  4.31
+## 1  0.34 Ideal     D      1272  4.49
+## 2  0.55 Premium   F      1354  5.26
+## 3  0.23 Very Good E       402  4.01
+## 4  0.31 Premium   H       558  4.34
+## 5  1.11 Ideal     F      7823  6.62
 ## 6  0.23 Very Good E       485  4.02
 ```
 
@@ -516,7 +516,7 @@ diamonds %&gt;%
 
 ```
 ## Error: Problem with `filter()` input `..1`.
-## x object 'CUT' not found
+## ✖ object 'CUT' not found
 ## ℹ Input `..1` is `CUT == "Premium"`.
 ```
 
@@ -533,11 +533,11 @@ head(diamonds)
 ## # A tibble: 6 x 5
 ##   carat cut       color price     x
 ##   &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
-## 1  0.23 Very Good E       402  4.01
-## 2  0.72 Ideal     F      2879  5.76
-## 3  1.11 Ideal     F      7823  6.62
-## 4  1.01 Very Good D      4338  6.43
-## 5  0.3  Ideal     G       684  4.31
+## 1  0.34 Ideal     D      1272  4.49
+## 2  0.55 Premium   F      1354  5.26
+## 3  0.23 Very Good E       402  4.01
+## 4  0.31 Premium   H       558  4.34
+## 5  1.11 Ideal     F      7823  6.62
 ## 6  0.23 Very Good E       485  4.02
 ```
 
@@ -550,7 +550,7 @@ diamonds %&gt;%
 
 ```
 ## Error: Problem with `filter()` input `..1`.
-## x Input `..1` is named.
+## ✖ Input `..1` is named.
 ## ℹ This usually means that you've used `=` instead of `==`.
 ## ℹ Did you mean `cut == "Premium"`?
 ```
@@ -568,11 +568,11 @@ head(diamonds)
 ## # A tibble: 6 x 5
 ##   carat cut       color price     x
 ##   &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
-## 1  0.23 Very Good E       402  4.01
-## 2  0.72 Ideal     F      2879  5.76
-## 3  1.11 Ideal     F      7823  6.62
-## 4  1.01 Very Good D      4338  6.43
-## 5  0.3  Ideal     G       684  4.31
+## 1  0.34 Ideal     D      1272  4.49
+## 2  0.55 Premium   F      1354  5.26
+## 3  0.23 Very Good E       402  4.01
+## 4  0.31 Premium   H       558  4.34
+## 5  1.11 Ideal     F      7823  6.62
 ## 6  0.23 Very Good E       485  4.02
 ```
 
@@ -608,8 +608,8 @@ diamonds %&gt;%
 ##   carat cut     color price     x
 ##   &lt;dbl&gt; &lt;ord&gt;   &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
 ## 1  0.34 Premium I       765  4.49
-## 2  1.02 Premium I      4113  6.48
-## 3  1.35 Premium I      5715  7.26
+## 2  1.35 Premium I      5715  7.26
+## 3  1.02 Premium I      4113  6.48
 ```
 
 ---
@@ -627,8 +627,8 @@ diamonds %&gt;%
 ## # A tibble: 2 x 5
 ##   carat cut     color price     x
 ##   &lt;dbl&gt; &lt;ord&gt;   &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
-## 1  1.02 Premium I      4113  6.48
-## 2  1.35 Premium I      5715  7.26
+## 1  1.35 Premium I      5715  7.26
+## 2  1.02 Premium I      4113  6.48
 ```
 
 ---
@@ -648,8 +648,8 @@ diamonds %&gt;%
 ## # A tibble: 2 x 5
 ##   carat cut     color price     x
 ##   &lt;dbl&gt; &lt;ord&gt;   &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
-## 1  1.02 Premium I      4113  6.48
-## 2  1.35 Premium I      5715  7.26
+## 1  1.35 Premium I      5715  7.26
+## 2  1.02 Premium I      4113  6.48
 ```
 
 **Caution!!** Make sure the commas are always on at the _end of a line_
@@ -714,21 +714,21 @@ diamonds %&gt;%
 ## # A tibble: 15 x 5
 ##    carat cut     color price     x
 ##    &lt;dbl&gt; &lt;ord&gt;   &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
-##  1  0.72 Ideal   F      2879  5.76
-##  2  1.11 Ideal   F      7823  6.62
-##  3  0.3  Ideal   G       684  4.31
-##  4  1.51 Premium H      9762  7.54
-##  5  0.34 Premium I       765  4.49
-##  6  0.59 Ideal   E      1607  5.36
-##  7  1.41 Ideal   G     11009  7.22
-##  8  0.35 Ideal   E       767  4.52
-##  9  0.31 Premium H       558  4.34
-## 10  1.32 Ideal   H      9572  6.98
-## 11  0.34 Ideal   D      1272  4.49
-## 12  1.02 Premium I      4113  6.48
-## 13  0.73 Ideal   H      3463  5.8 
-## 14  1.35 Premium I      5715  7.26
-## 15  0.55 Premium F      1354  5.26
+##  1  0.34 Ideal   D      1272  4.49
+##  2  0.55 Premium F      1354  5.26
+##  3  0.31 Premium H       558  4.34
+##  4  1.11 Ideal   F      7823  6.62
+##  5  1.32 Ideal   H      9572  6.98
+##  6  0.35 Ideal   E       767  4.52
+##  7  0.34 Premium I       765  4.49
+##  8  1.35 Premium I      5715  7.26
+##  9  1.41 Ideal   G     11009  7.22
+## 10  1.02 Premium I      4113  6.48
+## 11  1.51 Premium H      9762  7.54
+## 12  0.73 Ideal   H      3463  5.8 
+## 13  0.72 Ideal   F      2879  5.76
+## 14  0.59 Ideal   E      1607  5.36
+## 15  0.3  Ideal   G       684  4.31
 ```
 
 ---
@@ -743,9 +743,8 @@ diamonds %&gt;%
   filter(cut %in% cuts) 
 ```
 
-&lt;br&gt;&lt;br&gt;
 
-### THIS SEEMS LIKE IT WORKS BUT IT DOES NOT!
+**Below might seem like it works, but it DOES NOT!**
 
 
 ```r
@@ -755,16 +754,20 @@ diamonds %&gt;%
 ```
 
 ```
-## # A tibble: 7 x 5
-##   carat cut     color price     x
-##   &lt;dbl&gt; &lt;ord&gt;   &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
-## 1  1.11 Ideal   F      7823  6.62
-## 2  0.3  Ideal   G       684  4.31
-## 3  0.34 Premium I       765  4.49
-## 4  0.59 Ideal   E      1607  5.36
-## 5  0.35 Ideal   E       767  4.52
-## 6  0.31 Premium H       558  4.34
-## 7  0.55 Premium F      1354  5.26
+## # A tibble: 11 x 5
+##    carat cut     color price     x
+##    &lt;dbl&gt; &lt;ord&gt;   &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
+##  1  0.34 Ideal   D      1272  4.49
+##  2  0.55 Premium F      1354  5.26
+##  3  0.31 Premium H       558  4.34
+##  4  1.11 Ideal   F      7823  6.62
+##  5  1.32 Ideal   H      9572  6.98
+##  6  1.35 Premium I      5715  7.26
+##  7  1.41 Ideal   G     11009  7.22
+##  8  1.02 Premium I      4113  6.48
+##  9  0.73 Ideal   H      3463  5.8 
+## 10  0.72 Ideal   F      2879  5.76
+## 11  0.59 Ideal   E      1607  5.36
 ```
 
 ---
@@ -781,22 +784,22 @@ diamonds %&gt;%
 ## # A tibble: 16 x 5
 ##    carat cut     color price     x
 ##    &lt;dbl&gt; &lt;ord&gt;   &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
-##  1  0.72 Ideal   F      2879  5.76
-##  2  1.11 Ideal   F      7823  6.62
-##  3  0.3  Ideal   G       684  4.31
-##  4  1.51 Premium H      9762  7.54
-##  5  0.34 Premium I       765  4.49
-##  6  0.59 Ideal   E      1607  5.36
-##  7  1.41 Ideal   G     11009  7.22
-##  8  0.35 Ideal   E       767  4.52
-##  9  0.31 Premium H       558  4.34
-## 10  1.32 Ideal   H      9572  6.98
-## 11  1    Good    G      5484  6.38
-## 12  0.34 Ideal   D      1272  4.49
-## 13  1.02 Premium I      4113  6.48
-## 14  0.73 Ideal   H      3463  5.8 
-## 15  1.35 Premium I      5715  7.26
-## 16  0.55 Premium F      1354  5.26
+##  1  0.34 Ideal   D      1272  4.49
+##  2  0.55 Premium F      1354  5.26
+##  3  0.31 Premium H       558  4.34
+##  4  1.11 Ideal   F      7823  6.62
+##  5  1.32 Ideal   H      9572  6.98
+##  6  0.35 Ideal   E       767  4.52
+##  7  0.34 Premium I       765  4.49
+##  8  1.35 Premium I      5715  7.26
+##  9  1.41 Ideal   G     11009  7.22
+## 10  1.02 Premium I      4113  6.48
+## 11  1.51 Premium H      9762  7.54
+## 12  1    Good    G      5484  6.38
+## 13  0.73 Ideal   H      3463  5.8 
+## 14  0.72 Ideal   F      2879  5.76
+## 15  0.59 Ideal   E      1607  5.36
+## 16  0.3  Ideal   G       684  4.31
 ```
 
 ---
@@ -825,8 +828,7 @@ But what if I *only* want to plot diamonds that cost less than $1000?
 diamonds %&gt;%
   filter(price &lt; 1000) -&gt; diamonds_cheaper
 
-ggplot(diamonds_cheaper, aes(x = carat, 
-                     y = price)) + 
+ggplot(diamonds_cheaper, aes(x = carat, y = price)) + 
   geom_point(size = 3)
 ```
 
@@ -841,8 +843,7 @@ ggplot(diamonds_cheaper, aes(x = carat,
 diamonds %&gt;%
   filter(price &lt; 1000) -&gt; diamonds_cheaper
 
-ggplot(diamonds_cheaper, aes(x = carat, 
-                     y = price)) + 
+ggplot(diamonds_cheaper, aes(x = carat, y = price)) + 
   geom_point(size = 3)
 ```
 
@@ -850,16 +851,15 @@ ggplot(diamonds_cheaper, aes(x = carat,
 
 ```r
 diamonds %&gt;%
-  filter(price &lt; 1000) %&gt;%  
-  ggplot(aes(x = carat, 
-             y = price)) + 
+* filter(price &lt; 1000) %&gt;%
+* ggplot(aes(x = carat, y = price)) +
     geom_point(size = 3)
 ```
 
 ![](dplyr_slides_part1_files/figure-html/unnamed-chunk-43-1.png)&lt;!-- --&gt;
 ]
 .pull-right[
-**Caution:** Be careful to use `%&gt;%` and `+` in the right place. Using the wrong one in the wrong place is a common mistake!
+**Caution:** Be careful to use `%&gt;%` and `+` in the right place. Using the wrong one in the wrong place is a **common bug**!
 ]
 ---
 
@@ -877,26 +877,26 @@ diamonds %&gt;%
 ## # A tibble: 20 x 2
 ##    price cut      
 ##    &lt;int&gt; &lt;ord&gt;    
-##  1   402 Very Good
-##  2  2879 Ideal    
-##  3  7823 Ideal    
-##  4  4338 Very Good
-##  5   684 Ideal    
+##  1  1272 Ideal    
+##  2  1354 Premium  
+##  3   402 Very Good
+##  4   558 Premium  
+##  5  7823 Ideal    
 ##  6   485 Very Good
-##  7  9762 Premium  
-##  8   765 Premium  
-##  9  1607 Ideal    
-## 10 11009 Ideal    
-## 11   767 Ideal    
-## 12   558 Premium  
-## 13 15334 Very Good
-## 14  9572 Ideal    
-## 15  5484 Good     
-## 16  1272 Ideal    
-## 17  4113 Premium  
-## 18  3463 Ideal    
-## 19  5715 Premium  
-## 20  1354 Premium
+##  7  9572 Ideal    
+##  8   767 Ideal    
+##  9   765 Premium  
+## 10  5715 Premium  
+## 11 11009 Ideal    
+## 12  4113 Premium  
+## 13  9762 Premium  
+## 14  5484 Good     
+## 15  3463 Ideal    
+## 16  4338 Very Good
+## 17  2879 Ideal    
+## 18 15334 Very Good
+## 19  1607 Ideal    
+## 20   684 Ideal
 ```
 ]
 --
@@ -911,26 +911,26 @@ diamonds %&gt;%
 ## # A tibble: 20 x 3
 ##    carat color     x
 ##    &lt;dbl&gt; &lt;ord&gt; &lt;dbl&gt;
-##  1  0.23 E      4.01
-##  2  0.72 F      5.76
-##  3  1.11 F      6.62
-##  4  1.01 D      6.43
-##  5  0.3  G      4.31
+##  1  0.34 D      4.49
+##  2  0.55 F      5.26
+##  3  0.23 E      4.01
+##  4  0.31 H      4.34
+##  5  1.11 F      6.62
 ##  6  0.23 E      4.02
-##  7  1.51 H      7.54
-##  8  0.34 I      4.49
-##  9  0.59 E      5.36
-## 10  1.41 G      7.22
-## 11  0.35 E      4.52
-## 12  0.31 H      4.34
-## 13  2.02 D      8.19
-## 14  1.32 H      6.98
-## 15  1    G      6.38
-## 16  0.34 D      4.49
-## 17  1.02 I      6.48
-## 18  0.73 H      5.8 
-## 19  1.35 I      7.26
-## 20  0.55 F      5.26
+##  7  1.32 H      6.98
+##  8  0.35 E      4.52
+##  9  0.34 I      4.49
+## 10  1.35 I      7.26
+## 11  1.41 G      7.22
+## 12  1.02 I      6.48
+## 13  1.51 H      7.54
+## 14  1    G      6.38
+## 15  0.73 H      5.8 
+## 16  1.01 D      6.43
+## 17  0.72 F      5.76
+## 18  2.02 D      8.19
+## 19  0.59 E      5.36
+## 20  0.3  G      4.31
 ```
 ]
 ---
@@ -946,11 +946,11 @@ head(diamonds)
 ## # A tibble: 6 x 5
 ##   carat cut       color price     x
 ##   &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
-## 1  0.23 Very Good E       402  4.01
-## 2  0.72 Ideal     F      2879  5.76
-## 3  1.11 Ideal     F      7823  6.62
-## 4  1.01 Very Good D      4338  6.43
-## 5  0.3  Ideal     G       684  4.31
+## 1  0.34 Ideal     D      1272  4.49
+## 2  0.55 Premium   F      1354  5.26
+## 3  0.23 Very Good E       402  4.01
+## 4  0.31 Premium   H       558  4.34
+## 5  1.11 Ideal     F      7823  6.62
 ## 6  0.23 Very Good E       485  4.02
 ```
 
@@ -963,26 +963,26 @@ diamonds %&gt;%
 ## # A tibble: 20 x 5
 ##    price carat cut       color     x
 ##    &lt;int&gt; &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;dbl&gt;
-##  1   402  0.23 Very Good E      4.01
-##  2  2879  0.72 Ideal     F      5.76
-##  3  7823  1.11 Ideal     F      6.62
-##  4  4338  1.01 Very Good D      6.43
-##  5   684  0.3  Ideal     G      4.31
+##  1  1272  0.34 Ideal     D      4.49
+##  2  1354  0.55 Premium   F      5.26
+##  3   402  0.23 Very Good E      4.01
+##  4   558  0.31 Premium   H      4.34
+##  5  7823  1.11 Ideal     F      6.62
 ##  6   485  0.23 Very Good E      4.02
-##  7  9762  1.51 Premium   H      7.54
-##  8   765  0.34 Premium   I      4.49
-##  9  1607  0.59 Ideal     E      5.36
-## 10 11009  1.41 Ideal     G      7.22
-## 11   767  0.35 Ideal     E      4.52
-## 12   558  0.31 Premium   H      4.34
-## 13 15334  2.02 Very Good D      8.19
-## 14  9572  1.32 Ideal     H      6.98
-## 15  5484  1    Good      G      6.38
-## 16  1272  0.34 Ideal     D      4.49
-## 17  4113  1.02 Premium   I      6.48
-## 18  3463  0.73 Ideal     H      5.8 
-## 19  5715  1.35 Premium   I      7.26
-## 20  1354  0.55 Premium   F      5.26
+##  7  9572  1.32 Ideal     H      6.98
+##  8   767  0.35 Ideal     E      4.52
+##  9   765  0.34 Premium   I      4.49
+## 10  5715  1.35 Premium   I      7.26
+## 11 11009  1.41 Ideal     G      7.22
+## 12  4113  1.02 Premium   I      6.48
+## 13  9762  1.51 Premium   H      7.54
+## 14  5484  1    Good      G      6.38
+## 15  3463  0.73 Ideal     H      5.8 
+## 16  4338  1.01 Very Good D      6.43
+## 17  2879  0.72 Ideal     F      5.76
+## 18 15334  2.02 Very Good D      8.19
+## 19  1607  0.59 Ideal     E      5.36
+## 20   684  0.3  Ideal     G      4.31
 ```
 
 ---
@@ -1000,26 +1000,26 @@ diamonds %&gt;%
 ## # A tibble: 20 x 6
 ##    carat cut       color price     x the_number_5
 ##    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;        &lt;dbl&gt;
-##  1  0.23 Very Good E       402  4.01            5
-##  2  0.72 Ideal     F      2879  5.76            5
-##  3  1.11 Ideal     F      7823  6.62            5
-##  4  1.01 Very Good D      4338  6.43            5
-##  5  0.3  Ideal     G       684  4.31            5
+##  1  0.34 Ideal     D      1272  4.49            5
+##  2  0.55 Premium   F      1354  5.26            5
+##  3  0.23 Very Good E       402  4.01            5
+##  4  0.31 Premium   H       558  4.34            5
+##  5  1.11 Ideal     F      7823  6.62            5
 ##  6  0.23 Very Good E       485  4.02            5
-##  7  1.51 Premium   H      9762  7.54            5
-##  8  0.34 Premium   I       765  4.49            5
-##  9  0.59 Ideal     E      1607  5.36            5
-## 10  1.41 Ideal     G     11009  7.22            5
-## 11  0.35 Ideal     E       767  4.52            5
-## 12  0.31 Premium   H       558  4.34            5
-## 13  2.02 Very Good D     15334  8.19            5
-## 14  1.32 Ideal     H      9572  6.98            5
-## 15  1    Good      G      5484  6.38            5
-## 16  0.34 Ideal     D      1272  4.49            5
-## 17  1.02 Premium   I      4113  6.48            5
-## 18  0.73 Ideal     H      3463  5.8             5
-## 19  1.35 Premium   I      5715  7.26            5
-## 20  0.55 Premium   F      1354  5.26            5
+##  7  1.32 Ideal     H      9572  6.98            5
+##  8  0.35 Ideal     E       767  4.52            5
+##  9  0.34 Premium   I       765  4.49            5
+## 10  1.35 Premium   I      5715  7.26            5
+## 11  1.41 Ideal     G     11009  7.22            5
+## 12  1.02 Premium   I      4113  6.48            5
+## 13  1.51 Premium   H      9762  7.54            5
+## 14  1    Good      G      5484  6.38            5
+## 15  0.73 Ideal     H      3463  5.8             5
+## 16  1.01 Very Good D      4338  6.43            5
+## 17  0.72 Ideal     F      2879  5.76            5
+## 18  2.02 Very Good D     15334  8.19            5
+## 19  0.59 Ideal     E      1607  5.36            5
+## 20  0.3  Ideal     G       684  4.31            5
 ```
 
 ---
@@ -1040,26 +1040,26 @@ diamonds %&gt;%
 ## # A tibble: 20 x 6
 ##    carat cut       color price     x x_in_cm
 ##    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;   &lt;dbl&gt;
-##  1  0.23 Very Good E       402  4.01   0.401
-##  2  0.72 Ideal     F      2879  5.76   0.576
-##  3  1.11 Ideal     F      7823  6.62   0.662
-##  4  1.01 Very Good D      4338  6.43   0.643
-##  5  0.3  Ideal     G       684  4.31   0.431
+##  1  0.34 Ideal     D      1272  4.49   0.449
+##  2  0.55 Premium   F      1354  5.26   0.526
+##  3  0.23 Very Good E       402  4.01   0.401
+##  4  0.31 Premium   H       558  4.34   0.434
+##  5  1.11 Ideal     F      7823  6.62   0.662
 ##  6  0.23 Very Good E       485  4.02   0.402
-##  7  1.51 Premium   H      9762  7.54   0.754
-##  8  0.34 Premium   I       765  4.49   0.449
-##  9  0.59 Ideal     E      1607  5.36   0.536
-## 10  1.41 Ideal     G     11009  7.22   0.722
-## 11  0.35 Ideal     E       767  4.52   0.452
-## 12  0.31 Premium   H       558  4.34   0.434
-## 13  2.02 Very Good D     15334  8.19   0.819
-## 14  1.32 Ideal     H      9572  6.98   0.698
-## 15  1    Good      G      5484  6.38   0.638
-## 16  0.34 Ideal     D      1272  4.49   0.449
-## 17  1.02 Premium   I      4113  6.48   0.648
-## 18  0.73 Ideal     H      3463  5.8    0.580
-## 19  1.35 Premium   I      5715  7.26   0.726
-## 20  0.55 Premium   F      1354  5.26   0.526
+##  7  1.32 Ideal     H      9572  6.98   0.698
+##  8  0.35 Ideal     E       767  4.52   0.452
+##  9  0.34 Premium   I       765  4.49   0.449
+## 10  1.35 Premium   I      5715  7.26   0.726
+## 11  1.41 Ideal     G     11009  7.22   0.722
+## 12  1.02 Premium   I      4113  6.48   0.648
+## 13  1.51 Premium   H      9762  7.54   0.754
+## 14  1    Good      G      5484  6.38   0.638
+## 15  0.73 Ideal     H      3463  5.8    0.580
+## 16  1.01 Very Good D      4338  6.43   0.643
+## 17  0.72 Ideal     F      2879  5.76   0.576
+## 18  2.02 Very Good D     15334  8.19   0.819
+## 19  0.59 Ideal     E      1607  5.36   0.536
+## 20  0.3  Ideal     G       684  4.31   0.431
 ```
 
 **New column names should always begin with a LETTER and only contain letters, numbers, and underscores.**
@@ -1080,26 +1080,26 @@ diamonds %&gt;%
 ## # A tibble: 20 x 6
 ##    x_in_cm carat cut       color price     x
 ##      &lt;dbl&gt; &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
-##  1   0.401  0.23 Very Good E       402  4.01
-##  2   0.576  0.72 Ideal     F      2879  5.76
-##  3   0.662  1.11 Ideal     F      7823  6.62
-##  4   0.643  1.01 Very Good D      4338  6.43
-##  5   0.431  0.3  Ideal     G       684  4.31
+##  1   0.449  0.34 Ideal     D      1272  4.49
+##  2   0.526  0.55 Premium   F      1354  5.26
+##  3   0.401  0.23 Very Good E       402  4.01
+##  4   0.434  0.31 Premium   H       558  4.34
+##  5   0.662  1.11 Ideal     F      7823  6.62
 ##  6   0.402  0.23 Very Good E       485  4.02
-##  7   0.754  1.51 Premium   H      9762  7.54
-##  8   0.449  0.34 Premium   I       765  4.49
-##  9   0.536  0.59 Ideal     E      1607  5.36
-## 10   0.722  1.41 Ideal     G     11009  7.22
-## 11   0.452  0.35 Ideal     E       767  4.52
-## 12   0.434  0.31 Premium   H       558  4.34
-## 13   0.819  2.02 Very Good D     15334  8.19
-## 14   0.698  1.32 Ideal     H      9572  6.98
-## 15   0.638  1    Good      G      5484  6.38
-## 16   0.449  0.34 Ideal     D      1272  4.49
-## 17   0.648  1.02 Premium   I      4113  6.48
-## 18   0.580  0.73 Ideal     H      3463  5.8 
-## 19   0.726  1.35 Premium   I      5715  7.26
-## 20   0.526  0.55 Premium   F      1354  5.26
+##  7   0.698  1.32 Ideal     H      9572  6.98
+##  8   0.452  0.35 Ideal     E       767  4.52
+##  9   0.449  0.34 Premium   I       765  4.49
+## 10   0.726  1.35 Premium   I      5715  7.26
+## 11   0.722  1.41 Ideal     G     11009  7.22
+## 12   0.648  1.02 Premium   I      4113  6.48
+## 13   0.754  1.51 Premium   H      9762  7.54
+## 14   0.638  1    Good      G      5484  6.38
+## 15   0.580  0.73 Ideal     H      3463  5.8 
+## 16   0.643  1.01 Very Good D      4338  6.43
+## 17   0.576  0.72 Ideal     F      2879  5.76
+## 18   0.819  2.02 Very Good D     15334  8.19
+## 19   0.536  0.59 Ideal     E      1607  5.36
+## 20   0.431  0.3  Ideal     G       684  4.31
 ```
 
 ---
@@ -1121,26 +1121,26 @@ diamonds %&gt;%
 ## # A tibble: 20 x 6
 ##    x_in_cm     x carat cut       color price
 ##      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt;
-##  1   0.401  4.01  0.23 Very Good E       402
-##  2   0.576  5.76  0.72 Ideal     F      2879
-##  3   0.662  6.62  1.11 Ideal     F      7823
-##  4   0.643  6.43  1.01 Very Good D      4338
-##  5   0.431  4.31  0.3  Ideal     G       684
+##  1   0.449  4.49  0.34 Ideal     D      1272
+##  2   0.526  5.26  0.55 Premium   F      1354
+##  3   0.401  4.01  0.23 Very Good E       402
+##  4   0.434  4.34  0.31 Premium   H       558
+##  5   0.662  6.62  1.11 Ideal     F      7823
 ##  6   0.402  4.02  0.23 Very Good E       485
-##  7   0.754  7.54  1.51 Premium   H      9762
-##  8   0.449  4.49  0.34 Premium   I       765
-##  9   0.536  5.36  0.59 Ideal     E      1607
-## 10   0.722  7.22  1.41 Ideal     G     11009
-## 11   0.452  4.52  0.35 Ideal     E       767
-## 12   0.434  4.34  0.31 Premium   H       558
-## 13   0.819  8.19  2.02 Very Good D     15334
-## 14   0.698  6.98  1.32 Ideal     H      9572
-## 15   0.638  6.38  1    Good      G      5484
-## 16   0.449  4.49  0.34 Ideal     D      1272
-## 17   0.648  6.48  1.02 Premium   I      4113
-## 18   0.580  5.8   0.73 Ideal     H      3463
-## 19   0.726  7.26  1.35 Premium   I      5715
-## 20   0.526  5.26  0.55 Premium   F      1354
+##  7   0.698  6.98  1.32 Ideal     H      9572
+##  8   0.452  4.52  0.35 Ideal     E       767
+##  9   0.449  4.49  0.34 Premium   I       765
+## 10   0.726  7.26  1.35 Premium   I      5715
+## 11   0.722  7.22  1.41 Ideal     G     11009
+## 12   0.648  6.48  1.02 Premium   I      4113
+## 13   0.754  7.54  1.51 Premium   H      9762
+## 14   0.638  6.38  1    Good      G      5484
+## 15   0.580  5.8   0.73 Ideal     H      3463
+## 16   0.643  6.43  1.01 Very Good D      4338
+## 17   0.576  5.76  0.72 Ideal     F      2879
+## 18   0.819  8.19  2.02 Very Good D     15334
+## 19   0.536  5.36  0.59 Ideal     E      1607
+## 20   0.431  4.31  0.3  Ideal     G       684
 ```
 
 ---
@@ -1157,13 +1157,13 @@ diamonds %&gt;%
 ## # A tibble: 7 x 2
 ##   carat price
 ##   &lt;dbl&gt; &lt;int&gt;
-## 1  0.23   402
-## 2  0.3    684
-## 3  0.23   485
-## 4  0.34   765
+## 1  0.34  1272
+## 2  0.23   402
+## 3  0.31   558
+## 4  0.23   485
 ## 5  0.35   767
-## 6  0.31   558
-## 7  0.34  1272
+## 6  0.34   765
+## 7  0.3    684
 ```
 
 ---
@@ -1191,13 +1191,13 @@ diamonds %&gt;%
 ## # A tibble: 7 x 5
 ##   carat cut       color price     x
 ##   &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
-## 1  0.23 Very Good E       402  4.01
-## 2  0.3  Ideal     G       684  4.31
-## 3  0.23 Very Good E       485  4.02
-## 4  0.34 Premium   I       765  4.49
+## 1  0.34 Ideal     D      1272  4.49
+## 2  0.23 Very Good E       402  4.01
+## 3  0.31 Premium   H       558  4.34
+## 4  0.23 Very Good E       485  4.02
 ## 5  0.35 Ideal     E       767  4.52
-## 6  0.31 Premium   H       558  4.34
-## 7  0.34 Ideal     D      1272  4.49
+## 6  0.34 Premium   I       765  4.49
+## 7  0.3  Ideal     G       684  4.31
 ```
 
 ---
@@ -1215,13 +1215,13 @@ diamonds %&gt;%
 ## # A tibble: 7 x 2
 ##   carat price
 ##   &lt;dbl&gt; &lt;int&gt;
-## 1  0.23   402
-## 2  0.3    684
-## 3  0.23   485
-## 4  0.34   765
+## 1  0.34  1272
+## 2  0.23   402
+## 3  0.31   558
+## 4  0.23   485
 ## 5  0.35   767
-## 6  0.31   558
-## 7  0.34  1272
+## 6  0.34   765
+## 7  0.3    684
 ```
 
 ---
@@ -1281,8 +1281,8 @@ diamonds %&gt;%
 ##  2  0.23 Very Good E       485  4.02
 ##  3  0.3  Ideal     G       684  4.31
 ##  4  0.31 Premium   H       558  4.34
-##  5  0.34 Premium   I       765  4.49
-##  6  0.34 Ideal     D      1272  4.49
+##  5  0.34 Ideal     D      1272  4.49
+##  6  0.34 Premium   I       765  4.49
 ##  7  0.35 Ideal     E       767  4.52
 ##  8  0.55 Premium   F      1354  5.26
 ##  9  0.59 Ideal     E      1607  5.36
@@ -1299,7 +1299,9 @@ diamonds %&gt;%
 ## 20  2.02 Very Good D     15334  8.19
 ```
 
-#### For descending order:
+---
+
+# For _descending_ order:
 
 
 ```r
@@ -1325,8 +1327,8 @@ diamonds %&gt;%
 ## 12  0.59 Ideal     E      1607  5.36
 ## 13  0.55 Premium   F      1354  5.26
 ## 14  0.35 Ideal     E       767  4.52
-## 15  0.34 Premium   I       765  4.49
-## 16  0.34 Ideal     D      1272  4.49
+## 15  0.34 Ideal     D      1272  4.49
+## 16  0.34 Premium   I       765  4.49
 ## 17  0.31 Premium   H       558  4.34
 ## 18  0.3  Ideal     G       684  4.31
 ## 19  0.23 Very Good E       402  4.01
@@ -1341,6 +1343,7 @@ diamonds %&gt;%
 
 
 ```r
+# rename(newname = oldname) !!!
 diamonds %&gt;%
 * rename(width = x)
 ```
@@ -1349,30 +1352,27 @@ diamonds %&gt;%
 ## # A tibble: 20 x 5
 ##    carat cut       color price width
 ##    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
-##  1  0.23 Very Good E       402  4.01
-##  2  0.72 Ideal     F      2879  5.76
-##  3  1.11 Ideal     F      7823  6.62
-##  4  1.01 Very Good D      4338  6.43
-##  5  0.3  Ideal     G       684  4.31
+##  1  0.34 Ideal     D      1272  4.49
+##  2  0.55 Premium   F      1354  5.26
+##  3  0.23 Very Good E       402  4.01
+##  4  0.31 Premium   H       558  4.34
+##  5  1.11 Ideal     F      7823  6.62
 ##  6  0.23 Very Good E       485  4.02
-##  7  1.51 Premium   H      9762  7.54
-##  8  0.34 Premium   I       765  4.49
-##  9  0.59 Ideal     E      1607  5.36
-## 10  1.41 Ideal     G     11009  7.22
-## 11  0.35 Ideal     E       767  4.52
-## 12  0.31 Premium   H       558  4.34
-## 13  2.02 Very Good D     15334  8.19
-## 14  1.32 Ideal     H      9572  6.98
-## 15  1    Good      G      5484  6.38
-## 16  0.34 Ideal     D      1272  4.49
-## 17  1.02 Premium   I      4113  6.48
-## 18  0.73 Ideal     H      3463  5.8 
-## 19  1.35 Premium   I      5715  7.26
-## 20  0.55 Premium   F      1354  5.26
+##  7  1.32 Ideal     H      9572  6.98
+##  8  0.35 Ideal     E       767  4.52
+##  9  0.34 Premium   I       765  4.49
+## 10  1.35 Premium   I      5715  7.26
+## 11  1.41 Ideal     G     11009  7.22
+## 12  1.02 Premium   I      4113  6.48
+## 13  1.51 Premium   H      9762  7.54
+## 14  1    Good      G      5484  6.38
+## 15  0.73 Ideal     H      3463  5.8 
+## 16  1.01 Very Good D      4338  6.43
+## 17  0.72 Ideal     F      2879  5.76
+## 18  2.02 Very Good D     15334  8.19
+## 19  0.59 Ideal     E      1607  5.36
+## 20  0.3  Ideal     G       684  4.31
 ```
-
-
-#### The order is `rename(newname = oldname)`
 
 ---
 
@@ -1382,6 +1382,7 @@ diamonds %&gt;%
 
 
 ```r
+# boring, since all rows are unique!
 diamonds %&gt;%
 * distinct()
 ```
@@ -1390,29 +1391,87 @@ diamonds %&gt;%
 ## # A tibble: 20 x 5
 ##    carat cut       color price     x
 ##    &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;int&gt; &lt;dbl&gt;
-##  1  0.23 Very Good E       402  4.01
-##  2  0.72 Ideal     F      2879  5.76
-##  3  1.11 Ideal     F      7823  6.62
-##  4  1.01 Very Good D      4338  6.43
-##  5  0.3  Ideal     G       684  4.31
+##  1  0.34 Ideal     D      1272  4.49
+##  2  0.55 Premium   F      1354  5.26
+##  3  0.23 Very Good E       402  4.01
+##  4  0.31 Premium   H       558  4.34
+##  5  1.11 Ideal     F      7823  6.62
 ##  6  0.23 Very Good E       485  4.02
-##  7  1.51 Premium   H      9762  7.54
-##  8  0.34 Premium   I       765  4.49
-##  9  0.59 Ideal     E      1607  5.36
-## 10  1.41 Ideal     G     11009  7.22
-## 11  0.35 Ideal     E       767  4.52
-## 12  0.31 Premium   H       558  4.34
-## 13  2.02 Very Good D     15334  8.19
-## 14  1.32 Ideal     H      9572  6.98
-## 15  1    Good      G      5484  6.38
-## 16  0.34 Ideal     D      1272  4.49
-## 17  1.02 Premium   I      4113  6.48
-## 18  0.73 Ideal     H      3463  5.8 
-## 19  1.35 Premium   I      5715  7.26
-## 20  0.55 Premium   F      1354  5.26
+##  7  1.32 Ideal     H      9572  6.98
+##  8  0.35 Ideal     E       767  4.52
+##  9  0.34 Premium   I       765  4.49
+## 10  1.35 Premium   I      5715  7.26
+## 11  1.41 Ideal     G     11009  7.22
+## 12  1.02 Premium   I      4113  6.48
+## 13  1.51 Premium   H      9762  7.54
+## 14  1    Good      G      5484  6.38
+## 15  0.73 Ideal     H      3463  5.8 
+## 16  1.01 Very Good D      4338  6.43
+## 17  0.72 Ideal     F      2879  5.76
+## 18  2.02 Very Good D     15334  8.19
+## 19  0.59 Ideal     E      1607  5.36
+## 20  0.3  Ideal     G       684  4.31
 ```
 
-#### Not super interesting with `diamonds`, but this is how you use the function!
+---
+
+# Removing duplicate rows
+
+
+.pull-left[
+
+```r
+diamonds %&gt;%
+  select(color) 
+```
+
+```
+## # A tibble: 20 x 1
+##    color
+##    &lt;ord&gt;
+##  1 D    
+##  2 F    
+##  3 E    
+##  4 H    
+##  5 F    
+##  6 E    
+##  7 H    
+##  8 E    
+##  9 I    
+## 10 I    
+## 11 G    
+## 12 I    
+## 13 H    
+## 14 G    
+## 15 H    
+## 16 D    
+## 17 F    
+## 18 D    
+## 19 E    
+## 20 G
+```
+]
+
+.pull-right[
+
+```r
+diamonds %&gt;%
+  select(color) %&gt;%
+  distinct()
+```
+
+```
+## # A tibble: 6 x 1
+##   color
+##   &lt;ord&gt;
+## 1 D    
+## 2 F    
+## 3 E    
+## 4 H    
+## 5 I    
+## 6 G
+```
+]
 
 ---
 

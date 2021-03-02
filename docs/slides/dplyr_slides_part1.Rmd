@@ -54,8 +54,8 @@ class: title-slide
 background-image: url(slide_background_images/hammybeans.png)
 background-size: contain
 
-<br><br>
 .bg-text[
+<br><br><br>
 # Introduction to `dplyr`
 ## Data Science for Biologists
 
@@ -456,9 +456,8 @@ diamonds %>%
   filter(cut %in% cuts) 
 ```
 
-<br><br>
 
-### THIS SEEMS LIKE IT WORKS BUT IT DOES NOT!
+**Below might seem like it works, but it DOES NOT!**
 
 ```{r}
 diamonds %>%
@@ -497,8 +496,7 @@ But what if I *only* want to plot diamonds that cost less than $1000?
 diamonds %>%
   filter(price < 1000) -> diamonds_cheaper
 
-ggplot(diamonds_cheaper, aes(x = carat, 
-                     y = price)) + 
+ggplot(diamonds_cheaper, aes(x = carat, y = price)) + 
   geom_point(size = 3)
 ```
 
@@ -510,22 +508,20 @@ ggplot(diamonds_cheaper, aes(x = carat,
 diamonds %>%
   filter(price < 1000) -> diamonds_cheaper
 
-ggplot(diamonds_cheaper, aes(x = carat, 
-                     y = price)) + 
+ggplot(diamonds_cheaper, aes(x = carat, y = price)) + 
   geom_point(size = 3)
 ```
 
 .pull-left[
 ```{r, fig.height = 2, fig.width = 3}
 diamonds %>%
-  filter(price < 1000) %>%  
-  ggplot(aes(x = carat, 
-             y = price)) + 
+  filter(price < 1000) %>%  #<<
+  ggplot(aes(x = carat, y = price)) +  #<<
     geom_point(size = 3)
 ```
 ]
 .pull-right[
-**Caution:** Be careful to use `%>%` and `+` in the right place. Using the wrong one in the wrong place is a common mistake!
+**Caution:** Be careful to use `%>%` and `+` in the right place. Using the wrong one in the wrong place is a **common bug**!
 ]
 ---
 
@@ -692,7 +688,9 @@ diamonds %>%
   arrange(carat) #<<
 ```
 
-#### For descending order:
+---
+
+# For _descending_ order:
 
 ```{r}
 diamonds %>%
@@ -706,12 +704,10 @@ diamonds %>%
 
 
 ```{r}
+# rename(newname = oldname) !!!
 diamonds %>%
   rename(width = x) #<<
 ```
-
-
-#### The order is `rename(newname = oldname)`
 
 ---
 
@@ -720,11 +716,30 @@ diamonds %>%
 
 
 ```{r}
+# boring, since all rows are unique!
 diamonds %>%
   distinct() #<<
 ```
 
-#### Not super interesting with `diamonds`, but this is how you use the function!
+---
+
+# Removing duplicate rows
+
+
+.pull-left[
+```{r}
+diamonds %>%
+  select(color) 
+```
+]
+
+.pull-right[
+```{r}
+diamonds %>%
+  select(color) %>%
+  distinct()
+```
+]
 
 ---
 
