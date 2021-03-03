@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>linear_models_slides.utf8</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/chocolate-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my_chocolate.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+
+class: title-slide
+&lt;!-- background-image: url(slide_background_images/rhino_jawn.png) 
+background-size: contain--&gt;
+
+.bg-text[
+# Introduction to linear models
+## Data Science for Biologists
+
+&lt;hr /&gt;
+&lt;br&gt;&lt;br&gt;
+**TBD**
+]
+
+---
+
+# CAVEAT: This is not a statistics class
+
+### We will learn _to perform analyses and interpret results_  using a few common modeling approaches.
+
+### We will NOT be diving into the technical derivations or gnarly innards of the statistics of these models
+
+### If you want to pursue data science down the line, _you will eventually need to know the technical aspects too._
+
+---
+
+# Machine Learning and AI
+
+---
+
+# Linear regression and linear models
+
+
+---
+
+# Everything's a ~~drum~~ ~~path~~ linear model!
+
+
++ Correlation
+  + Pearson's correlation is what you know: `\(-1 &lt; r &lt; 1\)`
++ Regression
++ ANOVA, ANCOVA, MANOVA, etc.
++ *t*-tests and `\(X^2\)`-tests
++ Wilcoxon/Mann-Whitney U tests, sign tests
+
+
+**Want to prove this to yourself? (advanced):** [https://lindeloev.github.io/tests-as-linear/](https://lindeloev.github.io/tests-as-linear/)
+
+--
+
+### The goal of linear modeling is to _explain variation in a variable of interest_ 
+
+In the applied "machine learning" world, we also use models to _predict future outcomes for that variable of interest_
+---
+
+# What does "explain variation" mean?
+
+![](linear_models_slides_files/figure-html/unnamed-chunk-1-1.png)&lt;!-- --&gt;
+
+---
+# Simple linear regression:
+
+
+.large[
+\begin{equation} 
+  Y = \beta_1X_1 + \beta_0 + \epsilon
+\end{equation} 
+]
+
+
+```r
+ggplot(iris, aes(x = Sepal.Length,
+                 y = Sepal.Width)) + 
+  geom_point() +
+  geom_smooth(method = "lm") + 
+  labs(x = "Sepal Length", y = "Sepal Width")
+```
+
+![](linear_models_slides_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+
+---
+# But don't forget species:
+
+
+
+```r
+ggplot(iris, aes(x = Sepal.Length,
+                 y = Sepal.Width,
+*                color = Species)) +
+  geom_point() +
+  geom_smooth(method = "lm") + 
+  labs(x = "Sepal Length", y = "Sepal Width")
+```
+
+![](linear_models_slides_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+
+---
+
+# Goal: Explain variation in a _response variable_ using all suitable predictors
+
+### In this example, if we "ignore" species, we are missing the true _positive relationship_ between sepal width and length. This is called *controlling for species.*
+
+---
+
+# Determining suitable predictors for a linear model
+
+.pull-left[
+### Hypothesis-testing ("science")
+
++ Predictors are based on experimental setup
++ *Specific* goal of knowing how those *specific* predictors affect response
+]
+
+.pull-right[
+### Exploratory ("industry")
+
++ You have _a bunch_ of data and need to figure out, which predictors should I use in my model to best explain the response?
++ Less likely you care about specific effects of individual predictors
+]
+
+
+---
+
+# We will learn two types of _generalized linear models_ 
+
+**Linear regression**: Use this method when the response is a **numeric variable**
++ Assumptions:
+  + Any numeric predictors are linearly related to the response
+  + The values of the response variable have equal variance across categories of any categorical predictor
+  + The *residuals* of the model are normally distributed. There is NO REQUIREMENT for the data itself to follow a normal distribution
+
+**Logistic regression**: Use this method when the response is a **binary variable** 
++ Actually pretty chill for assumptions checking
+
+---
+# Linear models
+
+.left-column[
+.large[
+\begin{equation} 
+  Y = \beta_1X_1 + \beta_0 + \epsilon
+\end{equation} 
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+\begin{equation} \label{eq:full}
+  Y =  \beta_0 + \beta_1X_1 + \beta_2X_2 + \beta_3X_3 ... + \beta_NX_N + \epsilon
+\end{equation} 
+]]
+
+---
+
+The relationship between the age of a given lion the the proportion of its nose that is black (nose color changes over time!). [Source](https://www.amazon.com/Analysis-Biological-Data-Michael-Whitlock/dp/1936221489)
+
+
+&lt;img src="img/lm//whitlock_17.1-1.png" width="450px" /&gt;
+
+**Fitting a model** in this case means determining the line-of-best-fit, aka determining the _optimal values_ for slope and intercept (*model parameters*)
+
+---
+
+# Residuals: Distance from each point to line-of-best-fit
+
++ Residuals are *errors* - how much does each point deviate (literally, distance) from the *average relationship*? Every point has a residual value.
+
++ Best-fitting line is the line with the *smallest possible* **R**esidual **S**um of **S**quares (RSS)
+  + Literally the sum of the squared lengths of each residual line
+
+&lt;img src="img/lm//whitlock_17.1-2.png" width="950px" /&gt;
+
+---
+
+# Focus on the "smallest deviations" panel 
+
+&lt;img src="img/lm//whitlock_17.1-2.png" width="800px" /&gt;
+
++ Slope is 10.64
++ Intercept is 0.88
++ Line is `\(y = 10.64x + 0.88\)`. **That's our FITTED MODEL!!**
+  + `\(Y = 10.64X_1 + 0.88 + \epsilon\)`
+
++ This model predicts that a hypothetical lion whose nose is 50% black will be 6.2 years old.
+  + 10.64(0.5) + 0.88 = 6.2
+---
+
+# Is that a "good" model?
+
++ How much variation in the response (`age`) does the predictor (`proportion black`) actually explain? This is `\(R^2\)`.
++ Do we have statistical confidence in that line-of-best fit?
++ How accurate are our predictions likely to be?
+
+---
+
+# Null-hypothesis testing and P-values
+
++ **P-values** are one of the most notoriously misunderstood concepts. They tell you: 
+  + **_Assuming the null hypothesis is true, what is the probability of observing my data?_**
+  
+  
++ They DO NOT tell you:
+  + What is the probability that this result I observe is real?
+  + Is the null hypothesis wrong?
+  + Is the null hypothesis right?
+  + Is the alternative hypothesis wrong?
+  + Is the alternative hypothesis right?
+  + They really don't tell you much at all, in fact
+
+---
+
+# Null hypotheses are _set in stone_
+
++ Each statistical test you do relies on a highly specific null hypothesis that is _always associated with that statistical test._ There is 0 creativity or wiggle-room. 
+&lt;br&gt;&lt;br&gt;
++ In linear models, the null hypotheses are:
+  + All `\(\beta_n = 0\)` (coefficients = 0)
+  + The `\(R^2 = 0\)`
+&lt;br&gt;&lt;br&gt;
++ Each estimated parameter has an associated P-value
+
+---
+
+# Statistical significance is mental gymnastics
+
+&gt; Remember: P-values give the probability of observing your data/results _when assuming a TRUE null hypothesis._
+
+If a P-value is very very small, we say: Gee! That's a small probability! I don't think it's likely that things with low probalities happen, so maybe actually something else besides the null is going on. _We call this significant._
+
+If a P-value is not very small, we say: Gee! I think that probabilities that are not very small could totally come to pass. It's not unreasonable to maybe observe this data under the null. _We call this not significant._
+
+
+---
+
+# A common threshold for "small" is P &lt; 0.05
+
+This number is not special. It is not magic. It's an "historical accident." [See here](https://www.bmj.com/rapid-response/2011/11/03/origin-5-p-value-threshold)
+
+
+&gt; "...If one in twenty does not seem high enough odds, we may, if we prefer it, draw the line at one in fifty or one in a hundred. Personally, the writer prefers to set a low standard of significance at the 5 per cent point, and ignore entirely all results which fails to reach this level. A scientific fact should be regarded as experimentally established only if aproperly designed experiment rarely fails to give this level of
+significance..." --RA Fisher
+
+---
+
+# Back to our "smallest deviations" lions
+
+&lt;img src="img/lm//whitlock_17.1-2.png" width="800px" /&gt;
+
+
+Parameter | Estimate | P-value
+--------------------|--------------|--------
+Slope (a coefficient) | 10.64 | 7.68e-08 
+Intercept (a coefficient) | 0.88 | 0.133
+`\(R^2\)` | 0.6113 | 7.68e-08 
+
+---
+
+# Interpreting `\(R^2\)`
+
++ The proportion black variable explains **61.13%** of the variation in lion age _in this dataset_
++ If I know the proportion black, I know about 61% of what there is to know about how old that lion is
++ If all residuals are 0, then `\(R^2 = 1\)`. Aka, if all points precisely are along the regression line, I know entirely what there is to know (100%) about lion age.
+&lt;br&gt;
+--
+&lt;br&gt;
++ There are more advanced methods one can use to determine how good a given PREDICTION is.
++ That model was built from a given dataset, so we only know how well that line-of-best-fit (model!) works for the data at hand. We'd have to test how well this line-of-best-fit works on _other data_ to know how good its predictions are.
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

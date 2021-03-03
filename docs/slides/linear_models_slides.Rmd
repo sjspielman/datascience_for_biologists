@@ -1,0 +1,321 @@
+---
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [default, my_chocolate.css, chocolate-fonts]
+    nature:
+      highlightStyle:  github
+      highlightLines: true
+      countIncrementalSlides: false
+    seal: false
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(message=F, warning=F,fig.width=8, fig.height=6)
+library(xaringan)
+library(tidyverse)
+library(cowplot)
+library(patchwork)
+library(colorblindr)
+img_path <- "img/lm/"
+
+theme_set(theme_classic() + theme(axis.text = element_text(size = rel(1.75)),
+                               axis.title = element_text(size = rel(1.75)),
+                               legend.title = element_text(size = rel(1.75)),
+                               legend.text = element_text(size = rel(1.75))
+                               ))
+```
+
+
+class: title-slide
+<!-- background-image: url(slide_background_images/rhino_jawn.png) 
+background-size: contain-->
+
+.bg-text[
+# Introduction to linear models
+## Data Science for Biologists
+
+<hr />
+<br><br>
+**TBD**
+]
+
+---
+
+# CAVEAT: This is not a statistics class
+
+### We will learn _to perform analyses and interpret results_  using a few common modeling approaches.
+
+### We will NOT be diving into the technical derivations or gnarly innards of the statistics of these models
+
+### If you want to pursue data science down the line, _you will eventually need to know the technical aspects too._
+
+---
+
+# Machine Learning and AI
+
+---
+
+# Linear regression and linear models
+
+
+---
+
+# Everything's a ~~drum~~ ~~path~~ linear model!
+
+
++ Correlation
+  + Pearson's correlation is what you know: $-1 < r < 1$
++ Regression
++ ANOVA, ANCOVA, MANOVA, etc.
++ *t*-tests and $X^2$-tests
++ Wilcoxon/Mann-Whitney U tests, sign tests
+
+
+**Want to prove this to yourself? (advanced):** [https://lindeloev.github.io/tests-as-linear/](https://lindeloev.github.io/tests-as-linear/)
+
+--
+
+### The goal of linear modeling is to _explain variation in a variable of interest_ 
+
+In the applied "machine learning" world, we also use models to _predict future outcomes for that variable of interest_
+---
+
+# What does "explain variation" mean?
+
+```{r, echo=F, fig.height = 4, fig.width = 12}
+tibble(x = 1:20/10, y = 4) %>%
+  ggplot(aes(x=x,y=y)) + geom_point() +
+  labs(x = "Predictor", y = "Response") + ylim(2,6)-> a
+
+set.seed(33)
+iris %>%
+  sample_n(20) -> subiris
+
+subiris %>%
+  ggplot(aes(x=Sepal.Length,y=Sepal.Width)) + geom_point() + 
+  labs(x = "Predictor", y = "Response") -> b
+
+tibble(x = 1:20/10, y = 1:20/10) %>%
+  ggplot(aes(x=x,y=y)) + geom_point() +
+  labs(x = "Predictor", y = "Response") + ylim(0,2) + xlim(0,2)-> d
+
+a + b + d
+
+```
+
+---
+# Simple linear regression:
+
+
+.large[
+\begin{equation} 
+  Y = \beta_1X_1 + \beta_0 + \epsilon
+\end{equation} 
+]
+
+```{r, fig.width = 7, fig.height = 4}
+ggplot(iris, aes(x = Sepal.Length,
+                 y = Sepal.Width)) + 
+  geom_point() +
+  geom_smooth(method = "lm") + 
+  labs(x = "Sepal Length", y = "Sepal Width")
+```
+
+---
+# But don't forget species:
+
+
+```{r, fig.width = 7, fig.height = 4.75}
+ggplot(iris, aes(x = Sepal.Length,
+                 y = Sepal.Width,
+                 color = Species)) + #<< 
+  geom_point() +
+  geom_smooth(method = "lm") + 
+  labs(x = "Sepal Length", y = "Sepal Width")
+```
+
+---
+
+# Goal: Explain variation in a _response variable_ using all suitable predictors
+
+### In this example, if we "ignore" species, we are missing the true _positive relationship_ between sepal width and length. This is called *controlling for species.*
+
+---
+
+# Determining suitable predictors for a linear model
+
+.pull-left[
+### Hypothesis-testing ("science")
+
++ Predictors are based on experimental setup
++ *Specific* goal of knowing how those *specific* predictors affect response
+]
+
+.pull-right[
+### Exploratory ("industry")
+
++ You have _a bunch_ of data and need to figure out, which predictors should I use in my model to best explain the response?
++ Less likely you care about specific effects of individual predictors
+]
+
+
+---
+
+# We will learn two types of _generalized linear models_ 
+
+**Linear regression**: Use this method when the response is a **numeric variable**
++ Assumptions:
+  + Any numeric predictors are linearly related to the response
+  + The values of the response variable have equal variance across categories of any categorical predictor
+  + The *residuals* of the model are normally distributed. There is NO REQUIREMENT for the data itself to follow a normal distribution
+
+**Logistic regression**: Use this method when the response is a **binary variable** 
++ Actually pretty chill for assumptions checking
+
+---
+# Linear models
+
+.left-column[
+.large[
+\begin{equation} 
+  Y = \beta_1X_1 + \beta_0 + \epsilon
+\end{equation} 
+
+<br><br><br>
+
+\begin{equation} \label{eq:full}
+  Y =  \beta_0 + \beta_1X_1 + \beta_2X_2 + \beta_3X_3 ... + \beta_NX_N + \epsilon
+\end{equation} 
+]]
+
+---
+
+The relationship between the age of a given lion the the proportion of its nose that is black (nose color changes over time!). [Source](https://www.amazon.com/Analysis-Biological-Data-Michael-Whitlock/dp/1936221489)
+
+
+```{r out.width = '450px', echo=F}
+knitr::include_graphics(file.path(img_path, "whitlock_17.1-1.png"))
+```
+
+**Fitting a model** in this case means determining the line-of-best-fit, aka determining the _optimal values_ for slope and intercept (*model parameters*)
+
+---
+
+# Residuals: Distance from each point to line-of-best-fit
+
++ Residuals are *errors* - how much does each point deviate (literally, distance) from the *average relationship*? Every point has a residual value.
+
++ Best-fitting line is the line with the *smallest possible* **R**esidual **S**um of **S**quares (RSS)
+  + Literally the sum of the squared lengths of each residual line
+
+```{r out.width = '950px', echo=F}
+knitr::include_graphics(file.path(img_path, "whitlock_17.1-2.png"))
+```
+
+---
+
+# Focus on the "smallest deviations" panel 
+
+```{r out.width = '800px', echo=F}
+knitr::include_graphics(file.path(img_path, "whitlock_17.1-2.png"))
+```
+
++ Slope is 10.64
++ Intercept is 0.88
++ Line is $y = 10.64x + 0.88$. **That's our FITTED MODEL!!**
+  + $Y = 10.64X_1 + 0.88 + \epsilon$
+
++ This model predicts that a hypothetical lion whose nose is 50% black will be 6.2 years old.
+  + 10.64(0.5) + 0.88 = 6.2
+---
+
+# Is that a "good" model?
+
++ How much variation in the response (`age`) does the predictor (`proportion black`) actually explain? This is $R^2$.
++ Do we have statistical confidence in that line-of-best fit?
++ How accurate are our predictions likely to be?
+
+---
+
+# Null-hypothesis testing and P-values
+
++ **P-values** are one of the most notoriously misunderstood concepts. They tell you: 
+  + **_Assuming the null hypothesis is true, what is the probability of observing my data?_**
+  
+  
++ They DO NOT tell you:
+  + What is the probability that this result I observe is real?
+  + Is the null hypothesis wrong?
+  + Is the null hypothesis right?
+  + Is the alternative hypothesis wrong?
+  + Is the alternative hypothesis right?
+  + They really don't tell you much at all, in fact
+
+---
+
+# Null hypotheses are _set in stone_
+
++ Each statistical test you do relies on a highly specific null hypothesis that is _always associated with that statistical test._ There is 0 creativity or wiggle-room. 
+<br><br>
++ In linear models, the null hypotheses are:
+  + All $\beta_n = 0$ (coefficients = 0)
+  + The $R^2 = 0$
+<br><br>
++ Each estimated parameter has an associated P-value
+
+---
+
+# Statistical significance is mental gymnastics
+
+> Remember: P-values give the probability of observing your data/results _when assuming a TRUE null hypothesis._
+
+If a P-value is very very small, we say: Gee! That's a small probability! I don't think it's likely that things with low probalities happen, so maybe actually something else besides the null is going on. _We call this significant._
+
+If a P-value is not very small, we say: Gee! I think that probabilities that are not very small could totally come to pass. It's not unreasonable to maybe observe this data under the null. _We call this not significant._
+
+
+---
+
+# A common threshold for "small" is P < 0.05
+
+This number is not special. It is not magic. It's an "historical accident." [See here](https://www.bmj.com/rapid-response/2011/11/03/origin-5-p-value-threshold)
+
+
+> "...If one in twenty does not seem high enough odds, we may, if we prefer it, draw the line at one in fifty or one in a hundred. Personally, the writer prefers to set a low standard of significance at the 5 per cent point, and ignore entirely all results which fails to reach this level. A scientific fact should be regarded as experimentally established only if aproperly designed experiment rarely fails to give this level of
+significance..." --RA Fisher
+
+---
+
+# Back to our "smallest deviations" lions
+
+```{r out.width = '800px', echo=F}
+knitr::include_graphics(file.path(img_path, "whitlock_17.1-2.png"))
+```
+
+
+Parameter | Estimate | P-value
+--------------------|--------------|--------
+Slope (a coefficient) | 10.64 | 7.68e-08 
+Intercept (a coefficient) | 0.88 | 0.133
+$R^2$ | 0.6113 | 7.68e-08 
+
+---
+
+# Interpreting $R^2$
+
++ The proportion black variable explains **61.13%** of the variation in lion age _in this dataset_
++ If I know the proportion black, I know about 61% of what there is to know about how old that lion is
++ If all residuals are 0, then $R^2 = 1$. Aka, if all points precisely are along the regression line, I know entirely what there is to know (100%) about lion age.
+<br>
+--
+<br>
++ There are more advanced methods one can use to determine how good a given PREDICTION is.
++ That model was built from a given dataset, so we only know how well that line-of-best-fit (model!) works for the data at hand. We'd have to test how well this line-of-best-fit works on _other data_ to know how good its predictions are.
+
+
+

@@ -53,7 +53,7 @@ diamonds %>%
 class: title-slide
 background-image: url(slide_background_images/hammybeans.png)
 background-size: contain
-
+ **five
 .bg-text[
 <br><br><br>
 # Introduction to `dplyr`
