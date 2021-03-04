@@ -50,7 +50,7 @@ background-size: contain--&gt;
 
 ---
 
-# Everything's a ~~drum~~ ~~path~~ linear model!
+# Everything you've learned is a ~~drum~~ ~~path~~ linear model!
 
 
 + Correlation
@@ -101,55 +101,59 @@ ggplot(iris, aes(x = Sepal.Length,
 
 
 ```r
-ggplot(iris, aes(x = Sepal.Length,
-                 y = Sepal.Width,
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width,
 *                color = Species)) +
-  geom_point() +
-  geom_smooth(method = "lm") + 
+  geom_point() + geom_smooth(method = "lm") + 
   labs(x = "Sepal Length", y = "Sepal Width")
 ```
 
 ![](linear_models_slides_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
 
----
-
-# Goal: Explain variation in a _response variable_ using all suitable predictors
-
-### In this example, if we "ignore" species, we are missing the true _positive relationship_ between sepal width and length. This is called *controlling for species.*
+**In this example, if we "ignore" species, we are missing the true _positive relationship_ between sepal width and length. This is called _controlling for species._**
 
 ---
 
-# Determining suitable predictors for a linear model
 
-.pull-left[
-### Hypothesis-testing ("science")
-
-+ Predictors are based on experimental setup
-+ *Specific* goal of knowing how those *specific* predictors affect response
-]
-
-.pull-right[
-### Exploratory ("industry")
-
-+ You have _a bunch_ of data and need to figure out, which predictors should I use in my model to best explain the response?
-+ Less likely you care about specific effects of individual predictors
-]
-
-
----
 
 # We will learn two types of _generalized linear models_ 
 
-**Linear regression**: Use this method when the response is a **numeric variable**
+**Linear regression/model**: Use this method when the response is a **numeric variable**
 + Assumptions:
   + Any numeric predictors are linearly related to the response
   + The values of the response variable have equal variance across categories of any categorical predictor
   + The *residuals* of the model are normally distributed. There is NO REQUIREMENT for the data itself to follow a normal distribution
 
-**Logistic regression**: Use this method when the response is a **binary variable** 
+**Logistic regression/model**: Use this method when the response is a **binary variable** 
 + Actually pretty chill for assumptions checking
 
 ---
+
+
+# What is the goal of GLMs?
+
++ We want to explain variation in a _response variable_ using all suitable predictors
+  + How does one determine "suitable predictors"?
+
+--
+
+.pull-left[
+### Hypothesis-testing ("science")
+.small[
++ Predictors are based on experimental setup
++ *Specific* goal of knowing how those *specific* predictors affect response
+]]
+
+.pull-right[
+### Exploratory ("industry"/"big-data")
+.small[
++ You have _a bunch_ of data and need to figure out, which predictors should I use in my model to best explain the response?
++ Less likely you care about specific effects of individual predictors
++ *In _this class_, we are going to learn GLMs from this _perspective._*
+]]
+
+
+---
+
 # Linear models
 
 .left-column[
@@ -196,7 +200,7 @@ The relationship between the age of a given lion the the proportion of its nose 
 + Line is `\(y = 10.64x + 0.88\)`. **That's our FITTED MODEL!!**
   + `\(Y = 10.64X_1 + 0.88 + \epsilon\)`
 
-+ This model predicts that a hypothetical lion whose nose is 50% black will be 6.2 years old.
++ This model formula says that lions who on average have 50% black noses are on average 6.2 years old.
   + 10.64(0.5) + 0.88 = 6.2
 ---
 
@@ -272,17 +276,18 @@ Intercept (a coefficient) | 0.88 | 0.133
 
 # Interpreting `\(R^2\)`
 
+.small[
 + The proportion black variable explains **61.13%** of the variation in lion age _in this dataset_
-+ If I know the proportion black, I know about 61% of what there is to know about how old that lion is
-+ If all residuals are 0, then `\(R^2 = 1\)`. Aka, if all points precisely are along the regression line, I know entirely what there is to know (100%) about lion age.
++ For one of these lions, if I know the proportion black, I know about 61% of what there is to know about how old that lion is
++ If all residuals are 0, then `\(R^2 = 1\)`. Aka, if all points precisely are along the regression line, I know entirely what there is to know (100%) about lion age, *in the given dataset*
 &lt;br&gt;
 --
 &lt;br&gt;
-+ There are more advanced methods one can use to determine how good a given PREDICTION is.
-+ That model was built from a given dataset, so we only know how well that line-of-best-fit (model!) works for the data at hand. We'd have to test how well this line-of-best-fit works on _other data_ to know how good its predictions are.
++ There are additional methods one can use to determine how good a given PREDICTION is.
++ That model was built from a given dataset, so we only know how well that line-of-best-fit (model!) works for the data at hand (61%). We'd have to test how well this line-of-best-fit works on _other data_ to know how good its _predictions_ are.
+]
 
-
-
+---
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
