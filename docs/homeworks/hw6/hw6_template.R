@@ -85,12 +85,14 @@ coffee_ratings <- read_csv('https://raw.githubusercontent.com/rfordatascience/ti
 
 
 
+# Comment answer:
 
 
 ## Question 14 -----------------------------------------------------------------------------
 
 
 
+## Question 15-----------------------------------------------------------------------------
 
 
 
