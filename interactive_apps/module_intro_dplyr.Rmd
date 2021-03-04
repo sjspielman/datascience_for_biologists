@@ -324,16 +324,14 @@ msleep %>%
 ``` 
 <br>
 
-5. Use `mutate()` to create a new column called `sleep_awake_ratio` that has the ratio of total time spent awake to total time spent asleep (divide total time asleep by time spent awake).
-
-> Hint: You may need to consult the description of the dataset to be sure which columns to use in your calculations!
+5. Use `mutate()` to create a new column called `sleep_awake_ratio` that has the ratio of total time spent asleep to total time spent awake (`sleep_total` divided by `awake`).
 
 ```{r dplyr_mutate5, exercise = TRUE}
 
 ``` 
 ```{r dplyr_mutate5-solution}
 msleep %>%
-  mutate(sleep_awake_ratio = awake/sleep_total)
+  mutate(sleep_awake_ratio = sleep_total/awake)
 ``` 
 
 6. Recall the function `ifelse()` which can define a value based on a condition. Engage with the code below to refresh your memory:
@@ -453,7 +451,7 @@ msleep %>%
 In many circumstances, we are interested in subsetting data to only keep _unique_ rows and therefore remove duplicates. We simply use the `dplyr` function `distinct()` for this - no arguments! Below shows you how to use the function, but it's not very interesting yet since there are no duplicate rows in `msleep`! This function will get more interesting in Set 2.
 
 
-```{r demo-distinct, exercise=T}
+```{r demo-distinct, exercise=TRUE}
 msleep %>%
   distinct()
 ```
@@ -466,7 +464,7 @@ Often we need to know "how many rows are in this wrangled data frame?" There are
 
 + Use the `nrow()` function which you already know! Because `nrow()` takes a data frame as its argument, we can pipe `dplyr` pipelines into it! But it returns a NUMBER, NOT another data frame, so we can't pipe *out* of it
 
-```{r demo-nrow, exercise=T}
+```{r demo-nrow, exercise=TRUE}
 msleep %>%
   nrow()
 ```
@@ -475,7 +473,7 @@ msleep %>%
 + Use the `dplyr` function `tally()` which gives you a _tibble_ of the row count. *We will learn more interesting uses of this function later, but for now, you should know that it will count your rows:*
 
 
-```{r demo-tally, exercise=T}
+```{r demo-tally, exercise=TRUE}
 msleep %>%
   tally()
 ```
@@ -485,7 +483,7 @@ msleep %>%
 
 1. Answer the question: How many mammals weigh more than 2000 kg? To answer this, we'd use filter, and the number of rows in final data frame represents the answer to the question. **HOWEVER**, rather than just looking at our own eyes and determining ourselves how many rows are there, we want to use **code** to figure that out for us. Add `tally()` onto the pipe to see this:
 
-```{r tally_q1, exercise=T}
+```{r tally_q1, exercise=TRUE}
 
 ```
 ```{r tally_q1-solution}
@@ -669,7 +667,7 @@ msleep %>%
 
 9. Now, let's finally see why `distinct()` is a helpful function. We want to answer this question using a `dplyr` framework: What are the unique vores in the dataset? To address this question, we need to first subset the data to only contain the `vore` column, and then use `distinct()`:
 
-```{r distinct-vore-demo}
+```{r distinct-vore-demo, exercise=TRUE}
 msleep %>%
   select(vore) %>%
   distinct()
@@ -685,7 +683,7 @@ msleep %>%
   > 
   > Hint: Don't worry about NAs. We will learn how to deal with those soon.
 
-```{r dplyr_pipe10, exercise=T}
+```{r dplyr_pipe10, exercise=TRUE}
 
 ```
 
