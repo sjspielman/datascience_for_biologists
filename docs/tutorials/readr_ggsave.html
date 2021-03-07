@@ -1577,7 +1577,7 @@ ggsave(&quot;file_where_my_plot_will_be_saved.png&quot;,
 <ul>
 <li><p>First argument: file name for plot, as a string</p></li>
 <li><p>Second argument: the <em>variable</em> that contains the plot you want to save</p></li>
-<li><p>Third/fourth arguments: the width and height <em>in inches</em> to save the figure in. <strong>Requires trial and error!!!</strong> It is <strong>extremely</strong> important to save your files in an appropriate aspect ratio.</p></li>
+<li><p>Third/fourth arguments: the width and height <em>in inches</em> to save the figure in. <strong>Requires trial and error!!!</strong> It is <strong>extremely</strong> important to save your files in an appropriate aspect ratio. <strong>SERIOUSLY, DO NOT RELY ON DEFAULT SIZE!!</strong> <em>The default sizes are NOT reproducible. The only way to ensure the plot looks the same every time it’s made is to specify width/height yourself.</em></p></li>
 </ul>
 <p>It is extremely important to <em>ALWAYS</em> specify the plot variable. Otherwise, your code may not do what you want it to do. Consider the “do-not-do-this” example below:</p>
 <pre class="r"><code>## THIS CODE CHUNK DEMONSTRATES WHAT ***NOT*** TO DO

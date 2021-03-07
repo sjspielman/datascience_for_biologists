@@ -75,7 +75,7 @@ ggsave("file_where_my_plot_will_be_saved.png",
 
 + Second argument: the _variable_ that contains the plot you want to save
 
-+ Third/fourth arguments: the width and height _in inches_ to save the figure in. **Requires trial and error!!!** It is **extremely** important to save your files in an appropriate aspect ratio.
++ Third/fourth arguments: the width and height _in inches_ to save the figure in. **Requires trial and error!!!** It is **extremely** important to save your files in an appropriate aspect ratio. **SERIOUSLY, DO NOT RELY ON DEFAULT SIZE!!** *The default sizes are NOT reproducible. The only way to ensure the plot looks the same every time it's made is to specify width/height yourself.*
 
 It is extremely important to *ALWAYS* specify the plot variable. Otherwise, your code may not do what you want it to do. Consider the "do-not-do-this" example below:
 
