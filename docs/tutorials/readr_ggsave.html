@@ -1593,7 +1593,7 @@ ggplot(iris) +
   geom_point()
 
 # saves the other unsaved plot, NOT iris_plot!!
-ggsave(&quot;file_where_my_plot_will_be_saved.png&quot;)</code></pre>
+ggsave(&quot;file_where_my_plot_will_be_saved.png&quot;, width=6, height=4)</code></pre>
 <p>Using variables makes your code clear and unambiguous. You should never have to “guess” which plot you are saving - the code should be explicit and obvious which plot <code>ggsave()</code> saves.</p>
 </div>
 <div id="file-output-format-is-determined-by-the-file-extension" class="section level2">

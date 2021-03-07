@@ -93,7 +93,7 @@ ggplot(iris) +
   geom_point()
 
 # saves the other unsaved plot, NOT iris_plot!!
-ggsave("file_where_my_plot_will_be_saved.png")
+ggsave("file_where_my_plot_will_be_saved.png", width=6, height=4)
 ```
 
 Using variables makes your code clear and unambiguous. You should never have to "guess" which plot you are saving - the code should be explicit and obvious which plot `ggsave()` saves.
