@@ -47,7 +47,7 @@ R 3/4   | Introducing `#tidytuesday` and its extra credit | None | None
 T 3/9   | Data wrangling with `dplyr`, Part 4 | [PDF Slides](./slides/dplyr_slides_part1.pdf) <br><br> [Slides in browser](./slides/dplyr_slides_part1.html)  | **Homework 6 due** on Canvas as an R script.  [Link to instructions](./homeworks/hw6/hw6_instructions.html) 
 W 3/10  | Data wrangling with `dplyr`, Part 5 | Exercises: Introduction to data wrangling with `dplyr` Set3 <br><br>[**Link if your last name is A-M**](https://rowanbiosci.shinyapps.io/intro_dplyr_A-M/) <br><br>[**Link if your last name is N-Z**](https://rowanbiosci.shinyapps.io/intro_dplyr_N-Z/)| None
 R 3/11  | Debugging strategies | In-class script TBD | None
-T 3/16  | Creating professional reports with RMarkdown | In-class script TBD |  **Homework 7 due** on Canvas as an R script. <!-- dplyr summarizing -->
+T 3/16  | Creating professional reports with RMarkdown | In-class script TBD |  **Homework 7 due** on Canvas as an R script. [Link to instructions](./homeworks/hw7/hw7_instructions.html)  <!-- dplyr summarizing -->
 W 3/17  | Rmarkdown for exploratory analyses | TBD | None <!-- DO THE HOMEWORK AS A CLASS --> 
 R 3/18  | **NO CLASS AT ALL TODAY** (not even asynchronous!) | None | None
 T 3/23  | Tidy data and `tidyr`, Part 1 | Slides TBD |  **Homework 8 due** on Canvas as an RMarkdown file. <!-- exploratory analysis HW: ask and answer questions and they need to ask 1-2 as well.-->
