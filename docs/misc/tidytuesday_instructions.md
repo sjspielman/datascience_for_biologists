@@ -39,7 +39,10 @@ The goal of this weekly extra credit is to develop your visualization and data w
 	  + Make sure you have a **PUBLIC** twitter account that you are comfortable using for professional networking purposes
 	  + You must tweet no later than the following Friday (or Sunday) at 11:59 pm. 
 	  + Make sure to tag me `@stephspiel` (or you can tag me in a reply to the main tweet, as long as I am tagged) and include the following two hashtags: `#tidytuesday` and `#DataScienceforBiologists`. 
-	  + To include your code and figure, **DO NOT JUST LINK TO RSTUDIO CLOUD. THIS IS NOT A PUBLIC WEBSITE.** You MUST upload the script directly as a tweet attachment, along with the figure the code produces.
+	  + Include your figure as an attachment.
+	  + To include your code, there are a few options:
+	    + *Because you will have tagged me,* I will see your tweet and go ahead and reply with your code that you submitted on Canvas!
+	    + You can upload the code to Google Drive, Dropbox, etc. and share a link to that code in the tweet.
   + If you suspect want to pursue graduate studies and/or a career that is even tangentially related to coding, I highly recommend tweeting for yourself to begin establishing a professional network. Twitter is where all the networking lives.
 + Please share your `#tidytuesday` figures with the class in the aptly Slack channel `#tidytuesday`!! Indeed, the purpose of this channel is to show each other your figures! This is not required, but it is fun.
 
