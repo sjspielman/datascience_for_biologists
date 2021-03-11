@@ -1,0 +1,191 @@
+---
+title: "Homework #8: Due Tuesday 3/23/21 to Canvas by 1 pm"
+subtitle: "Data Science for Biologists, Spring 2021"
+author: "Dr. Spielman"
+output: 
+  html_document:
+    highlight: tango
+    theme: readable
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE, include=F, fig.width =4, fig.height =3, eval=F)
+library(tidyverse)
+wine_wide <- read_csv("wine_version1.csv")
+wine_long <- read_csv("wine_version2.csv")
+```
+```{css, echo=F, include=T, eval=T}
+blockquote{
+  margin-left: 40px;
+  font-size: 0.95em;
+}
+```
+
+
+
+## Instructions
+
+
+For your assignment, you will be performing exploratory data analysis and writing your first **RMarkdown** file instead of an R script. You must use the templated `hw8_template.Rmd` file to complete this assignment. As part of filling in this template, you must specify in the YAML front matter...
+
++ Your name should go in the "author" field
++ An *Rmarkdown document* theme of your choosing should be indicated
+  + Built-in options: [Gallery of themes](https://www.datadreaming.org/post/r-markdown-theme-gallery/)
+  + If you want to scour the internet for other themes in other packages, please feel free! That library will have to be loaded in your setup R chunk, *but NOT the code to install!!!* You will likely have to install the library yourself in your R homework project (Console!), and as needed, I will install it for myself when grading to ensure your code works.
++ A *code highlighting* theme of your choosing should be indicated: [Gallery of code highlighting](https://www.garrickadenbuie.com/blog/pandoc-syntax-highlighting-examples/)
+  + Ignore all code in this blog post - it is useful only to see how the different syntax highlighting themes appear so you can find your favorite
+
+
+### Please read these additional instructions carefully:
+
++ **ALWAYS RUN AND CHECK CODE ONE LINE AT A TIME!!!**
++ All of your code must be shown in the knitted HTML output. *Do not modify any chunk parameters*, except `fig.width` and `fig.height`, as needed.
++ Unless otherwise stated, your wrangling code to answer a given question **MUST** all be part of the same connected pipeline with `%>%`. 
++ You will not receive any credit for answers without corresponding code that produces those answers.
++ Make sure your code runs WITHOUT an errors before submitting. *A 10% penalty is automatically applied for submissions with bugs that lead to errors.*
+  + If there are errors in your code, you should *comment out* the code so that it does not actually run. This is **BETTER** than allowing buggy code to run - it shows me you attempted the code, but understood that it didn't work properly. If you leave buggy code in the script without commenting it out, there will be deductions.
++ Make sure you are commenting out any code that does not specifically contribute to the homework. For example, `View()` should never be in scripts. Similarly, while exploring a dataset with functions like `head()`, `names()`, or `str()` is completely and entirely necessary for completing this assignment, the code you use to do so is not specifically part of the code to create and save plots. Therefore, either run those commands directly in Console, or comment them out in your final script.
++ Be careful not to *duplicate* your code. For example, do not write code on one line, and then on the next line write it again and save it to a variable. Only include the second line in the final version of your script!
++ **As always, you are encouraged to work together and use the class Slack to help each other out, but you must submit YOUR OWN CODE.** 
++ **Plotting rules:**
+  + All plots must be professionally labeled with clean X and Y axes. You are not required to include a title, subtitle, or caption, but you may include one or more of these labels if you personally want to.
+  + All plots you are instructed to save to a PNG file must be clearly legible with an appropriate aspect ratio. **To ensure complete reproducibility, you MUST use the arguments `width` and `height` when using `ggsave()`.** *Make extra sure to LOOK AT YOUR SAVED PLOTS* and tweak the size until it looks clearly professional.*
+  + You may also need to modify certain theme components to achieve a professional look!
+
+<br><br>
+
+## Part 1: Wine quality
+
+
+For this part of the assignment, you will be exploring a dataset of red and white wine attributes (this is a *different* dataset about wine than the one you have previously seen). There are two versions of this dataset provided to you: `wine_version1.csv` and `wine_version2.csv`. These CSV files contain _the exact same data_, except they are differently structured/formatted (the difference in data structuring motivates our class topic on "tidy data" next week!). 
+
+In both versions, the column `wine_index` indicates each unique wine that was evaluated in the study. The column `type` indicates whether the wine was red or white, and the column `quality` indicates the overall quality of the wine, measured on a worst-best scale 0-10. All other information in the dataset is about different wine attributes (*no units are given*, except we know the `pH` scale and `alcohol` is a percentage).
+
+
+
+
+### Question 1.1
+
+Read in the two datasets and explore their contents, using the templated code chunks. It is **good** to print out exploratory functions you use on the dataset (`head()`, `names()`, `summary()`, etc.), but we want to avoid printing the whole data set out in the knitted HTML since it contains thousands of rows.
+
+Then, in text below your code chunks, *explain in your own words* (1-3 sentences) how the _structure_ of these two datasets differs. Next week, we will learn more about the technical structural differences between these two versions. For now, showing me that you are thinking critically about how these two versions differ (in your own words!) is the goal (you are not expected to know technical terms we haven't learned yet.)
+
+> **Remember:** *Rmarkdown files are not scripts! We do not preface our textual answers with hashtags since that will create a markdown header!!*
+
+
+### Question 1.2
+
+Make *two* different plots *twice* to explore the differences in amount of *residual sugars*  between red and white wines. You should make each plot TWICE, each time using the different version of the `wine` dataset. In other words, make two (identical is fine!!!) plots using version1 and version2. Use the associated templated code chunks to organize your code.
+
++ Your first plot must be a *barplot*, where the X-axis shows the wine type, and the Y-axis shows the literal _mean_ amount of residual sugars across all wines.mean number of calories in all drinks in that category. 
+  + *For bonus points*, include error bars that represent the standard deviations. This is a sort of annoying task that involves a lot of data wrangling to achieve! See [this helpful blog post](https://semba-blog.netlify.app/03/25/2020/barplot-with-errorbar-in-ggplot2/) (focus on their Figure 1, not Figure 2, approach) for an examples of how one might go about this to start you off on your journey
+  + Please further note that Spielman is not condoning this type of data visualization (barplot with error bars to show numeric data), but she recognizes that it is commonly used in the life sciences, even though she must reiterate that she strongly maintains it should be fully retired.
+
++ Your second plot must be a [*sina plot*](https://rowanbiosci.shinyapps.io/types_of_plots/) of residual sugars for each wine type. Sina plots are not included with `ggplot2`, but they are included in a package called `ggforce`, one of many packages based on `ggplot2` that extend its functionality. This library has been loaded for you in the homework template, and it is installed in the Class Workspace. You need to use the function `geom_sina()` to make your plot, and remember you can explore this function with `?geom_sina`.
+
++ Additional plotting rules for all plots in Questions 1.2-1.4 (remember, these rules apply going forward!):
+  + For each plot, your code must be part of a single connected pipeline of any necessary wrangling *directly piped into `ggplot()`.* If there is no associated wrangling, still pipe the dataset into `ggplot()` to get more practice with piping (e.g., please code like `iris %>% ggplot()`, not `ggplot(iris)`).
+  + Please use a color and/or fill that makes some amount of sense for each type of wine type being visualized. To accomplish this, you will probably want to use `scale_<color/fill>_manual()`, and if you end up specifying the same colors over and over again, *define the colors as an array first before plotting, and then use that array in your code!* 
+  + *Do not include a legend*, since a legend is not necessary to interpret the plot and primarily contributes to visual noise. 
+  + Use a theme, customized or otherwise, of your choosing. If you like the default, that's ok too! Just keep the default.
+  + Ensure professional axis labels (no underscores!), and *title* the plot based on which wine version it was created from (e.g., "Boxplot from version1", "Boxplot from version2", etc.)
+  + **Make sure the plots are cleanly, visibly, and legibly displayed in the knitted HTML document.** It is not unlikely you will need to tweak each R chunk's `fig.width` and `fig.height` parameters to achieve this.
+
+
+```{r}
+wine_long %>%
+  filter(attribute == "residual_sugar") %>%
+  ggplot(aes(x = type, y = value)) + 
+  ggforce::geom_sina()
+
+wine_wide %>%
+  ggplot(aes(x = type, y = residual_sugar)) + 
+  ggforce::geom_sina()
+
+wine_long %>%
+  filter(attribute == "residual_sugar") %>%
+  group_by(type) %>%
+  summarize(mean_sugar = mean(value)) %>%
+  ggplot(aes(x = type, y = mean_sugar)) +
+  geom_col()
+
+wine_wide %>%
+  group_by(type) %>%
+  summarize(mean_sugar = mean(residual_sugar)) %>%
+  ggplot(aes(x = type, y = mean_sugar)) +
+  geom_col()
+  
+```
+
+
+
+### Question 1.3
+
+Make a plot showing the *relationship* between volatile acidity and free acidity - this means a scatterplot! You should color points based on the wine type just like in Question 1.2, you should include *separate* trendlines for white and red wines, and your plot show show *fixed across volatile acidity.* 
+
+**Most importantly**, it is actually only possible to make this plot from one of the two versions of the wine dataset. Part of answering this question is figuring out which one, but please do not include any extra exploratory code for figuring out which dataset - just make the plot. The same plotting rules as given in Question 1.2 apply here.
+
+In the space below your plot, explain in regular markdown text what the relationship, if any, is between these two acidity measures, and how this relationship differs, if at all, between red and white wines.
+
+```{r}
+wine_wide %>%
+  ggplot(aes(x = volatile_acidity, y = fixed_acidity,color= type)) + 
+  geom_point() + 
+  geom_smooth(method = "lm")
+```
+
+
+### Question 1.4
+
+Make a *faceted histogram* showing the distributions of the three attributes `citric_acid`, `residual_sugar`, and `sulphates`, for each wine type. Again, you can only accomplish this plot using one of the two wine dataset versions, and again, the same plotting rules from Question 1.2 apply. Some hints:
+
++ You will definitely need to `filter()` as part of your wrangling
++ You will want to use `facet_grid()` to facet across *two* variables, one of which is `type`. When writing your `facet_grid()` code...
+  + Make sure the final plot has 2 rows and 3 columns.
+  + You may want to use the argument `scales="free"` in your call to `facet_grid()` to allow the axis limits to vary among panels.
++ Make sure to fill your histograms based on wine type, not based on which attribute the distribution is showing, and again remember, no legend!
++ Ensure a reasonable binning! Note that for faceted histograms, the same binning will apply to all panels. Since each panel will likely show values on a different scale, `bins` is probably a better bet than `binwidth`.
++ *For bonus points*:
+  + Include theme customization code to customize your *strips* - the panel labels created when faceting.
+  + During your wrangling or plotting, include code to ensure that the panel labels come out more professionally and without underscores (e.g., not `"citric_acid"`, but `"Citric Acid"`)
+
+```{r}
+wine_long %>%
+  filter(attribute %in% c("citric_acid", "residual_sugar", "sulphates")) %>%
+  ggplot(aes(x = value, fill = type)) + 
+  geom_histogram(color = "black", bins = 15)+
+  facet_grid(rows = vars(type), cols = vars(attribute), scales = "free")
+```
+
+
+
+
+## Part 2: Make a line plot
+
+For this part of the assignment, you will be learning how to make *line plots* which are used to show trends over time: The X-axis shows time, and the Y-axis shows how a given variable changes over time, where points are all connected by a line to show the time progression. To make a line plot, you will need to use the function `geom_line()`, and you will need to use the (new!) `group` aesthetic that indicates *which column dictates how to connect points*. Sometimes, people also use `geom_point()` on top of `geom_line()` so that individual measured points are emphasized - *this is your choice!*. 
+
+Here are resources for learning how to make line plots:
+
++ [This book chapter](https://ggplot2-book.org/collective-geoms.html)
++ [This other book chapter](https://socviz.co/groupfacettx.html#grouped-data-and-the-group-aesthetic)
++ [This blog post](https://datacarpentry.org/dc_zurich/R-ecology/05-visualisation-ggplot2.html) (scroll to section "Plotting time series data")
+
+
+Consider the dataset `malaria_cases`, which records the number of malaria cases recorded from 1990-2001 in 59 different countries. Your goal will be to make a line plot showing the malaria cases over time for **THREE countries of your choosing,** where their lines are distinguished by color. Your final code should be a single pipeline of data wrangling sent directly into `ggplot()`, all revealed at a legible size in the final knitted HTML. In addition to ensuring color is mapped to country, style however else you want. Note that a legend will very much be necessary for intepretting this plot - don't remove it like you did in Part 1!!
+
+>Big hint: Each line connects should points from a given `country`. One might say this is a line plot that is *grouped by country*, where I use the term `group` as a reference to the `ggplot()` aesthetic, not as in the `dplyr` function `group_by()`.
+>
+> Big hint #2: If you get an empty plot and the warning message: "Each group consists of only one observation. Do you need to adjust the group aesthetic?", look into fixing your `group` aesthetic!!
+
+```{r}
+malaria_cases %>% 
+  filter(country %in% c("Costa Rica", "Argentina", "Bolivia")) %>%
+  ggplot(aes(x = year, y = cases, group = country, color = country)) + 
+  geom_line() + 
+  geom_point()
+```
+
+
+

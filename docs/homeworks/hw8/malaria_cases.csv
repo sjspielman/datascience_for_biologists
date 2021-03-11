@@ -1,0 +1,1004 @@
+country,year,cases
+Argentina,1990,1660
+Argentina,1991,803
+Argentina,1992,643
+Argentina,1993,758
+Argentina,1994,948
+Argentina,1995,1070
+Argentina,1996,2050
+Argentina,1997,592
+Argentina,1998,339
+Argentina,1999,222
+Argentina,2000,440
+Argentina,2001,215
+Argentina,2002,125
+Argentina,2003,122
+Argentina,2004,115
+Argentina,2005,259
+Argentina,2006,209
+Armenia,1990,0
+Armenia,1991,0
+Armenia,1992,0
+Armenia,1993,0
+Armenia,1994,196
+Armenia,1995,502
+Armenia,1996,347
+Armenia,1997,841
+Armenia,1998,1160
+Armenia,1999,616
+Armenia,2000,141
+Armenia,2001,79
+Armenia,2002,52
+Armenia,2003,29
+Armenia,2004,47
+Armenia,2005,7
+Armenia,2006,0
+Azerbaijan,1990,24
+Azerbaijan,1991,113
+Azerbaijan,1992,27
+Azerbaijan,1993,23
+Azerbaijan,1994,667
+Azerbaijan,1995,2840
+Azerbaijan,1996,13100
+Azerbaijan,1997,9910
+Azerbaijan,1998,5180
+Azerbaijan,1999,2320
+Azerbaijan,2000,1530
+Azerbaijan,2001,1060
+Azerbaijan,2002,506
+Azerbaijan,2003,482
+Azerbaijan,2004,386
+Azerbaijan,2005,242
+Azerbaijan,2006,143
+Bangladesh,1990,53900
+Bangladesh,1991,63600
+Bangladesh,1992,116000
+Bangladesh,1993,125000
+Bangladesh,1994,167000
+Bangladesh,1995,153000
+Bangladesh,1996,101000
+Bangladesh,1997,68600
+Bangladesh,1998,60000
+Bangladesh,1999,63700
+Bangladesh,2000,60400
+Bangladesh,2001,362000
+Bangladesh,2002,307000
+Bangladesh,2003,492000
+Bangladesh,2004,216000
+Bangladesh,2005,191000
+Bangladesh,2006,362000
+Benin,1990,92900
+Benin,1991,119000
+Benin,1992,291000
+Benin,1993,403000
+Benin,1994,547000
+Benin,1995,579000
+Benin,1996,623000
+Benin,1997,671000
+Benin,1998,650000
+Benin,1999,709000
+Benin,2000,707000
+Benin,2001,717000
+Benin,2002,783000
+Benin,2003,819000
+Benin,2004,853000
+Benin,2005,804000
+Benin,2006,862000
+Bhutan,1990,9500
+Bhutan,1991,22100
+Bhutan,1992,28900
+Bhutan,1993,28100
+Bhutan,1994,39900
+Bhutan,1995,23200
+Bhutan,1996,15700
+Bhutan,1997,9030
+Bhutan,1998,7690
+Bhutan,1999,12200
+Bhutan,2000,5940
+Bhutan,2001,10200
+Bhutan,2002,7210
+Bhutan,2003,4040
+Bhutan,2004,3030
+Bhutan,2005,1950
+Bhutan,2006,1990
+Bolivia,1990,19700
+Bolivia,1991,19000
+Bolivia,1992,24500
+Bolivia,1993,27500
+Bolivia,1994,34800
+Bolivia,1995,46900
+Bolivia,1996,64000
+Bolivia,1997,51500
+Bolivia,1998,73900
+Bolivia,1999,50000
+Bolivia,2000,31500
+Bolivia,2001,123000
+Bolivia,2002,138000
+Bolivia,2003,158000
+Bolivia,2004,163000
+Bolivia,2005,202000
+Bolivia,2006,209000
+Botswana,1990,10800
+Botswana,1991,14400
+Botswana,1992,5000
+Botswana,1993,55300
+Botswana,1994,29600
+Botswana,1995,17600
+Botswana,1996,80000
+Botswana,1997,102000
+Botswana,1998,59700
+Botswana,1999,72600
+Botswana,2000,71400
+Botswana,2001,48200
+Botswana,2002,28900
+Botswana,2003,237000
+Botswana,2004,22400
+Botswana,2005,11200
+Botswana,2006,19000
+Brazil,1990,560000
+Brazil,1991,614000
+Brazil,1992,610000
+Brazil,1993,466000
+Brazil,1994,564000
+Brazil,1995,566000
+Brazil,1996,455000
+Brazil,1997,393000
+Brazil,1998,472000
+Brazil,1999,610000
+Brazil,2000,611000
+Brazil,2001,388000
+Brazil,2002,348000
+Brazil,2003,409000
+Brazil,2004,465000
+Brazil,2005,603000
+Brazil,2006,549000
+Burkina Faso,1990,497000
+Burkina Faso,1991,449000
+Burkina Faso,1992,420000
+Burkina Faso,1993,502000
+Burkina Faso,1994,472000
+Burkina Faso,1995,501000
+Burkina Faso,1996,583000
+Burkina Faso,1997,673000
+Burkina Faso,1998,722000
+Burkina Faso,1999,868000
+Burkina Faso,2000,1030000
+Burkina Faso,2001,353000
+Burkina Faso,2002,1190000
+Burkina Faso,2003,1440000
+Burkina Faso,2004,1550000
+Burkina Faso,2005,1620000
+Burkina Faso,2006,2060000
+Burundi,1990,92900
+Burundi,1991,569000
+Burundi,1992,774000
+Burundi,1993,828000
+Burundi,1994,832000
+Burundi,1995,933000
+Burundi,1996,974000
+Burundi,1997,671000
+Burundi,1998,687000
+Burundi,1999,1940000
+Burundi,2000,3060000
+Burundi,2001,3370000
+Burundi,2002,2650000
+Burundi,2003,2260000
+Burundi,2004,1750000
+Burundi,2005,2360000
+Burundi,2006,2160000
+Cambodia,1990,124000
+Cambodia,1991,103000
+Cambodia,1992,91000
+Cambodia,1993,99200
+Cambodia,1994,85000
+Cambodia,1995,76900
+Cambodia,1996,74900
+Cambodia,1997,88000
+Cambodia,1998,58900
+Cambodia,1999,64700
+Cambodia,2000,62400
+Cambodia,2001,110000
+Cambodia,2002,100000
+Cambodia,2003,120000
+Cambodia,2004,91900
+Cambodia,2005,67000
+Cambodia,2006,89100
+Chad,1990,213000
+Chad,1991,246000
+Chad,1992,229000
+Chad,1993,235000
+Chad,1994,278000
+Chad,1995,294000
+Chad,1996,278000
+Chad,1997,343000
+Chad,1998,395000
+Chad,1999,393000
+Chad,2000,369000
+Chad,2001,414000
+Chad,2002,463000
+Chad,2003,463000
+Chad,2004,395000
+Chad,2005,398000
+Chad,2006,400000
+China,1990,117000
+China,1991,102000
+China,1992,74000
+China,1993,59000
+China,1994,62000
+China,1995,47100
+China,1996,33400
+China,1997,26800
+China,1998,27100
+China,1999,26800
+China,2000,18600
+China,2001,26900
+China,2002,172000
+China,2003,170000
+China,2004,146000
+China,2005,100000
+China,2006,116000
+Colombia,1990,99500
+Colombia,1991,184000
+Colombia,1992,184000
+Colombia,1993,129000
+Colombia,1994,127000
+Colombia,1995,187000
+Colombia,1996,136000
+Colombia,1997,181000
+Colombia,1998,186000
+Colombia,1999,66800
+Colombia,2000,108000
+Colombia,2001,206000
+Colombia,2002,196000
+Colombia,2003,165000
+Colombia,2004,117000
+Colombia,2005,118000
+Colombia,2006,120000
+Costa Rica,1990,1150
+Costa Rica,1991,3270
+Costa Rica,1992,6950
+Costa Rica,1993,5030
+Costa Rica,1994,4450
+Costa Rica,1995,4520
+Costa Rica,1996,5480
+Costa Rica,1997,4710
+Costa Rica,1998,5150
+Costa Rica,1999,4000
+Costa Rica,2000,1880
+Costa Rica,2001,1360
+Costa Rica,2002,1020
+Costa Rica,2003,718
+Costa Rica,2004,1290
+Costa Rica,2005,3540
+Costa Rica,2006,2900
+Djibouti,1990,3240
+Djibouti,1991,7340
+Djibouti,1992,7470
+Djibouti,1993,4170
+Djibouti,1994,6140
+Djibouti,1995,5980
+Djibouti,1996,6110
+Djibouti,1997,4310
+Djibouti,1998,5920
+Djibouti,1999,6140
+Djibouti,2000,4670
+Djibouti,2001,4310
+Djibouti,2002,5020
+Djibouti,2003,5040
+Djibouti,2004,2140
+Djibouti,2005,2590
+Djibouti,2006,7710
+Dominican Republic,1990,356
+Dominican Republic,1991,377
+Dominican Republic,1992,698
+Dominican Republic,1993,987
+Dominican Republic,1994,1670
+Dominican Republic,1995,1810
+Dominican Republic,1996,1410
+Dominican Republic,1997,816
+Dominican Republic,1998,2010
+Dominican Republic,1999,3590
+Dominican Republic,2000,1220
+Dominican Republic,2001,1040
+Dominican Republic,2002,1300
+Dominican Republic,2003,1300
+Dominican Republic,2004,2360
+Dominican Republic,2005,3840
+Dominican Republic,2006,3530
+Ecuador,1990,71700
+Ecuador,1991,59400
+Ecuador,1992,41100
+Ecuador,1993,46900
+Ecuador,1994,30000
+Ecuador,1995,18100
+Ecuador,1996,11900
+Ecuador,1997,16400
+Ecuador,1998,43700
+Ecuador,1999,87600
+Ecuador,2000,98600
+Ecuador,2001,109000
+Ecuador,2002,86800
+Ecuador,2003,52100
+Ecuador,2004,28700
+Ecuador,2005,17100
+Ecuador,2006,9860
+Egypt,1990,75
+Egypt,1991,24
+Egypt,1992,16
+Egypt,1993,17
+Egypt,1994,527
+Egypt,1995,322
+Egypt,1996,25
+Egypt,1997,11
+Egypt,1998,13
+Egypt,1999,61
+Egypt,2000,17
+Egypt,2001,11
+Egypt,2002,10
+Egypt,2003,45
+Egypt,2004,43
+Egypt,2005,23
+Egypt,2006,29
+El Salvador,1990,9270
+El Salvador,1991,5930
+El Salvador,1992,4540
+El Salvador,1993,3890
+El Salvador,1994,2800
+El Salvador,1995,3360
+El Salvador,1996,5890
+El Salvador,1997,2720
+El Salvador,1998,1180
+El Salvador,1999,1230
+El Salvador,2000,745
+El Salvador,2001,362
+El Salvador,2002,117
+El Salvador,2003,84
+El Salvador,2004,112
+El Salvador,2005,66
+El Salvador,2006,44
+Georgia,1990,1
+Georgia,1991,2
+Georgia,1992,1
+Georgia,1993,0
+Georgia,1994,1
+Georgia,1995,1
+Georgia,1996,7
+Georgia,1997,1
+Georgia,1998,16
+Georgia,1999,51
+Georgia,2000,245
+Georgia,2001,439
+Georgia,2002,472
+Georgia,2003,315
+Georgia,2004,256
+Georgia,2005,155
+Georgia,2006,60
+Ghana,1990,1440000
+Ghana,1991,1370000
+Ghana,1992,1450000
+Ghana,1993,1700000
+Ghana,1994,1670000
+Ghana,1995,1930000
+Ghana,1996,2190000
+Ghana,1997,2230000
+Ghana,1998,1750000
+Ghana,1999,2900000
+Ghana,2000,3350000
+Ghana,2001,3050000
+Ghana,2002,3140000
+Ghana,2003,3550000
+Ghana,2004,3420000
+Ghana,2005,3450000
+Ghana,2006,3510000
+Guatemala,1990,41700
+Guatemala,1991,57800
+Guatemala,1992,57600
+Guatemala,1993,41900
+Guatemala,1994,22100
+Guatemala,1995,24200
+Guatemala,1996,20300
+Guatemala,1997,32100
+Guatemala,1998,47700
+Guatemala,1999,45100
+Guatemala,2000,53300
+Guatemala,2001,35800
+Guatemala,2002,35500
+Guatemala,2003,31100
+Guatemala,2004,28900
+Guatemala,2005,39600
+Guatemala,2006,31100
+Honduras,1990,53100
+Honduras,1991,73400
+Honduras,1992,70800
+Honduras,1993,44500
+Honduras,1994,52100
+Honduras,1995,59500
+Honduras,1996,74500
+Honduras,1997,65900
+Honduras,1998,43000
+Honduras,1999,46700
+Honduras,2000,35100
+Honduras,2001,24200
+Honduras,2002,17200
+Honduras,2003,14100
+Honduras,2004,17300
+Honduras,2005,16000
+Honduras,2006,11600
+India,1990,2020000
+India,1991,2120000
+India,1992,2130000
+India,1993,2210000
+India,1994,2510000
+India,1995,2990000
+India,1996,3040000
+India,1997,2660000
+India,1998,2220000
+India,1999,2290000
+India,2000,2030000
+India,2001,2090000
+India,2002,1840000
+India,2003,1870000
+India,2004,1920000
+India,2005,1820000
+India,2006,1790000
+Iran,1990,77500
+Iran,1991,96300
+Iran,1992,77000
+Iran,1993,64600
+Iran,1994,51100
+Iran,1995,67500
+Iran,1996,56400
+Iran,1997,38700
+Iran,1998,33000
+Iran,1999,23100
+Iran,2000,19700
+Iran,2001,19300
+Iran,2002,15600
+Iran,2003,23600
+Iran,2004,13800
+Iran,2005,19000
+Iran,2006,15900
+Iraq,1990,3920
+Iraq,1991,1760
+Iraq,1992,5750
+Iraq,1993,49900
+Iraq,1994,98200
+Iraq,1995,98700
+Iraq,1996,49800
+Iraq,1997,14000
+Iraq,1998,9680
+Iraq,1999,4140
+Iraq,2000,1860
+Iraq,2001,1270
+Iraq,2002,952
+Iraq,2003,347
+Iraq,2004,155
+Iraq,2005,47
+Iraq,2006,24
+Kyrgyz Republic,1990,1
+Kyrgyz Republic,1991,1
+Kyrgyz Republic,1992,2
+Kyrgyz Republic,1993,0
+Kyrgyz Republic,1994,6
+Kyrgyz Republic,1995,3
+Kyrgyz Republic,1996,26
+Kyrgyz Republic,1997,13
+Kyrgyz Republic,1998,11
+Kyrgyz Republic,1999,5
+Kyrgyz Republic,2000,12
+Kyrgyz Republic,2001,28
+Kyrgyz Republic,2002,2740
+Kyrgyz Republic,2003,468
+Kyrgyz Republic,2004,93
+Kyrgyz Republic,2005,226
+Kyrgyz Republic,2006,320
+Lao,1990,22000
+Lao,1991,41100
+Lao,1992,38500
+Lao,1993,41800
+Lao,1994,52600
+Lao,1995,52000
+Lao,1996,77900
+Lao,1997,72200
+Lao,1998,39000
+Lao,1999,28100
+Lao,2000,40000
+Lao,2001,104000
+Lao,2002,85200
+Lao,2003,88700
+Lao,2004,53800
+Lao,2005,30400
+Lao,2006,20500
+Malaysia,1990,50500
+Malaysia,1991,39200
+Malaysia,1992,36900
+Malaysia,1993,39900
+Malaysia,1994,59000
+Malaysia,1995,59200
+Malaysia,1996,51900
+Malaysia,1997,26700
+Malaysia,1998,13500
+Malaysia,1999,11100
+Malaysia,2000,12700
+Malaysia,2001,12800
+Malaysia,2002,11000
+Malaysia,2003,6340
+Malaysia,2004,6150
+Malaysia,2005,5570
+Malaysia,2006,5290
+Mali,1990,249000
+Mali,1991,282000
+Mali,1992,281000
+Mali,1993,296000
+Mali,1994,263000
+Mali,1995,95400
+Mali,1996,29800
+Mali,1997,385000
+Mali,1998,12200
+Mali,1999,530000
+Mali,2000,547000
+Mali,2001,613000
+Mali,2002,723000
+Mali,2003,809000
+Mali,2004,1970000
+Mali,2005,963000
+Mali,2006,1020000
+Mauritania,1990,26900
+Mauritania,1991,42100
+Mauritania,1992,45700
+Mauritania,1993,43900
+Mauritania,1994,156000
+Mauritania,1995,215000
+Mauritania,1996,181000
+Mauritania,1997,190000
+Mauritania,1998,168000
+Mauritania,1999,254000
+Mauritania,2000,259000
+Mauritania,2001,244000
+Mauritania,2002,225000
+Mauritania,2003,318000
+Mauritania,2004,225000
+Mauritania,2005,224000
+Mauritania,2006,188000
+Morocco,1990,837
+Morocco,1991,494
+Morocco,1992,405
+Morocco,1993,198
+Morocco,1994,206
+Morocco,1995,197
+Morocco,1996,102
+Morocco,1997,125
+Morocco,1998,121
+Morocco,1999,60
+Morocco,2000,59
+Morocco,2001,59
+Morocco,2002,107
+Morocco,2003,73
+Morocco,2004,56
+Morocco,2005,100
+Morocco,2006,83
+Nepal,1990,22900
+Nepal,1991,29100
+Nepal,1992,23200
+Nepal,1993,16400
+Nepal,1994,9440
+Nepal,1995,9720
+Nepal,1996,6630
+Nepal,1997,8960
+Nepal,1998,8500
+Nepal,1999,9700
+Nepal,2000,7620
+Nepal,2001,146000
+Nepal,2002,133000
+Nepal,2003,197000
+Nepal,2004,141000
+Nepal,2005,178000
+Nepal,2006,155000
+Nicaragua,1990,35800
+Nicaragua,1991,27700
+Nicaragua,1992,26900
+Nicaragua,1993,44000
+Nicaragua,1994,41500
+Nicaragua,1995,69400
+Nicaragua,1996,75600
+Nicaragua,1997,42800
+Nicaragua,1998,33900
+Nicaragua,1999,38700
+Nicaragua,2000,24000
+Nicaragua,2001,10500
+Nicaragua,2002,7700
+Nicaragua,2003,6720
+Nicaragua,2004,6900
+Nicaragua,2005,6640
+Nicaragua,2006,3110
+Niger,1990,1160000
+Niger,1991,809000
+Niger,1992,866000
+Niger,1993,727000
+Niger,1994,806000
+Niger,1995,778000
+Niger,1996,1160000
+Niger,1997,979000
+Niger,1998,873000
+Niger,1999,816000
+Niger,2000,647000
+Niger,2001,1340000
+Niger,2002,888000
+Niger,2003,682000
+Niger,2004,761000
+Niger,2005,818000
+Niger,2006,887000
+Nigeria,1990,1120000
+Nigeria,1991,910000
+Nigeria,1992,1220000
+Nigeria,1993,982000
+Nigeria,1994,1180000
+Nigeria,1995,1130000
+Nigeria,1996,1150000
+Nigeria,1997,1150000
+Nigeria,1998,2120000
+Nigeria,1999,1970000
+Nigeria,2000,2480000
+Nigeria,2001,2250000
+Nigeria,2002,2610000
+Nigeria,2003,2610000
+Nigeria,2004,3310000
+Nigeria,2005,3530000
+Nigeria,2006,3980000
+Oman,1990,32700
+Oman,1991,19300
+Oman,1992,14800
+Oman,1993,16900
+Oman,1994,7220
+Oman,1995,1800
+Oman,1996,1270
+Oman,1997,1030
+Oman,1998,1090
+Oman,1999,901
+Oman,2000,694
+Oman,2001,635
+Oman,2002,590
+Oman,2003,740
+Oman,2004,615
+Oman,2005,544
+Oman,2006,443
+Pakistan,1990,79700
+Pakistan,1991,66600
+Pakistan,1992,99000
+Pakistan,1993,92600
+Pakistan,1994,109000
+Pakistan,1995,112000
+Pakistan,1996,98000
+Pakistan,1997,77500
+Pakistan,1998,73500
+Pakistan,1999,91800
+Pakistan,2000,82500
+Pakistan,2001,125000
+Pakistan,2002,108000
+Pakistan,2003,125000
+Pakistan,2004,127000
+Pakistan,2005,128000
+Pakistan,2006,125000
+Panama,1990,381
+Panama,1991,1120
+Panama,1992,727
+Panama,1993,481
+Panama,1994,684
+Panama,1995,730
+Panama,1996,476
+Panama,1997,505
+Panama,1998,1040
+Panama,1999,936
+Panama,2000,1040
+Panama,2001,928
+Panama,2002,2200
+Panama,2003,4480
+Panama,2004,5100
+Panama,2005,3670
+Panama,2006,1660
+Papua New Guinea,1990,105000
+Papua New Guinea,1991,86500
+Papua New Guinea,1992,86500
+Papua New Guinea,1993,66800
+Papua New Guinea,1994,65000
+Papua New Guinea,1995,99000
+Papua New Guinea,1996,71000
+Papua New Guinea,1997,38100
+Papua New Guinea,1998,20900
+Papua New Guinea,1999,18600
+Papua New Guinea,2000,81200
+Papua New Guinea,2001,1640000
+Papua New Guinea,2002,1590000
+Papua New Guinea,2003,1650000
+Papua New Guinea,2004,1870000
+Papua New Guinea,2005,1790000
+Papua New Guinea,2006,1680000
+Paraguay,1990,2910
+Paraguay,1991,2980
+Paraguay,1992,1290
+Paraguay,1993,436
+Paraguay,1994,583
+Paraguay,1995,898
+Paraguay,1996,637
+Paraguay,1997,567
+Paraguay,1998,2090
+Paraguay,1999,9950
+Paraguay,2000,6850
+Paraguay,2001,2710
+Paraguay,2002,2780
+Paraguay,2003,1390
+Paraguay,2004,694
+Paraguay,2005,376
+Paraguay,2006,823
+Philippines,1990,86200
+Philippines,1991,86400
+Philippines,1992,95800
+Philippines,1993,64900
+Philippines,1994,62000
+Philippines,1995,56900
+Philippines,1996,40500
+Philippines,1997,42000
+Philippines,1998,50700
+Philippines,1999,37100
+Philippines,2000,36600
+Philippines,2001,34800
+Philippines,2002,37000
+Philippines,2003,48400
+Philippines,2004,50900
+Philippines,2005,46500
+Philippines,2006,35100
+Saudi Arabia,1990,15700
+Saudi Arabia,1991,9960
+Saudi Arabia,1992,19600
+Saudi Arabia,1993,18400
+Saudi Arabia,1994,10000
+Saudi Arabia,1995,18800
+Saudi Arabia,1996,21000
+Saudi Arabia,1997,20600
+Saudi Arabia,1998,40800
+Saudi Arabia,1999,13200
+Saudi Arabia,2000,6610
+Saudi Arabia,2001,3070
+Saudi Arabia,2002,2610
+Saudi Arabia,2003,1720
+Saudi Arabia,2004,1230
+Saudi Arabia,2005,1060
+Saudi Arabia,2006,1280
+Solomon Islands,1990,117000
+Solomon Islands,1991,141000
+Solomon Islands,1992,153000
+Solomon Islands,1993,126000
+Solomon Islands,1994,132000
+Solomon Islands,1995,119000
+Solomon Islands,1996,84800
+Solomon Islands,1997,68100
+Solomon Islands,1998,72800
+Solomon Islands,1999,63200
+Solomon Islands,2000,67900
+Solomon Islands,2001,76400
+Solomon Islands,2002,74900
+Solomon Islands,2003,90600
+Solomon Islands,2004,90300
+Solomon Islands,2005,76400
+Solomon Islands,2006,75300
+South Africa,1990,6820
+South Africa,1991,4690
+South Africa,1992,2870
+South Africa,1993,13300
+South Africa,1994,10300
+South Africa,1995,8750
+South Africa,1996,27000
+South Africa,1997,23100
+South Africa,1998,26400
+South Africa,1999,51400
+South Africa,2000,64600
+South Africa,2001,26500
+South Africa,2002,15700
+South Africa,2003,13500
+South Africa,2004,13400
+South Africa,2005,7760
+South Africa,2006,12100
+South Korea,1990,0
+South Korea,1991,0
+South Korea,1992,0
+South Korea,1993,1
+South Korea,1994,20
+South Korea,1995,107
+South Korea,1996,396
+South Korea,1997,1720
+South Korea,1998,3990
+South Korea,1999,3620
+South Korea,2000,4140
+South Korea,2001,2560
+South Korea,2002,1800
+South Korea,2003,1170
+South Korea,2004,864
+South Korea,2005,1370
+South Korea,2006,2050
+Sudan,1990,7510000
+Sudan,1991,6950000
+Sudan,1992,9330000
+Sudan,1993,9870000
+Sudan,1994,8560000
+Sudan,1995,6350000
+Sudan,1996,4600000
+Sudan,1997,4070000
+Sudan,1998,5060000
+Sudan,1999,4220000
+Sudan,2000,4330000
+Sudan,2001,4220000
+Sudan,2002,3520000
+Sudan,2003,3730000
+Sudan,2004,2600000
+Sudan,2005,2850000
+Sudan,2006,2230000
+Syria,1990,107
+Syria,1991,54
+Syria,1992,456
+Syria,1993,966
+Syria,1994,583
+Syria,1995,626
+Syria,1996,345
+Syria,1997,130
+Syria,1998,60
+Syria,1999,43
+Syria,2000,42
+Syria,2001,79
+Syria,2002,27
+Syria,2003,24
+Syria,2004,13
+Syria,2005,28
+Syria,2006,34
+Tajikistan,1990,175
+Tajikistan,1991,294
+Tajikistan,1992,404
+Tajikistan,1993,619
+Tajikistan,1994,2410
+Tajikistan,1995,6100
+Tajikistan,1996,16600
+Tajikistan,1997,29800
+Tajikistan,1998,19400
+Tajikistan,1999,13500
+Tajikistan,2000,19100
+Tajikistan,2001,11400
+Tajikistan,2002,6160
+Tajikistan,2003,5430
+Tajikistan,2004,1800
+Tajikistan,2005,1400
+Tajikistan,2006,776
+Thailand,1990,274000
+Thailand,1991,198000
+Thailand,1992,168000
+Thailand,1993,115000
+Thailand,1994,102000
+Thailand,1995,82700
+Thailand,1996,87600
+Thailand,1997,97500
+Thailand,1998,131000
+Thailand,1999,125000
+Thailand,2000,81700
+Thailand,2001,63500
+Thailand,2002,44600
+Thailand,2003,37400
+Thailand,2004,26700
+Thailand,2005,29800
+Thailand,2006,30300
+Turkey,1990,8680
+Turkey,1991,12200
+Turkey,1992,18700
+Turkey,1993,47200
+Turkey,1994,84300
+Turkey,1995,82100
+Turkey,1996,60900
+Turkey,1997,35500
+Turkey,1998,36800
+Turkey,1999,21000
+Turkey,2000,11400
+Turkey,2001,10800
+Turkey,2002,10200
+Turkey,2003,9210
+Turkey,2004,5290
+Turkey,2005,2050
+Turkey,2006,767
+Turkmenistan,1990,1
+Turkmenistan,1991,17
+Turkmenistan,1992,11
+Turkmenistan,1993,3
+Turkmenistan,1994,9
+Turkmenistan,1995,10
+Turkmenistan,1996,14
+Turkmenistan,1997,14
+Turkmenistan,1998,137
+Turkmenistan,1999,49
+Turkmenistan,2000,24
+Turkmenistan,2001,5
+Turkmenistan,2002,8
+Turkmenistan,2003,7
+Turkmenistan,2004,3
+Turkmenistan,2005,1
+Turkmenistan,2006,0
+Uzbekistan,1990,28
+Uzbekistan,1991,12
+Uzbekistan,1992,25
+Uzbekistan,1993,36
+Uzbekistan,1994,21
+Uzbekistan,1995,27
+Uzbekistan,1996,51
+Uzbekistan,1997,52
+Uzbekistan,1998,74
+Uzbekistan,1999,85
+Uzbekistan,2000,126
+Uzbekistan,2001,77
+Uzbekistan,2002,74
+Uzbekistan,2003,74
+Uzbekistan,2004,66
+Uzbekistan,2005,102
+Uzbekistan,2006,76
+Vanuatu,1990,28800
+Vanuatu,1991,19500
+Vanuatu,1992,13300
+Vanuatu,1993,10500
+Vanuatu,1994,3770
+Vanuatu,1995,8320
+Vanuatu,1996,5650
+Vanuatu,1997,6100
+Vanuatu,1998,6180
+Vanuatu,1999,5150
+Vanuatu,2000,6770
+Vanuatu,2001,18900
+Vanuatu,2002,34200
+Vanuatu,2003,42900
+Vanuatu,2004,39700
+Vanuatu,2005,32300
+Vanuatu,2006,21200
+Venezuela,1990,46900
+Venezuela,1991,43500
+Venezuela,1992,21400
+Venezuela,1993,12500
+Venezuela,1994,13700
+Venezuela,1995,16400
+Venezuela,1996,18900
+Venezuela,1997,22400
+Venezuela,1998,21900
+Venezuela,1999,19100
+Venezuela,2000,29700
+Venezuela,2001,29500
+Venezuela,2002,29500
+Venezuela,2003,31700
+Venezuela,2004,46700
+Venezuela,2005,45100
+Venezuela,2006,37100
+Vietnam,1990,124000
+Vietnam,1991,188000
+Vietnam,1992,226000
+Vietnam,1993,156000
+Vietnam,1994,140000
+Vietnam,1995,100000
+Vietnam,1996,84600
+Vietnam,1997,65900
+Vietnam,1998,72100
+Vietnam,1999,75100
+Vietnam,2000,74300
+Vietnam,2001,188000
+Vietnam,2002,185000
+Vietnam,2003,164000
+Vietnam,2004,128000
+Vietnam,2005,99100
+Vietnam,2006,91400
+Zimbabwe,1990,663000
+Zimbabwe,1991,581000
+Zimbabwe,1992,420000
+Zimbabwe,1993,878000
+Zimbabwe,1994,324000
+Zimbabwe,1995,762000
+Zimbabwe,1996,1700000
+Zimbabwe,1997,1850000
+Zimbabwe,1998,1720000
+Zimbabwe,1999,1800000
+Zimbabwe,2000,1530000
+Zimbabwe,2001,681000
+Zimbabwe,2002,1350000
+Zimbabwe,2003,1820000
+Zimbabwe,2004,1820000
+Zimbabwe,2005,1500000
+Zimbabwe,2006,1540000
