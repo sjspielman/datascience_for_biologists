@@ -51,8 +51,8 @@ T 3/16  | Creating professional reports with RMarkdown | In-class script TBD |  
 W 3/17  | Rmarkdown for exploratory analyses | TBD | **Homework 7 due** on Canvas as an R script by 11:59 PM (extra day and a half this week!). [Link to instructions](./homeworks/hw7/hw7_instructions.html) <!-- DO THE HOMEWORK AS A CLASS --> 
 R 3/18  | **NO CLASS AT ALL TODAY** (not even asynchronous!) | None | None
 T 3/23  | Tidy data and `tidyr`, Part 1 | Slides TBD |  **Homework 8 due** on Canvas as an RMarkdown file. [Link to instructions](./homeworks/hw8/hw8_instructions.html)<!-- exploratory analysis HW: ask and answer questions and they need to ask 1-2 as well.-->
-W 3/24  | Tidy data and `tidyr`, Part 2 | Exercises: Tidying data with `tidyr` | None <!-- DO THE HOMEWORK AS A CLASS --> 
-R 3/25  | *Buffer day* | TBD | None
+W 3/24  | Tidy data and `tidyr`, Part 2 | Exercises as a class: Tidying data with `tidyr` | None <!-- DO THE HOMEWORK AS A CLASS --> 
+R 3/25  | Tidy data and `tidyr`, Part 3 | Finish exercises as a class | None
 T 3/30  | Introduction to modeling and machine-learning (ish) | Slides TBD | **Homework 9 due** on Canvas as an RMarkdown file.  <!-- tidyr homework that we do together -->
 W 3/31 | Linear models, Part 1 | Slides TBD <br> Exercises TBD | None
 R 4/1   | Linear models, Part 2 | Slides TBD <br> Exercises TBD | None
