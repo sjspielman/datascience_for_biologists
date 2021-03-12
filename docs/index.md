@@ -54,25 +54,24 @@ T 3/23  | Tidy data and `tidyr`, Part 1 | Slides TBD |  **Homework 8 due** on Ca
 W 3/24  | Tidy data and `tidyr`, Part 2 | Exercises as a class: Tidying data with `tidyr` | None <!-- DO THE HOMEWORK AS A CLASS --> 
 R 3/25  | Tidy data and `tidyr`, Part 3 | Finish exercises as a class | None
 T 3/30  | Introduction to modeling and machine-learning (ish) | Slides TBD | **Homework 9 due** on Canvas as an RMarkdown file.  <!-- tidyr homework that we do together -->
-W 3/31 | Linear models, Part 1 | Slides TBD <br> Exercises TBD | None
+W 3/31  | Linear models, Part 1 | Slides TBD <br> Exercises TBD | None
 R 4/1   | Linear models, Part 2 | Slides TBD <br> Exercises TBD | None
 T 4/6   | Linear models, Part 3 | Slides TBD <br> Exercises TBD | **Homework 10 due** on Canvas as an RMarkdown file.  <!-- lm 1 -->
-W 4/7   | Linear models, Part 4 | Slides TBD <br> Exercises TBD | None
-R 4/8   | *No class today* | None | None
-T 4/13  | Logistic regression, Part 1 | Slides TBD <br> Exercises TBD | **Homework 11 due** on Canvas as an RMarkdown file.<!-- lm 2 -->
-W 4/14  | Logistic regression, Part 2 | Slides TBD <br> Exercises TBD | None
-R 4/15  | Logistic regression, Part 3 | Slides TBD <br> Exercises TBD | None
-T 4/20  | Final Project Introduction | TBD | **Homework 12 due**  on Canvas as an RMarkdown file. <!-- logistic -->
-W 4/21  | Working at the command line and UNIX, Part 1 | Slides TBD <br> Exercises TBD | None
-R 4/22  | Working at the command line and UNIX, Part 2| Slides TBD |  **Final project proposal due _NEXT MONDAY_ 4/26**
-T 4/27  | Version control with git(hub), Part 1 | None | Nothing is due today, but the proposal was due *last night*
-W 4/28  | Version control with git(hub), Part 2 | None | None 
-R 4/29  | Version control with git(hub), Part 3 | None | None 
-T 5/4   | *Buffer day* | None | **There is no assignment due. Please begin working on your final project due 5/11.**
-W 5/5   | *Buffer day* | None | None 
-R 5/6   | *Buffer day* | None | None
+W 4/7   | Logistic regression, Part 1 | Slides TBD <br> Exercises TBD | None
+R 4/8   | **NO CLASS AT ALL TODAY** (not even asynchronous!)| None | None
+T 4/13  | Logistic regression, Part 2 | Slides TBD <br> Exercises TBD | **Homework 11 due** on Canvas as an RMarkdown file.<!-- lm 2 -->
+W 4/14  | Logistic regression, Part 3 | Slides TBD <br> Exercises TBD | None
+R 4/15  | Final Project Introduction | None | None
+T 4/20  | Working at the command line and UNIX, Part 1 | Slides TBD | **Homework 12 due**  on Canvas as an RMarkdown file. <!-- logistic -->
+W 4/21  | Working at the command line and UNIX, Part 2 | Exercises TBD | None
+R 4/22  | Version control with git(hub), Part 1 | Slides TBD |  **Final project proposal due**
+T 4/27  | Version control with git(hub), Part 2 | None | **There is no assignment due. Please begin working on your final project.**
+W 4/28  | Version control with git(hub), Part 3 | None | None 
+R 4/29  | *Buffer day*  | None | None 
 
-**FINAL PROJECT DUE ON TUESDAY MAY 11TH AT 11:59 PM**
+**FINAL PROJECT FINAL +10% DEADLINE MAY 4TH AT 11:59 PM**
+
+**FINAL PROJECT FINAL DEADLINE MAY 7TH AT 11:59 PM**
 
 
 
