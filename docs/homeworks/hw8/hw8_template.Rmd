@@ -16,64 +16,66 @@ library(tidyverse)
 library(ggforce) # Needed for geom_sina() function
 ```
 
-
-
 ## Part 1
 
 ### Question 1.1
 
 ```{r read_wine_data}
-# In this code chunk, read in the CSV files and do some light exploration
+# In this code chunk, read in both wine CSV files. You must use the `file.path()` function as part of your code
+# Remember: read.csv() is NOT ALLOWED! read_csv() ONLY! This is for your protection.
 
 ```
 
-This text should be REPLACED with your text answer to this question. Again, remember, this is NOT A SCRIPT! This text is not a comment - it is literal markdown text. Outside of code chunks, it's just markdown text. 
+```{r explore_wine_data}
+# In this code chunk, explore the wine dataset so the viewers of the knitted document have a sense of the data as well as you do
+# Remember: View() is NOT AN OPTION!
 
+```
 
+This text should be REPLACED with your text answer to this question. Again, remember, this is NOT A SCRIPT! This text is not a code comment - it is literal markdown text. *Outside of code chunks, it's just markdown text.*
 
 ### Question 1.2
 
-
 ```{r barplot_version1}
 # Create and display the barplot made with wine version 1
-# For display, you just have to "run the plotting code" - no need to save to a variable or print! Code chunks behave like "interactive Console code" in the final knitted HTML
+# For display, you just have to "run the plotting code" - no need to save to a variable or print! Code chunks behave like "interactive Console code" in the final knitted HTML.
+# Again, the function print() can be used but does not have to be.
+# Remember to check width and height in the knitted output!
 
 ```
-
 
 ```{r barplot_version2}
 # Create and display the barplot made with wine version 2
+# Remember to check width and height in the knitted output!
+
 
 ```
-
-
 
 ```{r sina_version1}
 # Create and display the sina plot made with wine version 1
+# Remember to check width and height in the knitted output!
+
 
 ```
-
 
 ```{r sina_version2}
 # Create and display the sina plot made with wine version 2
+# Remember to check width and height in the knitted output!
+
 
 ```
-
 
 ### Question 1.3
 
-
-
 ```{r acidity_scatterplot}
 # Create and display the scatterplot with the appropriate wine version here
-# Reminder: Any exploration code to figure out WHICH wine version should not be here. Just the wrangling and plotting.
+# Reminder: Any exploration code to figure out WHICH wine version should not be included here. Just the wrangling and plotting.
+# Remember to check width and height in the knitted output!
+
 
 ```
 
-
 ### Question 1.4
-
-
 
 ```{r wine_histogram}
 # Create and display the faceted histogram with the appropriate wine version here
@@ -81,15 +83,23 @@ This text should be REPLACED with your text answer to this question. Again, reme
 
 ```
 
-
 ## Part 2
 
-
 ```{r read_malaria_data}
-# Read in the malaria dataset and display first ten rows by printing it out (or just typing - remember chunks behave like interactive console code!)
+# Read in the malaria dataset (again incorporating the `file.path()` function)
+
+```
+
+```{r explore_malaria_data}
+# Brief dataset exploration
+
 ```
 
 
 ```{r malaria_lineplot}
 # Create your lineplot showing malaria cases over time for three countries of your choosing
+# Remember to check width and height in the knitted output!
+
+
+
 ```
