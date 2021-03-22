@@ -1,0 +1,193 @@
+---
+title: "Homework #9, due 1 pm 3/30/21 to Canvas as RMarkdown file"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE)
+library(tidyverse)
+```
+
+## Instructions
+
+We will be doing the vast majority of this homework together as an _in-class activity._ This document IS the Rmarkdown assignment! The same general homework rules apply as always. 
+
+**_The big question: If this is an in-class activity, how will you be graded?_**
+
++ **25%**: Did you participate in the class coding? This can be achieved by coding along with the class.
++ **10%**: Did you follow the template exactly as intended/described during classtime?
++ **15%**: Did you include the following _**mandatory** unique-to-you_ assignment aspects? You must..
+  + Specify an RMarkdown theme of your choosing
+  + Specify a code highlighting theme of your choosing
+  + Answer the final question in Part 1 own your own
+  + Answer the final question in Part 2 own your own
+  + Style the final plot using a style of your choosing that adheres to our best practices
++ **50%: Does your code include explanations written in your own words?**
+  + While we will write the code together, it is up to you to prove to me that you understand what we did! Each line of code you write (and/or each step in a pipeline) MUST have an associated comment, even if very brief. You must write these comments in your own words to demonstrate to me you understand what the code is doing. _Code without a comment will be considered missing_.
+
+
+### Setup datasets
+
+In this section of the document, we read in the two wine dataset versions, and we display their first ten rows:
+
+Read in the wines.
+
+```{r read_wine}
+wine_version1 <- read_csv("datasets/wine_version1.csv") # wide
+wine_version1
+wine_version2 <- read_csv("datasets/wine_version2.csv") # long
+wine_version2
+```
+
+<br><br>
+
+### Part 1: Select magic
+
+When pivoting, we often need to provide a bunch of columns as an argument to a pivot function. It is often easier to list these columns some `select()` magic. We have previously seen the magic of `everything()` (select *everything else*!). This magic actually comes to us from [tidy-select](https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html), functionality in `dplyr` for conveniently specifying a set of columns.
+
+For this set of questions, we will learn some of this new tidy-select magic.
+
+<br>
+
+1.0. Let's make a *managable* version of the `wine_version1` dataset to use to learn and practice tidy-select skills. To do this, we will create a new tibble called `wine` that contains only wine indices 1-3. Write the code to peform this task in the space below.
+
+```{r q1.0}
+
+```
+
+
+1.1. Use `starts_with()` to select all columns in `wine` that start with the lowercase letter "c".
+```{r q1.1}
+
+```
+
+
+1.2. Use `contains()` to select all columns in `wine` that contain the word "sulfur".
+```{r q1.2}
+
+
+```
+
+1.3. Select all columns in `wine` that contain the word "sulfur" as well as the columns `sulphates` and `chlorides`.
+
+```{r q1.3}
+
+
+```
+
+1.4 You can use colons to specify a range of columns in order (just like making arrays of numbers in order, i.e. `1:5`). Use colons to select all columns in `wine` from `citric_acid` through `pH`.
+
+```{r q1.4}
+
+
+```
+
+
+1.5. `last_col()` refers to the last column in a dataframe, in the order it appears. Select the last column only in `wine`.
+
+```{r q1.5}
+
+
+```
+
+1.6. Combine your colon and `last_col()` skills to select all columns from `citric_acid` *through* the last column.
+
+```{r q1.6}
+
+
+```
+
+1.7. Combine all your skills to **independently complete this question**: Select the following columns: `wine_index`, `type`, `quality`, `free_sulfer_dioxide`, `total_sulfer_dioxide`, and `alcohol`. Your code must incorporate *THREE* of the new tidy-select skills introduced in this homework section. 
+
+```{r q1.7}
+
+
+```
+
+
+
+<br><br>
+
+### Part 2: Pivoting the wine versions
+
+
+2.1. Write code to convert the untidy `wine_version1` tibble to a tidy tibble. Its final columns should be the same columns that appear in `wine_version2`, in the same order.
+
+```{r q2.1}
+
+```
+
+2.2. Write code to convert tidy `wine_version2` tibble to an untidy tibble. Its final columns should be the same columns that appear in `wine_version1`, in the same order.
+```{r q2.2}
+
+```
+
+2.3 **Independently** write code to convert the untidy `wine_version1` tibble to a tidy tibble that contains the following columns in this order (hint: in this circumstance, `quality` must be considered one of the attributes!)
+
++ `wine_index`
++ `red_wine`
+  + Should be `TRUE` for red wines and `FALSE` for white whites
+  + To be clear, there should no longer  be a column called `type`!
++ `attribute`
++ `value`
+
+```{r q2.3}
+
+```
+
+<br><br>
+
+### Part 3: A real-world adventure
+
+The goal for this section is to answer **one given exploratory question** about Kenya, using three *relational* datasets from the 2020 Kenya census. The code chunk below reads in these three datasets:
+
+```{r read_kenya}
+# Read Kenya Census tidytuesday tibbles
+gender <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-01-19/gender.csv')
+crops <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-01-19/crops.csv')
+households <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-01-19/households.csv')
+```
+
+```{r display_kenya, collapse=TRUE}
+# Show the gender dataset:
+gender
+
+# Show the crops dataset:
+crops
+
+# Show the households dataset:
+households
+```
+
+#### THE QUESTION/TASK: For each Kenyan county, what percentage of households farm Avocados? Make a lollipop plot that displays (in either ascending or descending order - your choice!) the percentage of total households that farm avocados for the top-10 most avocado-farming counties. 
+
+
+We need to ensure the three *relational* data frames are fully compatible with one another. To achieve this goal, there are several aspects of datasets which need cleaning....
+
+<!-- Note: You may separate this large cleaning and joining into multiple NAMED chunks, you are welcome to do so per your organizational preference. Just make sure at the very end to reveal the first 10 rows of the final grandiose tibble of glory! -->
+
+```{r clean_and_join}
+
+
+```
+
+And now, we wrangle into our lollipop plot:
+
+```{r}
+
+
+```
+<br><br>
+
+### Bonus part
+
+Ask and answer another question about Kenya using wrangling and data visualization. For any bonus credit, your question/code/answer _must_ consider variables that originated in at least two of the original Kenya tibbles. Your bonus question _cannot_ simply be the same as the previous question except with a different crop than avocado - it must be fully your own. However, like `#tidytuesday`, the goal of this task is not to establish causation or formally test relationships - the goal is just to keep building your wrangling and plotting skills.
+
+##### Replace this text with your question.
+
+<!-- Add code chunks here to write the code to answer question -->
+
+
+Replace this text with the answer to your question that the code/figure above reveals.
