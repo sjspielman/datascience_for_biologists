@@ -53,7 +53,7 @@ R 3/18  | **NO CLASS AT ALL TODAY** (not even asynchronous!) | None | None
 T 3/23  | Tidy data and `tidyr`, Part 1 | Slides TBD |  **Homework 8 due** on Canvas as an RMarkdown file. [Link to instructions](./homeworks/hw8/hw8_instructions.html)<!-- exploratory analysis HW: ask and answer questions and they need to ask 1-2 as well.-->
 W 3/24  | Tidy data and `tidyr`, Part 2 | Exercises as a class: Tidying data with `tidyr` | None <!-- DO THE HOMEWORK AS A CLASS --> 
 R 3/25  | Tidy data and `tidyr`, Part 3 | Finish exercises as a class | None
-T 3/30  | Introduction to modeling and machine-learning (ish) | Slides TBD | **Homework 9 due** on Canvas as an RMarkdown file.  <!-- tidyr homework that we do together -->
+T 3/30  | Introduction to modeling and machine-learning (ish) | Slides TBD | **Homework 9 due** on Canvas as an RMarkdown file. _Instructions are embedded within the template and explained throughout classtime._ <!-- tidyr homework that we do together -->
 W 3/31  | Linear models, Part 1 | Slides TBD <br> Exercises TBD | None
 R 4/1   | Linear models, Part 2 | Slides TBD <br> Exercises TBD | None
 T 4/6   | Linear models, Part 3 | Slides TBD <br> Exercises TBD | **Homework 10 due** on Canvas as an RMarkdown file.  <!-- lm 1 -->
@@ -62,9 +62,9 @@ R 4/8   | **NO CLASS AT ALL TODAY** (not even asynchronous!)| None | None
 T 4/13  | Logistic regression, Part 2 | Slides TBD <br> Exercises TBD | **Homework 11 due** on Canvas as an RMarkdown file.<!-- lm 2 -->
 W 4/14  | Logistic regression, Part 3 | Slides TBD <br> Exercises TBD | None
 R 4/15  | Final Project Introduction | None | None
-T 4/20  | Working at the command line and UNIX, Part 1 | Slides TBD | **Homework 12 due**  on Canvas as an RMarkdown file. <!-- logistic -->
-W 4/21  | Working at the command line and UNIX, Part 2 | Exercises TBD | None
-R 4/22  | Version control with git(hub), Part 1 | Slides TBD |  **Final project proposal due**
+T 4/20  | Version control with git(hub), Part 1 | Slides TBD | **Homework 12 due**  on Canvas as an RMarkdown file. <!-- logistic -->
+W 4/21  | Working at the command line and UNIX, Part 1 | Exercises TBD | None
+R 4/22  | Working at the command line and UNIX, Part 2 | Slides TBD |  **Final project proposal due**
 T 4/27  | Version control with git(hub), Part 2 | None | **There is no assignment due. Please begin working on your final project.**
 W 4/28  | Version control with git(hub), Part 3 | None | None 
 R 4/29  | *Buffer day*  | None | None 
