@@ -59,7 +59,7 @@ R 4/1   | Linear models, Part 2 | Slides TBD <br> Exercises TBD | None
 T 4/6   | Linear models, Part 3 | Slides TBD <br> Exercises TBD | **There is no homework due this week.**  <!-- lm 1 -->
 W 4/7   | Logistic regression, Part 1 | Slides TBD <br> Exercises TBD | None
 R 4/8   | **NO CLASS AT ALL TODAY** (not even asynchronous!)| None | None
-T 4/13  | Logistic regression, Part 2 | Slides TBD <br> Exercises TBD | **omework 10 due** on Canvas as an RMarkdown file.<!-- lm 2 -->
+T 4/13  | Logistic regression, Part 2 | Slides TBD <br> Exercises TBD | **Homework 10 due** on Canvas as an RMarkdown file.<!-- lm 2 -->
 W 4/14  | Logistic regression, Part 3 | Slides TBD <br> Exercises TBD | None
 R 4/15  | Final Project Introduction | None | None
 T 4/20  | Version control with git(hub), Part 1 | Slides TBD | **Homework 11 due**  on Canvas as an RMarkdown file. <!-- logistic -->
