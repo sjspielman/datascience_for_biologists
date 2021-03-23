@@ -56,15 +56,15 @@ R 3/25  | Tidy data and `tidyr`, Part 3 | Finish exercises as a class | None
 T 3/30  | Introduction to modeling and machine-learning (ish) | Slides TBD | **Homework 9 due** on Canvas as an RMarkdown file. _Instructions are embedded within the template and explained throughout classtime._ <!-- tidyr homework that we do together -->
 W 3/31  | Linear models, Part 1 | Slides TBD <br> Exercises TBD | None
 R 4/1   | Linear models, Part 2 | Slides TBD <br> Exercises TBD | None
-T 4/6   | Linear models, Part 3 | Slides TBD <br> Exercises TBD | **Homework 10 due** on Canvas as an RMarkdown file.  <!-- lm 1 -->
+T 4/6   | Linear models, Part 3 | Slides TBD <br> Exercises TBD | **There is no homework due this week.**  <!-- lm 1 -->
 W 4/7   | Logistic regression, Part 1 | Slides TBD <br> Exercises TBD | None
 R 4/8   | **NO CLASS AT ALL TODAY** (not even asynchronous!)| None | None
-T 4/13  | Logistic regression, Part 2 | Slides TBD <br> Exercises TBD | **Homework 11 due** on Canvas as an RMarkdown file.<!-- lm 2 -->
+T 4/13  | Logistic regression, Part 2 | Slides TBD <br> Exercises TBD | **omework 10 due** on Canvas as an RMarkdown file.<!-- lm 2 -->
 W 4/14  | Logistic regression, Part 3 | Slides TBD <br> Exercises TBD | None
 R 4/15  | Final Project Introduction | None | None
-T 4/20  | Version control with git(hub), Part 1 | Slides TBD | **Homework 12 due**  on Canvas as an RMarkdown file. <!-- logistic -->
+T 4/20  | Version control with git(hub), Part 1 | Slides TBD | **Homework 11 due**  on Canvas as an RMarkdown file. <!-- logistic -->
 W 4/21  | Working at the command line and UNIX, Part 1 | Exercises TBD | None
-R 4/22  | Working at the command line and UNIX, Part 2 | Slides TBD |  **Final project proposal due**
+R 4/22  | Working at the command line and UNIX, Part 2 | Slides TBD |  **Final project proposal due. This is your Homework 12 assignment grade.**
 T 4/27  | Version control with git(hub), Part 2 | None | **There is no assignment due. Please begin working on your final project.**
 W 4/28  | Version control with git(hub), Part 3 | None | None 
 R 4/29  | *Buffer day*  | None | None 
