@@ -1,0 +1,764 @@
+---
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [default, my_chocolate.css, chocolate-fonts]
+    nature:
+      highlightStyle:  github
+      highlightLines: true
+      countIncrementalSlides: false
+    seal: false
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(message=F, warning=F,fig.width=8, fig.height=6)
+library(xaringan)
+library(palmerpenguins) 
+library(tidyverse)
+library(broom)
+library(modelr)
+library(cowplot)
+library(patchwork)
+library(colorblindr)
+img_path <- "img/lm_logit/"
+
+theme_set(theme_classic() + theme(axis.text = element_text(size = rel(1.75)),
+                               axis.title = element_text(size = rel(1.75)),
+                               legend.title = element_text(size = rel(1.75)),
+                               legend.text = element_text(size = rel(1.75))
+                               ))
+```
+
+
+class: title-slide
+<!--background-image: -url(slide_background_images/hawaii.jpg) 
+background-size: contain-->
+
+## TBD
+
+---
+
+.bg-text[
+## Logistic regression
+## Data Science for Biologists
+
+<hr />
+**Dr. Spielman**
+]
+
+---
+## Make it fit better on slides
+
+```{r}
+penguins %>%
+  rename(bill_len = bill_length_mm,
+         bill_dep = bill_depth_mm,
+         flipper = flipper_length_mm,
+         mass    = body_mass_g) -> peng
+
+peng
+```
+
+---
+  
+
+## Linear regression vs. logistic regression
+
++ Linear regression: How much do these (linearly-related) predictors explain variation in my *numeric* response variable?
+  
+
++ Logistic regression: How well do these predictors explain variation in my *categorical __binary__* response variable?
+  + E.g. predicting Species in the iris dataset would be a categorical predictor, but NOT binary
+  + Type of classifier
+
+---
+
+
+## Where are we in the "machine learning" universe?
+
+
++ Machine learning = the computer learns through experience
+ + More data = more experience! *Training models on data IS machine learning*
+ + Ignore the AI hype.
+
+
+.pull-left[
+```{r out.width = '500px', echo=F}
+knitr::include_graphics(file.path(img_path,"ML_super_unsuper.png")) 
+```
+]
+
+.pull-right[
+```{r out.width = '500px', echo=F}
+knitr::include_graphics(file.path(img_path,"classif_regre.png"))
+```
+]
+
+---
+## Logistic regression
+  
+  
+```{r out.width = '400px', echo=F}
+knitr::include_graphics(file.path(img_path,"logit_transform_fromlinear.png"))
+```
+
++ Linear regression: $Y =  \beta_0 + \beta_1X_1 + \beta_2X_2 + \beta_3X_3 ... + \beta_NX_N + \epsilon$
+
+--
+
++ Logistic regression *transforms the predictors* 
+  + $t =  \beta_0 + \beta_1X_1 + \beta_2X_2 + \beta_3X_3 ... + \beta_NX_N + \epsilon$
+  + $Y = \frac{1}{1 + e^{-t}}$ (or, $p = ...$ in image)
+
+---
+```{r, message=F, warning=F}
+library(palmerpenguins) # to access penguins dataset
+
+## Make it fit better on slides
+penguins%>%
+  rename(bill_len = bill_length_mm,
+         bill_dep = bill_depth_mm,
+         flipper = flipper_length_mm,
+         mass    = body_mass_g) %>%
+  # appease the step() function gods
+  drop_na()-> peng_nona
+
+peng_nona
+```
+
+---
+
+## Goal: Can we predict a penguin's sex?
+
+```{r}
+## Sex is a binary variable in the penguins data:
+levels(peng_nona$sex)
+```
+
+--
+
+
+### Step 1: Prepare the data
+
+```{r}
+## To appease the R gods, and make your life easier, ...
+## re-code the response as arbitrary success = 1, failure = 0. 
+peng_nona %>%
+  # change `sex` to be 0, 1
+  mutate(sex = if_else(sex == "female", 1, 0)) -> peng_nona_sex01
+
+peng_nona_sex01
+```
+
+---
+## Step 2: Build the model
+
+**`glm(response ~ predictors, data = data, family = "binomial")`**
+
++ Use function `glm()`
++ Include argument `family = "binomial"`
++ Everything else is the same!
+
+```{r}
+## Use model selection to identify optimal predictors
+initial_fit <- glm(sex ~ ., data = peng_nona_sex01, family = "binomial")
+fit <- step(initial_fit, trace = FALSE) 
+```
+
+---
+
+## Interpreting the logistic regression coefficients
+
+> Proip: Don't.
+
+```{r}
+tidy(fit)
+```
+
++ For every unit increase in the predictor, the **log odds of success** of the response increases by the coefficient
+ + $Pr(success)$ = probability of being *female* for a given set of observations (predictors)
+ + $Pr(failure)$ = probability of being *male* for a given set of observations 
+ + **Log odds = $ln\bigg(\frac{Pr(success)}{Pr(failure)}\bigg)$**
+
+
+---
+
+## Visualizing the fitted logistic curve ("the model")
+
+```{r out.width = '600px', echo=F}
+knitr::include_graphics(file.path(img_path, "logit_transform_fromlinear.png"))
+```
+
+---
+```{r}
+## USING head() to make it fit on slides!!
+
+## YOUR X-AXIS !!
+## What would have been your Y-values if this were regression
+head(fit$linear.predictors) #<<
+
+## YOUR Y-AXIS !!
+## The logit transformed - PROBABILITIES OF SUCCESS
+head(fit$fitted.values) #<<
+```
+
+--
+
++ $t =  \beta_0 + \beta_1X_1 + \beta_2X_2 + \beta_3X_3 ... + \beta_NX_N + \epsilon$
++ $Y = \frac{1}{1 + e^{-t}}$ 
+
+--
+
+```{r}
+1/(1 + exp(-1 * fit$linear.predictors)) %>% head()
+```
+
+---
+
+
+## Visualizing the model: Prepare the data
+
+```{r, fig.width = 6, fig.height = 4}
+tibble(x = fit$linear.predictors, 
+       y = fit$fitted.values, 
+       sex = peng_nona$sex) -> fit_tibble
+
+fit_tibble
+```
+
+---
+
+## Visualizing the model
+
+.pull-left[
+```{r, fig.width = 6, fig.height = 4}
+head(fit_tibble)
+```
+]
+
+.pull-right[
+```{r, fig.width = 6, fig.height = 4}
+ggplot(fit_tibble, aes(x = x, y = y)) + 
+ geom_line() +
+ theme(legend.position = "bottom")
+```
+]
+---
+
+## Visualizing the model _fully_
+
+
+
+```{r, fig.width = 7, fig.height = 5}
+ggplot(fit_tibble, aes(x = x, y = y)) +
+ geom_line() +
+ geom_point(aes(color = sex), alpha = 0.4) +  #<<
+ scale_color_brewer(palette = "Set1") +
+ theme(legend.position = "bottom") + 
+  labs(x = "Linear predictors",
+       y = "Probability the penguin is female")
+```
+
+---
+
+## Confusion matrix time
+
+```{r out.width = '350px', echo=F}
+knitr::include_graphics(file.path(img_path, "confusionmatrix.jpeg"))
+```
+
++ **First ask:** is the result positive or negative? 
+  + "Successes" are positive and "failures" are negative.
+
++ **Then ask:** should we have gotten that result though? 
+  + If yes, *TRUE*. If not, *FALSE*.
+
+---
+
+## What is it?
+
+
+A new arthritis drug does help pain clinical trials, even though it actually does reduce arthritis pain.
+
+--
+
+A person with HIV receives a positive test result for HIV.
+
+--
+
+A person using illegal performing enhancing drugs passes a test clearing them of drug use.
+
+--
+
+A study found a significant relationship between neck strain and jogging, when reality there is no relationship.
+
+--
+
+A healthy individual gets a positive cancer biopsy result.
+
+
+---
+
+
+## Classification metrics (an abbreviated set)
+
+.pull-right2[
+```{r out.width = '200px', echo=F}
+knitr::include_graphics(file.path(img_path, "confusionmatrix.jpeg"))
+```
+]
+
++ True positive rate: $TPR = TP/P = \frac{TP}{TP + FN}$
+  + AKA *sensitivity* AKA *recall*
+
+--
+
+
+
++ True negative rate: $TNR = TN/N = \frac{TN}{FP + TN}$
+  + AKA *specificity*
+
+--
+
+
+
++ False positive rate: $FPR = FP/N = \frac{FP}{FP + TN}$
+  + AKA *1 - specificity*
+
+--
+
+
+
++ Precision: $PPV = \frac{TP}{TP + FP}$
+  + AKA *positive predictive value*
+
+--
+
+
++ Accuracy: $\frac{TP + TN}{TP + TN + FP + FN}$
+
+---
+
+## Recall our model:
+
+```{r}
+## Recall:
+peng_nona %>%
+  mutate(sex = if_else(sex == "female", 1, 0)) -> peng_nona_sex01
+initial_fit <- glm(sex ~ ., data = peng_nona_sex01, family = "binomial")
+fit <- step(initial_fit, trace = FALSE) 
+
+tibble(x = fit$linear.predictors, 
+       y = fit$fitted.values, 
+       sex = peng_nona$sex) -> fit_tibble
+
+head(fit_tibble)
+```
+
+---
+
+## Caculating performance measures
+
++ Requires a *threshold* to call female/male model outcomes. 
++ For an example, let's say >=0.75 is female (arbitrary "success"). <0.75 is male (arbitrary "failure")
++ Accuracy: $\frac{TP + TN}{TP + TN + FP + FN}$
+
+```{r}
+threshold <- 0.75
+fit_tibble %>% 
+  rename(truth = sex) %>%    #<< 
+  mutate(pred = if_else(y >= threshold, "female", "male")) 
+```
+
+
+---
+
+## Detour: let's learn about `case_when()`
+
+What if we want to do `if_else()` but with more than two options?
+
+.pull-left[
+```{r}
+tibble(grades = 
+         c(95, 88, 83, 91, 79, 72, 87))
+```
+]
+
+.pull-right[
+
++ `>90` is "A"
++ `>=80 & < 90` is "B"
++ `>=70 & < 80` is "C"
++ `>=60 & < 70` is "D"
++ Rest is "F"
+
+]
+---
+
++ `>90` is "A"
++ `>=80 & < 90` is "B"
++ `>=70 & < 80` is "C"
++ `>=60 & < 70` is "D"
++ Rest is "F"
+
+```{r}
+tibble(grades = c(95, 88, 83, 91, 79, 72, 87)) %>%
+  mutate(letter_grade = case_when(grades > 90 ~ "A", #<<
+                                  grades >=80 & grades < 90 ~ "B", #<<
+                                  grades >=70 & grades < 80 ~ "C", #<<
+                                  grades >=60 & grades < 70 ~ "D", #<<
+                                  TRUE ~ "F") #<<
+         ) # close mutate() parentheses
+```
+
+---
+
+
+```{r}
+threshold <- 0.75
+fit_tibble %>% 
+  rename(truth = sex) %>% 
+  mutate(pred = if_else(y >= threshold, "female", "male")) %>%
+  mutate(classif = case_when(truth == "female" & pred == "female" ~ "TP", 
+                             truth == "female" & pred == "male" ~ "FN",
+                             truth == "male"    & pred == "female" ~ "TN",
+                             truth == "male"    & pred == "male" ~ "FP")) -> confusion
+
+confusion
+```
+
+---
+
+
+```{r}
+confusion %>%
+  # how many in each classif category?
+  count(classif) 
+```
+
+--
+
+<br>
+
+$Accuracy = \frac{TP + TN}{TP + TN + FP + FN}$
+
+<br>
+
+```{r}
+## No code, no answer:
+(142 + 4) / (142 + 4 + 164 + 23)
+```
+
+
+
+---
+
+```{r}
+confusion %>%
+  count(classif) %>%
+  pivot_wider(names_from = classif, values_from = n) #<<
+```
+
+--
+
+```{r}
+confusion %>%
+  count(classif) %>%
+  pivot_wider(names_from = "classif", values_from = "n") %>%
+  mutate(accuracy = (TP + TN)/(TP + TN + FP + FN)) %>%
+  pull(accuracy)
+```
+
+---
+
+## How good is the model?
+
++ In linear regression, we can gauge the model performance with $R^2$ and RMSE.
+
++ In logistic regression, performance **depends** on your chosen threshold! So, how do we choose a threshold?
+  + Usually, find the threshold that makes the false positive rate <5%> 
++ We also use **AUC** (area under the curve... what curve?)
+
+---
+
+
+## Evaluating logistic regressions
+
+.pull-left[
+**Receiver Operating Characteristic** Curve
+  + TPR on Y-axis
+  + FPR (1 - specificity) on X-axis
+  + The AUC (**a**rea **u**nder the **c**urve) is an overall assessment of performance *at any threshold*
+]
+
+.pull-right[
++ $TPR = TP/P = \frac{TP}{TP + FN}$ (*sensitivity* AKA *recall*)
+
+
++ $TNR = TN/N = \frac{TN}{FP + TN}$ (*specificity*)
+
+
++ $FPR = FP/N = \frac{FP}{FP + TN}$ (*1 - specificity*)
+]
+
+  
+```{r out.width = '400px', echo=F}
+knitr::include_graphics(file.path(img_path, "roc-theory-small.png"))
+```
+
++ ROC curves are used to evaluate performance of *ANY binary classifier* (not just logistic regression)
+
+---
+
+## Getting a "feel" for ROC curves
+
+```{r out.width = '800px', echo=F}
+knitr::include_graphics(file.path(img_path, "roc_intuition.png"))
+```
+
+---
+
+## Examples of ROC curves in the literature
+
+.pull-left[
+Keller et al. Genome Biol Evol 2012; 4:80-88 
+
+```{r out.width = '300px', echo=F}
+knitr::include_graphics(file.path(img_path, "roc_keller.png")) 
+```
+]
+
+
+.pull-right[
+Imperiale et al. N Engl J Med 2014; 370:1287-1297
+
+```{r out.width = '225px', echo=F}
+knitr::include_graphics(file.path(img_path, "roc_colon.jpeg"))
+```
+]
+
+
+---
+
+## ROC vs PR
+
+
++ ROC curves are suitable when data is *balanced*
+  + Similar amounts of positives, negatives in the dataset
+  + FPR (1 - specificity) on X-axis, TPR on Y-axis
+
++ **Precision-Recall** curves are more suitable for *unbalanced* data
+  + Precision (PPV) on Y-axis, recall (TPR) on X-axis
+
+
+<br><br>
+
++ $TPR = TP/P = \frac{TP}{TP + FN}$ (*recall*)
++ $FPR = FP/N = \frac{FP}{FP + TN}$ 
++ $PPV = \frac{TP}{TP + FP}$ 
+
+---
+
+## Is the penguin data balanced? Yes.
+
+
+```{r}
+peng_nona %>%
+  count(sex)
+```
+
+
++ *Problematically imbalanced* would be 4000 females and 5 males, or vice versa.
+
+
+---
+
+## Making ROC curves
+
++ Recall:
+  + Our model fit is saved in `fit`
+  + Our model was built with `peng_nona_sex01` dataset
+  
+```{r}
+## Use the pROC library to help you - installed already in cloud!
+library(pROC)
+```
+
+```{r}
+## Use the function roc()!!
+model_roc <- roc(peng_nona_sex01$sex, fit$linear.predictors) #<<
+
+## This also works the same:
+model_roc <- roc(peng_nona_sex01$sex, fit$fitted.values) #<<
+```
+
+---
+
+## Getting information out
+```{r}
+model_roc$auc
+```
+> Models are usually **not this good.** 
+
+--
+
+```{r}
+#Piped into head() to fit on the slide
+
+## True positive rates: The x-axis!!
+model_roc$sensitivities %>% head()
+
+
+## False positives rates: The y-axis!!
+1 - model_roc$specificities %>% head()
+```
+
+---
+
+## Make an ROC curve
+
+```{r, fig.width = 5, fig.height = 4}
+tibble(TPR = model_roc$sensitivities,
+       FPR = 1 - model_roc$specificities) %>%
+  ggplot(aes(x = FPR, y = TPR)) + 
+  geom_line() +
+  labs(title = "ROC curve to classify penguin sex",
+       subtitle = paste("AUC =",round(model_roc$auc, 3)) ) + #<<
+  ## this is the y=x line to GUIDE US and help us interpret the curve
+  geom_abline(col = "red")
+```
+
+---
+
+## Making predictions
+
+> This is the same as running the model on new data it has never seen (this is important!)
+
+
+```{r}
+## To remind you: What were the predictors?
+tidy(fit)
+```
+
+---
+
+## Making predictions
+
+```{r}
+what_are_you_new_penguin <- tibble(
+  species  = "Gentoo",
+  bill_len = 41.5,
+  bill_dep = 13.6,
+  mass     = 3850
+)
+
+## NEED `type = "response"` to get a probability out
+predict(fit, what_are_you_new_penguin, type = "response")
+```
+
+---
+
+
+## Validating with training/testing
+
+
+```{r}
+set.seed(1) # reproducibility!!
+
+training_frac <- 0.6
+
+## Training and testing data splits
+peng_nona_sex01 %>%
+  sample_frac(training_frac) -> train_data
+anti_join(peng_nona_sex01, train_data) -> test_data
+
+## Fit to training
+our_formula <- fit$call$formula # previously made!
+train_fit <- glm(our_formula, data = train_data, family = "binomial")
+
+## How's the training data model?
+training_roc <- roc(train_data$sex, train_fit$fitted.values)
+training_roc$auc
+```
+
+---
+
+We have to take an extra step for logistic (vs linear) regression and fit the model to test data ourselves, since we don't have any nice `modelr` helper functions like `rsquare()` and `rmse()`.
+
+--
+
+```{r}
+## Fit the model to the testing data
+test_fit <- predict(train_fit, test_data, type = "response")
+
+## How's the testing data model?
+testing_roc <- roc(test_data$sex, test_fit)
+testing_roc$auc
+```
+
+--
+
+All together now:
+
+| Data | AUC |
+|-------|----|
+| Training | 0.9874 |
+| Testing  | 0.9588 |
+
+*Seem this model performs pretty darn well.*
+
+---
+
+## One ROC curve to rule them all.
+
+```{r}
+train_and_test <- tibble(
+  TPR = c(training_roc$sensitivities, testing_roc$sensitivities), 
+  FPR = c(1 - training_roc$specificities, 1 - testing_roc$specificities), 
+  data = c(rep("training", length(training_roc$sensitivities)), 
+           rep("testing", length(testing_roc$sensitivities))
+          )
+)
+```
+
+---
+
+```{r, fig.width = 6, fig.height = 4}
+ggplot(train_and_test) +
+  aes(x = FPR, y = TPR, color = data) + 
+  geom_line() + 
+  #fun!
+  scale_color_manual(values = c("dodgerblue", "darkgoldenrod1")) + 
+  theme_minimal()
+```
+
+---
+
+## Don't violate best practices!
+
+```{r, fig.width = 6, fig.height = 4}
+ggplot(train_and_test) +
+  aes(x = FPR, y = TPR, 
+      color = fct_relevel(data, c("training", "testing"))) + 
+  geom_line() + 
+  scale_color_manual(name = "data", 
+                     values = c("darkgoldenrod1", "dodgerblue")) + 
+  theme_minimal()
+```
+
+---
+
+## Final words of wisdom
+
+
++ Visualizing the model = the literal logistic curve
++ Visualizing the model performance = ROC curve
+
+
+<br><br>
+
++ In the ROC curves you may have noticed a weird spike at the beginning. Don't worry about it. It's a consequence of using the pROC package.
