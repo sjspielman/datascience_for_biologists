@@ -20,7 +20,7 @@ class: title-slide
 background-image: url(slide_background_images/hawaii.jpg) 
 background-size: contain
 
-# Stesh went to Hawaii!
+## Stesh went to Hawaii!
 &lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
 **This is a picture taken on my vacation in 2017 to Hawaii. This picture was taken on the main island of Oahu at Kualoa Ranch. This valley has been filmed in many movies including Jurassic Park, Jurassic World, Jumanji, King Kong, and Godzilla to name a few.**
 
@@ -28,7 +28,7 @@ background-size: contain
 ---
 
 .bg-text[
-# Introduction to linear models
+## Linear models
 ## Data Science for Biologists
 
 &lt;hr /&gt;
@@ -37,7 +37,7 @@ background-size: contain
 
 ---
 
-# CAVEAT: This is not a statistics class
+## CAVEAT: This is not a statistics class
 
 ### We will learn _to perform analyses and interpret results_  using a few common modeling approaches used in data science industry
 
@@ -47,7 +47,7 @@ background-size: contain
 
 ---
 
-# Machine Learning and AI
+## Machine Learning and AI
 
 
 
@@ -66,12 +66,12 @@ background-size: contain
 
 ---
 
-# Linear regression and linear models
+## Linear regression and linear models
 
 
 ---
 
-# Everything you've learned is a ~~drum~~ ~~path~~ linear model!
+## Everything you've learned is a ~~drum~~ ~~path~~ linear model!
 
 
 + Correlation
@@ -91,52 +91,14 @@ background-size: contain
 In the applied "machine learning" world, we also use models to _predict future outcomes for that variable of interest_
 ---
 
-# What does "explain variation" mean?
+## What does "explain variation" mean?
 
 ![](linear_models_slides_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
 
 ---
-# Simple linear regression:
 
 
-.large[
-\begin{equation} 
-  Y = \beta_1X_1 + \beta_0 + \epsilon
-\end{equation} 
-]
-
-
-```r
-ggplot(iris, aes(x = Sepal.Length,
-                 y = Sepal.Width)) + 
-  geom_point() +
-  geom_smooth(method = "lm") + 
-  labs(x = "Sepal Length", y = "Sepal Width")
-```
-
-![](linear_models_slides_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
-
----
-# But don't forget species:
-
-
-
-```r
-ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width,
-*                color = Species)) +
-  geom_point() + geom_smooth(method = "lm") + 
-  labs(x = "Sepal Length", y = "Sepal Width")
-```
-
-![](linear_models_slides_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
-
-**In this example, if we "ignore" species, we are missing the true _positive relationship_ between sepal width and length. This is called _controlling for species._**
-
----
-
-
-
-# We will learn two types of _generalized linear models_ 
+## We will learn two types of _generalized linear models_ 
 
 **Linear regression/model**: Use this method when the response is a **numeric variable**
 + Key assumptions:
@@ -151,7 +113,7 @@ ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width,
 ---
 
 
-# What is the goal of GLMs?
+## What is the goal of GLMs?
 
 + We want to explain variation in a _response variable_ using all suitable predictors
   + How does one determine "suitable predictors"?
@@ -163,6 +125,7 @@ ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width,
 .small[
 + Predictors are based on experimental setup
 + *Specific* goal of knowing how those *specific* predictors affect response
++ Not necessarily interested in seeing how model performs on new data it has never seen
 ]]
 
 .pull-right[
@@ -170,13 +133,13 @@ ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width,
 .small[
 + You have _a bunch_ of data and need to figure out, which predictors should I use in my model to best explain the response?
 + Less likely you care about specific effects of individual predictors
-+ *In _this class_, we are going to learn GLMs from this _perspective._*
++ More likely to be interested in applying the model to new data for prediction
 ]]
 
 
 ---
 
-# Linear models
+## Linear models
 
 .left-column[
 .large[
@@ -191,7 +154,11 @@ ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width,
 \end{equation} 
 ]]
 
+
 ---
+
+# Simple linear regression
+
 
 The relationship between the age of a given lion the the proportion of its nose that is black (nose color changes over time!). [Source](https://www.amazon.com/Analysis-Biological-Data-Michael-Whitlock/dp/1936221489)
 
@@ -202,7 +169,7 @@ The relationship between the age of a given lion the the proportion of its nose 
 
 ---
 
-# Residuals: Distance from each point to line-of-best-fit
+## Residuals: Distance from each point to line-of-best-fit
 
 + Residuals are *errors* - how much does each point deviate (literally, distance) from the *average relationship*? Every point has a residual value.
 
@@ -213,7 +180,7 @@ The relationship between the age of a given lion the the proportion of its nose 
 
 ---
 
-# Focus on the "smallest deviations" panel 
+## Focus on the "smallest deviations" panel 
 
 &lt;img src="img/lm//whitlock_17.1-2.png" width="800px" /&gt;
 
@@ -226,15 +193,8 @@ The relationship between the age of a given lion the the proportion of its nose 
   + 10.64(0.5) + 0.88 = 6.2
 ---
 
-# Is that a "good" model?
 
-+ How much variation in the response (`age`) does the predictor (`proportion black`) actually explain? This is `\(R^2\)`.
-+ Do we have statistical confidence in that line-of-best fit?
-+ How accurate are our predictions likely to be?
-
----
-
-# Null-hypothesis testing and P-values
+## Null-hypothesis testing and P-values
 
 + **P-values** are one of the most notoriously misunderstood concepts. They tell you: 
   + **_Assuming the null hypothesis is true, what is the probability of observing my data?_**
@@ -250,7 +210,7 @@ The relationship between the age of a given lion the the proportion of its nose 
 
 ---
 
-# Null hypotheses are _set in stone_
+## Null hypotheses are _set in stone_
 
 + Each statistical test you do relies on a highly specific null hypothesis that is _always associated with that statistical test._ There is 0 creativity or wiggle-room. 
 &lt;br&gt;&lt;br&gt;
@@ -262,7 +222,7 @@ The relationship between the age of a given lion the the proportion of its nose 
 
 ---
 
-# Statistical significance is mental gymnastics
+## Statistical significance is mental gymnastics
 
 &gt; Remember: P-values give the probability of observing your data/results _when assuming a TRUE null hypothesis._
 
@@ -273,7 +233,7 @@ If a P-value is not very small, we say: Gee! I think that probabilities that are
 
 ---
 
-# A common threshold for "small" is P &lt; 0.05
+## A common threshold for "small" is P &lt; 0.05
 
 This number is not special. It is not magic. It's an "historical accident." [See here](https://www.bmj.com/rapid-response/2011/11/03/origin-5-p-value-threshold)
 
@@ -283,7 +243,7 @@ significance..." --RA Fisher
 
 ---
 
-# Back to our "smallest deviations" lions
+## Back to our "smallest deviations" lions
 
 &lt;img src="img/lm//whitlock_17.1-2.png" width="800px" /&gt;
 
@@ -296,10 +256,11 @@ Intercept (a coefficient) | 0.88 | 0.133
 
 ---
 
-# Interpreting `\(R^2\)`
+## Interpreting `\(R^2\)`
 
-.small[
+.smaller[
 + The proportion black variable explains **61.13%** of the variation in lion age _in this dataset_
+  + 31.87% of variation is _unexplained_
 + For one of these lions, if I know the proportion black, I know about 61% of what there is to know about how old that lion is
 + If all residuals are 0, then `\(R^2 = 1\)`. Aka, if all points precisely are along the regression line, I know entirely what there is to know (100%) about lion age, *in the given dataset*
 &lt;br&gt;
@@ -311,7 +272,7 @@ Intercept (a coefficient) | 0.88 | 0.133
 
 ---
 
-# Reminder:
+## Reminder:
 
 .pull-left[
 ### Hypothesis-testing ("science")
@@ -325,12 +286,11 @@ Intercept (a coefficient) | 0.88 | 0.133
 .small[
 + You have _a bunch_ of data and need to figure out, which predictors should I use in my model to best explain the response?
 + Less likely you care about specific effects of individual predictors
-+ *In _this class_, we are going to learn GLMs from this _perspective._*
 ]]
 
 ---
 
-# Linear models ("regression and friends")
+## Linear models ("regression and friends")
 
 + Explain variation in a *numeric response* variable using *any type and combination of* predictors
 
@@ -344,86 +304,140 @@ _In this class, we will assume assumptions are met when performing analyses._
 
 ---
 
-# Numeric predictors must be linearly related
+## Numeric predictors must be linearly related
 
-![](linear_models_slides_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+![](linear_models_slides_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
 
 ---
 
-# Categorical predictors must show equal variance of *response*
+## Categorical predictors must show equal variance of *response*
 
-![](linear_models_slides_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+![](linear_models_slides_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
 ---
 
-# Model _residuals_ are normally distributed
+## Model _residuals_ are normally distributed
 
 &lt;img src="img/lm//whitlock_17.1-2.png" width="900px" /&gt;
 
 ---
 
-# Let's build a model
-
-## Goal: Explain variation in `aroma` for Arabica coffees grown in Colombia States.
+## Let's build a model
 
 
 
 ```r
-coffee &lt;- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-07-07/coffee_ratings.csv')
+library(palmerpenguins) # to access penguins dataset
 
-# Redefine for the broken point
-coffee %&gt;%
-  filter(total_cup_points !=0) -&gt; coffee
-
-coffee %&gt;% 
-  filter(country_of_origin == "Colombia", 
-         species == "Arabica") -&gt; coffee_colombia
+penguins 
 ```
 
+```
+## # A tibble: 344 x 8
+##    species island bill_length_mm bill_depth_mm flipper_length_… body_mass_g
+##    &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;            &lt;int&gt;       &lt;int&gt;
+##  1 Adelie  Torge…           39.1          18.7              181        3750
+##  2 Adelie  Torge…           39.5          17.4              186        3800
+##  3 Adelie  Torge…           40.3          18                195        3250
+##  4 Adelie  Torge…           NA            NA                 NA          NA
+##  5 Adelie  Torge…           36.7          19.3              193        3450
+##  6 Adelie  Torge…           39.3          20.6              190        3650
+##  7 Adelie  Torge…           38.9          17.8              181        3625
+##  8 Adelie  Torge…           39.2          19.6              195        4675
+##  9 Adelie  Torge…           34.1          18.1              193        3475
+## 10 Adelie  Torge…           42            20.2              190        4250
+## # … with 334 more rows, and 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
+```
 
 ---
 
-# We build linear models with the function `lm()`
-
-### `lm(response ~ predictor(s), data = name_of_dataframe)`
-
----
-
-### Hypothesis-testing framework: 
-**To what extent does a Colombian Arabica coffee's flavor explain variation in its aroma?**
+## Make it fit better on slides
 
 
 ```r
-# Models with aroma response and flavor predictor
-fitted_model &lt;- lm(aroma ~ flavor, data = coffee_colombia)
+penguins %&gt;%
+  rename(bill_len = bill_length_mm,
+         bill_dep = bill_depth_mm,
+         flipper = flipper_length_mm,
+         mass    = body_mass_g) -&gt; peng
 
-# Examine model output ("ugly version")
+peng
+```
+
+```
+## # A tibble: 344 x 8
+##    species island    bill_len bill_dep flipper  mass sex     year
+##    &lt;fct&gt;   &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;   &lt;int&gt; &lt;int&gt; &lt;fct&gt;  &lt;int&gt;
+##  1 Adelie  Torgersen     39.1     18.7     181  3750 male    2007
+##  2 Adelie  Torgersen     39.5     17.4     186  3800 female  2007
+##  3 Adelie  Torgersen     40.3     18       195  3250 female  2007
+##  4 Adelie  Torgersen     NA       NA        NA    NA &lt;NA&gt;    2007
+##  5 Adelie  Torgersen     36.7     19.3     193  3450 female  2007
+##  6 Adelie  Torgersen     39.3     20.6     190  3650 male    2007
+##  7 Adelie  Torgersen     38.9     17.8     181  3625 female  2007
+##  8 Adelie  Torgersen     39.2     19.6     195  4675 male    2007
+##  9 Adelie  Torgersen     34.1     18.1     193  3475 &lt;NA&gt;    2007
+## 10 Adelie  Torgersen     42       20.2     190  4250 &lt;NA&gt;    2007
+## # … with 334 more rows
+```
+
+---
+  
+
+## Linear regression
+
++ To what extent does flipper length explain variation in bill length?
+
++ Is there a significant relationship between these variables, and if so, how strong is it?
+
+--
+
+&lt;br&gt;&lt;br&gt;
+
++ Response variable: `bill_len`
++ Predictor variable: `flipper`
+
+--
+
+### We build linear models with the function `lm()`
+
+**`lm(response ~ predictor(s), data = name_of_dataframe)`**
+
+---
+
+
+```r
+## Model with bill_len response and flipper predictor
+fitted_model &lt;- lm(bill_len ~ flipper, data = peng)
+
+## Examine model output ("ugly version")
 summary(fitted_model)
 ```
 
 ```
 ## 
 ## Call:
-## lm(formula = aroma ~ flavor, data = coffee_colombia)
+## lm(formula = bill_len ~ flipper, data = peng)
 ## 
 ## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.64218 -0.08835  0.02467  0.11439  0.46770 
+##     Min      1Q  Median      3Q     Max 
+## -8.5792 -2.6715 -0.5721  2.0148 19.1518 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)   4.2185     0.8180   5.157 6.53e-07 ***
-## flavor        0.4521     0.1076   4.200 4.18e-05 ***
+## (Intercept) -7.26487    3.20016   -2.27   0.0238 *  
+## flipper      0.25477    0.01589   16.03   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 0.2569 on 181 degrees of freedom
-## Multiple R-squared:  0.08881,	Adjusted R-squared:  0.08377 
-## F-statistic: 17.64 on 1 and 181 DF,  p-value: 4.181e-05
+## Residual standard error: 4.126 on 340 degrees of freedom
+##   (2 observations deleted due to missingness)
+## Multiple R-squared:  0.4306,	Adjusted R-squared:  0.4289 
+## F-statistic: 257.1 on 1 and 340 DF,  p-value: &lt; 2.2e-16
 ```
 
 ---
 
-# Use the `broom` and `modelr` packages to examine output
+## Use the `broom` and `modelr` packages to examine output
 
 
 ```r
@@ -432,54 +446,36 @@ broom::tidy(fitted_model)
 
 ```
 ## # A tibble: 2 x 5
-##   term        estimate std.error statistic     p.value
-##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
-## 1 (Intercept)    4.22      0.818      5.16 0.000000653
-## 2 flavor         0.452     0.108      4.20 0.0000418
+##   term        estimate std.error statistic  p.value
+##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+## 1 (Intercept)   -7.26     3.20       -2.27 2.38e- 2
+## 2 flipper        0.255    0.0159     16.0  1.74e-43
 ```
 
 ```r
-broom::glance(fitted_model)
+# Won't give P-value, but if R^2 &gt;= 0.1, it's generally significant
+modelr::rsquare(fitted_model, peng)
 ```
 
 ```
-## # A tibble: 1 x 12
-##   r.squared adj.r.squared sigma statistic p.value    df logLik   AIC   BIC
-##       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1    0.0888        0.0838 0.257      17.6 4.18e-5     1  -9.97  25.9  35.6
-## # … with 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;
-```
-
-```r
-modelr::rsquare(fitted_model, coffee_colombia)
-```
-
-```
-## [1] 0.08880878
+## [1] 0.430574
 ```
 
 ---
 
-# Is the situation the same for USA Arabica coffees?
+## How about species as a predictor?
 
++ To what extent does species explain variation in bill length?
++ Do different species have different mean bill lengths?
 
-
-```r
-coffee %&gt;%
-  filter(str_detect(country_of_origin, "United States"), 
-         species == "Arabica") -&gt; coffee_usa
-
-# Models with aroma response and flavor predictor
-fitted_model_usa &lt;- lm(aroma ~ flavor, data = coffee_usa)
-```
-
-
----
+--
 
 
 ```r
-# Examine model output in Spielman's _personal_ favorite way...
-broom::glance(fitted_model_usa) %&gt;%
+fitted_model_species &lt;- lm(bill_len ~ species, data = peng)
+
+## Let's first look at R^2
+broom::glance(fitted_model_species) %&gt;%
   select(r.squared, p.value)
 ```
 
@@ -487,123 +483,577 @@ broom::glance(fitted_model_usa) %&gt;%
 ## # A tibble: 1 x 2
 ##   r.squared  p.value
 ##       &lt;dbl&gt;    &lt;dbl&gt;
-## 1     0.451 1.95e-12
-```
-
-```r
-broom::tidy(fitted_model_usa)
-```
-
-```
-## # A tibble: 2 x 5
-##   term        estimate std.error statistic  p.value
-##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-## 1 (Intercept)    3.67     0.477       7.68 2.81e-11
-## 2 flavor         0.516    0.0625      8.26 1.95e-12
+## 1     0.708 2.69e-91
 ```
 
 ---
 
-# Hm, what about across all countries? Maybe the country itself matters!
+## The model coefficients are directly related to the means
 
-This model asks _both_:
 
-+ Controlling for country of origin, to what extent does flavor explain variation in aroma? Aka, is there a relationship between aroma and flavor, when controlling for country?
-&lt;br&gt;&lt;br&gt;
-+ Controlling for flabor, to what extent does the country of origin explain variation in aroma? Aka, is aroma different across countries, when controlling for flavor?
 
 ```r
-fitted_model_world &lt;- lm(aroma ~ flavor + country_of_origin,
-                         data = coffee)
+broom::tidy(fitted_model_species)
 ```
 
+```
+## # A tibble: 3 x 5
+##   term             estimate std.error statistic   p.value
+##   &lt;chr&gt;               &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+## 1 (Intercept)         38.8      0.241     161.  2.50e-322
+## 2 speciesChinstrap    10.0      0.432      23.2 4.23e- 72
+## 3 speciesGentoo        8.71     0.360      24.2 5.33e- 76
+```
+
+
+
+```r
+peng %&gt;% 
+  group_by(species) %&gt;%
+  summarize(mean_bill_len = mean(bill_len, na.rm=TRUE))
+```
+
+```
+## # A tibble: 3 x 2
+##   species   mean_bill_len
+##   &lt;fct&gt;             &lt;dbl&gt;
+## 1 Adelie             38.8
+## 2 Chinstrap          48.8
+## 3 Gentoo             47.5
+```
 ---
 
-
-```r
-broom::glance(fitted_model_world) %&gt;%
-  select(r.squared, p.value)
-```
-
-```
-## # A tibble: 1 x 2
-##   r.squared   p.value
-##       &lt;dbl&gt;     &lt;dbl&gt;
-## 1     0.573 7.62e-212
-```
-
-```r
-broom::tidy(fitted_model_world)
-```
-
-```
-## # A tibble: 37 x 5
-##    term                           estimate std.error statistic   p.value
-##    &lt;chr&gt;                             &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-##  1 (Intercept)                      2.54      0.143     17.8   1.23e- 63
-##  2 flavor                           0.661     0.0187    35.3   2.92e-192
-##  3 country_of_originBurundi        -0.0630    0.149     -0.424 6.72e-  1
-##  4 country_of_originChina           0.0537    0.0553     0.972 3.31e-  1
-##  5 country_of_originColombia        0.0844    0.0238     3.54  4.16e-  4
-##  6 country_of_originCosta Rica      0.142     0.0344     4.13  3.81e-  5
-##  7 country_of_originCote d?Ivoire   0.0809    0.210      0.386 7.00e-  1
-##  8 country_of_originEcuador        -0.0137    0.122     -0.112 9.10e-  1
-##  9 country_of_originEl Salvador     0.0683    0.0491     1.39  1.64e-  1
-## 10 country_of_originEthiopia        0.0552    0.0372     1.48  1.38e-  1
-## # … with 27 more rows
-```
-
----
-
-# Do you miss the ANOVA table?
+## Do you miss the ANOVA table? 
 
 &gt; Shoutout to how much you loved or will love this topic in Biometry!
 
 
 ```r
-aov(fitted_model_world)
+as_anova &lt;- aov(fitted_model_species)
+summary(as_anova)
 ```
 
 ```
-## Call:
-##    aov(formula = fitted_model_world)
-## 
-## Terms:
-##                   flavor country_of_origin Residuals
-## Sum of Squares  72.53983           3.56466  56.65486
-## Deg. of Freedom        1                35      1300
-## 
-## Residual standard error: 0.2087598
-## Estimated effects may be unbalanced
-## 1 observation deleted due to missingness
+##              Df Sum Sq Mean Sq F value Pr(&gt;F)    
+## species       2   7194    3597   410.6 &lt;2e-16 ***
+## Residuals   339   2970       9                   
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 2 observations deleted due to missingness
 ```
 
 ---
 
-# The data is actually heavily imbalanced:
+
+## How about both?
 
 
 ```r
-ggplot(coffee) + 
-  aes(x = country_of_origin) + 
-  geom_bar()
+fitted_model_both &lt;- lm(bill_len ~ flipper + species, data = peng)
+```
+
+
+&lt;br&gt;
+
+### This model *controls for variation across species.* It asks:
+
++ Controlling for species, to what extent does flipper length explain variation in bill length? 
++ Is there a relationship between flipper length and bill length, when controlling for species?
+&lt;br&gt;&lt;br&gt;
++ Controlling for flipper length, to what extent does the species explain variation in bill length? 
++ Do different species have significantly different bill lengths, when controlling for flipper length?
+
+---
+
+## This model explains ~77.6% of variation in bill length
+
++ In this dataset, if we know the flipper length and species, we know ~77.6% of what there is to know about bill length
++ With multiple predictors, it's challenging to interpret coefficients. We're going to focus on `\(R^2\)` in these circumstances.
+
+
+```r
+rsquare(fitted_model_both, peng)
+```
+
+```
+## [1] 0.775847
+```
+
+---
+
+## Interaction effects
+
+Is the bill_len/flipper relationship the same or different across species? **Look at slopes.**
+
+
+```r
+ggplot(peng) + 
+  aes(x = flipper, y = bill_dep, color = species) + 
+  geom_point() + 
+  geom_smooth(method = "lm") + 
+  theme(legend.position = "bottom")
 ```
 
 ![](linear_models_slides_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
 
+
 ---
 
-# And, this model actually violated a key assumption:
+## Testing for interaction effects 
 
 
 ```r
-ggplot(coffee) + 
-  aes(x = country_of_origin,  # categorical predictor
-      y = aroma) + # the response 
-  geom_boxplot()
+fitted_model_both_int &lt;- lm(bill_len ~ flipper * species, data = peng)
+
+tidy(fitted_model_both_int)
 ```
 
-![](linear_models_slides_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
+```
+## # A tibble: 6 x 5
+##   term                     estimate std.error statistic   p.value
+##   &lt;chr&gt;                       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+## 1 (Intercept)               13.6       6.05       2.25  0.0254   
+## 2 flipper                    0.133     0.0318     4.17  0.0000391
+## 3 speciesChinstrap          -7.99     10.5       -0.763 0.446    
+## 4 speciesGentoo            -34.3       9.82      -3.50  0.000537 
+## 5 flipper:speciesChinstrap   0.0881    0.0540     1.63  0.104    
+## 6 flipper:speciesGentoo      0.182     0.0478     3.80  0.000171
+```
+
+---
+
+## You MUST control for *confounding factors*
+
+
+.pull-left[
+
+```r
+ggplot(peng) + 
+* aes(x = bill_len, y = bill_dep) +
+  geom_point() + 
+  geom_smooth(method = "lm")
+```
+
+![](linear_models_slides_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+]
+.pull-right[
+
+```r
+ggplot(peng) + 
+  aes(x = bill_len, y = bill_dep,
+*     color = species) +
+  geom_point() + 
+  geom_smooth(method = "lm") 
+```
+
+![](linear_models_slides_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
+]
+---
+
+## Into the Machine Learning World
+
++ Need to determine optimal predictors along the **bias/variance trade-off**. There are many ways to do this.
+
+&lt;img src="img/lm//overfit_underfit.png" width="700px" /&gt;
+
++ Fit model
++ Run diagnostics to ask whether and/or how badly assumptions were violated
++ Run diagnostics to ask how well the model performs _on data it has never seen_
+
+---
+
+## Choosing predictors with the `step()` function
+
++ This is called **model selection**: We are selecting which predictors to put into our model, using "fancy statistics."
+
+
+```r
+peng_nona &lt;- peng %&gt;% drop_na() # step() gets irritated with NAs
+
+## predictor as period .  means: use all!!
+full_model &lt;- lm(bill_len ~ ., data = peng_nona)
+
+## Use step() function to pick which predictors are worth keeping
+## trace = FALSE means less annoying output, trust me...
+final_model &lt;- step(full_model, trace=FALSE)
+```
+
+---
+## Let's compare the full vs. final model
+
+
+```r
+## Full model: All columns (except bill length) are predictors
+tidy(full_model) %&gt;% pull(term)
+##  [1] "(Intercept)"      "speciesChinstrap" "speciesGentoo"    "islandDream"     
+##  [5] "islandTorgersen"  "bill_dep"         "flipper"          "mass"            
+##  [9] "sexmale"          "year"
+
+## Quickly determine the R^2 for the model
+rsquare(full_model, peng_nona)
+## [1] 0.8400442
+```
+
+
+```r
+## Final model: Predictors chosen by step()
+tidy(final_model) %&gt;% pull(term)
+## [1] "(Intercept)"      "speciesChinstrap" "speciesGentoo"    "bill_dep"        
+## [5] "flipper"          "mass"             "sexmale"
+
+rsquare(final_model, peng_nona)
+## [1] 0.8385834
+```
+
+---
+
+## Gauging error in our model with RMSE
+
++ RMSE (**R**oot **M**ean **S**quare **E**rror) is the standard deviation of model residuals, in _units of the response_
+  + Model residuals represent _error_: what variation in the data is NOT captured by the model?
+  + High RMSE = high error spread. Points are generally more spread out from the line-of-best-fit
+  + Low RMSE = low error spread.  Points are generally closer to the line-of-best-fit
++ RMSE is one of many metrics used to gauge model performance, but RMSE and `\(R^2\)` are among the most commonly-used
+
+
+
+```r
+## Quickly determine the RMSE for the model
+modelr::rmse(final_model, peng_nona)
+## [1] 2.193828
+
+## Peek at bill lengths for context!
+summary(peng_nona$bill_len)
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   32.10   39.50   44.50   43.99   48.60   59.60
+```
+
+---
+
+## Enter: _Model evaluation_ aka _model validation_
+
++ How good is the model at explaining variation **in data it does NOT know about?**
+  + Should we even bother using our model to predict future outcomes?
+  + Can I predict the bill lengths for a whole bunch of _new_ penguins with any accuracy?
+  
+&lt;br&gt;&lt;br&gt;
+
+--
+
+Industry really wants to know the answer to this. Academic science is usually less concerned (but should we be more concerned? maybe!)
+
+---
+
+## Predicting future outcomes
+
++ Recall, our final model to explain bill length has these predictors:
+  + `species`, `bill_dep`, `flipper`, `mass`, `sex`
++ I made a new penguin friend with these characteristics:
+  + Penguin is a male Chinstrap
+  + Bill depth is 18.5
+  + Flipper length is 211
+  + Mass is 5200
++ What does the model think its bill length is?
+
+--
+
+Using the `predict()` function:
+1. Make a tibble with new data. Must match original data naming/spelling!
+2. Use function as `predict(fitted model, tibble with new data)`
+---
+
+## First, make the tibble for prediction
+
+
+```r
+head(peng_nona)
+```
+
+```
+## # A tibble: 6 x 8
+##   species island    bill_len bill_dep flipper  mass sex     year
+##   &lt;fct&gt;   &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;   &lt;int&gt; &lt;int&gt; &lt;fct&gt;  &lt;int&gt;
+## 1 Adelie  Torgersen     39.1     18.7     181  3750 male    2007
+## 2 Adelie  Torgersen     39.5     17.4     186  3800 female  2007
+## 3 Adelie  Torgersen     40.3     18       195  3250 female  2007
+## 4 Adelie  Torgersen     36.7     19.3     193  3450 female  2007
+## 5 Adelie  Torgersen     39.3     20.6     190  3650 male    2007
+## 6 Adelie  Torgersen     38.9     17.8     181  3625 female  2007
+```
+
+
+```r
+new_penguin &lt;- tibble(
+  species  = "Chinstrap",
+  sex      = "male",
+  bill_dep = 18.5, 
+  flipper  = 223,
+  mass     = 5200
+)
+new_penguin
+```
+
+```
+## # A tibble: 1 x 5
+##   species   sex   bill_dep flipper  mass
+##   &lt;chr&gt;     &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+## 1 Chinstrap male      18.5     223  5200
+```
+
+---
+
+## Second, predict!
+
+
+```r
+predict(final_model, new_penguin)
+```
+
+```
+##        1 
+## 53.32675
+```
+
+--
+
+Recall our model's RMSE:
+
+```r
+rmse(final_model, peng_nona)
+```
+
+```
+## [1] 2.193828
+```
+
+We expect, on average, predictions will be ~2.19 units wrong. But how wrong is _this specific_ prediction?
+
+---
+
+
+```r
+new_penguin
+```
+
+```
+## # A tibble: 1 x 5
+##   species   sex   bill_dep flipper  mass
+##   &lt;chr&gt;     &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+## 1 Chinstrap male      18.5     223  5200
+```
+
+
+```r
+peng_nona %&gt;%
+  select(species, sex, bill_dep, flipper, mass) -&gt; peng_nona_preds
+summary(peng_nona_preds)
+```
+
+```
+##       species        sex         bill_dep        flipper         mass     
+##  Adelie   :146   female:165   Min.   :13.10   Min.   :172   Min.   :2700  
+##  Chinstrap: 68   male  :168   1st Qu.:15.60   1st Qu.:190   1st Qu.:3550  
+##  Gentoo   :119                Median :17.30   Median :197   Median :4050  
+##                               Mean   :17.16   Mean   :201   Mean   :4207  
+##                               3rd Qu.:18.70   3rd Qu.:213   3rd Qu.:4775  
+##                               Max.   :21.50   Max.   :231   Max.   :6300
+```
+
+---
+
+
+```r
+peng_nona_preds %&gt;%
+  filter(sex == "male", species == "Chinstrap") %&gt;%
+  select(-sex, -species) -&gt; peng_nona_preds2
+summary(peng_nona_preds2)
+```
+
+```
+##     bill_dep        flipper           mass     
+##  Min.   :17.50   Min.   :187.0   Min.   :3250  
+##  1st Qu.:18.80   1st Qu.:196.0   1st Qu.:3731  
+##  Median :19.30   Median :200.5   Median :3950  
+##  Mean   :19.25   Mean   :199.9   Mean   :3939  
+##  3rd Qu.:19.80   3rd Qu.:203.0   3rd Qu.:4100  
+##  Max.   :20.80   Max.   :212.0   Max.   :4800
+```
+
+---
+
+## It is important to assess how dependent your model is on initial data
+
++ We **train** models on a given dataset
++ The properties of that **training dataset** influence how the model will perform
+  + If I build a model solely using Gentoo penguin data, the model will probably be unhelpful for studying Chinstrap penguins
+
+--
+
++ Models that work perform well on training data but perform terribly on new data are usually **overfit**
+  + Model is "overly-tailored" to training data
+  + Aka, `\(R^2=0.9\)` on training data, but predictions are _really really WRONG_ when running model on new data
+  
+---
+
+## Performing model _validation_ (aka _evaluation_)
+
+1. Determine which predictors you will use
+  + Build model using `step()` function
+  + `\(R^2\)` and RMSE from that model tell us: How does model perform on training data?
+&lt;br&gt;
+2. Run a cross-validation procedure to gauge model performance more generally
+
+--
+
+### Cross-validation with testing and training groups
++ Randomly **split** your dataset into two parts:
+  + The "training" part (usually 60-80% of the data) **builds** aka **trains** the model
+  + The "testing" part (the remaining 20-40%) evaluates aka **tests** the performance of the model
+  + If model performs terribly on testing data, suggests model was *overfit*
+  + Either way, performance is usually better on training data. **Why?**
+
+---
+
+## The full procedure to predict bill depth
+
+### Step 1: Determine which predictors your model will use
+
+You either know this information already, or you need to use model selection:
+
+
+```r
+peng_nona &lt;- peng %&gt;% drop_na() # reminder, step() gets irritated with NAs
+fit &lt;- step( lm(bill_len ~ ., data = peng_nona), trace=FALSE)
+
+# Grab the model formula inside fit to tell us the predictors
+# Useful to grab this if you need to use step()
+fit_formula &lt;- fit$call$formula
+fit_formula
+```
+
+```
+## bill_len ~ species + bill_dep + flipper + mass + sex
+```
+
+
+---
+
+## Step 2: Divide data into testing and training
+
+
+```r
+set.seed(1) # Choose your favorite number for reproducibility
+training_size &lt;- 0.6
+peng_nona %&gt;%
+  # Sample random fraction of rows with this dplyr function
+  sample_frac(training_size) -&gt; peng_training
+nrow(peng_training)
+```
+
+```
+## [1] 200
+```
+
+```r
+peng_testing &lt;- anti_join(peng_nona, peng_training)
+nrow(peng_testing)
+```
+
+```
+## [1] 133
+```
+
+---
+
+## Step 3: Fit model formula using the training data
+
+
+```r
+*training_fit &lt;- lm(fit_formula, data = peng_training)
+```
+
+
+### Step 4: Ask how well _model built from training data_ performs on the _training_ AND the _testing data_
+
+
+```r
+# Training data: The model "has seen" this data
+rsquare(training_fit, peng_training)
+## [1] 0.8588903
+rmse(training_fit, peng_training)
+## [1] 1.962553
+```
+
+
+```r
+# Testing data: The model "has never seen" this data
+rsquare(training_fit, peng_testing)
+## [1] 0.8107401
+rmse(training_fit, peng_testing)
+## [1] 2.522255
+```
+
+---
+
+## Step 4: Draw *qualitative* conclusions
+
+
+| Data | `\(R^2\)` | RMSE |
+|-------|-------|------|
+| Training | 0.86 | 1.96 |
+| Testing  | 0.81 | 2.522 |
+
+**The model performed pretty well on the testing data!** Our validation procedure shows the model is not overfit. Predictions are going to be pretty decent.
+
+--
+
+This would be super concerning:
+
+.small[
+.pull-left[
+| Data | `\(R^2\)` | RMSE |
+|-------|-------|------|
+| Training | 0.86 | 1.96 |
+| Testing  | 0.54 | 22.4 |
+]
+
+.pull-right[
+
+```r
+summary(peng_nona$bill_len)
+```
+
+```
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   32.10   39.50   44.50   43.99   48.60   59.60
+```
+]
+]
+---
+
+
+
+## Another way: K-fold cross validation
+
++ Randomly divide the whole dataset into "K" equal chunks aka folds
++ Perform K iterations of model training and testing
+  + "Hold back" data each time for testing!
++ Get RMSE and `\(R^2\)` for each iteration, and look at full distribution
+
+![](kfold-wiki.png)
+
+&lt;img src="img/lm//kfold-wiki.png" width="700px" /&gt;
+
+---
+
+## Another way: Leave-one-out cross validation (LOOCV)
+
++ K-folds on speed: each "test" size is N=1!!
++ For small datasets, LOOCV probably "better"
+
+
+&lt;img src="img/lm//loocv.png" width="700px" /&gt;
+---
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

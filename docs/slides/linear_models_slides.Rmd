@@ -18,6 +18,8 @@ options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(message=F, warning=F,fig.width=8, fig.height=6)
 library(xaringan)
 library(tidyverse)
+library(broom)
+library(modelr)
 library(cowplot)
 library(patchwork)
 library(colorblindr)
@@ -35,7 +37,7 @@ class: title-slide
 background-image: url(slide_background_images/hawaii.jpg) 
 background-size: contain
 
-# Stesh went to Hawaii!
+## Stesh went to Hawaii!
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 **This is a picture taken on my vacation in 2017 to Hawaii. This picture was taken on the main island of Oahu at Kualoa Ranch. This valley has been filmed in many movies including Jurassic Park, Jurassic World, Jumanji, King Kong, and Godzilla to name a few.**
 
@@ -43,7 +45,7 @@ background-size: contain
 ---
 
 .bg-text[
-# Introduction to linear models
+## Linear models
 ## Data Science for Biologists
 
 <hr />
@@ -52,7 +54,7 @@ background-size: contain
 
 ---
 
-# CAVEAT: This is not a statistics class
+## CAVEAT: This is not a statistics class
 
 ### We will learn _to perform analyses and interpret results_  using a few common modeling approaches used in data science industry
 
@@ -62,7 +64,7 @@ background-size: contain
 
 ---
 
-# Machine Learning and AI
+## Machine Learning and AI
 
 
 
@@ -87,12 +89,12 @@ knitr::include_graphics(file.path(img_path,"classif_regre.png"))
 
 ---
 
-# Linear regression and linear models
+## Linear regression and linear models
 
 
 ---
 
-# Everything you've learned is a ~~drum~~ ~~path~~ linear model!
+## Everything you've learned is a ~~drum~~ ~~path~~ linear model!
 
 
 + Correlation
@@ -112,7 +114,7 @@ knitr::include_graphics(file.path(img_path,"classif_regre.png"))
 In the applied "machine learning" world, we also use models to _predict future outcomes for that variable of interest_
 ---
 
-# What does "explain variation" mean?
+## What does "explain variation" mean?
 
 ```{r, echo=F, fig.height = 4, fig.width = 12}
 tibble(x = 1:20/10, y = 4) %>%
@@ -136,41 +138,9 @@ a + b + d
 ```
 
 ---
-# Simple linear regression:
 
 
-.large[
-\begin{equation} 
-  Y = \beta_1X_1 + \beta_0 + \epsilon
-\end{equation} 
-]
-
-```{r, fig.width = 7, fig.height = 4}
-ggplot(iris, aes(x = Sepal.Length,
-                 y = Sepal.Width)) + 
-  geom_point() +
-  geom_smooth(method = "lm") + 
-  labs(x = "Sepal Length", y = "Sepal Width")
-```
-
----
-# But don't forget species:
-
-
-```{r, fig.width = 6, fig.height = 3.75}
-ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width,
-                 color = Species)) + #<< 
-  geom_point() + geom_smooth(method = "lm") + 
-  labs(x = "Sepal Length", y = "Sepal Width")
-```
-
-**In this example, if we "ignore" species, we are missing the true _positive relationship_ between sepal width and length. This is called _controlling for species._**
-
----
-
-
-
-# We will learn two types of _generalized linear models_ 
+## We will learn two types of _generalized linear models_ 
 
 **Linear regression/model**: Use this method when the response is a **numeric variable**
 + Key assumptions:
@@ -185,7 +155,7 @@ ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width,
 ---
 
 
-# What is the goal of GLMs?
+## What is the goal of GLMs?
 
 + We want to explain variation in a _response variable_ using all suitable predictors
   + How does one determine "suitable predictors"?
@@ -197,6 +167,7 @@ ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width,
 .small[
 + Predictors are based on experimental setup
 + *Specific* goal of knowing how those *specific* predictors affect response
++ Not necessarily interested in seeing how model performs on new data it has never seen
 ]]
 
 .pull-right[
@@ -204,13 +175,13 @@ ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width,
 .small[
 + You have _a bunch_ of data and need to figure out, which predictors should I use in my model to best explain the response?
 + Less likely you care about specific effects of individual predictors
-+ *In _this class_, we are going to learn GLMs from this _perspective._*
++ More likely to be interested in applying the model to new data for prediction
 ]]
 
 
 ---
 
-# Linear models
+## Linear models
 
 .left-column[
 .large[
@@ -225,7 +196,11 @@ ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width,
 \end{equation} 
 ]]
 
+
 ---
+
+# Simple linear regression
+
 
 The relationship between the age of a given lion the the proportion of its nose that is black (nose color changes over time!). [Source](https://www.amazon.com/Analysis-Biological-Data-Michael-Whitlock/dp/1936221489)
 
@@ -238,7 +213,7 @@ knitr::include_graphics(file.path(img_path, "whitlock_17.1-1.png"))
 
 ---
 
-# Residuals: Distance from each point to line-of-best-fit
+## Residuals: Distance from each point to line-of-best-fit
 
 + Residuals are *errors* - how much does each point deviate (literally, distance) from the *average relationship*? Every point has a residual value.
 
@@ -251,7 +226,7 @@ knitr::include_graphics(file.path(img_path, "whitlock_17.1-2.png"))
 
 ---
 
-# Focus on the "smallest deviations" panel 
+## Focus on the "smallest deviations" panel 
 
 ```{r out.width = '800px', echo=F}
 knitr::include_graphics(file.path(img_path, "whitlock_17.1-2.png"))
@@ -266,15 +241,8 @@ knitr::include_graphics(file.path(img_path, "whitlock_17.1-2.png"))
   + 10.64(0.5) + 0.88 = 6.2
 ---
 
-# Is that a "good" model?
 
-+ How much variation in the response (`age`) does the predictor (`proportion black`) actually explain? This is $R^2$.
-+ Do we have statistical confidence in that line-of-best fit?
-+ How accurate are our predictions likely to be?
-
----
-
-# Null-hypothesis testing and P-values
+## Null-hypothesis testing and P-values
 
 + **P-values** are one of the most notoriously misunderstood concepts. They tell you: 
   + **_Assuming the null hypothesis is true, what is the probability of observing my data?_**
@@ -290,7 +258,7 @@ knitr::include_graphics(file.path(img_path, "whitlock_17.1-2.png"))
 
 ---
 
-# Null hypotheses are _set in stone_
+## Null hypotheses are _set in stone_
 
 + Each statistical test you do relies on a highly specific null hypothesis that is _always associated with that statistical test._ There is 0 creativity or wiggle-room. 
 <br><br>
@@ -302,7 +270,7 @@ knitr::include_graphics(file.path(img_path, "whitlock_17.1-2.png"))
 
 ---
 
-# Statistical significance is mental gymnastics
+## Statistical significance is mental gymnastics
 
 > Remember: P-values give the probability of observing your data/results _when assuming a TRUE null hypothesis._
 
@@ -313,7 +281,7 @@ If a P-value is not very small, we say: Gee! I think that probabilities that are
 
 ---
 
-# A common threshold for "small" is P < 0.05
+## A common threshold for "small" is P < 0.05
 
 This number is not special. It is not magic. It's an "historical accident." [See here](https://www.bmj.com/rapid-response/2011/11/03/origin-5-p-value-threshold)
 
@@ -323,7 +291,7 @@ significance..." --RA Fisher
 
 ---
 
-# Back to our "smallest deviations" lions
+## Back to our "smallest deviations" lions
 
 ```{r out.width = '800px', echo=F}
 knitr::include_graphics(file.path(img_path, "whitlock_17.1-2.png"))
@@ -338,10 +306,11 @@ $R^2$ | 0.6113 | 7.68e-08
 
 ---
 
-# Interpreting $R^2$
+## Interpreting $R^2$
 
-.small[
+.smaller[
 + The proportion black variable explains **61.13%** of the variation in lion age _in this dataset_
+  + 31.87% of variation is _unexplained_
 + For one of these lions, if I know the proportion black, I know about 61% of what there is to know about how old that lion is
 + If all residuals are 0, then $R^2 = 1$. Aka, if all points precisely are along the regression line, I know entirely what there is to know (100%) about lion age, *in the given dataset*
 <br>
@@ -353,7 +322,7 @@ $R^2$ | 0.6113 | 7.68e-08
 
 ---
 
-# Reminder:
+## Reminder:
 
 .pull-left[
 ### Hypothesis-testing ("science")
@@ -367,12 +336,11 @@ $R^2$ | 0.6113 | 7.68e-08
 .small[
 + You have _a bunch_ of data and need to figure out, which predictors should I use in my model to best explain the response?
 + Less likely you care about specific effects of individual predictors
-+ *In _this class_, we are going to learn GLMs from this _perspective._*
 ]]
 
 ---
 
-# Linear models ("regression and friends")
+## Linear models ("regression and friends")
 
 + Explain variation in a *numeric response* variable using *any type and combination of* predictors
 
@@ -386,19 +354,19 @@ _In this class, we will assume assumptions are met when performing analyses._
 
 ---
 
-# Numeric predictors must be linearly related
+## Numeric predictors must be linearly related
 
 ```{r, echo=F, warning = F, message=F, fig.width = 12, fig.height=5}
 tibble(y = 10:60) %>%
   mutate(x1 = y * runif(51, 1.25, 2), x2 = y**3) -> dat
-ggplot(dat, aes(x = x1, y=y))  +geom_point() + geom_smooth(method = "lm", se =F, size=0.5) + ggtitle("Linear relationship") + xlab("X") + ylab("Y")-> p1
-ggplot(dat, aes(x = x2, y=y))  +geom_point() + geom_smooth(method = "lm", se =F, size=0.5) + ggtitle("NOT a linear relationship")+ xlab("X") + ylab("Y")-> p2
+ggplot(dat, aes(x = x1, y=y))  +geom_point() + geom_smooth(method = "lm", se =F, size=0.5) + ggtitle("Linear relationship") + xlab("X") + ylab("Y")+theme(plot.title = element_text(size = rel(2.0)))-> p1
+ggplot(dat, aes(x = x2, y=y))  +geom_point() + geom_smooth(method = "lm", se =F, size=0.5) + ggtitle("NOT a linear relationship")+ xlab("X") + ylab("Y") + theme(plot.title = element_text(size = rel(2.0)))-> p2
 p1 + p2
 ```
 
 ---
 
-# Categorical predictors must show equal variance of *response*
+## Categorical predictors must show equal variance of *response*
 
 ```{r, echo=F, warning = F, message=F, fig.width = 12, fig.height=5}
 tibble("categorical predictor" = c(rep("category 1", 50), rep("category 2", 50), rep("category 3", 50)),
@@ -414,7 +382,7 @@ p1 + p2
 ```
 ---
 
-# Model _residuals_ are normally distributed
+## Model _residuals_ are normally distributed
 
 ```{r out.width = '900px', echo=F}
 knitr::include_graphics(file.path(img_path, "whitlock_17.1-2.png"))
@@ -422,7 +390,7 @@ knitr::include_graphics(file.path(img_path, "whitlock_17.1-2.png"))
 
 ---
 
-# Let's build a model
+## Let's build a model
 
 
 ```{r, message=F, warning=F}
@@ -434,7 +402,7 @@ penguins
 
 ---
 
-# Make it fit better on slides
+## Make it fit better on slides
 
 ```{r}
 penguins %>%
@@ -449,46 +417,49 @@ peng
 ---
   
 
-# Linear regression
+## Linear regression
 
 + To what extent does flipper length explain variation in bill length?
 
-+ How strong (if any?) is the relationship between these variables?
++ Is there a significant relationship between these variables, and if so, how strong is it?
+
+--
+
+<br><br>
 
 + Response variable: `bill_len`
 + Predictor variable: `flipper`
 
----
+--
 
-# We build linear models with the function `lm()`
+### We build linear models with the function `lm()`
 
-### `lm(response ~ predictor(s), data = name_of_dataframe)`
+**`lm(response ~ predictor(s), data = name_of_dataframe)`**
 
 ---
 
 ```{r}
-# Model with bill_len response and flipper predictor
+## Model with bill_len response and flipper predictor
 fitted_model <- lm(bill_len ~ flipper, data = peng)
 
-# Examine model output ("ugly version")
+## Examine model output ("ugly version")
 summary(fitted_model)
 ```
 
 ---
 
-# Use the `broom` and `modelr` packages to examine output
+## Use the `broom` and `modelr` packages to examine output
 
 ```{r}
 broom::tidy(fitted_model)
 
-broom::glance(fitted_model)
-
+# Won't give P-value, but if R^2 >= 0.1, it's generally significant
 modelr::rsquare(fitted_model, peng)
 ```
 
 ---
 
-# How about species as a predictor?
+## How about species as a predictor?
 
 + To what extent does species explain variation in bill length?
 + Do different species have different mean bill lengths?
@@ -498,14 +469,14 @@ modelr::rsquare(fitted_model, peng)
 ```{r}
 fitted_model_species <- lm(bill_len ~ species, data = peng)
 
-# Let's first look at R^2
+## Let's first look at R^2
 broom::glance(fitted_model_species) %>%
   select(r.squared, p.value)
 ```
 
 ---
 
-# The model coefficients are directly related to the means
+## The model coefficients are directly related to the means
 
 
 ```{r}
@@ -516,11 +487,11 @@ broom::tidy(fitted_model_species)
 ```{r}
 peng %>% 
   group_by(species) %>%
-  summarize(mean_bill_len = mean(bill_len, na.rm=T))
+  summarize(mean_bill_len = mean(bill_len, na.rm=TRUE))
 ```
 ---
 
-# Do you miss the ANOVA table? 
+## Do you miss the ANOVA table? 
 
 > Shoutout to how much you loved or will love this topic in Biometry!
 
@@ -532,9 +503,16 @@ summary(as_anova)
 ---
 
 
-# How about both?
+## How about both?
 
-#### This model *controls for variation across species.* It asks:
+```{r}
+fitted_model_both <- lm(bill_len ~ flipper + species, data = peng)
+```
+
+
+<br>
+
+### This model *controls for variation across species.* It asks:
 
 + Controlling for species, to what extent does flipper length explain variation in bill length? 
 + Is there a relationship between flipper length and bill length, when controlling for species?
@@ -542,53 +520,54 @@ summary(as_anova)
 + Controlling for flipper length, to what extent does the species explain variation in bill length? 
 + Do different species have significantly different bill lengths, when controlling for flipper length?
 
-<br>
-```{r}
-fitted_model_both <- lm(bill_len ~ flipper + species, data = peng)
-```
-
 ---
 
-# This model explains ~77.6% of variation in bill length
+## This model explains ~77.6% of variation in bill length
 
 + In this dataset, if we know the flipper length and species, we know ~77.6% of what there is to know about bill length
 + With multiple predictors, it's challenging to interpret coefficients. We're going to focus on $R^2$ in these circumstances.
 
 ```{r}
-# Just look at R^2
-broom::glance(fitted_model_both) %>%
-  select(r.squared, p.value)
+rsquare(fitted_model_both, peng)
 ```
 
 ---
 
-# Interaction effects
+## Interaction effects
 
-+ Is the bill_len/flipper relationship the same or different across species? **Look at slopes.**
+Is the bill_len/flipper relationship the same or different across species? **Look at slopes.**
 
-```{r}
+```{r, fig.width = 8, fig.height = 5}
 ggplot(peng) + 
   aes(x = flipper, y = bill_dep, color = species) + 
   geom_point() + 
-  geom_smooth(method = "lm")
+  geom_smooth(method = "lm") + 
+  theme(legend.position = "bottom")
 ```
 
 
 ---
 
-# Testing for interaction effects 
+## Testing for interaction effects 
 
 ```{r}
 fitted_model_both_int <- lm(bill_len ~ flipper * species, data = peng)
-broom::tidy(fitted_model_both_int)
+
+tidy(fitted_model_both_int)
 ```
 
 ---
 
-# Why it's so important to control for *confounding factors*
+## You MUST control for *confounding factors*
 
+```{r, include=F}
+theme_set(theme_classic() + 
+            theme(axis.title = element_text(size = rel(0.75)),
+                  axis.text = element_text(size = rel(0.75)))
+          )
+```
 .pull-left[
-```{r, fig.width = 4}
+```{r, fig.width = 5, fig.height = 5}
 ggplot(peng) + 
   aes(x = bill_len, y = bill_dep) +  #<<
   geom_point() + 
@@ -596,48 +575,318 @@ ggplot(peng) +
 ```
 ]
 .pull-right[
-```{r, fig.width = 4}
+```{r, fig.width = 5, fig.height = 5}
 ggplot(peng) + 
   aes(x = bill_len, y = bill_dep,
       color = species) +  #<<
   geom_point() + 
-  geom_smooth(method = "lm")
+  geom_smooth(method = "lm") 
 ```
 ]
 ---
 
-# Into the Machine Learning World
+## Into the Machine Learning World
 
-+ Use _statistics_ to determine optimal predictors for the **bias/variance trade-off**
-```{r out.width = '400px', echo=F}
-knitr::include_graphics(file.path(img_path, "whitlock_17.1-2.png"))
++ Need to determine optimal predictors along the **bias/variance trade-off**. There are many ways to do this.
+
+```{r out.width = '700px', echo=F}
+knitr::include_graphics(file.path(img_path, "overfit_underfit.png"))
 ```
 
 + Fit model
-+ Run diagnostics to ask how badly assumptions were violated
-+ Run diagnostics to ask how well the model performs
++ Run diagnostics to ask whether and/or how badly assumptions were violated
++ Run diagnostics to ask how well the model performs _on data it has never seen_
 
 ---
+
+## Choosing predictors with the `step()` function
+
++ This is called **model selection**: We are selecting which predictors to put into our model, using "fancy statistics."
 
 ```{r}
 peng_nona <- peng %>% drop_na() # step() gets irritated with NAs
 
-# predictor as period .  means: use all!!
+## predictor as period .  means: use all!!
 full_model <- lm(bill_len ~ ., data = peng_nona)
 
-# Use step() function to pick which predictors are worth keeping
+## Use step() function to pick which predictors are worth keeping
+## trace = FALSE means less annoying output, trust me...
 final_model <- step(full_model, trace=FALSE)
 ```
 
 ---
-```{r}
-broom::tidy(full_model) %>%
-  pull(term)
+## Let's compare the full vs. final model
 
-broom::tidy(final_model) %>%
-  pull(term)
+```{r, collapse=T}
+## Full model: All columns (except bill length) are predictors
+tidy(full_model) %>% pull(term)
 
-
-broom::glance(final_model) %>%
-  select(r.squared, p.value)
+## Quickly determine the R^2 for the model
+rsquare(full_model, peng_nona)
 ```
+
+```{r, collapse=T}
+## Final model: Predictors chosen by step()
+tidy(final_model) %>% pull(term)
+
+rsquare(final_model, peng_nona)
+```
+
+---
+
+## Gauging error in our model with RMSE
+
++ RMSE (**R**oot **M**ean **S**quare **E**rror) is the standard deviation of model residuals, in _units of the response_
+  + Model residuals represent _error_: what variation in the data is NOT captured by the model?
+  + High RMSE = high error spread. Points are generally more spread out from the line-of-best-fit
+  + Low RMSE = low error spread.  Points are generally closer to the line-of-best-fit
++ RMSE is one of many metrics used to gauge model performance, but RMSE and $R^2$ are among the most commonly-used
+
+
+```{r, collapse=T}
+## Quickly determine the RMSE for the model
+modelr::rmse(final_model, peng_nona)
+
+## Peek at bill lengths for context!
+summary(peng_nona$bill_len)
+```
+
+---
+
+## Enter: _Model evaluation_ aka _model validation_
+
++ How good is the model at explaining variation **in data it does NOT know about?**
+  + Should we even bother using our model to predict future outcomes?
+  + Can I predict the bill lengths for a whole bunch of _new_ penguins with any accuracy?
+  
+<br><br>
+
+--
+
+Industry really wants to know the answer to this. Academic science is usually less concerned (but should we be more concerned? maybe!)
+
+---
+
+## Predicting future outcomes
+
++ Recall, our final model to explain bill length has these predictors:
+  + `species`, `bill_dep`, `flipper`, `mass`, `sex`
++ I made a new penguin friend with these characteristics:
+  + Penguin is a male Chinstrap
+  + Bill depth is 18.5
+  + Flipper length is 211
+  + Mass is 5200
++ What does the model think its bill length is?
+
+--
+
+Using the `predict()` function:
+1. Make a tibble with new data. Must match original data naming/spelling!
+2. Use function as `predict(fitted model, tibble with new data)`
+---
+
+## First, make the tibble for prediction
+
+```{r}
+head(peng_nona)
+```
+
+```{r}
+new_penguin <- tibble(
+  species  = "Chinstrap",
+  sex      = "male",
+  bill_dep = 18.5, 
+  flipper  = 223,
+  mass     = 5200
+)
+new_penguin
+```
+
+---
+
+## Second, predict!
+
+```{r}
+predict(final_model, new_penguin)
+```
+
+--
+
+Recall our model's RMSE:
+```{r}
+rmse(final_model, peng_nona)
+```
+
+We expect, on average, predictions will be ~2.19 units wrong. But how wrong is _this specific_ prediction?
+
+---
+
+```{r}
+new_penguin
+```
+
+```{r}
+peng_nona %>%
+  select(species, sex, bill_dep, flipper, mass) -> peng_nona_preds
+summary(peng_nona_preds)
+```
+
+---
+
+```{r}
+peng_nona_preds %>%
+  filter(sex == "male", species == "Chinstrap") %>%
+  select(-sex, -species) -> peng_nona_preds2
+summary(peng_nona_preds2)
+```
+
+---
+
+## It is important to assess how dependent your model is on initial data
+
++ We **train** models on a given dataset
++ The properties of that **training dataset** influence how the model will perform
+  + If I build a model solely using Gentoo penguin data, the model will probably be unhelpful for studying Chinstrap penguins
+
+--
+
++ Models that work perform well on training data but perform terribly on new data are usually **overfit**
+  + Model is "overly-tailored" to training data
+  + Aka, $R^2=0.9$ on training data, but predictions are _really really WRONG_ when running model on new data
+  
+---
+
+## Performing model _validation_ (aka _evaluation_)
+
+1. Determine which predictors you will use
+  + Build model using `step()` function
+  + $R^2$ and RMSE from that model tell us: How does model perform on training data?
+<br>
+2. Run a cross-validation procedure to gauge model performance more generally
+
+--
+
+### Cross-validation with testing and training groups
++ Randomly **split** your dataset into two parts:
+  + The "training" part (usually 60-80% of the data) **builds** aka **trains** the model
+  + The "testing" part (the remaining 20-40%) evaluates aka **tests** the performance of the model
+  + If model performs terribly on testing data, suggests model was *overfit*
+  + Either way, performance is usually better on training data. **Why?**
+
+---
+
+## The full procedure to predict bill depth
+
+### Step 1: Determine which predictors your model will use
+
+You either know this information already, or you need to use model selection:
+
+```{r}
+peng_nona <- peng %>% drop_na() # reminder, step() gets irritated with NAs
+fit <- step( lm(bill_len ~ ., data = peng_nona), trace=FALSE)
+
+# Grab the model formula inside fit to tell us the predictors
+# Useful to grab this if you need to use step()
+fit_formula <- fit$call$formula
+fit_formula
+```
+
+
+---
+
+## Step 2: Divide data into testing and training
+
+```{r}
+set.seed(1) # Choose your favorite number for reproducibility
+training_size <- 0.6
+peng_nona %>%
+  # Sample random fraction of rows with this dplyr function
+  sample_frac(training_size) -> peng_training
+nrow(peng_training)
+
+peng_testing <- anti_join(peng_nona, peng_training)
+nrow(peng_testing)
+```
+
+---
+
+## Step 3: Fit model formula using the training data
+
+```{r, collapse=T}
+training_fit <- lm(fit_formula, data = peng_training) #<<
+```
+
+
+### Step 4: Ask how well _model built from training data_ performs on the _training_ AND the _testing data_
+
+```{r, collapse=T}
+# Training data: The model "has seen" this data
+rsquare(training_fit, peng_training)
+rmse(training_fit, peng_training)
+```
+
+```{r, collapse=T}
+# Testing data: The model "has never seen" this data
+rsquare(training_fit, peng_testing)
+rmse(training_fit, peng_testing)
+```
+
+---
+
+## Step 4: Draw *qualitative* conclusions
+
+
+| Data | $R^2$ | RMSE |
+|-------|-------|------|
+| Training | 0.86 | 1.96 |
+| Testing  | 0.81 | 2.522 |
+
+**The model performed pretty well on the testing data!** Our validation procedure shows the model is not overfit. Predictions are going to be pretty decent.
+
+--
+
+This would be super concerning:
+
+.small[
+.pull-left[
+| Data | $R^2$ | RMSE |
+|-------|-------|------|
+| Training | 0.86 | 1.96 |
+| Testing  | 0.54 | 22.4 |
+]
+
+.pull-right[
+```{r}
+summary(peng_nona$bill_len)
+```
+]
+]
+---
+
+
+
+## Another way: K-fold cross validation
+
++ Randomly divide the whole dataset into "K" equal chunks aka folds
++ Perform K iterations of model training and testing
+  + "Hold back" data each time for testing!
++ Get RMSE and $R^2$ for each iteration, and look at full distribution
+
+![](kfold-wiki.png)
+
+```{r out.width = '700px', echo=F}
+knitr::include_graphics(file.path(img_path, "kfold-wiki.png"))
+```
+
+---
+
+## Another way: Leave-one-out cross validation (LOOCV)
+
++ K-folds on speed: each "test" size is N=1!!
++ For small datasets, LOOCV probably "better"
+
+
+```{r out.width = '700px', echo=F}
+knitr::include_graphics(file.path(img_path, "loocv.png"))
+```
+---
