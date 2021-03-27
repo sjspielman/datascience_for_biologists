@@ -55,18 +55,13 @@ background-size: contain
 
 ---
 
-&lt;img src="img/lm//ML_super_unsuper.png" width="600px" /&gt;
+&lt;img src="img/lm//ML_super_unsuper.png" width="550px" /&gt;
 
 
 
-&lt;img src="img/lm//classif_regre.png" width="700px" /&gt;
+&lt;img src="img/lm//classif_regre.png" width="650px" /&gt;
 
 
-
-
----
-
-## Linear regression and linear models
 
 
 ---
@@ -333,19 +328,20 @@ penguins
 
 ```
 ## # A tibble: 344 x 8
-##    species island bill_length_mm bill_depth_mm flipper_length_… body_mass_g
-##    &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;            &lt;int&gt;       &lt;int&gt;
-##  1 Adelie  Torge…           39.1          18.7              181        3750
-##  2 Adelie  Torge…           39.5          17.4              186        3800
-##  3 Adelie  Torge…           40.3          18                195        3250
-##  4 Adelie  Torge…           NA            NA                 NA          NA
-##  5 Adelie  Torge…           36.7          19.3              193        3450
-##  6 Adelie  Torge…           39.3          20.6              190        3650
-##  7 Adelie  Torge…           38.9          17.8              181        3625
-##  8 Adelie  Torge…           39.2          19.6              195        4675
-##  9 Adelie  Torge…           34.1          18.1              193        3475
-## 10 Adelie  Torge…           42            20.2              190        4250
-## # … with 334 more rows, and 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
+##    species island bill_length_mm bill_depth_mm flipper_length_…
+##    &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;            &lt;int&gt;
+##  1 Adelie  Torge…           39.1          18.7              181
+##  2 Adelie  Torge…           39.5          17.4              186
+##  3 Adelie  Torge…           40.3          18                195
+##  4 Adelie  Torge…           NA            NA                 NA
+##  5 Adelie  Torge…           36.7          19.3              193
+##  6 Adelie  Torge…           39.3          20.6              190
+##  7 Adelie  Torge…           38.9          17.8              181
+##  8 Adelie  Torge…           39.2          19.6              195
+##  9 Adelie  Torge…           34.1          18.1              193
+## 10 Adelie  Torge…           42            20.2              190
+## # … with 334 more rows, and 3 more variables:
+## #   body_mass_g &lt;int&gt;, sex &lt;fct&gt;, year &lt;int&gt;
 ```
 
 ---
@@ -365,18 +361,18 @@ peng
 
 ```
 ## # A tibble: 344 x 8
-##    species island    bill_len bill_dep flipper  mass sex     year
-##    &lt;fct&gt;   &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;   &lt;int&gt; &lt;int&gt; &lt;fct&gt;  &lt;int&gt;
-##  1 Adelie  Torgersen     39.1     18.7     181  3750 male    2007
-##  2 Adelie  Torgersen     39.5     17.4     186  3800 female  2007
-##  3 Adelie  Torgersen     40.3     18       195  3250 female  2007
-##  4 Adelie  Torgersen     NA       NA        NA    NA &lt;NA&gt;    2007
-##  5 Adelie  Torgersen     36.7     19.3     193  3450 female  2007
-##  6 Adelie  Torgersen     39.3     20.6     190  3650 male    2007
-##  7 Adelie  Torgersen     38.9     17.8     181  3625 female  2007
-##  8 Adelie  Torgersen     39.2     19.6     195  4675 male    2007
-##  9 Adelie  Torgersen     34.1     18.1     193  3475 &lt;NA&gt;    2007
-## 10 Adelie  Torgersen     42       20.2     190  4250 &lt;NA&gt;    2007
+##    species island   bill_len bill_dep flipper  mass sex    year
+##    &lt;fct&gt;   &lt;fct&gt;       &lt;dbl&gt;    &lt;dbl&gt;   &lt;int&gt; &lt;int&gt; &lt;fct&gt; &lt;int&gt;
+##  1 Adelie  Torgers…     39.1     18.7     181  3750 male   2007
+##  2 Adelie  Torgers…     39.5     17.4     186  3800 fema…  2007
+##  3 Adelie  Torgers…     40.3     18       195  3250 fema…  2007
+##  4 Adelie  Torgers…     NA       NA        NA    NA &lt;NA&gt;   2007
+##  5 Adelie  Torgers…     36.7     19.3     193  3450 fema…  2007
+##  6 Adelie  Torgers…     39.3     20.6     190  3650 male   2007
+##  7 Adelie  Torgers…     38.9     17.8     181  3625 fema…  2007
+##  8 Adelie  Torgers…     39.2     19.6     195  4675 male   2007
+##  9 Adelie  Torgers…     34.1     18.1     193  3475 &lt;NA&gt;   2007
+## 10 Adelie  Torgers…     42       20.2     190  4250 &lt;NA&gt;   2007
 ## # … with 334 more rows
 ```
 
@@ -610,14 +606,14 @@ tidy(fitted_model_both_int)
 
 ```
 ## # A tibble: 6 x 5
-##   term                     estimate std.error statistic   p.value
-##   &lt;chr&gt;                       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-## 1 (Intercept)               13.6       6.05       2.25  0.0254   
-## 2 flipper                    0.133     0.0318     4.17  0.0000391
-## 3 speciesChinstrap          -7.99     10.5       -0.763 0.446    
-## 4 speciesGentoo            -34.3       9.82      -3.50  0.000537 
-## 5 flipper:speciesChinstrap   0.0881    0.0540     1.63  0.104    
-## 6 flipper:speciesGentoo      0.182     0.0478     3.80  0.000171
+##   term                    estimate std.error statistic  p.value
+##   &lt;chr&gt;                      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+## 1 (Intercept)              13.6       6.05       2.25   2.54e-2
+## 2 flipper                   0.133     0.0318     4.17   3.91e-5
+## 3 speciesChinstrap         -7.99     10.5       -0.763  4.46e-1
+## 4 speciesGentoo           -34.3       9.82      -3.50   5.37e-4
+## 5 flipper:speciesChinstr…   0.0881    0.0540     1.63   1.04e-1
+## 6 flipper:speciesGentoo     0.182     0.0478     3.80   1.71e-4
 ```
 
 ---
@@ -685,9 +681,10 @@ final_model &lt;- step(full_model, trace=FALSE)
 ```r
 ## Full model: All columns (except bill length) are predictors
 tidy(full_model) %&gt;% pull(term)
-##  [1] "(Intercept)"      "speciesChinstrap" "speciesGentoo"    "islandDream"     
-##  [5] "islandTorgersen"  "bill_dep"         "flipper"          "mass"            
-##  [9] "sexmale"          "year"
+##  [1] "(Intercept)"      "speciesChinstrap" "speciesGentoo"   
+##  [4] "islandDream"      "islandTorgersen"  "bill_dep"        
+##  [7] "flipper"          "mass"             "sexmale"         
+## [10] "year"
 
 ## Quickly determine the R^2 for the model
 rsquare(full_model, peng_nona)
@@ -698,8 +695,9 @@ rsquare(full_model, peng_nona)
 ```r
 ## Final model: Predictors chosen by step()
 tidy(final_model) %&gt;% pull(term)
-## [1] "(Intercept)"      "speciesChinstrap" "speciesGentoo"    "bill_dep"        
-## [5] "flipper"          "mass"             "sexmale"
+## [1] "(Intercept)"      "speciesChinstrap" "speciesGentoo"   
+## [4] "bill_dep"         "flipper"          "mass"            
+## [7] "sexmale"
 
 rsquare(final_model, peng_nona)
 ## [1] 0.8385834
@@ -771,14 +769,14 @@ head(peng_nona)
 
 ```
 ## # A tibble: 6 x 8
-##   species island    bill_len bill_dep flipper  mass sex     year
-##   &lt;fct&gt;   &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;   &lt;int&gt; &lt;int&gt; &lt;fct&gt;  &lt;int&gt;
-## 1 Adelie  Torgersen     39.1     18.7     181  3750 male    2007
-## 2 Adelie  Torgersen     39.5     17.4     186  3800 female  2007
-## 3 Adelie  Torgersen     40.3     18       195  3250 female  2007
-## 4 Adelie  Torgersen     36.7     19.3     193  3450 female  2007
-## 5 Adelie  Torgersen     39.3     20.6     190  3650 male    2007
-## 6 Adelie  Torgersen     38.9     17.8     181  3625 female  2007
+##   species island    bill_len bill_dep flipper  mass sex    year
+##   &lt;fct&gt;   &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;   &lt;int&gt; &lt;int&gt; &lt;fct&gt; &lt;int&gt;
+## 1 Adelie  Torgersen     39.1     18.7     181  3750 male   2007
+## 2 Adelie  Torgersen     39.5     17.4     186  3800 fema…  2007
+## 3 Adelie  Torgersen     40.3     18       195  3250 fema…  2007
+## 4 Adelie  Torgersen     36.7     19.3     193  3450 fema…  2007
+## 5 Adelie  Torgersen     39.3     20.6     190  3650 male   2007
+## 6 Adelie  Torgersen     38.9     17.8     181  3625 fema…  2007
 ```
 
 
@@ -850,13 +848,20 @@ summary(peng_nona_preds)
 ```
 
 ```
-##       species        sex         bill_dep        flipper         mass     
-##  Adelie   :146   female:165   Min.   :13.10   Min.   :172   Min.   :2700  
-##  Chinstrap: 68   male  :168   1st Qu.:15.60   1st Qu.:190   1st Qu.:3550  
-##  Gentoo   :119                Median :17.30   Median :197   Median :4050  
-##                               Mean   :17.16   Mean   :201   Mean   :4207  
-##                               3rd Qu.:18.70   3rd Qu.:213   3rd Qu.:4775  
-##                               Max.   :21.50   Max.   :231   Max.   :6300
+##       species        sex         bill_dep        flipper   
+##  Adelie   :146   female:165   Min.   :13.10   Min.   :172  
+##  Chinstrap: 68   male  :168   1st Qu.:15.60   1st Qu.:190  
+##  Gentoo   :119                Median :17.30   Median :197  
+##                               Mean   :17.16   Mean   :201  
+##                               3rd Qu.:18.70   3rd Qu.:213  
+##                               Max.   :21.50   Max.   :231  
+##       mass     
+##  Min.   :2700  
+##  1st Qu.:3550  
+##  Median :4050  
+##  Mean   :4207  
+##  3rd Qu.:4775  
+##  Max.   :6300
 ```
 
 ---
@@ -1040,7 +1045,6 @@ summary(peng_nona$bill_len)
   + "Hold back" data each time for testing!
 + Get RMSE and `\(R^2\)` for each iteration, and look at full distribution
 
-![](kfold-wiki.png)
 
 &lt;img src="img/lm//kfold-wiki.png" width="700px" /&gt;
 

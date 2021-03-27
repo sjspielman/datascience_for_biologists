@@ -74,22 +74,17 @@ knitr::include_graphics(file.path(img_path, "ml_ai_dl.png"))
 
 ---
 
-```{r out.width = '600px', echo=F}
+```{r out.width = '550px', echo=F}
 knitr::include_graphics(file.path(img_path,"ML_super_unsuper.png")) 
 ```
 
 
 
-```{r out.width = '700px', echo=F}
+```{r out.width = '650px', echo=F}
 knitr::include_graphics(file.path(img_path,"classif_regre.png"))
 ```
 
 
-
-
----
-
-## Linear regression and linear models
 
 
 ---
@@ -872,7 +867,6 @@ summary(peng_nona$bill_len)
   + "Hold back" data each time for testing!
 + Get RMSE and $R^2$ for each iteration, and look at full distribution
 
-![](kfold-wiki.png)
 
 ```{r out.width = '700px', echo=F}
 knitr::include_graphics(file.path(img_path, "kfold-wiki.png"))
