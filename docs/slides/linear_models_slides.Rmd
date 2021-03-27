@@ -23,7 +23,7 @@ library(modelr)
 library(cowplot)
 library(patchwork)
 library(colorblindr)
-img_path <- "img/lm/"
+img_path <- "img/lm_logit/"
 
 theme_set(theme_classic() + theme(axis.text = element_text(size = rel(1.75)),
                                axis.title = element_text(size = rel(1.75)),
