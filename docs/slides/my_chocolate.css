@@ -38,7 +38,7 @@ a, a > code {
 }
 
 /* Code block code */
-.hljs .remark-code-line { font-size: 1.2em;}
+.hljs .remark-code-line { font-size: 1.05em;}    //1.2em;}
 
 /* Code Chunk Highlight */
 .remark-code-line-highlighted { background-color: rgba(255,255,136, 0.4);}//255, 255, 179);} //, 0.1);}
@@ -66,6 +66,7 @@ a, a > code {
   background-image: url("https://liao961120.github.io/slides/img/bg/coffee-blur.jpg");
   background-position: center; 
   background-size: cover;
+  color:white;
 }
 
 

@@ -32,23 +32,29 @@ theme_set(theme_classic() + theme(axis.text = element_text(size = rel(1.75)),
 
 
 class: title-slide
-<!-- background-image: url(slide_background_images/rhino_jawn.png) 
-background-size: contain-->
+background-image: url(slide_background_images/hawaii.jpg) 
+background-size: contain
+
+# Stesh went to Hawaii!
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+**This is a picture taken on my vacation in 2017 to Hawaii. This picture was taken on the main island of Oahu at Kualoa Ranch. This valley has been filmed in many movies including Jurassic Park, Jurassic World, Jumanji, King Kong, and Godzilla to name a few.**
+
+
+---
 
 .bg-text[
 # Introduction to linear models
 ## Data Science for Biologists
 
 <hr />
-<br><br>
-**TBD**
+**Dr. Spielman**
 ]
 
 ---
 
 # CAVEAT: This is not a statistics class
 
-### We will learn _to perform analyses and interpret results_  using a few common modeling approaches.
+### We will learn _to perform analyses and interpret results_  using a few common modeling approaches used in data science industry
 
 ### We will NOT be diving into the technical derivations or gnarly innards of the statistics of these models
 
@@ -57,6 +63,27 @@ background-size: contain-->
 ---
 
 # Machine Learning and AI
+
+
+
+```{r out.width = '500px', echo=F}
+knitr::include_graphics(file.path(img_path, "ml_ai_dl.png"))
+```
+
+---
+
+```{r out.width = '600px', echo=F}
+knitr::include_graphics(file.path(img_path,"ML_super_unsuper.png")) 
+```
+
+
+
+```{r out.width = '700px', echo=F}
+knitr::include_graphics(file.path(img_path,"classif_regre.png"))
+```
+
+
+
 
 ---
 
@@ -354,25 +381,263 @@ $R^2$ | 0.6113 | 7.68e-08
   + The values of the response variable have equal variance across categories of any categorical predictor
   + The *residuals* of the model are normally distributed. There is NO REQUIREMENT for the data itself to follow a normal distribution
   + Predictors should be independent of one another
----
 
+_In this class, we will assume assumptions are met when performing analyses._
 
 ---
 
 # Numeric predictors must be linearly related
 
+```{r, echo=F, warning = F, message=F, fig.width = 12, fig.height=5}
+tibble(y = 10:60) %>%
+  mutate(x1 = y * runif(51, 1.25, 2), x2 = y**3) -> dat
+ggplot(dat, aes(x = x1, y=y))  +geom_point() + geom_smooth(method = "lm", se =F, size=0.5) + ggtitle("Linear relationship") + xlab("X") + ylab("Y")-> p1
+ggplot(dat, aes(x = x2, y=y))  +geom_point() + geom_smooth(method = "lm", se =F, size=0.5) + ggtitle("NOT a linear relationship")+ xlab("X") + ylab("Y")-> p2
+p1 + p2
+```
 
 ---
 
 # Categorical predictors must show equal variance of *response*
 
+```{r, echo=F, warning = F, message=F, fig.width = 12, fig.height=5}
+tibble("categorical predictor" = c(rep("category 1", 50), rep("category 2", 50), rep("category 3", 50)),
+       "response values" = c(rnorm(50, 10, 2), rnorm(50, 20, 2), rnorm(50, 5, 2))) %>%
+  ggplot(aes(x = `categorical predictor`, y = `response values`, color = `categorical predictor`)) +  geom_jitter(size=2, width = 0.1) + theme(legend.position = "none", plot.title = element_text(size = rel(2.0))) + ggtitle("Equal variance across groups :)") -> p1
 
+
+tibble("categorical predictor" = c(rep("category 1", 50), rep("category 2", 50), rep("category 3", 50)),
+       "response values" = c(rnorm(50, 10, 2), rnorm(50, 20, 7), rnorm(50, 5, 0.2))) %>%
+  ggplot(aes(x = `categorical predictor`, y = `response values`, color = `categorical predictor`)) +  geom_jitter(size=2, width = 0.1) + theme(legend.position = "none", plot.title = element_text(size = rel(2.0))) + ggtitle("UNEQUAL variance across groups :(") -> p2
+
+p1 + p2
+```
 ---
 
 # Model _residuals_ are normally distributed
 
-```{r out.width = '800px', echo=F}
+```{r out.width = '900px', echo=F}
 knitr::include_graphics(file.path(img_path, "whitlock_17.1-2.png"))
 ```
 
 ---
+
+# Let's build a model
+
+
+```{r, message=F, warning=F}
+library(palmerpenguins) # to access penguins dataset
+
+penguins 
+
+```
+
+---
+
+# Make it fit better on slides
+
+```{r}
+penguins %>%
+  rename(bill_len = bill_length_mm,
+         bill_dep = bill_depth_mm,
+         flipper = flipper_length_mm,
+         mass    = body_mass_g) -> peng
+
+peng
+```
+
+---
+  
+
+# Linear regression
+
++ To what extent does flipper length explain variation in bill length?
+
++ How strong (if any?) is the relationship between these variables?
+
++ Response variable: `bill_len`
++ Predictor variable: `flipper`
+
+---
+
+# We build linear models with the function `lm()`
+
+### `lm(response ~ predictor(s), data = name_of_dataframe)`
+
+---
+
+```{r}
+# Model with bill_len response and flipper predictor
+fitted_model <- lm(bill_len ~ flipper, data = peng)
+
+# Examine model output ("ugly version")
+summary(fitted_model)
+```
+
+---
+
+# Use the `broom` and `modelr` packages to examine output
+
+```{r}
+broom::tidy(fitted_model)
+
+broom::glance(fitted_model)
+
+modelr::rsquare(fitted_model, peng)
+```
+
+---
+
+# How about species as a predictor?
+
++ To what extent does species explain variation in bill length?
++ Do different species have different mean bill lengths?
+
+--
+
+```{r}
+fitted_model_species <- lm(bill_len ~ species, data = peng)
+
+# Let's first look at R^2
+broom::glance(fitted_model_species) %>%
+  select(r.squared, p.value)
+```
+
+---
+
+# The model coefficients are directly related to the means
+
+
+```{r}
+broom::tidy(fitted_model_species)
+```
+
+
+```{r}
+peng %>% 
+  group_by(species) %>%
+  summarize(mean_bill_len = mean(bill_len, na.rm=T))
+```
+---
+
+# Do you miss the ANOVA table? 
+
+> Shoutout to how much you loved or will love this topic in Biometry!
+
+```{r}
+as_anova <- aov(fitted_model_species)
+summary(as_anova)
+```
+
+---
+
+
+# How about both?
+
+#### This model *controls for variation across species.* It asks:
+
++ Controlling for species, to what extent does flipper length explain variation in bill length? 
++ Is there a relationship between flipper length and bill length, when controlling for species?
+<br><br>
++ Controlling for flipper length, to what extent does the species explain variation in bill length? 
++ Do different species have significantly different bill lengths, when controlling for flipper length?
+
+<br>
+```{r}
+fitted_model_both <- lm(bill_len ~ flipper + species, data = peng)
+```
+
+---
+
+# This model explains ~77.6% of variation in bill length
+
++ In this dataset, if we know the flipper length and species, we know ~77.6% of what there is to know about bill length
++ With multiple predictors, it's challenging to interpret coefficients. We're going to focus on $R^2$ in these circumstances.
+
+```{r}
+# Just look at R^2
+broom::glance(fitted_model_both) %>%
+  select(r.squared, p.value)
+```
+
+---
+
+# Interaction effects
+
++ Is the bill_len/flipper relationship the same or different across species? **Look at slopes.**
+
+```{r}
+ggplot(peng) + 
+  aes(x = flipper, y = bill_dep, color = species) + 
+  geom_point() + 
+  geom_smooth(method = "lm")
+```
+
+
+---
+
+# Testing for interaction effects 
+
+```{r}
+fitted_model_both_int <- lm(bill_len ~ flipper * species, data = peng)
+broom::tidy(fitted_model_both_int)
+```
+
+---
+
+# Why it's so important to control for *confounding factors*
+
+.pull-left[
+```{r, fig.width = 4}
+ggplot(peng) + 
+  aes(x = bill_len, y = bill_dep) +  #<<
+  geom_point() + 
+  geom_smooth(method = "lm")
+```
+]
+.pull-right[
+```{r, fig.width = 4}
+ggplot(peng) + 
+  aes(x = bill_len, y = bill_dep,
+      color = species) +  #<<
+  geom_point() + 
+  geom_smooth(method = "lm")
+```
+]
+---
+
+# Into the Machine Learning World
+
++ Use _statistics_ to determine optimal predictors for the **bias/variance trade-off**
+```{r out.width = '400px', echo=F}
+knitr::include_graphics(file.path(img_path, "whitlock_17.1-2.png"))
+```
+
++ Fit model
++ Run diagnostics to ask how badly assumptions were violated
++ Run diagnostics to ask how well the model performs
+
+---
+
+```{r}
+peng_nona <- peng %>% drop_na() # step() gets irritated with NAs
+
+# predictor as period .  means: use all!!
+full_model <- lm(bill_len ~ ., data = peng_nona)
+
+# Use step() function to pick which predictors are worth keeping
+final_model <- step(full_model, trace=FALSE)
+```
+
+---
+```{r}
+broom::tidy(full_model) %>%
+  pull(term)
+
+broom::tidy(final_model) %>%
+  pull(term)
+
+
+broom::glance(final_model) %>%
+  select(r.squared, p.value)
+```
