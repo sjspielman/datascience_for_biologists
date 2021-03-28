@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>logit_slides.utf8</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/chocolate-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my_chocolate.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+
+class: title-slide
+background-image: url(slide_background_images/pups.jpg) 
+background-size: contain
+
+# Jake's pups!
+
+---
+background-image: url(slide_background_images/flower.jpg) 
+background-size: contain
+
+# Lalita's photography!
+
+---
+
+
+.bg-text[
+## Logistic regression
+## Data Science for Biologists
+
+&lt;hr /&gt;
+**Dr. Spielman**
+]
+
+---
+## Make it fit better on slides
+
+
+```r
+penguins %&gt;%
+  rename(bill_len = bill_length_mm,
+         bill_dep = bill_depth_mm,
+         flipper = flipper_length_mm,
+         mass    = body_mass_g) -&gt; peng
+
+peng
+```
+
+```
+## # A tibble: 344 x 8
+##    species island    bill_len bill_dep flipper  mass sex     year
+##    &lt;fct&gt;   &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;   &lt;int&gt; &lt;int&gt; &lt;fct&gt;  &lt;int&gt;
+##  1 Adelie  Torgersen     39.1     18.7     181  3750 male    2007
+##  2 Adelie  Torgersen     39.5     17.4     186  3800 female  2007
+##  3 Adelie  Torgersen     40.3     18       195  3250 female  2007
+##  4 Adelie  Torgersen     NA       NA        NA    NA &lt;NA&gt;    2007
+##  5 Adelie  Torgersen     36.7     19.3     193  3450 female  2007
+##  6 Adelie  Torgersen     39.3     20.6     190  3650 male    2007
+##  7 Adelie  Torgersen     38.9     17.8     181  3625 female  2007
+##  8 Adelie  Torgersen     39.2     19.6     195  4675 male    2007
+##  9 Adelie  Torgersen     34.1     18.1     193  3475 &lt;NA&gt;    2007
+## 10 Adelie  Torgersen     42       20.2     190  4250 &lt;NA&gt;    2007
+## # … with 334 more rows
+```
+
+---
+  
+
+## Linear regression vs. logistic regression
+
++ Linear regression: How much do these (linearly-related) predictors explain variation in my *numeric* response variable?
+  
+
++ Logistic regression: How well do these predictors explain variation in my *categorical __binary__* response variable?
+  + E.g. predicting Species in the iris dataset would be a categorical predictor, but NOT binary
+  + Type of classifier
+
+---
+
+
+## Where are we in the "machine learning" universe?
+
+
++ Machine learning = the computer learns through experience
+ + More data = more experience! *Training models on data IS machine learning*
+ + Ignore the AI hype.
+
+
+.pull-left[
+&lt;img src="img/lm_logit//ML_super_unsuper.png" width="500px" /&gt;
+]
+
+.pull-right[
+&lt;img src="img/lm_logit//classif_regre.png" width="500px" /&gt;
+]
+
+---
+## Logistic regression
+  
+  
+&lt;img src="img/lm_logit//logit_transform_fromlinear.png" width="400px" /&gt;
+
++ Linear regression: `\(Y =  \beta_0 + \beta_1X_1 + \beta_2X_2 + \beta_3X_3 ... + \beta_NX_N + \epsilon\)`
+
+--
+
++ Logistic regression *transforms the predictors* 
+  + `\(t =  \beta_0 + \beta_1X_1 + \beta_2X_2 + \beta_3X_3 ... + \beta_NX_N + \epsilon\)`
+  + `\(Y = \frac{1}{1 + e^{-t}}\)` (or, `\(p = ...\)` in image)
+
+---
+
+```r
+library(palmerpenguins) # to access penguins dataset
+
+## Make it fit better on slides
+penguins%&gt;%
+  rename(bill_len = bill_length_mm,
+         bill_dep = bill_depth_mm,
+         flipper = flipper_length_mm,
+         mass    = body_mass_g) %&gt;%
+  # appease the step() function gods
+  drop_na()-&gt; peng_nona
+
+peng_nona
+```
+
+```
+## # A tibble: 333 x 8
+##    species island    bill_len bill_dep flipper  mass sex     year
+##    &lt;fct&gt;   &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;   &lt;int&gt; &lt;int&gt; &lt;fct&gt;  &lt;int&gt;
+##  1 Adelie  Torgersen     39.1     18.7     181  3750 male    2007
+##  2 Adelie  Torgersen     39.5     17.4     186  3800 female  2007
+##  3 Adelie  Torgersen     40.3     18       195  3250 female  2007
+##  4 Adelie  Torgersen     36.7     19.3     193  3450 female  2007
+##  5 Adelie  Torgersen     39.3     20.6     190  3650 male    2007
+##  6 Adelie  Torgersen     38.9     17.8     181  3625 female  2007
+##  7 Adelie  Torgersen     39.2     19.6     195  4675 male    2007
+##  8 Adelie  Torgersen     41.1     17.6     182  3200 female  2007
+##  9 Adelie  Torgersen     38.6     21.2     191  3800 male    2007
+## 10 Adelie  Torgersen     34.6     21.1     198  4400 male    2007
+## # … with 323 more rows
+```
+
+---
+
+## Goal: Can we predict a penguin's sex?
+
+
+```r
+## Sex is a binary variable in the penguins data:
+levels(peng_nona$sex)
+```
+
+```
+## [1] "female" "male"
+```
+
+--
+
+
+### Step 1: Prepare the data
+
+
+```r
+## To appease the R gods, and make your life easier, ...
+## re-code the response as arbitrary success = 1, failure = 0. 
+peng_nona %&gt;%
+  # change `sex` to be 0, 1
+  mutate(sex = if_else(sex == "female", 1, 0)) -&gt; peng_nona_sex01
+
+peng_nona_sex01
+```
+
+```
+## # A tibble: 333 x 8
+##    species island    bill_len bill_dep flipper  mass   sex  year
+##    &lt;fct&gt;   &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;   &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;int&gt;
+##  1 Adelie  Torgersen     39.1     18.7     181  3750     0  2007
+##  2 Adelie  Torgersen     39.5     17.4     186  3800     1  2007
+##  3 Adelie  Torgersen     40.3     18       195  3250     1  2007
+##  4 Adelie  Torgersen     36.7     19.3     193  3450     1  2007
+##  5 Adelie  Torgersen     39.3     20.6     190  3650     0  2007
+##  6 Adelie  Torgersen     38.9     17.8     181  3625     1  2007
+##  7 Adelie  Torgersen     39.2     19.6     195  4675     0  2007
+##  8 Adelie  Torgersen     41.1     17.6     182  3200     1  2007
+##  9 Adelie  Torgersen     38.6     21.2     191  3800     0  2007
+## 10 Adelie  Torgersen     34.6     21.1     198  4400     0  2007
+## # … with 323 more rows
+```
+
+---
+## Step 2: Build the model
+
+**`glm(response ~ predictors, data = data, family = "binomial")`**
+
++ Use function `glm()`
++ Include argument `family = "binomial"`
++ Everything else is the same!
+
+
+```r
+## Use model selection to identify optimal predictors
+initial_fit &lt;- glm(sex ~ ., data = peng_nona_sex01, family = "binomial")
+fit &lt;- step(initial_fit, trace = FALSE) 
+```
+
+---
+
+## Interpreting the logistic regression coefficients
+
+&gt; Proip: Don't.
+
+
+```r
+tidy(fit)
+```
+
+```
+## # A tibble: 6 x 5
+##   term             estimate std.error statistic  p.value
+##   &lt;chr&gt;               &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+## 1 (Intercept)      76.1       9.80         7.76 8.34e-15
+## 2 speciesChinstrap  6.90      1.56         4.43 9.56e- 6
+## 3 speciesGentoo     7.88      2.25         3.50 4.62e- 4
+## 4 bill_len         -0.620     0.131       -4.74 2.11e- 6
+## 5 bill_dep         -1.64      0.331       -4.97 6.69e- 7
+## 6 mass             -0.00596   0.00106     -5.62 1.88e- 8
+```
+
++ For every unit increase in the predictor, the **log odds of success** of the response increases by the coefficient
+ + `\(Pr(success)\)` = probability of being *female* for a given set of observations (predictors)
+ + `\(Pr(failure)\)` = probability of being *male* for a given set of observations 
+ + **Log odds = `\(ln\bigg(\frac{Pr(success)}{Pr(failure)}\bigg)\)`**
+
+
+---
+
+## Visualizing the fitted logistic curve ("the model")
+
+&lt;img src="img/lm_logit//logit_transform_fromlinear.png" width="600px" /&gt;
+
+---
+
+```r
+## USING head() to make it fit on slides!!
+
+## YOUR X-AXIS !!
+## What would have been your Y-values if this were regression
+*head(fit$linear.predictors)
+```
+
+```
+##          1          2          3          4          5          6 
+## -1.2431192  0.3474612  2.1441466  1.0474121 -3.8938334  1.1053579
+```
+
+```r
+## YOUR Y-AXIS !!
+## The logit transformed - PROBABILITIES OF SUCCESS
+*head(fit$fitted.values)
+```
+
+```
+##          1          2          3          4          5          6 
+## 0.22389350 0.58600180 0.89512053 0.74027765 0.01996058 0.75126267
+```
+
+--
+
++ `\(t =  \beta_0 + \beta_1X_1 + \beta_2X_2 + \beta_3X_3 ... + \beta_NX_N + \epsilon\)`
++ `\(Y = \frac{1}{1 + e^{-t}}\)` 
+
+--
+
+
+```r
+1/(1 + exp(-1 * fit$linear.predictors)) %&gt;% head()
+```
+
+```
+##          1          2          3          4          5          6 
+## 0.22389350 0.58600180 0.89512053 0.74027765 0.01996058 0.75126267
+```
+
+---
+
+
+## Visualizing the model: Prepare the data
+
+
+```r
+tibble(x = fit$linear.predictors, 
+       y = fit$fitted.values, 
+       sex = peng_nona$sex) -&gt; fit_tibble
+
+fit_tibble
+```
+
+```
+## # A tibble: 333 x 3
+##         x        y sex   
+##     &lt;dbl&gt;    &lt;dbl&gt; &lt;fct&gt; 
+##  1 -1.24  0.224    male  
+##  2  0.347 0.586    female
+##  3  2.14  0.895    female
+##  4  1.05  0.740    female
+##  5 -3.89  0.0200   male  
+##  6  1.11  0.751    female
+##  7 -8.30  0.000249 male  
+##  8  2.60  0.931    female
+##  9 -5.34  0.00477  male  
+## 10 -6.27  0.00188  male  
+## # … with 323 more rows
+```
+
+---
+
+## Visualizing the model
+
+.pull-left[
+
+```r
+head(fit_tibble)
+```
+
+```
+## # A tibble: 6 x 3
+##        x      y sex   
+##    &lt;dbl&gt;  &lt;dbl&gt; &lt;fct&gt; 
+## 1 -1.24  0.224  male  
+## 2  0.347 0.586  female
+## 3  2.14  0.895  female
+## 4  1.05  0.740  female
+## 5 -3.89  0.0200 male  
+## 6  1.11  0.751  female
+```
+]
+
+.pull-right[
+
+```r
+ggplot(fit_tibble, aes(x = x, y = y)) + 
+ geom_line() +
+ theme(legend.position = "bottom")
+```
+
+![](logit_slides_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+]
+---
+
+## Visualizing the model _fully_
+
+
+
+
+```r
+ggplot(fit_tibble, aes(x = x, y = y)) +
+ geom_line() +
+*geom_point(aes(color = sex), alpha = 0.4) +
+ scale_color_brewer(palette = "Set1") +
+ theme(legend.position = "bottom") + 
+  labs(x = "Linear predictors",
+       y = "Probability the penguin is female")
+```
+
+![](logit_slides_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
+
+---
+
+## Confusion matrix time
+
+&lt;img src="img/lm_logit//confusionmatrix.jpeg" width="350px" /&gt;
+
++ **First ask:** is the result positive or negative? 
+  + "Successes" are positive and "failures" are negative.
+
++ **Then ask:** should we have gotten that result though? 
+  + If yes, *TRUE*. If not, *FALSE*.
+
+---
+
+## What is it?
+
+
+A new arthritis drug does help pain clinical trials, even though it actually does reduce arthritis pain.
+
+--
+
+A person with HIV receives a positive test result for HIV.
+
+--
+
+A person using illegal performing enhancing drugs passes a test clearing them of drug use.
+
+--
+
+A study found a significant relationship between neck strain and jogging, when reality there is no relationship.
+
+--
+
+A healthy individual gets a positive cancer biopsy result.
+
+
+---
+
+
+## Classification metrics (an abbreviated set)
+
+.pull-right2[
+&lt;img src="img/lm_logit//confusionmatrix.jpeg" width="200px" /&gt;
+]
+
++ True positive rate: `\(TPR = TP/P = \frac{TP}{TP + FN}\)`
+  + AKA *sensitivity* AKA *recall*
+
+--
+
+
+
++ True negative rate: `\(TNR = TN/N = \frac{TN}{FP + TN}\)`
+  + AKA *specificity*
+
+--
+
+
+
++ False positive rate: `\(FPR = FP/N = \frac{FP}{FP + TN}\)`
+  + AKA *1 - specificity*
+
+--
+
+
+
++ Precision: `\(PPV = \frac{TP}{TP + FP}\)`
+  + AKA *positive predictive value*
+
+--
+
+
++ Accuracy: `\(\frac{TP + TN}{TP + TN + FP + FN}\)`
+
+---
+
+## Recall our model:
+
+
+```r
+## Recall:
+peng_nona %&gt;%
+  mutate(sex = if_else(sex == "female", 1, 0)) -&gt; peng_nona_sex01
+initial_fit &lt;- glm(sex ~ ., data = peng_nona_sex01, family = "binomial")
+fit &lt;- step(initial_fit, trace = FALSE) 
+
+tibble(x = fit$linear.predictors, 
+       y = fit$fitted.values, 
+       sex = peng_nona$sex) -&gt; fit_tibble
+
+head(fit_tibble)
+```
+
+```
+## # A tibble: 6 x 3
+##        x      y sex   
+##    &lt;dbl&gt;  &lt;dbl&gt; &lt;fct&gt; 
+## 1 -1.24  0.224  male  
+## 2  0.347 0.586  female
+## 3  2.14  0.895  female
+## 4  1.05  0.740  female
+## 5 -3.89  0.0200 male  
+## 6  1.11  0.751  female
+```
+
+---
+
+## Caculating performance measures
+
++ Requires a *threshold* to call female/male model outcomes. 
++ For an example, let's say &gt;=0.75 is female (arbitrary "success"). &lt;0.75 is male (arbitrary "failure")
++ Accuracy: `\(\frac{TP + TN}{TP + TN + FP + FN}\)`
+
+
+```r
+threshold &lt;- 0.75
+fit_tibble %&gt;% 
+* rename(truth = sex) %&gt;%
+  mutate(pred = if_else(y &gt;= threshold, "female", "male")) 
+```
+
+```
+## # A tibble: 333 x 4
+##         x        y truth  pred  
+##     &lt;dbl&gt;    &lt;dbl&gt; &lt;fct&gt;  &lt;chr&gt; 
+##  1 -1.24  0.224    male   male  
+##  2  0.347 0.586    female male  
+##  3  2.14  0.895    female female
+##  4  1.05  0.740    female male  
+##  5 -3.89  0.0200   male   male  
+##  6  1.11  0.751    female female
+##  7 -8.30  0.000249 male   male  
+##  8  2.60  0.931    female female
+##  9 -5.34  0.00477  male   male  
+## 10 -6.27  0.00188  male   male  
+## # … with 323 more rows
+```
+
+
+---
+
+## Detour: let's learn about `case_when()`
+
+What if we want to do `if_else()` but with more than two options?
+
+.pull-left[
+
+```r
+tibble(grades = 
+         c(95, 88, 83, 91, 79, 72, 87))
+```
+
+```
+## # A tibble: 7 x 1
+##   grades
+##    &lt;dbl&gt;
+## 1     95
+## 2     88
+## 3     83
+## 4     91
+## 5     79
+## 6     72
+## 7     87
+```
+]
+
+.pull-right[
+
++ `&gt;90` is "A"
++ `&gt;=80 &amp; &lt; 90` is "B"
++ `&gt;=70 &amp; &lt; 80` is "C"
++ `&gt;=60 &amp; &lt; 70` is "D"
++ Rest is "F"
+
+]
+---
+
++ `&gt;90` is "A"
++ `&gt;=80 &amp; &lt; 90` is "B"
++ `&gt;=70 &amp; &lt; 80` is "C"
++ `&gt;=60 &amp; &lt; 70` is "D"
++ Rest is "F"
+
+
+```r
+tibble(grades = c(95, 88, 83, 91, 79, 72, 87)) %&gt;%
+* mutate(letter_grade = case_when(grades &gt; 90 ~ "A",
+*                                 grades &gt;=80 &amp; grades &lt; 90 ~ "B",
+*                                 grades &gt;=70 &amp; grades &lt; 80 ~ "C",
+*                                 grades &gt;=60 &amp; grades &lt; 70 ~ "D",
+*                                 TRUE ~ "F")
+         ) # close mutate() parentheses
+```
+
+```
+## # A tibble: 7 x 2
+##   grades letter_grade
+##    &lt;dbl&gt; &lt;chr&gt;       
+## 1     95 A           
+## 2     88 B           
+## 3     83 B           
+## 4     91 A           
+## 5     79 C           
+## 6     72 C           
+## 7     87 B
+```
+
+---
+
+
+
+```r
+threshold &lt;- 0.75
+fit_tibble %&gt;% 
+  rename(truth = sex) %&gt;% 
+  mutate(pred = if_else(y &gt;= threshold, "female", "male")) %&gt;%
+  mutate(classif = case_when(truth == "female" &amp; pred == "female" ~ "TP", 
+                             truth == "female" &amp; pred == "male" ~ "FN",
+                             truth == "male"    &amp; pred == "female" ~ "TN",
+                             truth == "male"    &amp; pred == "male" ~ "FP")) -&gt; confusion
+
+confusion
+```
+
+```
+## # A tibble: 333 x 5
+##         x        y truth  pred   classif
+##     &lt;dbl&gt;    &lt;dbl&gt; &lt;fct&gt;  &lt;chr&gt;  &lt;chr&gt;  
+##  1 -1.24  0.224    male   male   FP     
+##  2  0.347 0.586    female male   FN     
+##  3  2.14  0.895    female female TP     
+##  4  1.05  0.740    female male   FN     
+##  5 -3.89  0.0200   male   male   FP     
+##  6  1.11  0.751    female female TP     
+##  7 -8.30  0.000249 male   male   FP     
+##  8  2.60  0.931    female female TP     
+##  9 -5.34  0.00477  male   male   FP     
+## 10 -6.27  0.00188  male   male   FP     
+## # … with 323 more rows
+```
+
+---
+
+
+
+```r
+confusion %&gt;%
+  # how many in each classif category?
+  count(classif) 
+```
+
+```
+## # A tibble: 4 x 2
+##   classif     n
+##   &lt;chr&gt;   &lt;int&gt;
+## 1 FN         23
+## 2 FP        164
+## 3 TN          4
+## 4 TP        142
+```
+
+--
+
+&lt;br&gt;
+
+`\(Accuracy = \frac{TP + TN}{TP + TN + FP + FN}\)`
+
+&lt;br&gt;
+
+
+```r
+## No code, no answer:
+(142 + 4) / (142 + 4 + 164 + 23)
+```
+
+```
+## [1] 0.4384384
+```
+
+
+
+---
+
+
+```r
+confusion %&gt;%
+  count(classif) %&gt;%
+* pivot_wider(names_from = classif, values_from = n)
+```
+
+```
+## # A tibble: 1 x 4
+##      FN    FP    TN    TP
+##   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+## 1    23   164     4   142
+```
+
+--
+
+
+```r
+confusion %&gt;%
+  count(classif) %&gt;%
+  pivot_wider(names_from = "classif", values_from = "n") %&gt;%
+  mutate(accuracy = (TP + TN)/(TP + TN + FP + FN)) %&gt;%
+  pull(accuracy)
+```
+
+```
+## [1] 0.4384384
+```
+
+---
+
+## How good is the model?
+
++ In linear regression, we can gauge the model performance with `\(R^2\)` and RMSE.
+
++ In logistic regression, performance **depends** on your chosen threshold! So, how do we choose a threshold?
+  + Usually, find the threshold that makes the false positive rate &lt;5%&gt; 
++ We also use **AUC** (area under the curve... what curve?)
+
+---
+
+
+## Evaluating logistic regressions
+
+.pull-left[
+**Receiver Operating Characteristic** Curve
+  + TPR on Y-axis
+  + FPR (1 - specificity) on X-axis
+  + The AUC (**a**rea **u**nder the **c**urve) is an overall assessment of performance *at any threshold*
+]
+
+.pull-right[
++ `\(TPR = TP/P = \frac{TP}{TP + FN}\)` (*sensitivity* AKA *recall*)
+
+
++ `\(TNR = TN/N = \frac{TN}{FP + TN}\)` (*specificity*)
+
+
++ `\(FPR = FP/N = \frac{FP}{FP + TN}\)` (*1 - specificity*)
+]
+
+  
+&lt;img src="img/lm_logit//roc-theory-small.png" width="400px" /&gt;
+
++ ROC curves are used to evaluate performance of *ANY binary classifier* (not just logistic regression)
+
+---
+
+## Getting a "feel" for ROC curves
+
+&lt;img src="img/lm_logit//roc_intuition.png" width="800px" /&gt;
+
+---
+
+## Examples of ROC curves in the literature
+
+.pull-left[
+Keller et al. Genome Biol Evol 2012; 4:80-88 
+
+&lt;img src="img/lm_logit//roc_keller.png" width="300px" /&gt;
+]
+
+
+.pull-right[
+Imperiale et al. N Engl J Med 2014; 370:1287-1297
+
+&lt;img src="img/lm_logit//roc_colon.jpeg" width="225px" /&gt;
+]
+
+
+---
+
+## ROC vs PR
+
+
++ ROC curves are suitable when data is *balanced*
+  + Similar amounts of positives, negatives in the dataset
+  + FPR (1 - specificity) on X-axis, TPR on Y-axis
+
++ **Precision-Recall** curves are more suitable for *unbalanced* data
+  + Precision (PPV) on Y-axis, recall (TPR) on X-axis
+
+
+&lt;br&gt;&lt;br&gt;
+
++ `\(TPR = TP/P = \frac{TP}{TP + FN}\)` (*recall*)
++ `\(FPR = FP/N = \frac{FP}{FP + TN}\)` 
++ `\(PPV = \frac{TP}{TP + FP}\)` 
+
+---
+
+## Is the penguin data balanced? Yes.
+
+
+
+```r
+peng_nona %&gt;%
+  count(sex)
+```
+
+```
+## # A tibble: 2 x 2
+##   sex        n
+##   &lt;fct&gt;  &lt;int&gt;
+## 1 female   165
+## 2 male     168
+```
+
+
++ *Problematically imbalanced* would be 4000 females and 5 males, or vice versa.
+
+
+---
+
+## Making ROC curves
+
++ Recall:
+  + Our model fit is saved in `fit`
+  + Our model was built with `peng_nona_sex01` dataset
+  
+
+```r
+## Use the pROC library to help you - installed already in cloud!
+library(pROC)
+```
+
+
+```r
+## Use the function roc()!!
+*model_roc &lt;- roc(peng_nona_sex01$sex, fit$linear.predictors)
+
+## This also works the same:
+*model_roc &lt;- roc(peng_nona_sex01$sex, fit$fitted.values)
+```
+
+---
+
+## Getting information out
+
+```r
+model_roc$auc
+```
+
+```
+## Area under the curve: 0.977
+```
+&gt; Models are usually **not this good.** 
+
+--
+
+
+```r
+#Piped into head() to fit on the slide
+
+## True positive rates: The x-axis!!
+model_roc$sensitivities %&gt;% head()
+```
+
+```
+## [1] 1 1 1 1 1 1
+```
+
+```r
+## False positives rates: The y-axis!!
+1 - model_roc$specificities %&gt;% head()
+```
+
+```
+## [1] 1.0000000 0.9940476 0.9880952 0.9821429 0.9761905 0.9702381
+```
+
+---
+
+## Make an ROC curve
+
+
+```r
+tibble(TPR = model_roc$sensitivities,
+       FPR = 1 - model_roc$specificities) %&gt;%
+  ggplot(aes(x = FPR, y = TPR)) + 
+  geom_line() +
+  labs(title = "ROC curve to classify penguin sex",
+*      subtitle = paste("AUC =",round(model_roc$auc, 3)) ) +
+  ## this is the y=x line to GUIDE US and help us interpret the curve
+  geom_abline(col = "red")
+```
+
+![](logit_slides_files/figure-html/unnamed-chunk-37-1.png)&lt;!-- --&gt;
+
+---
+
+## Making predictions
+
+&gt; This is the same as running the model on new data it has never seen (this is important!)
+
+
+
+```r
+## To remind you: What were the predictors?
+tidy(fit)
+```
+
+```
+## # A tibble: 6 x 5
+##   term             estimate std.error statistic  p.value
+##   &lt;chr&gt;               &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+## 1 (Intercept)      76.1       9.80         7.76 8.34e-15
+## 2 speciesChinstrap  6.90      1.56         4.43 9.56e- 6
+## 3 speciesGentoo     7.88      2.25         3.50 4.62e- 4
+## 4 bill_len         -0.620     0.131       -4.74 2.11e- 6
+## 5 bill_dep         -1.64      0.331       -4.97 6.69e- 7
+## 6 mass             -0.00596   0.00106     -5.62 1.88e- 8
+```
+
+---
+
+## Making predictions
+
+
+```r
+what_are_you_new_penguin &lt;- tibble(
+  species  = "Gentoo",
+  bill_len = 41.5,
+  bill_dep = 13.6,
+  mass     = 3850
+)
+
+## NEED `type = "response"` to get a probability out
+predict(fit, what_are_you_new_penguin, type = "response")
+```
+
+```
+##         1 
+## 0.9999976
+```
+
+---
+
+
+## Validating with training/testing
+
+
+
+```r
+set.seed(1) # reproducibility!!
+
+training_frac &lt;- 0.6
+
+## Training and testing data splits
+peng_nona_sex01 %&gt;%
+  sample_frac(training_frac) -&gt; train_data
+anti_join(peng_nona_sex01, train_data) -&gt; test_data
+
+## Fit to training
+our_formula &lt;- fit$call$formula # previously made!
+train_fit &lt;- glm(our_formula, data = train_data, family = "binomial")
+
+## How's the training data model?
+training_roc &lt;- roc(train_data$sex, train_fit$fitted.values)
+training_roc$auc
+```
+
+```
+## Area under the curve: 0.9874
+```
+
+---
+
+We have to take an extra step for logistic (vs linear) regression and fit the model to test data ourselves, since we don't have any nice `modelr` helper functions like `rsquare()` and `rmse()`.
+
+--
+
+
+```r
+## Fit the model to the testing data
+test_fit &lt;- predict(train_fit, test_data, type = "response")
+
+## How's the testing data model?
+testing_roc &lt;- roc(test_data$sex, test_fit)
+testing_roc$auc
+```
+
+```
+## Area under the curve: 0.9588
+```
+
+--
+
+All together now:
+
+| Data | AUC |
+|-------|----|
+| Training | 0.9874 |
+| Testing  | 0.9588 |
+
+*Seem this model performs pretty darn well.*
+
+---
+
+## One ROC curve to rule them all.
+
+
+```r
+train_and_test &lt;- tibble(
+  TPR = c(training_roc$sensitivities, testing_roc$sensitivities), 
+  FPR = c(1 - training_roc$specificities, 1 - testing_roc$specificities), 
+  data = c(rep("training", length(training_roc$sensitivities)), 
+           rep("testing", length(testing_roc$sensitivities))
+          )
+)
+```
+
+---
+
+
+```r
+ggplot(train_and_test) +
+  aes(x = FPR, y = TPR, color = data) + 
+  geom_line() + 
+  #fun!
+  scale_color_manual(values = c("dodgerblue", "darkgoldenrod1")) + 
+  theme_minimal()
+```
+
+![](logit_slides_files/figure-html/unnamed-chunk-43-1.png)&lt;!-- --&gt;
+
+---
+
+## Don't violate best practices!
+
+
+```r
+ggplot(train_and_test) +
+  aes(x = FPR, y = TPR, 
+      color = fct_relevel(data, c("training", "testing"))) + 
+  geom_line() + 
+  scale_color_manual(name = "data", 
+                     values = c("darkgoldenrod1", "dodgerblue")) + 
+  theme_minimal()
+```
+
+![](logit_slides_files/figure-html/unnamed-chunk-44-1.png)&lt;!-- --&gt;
+
+---
+
+## Final words of wisdom
+
+
++ Visualizing the model = the literal logistic curve
++ Visualizing the model performance = ROC curve
+
+
+&lt;br&gt;&lt;br&gt;
+
++ In the ROC curves you may have noticed a weird spike at the beginning. Don't worry about it. It's a consequence of using the pROC package.
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

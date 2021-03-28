@@ -35,12 +35,19 @@ theme_set(theme_classic() + theme(axis.text = element_text(size = rel(1.75)),
 
 
 class: title-slide
-<!--background-image: -url(slide_background_images/hawaii.jpg) 
-background-size: contain-->
+background-image: url(slide_background_images/pups.jpg) 
+background-size: contain
 
-## TBD
+# Jake's pups!
 
 ---
+background-image: url(slide_background_images/flower.jpg) 
+background-size: contain
+
+# Lalita's photography!
+
+---
+
 
 .bg-text[
 ## Logistic regression
