@@ -65,7 +65,7 @@ R 4/15  | Final Project Introduction | None | None
 T 4/20  | Version control with git(hub), Part 1 | Slides TBD | **Homework 11 due**  on Canvas as an RMarkdown file. Instructions are embedded as part of the template. <!-- logistic -->
 W 4/21  | Version control with git(hub), Part 2 | Exercises TBD | None
 R 4/22  | Version control with git(hub), Part 3 | Slides TBD |  **Final project proposal due. This is your Homework 12 assignment grade.**
-T 4/27  | **Guest Speaker: From Biology to Data Science** | _Attend and prepare ONE QUESTION TO ASK for some bonus points towards your final project!_| **There is no assignment due. Please begin working on your final project.**
+T 4/27  | **Guest Speaker: From Biology to Data Science, and back again** | _Attend and prepare ONE QUESTION TO ASK for some bonus points towards your final project!_| **There is no assignment due. Please begin working on your final project.**
 W 4/28  | Final Project Setup | None | None 
 R 4/29  | *Office hours*  | None | None 
 
