@@ -1,0 +1,185 @@
+---
+title: "Homework #11: Due Tuesday 4/20/21 to Canvas by 1 pm"
+subtitle: "Data Science for Biologists, Spring 2021"
+author: "Replace this with your name"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE, echo=TRUE, include=TRUE, eval=TRUE)
+library(tidyverse)
+library(broom)
+library(modelr)
+library(pROC)
+
+# Uncomment and define this variable as your Banner ID number. You must use this variable in Part 2 to set your seed.
+#my_banner_id <- 
+```
+
+
+> Caution: This homework is relatively short, which means each question is worth a lot of points. This is both a blessing and a curse. Plan accordingly.
+
+
+## Instructions
+
+For your assignment, you will be building and evaluating a logistic regression. Complete your assignment within this template. Before submission, you may delete instructions if you want, but it is not required. 
+
+As part of filling in this template, you must specify in the YAML front matter...
+
++ Your name should go in the "author" field
++ An *Rmarkdown document* theme of your choosing should be indicated
+  + Built-in options: [Gallery of themes](https://www.datadreaming.org/post/r-markdown-theme-gallery/)
+  + If you want to scour the internet for other themes in other packages, please feel free! That library will have to be loaded in your setup R chunk, *but NOT the code to install!!!* You will likely have to install the library yourself in your R homework project (Console!), and as needed, I will install it for myself when grading to ensure your code works.
++ A *code highlighting* theme of your choosing should be indicated: [Gallery of code highlighting](https://www.garrickadenbuie.com/blog/pandoc-syntax-highlighting-examples/)
+  + Ignore all code in this blog post - it is useful only to see how the different syntax highlighting themes appear so you can find your favorite
++ You are allowed to further modify the template *only to add line spacing with* `<br>` per your personal preference. Everything else should remain as templated.
+  + Helping you understand your own code
+  + Increasing the transparency of the data analysis/visualization process for your _reproducible code report_. Your comments assist viewers
+  + **You must ensure that your comments make sense for the code they are referring to, or else there may be deductions.** For example, the comment `#builds a histogram()` should not be associated with, for instance, `scale_fill_manual()` code, which does not build histograms.
+
+
+
+### Please read these additional instructions carefully:
+
++ You must define your Banner ID variable in the setup chunk and use this quantity to set your random seed in Part 2.
++ All of your code and output (including plots!) must be displayed in the knitted HTML output. **Do not modify any chunk parameters, except `fig.width` and `fig.height`, as needed.** It will likely be needed to make your figures appear at an appropriate size in the final knitted HTML.
++ **ALWAYS RUN AND CHECK CODE ONE LINE AT A TIME!!!**
++ Unless otherwise stated, your wrangling code to answer a given question **MUST** all be part of the same connected pipeline with `%>%`. 
++ You will not receive any credit for answers without corresponding code that produces those answers.
++ Make sure your code runs WITHOUT an errors before submitting. *A 10% penalty is automatically applied for submissions with bugs that lead to errors.*
+  + If there are errors in your code, you should *comment out* the code so that it does not actually run. This is **BETTER** than allowing buggy code to run - it shows me you attempted the code, but understood that it didn't work properly. If you leave buggy code in the script without commenting it out, there will be deductions.
++ Be careful not to *duplicate* your code. For example, do not write code on one line, and then on the next line write it again and save it to a variable. Only include the second line in the final version of your script!
++ **As always, you are encouraged to work together and use the class Slack to help each other out, but you must submit YOUR OWN CODE.** 
+
+<br><br>
+
+<!-- You can delete instructions above if you want, but it won't matter for your grade either way. Just be sure to not delete anything below. -->
+
+
+## Questions
+
+
+This assignment will use a dataset of various physical measurements from 752 adult [Pima Native American women](https://en.wikipedia.org/wiki/Pima_people), some of whom are Type II Diabetic and some are not. Our goal for this assignment is to build and evaluate a model from this data to **predict whether an individual has Type II Diabetes** (column `diabetic`).
+
+```{r, collapse=T}
+pima <- read_csv("https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/data/pima.csv")
+dplyr::glimpse(pima)
+
+# Not severely imbalanced. ROC will be fine.
+pima %>% 
+  count(diabetic)
+```
+
+Columns include:
+
++ `pregnancies`: number of times pregnant
++ `glucose`: plasma glucose concentration at 2 hours in an oral glucose tolerance test (units: mg/dL)
++ `bb`: diastolic blood pressure (units: mm Hg)
++ `skin_thickness`: triceps skin-fold thickness (units: mm)
++ `insulin`: 2-hour serum insulin level (units: μU/mL)
++ `bmi`: Body Mass Index
++ `age`: age in years
++ `diabetic`: whether or not the individual has diabetes
+
+
+### Part 1: Build and visualize a logistic regression
+
+
+1. Using the `step()` and `glm()` functions, determine the most appropriate model to predict diabetic status in from this data. Reveal the result model predictors using the `tidy()` function. You do not need to write anything else for this question, but please be sure to comment your code. _Don't forget to appropriately code the `diabetic` column (you should consider 'success" as having diabetes, and "failure" as not having diabetes) and drop any NAs so step() doesn't complain!_
+
+```{r build_model}
+
+
+```
+
+2. Determine and print the model's AUC. In ~1 sentence after your code, explain whether the AUC suggests you have built a weakly, moderately, or strongly predictive model.
+
+```{r model_auc}
+
+
+```
+
+  **Replace this text with your answer, but make sure your answer is still bolded.**
+    
+    
+3. Visualize your fitted model, i.e. the logistic curve specified by the model you made in question 1. _Do not plot an ROC curve._ Your plot show also show individual points colored by whether they have diabetes, plotted in a way that ensures maximum point visibility. Ensure the logistic curve itself is NOT colored in any way (default black), even though your points will be colored. Use all best plotting practices we have learned.
+
+```{r visualize_model}
+
+```
+
+
+<br><br>
+
+
+### Part 2: Evaluate the model
+
+1. Evaluate the model you constructed in part 1 with with a training and testing split, where *70%* of the data is in the training split. Build the model using the training data, and then evaluate how the model performs on both the training and testing splits.  After the code, provide a brief explanation (1-2 sentences) about whether the model is likely overfit to the training data or not, and these results suggest the model will do a good or poor job predicting future outcomes.
+
+    Your code must have the following components:
+
+    + First, set your seed AS YOUR PERSONAL BANNER ID. YOU MUST USE YOUR BANNER ID AS THE NUMBER, which you should have defined in the `setup` code chunk!!! **If you do not do this properly, there will be unpredictable mismatches between your written answer and the result your code produces when run. You must set your seed, and use it consistently.**
+    + Create a variable to represent the 70% split instead of hardcoding this value.
+    + The code must ultimately reveal the AUC from the training and testing data splits. Nothing else should be printed out, but you should ensure your code has sufficient comments.
+  
+
+```{r train_test_code}
+
+
+
+```
+
+
+  **Replace this text with your answer, but make sure your answer is still bolded.**
+    
+
+2. Make a single plot (not faceted) showing both the testing and training data ROC curves, ensuring best practices! 
+
+```{r roc_curves}
+
+
+```
+
+
+<br><br>
+
+### Part 3: Prediction
+
+> For all questions in this section, use the model fitted with the full dataset that you created in Part 1 (not Part 2!).
+
+1. Determine the following performance measures for this model using a success threshold of where results with a probably *>=0.95* are considered "success." The code should print the three calculated quantities given below. You do not need to write anything else for this question, but please be sure to comment your code. *Remember: No code, no credit. No arithmetic in your head.*
+
+    + Accuracy
+    + False positive rate
+    + Positive predictive value
+
+```{r calculate_performance}
+threshold <- 0.95 # use this variable in your code
+
+
+
+```
+
+2. Determine the probability that this new Pima woman has diabetes. Your code should print out the probability that the woman is diabetic. Here is her full data:
+
+    **Hint: Do you need all this information? In fact you do not! For full credit, make sure your code is only considering values that are relevant for answering the question.**
+
+    + `pregnancies`: 4
+    + `glucose`: 127
+    + `bp`: 92
+    + `skin_thickness`: 28
+    + `insulin`: 160
+    + `bmi`: 31
+    + `age`: 44
+
+```{r predict_diabetic}
+
+```
+
+
+
+3. At a threshold of *90%*, does this model predict that the woman from the previous question has diabetes? You do not need to write any code to answer this question. Just replace "answer" below with a yes or a no (but keep it bolded!):
+
+    **answer**
