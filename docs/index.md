@@ -63,11 +63,11 @@ T 4/13  | Logistic regression, Part 2 | See slides from 4/7 | **Homework 10 due*
 W 4/14  | Logistic regression, Part 3 | See slides from 4/7 | None
 R 4/15  | Final Project Introduction | None | None
 T 4/20  | Version control with git(hub), Part 1 | Slides TBD | **Homework 11 due**  on Canvas as an RMarkdown file. Instructions are embedded as part of the template. <!-- logistic -->
-W 4/21  | Working at the command line and UNIX, Part 1 | Exercises TBD | None
-R 4/22  | Working at the command line and UNIX, Part 2 | Slides TBD |  **Final project proposal due. This is your Homework 12 assignment grade.**
-T 4/27  | Version control with git(hub), Part 2 | None | **There is no assignment due. Please begin working on your final project.**
-W 4/28  | Version control with git(hub), Part 3 | None | None 
-R 4/29  | *Buffer day*  | None | None 
+W 4/21  | Version control with git(hub), Part 2 | Exercises TBD | None
+R 4/22  | Version control with git(hub), Part 3 | Slides TBD |  **Final project proposal due. This is your Homework 12 assignment grade.**
+T 4/27  | **Guest Speaker: From Biology to Data Science** | _Attend and prepare ONE QUESTION TO ASK for some bonus points towards your final project!_| **There is no assignment due. Please begin working on your final project.**
+W 4/28  | Final Project Setup | None | None 
+R 4/29  | *Office hours*  | None | None 
 
 **FINAL PROJECT FINAL +10% DEADLINE MAY 4TH AT 11:59 PM**
 
