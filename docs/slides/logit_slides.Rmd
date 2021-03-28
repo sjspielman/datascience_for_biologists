@@ -324,27 +324,15 @@ knitr::include_graphics(file.path(img_path, "confusionmatrix.jpeg"))
 
 --
 
-
-
 + True negative rate: $TNR = TN/N = \frac{TN}{FP + TN}$
   + AKA *specificity*
-
---
-
-
 
 + False positive rate: $FPR = FP/N = \frac{FP}{FP + TN}$
   + AKA *1 - specificity*
 
---
-
-
 
 + Precision: $PPV = \frac{TP}{TP + FP}$
   + AKA *positive predictive value*
-
---
-
 
 + Accuracy: $\frac{TP + TN}{TP + TN + FP + FN}$
 

@@ -51,15 +51,15 @@ background-size: contain
 
 
 
-&lt;img src="img/lm//ml_ai_dl.png" width="500px" /&gt;
+&lt;img src="img/lm_logit//ml_ai_dl.png" width="500px" /&gt;
 
 ---
 
-&lt;img src="img/lm//ML_super_unsuper.png" width="550px" /&gt;
+&lt;img src="img/lm_logit//ML_super_unsuper.png" width="550px" /&gt;
 
 
 
-&lt;img src="img/lm//classif_regre.png" width="650px" /&gt;
+&lt;img src="img/lm_logit//classif_regre.png" width="650px" /&gt;
 
 
 
@@ -158,7 +158,7 @@ In the applied "machine learning" world, we also use models to _predict future o
 The relationship between the age of a given lion the the proportion of its nose that is black (nose color changes over time!). [Source](https://www.amazon.com/Analysis-Biological-Data-Michael-Whitlock/dp/1936221489)
 
 
-&lt;img src="img/lm//whitlock_17.1-1.png" width="450px" /&gt;
+&lt;img src="img/lm_logit//whitlock_17.1-1.png" width="450px" /&gt;
 
 **Fitting a model** in this case means determining the line-of-best-fit, aka determining the _optimal values_ for slope and intercept (*model parameters*)
 
@@ -171,13 +171,13 @@ The relationship between the age of a given lion the the proportion of its nose 
 + Best-fitting line is the line with the *smallest possible* **R**esidual **S**um of **S**quares (RSS)
   + Literally the sum of the squared lengths of each residual line
 
-&lt;img src="img/lm//whitlock_17.1-2.png" width="950px" /&gt;
+&lt;img src="img/lm_logit//whitlock_17.1-2.png" width="950px" /&gt;
 
 ---
 
 ## Focus on the "smallest deviations" panel 
 
-&lt;img src="img/lm//whitlock_17.1-2.png" width="800px" /&gt;
+&lt;img src="img/lm_logit//whitlock_17.1-2.png" width="800px" /&gt;
 
 + Slope is 10.64
 + Intercept is 0.88
@@ -240,7 +240,7 @@ significance..." --RA Fisher
 
 ## Back to our "smallest deviations" lions
 
-&lt;img src="img/lm//whitlock_17.1-2.png" width="800px" /&gt;
+&lt;img src="img/lm_logit//whitlock_17.1-2.png" width="800px" /&gt;
 
 
 Parameter | Estimate | P-value
@@ -312,7 +312,7 @@ _In this class, we will assume assumptions are met when performing analyses._
 
 ## Model _residuals_ are normally distributed
 
-&lt;img src="img/lm//whitlock_17.1-2.png" width="900px" /&gt;
+&lt;img src="img/lm_logit//whitlock_17.1-2.png" width="900px" /&gt;
 
 ---
 
@@ -328,20 +328,21 @@ penguins
 
 ```
 ## # A tibble: 344 x 8
-##    species island bill_length_mm bill_depth_mm flipper_length_…
-##    &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;            &lt;int&gt;
-##  1 Adelie  Torge…           39.1          18.7              181
-##  2 Adelie  Torge…           39.5          17.4              186
-##  3 Adelie  Torge…           40.3          18                195
-##  4 Adelie  Torge…           NA            NA                 NA
-##  5 Adelie  Torge…           36.7          19.3              193
-##  6 Adelie  Torge…           39.3          20.6              190
-##  7 Adelie  Torge…           38.9          17.8              181
-##  8 Adelie  Torge…           39.2          19.6              195
-##  9 Adelie  Torge…           34.1          18.1              193
-## 10 Adelie  Torge…           42            20.2              190
-## # … with 334 more rows, and 3 more variables:
-## #   body_mass_g &lt;int&gt;, sex &lt;fct&gt;, year &lt;int&gt;
+##    species island bill_length_mm bill_depth_mm
+##    &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;
+##  1 Adelie  Torge…           39.1          18.7
+##  2 Adelie  Torge…           39.5          17.4
+##  3 Adelie  Torge…           40.3          18  
+##  4 Adelie  Torge…           NA            NA  
+##  5 Adelie  Torge…           36.7          19.3
+##  6 Adelie  Torge…           39.3          20.6
+##  7 Adelie  Torge…           38.9          17.8
+##  8 Adelie  Torge…           39.2          19.6
+##  9 Adelie  Torge…           34.1          18.1
+## 10 Adelie  Torge…           42            20.2
+## # … with 334 more rows, and 4 more variables:
+## #   flipper_length_mm &lt;int&gt;, body_mass_g &lt;int&gt;,
+## #   sex &lt;fct&gt;, year &lt;int&gt;
 ```
 
 ---
@@ -361,19 +362,20 @@ peng
 
 ```
 ## # A tibble: 344 x 8
-##    species island   bill_len bill_dep flipper  mass sex    year
-##    &lt;fct&gt;   &lt;fct&gt;       &lt;dbl&gt;    &lt;dbl&gt;   &lt;int&gt; &lt;int&gt; &lt;fct&gt; &lt;int&gt;
-##  1 Adelie  Torgers…     39.1     18.7     181  3750 male   2007
-##  2 Adelie  Torgers…     39.5     17.4     186  3800 fema…  2007
-##  3 Adelie  Torgers…     40.3     18       195  3250 fema…  2007
-##  4 Adelie  Torgers…     NA       NA        NA    NA &lt;NA&gt;   2007
-##  5 Adelie  Torgers…     36.7     19.3     193  3450 fema…  2007
-##  6 Adelie  Torgers…     39.3     20.6     190  3650 male   2007
-##  7 Adelie  Torgers…     38.9     17.8     181  3625 fema…  2007
-##  8 Adelie  Torgers…     39.2     19.6     195  4675 male   2007
-##  9 Adelie  Torgers…     34.1     18.1     193  3475 &lt;NA&gt;   2007
-## 10 Adelie  Torgers…     42       20.2     190  4250 &lt;NA&gt;   2007
-## # … with 334 more rows
+##    species island bill_len bill_dep flipper  mass sex  
+##    &lt;fct&gt;   &lt;fct&gt;     &lt;dbl&gt;    &lt;dbl&gt;   &lt;int&gt; &lt;int&gt; &lt;fct&gt;
+##  1 Adelie  Torge…     39.1     18.7     181  3750 male 
+##  2 Adelie  Torge…     39.5     17.4     186  3800 fema…
+##  3 Adelie  Torge…     40.3     18       195  3250 fema…
+##  4 Adelie  Torge…     NA       NA        NA    NA &lt;NA&gt; 
+##  5 Adelie  Torge…     36.7     19.3     193  3450 fema…
+##  6 Adelie  Torge…     39.3     20.6     190  3650 male 
+##  7 Adelie  Torge…     38.9     17.8     181  3625 fema…
+##  8 Adelie  Torge…     39.2     19.6     195  4675 male 
+##  9 Adelie  Torge…     34.1     18.1     193  3475 &lt;NA&gt; 
+## 10 Adelie  Torge…     42       20.2     190  4250 &lt;NA&gt; 
+## # … with 334 more rows, and 1 more variable:
+## #   year &lt;int&gt;
 ```
 
 ---
@@ -423,7 +425,8 @@ summary(fitted_model)
 ## (Intercept) -7.26487    3.20016   -2.27   0.0238 *  
 ## flipper      0.25477    0.01589   16.03   &lt;2e-16 ***
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  
+## 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Residual standard error: 4.126 on 340 degrees of freedom
 ##   (2 observations deleted due to missingness)
@@ -494,11 +497,11 @@ broom::tidy(fitted_model_species)
 
 ```
 ## # A tibble: 3 x 5
-##   term             estimate std.error statistic   p.value
-##   &lt;chr&gt;               &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-## 1 (Intercept)         38.8      0.241     161.  2.50e-322
-## 2 speciesChinstrap    10.0      0.432      23.2 4.23e- 72
-## 3 speciesGentoo        8.71     0.360      24.2 5.33e- 76
+##   term           estimate std.error statistic   p.value
+##   &lt;chr&gt;             &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+## 1 (Intercept)       38.8      0.241     161.  2.50e-322
+## 2 speciesChinst…    10.0      0.432      23.2 4.23e- 72
+## 3 speciesGentoo      8.71     0.360      24.2 5.33e- 76
 ```
 
 
@@ -534,7 +537,8 @@ summary(as_anova)
 ## species       2   7194    3597   410.6 &lt;2e-16 ***
 ## Residuals   339   2970       9                   
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  
+## 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 2 observations deleted due to missingness
 ```
 
@@ -606,14 +610,14 @@ tidy(fitted_model_both_int)
 
 ```
 ## # A tibble: 6 x 5
-##   term                    estimate std.error statistic  p.value
-##   &lt;chr&gt;                      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-## 1 (Intercept)              13.6       6.05       2.25   2.54e-2
-## 2 flipper                   0.133     0.0318     4.17   3.91e-5
-## 3 speciesChinstrap         -7.99     10.5       -0.763  4.46e-1
-## 4 speciesGentoo           -34.3       9.82      -3.50   5.37e-4
-## 5 flipper:speciesChinstr…   0.0881    0.0540     1.63   1.04e-1
-## 6 flipper:speciesGentoo     0.182     0.0478     3.80   1.71e-4
+##   term            estimate std.error statistic  p.value
+##   &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+## 1 (Intercept)      13.6       6.05       2.25   2.54e-2
+## 2 flipper           0.133     0.0318     4.17   3.91e-5
+## 3 speciesChinstr…  -7.99     10.5       -0.763  4.46e-1
+## 4 speciesGentoo   -34.3       9.82      -3.50   5.37e-4
+## 5 flipper:specie…   0.0881    0.0540     1.63   1.04e-1
+## 6 flipper:specie…   0.182     0.0478     3.80   1.71e-4
 ```
 
 ---
@@ -650,7 +654,7 @@ ggplot(peng) +
 
 + Need to determine optimal predictors along the **bias/variance trade-off**. There are many ways to do this.
 
-&lt;img src="img/lm//overfit_underfit.png" width="700px" /&gt;
+&lt;img src="img/lm_logit//overfit_underfit.png" width="700px" /&gt;
 
 + Fit model
 + Run diagnostics to ask whether and/or how badly assumptions were violated
@@ -681,10 +685,11 @@ final_model &lt;- step(full_model, trace=FALSE)
 ```r
 ## Full model: All columns (except bill length) are predictors
 tidy(full_model) %&gt;% pull(term)
-##  [1] "(Intercept)"      "speciesChinstrap" "speciesGentoo"   
-##  [4] "islandDream"      "islandTorgersen"  "bill_dep"        
-##  [7] "flipper"          "mass"             "sexmale"         
-## [10] "year"
+##  [1] "(Intercept)"      "speciesChinstrap"
+##  [3] "speciesGentoo"    "islandDream"     
+##  [5] "islandTorgersen"  "bill_dep"        
+##  [7] "flipper"          "mass"            
+##  [9] "sexmale"          "year"
 
 ## Quickly determine the R^2 for the model
 rsquare(full_model, peng_nona)
@@ -695,8 +700,9 @@ rsquare(full_model, peng_nona)
 ```r
 ## Final model: Predictors chosen by step()
 tidy(final_model) %&gt;% pull(term)
-## [1] "(Intercept)"      "speciesChinstrap" "speciesGentoo"   
-## [4] "bill_dep"         "flipper"          "mass"            
+## [1] "(Intercept)"      "speciesChinstrap"
+## [3] "speciesGentoo"    "bill_dep"        
+## [5] "flipper"          "mass"            
 ## [7] "sexmale"
 
 rsquare(final_model, peng_nona)
@@ -726,19 +732,6 @@ summary(peng_nona$bill_len)
 ##   32.10   39.50   44.50   43.99   48.60   59.60
 ```
 
----
-
-## Enter: _Model evaluation_ aka _model validation_
-
-+ How good is the model at explaining variation **in data it does NOT know about?**
-  + Should we even bother using our model to predict future outcomes?
-  + Can I predict the bill lengths for a whole bunch of _new_ penguins with any accuracy?
-  
-&lt;br&gt;&lt;br&gt;
-
---
-
-Industry really wants to know the answer to this. Academic science is usually less concerned (but should we be more concerned? maybe!)
 
 ---
 
@@ -751,7 +744,7 @@ Industry really wants to know the answer to this. Academic science is usually le
   + Bill depth is 18.5
   + Flipper length is 211
   + Mass is 5200
-+ What does the model think its bill length is?
++ What does the model think its bill length is? **Predict = run the model on new data.**
 
 --
 
@@ -769,14 +762,15 @@ head(peng_nona)
 
 ```
 ## # A tibble: 6 x 8
-##   species island    bill_len bill_dep flipper  mass sex    year
-##   &lt;fct&gt;   &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;   &lt;int&gt; &lt;int&gt; &lt;fct&gt; &lt;int&gt;
-## 1 Adelie  Torgersen     39.1     18.7     181  3750 male   2007
-## 2 Adelie  Torgersen     39.5     17.4     186  3800 fema…  2007
-## 3 Adelie  Torgersen     40.3     18       195  3250 fema…  2007
-## 4 Adelie  Torgersen     36.7     19.3     193  3450 fema…  2007
-## 5 Adelie  Torgersen     39.3     20.6     190  3650 male   2007
-## 6 Adelie  Torgersen     38.9     17.8     181  3625 fema…  2007
+##   species island bill_len bill_dep flipper  mass sex  
+##   &lt;fct&gt;   &lt;fct&gt;     &lt;dbl&gt;    &lt;dbl&gt;   &lt;int&gt; &lt;int&gt; &lt;fct&gt;
+## 1 Adelie  Torge…     39.1     18.7     181  3750 male 
+## 2 Adelie  Torge…     39.5     17.4     186  3800 fema…
+## 3 Adelie  Torge…     40.3     18       195  3250 fema…
+## 4 Adelie  Torge…     36.7     19.3     193  3450 fema…
+## 5 Adelie  Torge…     39.3     20.6     190  3650 male 
+## 6 Adelie  Torge…     38.9     17.8     181  3625 fema…
+## # … with 1 more variable: year &lt;int&gt;
 ```
 
 
@@ -848,23 +842,35 @@ summary(peng_nona_preds)
 ```
 
 ```
-##       species        sex         bill_dep        flipper   
-##  Adelie   :146   female:165   Min.   :13.10   Min.   :172  
-##  Chinstrap: 68   male  :168   1st Qu.:15.60   1st Qu.:190  
-##  Gentoo   :119                Median :17.30   Median :197  
-##                               Mean   :17.16   Mean   :201  
-##                               3rd Qu.:18.70   3rd Qu.:213  
-##                               Max.   :21.50   Max.   :231  
-##       mass     
-##  Min.   :2700  
-##  1st Qu.:3550  
-##  Median :4050  
-##  Mean   :4207  
-##  3rd Qu.:4775  
-##  Max.   :6300
+##       species        sex         bill_dep    
+##  Adelie   :146   female:165   Min.   :13.10  
+##  Chinstrap: 68   male  :168   1st Qu.:15.60  
+##  Gentoo   :119                Median :17.30  
+##                               Mean   :17.16  
+##                               3rd Qu.:18.70  
+##                               Max.   :21.50  
+##     flipper         mass     
+##  Min.   :172   Min.   :2700  
+##  1st Qu.:190   1st Qu.:3550  
+##  Median :197   Median :4050  
+##  Mean   :201   Mean   :4207  
+##  3rd Qu.:213   3rd Qu.:4775  
+##  Max.   :231   Max.   :6300
 ```
 
 ---
+
+
+```r
+new_penguin
+```
+
+```
+## # A tibble: 1 x 5
+##   species   sex   bill_dep flipper  mass
+##   &lt;chr&gt;     &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
+## 1 Chinstrap male      18.5     223  5200
+```
 
 
 ```r
@@ -898,22 +904,31 @@ summary(peng_nona_preds2)
   + Model is "overly-tailored" to training data
   + Aka, `\(R^2=0.9\)` on training data, but predictions are _really really WRONG_ when running model on new data
   
+&lt;img src="img/lm_logit//overfit_underfit.png" width="700px" /&gt;
 ---
 
 ## Performing model _validation_ (aka _evaluation_)
 
-1. Determine which predictors you will use
-  + Build model using `step()` function
-  + `\(R^2\)` and RMSE from that model tell us: How does model perform on training data?
+
++ Asks: How good is the model at explaining variation **in data it does NOT know about?** Should we even bother using our model to predict future outcomes?
+  
 &lt;br&gt;
-2. Run a cross-validation procedure to gauge model performance more generally
+Industry really wants to know the answer to this. Academic science is usually less concerned (but should we be more concerned? maybe!)
+&lt;br&gt;
+
+--
+
+1. Determine which predictors you will use
+  + In this class, we'll do this using the `step()` function (not "hypothesis-testing")
+&lt;br&gt;
+2. Run a cross-validation procedure to gauge model performance on new data
 
 --
 
 ### Cross-validation with testing and training groups
 + Randomly **split** your dataset into two parts:
-  + The "training" part (usually 60-80% of the data) **builds** aka **trains** the model
-  + The "testing" part (the remaining 20-40%) evaluates aka **tests** the performance of the model
+  + The _training split_ (usually 60-80% of the data) **builds** aka **trains** the model
+  + The _testing" split_ (the remaining 20-40%) evaluates aka **tests** the performance of the model
   + If model performs terribly on testing data, suggests model was *overfit*
   + Either way, performance is usually better on training data. **Why?**
 
@@ -947,7 +962,9 @@ fit_formula
 
 
 ```r
-set.seed(1) # Choose your favorite number for reproducibility
+# Choose your favorite number for reproducibility. !! SO IMPORTANT!!
+*set.seed(1)
+
 training_size &lt;- 0.6
 peng_nona %&gt;%
   # Sample random fraction of rows with this dplyr function
@@ -979,6 +996,8 @@ nrow(peng_testing)
 
 
 ### Step 4: Ask how well _model built from training data_ performs on the _training_ AND the _testing data_
+
+The `modelr` package makes this super easy :)
 
 
 ```r
@@ -1046,7 +1065,7 @@ summary(peng_nona$bill_len)
 + Get RMSE and `\(R^2\)` for each iteration, and look at full distribution
 
 
-&lt;img src="img/lm//kfold-wiki.png" width="700px" /&gt;
+&lt;img src="img/lm_logit//kfold-wiki.png" width="700px" /&gt;
 
 ---
 
@@ -1056,7 +1075,7 @@ summary(peng_nona$bill_len)
 + For small datasets, LOOCV probably "better"
 
 
-&lt;img src="img/lm//loocv.png" width="700px" /&gt;
+&lt;img src="img/lm_logit//loocv.png" width="700px" /&gt;
 ---
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

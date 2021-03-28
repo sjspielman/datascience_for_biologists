@@ -646,19 +646,6 @@ modelr::rmse(final_model, peng_nona)
 summary(peng_nona$bill_len)
 ```
 
----
-
-## Enter: _Model evaluation_ aka _model validation_
-
-+ How good is the model at explaining variation **in data it does NOT know about?**
-  + Should we even bother using our model to predict future outcomes?
-  + Can I predict the bill lengths for a whole bunch of _new_ penguins with any accuracy?
-  
-<br><br>
-
---
-
-Industry really wants to know the answer to this. Academic science is usually less concerned (but should we be more concerned? maybe!)
 
 ---
 
@@ -671,7 +658,7 @@ Industry really wants to know the answer to this. Academic science is usually le
   + Bill depth is 18.5
   + Flipper length is 211
   + Mass is 5200
-+ What does the model think its bill length is?
++ What does the model think its bill length is? **Predict = run the model on new data.**
 
 --
 
@@ -729,6 +716,10 @@ summary(peng_nona_preds)
 ---
 
 ```{r}
+new_penguin
+```
+
+```{r}
 peng_nona_preds %>%
   filter(sex == "male", species == "Chinstrap") %>%
   select(-sex, -species) -> peng_nona_preds2
@@ -749,22 +740,33 @@ summary(peng_nona_preds2)
   + Model is "overly-tailored" to training data
   + Aka, $R^2=0.9$ on training data, but predictions are _really really WRONG_ when running model on new data
   
+```{r out.width = '700px', echo=F}
+knitr::include_graphics(file.path(img_path, "overfit_underfit.png"))
+```
 ---
 
 ## Performing model _validation_ (aka _evaluation_)
 
-1. Determine which predictors you will use
-  + Build model using `step()` function
-  + $R^2$ and RMSE from that model tell us: How does model perform on training data?
+
++ Asks: How good is the model at explaining variation **in data it does NOT know about?** Should we even bother using our model to predict future outcomes?
+  
 <br>
-2. Run a cross-validation procedure to gauge model performance more generally
+Industry really wants to know the answer to this. Academic science is usually less concerned (but should we be more concerned? maybe!)
+<br>
+
+--
+
+1. Determine which predictors you will use
+  + In this class, we'll do this using the `step()` function (not "hypothesis-testing")
+<br>
+2. Run a cross-validation procedure to gauge model performance on new data
 
 --
 
 ### Cross-validation with testing and training groups
 + Randomly **split** your dataset into two parts:
-  + The "training" part (usually 60-80% of the data) **builds** aka **trains** the model
-  + The "testing" part (the remaining 20-40%) evaluates aka **tests** the performance of the model
+  + The _training split_ (usually 60-80% of the data) **builds** aka **trains** the model
+  + The _testing" split_ (the remaining 20-40%) evaluates aka **tests** the performance of the model
   + If model performs terribly on testing data, suggests model was *overfit*
   + Either way, performance is usually better on training data. **Why?**
 
@@ -792,7 +794,9 @@ fit_formula
 ## Step 2: Divide data into testing and training
 
 ```{r}
-set.seed(1) # Choose your favorite number for reproducibility
+# Choose your favorite number for reproducibility. !! SO IMPORTANT!!
+set.seed(1)   #<<
+
 training_size <- 0.6
 peng_nona %>%
   # Sample random fraction of rows with this dplyr function
@@ -813,6 +817,8 @@ training_fit <- lm(fit_formula, data = peng_training) #<<
 
 
 ### Step 4: Ask how well _model built from training data_ performs on the _training_ AND the _testing data_
+
+The `modelr` package makes this super easy :)
 
 ```{r, collapse=T}
 # Training data: The model "has seen" this data
