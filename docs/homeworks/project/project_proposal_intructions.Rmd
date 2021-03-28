@@ -1,0 +1,113 @@
+---
+title: "Final Project and Proposal Instructions"
+subtitle: "Data Science for Biologists, Spring 2021"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE, echo = FALSE, include = FALSE)
+library(tidyverse)
+```
+
+
+## Overall Instructions
+
+For your final project, you will be analyzing a dataset of your choosing. Your goal will be to ask **FOUR** scientific/explanatory questions about your dataset, and answer each question with any necessary associated wrangling, modeling, and visualization to address the question. Ground rules:
+
+
++ You must complete your project each using the respective Rmarkdown template, and it must knit without errors for full credit. The template should knit to HTML only, not PDF or Word.
++ Your Rmarkdown document must use an Rmarkdown document theme and code syntax highlighting theme of your choosing.
++ You must ensure that all rendered plots are _fully visible and legible with an appropriate aspect ratio_. You do not need to separately save figures as independent files. 
++ Every question requires a data visualization. _It does not matter which geoms you use for your plots_, as long as the plots are properly made and are relevant to/address your given exploratory question. 
+  + In other words: IT IS OK if you have the same type of plot for multiple (or all!) questions, as long each plot answers your question appropriately!
++ You are not required to use either a linear model or logistic regression, but if you do...
+  + You do not need to specify testing/training splits for model evaluation, but you can if you choose. *If you do this, you must ensure your random number seed is properly set, and your written text and code output are precisely consistent.*
+  + For any linear models, your explanation must include a brief interpretation of the model's RMSE and $R^2$. You are not required to interpret coefficients.
+  + For any logistic regressions, your explanation must include a brief interpretation of the model's AUC.
+
+## Project Proposal Instructions 
+
+> Due Thursday 4/22/21 by 11:59 PM. Timely submission is extremely important so that you can begin your final project as soon as possible. You will be able to resubmit the proposal for a full regrade if I do not approve it. Late penalties will not kick in until Monday 4/26 to allow re-submissions without penalty over the weekend, as needed. _Please, do not treat 4/26 as the actual deadline. It will backfire._
+
+
+For your proposal, you will identify a dataset to analyze, using the provided template. You must choose a dataset that we have NOT used in class and has NOT been one of your `#tidytuesday` extra credit datasets. Some fantastic options for finding data include:
+
++ The `#tidytuesday` repository has a dataset for each week since 2018. You may not choose any of datasets released on 3/9/21 or after.
+  + https://github.com/rfordatascience/tidytuesday
++ The statistics website FiveThirtyEight has a bunch of datasets they have compiled (some of which have been used as `#tidytuesday`, actually!)
+  + https://data.fivethirtyeight.com/
++ The website "Kaggle" has a *lot* of compiled datasets. Depending on the dataset, you may need to make a free account on the website to download the data, but you do NOT have to pay.
+  + https://www.kaggle.com/datasets
++ The Gapminder website has a lot of great datasets 
+  + https://www.gapminder.org/data/
++ The UCI Machine Learning database
+  + https://archive.ics.uci.edu/ml/datasets.php
++ This website lists *a bunch* of other options
+  + https://www.dataquest.io/blog/free-datasets-for-projects/
++ If you have read a scientific paper that you think has accessible data you want to use, *please reach out to me and I will help you track it down*
++ If there is a specific of data from a certain field you want to use but you don't know where to find it, *reach out to me and I will help see if I can find one for you!*
+
+
+#### For your proposal, you will...
+
++ Use the template!
++ Introduce and *briefly* describe your dataset, _including why you chose it for your project._ The total length of this description should be roughly 2-4 sentences, and you must include an _properly-formatted markdown link_ to where you obtained the data.
++ Read in and display the dataset with the `dplyr::glimpse()` function.
++ Create a free account on [https://github.com](https://github.com) and tell me your account name. This will allow you to eventually work on the project itself. Don't worry at all about using the website - just make your account, and don't forget your password! *Your username should start with a letter, and contain only letters, numbers, underscores `_`, or dashes `-`. No other symbols!*
+
+
+
+## Specific Project Instructions
+
+> Complete and push all code by Friday 5/7/21 by 11:59 PM. For 10% bonus, complete and push all code by Tuesday 5/4/21 by 11:59 PM. I will consider the most recent git commit timestamp as your submission time.
+>
+> Unless you have an extuenuating circumstance that we specifically discuss, any code written after 5/7/21 will NOT be accepted, as it represents the _literal end_ of the Spring 2021 semester. Note that extensions for this project will likely mean you will get an "Incomplete" grade for the class.
+
+
+You must complete your final project using the template Rmarkdown file in your copy of the final project Github repository, which we will setup together as a class activity. 
+<!--This repository uses special "Github Classroom" features. This means that at the deadline on May 7th 11:59 PM, Github will collect all of your repository history and code and automatically send it to me. If and only if your code commit history shows that no further work occurred after 11:59 PM on Tuesday May 4th, you will receive the bonus +10%. -->
+
+#### Repository instructions
+
+
+Your final repository should contain only these files: 
+
++ `README.md` (I have written this file for you)
++ Your final project as an Rmarkdown named `<lastname>_final_project.Rmd`. 
+  + For example, I would call this `Spielman_final_project.Rmd`
++ Your final knitted project `<lastname>_final_project.html`. 
++ Your dataset named `<lastname>_dataset.csv` (or `.tsv`, etc. depending on the file type)
+  + If your data is being directly read in from a URL, you do NOT need to include it in your final project. If you are including your dataset, make sure it is named appropriately **_and that your Rmarkdown file expects that name_.** 
+
+
+<br>
+
+#### Template
+
+The proposal is templated out for you as follows:
+
++ The **Introduction** section should first briefly describe the dataset (you can use the exact text you used in the proposal), including a direct link to the data's source. You should then include code to read in and briefly explore the dataset so readers have a sense of the data. _If you are reading data from a file, make sure the file is properly named._
+
++ For each **Question** section, you should provide your question (questions are _questions_, not tasks) as a level-4 header. Under the **Methods** sub-header, include any _named_ code chunks you need to answer the question and make your plot. The plot should be revealed as the last piece of code output in **Methods.** Then, under the **Answer** sub-header, provide your brief answer to your question.
+
+<br>
+
+#### How will you be graded?
+
+This project is worth 20% of your final grade and is worth 100 points as follows:
+
++ **15 points for each (total 15x4=60)** successfully-completed question and answer, where each question/answer must have at least one associated figure.
++ **15 points** for adhering to the format. This includes...
+  + Placing code into their intended code chunk. For example, libraries should only be loaded in the setup code chunk.
+  + Naming all code chunks
+  + NOT using "forbidden" code like `View()`, `install.packages()`, etc.
+  + Setting your custom Rmarkdown theme and syntax highlighting theme 
+  + Ensuring all markdown elements appear in the knitted output as intended.
++ **25 points** for successfully completing the project with git version control
+  + **15 points** are for your three required commits (5 points each)
+  + **10 points** for a properly organized repository with correctly named files according to instructions
+  + If you do not use git for your final project, you can still get credit but you will lose this 25% of your grade, and likely additional points will be lost since you will not have used the template.
+
+

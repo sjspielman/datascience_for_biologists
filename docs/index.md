@@ -61,10 +61,10 @@ W 4/7   | Logistic regression, Part 1 | Slides for today and all "logistic regre
 R 4/8   | **NO CLASS AT ALL TODAY** (not even asynchronous!)| None | None
 T 4/13  | Logistic regression, Part 2 | See slides from 4/7 | **Homework 10 due** on Canvas as an RMarkdown file. Instructions are embedded as part of the template.<!-- lm 2 -->
 W 4/14  | Logistic regression, Part 3 | See slides from 4/7 | None
-R 4/15  | Final Project Introduction | None | None
+R 4/15  | Final Project Introduction: [Project and Proposal instructions](./homeworks/project/project_proposal_intructions.html) | None | None
 T 4/20  | Version control with git(hub), Part 1 | Slides TBD | **Homework 11 due**  on Canvas as an RMarkdown file. Instructions are embedded as part of the template. <!-- logistic -->
 W 4/21  | Version control with git(hub), Part 2 | Exercises TBD | None
-R 4/22  | Version control with git(hub), Part 3 | Slides TBD |  **Final project proposal due. This is your Homework 12 assignment grade.**
+R 4/22  | Version control with git(hub), Part 3 | Slides TBD |  **Final project proposal due. This is your Homework 12 assignment grade.** The template is provided in the associated RStudio Cloud project.
 T 4/27  | **Guest Speaker: From Biology to Data Science, and back again** | _Attend and prepare ONE QUESTION TO ASK for some bonus points towards your final project!_| **There is no assignment due. Please begin working on your final project.**
 W 4/28  | Final Project Setup | None | None 
 R 4/29  | *Office hours*  | None | **Please note that class today is very likely the last chance to speak with me about your project. I cannot guarantee any availability after the semester ends.**
