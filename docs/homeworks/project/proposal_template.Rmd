@@ -1,0 +1,32 @@
+---
+title: "Project Proposal"
+subtitle: "Data Science for Biologists, Fall 2020"
+author: "Your name goes here"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE, echo = TRUE, include = TRUE)
+# Load all libraries you use HERE
+library(tidyverse)
+```
+
+
+
+### Data and Description
+
+Replace this text with a brief description of your data, including why you chose this dataset and a properly markdown formatted link to the source.
+
+
+```{r read-and-glimpse-data}
+
+```
+
+
+
+### Github account
+
+My github account is: `replace this text with your account name, but make sure to keep the code formatting with backticks!`.
+
