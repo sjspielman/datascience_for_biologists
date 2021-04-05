@@ -1,0 +1,58 @@
+---
+title: "Makeup TidyTuesday"
+author: "Student in class"
+date: "3/30/2021"
+output: 
+  html_document:
+    theme: cerulean
+    highlight: tango
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, echo = TRUE, message = FALSE)
+
+# load tidyverse library
+library(tidyverse)
+```
+
+```{r read_makeup_data}
+# read in tidytuesday data
+allNumbers <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-03-30/allNumbers.csv')
+
+# explore dataset
+glimpse(allNumbers)
+```
+
+```{r makeup, fig.width = 6, fig.height = 5}
+target_brands <- c("TOM FORD", "Givenchy", "Smashbox", "Armani Beauty") # define target brands
+allNumbers %>% # pipe in dataset
+  select(brand, lightness, numbers) %>% # select columns of interest
+  filter(brand %in% target_brands) %>% # filter rows for target brands
+  ggplot() + # add ggplot
+  aes(x = lightness, # add variable to x-axis
+      y = numbers, # add variable to y-axis
+      color = lightness) + # map color to lightness
+  geom_point() + # add scatterplot
+  facet_wrap(vars(brand), # facet scatterplot by brand
+             scales = "free") + # individualize scales
+  scale_color_gradient(low = "seashell1", # customize continuous color gradient
+                       high = "saddlebrown", 
+                       name = "Lightness") +
+  labs(x = "Numbers", # change x-axis title
+       y = "Lightness") + # change y-axis title
+  theme_linedraw() + # add linedraw theme
+  theme(panel.background = element_rect(fill = "powderblue"), # specify panel fill 
+        strip.background = element_rect(fill = "cadetblue4", # specify strip fill
+                                        color = "black"), # specify strip color
+        legend.position = "none") -> tidyplot # remove legend
+
+tidyplot
+```
+
+```{r save_plot}
+ggsave("tidytuesday_figure.png", tidyplot, # save tidyplot
+       width = 6, # specify width
+       height = 5) # specify height
+```
