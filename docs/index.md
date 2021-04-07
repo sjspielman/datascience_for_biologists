@@ -59,7 +59,7 @@ R 4/1   | Linear models, Part 3 | See slides from 3/30 | None
 T 4/6   | Linear models, Part 4 | See slides from 3/30 | **There is no homework due this week.**  <!-- lm 1 -->
 W 4/7   | Logistic regression, Part 1 | Slides for today and all "logistic regression" classes: <br> [Browser slides](./slides/logit_slides.html) <br> [PDF slides](./slides/logit_slides.pdf)  | None
 R 4/8   | **NO CLASS AT ALL TODAY** (not even asynchronous!)| None | None
-T 4/13  | Logistic regression, Part 2 | See slides from 4/7 | **Homework 10 due** on Canvas as an RMarkdown file. Instructions are embedded as part of the template.<!-- lm 2 -->
+T 4/13  | Logistic regression, Part 2 | See slides from 4/7 | **Homework 10 due** on Canvas as an RMarkdown file. Instructions are embedded as part of the template. <br><br> **Homework helpers**: For Part 1, please show the summary of the **final model**, not the full model!
 W 4/14  | Final Project Introduction: [Project and Proposal instructions](./homeworks/project/project_proposal_intructions.html) | See slides from 4/7 | None
 R 4/15  | Version control with git(hub), Part 1  | None | None
 T 4/20  | Version control with git(hub), Part 2 | Slides TBD | **Homework 11 due**  on Canvas as an RMarkdown file. Instructions are embedded as part of the template. <!-- logistic -->
