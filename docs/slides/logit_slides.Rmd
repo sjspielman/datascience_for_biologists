@@ -180,7 +180,7 @@ fit <- step(initial_fit, trace = FALSE)
 
 ## Interpreting the logistic regression coefficients
 
-> Proip: Don't.
+> Protip: Don't.
 
 ```{r}
 tidy(fit)
@@ -250,8 +250,7 @@ head(fit_tibble)
 .pull-right[
 ```{r, fig.width = 6, fig.height = 4}
 ggplot(fit_tibble, aes(x = x, y = y)) + 
- geom_line() +
- theme(legend.position = "bottom")
+ geom_line() 
 ```
 ]
 ---
@@ -260,7 +259,7 @@ ggplot(fit_tibble, aes(x = x, y = y)) +
 
 
 
-```{r, fig.width = 7, fig.height = 5}
+```{r, fig.width = 7, fig.height = 4.5}
 ggplot(fit_tibble, aes(x = x, y = y)) +
  geom_line() +
  geom_point(aes(color = sex), alpha = 0.4) +  #<<
@@ -418,10 +417,11 @@ threshold <- 0.75
 fit_tibble %>% 
   rename(truth = sex) %>% 
   mutate(pred = if_else(y >= threshold, "female", "male")) %>%
+  # female is positive, male is negative
   mutate(classif = case_when(truth == "female" & pred == "female" ~ "TP", 
                              truth == "female" & pred == "male" ~ "FN",
-                             truth == "male"    & pred == "female" ~ "TN",
-                             truth == "male"    & pred == "male" ~ "FP")) -> confusion
+                             truth == "male"    & pred == "female" ~ "FP",
+                             truth == "male"    & pred == "male" ~ "TN")) -> confusion
 
 confusion
 ```
@@ -445,7 +445,7 @@ $Accuracy = \frac{TP + TN}{TP + TN + FP + FN}$
 
 ```{r}
 ## No code, no answer:
-(142 + 4) / (142 + 4 + 164 + 23)
+(142 + 164) / (142 + 4 + 164 + 23)
 ```
 
 
