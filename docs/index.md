@@ -58,13 +58,13 @@ W 3/31  | Linear models, Part 2 | See slides from 3/30 | None
 R 4/1   | Linear models, Part 3 | See slides from 3/30 | None
 T 4/6   | Linear models, Part 4 | See slides from 3/30 | **There is no homework due this week.**  <!-- lm 1 -->
 W 4/7   | Logistic regression, Part 1 | Slides for today and all "logistic regression" classes: <br> [Browser slides](./slides/logit_slides.html) <br> [PDF slides](./slides/logit_slides.pdf)  | None
-R 4/8   | **NO CLASS AT ALL TODAY** (not even asynchronous!)| None | None
-T 4/13  | Logistic regression, Part 2 | See slides from 4/7 | **Homework 10 due** on Canvas as an RMarkdown file. Instructions are embedded as part of the template. <br><br> **Homework helpers**: For Part 1, please show the summary of the **final model**, not the full model!
-W 4/14  | Final Project Introduction: [Project and Proposal instructions](./homeworks/project/project_proposal_intructions.html) | See slides from 4/7 | None
-R 4/15  | Version control with git(hub), Part 1  | None | None
-T 4/20  | Version control with git(hub), Part 2 | Slides TBD | **Homework 11 due**  on Canvas as an RMarkdown file. Instructions are embedded as part of the template. <!-- logistic -->
-W 4/21  | Final Project Setup | None | **Final project proposal due. This is your Homework 12 assignment grade.** The template is provided in the associated RStudio Cloud project.
-R 4/22  | *Buffer day* | None |  None
+R 4/8   | *NO CLASS AT ALL TODAY* (not even asynchronous!)| None | None
+T 4/13  | Logistic regression, Part 2 | See slides from 4/7 | None
+W 4/14  | *NO CLASS AT ALL TODAY*  | None | **Homework 10 due** on Canvas as an RMarkdown file. Instructions are embedded as part of the template. <br><br> **Homework helpers**: For Part 1, please show the summary of the **final model**, not the full model!
+R 4/15  | Q/A about Project Instructions <br><br> [**Final Project and Proposal Instructions**](./homeworks/project/project_proposal_intructions.html)  | None | None
+T 4/20  | Version control with git(hub), Part 1 | Slides TBD | **Homework 11 due**  on Canvas as an RMarkdown file. Instructions are embedded as part of the template. <!-- logistic -->
+W 4/21  | Version control with git(hub), Part 2 | None | **Final project proposal due. This is your Homework 12 assignment grade.** The template is provided in the associated RStudio Cloud project.
+R 4/22  | Final project setup | None |  None
 T 4/27  | **Guest Speaker: From Biology to Data Science, and back again** | _Attend and submit one insight from this guest speaker by **11:59 PM tonight** for some bonus points towards your final project!_| **There is no assignment due. Please begin working on your final project.**
 W 4/28  | Final Project Setup | None | None 
 R 4/29  | *Office hours*  | None | **Please note that class today is very likely the last chance to speak with me about your project. I cannot guarantee any availability after the semester ends.**
