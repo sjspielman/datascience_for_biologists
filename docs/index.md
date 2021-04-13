@@ -66,7 +66,7 @@ T 4/20  | Version control with git(hub), Part 1 | Slides TBD | **Homework 11 due
 W 4/21  | Version control with git(hub), Part 2 | None | **Final project proposal due. This is your Homework 12 assignment grade.** The template is provided in the associated RStudio Cloud project.
 R 4/22  | Final project setup | None |  None
 T 4/27  | **Guest Speaker: From Biology to Data Science, and back again** | _Attend and submit one insight from this guest speaker by **11:59 PM tonight** for some bonus points towards your final project!_| **There is no assignment due. Please begin working on your final project.**
-W 4/28  | Final Project Setup | None | None 
+W 4/28  | *Office hours* | None | None 
 R 4/29  | *Office hours*  | None | **Please note that class today is very likely the last chance to speak with me about your project. I cannot guarantee any availability after the semester ends.**
 
 **FINAL PROJECT FINAL +10% DEADLINE MAY 4TH AT 11:59 PM**
