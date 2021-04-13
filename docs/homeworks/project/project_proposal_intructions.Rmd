@@ -29,7 +29,7 @@ For your final project, you will be analyzing a dataset of your choosing. Your g
 
 ## Project Proposal Instructions 
 
-> Due Thursday 4/22/21 by 11:59 PM. Timely submission is extremely important so that you can begin your final project as soon as possible. You will be able to resubmit the proposal for a full regrade if I do not approve it. Late penalties will not kick in until Monday 4/26 to allow re-submissions without penalty over the weekend, as needed. _Please, do not treat 4/26 as the actual deadline. It will backfire._
+> Due Wednesday 4/21/21 by 11:59 PM. Timely submission is extremely important so that you can begin your final project as soon as possible. You will be able to resubmit the proposal for a full regrade if I do not approve it, as long as your initial submission arrives by the deadline. 
 
 
 For your proposal, you will identify a dataset to analyze, using the provided template. You must choose a dataset that we have NOT used in class and has NOT been one of your `#tidytuesday` extra credit datasets. Some fantastic options for finding data include:
