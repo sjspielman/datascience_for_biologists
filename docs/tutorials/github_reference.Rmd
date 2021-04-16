@@ -1,0 +1,141 @@
+---
+title: "Git(hub) Command Reference"
+output: 
+  html_document:
+    theme: united
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+> Remember: We run `git` commands from the TERMINAL!! The R Console is a place to write R code. `git` is not R! Make sure you are not running `git` code from the R Console!
+
+
+### Vocabulary
+
++ A **repository** is a directory that `git` is managing 
++ Files that `git` knows about are **tracked**, i.e they are **under version control**
++ File changes that will become part of the next commit are **staged**
++ The **origin** refers to the remote repository from which your local repository was originally cloned
+  + Here, "remote" means "not your computer"
+  + The remote repository we are talking about is the one on github.com
++ The word **master** refers to the primary repository branch. *Don't worry about it in this class*
+    + When you see `origin/master` displayed, interpret this to mean: the repository as it looks on `github.com`
+
+<br><br>
+
+## The _very basic_ `git` command reference
+
+Command | What does it tell `git` to do?
+-------|-------------
+`git clone URL` |  Hey git, I want to downloaded aka _clone_ the repository onto my computer. *Note that we are using RStudio Cloud's fancy "New project from git repository" button to take this step for us.*
+`git add filename` | Hey git, you need know about this file and/or changes I made to this file `filename`. Please **stage** this file for the next commit.
+`git commit -m "message"` | Hey git, make a commit for all the staged files, and associate that commit with this message. **Don't forget to type the `-m "message"` - you will be stuck in VIM if you forget, and that will not be pleasant.**
+`git push` | Hey git, can you send my commits to my `github.com` repository?
+`git pull` | Hey git, can you download all the commits from my `github.com` repository and make sure I'm totally synced up with the website? When working on multiple computers or with contributors, you should do this EVERY TIME you start working again in the project.
+`git status` | Hey git, what's the status?? I don't remember what's been added, what needs to be added, whether I committed already and need to push, etc. so help me remember! **Run this often, and then run it more often!!**
+`git checkout filename` | Hey git, I totally didn't mean to change this file `filename`. Can I have reset it to itse most recent commit, aka the last known version?
+`git log` | Hey git, show me all of my past commits and their associated messages!
+
+
+
+<br><br>
+
+## The _very basic_ individual `git` workflow
+
+> At any and all times, running `git status` will show you what is staged, what is tracked but not staged, and what is not tracked at all. **Run it all the time in between everything!!**
+
+```
+# Assuming the repository has been cloned already:
+
+####### ADD #######
+# Stage your changes:
+git add new_script_I_made_and_want_to_track.R
+git add tracked_file_I_made_changed_to.txt
+
+
+####### COMMIT #######
+# Don't forget -m "message" !!!!
+git commit -m "I am briefly explaining the kind of things I did for this commit in about 1 sentence."
+
+
+####### PUSH #######
+# After you run this command, RStudio Cloud will prompt you for your GITHUB username and password. Make sure you know them!
+git push
+
+####### PULL #######
+# When you come back to your project, pull in case you don't have all the most recent changes. 
+# When working on multiple computers, this is SO KEY!
+git pull
+```
+
+<br><br>
+
+## Different types of output from `git status`
+
+1. **GREEN** text means *"Changes to be committed:"*. These are files you have _added but not yet committed_.
+2. **RED** text means either:
+    + *"Untracked files"*: Files are present but `git` is not aware of them. New files are always untracked at first.
+    + *"Changes not staged for commit"*: Files that `git` knows about have been changed, but the changes have not been added yet.
+    
+(Unfortunately only black/white colors below. You can see the green/red in the terminal in real life!)
+
+
+#### This means everything is up-to-date:
+
+```
+On branch master
+Your branch is up to date with 'origin/master'.
+
+nothing to commit, working tree clean
+```
+<br>
+
+
+
+#### This means new files are present, but `git` doesn't know about the files yet.
+
+```
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	new_file.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+```
+<br>
+
+
+#### This means new files have been added but not yet committed
+```
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	new file:   new_file.txt
+```
+<br>
+
+#### This means files have been committed, but not yet pushed to the github website
+```
+On branch master
+Your branch is ahead of 'origin/master' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+```
+<br>
+
+
+#### FYI A common error:
+```
+error: switch `m' requires a value
+```
+
+You forgot the commit *message*! You can't just type `git commit -m` - you need `git commit -m "YOUR MESSAGE GOES HERE"`.
+
+
