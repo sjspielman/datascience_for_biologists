@@ -1,0 +1,83 @@
+---
+title: "Setting up your final project repository"
+subtitle: "Data Science for Biologists, Spring 2021"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE, echo = FALSE, include = TRUE, out.width = "600px", out.extra="style='padding-left:100px;'")
+img_path <- "setup_screenshots/"
+```
+
+
+
+We will be using **Github Classroom** for the final project repository. These setup instructions assume a student github account called `sjs-student`. Make sure to always use *your* github account name! To set up your final project, take the following steps:
+
+<br><br>
+
+##### 1. Make sure you are signed into your [github.com](https://github.com) account in the browser.
+
+
+<br><br>
+
+##### 2. Navigate to this link: [https://classroom.github.com/a/FH_8P6XB](https://classroom.github.com/a/FH_8P6XB) and click the "Accept the assignment" green button.
+
+
+```{r}
+knitr::include_graphics(file.path(img_path, "accept.png"))
+```
+
+
+<br><br>
+
+##### 3. A screen will appear telling you the assignment is being created (top image). You can refresh this page anytime, and when the assignment has been created the site will update (bottom image). 
+
+
+```{r}
+knitr::include_graphics(file.path(img_path, "accepted_waiting.png"))
+```
+
+
+```{r}
+knitr::include_graphics(file.path(img_path, "accepted_done.png"))
+```
+
+<br><br>
+
+##### 4. You can now see to your newly-created assignment repository which lives at the URL `https://github.com/Rowan-BIOL01301/final_project-YOURGITHUB`, where `YOURGITHUB` is the github.com username you created. Your repository should look like this (of course, under your account instead of the `sjs-student`)
+
+
+```{r}
+knitr::include_graphics(file.path(img_path, "githubdone.png"))
+```
+
+<br><br>
+
+##### 5. Now that your repository is created, let's *clone it* to work with the code. Log into RStudio Cloud, *and make sure you are in the BIOL01301 Workspace.*
+
+<br><br>
+
+##### 6. Click the **dropdown arrow** part of the "New Project" button in RStudio Cloud, and select "New Project from Git Repository." 
+
+```{r out.width = "450px", out.extra="style='padding-left:25px;'"}
+knitr::include_graphics(c(file.path(img_path, "dropdown.png"), 
+                          file.path(img_path, "noreallydropdown.png")))
+```
+
+<br><br>
+
+##### 7. Copy and paste your URL into the popup window and make sure the option "Add packages from the base project" is clicked. Then click "OK".
+
+```{r}
+knitr::include_graphics(file.path(img_path, "fillindropdown.png"))
+```
+
+<br><br>
+
+##### 8. RStudio Cloud will now create your new project called `final_project-YOURGITHUB`, and when it's all set up you should see a project structure like this:
+
+```{r}
+knitr::include_graphics(file.path(img_path, "rstudiodone.png"))
+```
