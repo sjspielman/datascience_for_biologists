@@ -75,6 +75,7 @@ You must complete your final project using the template Rmarkdown file in your c
 Your final repository should contain only these files: 
 
 + `README.md` (I have written this file for you)
++ The `.gitignore` file we added together
 + Your final project as an Rmarkdown named `<lastname>_final_project.Rmd`. 
   + For example, I would call this `Spielman_final_project.Rmd`
 + Your final knitted project `<lastname>_final_project.html`. 
