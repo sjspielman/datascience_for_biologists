@@ -1,0 +1,199 @@
+---
+title: "Demonstration Rmarkdown document"
+author: "Stephanie J. Spielman"
+date: "3/16/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Header level 1
+
+## Header level 2
+
+##But if you forget to add a SPACE after the hashtag(s), your header won't work :(
+
+### Header level 3
+
+#### Header level 4
+
+##### Header level 5
+
+<!-- Hashtags are NOT COMMENTS IN MARKDOWN!! They are only comments in R!!!. To get a comment here, you need to use HTML comments. You'll notice this sentence does NOT APPEAR in the knitted document. -->
+
+
+We can style text with **bold**, *italics*, and `code style`. Surrounding text with dollar signs gives "math mode," like this: $Y=X$. Look at this fanciness: $R^2 = 0.89$. We can include [links](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-07-07/readme.md) pretty easily, too.
+
+> Blockquotes are also pretty cool.
+
++ bullet list
++ more bullet
+  + a nested bullet!
+    + more nesting! These nested bullets are TABBED in. 
+
+1. Or, have a NUMBERED list.
+2. Yup, it works!
+  a. But gets funky when you try nesting. It's often easier to use *bullets* if you want to nest a list.
+  
+For starting a new LIST (bullets or numbers), you need to have a NEW LINE before it. Otherwise, it's a mess!
++ this bullet doesn't work.
+
++ now the bullet works since there's a blank line above it!
+
+
+See? I bet you think this text
+is all written on the same line, 
+but it's not. Markdown is not Word. It doesn't care where you type "enter."
+Do you REALLY want to enter? Use `<br>` which is actual HTML. All actual HTML will be converted to..it's actual HTML project.
+<br>
+Ahhhaaaa now we;re on the next line. Want more spacing lines? More `<br>`!
+<br><br>
+Ah, a nice big break.
+
+
+## markdown and Rmarkdown resources
+
++ [markdown cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
++ [another markdown cheatsheet](https://commonmark.org/help/)
++ [Rmarkdown cheatsheet](https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
++ [Rmarkdown tutorial](https://ourcodingclub.github.io/tutorials/rmarkdown/#what)
++ [Rmarkdown guide](https://www.dataquest.io/blog/r-markdown-guide-cheatsheet/)
++ [R4DS Rmarkdown chapter](https://r4ds.had.co.nz/r-markdown.html#r-markdown)
++ [Official RMarkdown Reference](https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)
++ [Literally everything there is to know about Rmarkdown, and then some. Really overwhelming, but really comprehensive.](https://bookdown.org/yihui/rmarkdown/)
++ [Yihui Xie, author of Rmd, is a hilarious genius.](https://rstudio.com/resources/rstudioconf-2020/one-r-markdown-document-fourteen-demos/)
+
+
+## Introducing R "code chunks"
+
+This code chunk defines `x` as the value 5 and prints out the value.
+```{r}
+# define x as 5
+x <- 5
+# print the value of x
+print(x)
+```
+
+This code chunk, which appears *AFTER* the code chunk that defined `x<-5`, will print out 5! Code chunks will be run sequentially (in order from the top down in the document) when you **KNIT.**
+```{r}
+print(x)
+```
+
+**But, we really should name our chunks.** Naming chunks makes it much easier to navigate your document - imagine having 50 chunks in one Rmarkdown document and having to find the right one you need to work with! **NAME THEM, NAME THEM!!**
+```{r name_of_chunk}
+y <- 10
+z <- x + y
+print(z)
+```
+
+You'll notice above that the *output* from the code appears separately. Don't like that look? You can change the *setting* `collapse`, whose default is `FALSE`.
+```{r demo_collapse_true, collapse=TRUE}
+print(z)
+```
+
+You'll see in the _Rmd file itself_ (not in the knitted output) that the code chunk setting must be organized like this: `{language name, settings, more settings, more settings}`: The first item is which language the chunk is in (for us, always `r`!!), and the second item is the chunk's name, and there is NO COMMA between the language and name. Then, we use commas to separate any additional settings such as `collapse=TRUE`.
+
+If you want to apply any setting like `collapse=TRUE` automatically to ALL code chunks (rather than setting each code chunk separately), add the setting into the OPENING `setup` chunk specifically inside this line:
+`knitr::opts_chunk$set(SET OPTIONS TO TRUE IN HERE THAT YOU WANT TO BE APPLIED TO EVERYTHING)`. Settings that are commonly set either in `setup` or for individual chunks include...
+
++ `include`
+  + `FALSE`: The *code* in the code chunk *will not* be displayed in the knitted HTML
+  + `TRUE`: The *code* in the code chunk *WILL* be displayed in the knitted HTML
++ `echo`
+  + `FALSE`: The *output* from the code chunk *will not* be displayed in the knitted HTML
+  + `TRUE`: The *output* from the code chunk *WILL* be displayed in the knitted HTML
++ `collapse`
+  + `FALSE`: The *output* from the code chunk will be displayed separately from the code in the knitted HTML
+  + `TRUE`:  The *output* from the code chunk will be displayed as embedded comments with the code in the knitted HTML
++ `warning` and `message`
+  + `FALSE`: warnings or messages (depending which set) resulting from the code *will be suppressed* in the knitted HTML
+    + For example, remember the annoying message from `geom_histogram()` about bins?
+  + `TRUE`: warnings or messages (depending which set) resulting from the code *will be included* in the knitted HTML
++ **Very important:** `fig.width` and `fig.height`: The default width and height (in) for figures displayed in the knitted HTML. **It is common to need to customize this for EACH code chunk.** Setting an overall default is helpful, but all figures are different and may need their own sizes!
+
+## Get fancier!!
+
+You can choose the *Rmarkdown theme* and *code highlight style* by modifying the YAML.
+
+
+#### Modifying the document theme
+
+Change the `output: html_document` section of the YAML to look like this: 
+
+Example:
+````markdown
+output: 
+  html_document:
+    theme: cerulean
+````
+
+There are [lots of awesome themes](https://www.datadreaming.org/post/r-markdown-theme-gallery/)!
+
+
+#### Modifying the document theme
+
+Change the `output: html_document` section of the YAML to look like this: 
+
+Example:
+````markdown
+output: 
+  html_document:
+    highlight: pygments
+````
+
+There are [lots of awesome highlight styles](https://www.garrickadenbuie.com/blog/pandoc-syntax-highlighting-examples/#:~:text=The%20R%20Markdown%20book%20lists,null%20to%20prevent%20syntax%20highlighting.)!
+
+
+
+#### How about a table of contents?
+
+Just like for `theme` and `highlight`, reformat the YAML to have `toc: true` under `html_document`.
+
+````markdown
+output: 
+  html_document:
+    toc: true
+````
+For a *floating* table of contents, set both `toc` and `toc_float` to `true`:
+
+````markdown
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+````
+
+#### Yes of course, you can have it all
+
+````markdown
+output: 
+  html_document:
+    theme: cerulean
+    highlight: pygments
+    toc: true
+    toc_float: true
+````
+
+
+### Helpful hints
+
++ To compile the final product, you must click the "Knit" button. 
+  + R chunks will be run "brand new" in the order you wrote them
++ You can run single code chunks with the green button in their top right corner. When doing this...
+  + Code chunks will NOT communicate. If you click "Run" for chunk #3, R will NOT AUTOMATICALLY RUN the previous 2 code chunks.
+  + This is just like pressing "Run" from a script: Copy/paste into the Console.
+  + Single chunks running successfully is NOT THE SAME as your document knitting successfully!!
+
+
+### Prefer a PDF output to HTML?
+
++ Option 1 (*worse option*): Replace `html_document` with `pdf_document` in the YAML, ie: `output: pdf_document`
+  + This will give a somewhat differently formatted document! It will look different from the HTML version.
+  + Not all the highlights/themes will port to PDF this way.
++ Option 2 (*better option*): Run the code in Console: `pagedown::chrome_print("name_of_rmarkdown_file.Rmd")`
+  + This will give a PDF output that looks as close as possible to the HTML outputted version.
+  + Requires that you have installed the `pagedown` package.
+  
