@@ -51,9 +51,9 @@ T 9/14  | Introduction to R and RStudio | | Homework 1: Identifying data types a
 W 9/15 | Introduction to Rmarkdown  | |
 R 9/16 | _Open work day_ | |
 T 9/21 | The grammar of graphics, Part 1 | | Homework 2: Using R and RMarkdown
-W 9/22 | The grammar of graphics, Part 2   | |
-R 9/23 | Introduction to `ggplot2`  | |
-T 9/28 | Introduction to `ggplot2` |  | Homework 3: Grammar of Graphics
+W 9/22 | The grammar of graphics, Part 2 <br> Introduction to `ggplot2` | |
+R 9/23 | _Open work day_  | |
+T 9/28 | More `ggplot2` |  | Homework 3: Grammar of Graphics
 W 9/29 | More `ggplot2`  | |
 R 9/30 |  _Open work day_ | |
 T 10/5 | From plot to data and tidy data | | Homework 4: Data visualization with `ggplot2`
