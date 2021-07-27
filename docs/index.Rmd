@@ -1,0 +1,87 @@
+---
+title: "Data Science for Biologists, Fall 2021"
+---
+
+
+This website contains all materials used in BIOL 01301 Fall 2021 at Rowan University with [Dr. Spielman](https://spielmanlab.github.io) (`spielman <at> rowan <dot> edu`). This course meets Tuesday and Thursday 2-3:15 pm and Wednesday 3:30 - 6:15 pm in Science Hall 126. 
+
+### Key Information and Links
+
++ All grading and assignment submissions (unless otherwise stated) will be hosted on [Canvas](https://rowan.instructure.com/). 
+<!--
++ Assignments are _always due weekly_ on Canvas by.....
+  + Tuesdays 1 pm for full credit
+  + Tuesdays 11:59 PM (-5%) 
+  + Wednesdays 11:59 PM (-10%)
+  + Thursdays 11:59 PM for (-20%)
+  + Final deadline is Friday at 11:59 PM for (-25%)
++ Your grade is determined by...
+  + 25% class participation and attendance
+    + You are expected to work on materials _for this class_ during open days
+    + You get **TWO** personal day absences. Don't forget to cash in!  
+  + 60% weekly homeworks, with lowest grade dropped. 
+    + There are a total of 11 non-dropped homeworks, so each homework represents ~5.5% of your final grade
+  + 15% final project
+  + `#tidytuesday` extra credit submissions (worth up to )
+-->
++ All course materials will be posted on _this site_ and/or within the [rstudio.cloud](https://rstudio.cloud) BIOL01301 workspace.
++ Office hours will be held _virtually over Zoom every Monday from 3-4 PM. 
+  + Please see [Canvas](https://rowan.instructure.com/) for the link to the Office Hours Zoom. 
+  + You do NOT need to make an appointment! Feel free to show up in Zoom anytime during that window.
++ To make a one-on-one meeting with Dr. Spielman, please _email_ to request a meeting (not Starfish/RSN).
+  + **_Last minute availability is unlikely!_** Reach out to me at least one week before you want your meeting to happen for the best chance of availability!
++ The [`{introverse}`](https://spielmanlab.github.io/introverse) home page 
+
+
+<br> 
+
+### [TENTATIVE] Class Schedule and Materials
+
+> Schedule is subject to change based on student progress and class pace.
+
+
+ Date  |Topic                                  | In-class materials          | Assignment DUE
+--------|---------------------------------------|-----------------------------|---------------------
+W 9/1   | Introduction and class logistics <br> Types of data and figures | |
+R 9/2   | Types of data and figures | |
+T 9/7   | Types of data and figures | |  
+W 9/8   | Introduction to R and RStudio | |
+R 9/9   | Introduction to R and RStudio <!-- Quiz: Types of data and figures?? -->  | |
+T 9/14  | Introduction to R and RStudio | | Homework 1: Identifying data types and figures 
+W 9/15 | Introduction to Rmarkdown  | |
+R 9/16 | _Open work day_ | |
+T 9/21 | The grammar of graphics, Part 1 | | Homework 2: Using R and RMarkdown
+W 9/22 | The grammar of graphics, Part 2   | |
+R 9/23 | Introduction to `ggplot2`  | |
+T 9/28 | Introduction to `ggplot2` |  | Homework 3: Grammar of Graphics
+W 9/29 | More `ggplot2`  | |
+R 9/30 |  _Open work day_ | |
+T 10/5 | From plot to data and tidy data | | Homework 4: Data visualization with `ggplot2`
+W 10/6 |  Best practices in data visualization <br> More `ggplot2`| |
+R 10/7 |  _Open work day_ | |
+T 10/12 | dplyr I | | Homework 5: More data visualization with `ggplot2`
+W 10/13 | dplyr II <br> readr | |
+R 10/14 | _Open work day_ | |
+T 10/19 | dplyr III | | Homework 6: Data wrangling and visualization
+W 10/20 | Tidy data and pivoting | | 
+R 10/21 | _Open work day_  | | 
+T 10/26 | Relational data | | Homework 7: More data wrangling and visualization
+W 10/27 | Relational data (con't) <br> Working with strings  | |
+R 10/28 | _Open work day_  | |
+T 11/2 | lm I | | Homework 8: Even more data wrangling and visualization
+W 11/3 | lm II | |
+R 11/4 | _Open work day_ | | 
+T 11/9 | lm III | | NOTHING IS DUE: Free no homework week!
+W 11/10 | lm VI | |
+R 11/11 | _Open work day_ | |
+T 11/16 | logistic I | | Homework 9: Linear models
+W 11/17 | logistic II | |
+R 11/18 | _Open work day_ | |
+T 11/23 | Clustering (Likely) | | Homework 10: Logistic regressions
+W 11/24 | PCA | |
+R 11/25 | _No class: Thanksgiving_  | NA | None
+T 11/30 | UNIX and Github | |  Homeworks 11-12: Clustering and PCA **and** Final Project Proposal
+W 12/1 | UNIX and Github | |
+R 12/2 | UNIX and Github | |
+T 12/7 | _Open work day_ | |
+W 12/8 | _Open work day_ | |

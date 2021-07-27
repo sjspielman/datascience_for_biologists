@@ -1,0 +1,7 @@
+name: "BIOL01301"
+author: "Stephanie J. Spielman"
+output_dir: "."
+output:  
+  html_document:  
+    self_contained: no  
+    theme: united  

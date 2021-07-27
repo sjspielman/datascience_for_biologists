@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Data Science for Biologists, Fall 2021</title>
+
+<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Data Science for Biologists, Fall 2021</h1>
+
+</div>
+
+
+<p>This website contains all materials used in BIOL 01301 Fall 2021 at Rowan University with <a href="https://spielmanlab.github.io">Dr. Spielman</a> (<code>spielman &lt;at&gt; rowan &lt;dot&gt; edu</code>). This course meets Tuesday and Thursday 2-3:15 pm and Wednesday 3:30 - 6:15 pm in Science Hall 126.</p>
+<div id="key-information-and-links" class="section level3">
+<h3>Key Information and Links</h3>
+<ul>
+<li>All grading and assignment submissions (unless otherwise stated) will be hosted on <a href="https://rowan.instructure.com/">Canvas</a>. <!--
++ Assignments are _always due weekly_ on Canvas by.....
+  + Tuesdays 1 pm for full credit
+  + Tuesdays 11:59 PM (-5%) 
+  + Wednesdays 11:59 PM (-10%)
+  + Thursdays 11:59 PM for (-20%)
+  + Final deadline is Friday at 11:59 PM for (-25%)
++ Your grade is determined by...
+  + 25% class participation and attendance
+    + You are expected to work on materials _for this class_ during open days
+    + You get **TWO** personal day absences. Don't forget to cash in!  
+  + 60% weekly homeworks, with lowest grade dropped. 
+    + There are a total of 11 non-dropped homeworks, so each homework represents ~5.5% of your final grade
+  + 15% final project
+  + `#tidytuesday` extra credit submissions (worth up to )
+--></li>
+<li>All course materials will be posted on <em>this site</em> and/or within the <a href="https://rstudio.cloud">rstudio.cloud</a> BIOL01301 workspace.</li>
+<li>Office hours will be held _virtually over Zoom every Monday from 3-4 PM.
+<ul>
+<li>Please see <a href="https://rowan.instructure.com/">Canvas</a> for the link to the Office Hours Zoom.</li>
+<li>You do NOT need to make an appointment! Feel free to show up in Zoom anytime during that window.</li>
+</ul></li>
+<li>To make a one-on-one meeting with Dr. Spielman, please <em>email</em> to request a meeting (not Starfish/RSN).
+<ul>
+<li><strong><em>Last minute availability is unlikely!</em></strong> Reach out to me at least one week before you want your meeting to happen for the best chance of availability!</li>
+</ul></li>
+<li>The <a href="https://spielmanlab.github.io/introverse"><code>{introverse}</code></a> home page</li>
+</ul>
+<p><br></p>
+</div>
+<div id="tentative-class-schedule-and-materials" class="section level3">
+<h3>[TENTATIVE] Class Schedule and Materials</h3>
+<blockquote>
+<p>Schedule is subject to change based on student progress and class pace.</p>
+</blockquote>
+<table>
+<colgroup>
+<col width="8%" />
+<col width="40%" />
+<col width="29%" />
+<col width="21%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Date</th>
+<th>Topic</th>
+<th>In-class materials</th>
+<th>Assignment DUE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>W 9/1</td>
+<td>Introduction and class logistics <br> Types of data and figures</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>R 9/2</td>
+<td>Types of data and figures</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>T 9/7</td>
+<td>Types of data and figures</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>W 9/8</td>
+<td>Introduction to R and RStudio</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>R 9/9</td>
+<td>Introduction to R and RStudio <!-- Quiz: Types of data and figures?? --></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>T 9/14</td>
+<td>Introduction to R and RStudio</td>
+<td></td>
+<td>Homework 1: Identifying data types and figures</td>
+</tr>
+<tr class="odd">
+<td>W 9/15</td>
+<td>Introduction to Rmarkdown</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>R 9/16</td>
+<td><em>Open work day</em></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>T 9/21</td>
+<td>The grammar of graphics, Part 1</td>
+<td></td>
+<td>Homework 2: Using R and RMarkdown</td>
+</tr>
+<tr class="even">
+<td>W 9/22</td>
+<td>The grammar of graphics, Part 2</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>R 9/23</td>
+<td>Introduction to <code>ggplot2</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>T 9/28</td>
+<td>Introduction to <code>ggplot2</code></td>
+<td></td>
+<td>Homework 3: Grammar of Graphics</td>
+</tr>
+<tr class="odd">
+<td>W 9/29</td>
+<td>More <code>ggplot2</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>R 9/30</td>
+<td><em>Open work day</em></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>T 10/5</td>
+<td>From plot to data and tidy data</td>
+<td></td>
+<td>Homework 4: Data visualization with <code>ggplot2</code></td>
+</tr>
+<tr class="even">
+<td>W 10/6</td>
+<td>Best practices in data visualization <br> More <code>ggplot2</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>R 10/7</td>
+<td><em>Open work day</em></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>T 10/12</td>
+<td>dplyr I</td>
+<td></td>
+<td>Homework 5: More data visualization with <code>ggplot2</code></td>
+</tr>
+<tr class="odd">
+<td>W 10/13</td>
+<td>dplyr II <br> readr</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>R 10/14</td>
+<td><em>Open work day</em></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>T 10/19</td>
+<td>dplyr III</td>
+<td></td>
+<td>Homework 6: Data wrangling and visualization</td>
+</tr>
+<tr class="even">
+<td>W 10/20</td>
+<td>Tidy data and pivoting</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>R 10/21</td>
+<td><em>Open work day</em></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>T 10/26</td>
+<td>Relational data</td>
+<td></td>
+<td>Homework 7: More data wrangling and visualization</td>
+</tr>
+<tr class="odd">
+<td>W 10/27</td>
+<td>Relational data (con’t) <br> Working with strings</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>R 10/28</td>
+<td><em>Open work day</em></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>T 11/2</td>
+<td>lm I</td>
+<td></td>
+<td>Homework 8: Even more data wrangling and visualization</td>
+</tr>
+<tr class="even">
+<td>W 11/3</td>
+<td>lm II</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>R 11/4</td>
+<td><em>Open work day</em></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>T 11/9</td>
+<td>lm III</td>
+<td></td>
+<td>NOTHING IS DUE: Free no homework week!</td>
+</tr>
+<tr class="odd">
+<td>W 11/10</td>
+<td>lm VI</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>R 11/11</td>
+<td><em>Open work day</em></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>T 11/16</td>
+<td>logistic I</td>
+<td></td>
+<td>Homework 9: Linear models</td>
+</tr>
+<tr class="even">
+<td>W 11/17</td>
+<td>logistic II</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>R 11/18</td>
+<td><em>Open work day</em></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>T 11/23</td>
+<td>Clustering (Likely)</td>
+<td></td>
+<td>Homework 10: Logistic regressions</td>
+</tr>
+<tr class="odd">
+<td>W 11/24</td>
+<td>PCA</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>R 11/25</td>
+<td><em>No class: Thanksgiving</em></td>
+<td>NA</td>
+<td>None</td>
+</tr>
+<tr class="odd">
+<td>T 11/30</td>
+<td>UNIX and Github</td>
+<td></td>
+<td>Homeworks 11-12: Clustering and PCA <strong>and</strong> Final Project Proposal</td>
+</tr>
+<tr class="even">
+<td>W 12/1</td>
+<td>UNIX and Github</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>R 12/2</td>
+<td>UNIX and Github</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>T 12/7</td>
+<td><em>Open work day</em></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>W 12/8</td>
+<td><em>Open work day</em></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
