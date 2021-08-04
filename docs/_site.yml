@@ -4,4 +4,4 @@ output_dir: "."
 output:  
   html_document:  
     self_contained: no  
-    theme: united  
+    theme: paper
