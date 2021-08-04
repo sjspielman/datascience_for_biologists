@@ -1,0 +1,11 @@
+p{font-size: 16px;}
+ul{font-size: 16px;}
+tbody{font-size: 16px;}
+thead{font-size: 18px;}
+body .main-container{
+  max-width: 1200px;
+  margin: auto;
+}
+h4{
+  font-weight:600;
+}

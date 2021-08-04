@@ -5,7 +5,9 @@ title: "Data Science for Biologists, Fall 2021"
 
 This website contains all materials used in BIOL 01301 Fall 2021 at Rowan University with [Dr. Spielman](https://spielmanlab.github.io) ([`spielman@rowan.edu`](mailto:spielman@rowan.edu)). This course meets Tuesday and Thursday 2-3:15 pm and Wednesday 3:30 - 6:15 pm in Science Hall 126. 
 
-### Key Information and Links
+(Are you a former student looking for your semester's version of this website? Email Dr. Spielman!) 
+
+## Key Information and Links
 
 + All grading and assignment submissions (unless otherwise stated) will be hosted on [Canvas](https://rowan.instructure.com/). 
 + All course materials will be posted on _this site_ and/or within the [rstudio.cloud](https://rstudio.cloud) BIOL01301 workspace.
@@ -15,8 +17,9 @@ This website contains all materials used in BIOL 01301 Fall 2021 at Rowan Univer
   + In-person office hours will be integrated into class time.
 + To make a one-on-one meeting with Dr. Spielman, please _email_ to request a meeting (not Starfish/RSN).
   + **_Last minute availability is unlikely!_** Reach out at least one week before you want your meeting to happen for the best chance of availability!
++ [Link to the class syllabus]()
 
-#### What about my grade?
+### What about my grade?
 
 Your grade is determined by...
 
@@ -33,15 +36,16 @@ Your grade is determined by...
     + Final deadline is Friday at 11:59 PM for (-25%)
     + _Except for HW #1, which is due on a Thursday at 1 pm (and so on late deadlines)._
 + **15% final independent project**
+  + Due Tuesday 12/14/21 by 11:59 PM. 
+  + Late submissions NOT accepted, unless you have prior permission, or there are emergency circumstances.
 + **EXTRA CREDIT**: `#tidytuesday` submissions
   
-<br> 
 
-### Class Schedule and Materials
+## Class Schedule and Materials
 
 > Schedule topics subject to change up until the week before, depending on class pace.
 >
-> The [`{introverse}`](https://spielmanlab.github.io/introverse) home page 
+> **Your go-to resource: the [`{introverse}`](https://spielmanlab.github.io/introverse)**
 
 
  Date  |Topic                                  | In-class materials          | Assignment DUE
