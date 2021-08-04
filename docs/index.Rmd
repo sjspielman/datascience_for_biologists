@@ -45,10 +45,10 @@ This website contains all materials used in BIOL 01301 Fall 2021 at Rowan Univer
 W 9/1   | Introduction and class logistics <br> Types of data and figures | |
 R 9/2   | Types of data and figures | |
 T 9/7   | Types of data and figures | |  
-W 9/8   | Introduction to R and RStudio | |
+W 9/8   | Types of data and figures <br> Introduction to R and RStudio | |
 R 9/9   | Introduction to R and RStudio <!-- Quiz: Types of data and figures?? -->  | |
 T 9/14  | Introduction to R and RStudio | | Homework 1: Identifying data types and figures 
-W 9/15 | Introduction to Rmarkdown  | |
+W 9/15 | Introduction to R and RStudio <br> Introduction to Rmarkdown  | |
 R 9/16 | _Open work day_ | |
 T 9/21 | The grammar of graphics, Part 1 | | Homework 2: Using R and RMarkdown
 W 9/22 | The grammar of graphics, Part 2 <br> Introduction to `ggplot2` | |
