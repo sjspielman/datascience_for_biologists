@@ -74,19 +74,19 @@ This code chunk defines `x` as the value 5 and prints out the value.
 # define x as 5
 x <- 5
 # print the value of x
-print(x)
+x
 ```
 
 This code chunk, which appears *AFTER* the code chunk that defined `x<-5`, will print out 5! Code chunks will be run sequentially (in order from the top down in the document) when you **KNIT.**
 ```{r}
-print(x)
+x
 ```
 
 **But, we really should name our chunks.** Naming chunks makes it much easier to navigate your document - imagine having 50 chunks in one Rmarkdown document and having to find the right one you need to work with! **NAME THEM, NAME THEM!!**
 ```{r name_of_chunk}
 y <- 10
 z <- x + y
-print(z)
+z
 ```
 
 You'll notice above that the *output* from the code appears separately. Don't like that look? You can change the *setting* `collapse`, whose default is `FALSE`.
@@ -97,7 +97,7 @@ print(z)
 You'll see in the _Rmd file itself_ (not in the knitted output) that the code chunk setting must be organized like this: `{language name, settings, more settings, more settings}`: The first item is which language the chunk is in (for us, always `r`!!), and the second item is the chunk's name, and there is NO COMMA between the language and name. Then, we use commas to separate any additional settings such as `collapse=TRUE`.
 
 If you want to apply any setting like `collapse=TRUE` automatically to ALL code chunks (rather than setting each code chunk separately), add the setting into the OPENING `setup` chunk specifically inside this line:
-`knitr::opts_chunk$set(SET OPTIONS TO TRUE IN HERE THAT YOU WANT TO BE APPLIED TO EVERYTHING)`. Settings that are commonly set either in `setup` or for individual chunks include...
+`knitr::opts_chunk$set(SET OPTIONS TO TRUE IN HERE THAT YOU WANT TO BE APPLIED TO EVERYTHING)`. Settings that are commonly set either in `setup` or for individual chunks include the following, **which you can also set up interactively with the chunk's gear icon!**
 
 + `include`
   + `FALSE`: The *code* in the code chunk *will not* be displayed in the knitted HTML
@@ -121,7 +121,7 @@ You can choose the *Rmarkdown theme* and *code highlight style* by modifying the
 
 #### Modifying the document theme
 
-Change the `output: html_document` section of the YAML to look like this: 
+Change the `output: html_document` section of the YAML to look like this (notice the _tabbing_ - without tabbing, it won't work!)
 
 Example:
 ````markdown

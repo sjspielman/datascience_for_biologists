@@ -25,19 +25,18 @@ Your grade is determined by...
 
 + **25% class participation and attendance**
   + You are expected to be engaged and work on materials _for this class_ during open days and in-class exercises.
-  + You get *two personal day absences.* Don't forget to cash in!  
+  + You get *three personal day absences* (see full syllabus for details). Don't forget to cash in!  
 + **60% weekly homeworks**, with lowest grade dropped. 
   + There are a total of 11 non-dropped homeworks, so each homework represents ~5.5% of your final grade
   + Homeworks are _always due weekly_ on Canvas by.....
     + Tuesdays 1 pm for full credit
-    + Tuesdays 11:59 PM (-5%) 
+    + Tuesdays 11:59 PM (-5%); 
     + Wednesdays 11:59 PM (-10%)
     + Thursdays 11:59 PM for (-20%)
     + Final deadline is Friday at 11:59 PM for (-25%)
     + _Except for HW #1, which is due on a Thursday at 1 pm (and so on late deadlines)._
 + **15% final independent project**
   + Due Tuesday 12/14/21 by 11:59 PM. 
-  + Late submissions NOT accepted, unless you have prior permission, or there are emergency circumstances.
 + **EXTRA CREDIT**: `#tidytuesday` submissions
   
 
@@ -76,11 +75,11 @@ R 10/21 | _Open work day_  | | -
 T 10/26 | Relational data | | Homework 8: More data wrangling and visualization
 W 10/27 | Relational data (con't) <br> Working with strings  | | -
 R 10/28 | _Open work day_  | | -
-T 11/2 | lm I | | Homework 9: Even more data wrangling and visualization
-W 11/3 | lm II | | -
+T 11/2 | Introduction to ML | | Homework 9: Even more data wrangling and visualization
+W 11/3 | lm I | | -
 R 11/4 | _Open work day_ | | -
-T 11/9 | lm III | | NOTHING IS DUE: Free no homework week! 
-W 11/10 | lm VI <br> logistic I | | -
+T 11/9 | lm II | | NOTHING IS DUE: Free no homework week! 
+W 11/10 | lm III <br> logistic I | | -
 R 11/11 | _Open work day_ | | -
 T 11/16 | logistic II | | Homework 10: Linear models
 W 11/17 | logistic III | | -
@@ -88,7 +87,7 @@ R 11/18 | _Open work day_ | | -
 T 11/23 | Clustering and PCA | | Homework 11: Logistic regressions
 W 11/24 | Clustering and PCA in-class activity | | -
 R 11/25 | _No class: Thanksgiving_  | - | -
-T 11/30 | UNIX and Github | |  Homework 12: Final Project Proposal. _This homework may not be dropped._
+T 11/30 | UNIX and Github | |  **Monday 11/29 at 11:59 PM**: Homework 12: Final Project Proposal. _This homework may not be dropped._
 W 12/1 | UNIX and Github | | -
 R 12/2 | UNIX and Github | | -
 T 12/7 | Final Project Setup | | -
