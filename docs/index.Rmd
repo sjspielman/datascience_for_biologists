@@ -4,45 +4,15 @@ output: html_document
 ---
 
 
-This website contains all materials used in BIOL 01301 Fall 2021 at Rowan University with [Dr. Spielman](https://spielmanlab.github.io) ([`spielman@rowan.edu`](mailto:spielman@rowan.edu)). This course meets Tuesday and Thursday 2-3:15 pm and Wednesday 3:30 - 6:15 pm in Science Hall 126. 
+This website contains all materials used in BIOL 01301 Fall 2021 at Rowan University with [Dr. Spielman](https://spielmanlab.github.io) ([`spielman@rowan.edu`](mailto:spielman@rowan.edu)). (Are you a former student looking for your semester's version of this website? Email Dr. Spielman!) 
 
-(Are you a former student looking for your semester's version of this website? Email Dr. Spielman!) 
-
-
-[Syllabus](syllabus/docs/index.html)
 
 ## Key Information and Links
 
++ This course meets Tuesday and Thursday 2-3:15 pm and Wednesday 3:30 - 6:15 pm in Science Hall 126. 
 + All grading and assignment submissions (unless otherwise stated) will be hosted on [Canvas](https://rowan.instructure.com/). 
 + All course materials will be posted on _this site_ and/or within the [rstudio.cloud](https://rstudio.cloud) BIOL01301 workspace.
-+ Office hours will be held _virtually_ over Zoom every Monday from 3-4 PM. 
-  + Please see [Canvas](https://rowan.instructure.com/) for the link to the Office Hours Zoom. 
-  + You do NOT need to make an appointment! Feel free to show up in Zoom anytime during that window.
-  + In-person office hours will be integrated into class time.
-+ To make a one-on-one meeting with Dr. Spielman, please _email_ to request a meeting (not Starfish/RSN).
-  + **_Last minute availability is unlikely!_** Reach out at least one week before you want your meeting to happen for the best chance of availability!
-+ [Link to the class syllabus]()
-
-### What about my grade?
-
-Your grade is determined by...
-
-+ **25% class participation and attendance**
-  + You are expected to be engaged and work on materials _for this class_ during open days and in-class exercises.
-  + You get *three personal day absences* (see full syllabus for details). Don't forget to cash in!  
-+ **60% weekly homeworks**, with lowest grade dropped. 
-  + There are a total of 11 non-dropped homeworks, so each homework represents ~5.5% of your final grade
-  + Homeworks are _always due weekly_ on Canvas by.....
-    + Tuesdays 1 pm for full credit
-    + Tuesdays 11:59 PM (-5%); 
-    + Wednesdays 11:59 PM (-10%)
-    + Thursdays 11:59 PM for (-20%)
-    + Final deadline is Friday at 11:59 PM for (-25%)
-    + _Except for HW #1, which is due on a Thursday at 1 pm (and so on late deadlines)._
-+ **15% final independent project**
-  + Due Tuesday 12/14/21 by 11:59 PM. 
-+ **EXTRA CREDIT**: `#tidytuesday` submissions
-  
++ The [syllabus](syllabus/docs/index.html) contains all class information and policies.
 
 ## Class Schedule and Materials
 
@@ -53,11 +23,11 @@ Your grade is determined by...
 
  Date  |Topic                                  | In-class materials          | Assignment DUE
 --------|---------------------------------------|-----------------------------|---------------------
-W 9/1   | Introduction and class logistics <br> Types of data and figures | | -
+W 9/1   | Introduction and class logistics | | -
 R 9/2   | Types of data and figures | | -
 T 9/7   | Types of data and figures | | -
 W 9/8   | Types of data and figures <br> Introduction to R and RStudio | | -
-R 9/9   | Introduction to R and RStudio <!-- Quiz: Types of data and figures?? -->  | | Homework 1: Identifying data types and figures 
+R 9/9   | Introduction to R and RStudio <!-- Quiz: Types of data and figures?? -->  | | Homework 1: Identifying data types and figures <br> (This is the only homework not due on a Tuesday)
 T 9/14  | Introduction to R and RStudio | | Homework 2: Show me your R
 W 9/15 | Introduction to R and RStudio <br> Introduction to Rmarkdown  | | -
 R 9/16 | _Open work day_ | | -
