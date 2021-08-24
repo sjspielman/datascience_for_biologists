@@ -1,11 +1,15 @@
 ---
 title: "Data Science for Biologists, Fall 2021"
+output: html_document
 ---
 
 
 This website contains all materials used in BIOL 01301 Fall 2021 at Rowan University with [Dr. Spielman](https://spielmanlab.github.io) ([`spielman@rowan.edu`](mailto:spielman@rowan.edu)). This course meets Tuesday and Thursday 2-3:15 pm and Wednesday 3:30 - 6:15 pm in Science Hall 126. 
 
 (Are you a former student looking for your semester's version of this website? Email Dr. Spielman!) 
+
+
+[Syllabus](syllabus/docs/index.html)
 
 ## Key Information and Links
 
@@ -52,7 +56,7 @@ Your grade is determined by...
 W 9/1   | Introduction and class logistics <br> Types of data and figures | | -
 R 9/2   | Types of data and figures | | -
 T 9/7   | Types of data and figures | | -
-W 9/8   | Introduction to R and RStudio | | -
+W 9/8   | Types of data and figures <br> Introduction to R and RStudio | | -
 R 9/9   | Introduction to R and RStudio <!-- Quiz: Types of data and figures?? -->  | | Homework 1: Identifying data types and figures 
 T 9/14  | Introduction to R and RStudio | | Homework 2: Show me your R
 W 9/15 | Introduction to R and RStudio <br> Introduction to Rmarkdown  | | -
@@ -72,8 +76,8 @@ R 10/14 | _Open work day_ | | -
 T 10/19 | dplyr III | | Homework 7: Data wrangling and visualization
 W 10/20 | Tidy data and pivoting | | -
 R 10/21 | _Open work day_  | | -
-T 10/26 | Relational data | | Homework 8: More data wrangling and visualization
-W 10/27 | Relational data (con't) <br> Working with strings  | | -
+T 10/26 | **OPEN ACCESS PANEL** | | Homework 8: More data wrangling and visualization
+W 10/27 | Relational data | | -
 R 10/28 | _Open work day_  | | -
 T 11/2 | Introduction to ML | | Homework 9: Even more data wrangling and visualization
 W 11/3 | lm I | | -

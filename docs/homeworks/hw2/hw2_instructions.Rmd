@@ -1,7 +1,7 @@
 ---
 title: 'Homework #2'
 author: "Data Science for Biologists, Spring 2021"
-date: "Due as an R Script to Canvas on Tuesday 2/9/21"
+date: "Due as an R Script to Canvas on Tuesday 9/14/21 by 1 PM"
 output: 
   html_document:
     theme: lumen
@@ -13,80 +13,165 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Instructions
 
-Answer the following questions with R code in the `hw2_template.R` templated script, ensuring you retain the overall templated script organization. Do NOT submit a script that does not use this template!
+For this homework, you will be writing your very first R script and learning how to engage with RStudio and the `ds4b.materials` R package from Dr. Spielman. The goal of this homework is to provide you with a concrete opportunity to gain initial comfort with the fundamental tools used in this class to enable your future success for the rest of the semester.
 
-+ You will not receive any credit for answers without corresponding code that produces those answers.
-+ All lines of code **MUST** have an associated comment. The purpose of this instruction is to get you in the habit of writing comments. Comments should be brief "plain English" descriptions of what your code does. Even though the code on this homework is relatively straightforward, comments are still important.
-  + Comments may either be written on the line ABOVE the code it refers to, or at the END of the line of the code it refers to. Do NOT write comments on lines after the relevant code.
-+ **Make sure your code runs WITHOUT an errors before submitting.** _DO NOT SKIP THIS STEP!_ Ensuring code runs without errors is MORE IMPORTANT than writing code in the first place.
-  + **_Please carefully watch this 10-minute video to help you!!!_** [Link to video](https://youtu.be/OXCIIKKRBqk). I recommend watching this video BEFORE you do your homework, but of course you can watch it anytime. This video will teach you how to deal with errors/bugs in your code. It will also show you (at the very end) how to download your homework R script from the cloud to your computer so you can submit to Canvas.
-  + If there are errors in your code, you should *comment out* the code so that it does not actually run. This is **BETTER** than allowing buggy code to run - it shows me you attempted the code, but understood that it didn't work properly. If you leave buggy code in the script without commenting it out, there will be deductions.
-  + RStudio will help you find bugs in your code! If you see a red "x" circle at the front of a line in your script, this means there is some kind of syntax error (missing a symbol, extra symbol, etc.) in your code. Either FIX IT or COMMENT IT OUT.
-+ In the script template, you'll notice a line of code printing the question number at the start of each question. *DO NOT DELETE THESES LINES!* They help us see which question each value you print came from.
+The literal step-by-step instructions that you should take to complete this homework are in these videos. Please watch them in this order, and follow instructions as you go:
+
+1. [Setting up your homework]
+2. [Doing your homework]
+3. [Checking your homework]
+4. [Submitting your homework]
+
+
+While watching these videos, you will need to access these links:
+
+1. [RMarkdown document themes](https://www.datadreaming.org/post/r-markdown-theme-gallery/)
+  + **Do not consider the section _Even More Themes_.** We will learn later how you can use one of those themes if you choose.
+2. [RMarkdown code syntax highlighting](https://www.garrickadenbuie.com/blog/pandoc-syntax-highlighting-examples/)
+3. 
+
+
+### Examples of what NOT to do 
+
+> The following code chunks provide examples of how *NOT TO* and how *TO* answer a hypothetical homework question using code. Notice how there are many ways to correctly achieve the right result! Welcome to coding :)
+
+
+
+**Hypothetical homework question: What is the length of an array with values 4, 6, and 10?**
+
 <br>
 
-### Questions
+**NO!** This code is not acceptable, largely because it is not code - it is just the number 3. There is no code used at all to answer the question. Even if it is "easy" to do something in your head, you must use code to answer it.
+```{r}
+3
+```
 
-0. **Example Question**: Define a variable `w` as the value 10, and print the variable.
+
+**NO!** This code is not acceptable, because even though code was used at some point, the code itself does not directly produce the output. This example represents a situation where you might run `length(c(4,6,10))` in the R Console, or run `length(c(4,6,10))` in the chunk but later delete or comment it out. You might look at the output and say, "the code calculated 3, so the answer is 3." But, this is not ok, since the code you submit itself must produce the number 3.
+
+```{r}
+#length(c(4,6,10))
+3
+```
+
+**NO!** This code is not acceptable, because even though code was used at some point, the code itself does not directly produce the output. This example represents a situation where you might run `length(c(4,6,10))` in the R Console, or run `length(c(4,6,10))` in the chunk but later delete or comment it out. You might look at the output and say, "the code calculated 3, so the answer is 3." But, this is not ok, since the code you submit itself must produce the number 3.
+```{r}
+#length(c(4,6,10))
+3
+```
+
+
+**NO!** This is getting much closer, since we now have the fully code needed to generate the output. However, nothing is actually printed, so the output is not revealed. It is critical to always reveal the output!
+```{r}
+answer <- length(c(4,6,10))
+```
+
+
+
+**YES!** This "fixes" the previous "NO!" example by revealing the output.
+```{r}
+answer <- length(c(4,6,10))
+answer
+```
+
+**YES!** Only code is used to produce the output.
+```{r}
+# YES!
+length(c(4,6,10))
+```
+
+
+**YES!** Only code is used to produce the output. This strategy uses improved coding style by defining a _variable_ for the array, and then using `length()` to calculate the length of the variable.
+```{r}
+# YES!
+my_array <- c(4,6,10)
+length(my_array)
+```
+
+**YES!** Only code is used to produce the output. This strategy uses improved coding style by defining a _variable_ for the array, and then defining another variable to contain the output from the `length()` calculation.
+```{r}
+# YES!
+my_array <- c(4,6,10)
+the_length <- length(my_array)
+the_length
+```
+
+
+**Unless the instructions explicitly ask you to define certain variables, all "YES!" code versions here are equivalent and entirely accceptable!**
+
+
+### The literal homework questions:
+
+> The most important rule: All answers must have corresponding code, and answers must be directly derived from code.  
+
+
+ **Example Question**: Define a variable `w` as the value 10, and print the variable.
 
     *This question is answered in the homework script template so you can see the general organization (including for your comments!) for how you should answer the following questions.*
 
 <br>
 
-1. Define two variables `x` and `y` as values 13 and 18, respectively. Use a logical operator to ask if x is greater than y and print the output. **The code should print `TRUE` if x is greater and `FALSE` if not.**
+1. Define two variables `x` and `y` as values 11 and 4, respectively. Use a logical operator to ask if x is greater than y and print the output. **The code chunk should print `TRUE` if x is greater and `FALSE` if not.**
+  + Need help? Run `get_help("logical")` in the R Console.
 
 <br>
 
-2. Define two variables `a` and `b` as values 6 and 36, respectively. Use a logical operator and the function `sqrt()` to ask if `a` is equal to the square root of `b`, and print the output. **The code should print `TRUE` if they are equal and `FALSE` if not.**
+2. Define two variables `a` and `b` as values 6 and 36, respectively. Use a logical operator and the function `sqrt()` to ask if `a` is equal to the square root of `b`, and print the output. **The code chunk should print `TRUE` if they are equal and `FALSE` if not.**
+  + Need help? Run `get_help("logical")` and `get_help("sqrt")` in the R Console.
 
 <br> 
 
-3. Define a variable `boop` (gotta keep it fun!) whose values *depends* on a logical comparison, using variables `a` and `b` from the previous question. If `a` squared equals `b`, `boop` should be defined with the value "eureka". Otherwise, if `a` squared does not equal `b`, `boop` should be defined with the value "wompwomp". **Print the value of `boop` after it is defined.**
-  
-      Hints:
-      
-      + You will need to use the function `ifelse()` in your code.
-      + Do NOT redefine the `a` and `b` variables. You defined them in question #2, and this is still the same R script! We always want to avoid repeating code since it often leads to unexpected bugs.
+3. Define an array variable called `mammal_vectors` to contain these strings: "camel", "civet", "mink", "bat", "ferret", and "pangolin" (these are all mammals known to be vectors for either SARS-CoV-2 or one of its close relatives SARS and MERS). Use the function `length()` to determine how long the array is. **Your code should print the length of this array.**
+  + Need help? Run `get_help("length")` in the R Console.
+
+
+<br>
+
+4. Again consider the `mammal_vectors` array you created. Use the logical operator `%in%` to determine if the string "elephant" is in the array. **If "elephant" is in the array, your code should print `TRUE`, and `FALSE` otherwise.**
+  + Need help? Run `get_help("logical")` in the R Console.
+
+<br>
+
+5. Define an array variable called `dinosaurs` to contain the three strings: "eagle", "ostrich", and "sparrow" (wait, those are all birds?! That's right, birds are dinosaurs!). Then, define two other _numeric_ variables called `mammals_length` and `dinosaurs_length`. Each of these variables should be defined as the length of the respective array.  - one should be the length of the `mammal_vectors` array, and the other should be the length of the `dinosaurs` array. Finally, use a logical operator to compare the these variables. **If `mammals_length` is _greater than or equal to_ `dinosaurs_length`, your code should print `TRUE`.**
 
 <br> 
 
-4. Define an array variable called `mammal_vectors` to contain these strings: "camel", "civet", "mink", "bat", "ferret", and "pangolin" (these are all mammals known to be vectors for either SARS-CoV-2 or one of its close relatives SARS and MERS). Use the function `length()` to determine how long the array is, and print the output. **The code should print a number which corresponds to the length of the array.**
+6. Use a colon (`:`) to create a variable called `q6` as an array of numbers in order 87-162. Before you proceed, interactively print this variable to make sure it was defined correctly. Then, calculate the mean, median, and standard deviation (with functions `mean()`, `median()`, and `sd()` respectively) of this array. Each calculation should be saved to a variable called, respectively: `q6_mean`, `q6_median`, and `q6_sd`. **Finally, print these three variables. You do not need to print `q6`. Your code should therefore print three different values.**
+  + Need help? Run `get_help("mean")` in the R Console.
 
-<br>
-
-5. Again consider the `mammal_vectors` array you created. Use the logical operator `%in%` to determine if the string "elephant" is in the array. **If "elephant" is in the array, your code should print `TRUE`, and `FALSE` otherwise.**
-
-<br>
-
-6. Define an array variable called `dinosaurs` to contain the three strings: "eagle", "ostrich", and "sparrow" (wait, those are all birds?! That's right, birds are dinosaurs!). Then, define two other variables (you can choose what they are called) - one should be the length of the `mammal_vectors` array, and the other should be the length of the `dinosaurs` array. Finally, use a logical operator to compare the these variables. **If the length of `mammal_vectors` is longer than the length of `dinosaurs`, your code should print `TRUE`. Otherwise, your code should print `FALSE`.**
 
 <br> 
 
-7. Use a colon (`:`) to create a variable called `q7` as an array of numbers in order 100-200. 
-From this variable `q7`, calculate the mean, median, standard deviation, and sum (with functions `mean()`, `median()`, `sd()`,and `sum()`, respectively) of this array. Each calculation should be saved to a variable called, respectively: `q7_mean`, `q7_median`, `q7_sd`, and `q7_sum`. **Finally, print these four variables. You do not need to print `q7`.**
 
-<br> 
-
-8. There is a super useful function called `paste()` which allows you to strings (characters) together to create a new string. See how this function works below:
-
-      ```{r paste_demo}
-      combined_string <- paste("string 1", "and", "string 2")
-      print(combined_string)
-      
-      # you can also include variables:
-      a_string <- "hello there"
-      combined_string2 <- paste("string 1", a_string, "string 2")
-      print(combined_string2)
-      ```
-
-    **Use the `paste()` function and the variable `q7_mean` to print a sentence that says: "The mean of q7 is ...." where .... is the the `q7_mean` value.** Your code should _NOT_ include a number directly (don't copy/paste the value of the mean). You may _ONLY_ refer to this number value with the `q7_mean` variable.
+7. Define an array variable using a colon called `q7` with the values -20 - 10 (_negative 20 through positive ten_). Then, calculate and save the _sum_ (using the function `sum()`) of `q7` as a variable `q7_sum`. 
+  + Need help? Run `get_help("sum")` in the R Console.
 
 <br>
 
-9. Define an array variable (use a colon!) called `q9` with the values -20 - 10 (negative 20 through positive ten). Calculate and save the mean of `q9` as a variable `q9_mean`. Define a variable called `compare_q7_q9` whose value *depends* on a comparison between `q9_mean` and `q7_mean`. If these values are equal, `compare_q7_q9` should be defined as 1. If these values are not equal, `compare_q7_q9` should be defined as 0. **Finally, print the value of `compare_q7_q9`.**
+8. Again consider the array `q7`. Use a logical operator to ask if all values in this array are greater than or 0 (aka, is `q7` greater than or equal to 0?). The result of this code will be an array itself containing `TRUE` and `FALSE` values corresponding to whether the $\geq0$ condition was met for each value in `q7`.  Save this resulting array to a variable called `q7_geq0` ("geq" = "**g**reater than or **eq**ual to"), and **print the value of `q7_geq0`.**
 
 <br>
 
-10. Again consider the array `q9`. Use a logical operator to ask if values in this array are greater than or 0 (aka, is `q9` greater than or equal to 0?). The result of this code will be an array itself containing `TRUE` and `FALSE` values corresponding to whether the $\geq0$ condition was met. Save this resulting array to a variable called `q9_geq0` ("geq" = "**g**reater than or **eq**ual to"), and **print the value of `q9_geq0`.**
+9. Again consider the array `q7`. For this question, find the _sum_ of the _absolute values_ of this array. To achieve this, you will need to first get the absolute value of the array `q7` (using the `abs()` function), and then you will need to sum those values (using the `sum()` function). **Your code chunk should reveal the final sum.**
+  + Need help? Run `get_help("sum")` or `get_help("abs")` in the R Console.
+  + Hint: You can approach this question in several ways, as long as you use `abs()` and then `sum()` on `q7` in that order.
 
-<br><br><br>
+<br>
+
+10. Teach yourself how to use the function `all()` using the `introverse` help docs, by running `get_help("all")`. Then, use this function to determine whether all values of `q7` are _less than or equal to 0._ **Your code should print a _single_ `TRUE` if all values are less than or equal to 0, and a single `FALSE` otherwise.**
++ Hint: The code is _almost exactly identical_ to the code for question 8.
+
+
+<br>
+
+11. Define _four variables_ with the following names and values:
+
+| Name | Value |
+|------|-------|
+| `tomato` | `"red"` |
+| `plum` | `"purple"` |
+| `banana` | `"yellow"` |
+| `watermelon` | `"green_and_red"`  (uses _underscores_) |
+
+Then, write code to answer `TRUE` or `FALSE`: Is the _number of characters_ in `tomato` less than to the number of characters in `plum` **AND** (remember `&`??) is the number of characters in `banana` equal to the number of characters in `watermelon`? **The code should print either `TRUE` or `FALSE`.**
+ + Need help? Run `get_help("nchar")` or `get_help("logical")` in the R Console.
