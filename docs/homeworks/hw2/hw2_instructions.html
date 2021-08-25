@@ -84,6 +84,15 @@ if (!!window.navigator.userAgent.match("MSIE 8")) {
 !function(a){"use strict";a.matchMedia=a.matchMedia||function(a){var b,c=a.documentElement,d=c.firstElementChild||c.firstChild,e=a.createElement("body"),f=a.createElement("div");return f.id="mq-test-1",f.style.cssText="position:absolute;top:-100em",e.style.background="none",e.appendChild(f),function(a){return f.innerHTML='&shy;<style media="'+a+'"> #mq-test-1 { width: 42px; }</style>',c.insertBefore(e,d),b=42===f.offsetWidth,c.removeChild(e),{matches:b,media:a}}}(a.document)}(this),function(a){"use strict";function b(){u(!0)}var c={};a.respond=c,c.update=function(){};var d=[],e=function(){var b=!1;try{b=new a.XMLHttpRequest}catch(c){b=new a.ActiveXObject("Microsoft.XMLHTTP")}return function(){return b}}(),f=function(a,b){var c=e();c&&(c.open("GET",a,!0),c.onreadystatechange=function(){4!==c.readyState||200!==c.status&&304!==c.status||b(c.responseText)},4!==c.readyState&&c.send(null))};if(c.ajax=f,c.queue=d,c.regex={media:/@media[^\{]+\{([^\{\}]*\{[^\}\{]*\})+/gi,keyframes:/@(?:\-(?:o|moz|webkit)\-)?keyframes[^\{]+\{(?:[^\{\}]*\{[^\}\{]*\})+[^\}]*\}/gi,urls:/(url\()['"]?([^\/\)'"][^:\)'"]+)['"]?(\))/g,findStyles:/@media *([^\{]+)\{([\S\s]+?)$/,only:/(only\s+)?([a-zA-Z]+)\s?/,minw:/\([\s]*min\-width\s*:[\s]*([\s]*[0-9\.]+)(px|em)[\s]*\)/,maxw:/\([\s]*max\-width\s*:[\s]*([\s]*[0-9\.]+)(px|em)[\s]*\)/},c.mediaQueriesSupported=a.matchMedia&&null!==a.matchMedia("only all")&&a.matchMedia("only all").matches,!c.mediaQueriesSupported){var g,h,i,j=a.document,k=j.documentElement,l=[],m=[],n=[],o={},p=30,q=j.getElementsByTagName("head")[0]||k,r=j.getElementsByTagName("base")[0],s=q.getElementsByTagName("link"),t=function(){var a,b=j.createElement("div"),c=j.body,d=k.style.fontSize,e=c&&c.style.fontSize,f=!1;return b.style.cssText="position:absolute;font-size:1em;width:1em",c||(c=f=j.createElement("body"),c.style.background="none"),k.style.fontSize="100%",c.style.fontSize="100%",c.appendChild(b),f&&k.insertBefore(c,k.firstChild),a=b.offsetWidth,f?k.removeChild(c):c.removeChild(b),k.style.fontSize=d,e&&(c.style.fontSize=e),a=i=parseFloat(a)},u=function(b){var c="clientWidth",d=k[c],e="CSS1Compat"===j.compatMode&&d||j.body[c]||d,f={},o=s[s.length-1],r=(new Date).getTime();if(b&&g&&p>r-g)return a.clearTimeout(h),h=a.setTimeout(u,p),void 0;g=r;for(var v in l)if(l.hasOwnProperty(v)){var w=l[v],x=w.minw,y=w.maxw,z=null===x,A=null===y,B="em";x&&(x=parseFloat(x)*(x.indexOf(B)>-1?i||t():1)),y&&(y=parseFloat(y)*(y.indexOf(B)>-1?i||t():1)),w.hasquery&&(z&&A||!(z||e>=x)||!(A||y>=e))||(f[w.media]||(f[w.media]=[]),f[w.media].push(m[w.rules]))}for(var C in n)n.hasOwnProperty(C)&&n[C]&&n[C].parentNode===q&&q.removeChild(n[C]);n.length=0;for(var D in f)if(f.hasOwnProperty(D)){var E=j.createElement("style"),F=f[D].join("\n");E.type="text/css",E.media=D,q.insertBefore(E,o.nextSibling),E.styleSheet?E.styleSheet.cssText=F:E.appendChild(j.createTextNode(F)),n.push(E)}},v=function(a,b,d){var e=a.replace(c.regex.keyframes,"").match(c.regex.media),f=e&&e.length||0;b=b.substring(0,b.lastIndexOf("/"));var g=function(a){return a.replace(c.regex.urls,"$1"+b+"$2$3")},h=!f&&d;b.length&&(b+="/"),h&&(f=1);for(var i=0;f>i;i++){var j,k,n,o;h?(j=d,m.push(g(a))):(j=e[i].match(c.regex.findStyles)&&RegExp.$1,m.push(RegExp.$2&&g(RegExp.$2))),n=j.split(","),o=n.length;for(var p=0;o>p;p++)k=n[p],l.push({media:k.split("(")[0].match(c.regex.only)&&RegExp.$2||"all",rules:m.length-1,hasquery:k.indexOf("(")>-1,minw:k.match(c.regex.minw)&&parseFloat(RegExp.$1)+(RegExp.$2||""),maxw:k.match(c.regex.maxw)&&parseFloat(RegExp.$1)+(RegExp.$2||"")})}u()},w=function(){if(d.length){var b=d.shift();f(b.href,function(c){v(c,b.href,b.media),o[b.href]=!0,a.setTimeout(function(){w()},0)})}},x=function(){for(var b=0;b<s.length;b++){var c=s[b],e=c.href,f=c.media,g=c.rel&&"stylesheet"===c.rel.toLowerCase();e&&g&&!o[e]&&(c.styleSheet&&c.styleSheet.rawCssText?(v(c.styleSheet.rawCssText,e,f),o[e]=!0):(!/^([a-zA-Z:]*\/\/)/.test(e)&&!r||e.replace(RegExp.$1,"").split("/")[0]===a.location.host)&&("//"===e.substring(0,2)&&(e=a.location.protocol+e),d.push({href:e,media:f})))}w()};x(),c.update=x,c.getEmValue=t,a.addEventListener?a.addEventListener("resize",b,!1):a.attachEvent&&a.attachEvent("onresize",b)}}(this);
 };
 </script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script>
 
 /**
@@ -253,14 +262,9 @@ color: #d14;
   div.column{display: inline-block; vertical-align: top; width: 50%;}
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
-      </style>
+    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -273,32 +277,7 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
 
 
 
@@ -308,10 +287,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -328,6 +303,9 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
@@ -340,7 +318,6 @@ summary {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -404,96 +381,167 @@ summary {
 
 
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
 <h1 class="title toc-ignore">Homework #2</h1>
 <h4 class="author">Data Science for Biologists, Spring 2021</h4>
-<h4 class="date">Due as an R Script to Canvas on Tuesday 2/9/21</h4>
+<h4 class="date">Due as an R Script to Canvas on Tuesday 9/14/21 by 1 PM</h4>
 
 </div>
 
 
 <div id="instructions" class="section level3">
 <h3>Instructions</h3>
-<p>Answer the following questions with R code in the <code>hw2_template.R</code> templated script, ensuring you retain the overall templated script organization. Do NOT submit a script that does not use this template!</p>
-<ul>
-<li>You will not receive any credit for answers without corresponding code that produces those answers.</li>
-<li>All lines of code <strong>MUST</strong> have an associated comment. The purpose of this instruction is to get you in the habit of writing comments. Comments should be brief “plain English” descriptions of what your code does. Even though the code on this homework is relatively straightforward, comments are still important.
-<ul>
-<li>Comments may either be written on the line ABOVE the code it refers to, or at the END of the line of the code it refers to. Do NOT write comments on lines after the relevant code.</li>
-</ul></li>
-<li><strong>Make sure your code runs WITHOUT an errors before submitting.</strong> <em>DO NOT SKIP THIS STEP!</em> Ensuring code runs without errors is MORE IMPORTANT than writing code in the first place.
-<ul>
-<li><strong><em>Please carefully watch this 10-minute video to help you!!!</em></strong> <a href="https://youtu.be/OXCIIKKRBqk">Link to video</a>. I recommend watching this video BEFORE you do your homework, but of course you can watch it anytime. This video will teach you how to deal with errors/bugs in your code. It will also show you (at the very end) how to download your homework R script from the cloud to your computer so you can submit to Canvas.</li>
-<li>If there are errors in your code, you should <em>comment out</em> the code so that it does not actually run. This is <strong>BETTER</strong> than allowing buggy code to run - it shows me you attempted the code, but understood that it didn’t work properly. If you leave buggy code in the script without commenting it out, there will be deductions.</li>
-<li>RStudio will help you find bugs in your code! If you see a red “x” circle at the front of a line in your script, this means there is some kind of syntax error (missing a symbol, extra symbol, etc.) in your code. Either FIX IT or COMMENT IT OUT.</li>
-</ul></li>
-<li>In the script template, you’ll notice a line of code printing the question number at the start of each question. <em>DO NOT DELETE THESES LINES!</em> They help us see which question each value you print came from. <br></li>
-</ul>
-</div>
-<div id="questions" class="section level3">
-<h3>Questions</h3>
-<ol start="0" style="list-style-type: decimal">
-<li><p><strong>Example Question</strong>: Define a variable <code>w</code> as the value 10, and print the variable.</p>
-<p><em>This question is answered in the homework script template so you can see the general organization (including for your comments!) for how you should answer the following questions.</em></p></li>
+<p>For this homework, you will be writing your very first R script and learning how to engage with RStudio and the <code>ds4b.materials</code> R package from Dr. Spielman. The goal of this homework is to provide you with a concrete opportunity to gain initial comfort with the fundamental tools used in this class and enable your future success for the rest of the semester.</p>
+<p>The literal step-by-step instructions that you should take to complete this homework are in these videos. Please watch them in this order, and follow instructions as you go:</p>
+<ol style="list-style-type: decimal">
+<li>[Setting up your homework]</li>
+<li>[Doing your homework]</li>
+<li>[Checking your homework]</li>
+<li>[Submitting your homework]</li>
 </ol>
+</div>
+<div id="what-not-to-do-vs-what-to-do" class="section level3">
+<h3>What NOT to do vs what TO do</h3>
+<blockquote>
+<p>The following code chunks provide examples of how <em>NOT TO</em> and how <em>TO</em> answer a hypothetical homework question using code. Notice how there are many ways to correctly achieve the right result! Welcome to coding :)</p>
+</blockquote>
+<p><strong>Hypothetical homework question: What is the length of an array with values 4, 6, and 10?</strong></p>
+<p><br></p>
+<p><strong>NO!</strong> This code is not acceptable, largely because it is not code - it is just the number 3. There is no code used at all to answer the question. Even if it is “easy” to do something in your head, you must use code to answer it. <em>It also will not produce any output from a script since it is not formally printed.</em></p>
+<pre class="r"><code>3</code></pre>
+<p><br><br> <strong>NO!</strong> This code is not acceptable, because even though code was used at some point, the code itself does not directly produce the output. This example represents a situation where you might run <code>length(c(4,6,10))</code> in the R Console, or run <code>length(c(4,6,10))</code> in the chunk but later delete or comment it out. You might look at the output and say, “the code calculated 3, so the answer is 3.” But, this is not ok, since the code you submit itself must produce the number 3, and we are missing the print statement.</p>
+<pre class="r"><code>#length(c(4,6,10))
+3</code></pre>
+<p><br><br> <strong>NO!</strong> This is getting much closer, since we now have the fully code needed to generate the output. However, nothing is actually printed, so the output is not revealed. It is critical to always reveal the output!</p>
+<pre class="r"><code>answer &lt;- length(c(4,6,10))</code></pre>
+<p><br><br> <strong>YES!</strong> This “fixes” the previous “NO!” example by revealing the output.</p>
+<pre class="r"><code>answer &lt;- length(c(4,6,10))
+print( answer )</code></pre>
+<pre><code>## [1] 3</code></pre>
+<p><br><br> <strong>YES!</strong> Only code is used to produce the output.</p>
+<pre class="r"><code># YES!
+print( length(c(4,6,10)) )</code></pre>
+<pre><code>## [1] 3</code></pre>
+<p><br><br> <strong>YES!</strong> Only code is used to produce the output. This strategy uses improved coding style by defining a <em>variable</em> for the array, and then using <code>length()</code> to calculate the length of the variable.</p>
+<pre class="r"><code># YES!
+my_array &lt;- c(4,6,10)
+print( length(my_array) )</code></pre>
+<pre><code>## [1] 3</code></pre>
+<p><br><br> <strong>YES!</strong> Only code is used to produce the output. This strategy uses improved coding style by defining a <em>variable</em> for the array, and then defining another variable to contain the output from the <code>length()</code> calculation.</p>
+<pre class="r"><code># YES!
+my_array &lt;- c(4,6,10)
+the_length &lt;- length(my_array)
+print( the_length )</code></pre>
+<pre><code>## [1] 3</code></pre>
+<p><br><br></p>
+<p><strong>Unless the instructions explicitly ask you to define certain variables, all “YES!” code versions here are equivalent and entirely accceptable!</strong></p>
+</div>
+<div id="the-literal-homework-questions" class="section level3">
+<h3>The literal homework questions:</h3>
+<blockquote>
+<p>The most important rule: All answers must have corresponding code, and answers must be directly derived from code.</p>
+</blockquote>
+<p><strong>Example Question</strong>: Define a variable <code>w</code> as the value 10, and print the variable.</p>
+<pre><code>*This question is answered in the homework script template so you can see the general organization (including for your comments!) for how you should answer the following questions.*</code></pre>
 <p><br></p>
 <ol style="list-style-type: decimal">
-<li>Define two variables <code>x</code> and <code>y</code> as values 13 and 18, respectively. Use a logical operator to ask if x is greater than y and print the output. <strong>The code should print <code>TRUE</code> if x is greater and <code>FALSE</code> if not.</strong></li>
+<li>Define two variables <code>x</code> and <code>y</code> as values 11 and 4, respectively. Use a logical operator to ask if x is greater than y and print the output. <strong>The code chunk should print <code>TRUE</code> if x is greater and <code>FALSE</code> if not.</strong></li>
 </ol>
+<ul>
+<li>Need help? Run <code>get_help(&quot;logical&quot;)</code> in the R Console after loading the <code>introverse</code> library with <code>library(introverse)</code>.</li>
+</ul>
 <p><br></p>
 <ol start="2" style="list-style-type: decimal">
-<li>Define two variables <code>a</code> and <code>b</code> as values 6 and 36, respectively. Use a logical operator and the function <code>sqrt()</code> to ask if <code>a</code> is equal to the square root of <code>b</code>, and print the output. <strong>The code should print <code>TRUE</code> if they are equal and <code>FALSE</code> if not.</strong></li>
+<li>Define two variables <code>a</code> and <code>b</code> as values 6 and 36, respectively. Use a logical operator and the function <code>sqrt()</code> to ask if <code>a</code> is equal to the square root of <code>b</code>, and print the output. <strong>The code chunk should print <code>TRUE</code> if they are equal and <code>FALSE</code> if not.</strong></li>
 </ol>
+<ul>
+<li>Need help? Run <code>get_help(&quot;logical&quot;)</code> and <code>get_help(&quot;sqrt&quot;)</code> in the R Console.</li>
+</ul>
 <p><br></p>
 <ol start="3" style="list-style-type: decimal">
-<li><p>Define a variable <code>boop</code> (gotta keep it fun!) whose values <em>depends</em> on a logical comparison, using variables <code>a</code> and <code>b</code> from the previous question. If <code>a</code> squared equals <code>b</code>, <code>boop</code> should be defined with the value “eureka”. Otherwise, if <code>a</code> squared does not equal <code>b</code>, <code>boop</code> should be defined with the value “wompwomp”. <strong>Print the value of <code>boop</code> after it is defined.</strong></p>
-<p>Hints:</p>
-<ul>
-<li>You will need to use the function <code>ifelse()</code> in your code.</li>
-<li>Do NOT redefine the <code>a</code> and <code>b</code> variables. You defined them in question #2, and this is still the same R script! We always want to avoid repeating code since it often leads to unexpected bugs.</li>
-</ul></li>
+<li>Define an array variable called <code>mammal_vectors</code> to contain these strings: “camel”, “civet”, “mink”, “bat”, “ferret”, and “pangolin” (these are all mammals known to be vectors for either SARS-CoV-2 or one of its close relatives SARS and MERS). Use the function <code>length()</code> to determine how long the array is. <strong>Your code should print the length of this array.</strong></li>
 </ol>
+<ul>
+<li>Need help? Run <code>get_help(&quot;length&quot;)</code> in the R Console.</li>
+</ul>
 <p><br></p>
 <ol start="4" style="list-style-type: decimal">
-<li>Define an array variable called <code>mammal_vectors</code> to contain these strings: “camel”, “civet”, “mink”, “bat”, “ferret”, and “pangolin” (these are all mammals known to be vectors for either SARS-CoV-2 or one of its close relatives SARS and MERS). Use the function <code>length()</code> to determine how long the array is, and print the output. <strong>The code should print a number which corresponds to the length of the array.</strong></li>
+<li>Again consider the <code>mammal_vectors</code> array you created. Use the logical operator <code>%in%</code> to determine if the string “elephant” is in the array. <strong>If “elephant” is in the array, your code should print <code>TRUE</code>, and <code>FALSE</code> otherwise.</strong></li>
 </ol>
+<ul>
+<li>Need help? Run <code>get_help(&quot;logical&quot;)</code> in the R Console.</li>
+</ul>
 <p><br></p>
 <ol start="5" style="list-style-type: decimal">
-<li>Again consider the <code>mammal_vectors</code> array you created. Use the logical operator <code>%in%</code> to determine if the string “elephant” is in the array. <strong>If “elephant” is in the array, your code should print <code>TRUE</code>, and <code>FALSE</code> otherwise.</strong></li>
+<li>Define an array variable called <code>dinosaurs</code> to contain the three strings: “eagle”, “ostrich”, and “sparrow” (wait, those are all birds?! That’s right, birds are dinosaurs!). Then, define two other <em>numeric</em> variables called <code>mammals_length</code> and <code>dinosaurs_length</code>. Each of these variables should be defined as the length of the respective array. - one should be the length of the <code>mammal_vectors</code> array, and the other should be the length of the <code>dinosaurs</code> array. Finally, use a logical operator to compare the these variables. <strong>If <code>mammals_length</code> is <em>greater than or equal to</em> <code>dinosaurs_length</code>, your code should print <code>TRUE</code>.</strong></li>
 </ol>
 <p><br></p>
 <ol start="6" style="list-style-type: decimal">
-<li>Define an array variable called <code>dinosaurs</code> to contain the three strings: “eagle”, “ostrich”, and “sparrow” (wait, those are all birds?! That’s right, birds are dinosaurs!). Then, define two other variables (you can choose what they are called) - one should be the length of the <code>mammal_vectors</code> array, and the other should be the length of the <code>dinosaurs</code> array. Finally, use a logical operator to compare the these variables. <strong>If the length of <code>mammal_vectors</code> is longer than the length of <code>dinosaurs</code>, your code should print <code>TRUE</code>. Otherwise, your code should print <code>FALSE</code>.</strong></li>
+<li>Use a colon (<code>:</code>) to create a variable called <code>q6</code> as an array of numbers in order 87-162. Before you proceed, interactively print this variable to make sure it was defined correctly. Then, calculate the mean, median, and standard deviation (with functions <code>mean()</code>, <code>median()</code>, and <code>sd()</code> respectively) of this array. Each calculation should be saved to a variable called, respectively: <code>q6_mean</code>, <code>q6_median</code>, and <code>q6_sd</code>. <strong>Finally, print these three variables. You do not need to print <code>q6</code>. Your code should therefore print three different values.</strong></li>
 </ol>
+<ul>
+<li>Need help? Run <code>get_help(&quot;mean&quot;)</code> in the R Console.</li>
+</ul>
 <p><br></p>
 <ol start="7" style="list-style-type: decimal">
-<li>Use a colon (<code>:</code>) to create a variable called <code>q7</code> as an array of numbers in order 100-200. From this variable <code>q7</code>, calculate the mean, median, standard deviation, and sum (with functions <code>mean()</code>, <code>median()</code>, <code>sd()</code>,and <code>sum()</code>, respectively) of this array. Each calculation should be saved to a variable called, respectively: <code>q7_mean</code>, <code>q7_median</code>, <code>q7_sd</code>, and <code>q7_sum</code>. <strong>Finally, print these four variables. You do not need to print <code>q7</code>.</strong></li>
+<li>Define an array variable using a colon called <code>q7</code> with the values -20 - 10 (<em>negative 20 through positive ten</em>). Then, calculate and save the <em>sum</em> (using the function <code>sum()</code>) of <code>q7</code> as a variable <code>q7_sum</code>.</li>
 </ol>
+<ul>
+<li>Need help? Run <code>get_help(&quot;sum&quot;)</code> in the R Console.</li>
+</ul>
 <p><br></p>
 <ol start="8" style="list-style-type: decimal">
-<li><p>There is a super useful function called <code>paste()</code> which allows you to strings (characters) together to create a new string. See how this function works below:</p>
-<pre class="r"><code>combined_string &lt;- paste(&quot;string 1&quot;, &quot;and&quot;, &quot;string 2&quot;)
-print(combined_string)</code></pre>
-<pre><code>## [1] &quot;string 1 and string 2&quot;</code></pre>
-<pre class="r"><code># you can also include variables:
-a_string &lt;- &quot;hello there&quot;
-combined_string2 &lt;- paste(&quot;string 1&quot;, a_string, &quot;string 2&quot;)
-print(combined_string2)</code></pre>
-<pre><code>## [1] &quot;string 1 hello there string 2&quot;</code></pre>
-<p><strong>Use the <code>paste()</code> function and the variable <code>q7_mean</code> to print a sentence that says: “The mean of q7 is ….” where …. is the the <code>q7_mean</code> value.</strong> Your code should <em>NOT</em> include a number directly (don’t copy/paste the value of the mean). You may <em>ONLY</em> refer to this number value with the <code>q7_mean</code> variable.</p></li>
+<li>Again consider the array <code>q7</code>. Use a logical operator to ask if all values in this array are greater than or 0 (aka, is <code>q7</code> greater than or equal to 0?). The result of this code will be an array itself containing <code>TRUE</code> and <code>FALSE</code> values corresponding to whether the <span class="math inline">\(\geq0\)</span> condition was met for each value in <code>q7</code>. Save this resulting array to a variable called <code>q7_geq0</code> (“geq” = “<strong>g</strong>reater than or <strong>eq</strong>ual to”), and <strong>print the value of <code>q7_geq0</code>.</strong></li>
 </ol>
 <p><br></p>
 <ol start="9" style="list-style-type: decimal">
-<li>Define an array variable (use a colon!) called <code>q9</code> with the values -20 - 10 (negative 20 through positive ten). Calculate and save the mean of <code>q9</code> as a variable <code>q9_mean</code>. Define a variable called <code>compare_q7_q9</code> whose value <em>depends</em> on a comparison between <code>q9_mean</code> and <code>q7_mean</code>. If these values are equal, <code>compare_q7_q9</code> should be defined as 1. If these values are not equal, <code>compare_q7_q9</code> should be defined as 0. <strong>Finally, print the value of <code>compare_q7_q9</code>.</strong></li>
+<li>Again consider the array <code>q7</code>. For this question, find the <em>sum</em> of the <em>absolute values</em> of this array. To achieve this, you will need to first get the absolute value of the array <code>q7</code> (using the <code>abs()</code> function), and then you will need to sum those values (using the <code>sum()</code> function). <strong>Your code chunk should reveal the final sum.</strong></li>
 </ol>
+<ul>
+<li>Need help? Run <code>get_help(&quot;sum&quot;)</code> or <code>get_help(&quot;abs&quot;)</code> in the R Console.</li>
+<li>Hint: You can approach this question in several ways, as long as you use <code>abs()</code> and then <code>sum()</code> on <code>q7</code> in that order.</li>
+</ul>
 <p><br></p>
 <ol start="10" style="list-style-type: decimal">
-<li>Again consider the array <code>q9</code>. Use a logical operator to ask if values in this array are greater than or 0 (aka, is <code>q9</code> greater than or equal to 0?). The result of this code will be an array itself containing <code>TRUE</code> and <code>FALSE</code> values corresponding to whether the <span class="math inline">\(\geq0\)</span> condition was met. Save this resulting array to a variable called <code>q9_geq0</code> (“geq” = “<strong>g</strong>reater than or <strong>eq</strong>ual to”), and <strong>print the value of <code>q9_geq0</code>.</strong></li>
+<li>Teach yourself how to use the function <code>all()</code> using the <code>introverse</code> help docs, by running <code>get_help(&quot;all&quot;)</code>. Then, use this function to determine whether all values of <code>q7</code> are <em>less than or equal to 0.</em> <strong>Your code should print a <em>single</em> <code>TRUE</code> if all values are less than or equal to 0, and a single <code>FALSE</code> otherwise.</strong></li>
 </ol>
-<p><br><br><br></p>
+<ul>
+<li>Hint: The code is <em>almost exactly identical</em> to the code for question 8.</li>
+</ul>
+<p><br></p>
+<ol start="11" style="list-style-type: decimal">
+<li>Define <em>four variables</em> with the following names and values:</li>
+</ol>
+<table>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>tomato</code></td>
+<td><code>&quot;red&quot;</code></td>
+</tr>
+<tr class="even">
+<td><code>plum</code></td>
+<td><code>&quot;purple&quot;</code></td>
+</tr>
+<tr class="odd">
+<td><code>banana</code></td>
+<td><code>&quot;yellow&quot;</code></td>
+</tr>
+<tr class="even">
+<td><code>watermelon</code></td>
+<td><code>&quot;green_and_red&quot;</code> (uses <em>underscores</em>)</td>
+</tr>
+</tbody>
+</table>
+<p>Then, write code to answer <code>TRUE</code> or <code>FALSE</code>: Is the <em>number of characters</em> in <code>tomato</code> less than to the number of characters in <code>plum</code> <strong>AND</strong> (remember <code>&amp;</code>??) is the number of characters in <code>banana</code> equal to the number of characters in <code>watermelon</code>? <strong>The code should print either <code>TRUE</code> or <code>FALSE</code>.</strong> + Need help? Run <code>get_help(&quot;nchar&quot;)</code> or <code>get_help(&quot;logical&quot;)</code> in the R Console.</p>
 </div>
 
 
@@ -505,7 +553,7 @@ print(combined_string2)</code></pre>
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -523,7 +571,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>

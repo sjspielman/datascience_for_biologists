@@ -35,6 +35,81 @@ blockquote{
 ```
 
 
+
+1. Define two variables `x` and `y` as values 11 and 4, respectively. Use a logical operator to ask if x is greater than y and print the output. **The code chunk should print `TRUE` if x is greater and `FALSE` if not.**
+  + Need help? Run `get_help("logical")` in the R Console after loading the `introverse` library with `library(introverse)`.
+
+<br>
+
+2. Define two variables `a` and `b` as values 6 and 36, respectively. Use a logical operator and the function `sqrt()` to ask if `a` is equal to the square root of `b`, and print the output. **The code chunk should print `TRUE` if they are equal and `FALSE` if not.**
+  + Need help? Run `get_help("logical")` and `get_help("sqrt")` in the R Console.
+
+<br> 
+
+3. Define an array variable called `mammal_vectors` to contain these strings: "camel", "civet", "mink", "bat", "ferret", and "pangolin" (these are all mammals known to be vectors for either SARS-CoV-2 or one of its close relatives SARS and MERS). Use the function `length()` to determine how long the array is. **Your code should print the length of this array.**
+  + Need help? Run `get_help("length")` in the R Console.
+
+
+<br>
+
+4. Again consider the `mammal_vectors` array you created. Use the logical operator `%in%` to determine if the string "elephant" is in the array. **If "elephant" is in the array, your code should print `TRUE`, and `FALSE` otherwise.**
+  + Need help? Run `get_help("logical")` in the R Console.
+
+<br>
+
+5. Define an array variable called `dinosaurs` to contain the three strings: "eagle", "ostrich", and "sparrow" (wait, those are all birds?! That's right, birds are dinosaurs!). Then, define two other _numeric_ variables called `mammals_length` and `dinosaurs_length`. Each of these variables should be defined as the length of the respective array.  - one should be the length of the `mammal_vectors` array, and the other should be the length of the `dinosaurs` array. Finally, use a logical operator to compare the these variables. **If `mammals_length` is _greater than or equal to_ `dinosaurs_length`, your code should print `TRUE`.**
+
+<br> 
+
+6. Use a colon (`:`) to create a variable called `q6` as an array of numbers in order 87-162. Before you proceed, interactively print this variable to make sure it was defined correctly. Then, calculate the mean, median, and standard deviation (with functions `mean()`, `median()`, and `sd()` respectively) of this array. Each calculation should be saved to a variable called, respectively: `q6_mean`, `q6_median`, and `q6_sd`. **Finally, print these three variables. You do not need to print `q6`. Your code should therefore print three different values.**
+  + Need help? Run `get_help("mean")` in the R Console.
+
+
+<br> 
+
+
+7. Define an array variable using a colon called `q7` with the values -20 - 10 (_negative 20 through positive ten_). Then, calculate and save the _sum_ (using the function `sum()`) of `q7` as a variable `q7_sum`. 
+  + Need help? Run `get_help("sum")` in the R Console.
+
+<br>
+
+8. Again consider the array `q7`. Use a logical operator to ask if all values in this array are greater than or 0 (aka, is `q7` greater than or equal to 0?). The result of this code will be an array itself containing `TRUE` and `FALSE` values corresponding to whether the $\geq0$ condition was met for each value in `q7`.  Save this resulting array to a variable called `q7_geq0` ("geq" = "**g**reater than or **eq**ual to"), and **print the value of `q7_geq0`.**
+
+<br>
+
+9. Again consider the array `q7`. For this question, find the _sum_ of the _absolute values_ of this array. To achieve this, you will need to first get the absolute value of the array `q7` (using the `abs()` function), and then you will need to sum those values (using the `sum()` function). **Your code chunk should reveal the final sum.**
+  + Need help? Run `get_help("sum")` or `get_help("abs")` in the R Console.
+  + Hint: You can approach this question in several ways, as long as you use `abs()` and then `sum()` on `q7` in that order.
+
+<br>
+
+10. Teach yourself how to use the function `all()` using the `introverse` help docs, by running `get_help("all")`. Then, use this function to determine whether all values of `q7` are _less than or equal to 0._ **Your code should print a _single_ `TRUE` if all values are less than or equal to 0, and a single `FALSE` otherwise.**
++ Hint: The code is _almost exactly identical_ to the code for question 8.
+
+
+<br>
+
+11. Define _four variables_ with the following names and values:
+
+| Name | Value |
+|------|-------|
+| `tomato` | `"red"` |
+| `plum` | `"purple"` |
+| `banana` | `"yellow"` |
+| `watermelon` | `"green_and_red"`  (uses _underscores_) |
+
+Then, write code to answer `TRUE` or `FALSE`: Is the _number of characters_ in `tomato` less than to the number of characters in `plum` **AND** (remember `&`??) is the number of characters in `banana` equal to the number of characters in `watermelon`? **The code should print either `TRUE` or `FALSE`.**
+ + Need help? Run `get_help("nchar")` or `get_help("logical")` in the R Console.
+
+While watching these videos, you will need to access these links:
+
+1. [RMarkdown document themes](https://www.datadreaming.org/post/r-markdown-theme-gallery/)
+  + **Do not consider the section _Even More Themes_.** We will learn later how you can use one of those themes if you choose.
+2. [RMarkdown code syntax highlighting](https://www.garrickadenbuie.com/blog/pandoc-syntax-highlighting-examples/)
+3. 
+
+
+
 ## Instructions
 
 The goal of this assignment is to explore datasets and interpret the grammatical components of figures created for you from two different datasets, described below. You will NOT be submitting any code for this assignment! Instead, you will submit some brief interpretations for each of the plots below. 
