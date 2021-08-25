@@ -22,11 +22,9 @@ github-repo: sjspielman/ds4b_syllabus
 + **Course Instructor**
   + Stephanie J. Spielman, PhD  (Dr. Spielman or Professor Spielman)
   + `spielman@rowan.edu` (**i before e**!)
-<br><br>
 + **Course Meeting Times**
   + Tuesday and Thursday 2:00 - 3:15 pm, Science Hall 126
   + Wednesday 3:30 - 6:15 pm, Science Hall 126
-<br><br>
 + **Virtual Office Hours**
   + Monday 2:30-4 PM over Zoom (link in Canvas)
   + You do NOT need to make an appointment! Feel free to show up in Zoom anytime during that window. 
@@ -54,7 +52,7 @@ _There are no additional requirements for this course beyond having a computer (
 
 # COVID-19 Policies
 
-This classroom will prioritize safety and health as necessary prerequisites to learning.
+This classroom will prioritize safety and health as necessary prerequisites to learning. _If you feel uncomfortable or unsafe at any point with in-person learning this semester_, please do not hesitate to reach out to me to have a confidential conversation about your concerns and how we can work together to address them, within the context of Rowan University's overall policies. We learn best when we are comfortable in our surroundings, so let's figure out together how to remain comfortable.
 
 ## Mask Policy
 
@@ -62,11 +60,14 @@ Our classroom mask policy is aligned with the Rowan University mask policy:
 
 > Rowan is requiring all students, faculty and staff, **regardless of vaccination status**, to wear masks in all classrooms, lecture halls and laboratories for at least the first two weeks of the fall semester, Sept. 1-14. 
 
-To be allowed in our indoor classroom and learning spaces, you must be wearing a mask, regardless of your vaccination status. **In-person learning during a global pandemic is a privilege. Removing your mask in any way, including not covering your nose, is a sign that you do not wish to take advantage of this privilege.** You will not be allowed to enter the classroom without a properly-worn mask. If you remove your mask in any way for any amount of time, you will be immediately asked to leave the classroom and you will be regarded as fully _ABSENT_. **_There are no exceptions._**
+To be allowed in our indoor classroom and learning spaces, you must be wearing a mask, regardless of your vaccination status. **In-person learning during a global pandemic is a privilege. Removing your mask in any way, _including not covering your nose_, is a sign that you do not wish to take advantage of this privilege.** 
 
-## Illness and exposure Policy
+You will not be allowed to enter the classroom without a properly-worn mask. If, once in the classroom, you remove your mask to any extent for any amount of time, you will be immediately asked to leave the classroom and you will be regarded as _absent with associated penalties_. **_There are no exceptions. This is a zero-tolerance policy. Even if you you need to have a drink, step outside._**
 
-If you are experiencing _ANY_ cold/flu symptoms or other COVID-19 symptoms (e.g. loss of taste/smell) in _any way_, or you have had a known COVID-10 exposure, you will not be allowed in the classroom without a negative COVID test obtained within 48 hours of onset of symptoms. _All such absences will be considered FULLY EXCUSED with no penalty._ 
+## Illness and Exposure Policy
+
+If you are experiencing _ANY_ cold/flu symptoms or other COVID-19 symptoms (e.g. loss of taste/smell) in _any way_, or you have had a known exposure, please _DO NOT FEEL PRESSURED TO COME TO CLASS!!_ Any such absences will be considered fully excused with no penalty, and a recording will be made available to you.
+
 
 # Grading policies
 

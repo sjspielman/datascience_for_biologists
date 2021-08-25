@@ -394,14 +394,9 @@ pre code {
 
 <div id="instructions" class="section level3">
 <h3>Instructions</h3>
-<p>For this homework, you will be writing your very first R script and learning how to engage with RStudio and the <code>ds4b.materials</code> R package from Dr. Spielman. The goal of this homework is to provide you with a concrete opportunity to gain initial comfort with the fundamental tools used in this class and enable your future success for the rest of the semester.</p>
+<p>For this homework, you will be writing your very first R script and learning how to engage with RStudio and the <code>ds4b.materials</code> R library from Dr. Spielman. The goal of this homework is to provide you with a concrete opportunity to gain initial comfort with the fundamental tools used in this class and enable your future success for the rest of the semester.</p>
 <p>The literal step-by-step instructions that you should take to complete this homework are in these videos. Please watch them in this order, and follow instructions as you go:</p>
-<ol style="list-style-type: decimal">
-<li>[Setting up your homework]</li>
-<li>[Doing your homework]</li>
-<li>[Checking your homework]</li>
-<li>[Submitting your homework]</li>
-</ol>
+<p>[Link to video(s) will go here]</p>
 </div>
 <div id="what-not-to-do-vs-what-to-do" class="section level3">
 <h3>What NOT to do vs what TO do</h3>
@@ -436,112 +431,28 @@ my_array &lt;- c(4,6,10)
 the_length &lt;- length(my_array)
 print( the_length )</code></pre>
 <pre><code>## [1] 3</code></pre>
+<p><br> <strong>Unless the instructions explicitly ask you to define certain variables, all “YES!” code versions here are equivalent and entirely accceptable!</strong></p>
 <p><br><br></p>
-<p><strong>Unless the instructions explicitly ask you to define certain variables, all “YES!” code versions here are equivalent and entirely accceptable!</strong></p>
 </div>
 <div id="the-literal-homework-questions" class="section level3">
 <h3>The literal homework questions:</h3>
-<blockquote>
-<p>The most important rule: All answers must have corresponding code, and answers must be directly derived from code.</p>
-</blockquote>
-<p><strong>Example Question</strong>: Define a variable <code>w</code> as the value 10, and print the variable.</p>
-<pre><code>*This question is answered in the homework script template so you can see the general organization (including for your comments!) for how you should answer the following questions.*</code></pre>
+<p>Again, all answers must have corresponding code, and answers must be directly derived from code. Your code must include comments. Use the example code as provided in the videos to learn how you are expected to comment!</p>
+<p><br></p>
+<p><strong>Example Question discussed answered in videos</strong>: Define a variable <code>w</code> as the value 10, and print the variable.</p>
 <p><br></p>
 <ol style="list-style-type: decimal">
-<li>Define two variables <code>x</code> and <code>y</code> as values 11 and 4, respectively. Use a logical operator to ask if x is greater than y and print the output. <strong>The code chunk should print <code>TRUE</code> if x is greater and <code>FALSE</code> if not.</strong></li>
+<li><p>Define a <em>character</em> variable named <code>sport</code> as a string value of your favorite sport (or other activity if you hate sports!). Print the variable using the <code>print()</code> function.</p></li>
+<li><p>Define the variable <code>a</code> with the numeric value 36. Use the <code>sqrt()</code> function to calculate the square root of the <code>a</code> variable, and print the result of this operation using the <code>print()</code> function.</p></li>
+<li><p>Define an array variable called <code>mammal_vectors</code> to contain these strings: “camel”, “civet”, “mink”, “bat”, “ferret”, and “pangolin” (these are all mammals known to be vectors for either SARS-CoV-2 or one of its close relatives SARS and MERS). Use the function <code>length()</code> to determine how long the array is, and print the result using the <code>print()</code> function.</p></li>
+<li><p>Create an array variable called <code>some_numbers</code> that contains 4 unique numbers of <em>your choosing</em>. Use the function <code>log</code> to calculate the natural log of all values in the array. This operation will produce a new array containing the natural log of the numbers you provided; print this new array using the <code>print()</code> function.</p></li>
 </ol>
 <ul>
-<li>Need help? Run <code>get_help(&quot;logical&quot;)</code> in the R Console after loading the <code>introverse</code> library with <code>library(introverse)</code>.</li>
+<li>Note that if you provide negative numbers or 0, you may get answers like <code>NnN</code> (“not a number”) or <code>Inf</code> (infinity). That’s completely fine! It’s the correct result of the calculation.</li>
 </ul>
-<p><br></p>
-<ol start="2" style="list-style-type: decimal">
-<li>Define two variables <code>a</code> and <code>b</code> as values 6 and 36, respectively. Use a logical operator and the function <code>sqrt()</code> to ask if <code>a</code> is equal to the square root of <code>b</code>, and print the output. <strong>The code chunk should print <code>TRUE</code> if they are equal and <code>FALSE</code> if not.</strong></li>
-</ol>
-<ul>
-<li>Need help? Run <code>get_help(&quot;logical&quot;)</code> and <code>get_help(&quot;sqrt&quot;)</code> in the R Console.</li>
-</ul>
-<p><br></p>
-<ol start="3" style="list-style-type: decimal">
-<li>Define an array variable called <code>mammal_vectors</code> to contain these strings: “camel”, “civet”, “mink”, “bat”, “ferret”, and “pangolin” (these are all mammals known to be vectors for either SARS-CoV-2 or one of its close relatives SARS and MERS). Use the function <code>length()</code> to determine how long the array is. <strong>Your code should print the length of this array.</strong></li>
-</ol>
-<ul>
-<li>Need help? Run <code>get_help(&quot;length&quot;)</code> in the R Console.</li>
-</ul>
-<p><br></p>
-<ol start="4" style="list-style-type: decimal">
-<li>Again consider the <code>mammal_vectors</code> array you created. Use the logical operator <code>%in%</code> to determine if the string “elephant” is in the array. <strong>If “elephant” is in the array, your code should print <code>TRUE</code>, and <code>FALSE</code> otherwise.</strong></li>
-</ol>
-<ul>
-<li>Need help? Run <code>get_help(&quot;logical&quot;)</code> in the R Console.</li>
-</ul>
-<p><br></p>
 <ol start="5" style="list-style-type: decimal">
-<li>Define an array variable called <code>dinosaurs</code> to contain the three strings: “eagle”, “ostrich”, and “sparrow” (wait, those are all birds?! That’s right, birds are dinosaurs!). Then, define two other <em>numeric</em> variables called <code>mammals_length</code> and <code>dinosaurs_length</code>. Each of these variables should be defined as the length of the respective array. - one should be the length of the <code>mammal_vectors</code> array, and the other should be the length of the <code>dinosaurs</code> array. Finally, use a logical operator to compare the these variables. <strong>If <code>mammals_length</code> is <em>greater than or equal to</em> <code>dinosaurs_length</code>, your code should print <code>TRUE</code>.</strong></li>
+<li><p>The templated code for this question has a bug! The tasks the code is meant to accomplish are provided in comments in the homework template. Fix the bugs in the templated code according to instructions in the homework videos.</p></li>
+<li><p>Again, the templated code for this question has a bug! The tasks the code is meant to accomplish are provided in comments in the homework template. Fix the bugs in the templated code according to instructions in the homework videos.</p></li>
 </ol>
-<p><br></p>
-<ol start="6" style="list-style-type: decimal">
-<li>Use a colon (<code>:</code>) to create a variable called <code>q6</code> as an array of numbers in order 87-162. Before you proceed, interactively print this variable to make sure it was defined correctly. Then, calculate the mean, median, and standard deviation (with functions <code>mean()</code>, <code>median()</code>, and <code>sd()</code> respectively) of this array. Each calculation should be saved to a variable called, respectively: <code>q6_mean</code>, <code>q6_median</code>, and <code>q6_sd</code>. <strong>Finally, print these three variables. You do not need to print <code>q6</code>. Your code should therefore print three different values.</strong></li>
-</ol>
-<ul>
-<li>Need help? Run <code>get_help(&quot;mean&quot;)</code> in the R Console.</li>
-</ul>
-<p><br></p>
-<ol start="7" style="list-style-type: decimal">
-<li>Define an array variable using a colon called <code>q7</code> with the values -20 - 10 (<em>negative 20 through positive ten</em>). Then, calculate and save the <em>sum</em> (using the function <code>sum()</code>) of <code>q7</code> as a variable <code>q7_sum</code>.</li>
-</ol>
-<ul>
-<li>Need help? Run <code>get_help(&quot;sum&quot;)</code> in the R Console.</li>
-</ul>
-<p><br></p>
-<ol start="8" style="list-style-type: decimal">
-<li>Again consider the array <code>q7</code>. Use a logical operator to ask if all values in this array are greater than or 0 (aka, is <code>q7</code> greater than or equal to 0?). The result of this code will be an array itself containing <code>TRUE</code> and <code>FALSE</code> values corresponding to whether the <span class="math inline">\(\geq0\)</span> condition was met for each value in <code>q7</code>. Save this resulting array to a variable called <code>q7_geq0</code> (“geq” = “<strong>g</strong>reater than or <strong>eq</strong>ual to”), and <strong>print the value of <code>q7_geq0</code>.</strong></li>
-</ol>
-<p><br></p>
-<ol start="9" style="list-style-type: decimal">
-<li>Again consider the array <code>q7</code>. For this question, find the <em>sum</em> of the <em>absolute values</em> of this array. To achieve this, you will need to first get the absolute value of the array <code>q7</code> (using the <code>abs()</code> function), and then you will need to sum those values (using the <code>sum()</code> function). <strong>Your code chunk should reveal the final sum.</strong></li>
-</ol>
-<ul>
-<li>Need help? Run <code>get_help(&quot;sum&quot;)</code> or <code>get_help(&quot;abs&quot;)</code> in the R Console.</li>
-<li>Hint: You can approach this question in several ways, as long as you use <code>abs()</code> and then <code>sum()</code> on <code>q7</code> in that order.</li>
-</ul>
-<p><br></p>
-<ol start="10" style="list-style-type: decimal">
-<li>Teach yourself how to use the function <code>all()</code> using the <code>introverse</code> help docs, by running <code>get_help(&quot;all&quot;)</code>. Then, use this function to determine whether all values of <code>q7</code> are <em>less than or equal to 0.</em> <strong>Your code should print a <em>single</em> <code>TRUE</code> if all values are less than or equal to 0, and a single <code>FALSE</code> otherwise.</strong></li>
-</ol>
-<ul>
-<li>Hint: The code is <em>almost exactly identical</em> to the code for question 8.</li>
-</ul>
-<p><br></p>
-<ol start="11" style="list-style-type: decimal">
-<li>Define <em>four variables</em> with the following names and values:</li>
-</ol>
-<table>
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>tomato</code></td>
-<td><code>&quot;red&quot;</code></td>
-</tr>
-<tr class="even">
-<td><code>plum</code></td>
-<td><code>&quot;purple&quot;</code></td>
-</tr>
-<tr class="odd">
-<td><code>banana</code></td>
-<td><code>&quot;yellow&quot;</code></td>
-</tr>
-<tr class="even">
-<td><code>watermelon</code></td>
-<td><code>&quot;green_and_red&quot;</code> (uses <em>underscores</em>)</td>
-</tr>
-</tbody>
-</table>
-<p>Then, write code to answer <code>TRUE</code> or <code>FALSE</code>: Is the <em>number of characters</em> in <code>tomato</code> less than to the number of characters in <code>plum</code> <strong>AND</strong> (remember <code>&amp;</code>??) is the number of characters in <code>banana</code> equal to the number of characters in <code>watermelon</code>? <strong>The code should print either <code>TRUE</code> or <code>FALSE</code>.</strong> + Need help? Run <code>get_help(&quot;nchar&quot;)</code> or <code>get_help(&quot;logical&quot;)</code> in the R Console.</p>
 </div>
 
 
