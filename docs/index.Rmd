@@ -27,10 +27,10 @@ W 9/1   | Introduction and class logistics | | -
 R 9/2   | Types of data and figures | | -
 T 9/7   | Types of data and figures | | -
 W 9/8   | Types of data and figures <br> Introduction to R and RStudio | | -
-R 9/9   | Introduction to R and RStudio <!-- Quiz: Types of data and figures?? -->  | | Homework 1: Identifying data types and figures <br> (This is the only homework not due on a Tuesday)
+R 9/9   | Introduction to R and RStudio <!-- Quiz: Types of data and figures?? -->  | | Homework 1: Identifying data types and figures <br> [Link to Instructions](./homeworks/hw1/hw1_instructions.html) <br> [Link to Answer Sheet](./homeworks/hw1/homework1_answer_sheet.docx)
 T 9/14  | Introduction to R and RStudio | | Homework 2: Show me your R
-W 9/15 | Introduction to R and RStudio <br> Introduction to Rmarkdown  | | -
-R 9/16 | _Open work day_ | | -
+W 9/15 | Introduction to R and RStudio <br> *Class will end at 5 pm for Biology Club gathering in Atrium*  | | -
+R 9/16 | Introduction to RMarkdown | | -
 T 9/21 | The grammar of graphics, Part 1 | | Homework 3: Using R and RMarkdown
 W 9/22 | The grammar of graphics, Part 2 <br> Introduction to `ggplot2` | | -
 R 9/23 | _Open work day_  | | -

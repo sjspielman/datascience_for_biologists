@@ -1,9 +1,10 @@
 ---
-title: "Homework #1: Due 2/2/21 as a PDF to Canvas"
-author: "Data Science for Biologists, Spring 2021"
+title: "Homework #1: Due _Thursday 9/9/21_ to Canvas as a PDF by 1 pm"
+author: "Data Science for Biologists, Fall 2021"
 output: 
   html_document:
-    theme: journal
+    theme: lumen
+    highlight: tango
 ---
 
 ```{r setup, include=FALSE}
@@ -12,7 +13,7 @@ options(htmlwidgets.TOJSON_ARGS = list(na = 'string'))
 library(DT)
 library(readr)
 library(dplyr)
-set.seed(11)
+set.seed(012021) # 01 for fall, 02 for spring
 readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-07-07/coffee_ratings.csv') %>%
     dplyr::filter(category_two_defects > 0) %>%
     dplyr::select(total_cup_points,
@@ -44,11 +45,24 @@ blockquote{
 }
 ```
 
-## Background
 
-This dataset, called `coffee_ratings`, provides ratings of different coffee beans made around the world. Each row is a single coffee bean, and each column provides different information about that coffee bean including its total rating (`total_cup_score`, on a scale of 100), what species and variety of coffee it is, information about where the coffee comes from, information about the number of defects detected per coffee, and different graded measurements, on a scale of 10, for various coffee attributes (like aroma or sweetness). It has been subsetted (to only 20 rows and 14 columns) from the full dataset [here](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-07-07/readme.md).
+## Additional deadline information
+
+Since this is the _only_ homework in class to not be due on a Tuesday at 1 pm, slightly different grading deadlines apply:
+
++ For full credit, the assignment should be submitted to Canvas by 1 pm on Thursday 9/9/21
++ For -10%, submit to Canvas by 11:59 PM Thursday 9/9/21
++ For -20%, submit to Canvas by 11:59 PM Friday 9/10/21
++ For -30%, submit to Canvas by 11:59 PM Saturday 9/11/21
++ [Final deadline]  For -40%, submit to Canvas by 11:59 PM Sunday 9/12/21
+
+
+## Homework Dataset Background
+
+This dataset, called `coffee_ratings`, provides ratings of different coffee beans made around the world. Each row is a single coffee bean, and each column provides different information about that coffee bean including its total rating (variable `total_cup_points`, on a scale of 100), what species and variety of coffee it is, information about where the coffee comes from, information about the number of defects detected per coffee, and different graded measurements, on a scale of 10, for various coffee attributes (like aroma or sweetness). It has been subsetted (to only 20 rows and 14 columns) from the full dataset [here](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-07-07/readme.md).
 
 You will see some entries in the dataset that are `NA`, which implies a *missing value*. Sometimes, data is missing or unknown, and it doesn't necessarily imply anything is wrong with the dataset. Instead, it implies that data collection can be challenging, and you can't always get all the information you want. 
+
 
 
 ### Explore the dataset 
@@ -57,7 +71,7 @@ You will see some entries in the dataset that are `NA`, which implies a *missing
 >
 > Scroll to the right to see all columns.
 >
-> You can use the "Search" field to find values or variables in the data. CAUTION: Does not work to search for NAs.
+> You can use the "Search" field to find values or variables in the data. _CAUTION: Does not work to search for `NA`s_.
 > 
 > Click on a column header to sort the data by that column.
 
@@ -76,9 +90,12 @@ datatable(coffee_ratings,
 ## Specific Instructions:
 
 
-Answer these questions about the dataset variables and how one might visualize the data. Please answer all questions in a professionally-formatted (aka, clearly organized and with spell check) Word/Google docs document with your name on top, and submit a PDF file with your answers. Canvas will not allow you to upload any other format, so you must convert your document to a PDF before submitting!!
+Answer these questions about the dataset variables and how one might visualize the data. **When referring to variable names in the data, you must be _absolutely precise with spelling and capitalization._** 
+
+For example, there is *no variable* called `Total Cup Points` but there *is* a variable called `total_cup_points`.
 
 You do not need to write in complete sentences _except_ for one of your answers in Set 2 (see specific instructions below).
+
 
 ### Set 1 
 
@@ -90,53 +107,57 @@ You do not need to write in complete sentences _except_ for one of your answers 
 
 3. Which variable(s), if any, in this dataset is/are *numeric discrete*?
 
-4. For which variable(s), if any, do we **NOT** know all values? (in other words, there is missing data)?
+4. For which variable(s), if any, do we **NOT** know all of the values? (in other words, there is missing data)?
 
 ### Set 2
 
 **Instructions: For these questions, indicate if the presented information is a _variable_ or a _value_ in the dataset.** If it is a variable, provide one of the values associated with the variable (*don't make it up - find a value in the data!*). If it is a value, tell me what variable the value belongs to. 
+
 For all items below, you CAN answer the first part (variable or value?). But, for ONE AND ONLY ONE of the items below, you can't definitively answer the second part of the question (if variable give me a value, or if value give me the variable). For this one _ambiguous_ item, explain in 1 sentence why it is ambiguous.
 
 
-**Hint: Use the search bar above the table to help you!**
+> As an example, `total_cup_points` is a variable, and one of its values is 83.3. By contrast, "Arabica" is a value that is associated with the variable `species`.
+>
+> Hint: Use the search bar above the table to help you find values!
 
-1. `species`
 
-2. `kona`
+1. `variety`
 
-3. `7.75`
+2. `India`
 
-4. `balance`
+3. `1`
 
-5. `region`
+4. `Caturra`
 
-6. `moisture`
+5. `veracruz`
 
-7. `Bourbon`
+6. `sweetness`
 
-8. `79.08`
+7. `0.12`
 
-9. `bushenyi`
+8. `83.25`
+
+9. `farm_name`
 
 
 ### Set 3
 
 **Instructions: For these questions, simply answer whether the choice of data visualization is appropriate or not with "yes" or "no".** Your answers should be based ONLY on whether the type of plot is technically appropriate for visualizing those data types (don't worry about whether it might "look pretty" or not).
 
-1. You make a *scatterplot* to visualize the distribution of `aroma` coffee gradings.
+1. You make a *scatterplot* to visualize the distribution of `sweetness` coffee rating values.
 
 2. You make a *barplot* to visualize how many coffees come from each `country_of_origin` in the dataset.
 
-3. You make a *histogram* to visualize the distribution of `total_cup_points`.
+3. You make a *histogram* to visualize the distribution of `flavor` rating values.
 
-4. You make a *violin plot* to visualize the distribution of `balance` for each `species` of coffee.
+4. You make a *violin plot* to visualize the distribution of `acidity` rating values for each `species` of coffee.
 
-5. You make a *scatterplot* to visualize the relationship between coffee `flavor` and `sweetness` grades.
+5. You make a *scatterplot* to visualize the relationship between coffee `balance` and `sweetness` rating values.
 
 6. You make a *boxplot* to visualize how many coffees of each `species` there are. 
 
 7. You make a *density plot* to visualize the relationship between the `number_of_bags` produced and the `number_of_defects` found for each coffee.
 
-8. You make a *strip plot* to visualize the full distribution of `flavor` coffee gradings values..
+8. You make a *strip/jitter plot* to visualize the full distributions of `flavor` ratings for coffee grown in each `region`.
 
-9. You make a *barplot* to visualize the full distribution of `acidity` coffee grading values.
+9. You make a *barplot* to visualize the full distribution of `total_cup_points` coffee ratings.

@@ -4,7 +4,8 @@ author: "Data Science for Biologists, Spring 2021"
 date: "Dr. Spielman"
 output: 
   html_document:
-    theme: journal
+    theme: lumen
+    highlight: tango
 editor_options: 
   chunk_output_type: console
 ---
