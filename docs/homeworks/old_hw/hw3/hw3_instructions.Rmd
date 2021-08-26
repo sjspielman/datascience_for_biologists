@@ -1,0 +1,300 @@
+---
+title: "Homework #3: Due 2/16/21 as a PDF to Canvas"
+author: "Data Science for Biologists, Spring 2021"
+date: "Dr. Spielman"
+output: 
+  html_document:
+    theme: lumen
+    highlight: tango
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message=FALSE, fig.width = 7, fig.height=4)
+library(tidyverse)
+library(cowplot)
+library(dslabs)
+theme_set(theme_cowplot())
+data_path <- "hw3_datasets/"
+
+olives <- read_csv(file.path(data_path, "olives.csv"))
+wine <-read_csv(file.path(data_path, "wine.csv"))
+areas <- c("Umbria", "East-Liguria", "West-Liguria",
+           "North-Apulia", "South-Apulia", "Calabria", "Sicily",
+           "Inland-Sardinia", "Coast-Sardinia")
+regions <- c("Northern Italy", "Southern Italy", "Sardinia")
+```
+
+```{css, echo=F}
+blockquote{
+  margin-left: 25px;
+  font-size: 1em;
+}
+
+```
+
+
+
+1. Define two variables `x` and `y` as values 11 and 4, respectively. Use a logical operator to ask if x is greater than y and print the output. **The code chunk should print `TRUE` if x is greater and `FALSE` if not.**
+  + Need help? Run `get_help("logical")` in the R Console after loading the `introverse` library with `library(introverse)`.
+
+<br>
+
+2. Define two variables `a` and `b` as values 6 and 36, respectively. Use a logical operator and the function `sqrt()` to ask if `a` is equal to the square root of `b`, and print the output. **The code chunk should print `TRUE` if they are equal and `FALSE` if not.**
+  + Need help? Run `get_help("logical")` and `get_help("sqrt")` in the R Console.
+
+<br> 
+
+3. Define an array variable called `mammal_vectors` to contain these strings: "camel", "civet", "mink", "bat", "ferret", and "pangolin" (these are all mammals known to be vectors for either SARS-CoV-2 or one of its close relatives SARS and MERS). Use the function `length()` to determine how long the array is. **Your code should print the length of this array.**
+  + Need help? Run `get_help("length")` in the R Console.
+
+
+<br>
+
+4. Again consider the `mammal_vectors` array you created. Use the logical operator `%in%` to determine if the string "elephant" is in the array. **If "elephant" is in the array, your code should print `TRUE`, and `FALSE` otherwise.**
+  + Need help? Run `get_help("logical")` in the R Console.
+
+<br>
+
+5. Define an array variable called `dinosaurs` to contain the three strings: "eagle", "ostrich", and "sparrow" (wait, those are all birds?! That's right, birds are dinosaurs!). Then, define two other _numeric_ variables called `mammals_length` and `dinosaurs_length`. Each of these variables should be defined as the length of the respective array.  - one should be the length of the `mammal_vectors` array, and the other should be the length of the `dinosaurs` array. Finally, use a logical operator to compare the these variables. **If `mammals_length` is _greater than or equal to_ `dinosaurs_length`, your code should print `TRUE`.**
+
+<br> 
+
+6. Use a colon (`:`) to create a variable called `q6` as an array of numbers in order 87-162. Before you proceed, interactively print this variable to make sure it was defined correctly. Then, calculate the mean, median, and standard deviation (with functions `mean()`, `median()`, and `sd()` respectively) of this array. Each calculation should be saved to a variable called, respectively: `q6_mean`, `q6_median`, and `q6_sd`. **Finally, print these three variables. You do not need to print `q6`. Your code should therefore print three different values.**
+  + Need help? Run `get_help("mean")` in the R Console.
+
+
+<br> 
+
+
+7. Define an array variable using a colon called `q7` with the values -20 - 10 (_negative 20 through positive ten_). Then, calculate and save the _sum_ (using the function `sum()`) of `q7` as a variable `q7_sum`. 
+  + Need help? Run `get_help("sum")` in the R Console.
+
+<br>
+
+8. Again consider the array `q7`. Use a logical operator to ask if all values in this array are greater than or 0 (aka, is `q7` greater than or equal to 0?). The result of this code will be an array itself containing `TRUE` and `FALSE` values corresponding to whether the $\geq0$ condition was met for each value in `q7`.  Save this resulting array to a variable called `q7_geq0` ("geq" = "**g**reater than or **eq**ual to"), and **print the value of `q7_geq0`.**
+
+<br>
+
+9. Again consider the array `q7`. For this question, find the _sum_ of the _absolute values_ of this array. To achieve this, you will need to first get the absolute value of the array `q7` (using the `abs()` function), and then you will need to sum those values (using the `sum()` function). **Your code chunk should reveal the final sum.**
+  + Need help? Run `get_help("sum")` or `get_help("abs")` in the R Console.
+  + Hint: You can approach this question in several ways, as long as you use `abs()` and then `sum()` on `q7` in that order.
+
+<br>
+
+10. Teach yourself how to use the function `all()` using the `introverse` help docs, by running `get_help("all")`. Then, use this function to determine whether all values of `q7` are _less than or equal to 0._ **Your code should print a _single_ `TRUE` if all values are less than or equal to 0, and a single `FALSE` otherwise.**
++ Hint: The code is _almost exactly identical_ to the code for question 8.
+
+
+<br>
+
+11. Define _four variables_ with the following names and values:
+
+| Name | Value |
+|------|-------|
+| `tomato` | `"red"` |
+| `plum` | `"purple"` |
+| `banana` | `"yellow"` |
+| `watermelon` | `"green_and_red"`  (uses _underscores_) |
+
+Then, write code to answer `TRUE` or `FALSE`: Is the _number of characters_ in `tomato` less than to the number of characters in `plum` **AND** (remember `&`??) is the number of characters in `banana` equal to the number of characters in `watermelon`? **The code should print either `TRUE` or `FALSE`.**
+ + Need help? Run `get_help("nchar")` or `get_help("logical")` in the R Console.
+
+While watching these videos, you will need to access these links:
+
+1. [RMarkdown document themes](https://www.datadreaming.org/post/r-markdown-theme-gallery/)
+  + **Do not consider the section _Even More Themes_.** We will learn later how you can use one of those themes if you choose.
+2. [RMarkdown code syntax highlighting](https://www.garrickadenbuie.com/blog/pandoc-syntax-highlighting-examples/)
+3. 
+
+
+
+## Instructions
+
+The goal of this assignment is to explore datasets and interpret the grammatical components of figures created for you from two different datasets, described below. You will NOT be submitting any code for this assignment! Instead, you will submit some brief interpretations for each of the plots below. 
+
+You will need to use the `Homework #3 Datasets` Project in RStudio Cloud to explore the contents of these datasets in order to complete your answers. In this cloud project, I have uploaded all datasets from which the plots have been created so that you can directly explore their contents, using functions like `head()`, `names()`, etc. to help you answer the questions.
+
+For each plot, answer all questions below in a SEPARATE and CLEARLY ORGANIZED document (with your name on top!) which you should save as a **PDF for submission on Canvas.** Note that bullet points are perfectly fine for your answers. In addition, there is an example plot with answers to guide you below. 
+
++ What type of plot is shown? Please use the [Types of Plots application](https://rowanbiosci.shinyapps.io/types_of_plots/) website to help you. (But note: there are _no sina plots_ in this homework!)
++ Which dataset is the plot made from?
++ Which *variables* (ie, the *actual column names*) in the dataset are on the X and Y axis, if any? If an axis does NOT show a variable but instead contains a *statistical transformation* of the data, indicate that in your answer instead.
+  + For axes with actual variables (not transformations!), what *type* of variable is on each axis? Answer either *numeric or categorical* - you do not need to go more in-depth than that.
++ What visual features (including colors/fills, shapes of points, and/or sizes of points) are used to style the plot? Are these aesthetics that map to the data, or are they "just" visual features? For any aesthetic mappings, clearly indicate what variables (*actual column name*) are mapped to what visual feature. 
++ Is there a trend line in the plot (applies to scatterplots only)?
++ Does the plot contain *facets* across a variable (column), or is it shown in a single panel? If faceting is present, what variable (*actual column name*) is the faceting along?
++ Provide one brief interpretation the plot. For example, what trends are (are not) apparent? What question about the data does the plot address, or not address?
+
+
+> Tip: If you are itnerested in formatting your answers to emphasize variables in a different font, I recommend you use the font "Monaco" or "Menlo" (or any other fixed-width font).
+>
+> Tip 2: Make sure you write dataset variables (column names) __precisely__ as they are in the dataset! Do not change capitalization, remove underscores, etc.
+
+
+## The data
+
+All plots (except for the example) are made from one of two datasets, `wine` and `olives`. A description of each is below.
+
+**YOU MAY NEED TO USE THIS CODE FOR EACH R SESSION TO LOAD THE DATA:**
+
+```{r, eval=F, echo=T}
+source("load_data.R")
+```
+
+Simply copy and paste this into Console, and you will be able to interact with the `wine` and `olives` data frames. (Soon, we will learn exactly what the code in `load_data.R` script does to make this happen!)
+
+
+<br>
+
+#### The `wine` dataset
+
+This dataset contains information from a chemical analysis of three different cultivars (A, B, and C) of wine, including alcohol percentage and amounts of different chemical components. Variables include:
+
++ `Cultivar`: The wine cultivar (A, B, or C)
++ `Alcohol`: The alcohol percentage of the wine
++ `MalicAcid`: The percentage of the wine that is malic acid
++ `Ash`: The percentage of the wine that is ash (it's a wine thing...)
++ `Magnesium`: The percentage of the wine that is magnesium
++ `TotalPhenol`: The percentage of the wine that is phenols
++ `Flavanoids`: The percentage of the wine that is flavanoids
++ `NonflavPhenols`: The percentage of the wine that is non-flavanoid phenols
++ `Color`: The color intensity of the wine, measured numerically
+
+<br>
+
+#### The `olives` dataset
+
+This dataset contains information about 572 olives collected from different regions across Italy. The dataset contains information about: what `region` the olive is from, what smaller `area` within each region the is olive from, and what percentages different fatty acids comprise in the olive's oil profile. 
+
+<br><br>
+
+## The plots to explain:
+
+<br>
+
+
+### Example Plot
+
+> Please use the answers to this example guide you on how to interpret the other plots. Notice that when referring to variables in the answer, I literally and precisely refer to the relevant column name. 
+>
+> **Moreover**, the example dataset `iris` is literally built into R, so you can simply type `iris` in any R Console to see the dataset and explore it with functions we have learned. **It is highly recommended** to first explore the `iris` dataset and ensure that you can independently interpret this plot and arrive at the same answers as are shown below. Doing this first will help you understand how to do the rest of the homework.
+
+This plot was created from the `iris` dataset. In this dataset, each row is an iris flower. The dataset contains five variables:
+
++ `Sepal.Width`, the iris' sepal width in cm
++ `Sepal.Length`, the iris' sepal length in cm
++ `Petal.Width`, the iris' petal width in cm
++ `Petal.Width`, the iris' length length in cm
++ `Species`, what iris species the flower is
+
+
+```{r}
+ggplot(iris, aes(x = Species, fill=Species, y = Sepal.Length)) + 
+  geom_boxplot() +
+  scale_fill_brewer(palette = "Set2") + 
+  ylab("Sepal length (cm)")
+```
+
+#### Example answer:
+
++ The type of plot is a boxplot
++ The plot is made from the `iris` dataset
++ The x-axis shows the `Species` variable. This is a categorical variable.
++ The y-axis shows the `Sepal.Length` variable. This is a numeric variable.
++ There is a fill mapping to the `Species` variable
++ There is no trend line in the plot
++ There is no faceting in this plot
++ Interpretation: This plot shows that virginica irises have the largest sepal lengths on average, and setosa irises have the smallest sepal lengths on average.
+
+
+<br><br>
+
+### Plot 1
+
+```{r}
+ggplot(wine, aes(x = fct_reorder(Cultivar, Flavanoids, .desc=T),
+                 y = Flavanoids)) + 
+  geom_boxplot(color = "darkslateblue", fill = "lightskyblue1") +
+  ylab("Flavanoid content") + xlab("Cultivar")
+```
+
+<br><br>
+
+### Plot 2
+
+```{r}
+ggplot(wine, aes(y = Alcohol, x = Color)) + 
+  geom_point(color = "mediumseagreen") +
+  xlab("Alcohol percentage") + ylab("Color")
+```
+
+<br><br>
+
+### Plot 3
+
+```{r}
+ggplot(wine, aes(x = Alcohol, fill = Cultivar)) + 
+  geom_histogram(binwidth = 0.2, color = "black") +
+  facet_wrap(~Cultivar) +
+  panel_border() +
+  scale_fill_brewer(palette="Purples") +
+  xlab("Wine alcohol percentage")
+```
+
+<br><br>
+
+### Plot 4
+
+```{r, fig.width = 8, fig.height=4}
+ggplot(olives, aes(x = fct_relevel(region, regions),
+                   y = arachidic)) + 
+  geom_violin(fill = "palevioletred1", color = "royalblue4", size=1) + 
+  xlab("Region in Italy") + ylab("Arachidic acid percentage")
+```
+
+
+<br><br>
+
+
+### Plot 5
+```{r, fig.width = 8, fig.height=3}
+ggplot(olives, aes(x = stearic, fill = region)) + 
+  geom_density(alpha = 0.6) + 
+  scale_fill_brewer(palette = "Set1") +
+  xlab("Stearic acid percentage")
+```
+
+<br><br>
+
+### Plot 6
+```{r, fig.width = 8, fig.height=4}
+ggplot(olives, aes(x = fct_relevel(area, areas),
+                   y = stearic, fill = fct_relevel(region, regions))) + 
+  geom_jitter(pch=21,color="black", size=2, width = 0.2, alpha = 0.5) + 
+  scale_fill_brewer(palette = "Set1", name = "") + 
+  theme(legend.position="bottom", axis.text.x = element_text(size = 8)) +
+  ylab("Stearic acid percentage") + xlab("Area in Italy")
+```
+
+
+
+
+<br><br>
+
+### Plot 7
+
+```{r, fig.width = 8, fig.height=3}
+ggplot(olives, aes(x = palmitic, y = oleic, color=region)) + 
+  geom_point(size = 0.8) +
+  facet_wrap(vars(region), scales="free") + 
+  theme(legend.position = "none") + 
+  panel_border() + 
+  scale_color_brewer(palette = "Dark2") +
+  labs(x = "Palmitic acid percentage",
+       y = "Oleic acid percentage") + 
+  geom_smooth(method = "lm", color="black")
+```
+
+<br><br><br>

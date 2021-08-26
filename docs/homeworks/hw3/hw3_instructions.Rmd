@@ -1,300 +1,153 @@
 ---
-title: "Homework #3: Due 2/16/21 as a PDF to Canvas"
-author: "Data Science for Biologists, Spring 2021"
-date: "Dr. Spielman"
+title: 'Instructions: Homework #3'
+author: "Data Science for Biologists, Fall 2021"
+date: "Complete the template Rmd and submit to Canvas on 9/21/21 by 1 PM"
 output: 
   html_document:
     theme: lumen
     highlight: tango
-editor_options: 
-  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message=FALSE, fig.width = 7, fig.height=4)
-library(tidyverse)
-library(cowplot)
-library(dslabs)
-theme_set(theme_cowplot())
-data_path <- "hw3_datasets/"
-
-olives <- read_csv(file.path(data_path, "olives.csv"))
-wine <-read_csv(file.path(data_path, "wine.csv"))
-areas <- c("Umbria", "East-Liguria", "West-Liguria",
-           "North-Apulia", "South-Apulia", "Calabria", "Sicily",
-           "Inland-Sardinia", "Coast-Sardinia")
-regions <- c("Northern Italy", "Southern Italy", "Sardinia")
+knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{css, echo=F}
-blockquote{
-  margin-left: 25px;
-  font-size: 1em;
-}
-
-```
-
-
-
-1. Define two variables `x` and `y` as values 11 and 4, respectively. Use a logical operator to ask if x is greater than y and print the output. **The code chunk should print `TRUE` if x is greater and `FALSE` if not.**
-  + Need help? Run `get_help("logical")` in the R Console after loading the `introverse` library with `library(introverse)`.
-
-<br>
-
-2. Define two variables `a` and `b` as values 6 and 36, respectively. Use a logical operator and the function `sqrt()` to ask if `a` is equal to the square root of `b`, and print the output. **The code chunk should print `TRUE` if they are equal and `FALSE` if not.**
-  + Need help? Run `get_help("logical")` and `get_help("sqrt")` in the R Console.
-
-<br> 
-
-3. Define an array variable called `mammal_vectors` to contain these strings: "camel", "civet", "mink", "bat", "ferret", and "pangolin" (these are all mammals known to be vectors for either SARS-CoV-2 or one of its close relatives SARS and MERS). Use the function `length()` to determine how long the array is. **Your code should print the length of this array.**
-  + Need help? Run `get_help("length")` in the R Console.
-
-
-<br>
-
-4. Again consider the `mammal_vectors` array you created. Use the logical operator `%in%` to determine if the string "elephant" is in the array. **If "elephant" is in the array, your code should print `TRUE`, and `FALSE` otherwise.**
-  + Need help? Run `get_help("logical")` in the R Console.
-
-<br>
-
-5. Define an array variable called `dinosaurs` to contain the three strings: "eagle", "ostrich", and "sparrow" (wait, those are all birds?! That's right, birds are dinosaurs!). Then, define two other _numeric_ variables called `mammals_length` and `dinosaurs_length`. Each of these variables should be defined as the length of the respective array.  - one should be the length of the `mammal_vectors` array, and the other should be the length of the `dinosaurs` array. Finally, use a logical operator to compare the these variables. **If `mammals_length` is _greater than or equal to_ `dinosaurs_length`, your code should print `TRUE`.**
-
-<br> 
-
-6. Use a colon (`:`) to create a variable called `q6` as an array of numbers in order 87-162. Before you proceed, interactively print this variable to make sure it was defined correctly. Then, calculate the mean, median, and standard deviation (with functions `mean()`, `median()`, and `sd()` respectively) of this array. Each calculation should be saved to a variable called, respectively: `q6_mean`, `q6_median`, and `q6_sd`. **Finally, print these three variables. You do not need to print `q6`. Your code should therefore print three different values.**
-  + Need help? Run `get_help("mean")` in the R Console.
-
-
-<br> 
-
-
-7. Define an array variable using a colon called `q7` with the values -20 - 10 (_negative 20 through positive ten_). Then, calculate and save the _sum_ (using the function `sum()`) of `q7` as a variable `q7_sum`. 
-  + Need help? Run `get_help("sum")` in the R Console.
-
-<br>
-
-8. Again consider the array `q7`. Use a logical operator to ask if all values in this array are greater than or 0 (aka, is `q7` greater than or equal to 0?). The result of this code will be an array itself containing `TRUE` and `FALSE` values corresponding to whether the $\geq0$ condition was met for each value in `q7`.  Save this resulting array to a variable called `q7_geq0` ("geq" = "**g**reater than or **eq**ual to"), and **print the value of `q7_geq0`.**
-
-<br>
-
-9. Again consider the array `q7`. For this question, find the _sum_ of the _absolute values_ of this array. To achieve this, you will need to first get the absolute value of the array `q7` (using the `abs()` function), and then you will need to sum those values (using the `sum()` function). **Your code chunk should reveal the final sum.**
-  + Need help? Run `get_help("sum")` or `get_help("abs")` in the R Console.
-  + Hint: You can approach this question in several ways, as long as you use `abs()` and then `sum()` on `q7` in that order.
-
-<br>
-
-10. Teach yourself how to use the function `all()` using the `introverse` help docs, by running `get_help("all")`. Then, use this function to determine whether all values of `q7` are _less than or equal to 0._ **Your code should print a _single_ `TRUE` if all values are less than or equal to 0, and a single `FALSE` otherwise.**
-+ Hint: The code is _almost exactly identical_ to the code for question 8.
-
-
-<br>
-
-11. Define _four variables_ with the following names and values:
-
-| Name | Value |
-|------|-------|
-| `tomato` | `"red"` |
-| `plum` | `"purple"` |
-| `banana` | `"yellow"` |
-| `watermelon` | `"green_and_red"`  (uses _underscores_) |
-
-Then, write code to answer `TRUE` or `FALSE`: Is the _number of characters_ in `tomato` less than to the number of characters in `plum` **AND** (remember `&`??) is the number of characters in `banana` equal to the number of characters in `watermelon`? **The code should print either `TRUE` or `FALSE`.**
- + Need help? Run `get_help("nchar")` or `get_help("logical")` in the R Console.
-
-While watching these videos, you will need to access these links:
-
-1. [RMarkdown document themes](https://www.datadreaming.org/post/r-markdown-theme-gallery/)
-  + **Do not consider the section _Even More Themes_.** We will learn later how you can use one of those themes if you choose.
-2. [RMarkdown code syntax highlighting](https://www.garrickadenbuie.com/blog/pandoc-syntax-highlighting-examples/)
-3. 
-
-
+> For this homework, you will be writing your very first _RMarkdown file_ and practicing your base R skills. 
 
 ## Instructions
 
-The goal of this assignment is to explore datasets and interpret the grammatical components of figures created for you from two different datasets, described below. You will NOT be submitting any code for this assignment! Instead, you will submit some brief interpretations for each of the plots below. 
++ Obtain the homework from your RStudio Cloud class project by running the following code in the R Console:
 
-You will need to use the `Homework #3 Datasets` Project in RStudio Cloud to explore the contents of these datasets in order to complete your answers. In this cloud project, I have uploaded all datasets from which the plots have been created so that you can directly explore their contents, using functions like `head()`, `names()`, etc. to help you answer the questions.
+  ```{r, eval=FALSE}
+  library(ds4b.materials) # Load the class library
+  launch_homework(3)      # Launch Homework 3
+  ```
 
-For each plot, answer all questions below in a SEPARATE and CLEARLY ORGANIZED document (with your name on top!) which you should save as a **PDF for submission on Canvas.** Note that bullet points are perfectly fine for your answers. In addition, there is an example plot with answers to guide you below. 
++ Answer each question with appropriate code and comments in the given question's R chunk. Chunks are _named_ as `q1` for question 1, `q2` for question 2, etc.
+  + Always ensure your answers are being produced by code. No credit will be given for answers that are not directly produced by code. Please refer to the [Homework #2 Instructions](../hw2/hw2_instructions.html) for examples of acceptable and unacceptable code.
+  + You should have one comment per line of code. Comments should be written in "plain english" and give _brief descriptions_ about what the code is doing. Comments should be written _above_ the line of code they refer to. You will not be graded on whether I think your comment is "good enough" - your comments need only be "good enough" for YOU to understand what your code is doing.
+<br><br>
++ You must set an **RMarkdown theme and code syntax highlighting scheme** of your choosing in the YAML front matter. These links will help you:
+  + Set the theme and syntax highlighting according to this demonstration video 
+  + Choose your favorite _theme_ among the **pre-packaged themes** (ignore everything below "Even More Themes") shown at [this link](https://www.datadreaming.org/post/r-markdown-theme-gallery/)
+  + Choose your favorite _syntax highlighting_ among these options at [this link](https://www.garrickadenbuie.com/blog/pandoc-syntax-highlighting-examples/)
+<br><br>
++ Make sure to use the `ds4b.materials` function `check_homework(3)` to **check** whether there are any bugs in your homework. Make sure to find and fix all bugs before submitting! Your document _must knit without errors_ for full credit, so don't skip this step!
+<br><br>
++ Additional tips for success:
+  + _**Start the homework EARLY. Do not wait until the day before the deadline to begin.**_
+  + Remember to use the `introverse` library interactively in the R Console to get help with the function `get_help()`.
+  + Remember that R code chunks behave interactively so you do not need to use the `print()` function to print. Simply type a variable's name to reveal its contents, just like in the Console.
 
-+ What type of plot is shown? Please use the [Types of Plots application](https://rowanbiosci.shinyapps.io/types_of_plots/) website to help you. (But note: there are _no sina plots_ in this homework!)
-+ Which dataset is the plot made from?
-+ Which *variables* (ie, the *actual column names*) in the dataset are on the X and Y axis, if any? If an axis does NOT show a variable but instead contains a *statistical transformation* of the data, indicate that in your answer instead.
-  + For axes with actual variables (not transformations!), what *type* of variable is on each axis? Answer either *numeric or categorical* - you do not need to go more in-depth than that.
-+ What visual features (including colors/fills, shapes of points, and/or sizes of points) are used to style the plot? Are these aesthetics that map to the data, or are they "just" visual features? For any aesthetic mappings, clearly indicate what variables (*actual column name*) are mapped to what visual feature. 
-+ Is there a trend line in the plot (applies to scatterplots only)?
-+ Does the plot contain *facets* across a variable (column), or is it shown in a single panel? If faceting is present, what variable (*actual column name*) is the faceting along?
-+ Provide one brief interpretation the plot. For example, what trends are (are not) apparent? What question about the data does the plot address, or not address?
+
+## Homework Questions
 
 
-> Tip: If you are itnerested in formatting your answers to emphasize variables in a different font, I recommend you use the font "Monaco" or "Menlo" (or any other fixed-width font).
->
-> Tip 2: Make sure you write dataset variables (column names) __precisely__ as they are in the dataset! Do not change capitalization, remove underscores, etc.
+1. Define two variables `a` and `b` as values 8 and 64, respectively. Use a logical operator and the function `sqrt()` to ask if `a` is equal to the square root of `b`, and print the output. **The code should print `TRUE` if they are equal and `FALSE` if not.**
+    + Need help? Run `get_help("logical")` and `get_help("sqrt")` in the R Console after loading the `introverse` library.
+
+<br> 
+
+2. Define a variable `success_status` whose values *depends* on a logical comparison, using variables `a` and `b` from the previous question. If `a` squared equals `b`, `success_status` should be defined with the value "eureka". Otherwise, if `a` squared does not equal `b`, `success_status` should be defined with the value "wompwomp". **Print the value of `success_status` after it is defined.**
+      + Need help? Run `get_help("ifelse")` in the R Console after loading the `introverse` library.
+      + Do NOT redefine the `a` and `b` variables. You defined them in question #2, and you are still coding in the same Rmarkdown file. _We always want to avoid repeating code since it often leads to unexpected bugs._
+
+<br> 
+
+3. Define an array variable called `mammal_vectors` to contain these strings: "camel", "civet", "mink", "bat", "ferret", and "pangolin" (these are all mammals known to be vectors for either SARS-CoV-2 or one of its close relatives SARS and MERS).  Use the logical operator `%in%` to determine if the string "elephant" is in the array. **If "elephant" is in the array, your code should print `TRUE`, and `FALSE` otherwise.**
+    + Need help? Run `get_help("logical")` in the R Console after loading the `introverse` library.
+
+<br>
+
+4. Define an array variable called `dinosaurs` to contain the three strings: "eagle", "ostrich", and "sparrow" (wait, those are all birds?! That's right, birds are dinosaurs!). Then, define two other variables called `mammals_length` and `dinosaurs_length`, which should each contain the result of running `length()` on each array. Finally, use a logical operator to compare these variables. **If `mammals_length` is larger than `dinosaurs_length` (in other words, the mammals array is longer than the dinosaurs array), your code should print `TRUE`. Otherwise, your code should print `FALSE`.**
+    + Need help? Run `get_help("length")` in the R Console after loading the `introverse` library.
+
+<br> 
+
+5. Use the `nchar()` function to determine how many characters are in each string in the `dinosaurs` array, and save the result of this operation to a variable `nchar_dinosaurs`. Then, use a logical operator to ask if each value is equal to 7. **Your code should print a new array containing `TRUE` or `FALSE` values representing whether this condition was met for each value.**
+    + Need help? Run `get_help("nchar")` in the R Console after loading the `introverse` library.
 
 
-## The data
+<br> 
 
-All plots (except for the example) are made from one of two datasets, `wine` and `olives`. A description of each is below.
+6. Use a colon (`:`) to create a variable called `q6` as an array of numbers in order -12 through 17. From this variable `q6`, calculate the mean, median, standard deviation, and sum (with functions `mean()`, `median()`, `sd()`,and `sum()`, respectively) of this array. Each calculation should be saved to a variable called, respectively: `q6_mean`, `q6_median`, `q6_sd`, and `q6_sum`. **Finally, print these four variables. You do not need to print `q6`.**
+    + Need help? Run `get_help("mean")` in the R Console after loading the `introverse` library.
 
-**YOU MAY NEED TO USE THIS CODE FOR EACH R SESSION TO LOAD THE DATA:**
+<br> 
 
-```{r, eval=F, echo=T}
-source("load_data.R")
-```
+7. Again consider the array `q6`. Use a logical operator to ask if all values in this array are less than or 0 (aka, is `q6` less than or equal to 0?). The result of this code will be an array itself containing `TRUE` and `FALSE` values corresponding to whether the $\leq0$ condition was met for each value in `q6`.  Save this resulting array to a variable called `q6_leq0` ("leq" = "**l**ess than or **eq**ual to"), and **print the value of `q6_leq0`.**
+    + Need help? Run `get_help("logical")` in the R Console after loading the `introverse` library.
 
-Simply copy and paste this into Console, and you will be able to interact with the `wine` and `olives` data frames. (Soon, we will learn exactly what the code in `load_data.R` script does to make this happen!)
+<br> 
+
+
+8. Teach yourself how to use the function `all()` using the `introverse` help docs, by running `get_help("all")` in the R Console, after you've loaded the `introverse` library. Then, use this function to determine whether all values of `q6` are _less than or equal to 0._ **Your code should print a _single_ `TRUE` if all values are less than or equal to 0, and a single `FALSE` otherwise.**
+    + Hint: The code is _almost exactly identical_ to the code for question 7!
+    
+<br> 
+
+9. Again consider the array `q6`. For this question, find the _sum_ of the _absolute values_ of this array. To achieve this, you will need to first get the absolute value of the array `q6` (using the `abs()` function), and then you will need to sum those values (using the `sum()` function). **Your code chunk should reveal the final sum.**
+    + Need help? Run `get_help("sum")` or `get_help("abs")` in the R Console after loading the `introverse` library.
+    + Hint: You can approach this question in several ways, as long as you use `abs()` and then `sum()` on `q6` in that order.
+  
+
+<br> 
+
+
+10. There is a super useful function called `paste()` which allows you to strings (characters) together to create a new string. See how this function works below:
+
+      ```{r paste_demo}
+      combined_string <- paste("string 1", "and", "string 2")
+      print(combined_string)
+      
+      # you can also include variables:
+      a_string <- "hello there"
+      combined_string2 <- paste("string 1", a_string, "string 2")
+      print(combined_string2)
+      ```
+
+    **Use the `paste()` function and the variable `q6_mean` you previously defined to print a sentence that says: "The mean of q6 is ...." where .... is the the `q6_mean` value.** Your code should _NOT_ include a number directly (don't copy/paste the value of the mean). You may _ONLY_ refer to this number value with the `q6_mean` variable.
+        + Need help? Run `get_help("paste")` in the R Console after loading the `introverse` library.
+
+<br>
+
+
+11. For the remaining questions, you will consider the built-in dataset `iris`, a famous dataset with 150 rows and 5 columns that provides physical measurements for 150 iris specimens from three different species.
+
+    For this question, write _code_ to determine the following information about `iris`. You need to use a single function for each task (there will be four lines of code in the end), and all output should be printed from the chunk.
+
+    + The number of rows
+    + The number of columns
+    + The _names_ of the columns (use a function that here that only tells you the names!)
+    + A _summary_ of the distribution of each column in the data
 
 
 <br>
 
-#### The `wine` dataset
-
-This dataset contains information from a chemical analysis of three different cultivars (A, B, and C) of wine, including alcohol percentage and amounts of different chemical components. Variables include:
-
-+ `Cultivar`: The wine cultivar (A, B, or C)
-+ `Alcohol`: The alcohol percentage of the wine
-+ `MalicAcid`: The percentage of the wine that is malic acid
-+ `Ash`: The percentage of the wine that is ash (it's a wine thing...)
-+ `Magnesium`: The percentage of the wine that is magnesium
-+ `TotalPhenol`: The percentage of the wine that is phenols
-+ `Flavanoids`: The percentage of the wine that is flavanoids
-+ `NonflavPhenols`: The percentage of the wine that is non-flavanoid phenols
-+ `Color`: The color intensity of the wine, measured numerically
+12. The goal of this question is to answer, "do sepal lengths or petal lengths have more variation?" When comparing variation across _different variables_, we can calculate the _coefficient of variation_ (COV) which is the standard deviation divided by the mean. Calculate the COV for sepal lengths and petal lengths, and save to variables `cov_sepal_length` and `cov_petal_length`, respectively. Then, use a logical operator to ask whether sepal lengths have _more_ (`>`) variation than petal lengths. **Your code should print `TRUE` if sepal lengths have more spread, and `FALSE` otherwise.**
 
 <br>
 
-#### The `olives` dataset
-
-This dataset contains information about 572 olives collected from different regions across Italy. The dataset contains information about: what `region` the olive is from, what smaller `area` within each region the is olive from, and what percentages different fatty acids comprise in the olive's oil profile. 
-
-<br><br>
-
-## The plots to explain:
+13. Calculate the mean petal width and save the result to a variable `mean_petal_width`. Then, use `paste()` to print a sentence that reads: `"The mean petal width in the iris dataset is ..."`, where `...` is replaced with the value in `mean_petal_width`.
 
 <br>
 
+14. The `iris` variable `Species` is a _factor variable_, meaning R recognizes it as containing _categories_. By contrast, the variable `Sepal.Width` is numeric, not a factor, so R doesn't recognize that it has categories. Use the `levels()` function separately on each of these functions to determine the different categories in the column. **Your code should simply print the result of running the `levels()` function on those columns.**
+    + Hint: The code output should be consistent with whether the variables are factors. Non-factor variables don't have any levels and the code result will reflect this.
 
-### Example Plot
+<br>
 
-> Please use the answers to this example guide you on how to interpret the other plots. Notice that when referring to variables in the answer, I literally and precisely refer to the relevant column name. 
->
-> **Moreover**, the example dataset `iris` is literally built into R, so you can simply type `iris` in any R Console to see the dataset and explore it with functions we have learned. **It is highly recommended** to first explore the `iris` dataset and ensure that you can independently interpret this plot and arrive at the same answers as are shown below. Doing this first will help you understand how to do the rest of the homework.
+15. To learn a little more about factors, let's _coerce_ some columns into and away from factors. To do this, we'll create a new dataset called `iris2` containing some coerced columns. Copy and paste the following code into the R chunk for this question (this code is part of the answer!). This code creates a new data frame `iris2` that contains the same information as `iris`, but `Species` is no longer factor (it is now character), and `Sepal.Width` is no longer numeric (it is now a factor).
 
-This plot was created from the `iris` dataset. In this dataset, each row is an iris flower. The dataset contains five variables:
-
-+ `Sepal.Width`, the iris' sepal width in cm
-+ `Sepal.Length`, the iris' sepal length in cm
-+ `Petal.Width`, the iris' petal width in cm
-+ `Petal.Width`, the iris' length length in cm
-+ `Species`, what iris species the flower is
-
-
-```{r}
-ggplot(iris, aes(x = Species, fill=Species, y = Sepal.Length)) + 
-  geom_boxplot() +
-  scale_fill_brewer(palette = "Set2") + 
-  ylab("Sepal length (cm)")
-```
-
-#### Example answer:
-
-+ The type of plot is a boxplot
-+ The plot is made from the `iris` dataset
-+ The x-axis shows the `Species` variable. This is a categorical variable.
-+ The y-axis shows the `Sepal.Length` variable. This is a numeric variable.
-+ There is a fill mapping to the `Species` variable
-+ There is no trend line in the plot
-+ There is no faceting in this plot
-+ Interpretation: This plot shows that virginica irises have the largest sepal lengths on average, and setosa irises have the smallest sepal lengths on average.
-
-
-<br><br>
-
-### Plot 1
-
-```{r}
-ggplot(wine, aes(x = fct_reorder(Cultivar, Flavanoids, .desc=T),
-                 y = Flavanoids)) + 
-  geom_boxplot(color = "darkslateblue", fill = "lightskyblue1") +
-  ylab("Flavanoid content") + xlab("Cultivar")
-```
-
-<br><br>
-
-### Plot 2
-
-```{r}
-ggplot(wine, aes(y = Alcohol, x = Color)) + 
-  geom_point(color = "mediumseagreen") +
-  xlab("Alcohol percentage") + ylab("Color")
-```
-
-<br><br>
-
-### Plot 3
-
-```{r}
-ggplot(wine, aes(x = Alcohol, fill = Cultivar)) + 
-  geom_histogram(binwidth = 0.2, color = "black") +
-  facet_wrap(~Cultivar) +
-  panel_border() +
-  scale_fill_brewer(palette="Purples") +
-  xlab("Wine alcohol percentage")
-```
-
-<br><br>
-
-### Plot 4
-
-```{r, fig.width = 8, fig.height=4}
-ggplot(olives, aes(x = fct_relevel(region, regions),
-                   y = arachidic)) + 
-  geom_violin(fill = "palevioletred1", color = "royalblue4", size=1) + 
-  xlab("Region in Italy") + ylab("Arachidic acid percentage")
-```
-
-
-<br><br>
-
-
-### Plot 5
-```{r, fig.width = 8, fig.height=3}
-ggplot(olives, aes(x = stearic, fill = region)) + 
-  geom_density(alpha = 0.6) + 
-  scale_fill_brewer(palette = "Set1") +
-  xlab("Stearic acid percentage")
-```
-
-<br><br>
-
-### Plot 6
-```{r, fig.width = 8, fig.height=4}
-ggplot(olives, aes(x = fct_relevel(area, areas),
-                   y = stearic, fill = fct_relevel(region, regions))) + 
-  geom_jitter(pch=21,color="black", size=2, width = 0.2, alpha = 0.5) + 
-  scale_fill_brewer(palette = "Set1", name = "") + 
-  theme(legend.position="bottom", axis.text.x = element_text(size = 8)) +
-  ylab("Stearic acid percentage") + xlab("Area in Italy")
-```
-
-
-
-
-<br><br>
-
-### Plot 7
-
-```{r, fig.width = 8, fig.height=3}
-ggplot(olives, aes(x = palmitic, y = oleic, color=region)) + 
-  geom_point(size = 0.8) +
-  facet_wrap(vars(region), scales="free") + 
-  theme(legend.position = "none") + 
-  panel_border() + 
-  scale_color_brewer(palette = "Dark2") +
-  labs(x = "Palmitic acid percentage",
-       y = "Oleic acid percentage") + 
-  geom_smooth(method = "lm", color="black")
-```
-
-<br><br><br>
+    ```{r eval=F}
+    # Create a copy of iris in iris2
+    iris2 <- iris
+    
+    # Coerce Species into a character
+    iris2$Species <- as.character(iris2$Species)
+    
+    # Coerce Sepal.Width into a factor
+    iris2$Sepal.Width <- as.factor(iris2$Sepal.Width)
+    ```
+    
+    Again write code with `levels()` to see the categories in the **`iris2`** columns `Species` and `Sepal.Width`, and notice how the output differs. Finally, write two more line of code in this chunk to **calculate the mean of the `Sepal.Width` column in `iris` AND in `iris2`**, which should also be printed out. In ~1 sentence of written text _below the code chunk_, explain why _IN YOUR OWN WORDS_ this calculation didn't work as well as you might have hoped (hint: the output from `levels()` is informative!). 
