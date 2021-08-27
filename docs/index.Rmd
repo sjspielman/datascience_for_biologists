@@ -16,10 +16,11 @@ This website contains all materials used in BIOL 01301 Fall 2021 at Rowan Univer
 
 ## Class Schedule and Materials
 
-> Schedule topics subject to change up until the week before, depending on class pace.
+> Scheduled topics are subject to change up until the week before, depending on class pace. Homeworks will be made available no later than one week in advance of their deadlines.
 >
-> **Your go-to resource: the [`{introverse}`](https://spielmanlab.github.io/introverse)**
-
+> [Link to the `{introverse}`](https://spielmanlab.github.io/introverse)
+>
+> [Instructions for launching interactive exercises and apps](./launch_instructions.html)
 
  Date  | Topic                                  | In-class materials          | Assignment DUE
 :----------|:---------------------------------------|:----------------------------------------------------------|:---------------------------------------------------------------------
@@ -27,7 +28,7 @@ W 9/1   | Introduction and class logistics <br> Types of data | "Types of data a
 R 9/2   | Types of data and figures | "Types of data and figures" interactive exercises | Create a _free_ account on [RStudio Cloud](https://rstudio.cloud)
 T 9/7   | Types of data and figures | "Types of data and figures" interactive exercises | -
 W 9/8   | Types of data and figures <br> Introduction to R and RStudio | | -
-R 9/9   | Introduction to R and RStudio <!-- Quiz: Types of data and figures?? -->  | | Homework 1: Identifying data types and figures <br> <!-- [Link to Instructions](./homeworks/hw1/hw1_instructions.html) <br> [Link to Answer Sheet](./homeworks/hw1/homework1_answer_sheet.docx) -->
+R 9/9   | Introduction to R and RStudio <!-- Quiz: Types of data and figures?? -->  | | Homework 1: Identifying data types and figures <br> [Link to Instructions](./homeworks/hw1/hw1_instructions.html) <br> [Link to Answer Sheet](./homeworks/hw1/homework1_answer_sheet.docx)
 T 9/14  | Introduction to R and RStudio | | Homework 2: A Guided Introduction to Writing R Scripts <br>  <!-- [Link to Instructions](./homeworks/hw2/hw2_instructions.html) -->
 W 9/15 | Introduction to R and RStudio <br> Introduction to RMarkdown  | | -
 R 9/16 | _Open work day_ | | -
