@@ -17,7 +17,7 @@ github-repo: sjspielman/ds4b_syllabus
 
 
 
-# Important Links and Information
+# Overview and Meeting Times
 
 + **Course Instructor**
   + Stephanie J. Spielman, PhD  (Dr. Spielman or Professor Spielman)
