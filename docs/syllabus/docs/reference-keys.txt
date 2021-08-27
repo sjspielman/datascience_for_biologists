@@ -9,6 +9,7 @@ additional-attendance-information
 attendance-grade-calculation
 excused-absences
 personal-class-days
+catching-up-if-you-miss-class
 final-grade-boundaries
 additional-course-information-and-policies
 email-policy-and-communication-standards
