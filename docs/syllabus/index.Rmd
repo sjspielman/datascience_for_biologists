@@ -70,6 +70,10 @@ If we experience a situation where student(s) refuse to wear a mask at all times
 
 If you are experiencing _ANY_ cold/flu symptoms or other COVID-19 symptoms (e.g. loss of taste/smell) in _any way_, or you have had a known exposure, please _DO NOT FEEL PRESSURED TO COME TO CLASS!!_ Any such absences will be considered fully excused with no penalty, and a recording will be made available to you.
 
+## If the professor gets ill... 
+
+Class will be canceled if the professor becomes infected and symptomatic with COVID-19 or any other cold/flu disease. Classes resume once the professor has returned to full physical health. 
+
 
 # Grading policies
 
@@ -96,6 +100,8 @@ Your final grade will be determined by **three** different components as follows
   
   
 ## Additional attendance information
+
+> Note that these policies are subject to change if Rowan University pivots to remote instruction.
 
 To be considered "present" in class, you must _participate_ in class through coding engagement. This semester, participation means you are engaging with our class materials _only_ (not your other classes!) during classtime. 
 

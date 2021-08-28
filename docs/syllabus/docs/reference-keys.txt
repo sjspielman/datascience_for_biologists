@@ -3,6 +3,7 @@ course-description-and-requirements
 covid-19-policies
 mask-policy
 illness-and-exposure-policy
+if-the-professor-gets-ill
 grading-policies
 final-grade-calculations
 additional-attendance-information
