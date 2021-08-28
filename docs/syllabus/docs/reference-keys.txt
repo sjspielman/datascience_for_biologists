@@ -20,3 +20,6 @@ late-assignment-policy
 regrade-policy
 academic-integrity-policy
 rowan-university-policies
+academic-success-statement
+rowan-university-diversity-statement
+information-about-the-office-of-student-equity-and-compliance
