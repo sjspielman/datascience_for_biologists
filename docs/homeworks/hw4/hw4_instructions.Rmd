@@ -1,0 +1,216 @@
+---
+title: 'Instructions: Homework #4'
+author: "Data Science for Biologists, Fall 2021"
+date: "Complete the .docx answer sheet and submit to Canvas as a PDF by 9/28/21 at 1 PM"
+output: 
+  html_document:
+    theme: lumen
+    highlight: tango
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE)
+
+# Load any libraries here:
+library(tidyverse)
+library(ds4b.materials)
+library(cowplot)
+theme_set(theme_light())
+regions <- c("Northern Italy", "Southern Italy", "Sardinia")
+areas <- c("Umbria", "East-Liguria", "West-Liguria",
+           "North-Apulia", "South-Apulia", "Calabria", "Sicily",
+           "Inland-Sardinia", "Coast-Sardinia")
+```
+
+
+The goal of this assignment is to explore datasets and interpret the grammatical components of figures created for you from two different datasets, described below. *You will NOT be submitting any code for this assignment!* Instead, you will submit some brief interpretations for each of the plots below using the Homework 4 Template, which should be submitted to Canvas as a PDF document. 
+
+Below, you will see several plots, each of which was made with one of two datasets: `olives` or `wine`. These datasets can be accessed from the `ds4b.materials` library, as shown.
+
+```{r, eval=F}
+library(ds4b.materials)
+
+# Look at olives:
+olives
+
+# Look at wine:
+wine
+```
+
+
+**The `olives` dataset** contains information about 572 olives collected from different regions across Italy. The dataset contains information about: what `region` the olive is from, what smaller `area` within each region the is olive from, and what percentages different fatty acids comprise in the olive's oil profile. 
+
+
+**The `wine` dataset** contains information from a chemical analysis of three different cultivars (`A`, `B`, and `C`) of wine, including alcohol percentage and amounts of different chemical components. Variables include:
+
++ `cultivar`: The wine cultivar (A, B, or C)
++ `alcohol`: The alcohol percentage of the wine
++ `malic_acid`: The percentage of the wine that is malic acid
++ `ash`: The percentage of the wine that is ash (it's a wine thing...)
++ `magnesium`: The percentage of the wine that is magnesium
++ `total_phenol`: The percentage of the wine that is phenols
++ `flavonoids`: The percentage of the wine that is flavonoids
++ `nonflav_phenols`: The percentage of the wine that is non-flavonoid phenols
++ `color`: The color intensity of the wine, measured numerically
+
+**In order to successfully complete this assignment, you will need to spend some time using R interactively to explore these datasets!**
+
+
+For each plot, answer all questions below in the template. Note that bullet points are perfectly fine for your answers. In addition, there is an example plot with answers to guide you below. The [_types of plots application_](https://sjspielman.github.io/datascience_for_biologists/launch_instructions.html) will also be extremely helpful!
+
++ What type of plot is shown? Don't get too fancy here! All plots are one of: histogram, density plot, boxplot, violin plot, strip plot, barplot, or scatterplot.
++ Which dataset is the plot made from?
++ Which *variables* (ie, the *actual column names*) in the dataset are on the X and Y axis, if any? If an axis does NOT show a variable but instead contains a *statistical transformation* of the data, indicate that in your answer instead.
+  + For axes with actual variables (not transformations!), what *type* of variable is on each axis? Answer either *numeric or categorical* - you do not need to go more in-depth than that.
++ What visual features (including colors/fills, shapes of points, and/or sizes of points) are used to style the plot? Are these aesthetics that map to the data, or are they "just" visual features? For any aesthetic mappings, clearly indicate what variables (*actual column name*) are mapped to what visual feature. 
++ Does the plot contain *facets* across a variable (column), or is it shown in a single panel? If faceting is present, what variable (*actual column name*) is the faceting along?
++ _Briefly_ answer the given question prompting you to interpret each plot in 1-2 sentences.
+
+> Tip: If you are interested in formatting your answers to emphasize variables in a different font, I recommend you use the font "Monaco" or "Menlo" (or any other fixed-width font).
+>
+> Tip 2: Make sure you write dataset variables (column names) __precisely__ as they are in the dataset! Do not change capitalization, remove underscores, etc.
+
+
+## The plots to explain:
+
+<br>
+
+
+### Example Plot
+
+> Please use the answers to this example guide you on how to interpret the other plots. Notice that when referring to variables in the answer, I literally and precisely refer to the relevant column name. 
+>
+> **Moreover**, the example dataset `iris` is literally built into R, so you can simply type `iris` in any R Console to see the dataset and explore it with functions we have learned. **It is highly recommended** to first explore the `iris` dataset and ensure that you can independently interpret this plot and arrive at the same answers as are shown below. Doing this first will help you understand how to do the rest of the homework.
+
+This plot was created from the `iris` dataset. In this dataset, each row is an iris flower. The dataset contains five variables:
+
++ `Sepal.Width`, the iris' sepal width in cm
++ `Sepal.Length`, the iris' sepal length in cm
++ `Petal.Width`, the iris' petal width in cm
++ `Petal.Width`, the iris' length length in cm
++ `Species`, what iris species the flower is
+
+
+**Plot question: Does this plot suggest a relationship between iris species and sepal length? If so, what is the relationship?**
+```{r}
+ggplot(iris, aes(x = Species, fill=Species, y = Sepal.Length)) + 
+  geom_boxplot() +
+  scale_fill_brewer(palette = "Set2") + 
+  ylab("Sepal length (cm)")
+```
+
+
+
+
+<br><br>
+
+### Plot 1
+
+**Plot question: Does this plot suggest a relationship between wine cultivar and ash percentage? If so, what is the relationship?**
+```{r}
+ggplot(wine, aes(x = cultivar,
+                 y = ash)) + 
+  geom_boxplot(color = "firebrick", fill = "grey80") +
+  ylab("Ash percentage") + xlab("Cultivar")
+```
+
+<br><br>
+
+### Plot 2
+
+**Plot question: Do wine cultivars show the same or different relationships between color and flavanoid percentage? Compare each of A-B, A-C, and B-C in your answer.**
+
+
+```{r message=F}
+ggplot(wine, aes(y = flavonoids, x = color, color = cultivar)) + 
+  geom_point() +
+  geom_smooth(se=F, method = "lm") +
+  ylab("Flavonoid percentage") + xlab("Color")
+```
+
+<br><br>
+
+### Plot 3
+
+**Plot question: What is the shape of the malic acid percentage distribution for each cultivar? Specifically, for each of A, B, C cultivars, answer if the distribution is _unimodal_, _bimodal_, or _multimodal_ and whether it is either roughly symmetric or has some skew (no further details needed).**
+```{r}
+ggplot(wine, aes(x = malic_acid, fill = cultivar)) + 
+  geom_histogram(binwidth = 0.315, color = "black") +
+  facet_wrap(~cultivar) +
+  panel_border() +
+  scale_fill_brewer(palette="Reds") +
+  xlab("Malic acid percentage")
+```
+
+<br><br>
+
+
+### Plot 4
+
+**Plot question: This plot is extremely similar to the previous plot, except with different binning and other visual features. Viewed with this binning specification, _now_ what is the shape of the malic acid percentage distribution for each cultivar? Specifically, for each of A, B, C cultivars, answer if the distribution is _unimodal_, _bimodal_, or _multimodal_. If it's unimodal, also indicate whether it is either roughly symmetric or has some skew (no further details are needed).**
+
+
+```{r}
+ggplot(wine, aes(x = malic_acid, fill = cultivar)) + 
+  geom_histogram(binwidth = 1.25, fill = "darkorchid3", color = "black") +
+  facet_wrap(~cultivar) +
+  panel_border() +
+  xlab("Malic acid percentage")
+```
+
+### Plot 5
+
+**Plot question: What is the shape of the oleic acid percentage distribution for each region? Specifically, for each of the regions shown, answer if the distribution is _unimodal_, _bimodal_, or _multimodal_. If it's unimodal, also indicate whether it is either roughly symmetric or has some skew (no further details are needed).**
+
+
+```{r, fig.width = 8, fig.height=4}
+ggplot(olives, aes(x = fct_relevel(region, regions),
+                   y = oleic)) + 
+  geom_violin(fill = "goldenrod1", color = "royalblue4", size=2) + 
+  xlab("Region in Italy") + ylab("Oleic acid percentage")
+```
+
+
+<br><br>
+
+
+### Plot 6
+
+**Plot question: Do the stearic acid percentage distributions across the three regions appear to have the same or different _means_ and _standard deviations_? Compare these two summary statistics qualitatively (i.e. no need to calculate anything formally) all three regions.**
+```{r, fig.width = 8, fig.height=3}
+ggplot(olives, aes(x = stearic, fill = region)) + 
+  geom_density(alpha = 0.4) + 
+  scale_fill_viridis_d(option = "plasma")+
+  xlab("Stearic acid percentage")
+```
+
+<br><br>
+
+### Plot 7
+
+**Plot question (_two parts_): From which area are there the most individual samples in this dataset? This question is a good example of a question that can be answered from the plot, even though this question isn't the specific motivating question for the plot itself. _Therefore, also answer here:_ What do you think the primary motivating question about the data is for this visualization?**
+
+```{r, fig.width = 8, fig.height=4}
+ggplot(olives, aes(x = fct_relevel(area, areas),
+                   y = palmitoleic, fill = fct_relevel(region, regions))) + 
+  geom_jitter(pch=21,color="black", size=1.25, width = 0.2, alpha = 0.5) + 
+  scale_fill_brewer(palette = "Set1", name = "") + 
+  theme(legend.position="bottom", axis.text.x = element_text(size = 8)) +
+  ylab("Palmitoleic acid percentage") + xlab("Area in Italy")
+```
+
+
+
+
+<br><br>
+
+### Plot 8
+
+**Plot Question: What is the y-axis variable in this plot? To answer this question you need to explore the data (for example, see the range of values on the y-axis? use that to your advantage!)**
+```{r, fig.width = 8, fig.height=3, message=F}
+ggplot(olives, aes(x = linolenic, y = eicosenoic, color = region)) + 
+  geom_point() +
+  scale_color_brewer(palette = "Set2") +
+  labs(x = "Linolenic acid percentage",
+       y = "???????????????????????") 
+```
