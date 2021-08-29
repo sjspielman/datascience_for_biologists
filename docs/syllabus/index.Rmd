@@ -25,6 +25,12 @@ github-repo: sjspielman/ds4b_syllabus
 + **Course Meeting Times**
   + Tuesday and Thursday 2:00 - 3:15 pm, Science Hall 126
   + Wednesday 3:30 - 6:15 pm, Science Hall 126
++ **Course Websites**
+  + [Main course website](https://sjspielman.github.io/datascience_for_biologists/) for course schedule
+  + [RStudio Cloud](https://rstudio.cloud/) for browser-based coding
+  + [Canvas](https://rowan.instructure.com/) for submissions, grades, announcements, and Zoom links
++ **Should we have a class discord or slack?**
+  + Let's talk about it on day 1!
 + **Virtual Office Hours**
   + Monday 2:30-4 PM over Zoom (link in Canvas)
   + You do NOT need to make an appointment! Feel free to show up in Zoom anytime during that window. 
