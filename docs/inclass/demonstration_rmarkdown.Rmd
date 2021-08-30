@@ -64,7 +64,7 @@ Ah, a nice big break.
 + [Official RMarkdown Reference](https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)
 + [Literally everything there is to know about Rmarkdown, and then some. Really overwhelming, but really comprehensive.](https://bookdown.org/yihui/rmarkdown/)
 + [Yihui Xie, author of Rmd, is a hilarious genius.](https://rstudio.com/resources/rstudioconf-2020/one-r-markdown-document-fourteen-demos/)
-
++ [A mini-class on R Markdown with Danielle Navarro](https://slides.djnavarro.net/starting-rmarkdown/#1)
 
 ## Introducing R "code chunks"
 

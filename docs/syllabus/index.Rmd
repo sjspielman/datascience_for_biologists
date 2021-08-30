@@ -25,6 +25,12 @@ github-repo: sjspielman/ds4b_syllabus
 + **Course Meeting Times**
   + Tuesday and Thursday 2:00 - 3:15 pm, Science Hall 126
   + Wednesday 3:30 - 6:15 pm, Science Hall 126
++ **Course Websites**
+  + [Main course website](https://sjspielman.github.io/datascience_for_biologists/) for course schedule
+  + [RStudio Cloud](https://rstudio.cloud/) for browser-based coding
+  + [Canvas](https://rowan.instructure.com/) for submissions, grades, announcements, and Zoom links
++ **Should we have a class discord or slack?**
+  + Let's talk about it on day 1!
 + **Virtual Office Hours**
   + Monday 2:30-4 PM over Zoom (link in Canvas)
   + You do NOT need to make an appointment! Feel free to show up in Zoom anytime during that window. 
@@ -89,36 +95,41 @@ Class will be canceled if the professor becomes infected and symptomatic with CO
 
 Your final grade will be determined by **three** different components as follows:
 
-+ **Weekly Assignments (60%)**
-  + You can expect one assignment each week of the semester, with the lowest grade dropped (or, with one assignment skipped, depending on your perspective). 
++ **Weekly Assignments (65%)**
+  + You can expect one assignment each week of the semester, with the lowest grade dropped (or, with one assignment skipped, depending on your perspective). There will be 11 non-dropped homeworks, so each homework represents about 6\% of your final class grade.
   + You are expected to complete assignments **using your own code**, but you are **strongly encouraged** to work in groups on assignments to master the topics and skills.
 <br><br>
 + **Final independent project (20%)**
   + You will have a final _independent_ project analyzing a data set of your choosing. More details will be announced as the semester progresses. There is no separate final exam. The final project will be due Tuesday 12/14/21 by 11:59 PM. 
 <br><br>
-+ **Attendance and participation (20%)**
-  + You are expected to attend and participate through coding engagement during all classes while adhering to all mandatory [COVID-19 policies](#covid-19-policy). _Attendance with lack of participation or lack of complete adherence to COVID-19 policies will be considered absent._ 
++ **Attendance and participation (15%)**
+  + You are expected to attend and participate through coding engagement during all classes while adhering to all mandatory [COVID-19 policies](#covid-19-policies). _Attendance with lack of participation or lack of complete adherence to COVID-19 policies will be considered absent._ 
+  + Your attendance grade is derived from two components:
+    + Physical presence in class (_Subject to change_ pending Rowan University policies and/or changes in the COVID-19 situation)
+    + Brief reflections after open work class days, due by 11:59 PM to Canvas on the given class day. Days when reflections are due will _always_ be announced in class.
 <br><br>
 + **`#tidytuesday`** extra credit
-  + Starting in mid-October, there will be weekly extra credit opportunities. _If you do all of the extra credits, it is possible to boost your grade by up to a FULL LETTER (i.e. B- to A-)! Take advantage!_
+  + Starting in mid-October, there will be weekly extra credit opportunities. 
   
   
 ## Additional attendance information
 
-> Note that these policies are subject to change if Rowan University pivots to remote instruction.
+> Note that these policies are subject to change if Rowan University pivots to remote instruction. Any changes will be announced both in class and in writing.
 
-To be considered "present" in class, you must _participate_ in class through coding engagement. This semester, participation means you are engaging with our class materials _only_ (not your other classes!) during classtime. 
+To be considered "present" in class, you must _participate_ in class through coding engagement. This semester, participation means you are engaging with our class materials _only_ (not your other classes!) during class time. 
 
 **Evidence of participation includes:**
-  
+
 + Coding along with live-coding demonstrations
-+ Doing class exercises, in small groups or independently, during flipped-structure "lab" days
-+ Doing class work or engaging with class concepts more generally during "open work days," in small groups or independently
++ Doing class exercises or class homework (_not work for other classes_), in small groups or independently, during flipped-structure and/or open work lab days.
++ **When required**, submitting your reflection on your coding progress on flipped-structure days to Canvas.
+  + If you have an excused absence or take a personal day on a day when a reflection is due, we will determine an extended deadline on a case-by-case basis.
 
 ### Attendance grade calculation
 
 + You begin the semester with 40/40 attendance points. 
-+ You _lose a point_ for every day that you are absent without prior arrangement of an excused absence or personal day (except extremely extenuating circumstances). 
++ You _lose a point_ for every day that you are absent without prior arrangement of an excused absence or personal day (except extremely extenuating circumstances), OR do not submit a reflection for a given day when it is required.
+  + To be clear: If you attend class on a flipped work day but do not submit a reflection, you will be marked absent.
 + If you are 15 or more minutes late to class _without_ any associated reason (this can be discussed with Dr. Spielman after the fact), you may be subject to a partial or full absence deduction. If you are regularly 15 minutes late to class, this may result in absences.
 
 ### Excused absences
@@ -166,7 +177,7 @@ Your final grade will be converted to a percentage as shown below. _Percentages 
 
 Dr. Spielman does NOT regularly check email during:
 
-+ Monday - Thursday, 6 pm - 9 am
++ Monday - Thursday, 6 pm - 8 am
 + Friday after 4 pm
 + Any time on the weekends 
 
@@ -212,7 +223,7 @@ Plagiarism is taken very seriously in this course and at Rowan University as a w
 + **All instances of academic integrity violations will be reported to the university.**
 + If a classmate asks you to send them your code and then proceeds to submit your code, _you will be regarded as equally culpable._ 
 
-_Please, just don't do it. I beg you, don't do it. I will not show you any mercy. I am better at coding than you are - I can tell. Cheating is not an acceptable alternative for getting help or seeking an extension on an assignment. **If you work with me, I will work with you!** But, if you cheat, there will be paperwork and consequences of a minimum Level 2 Academic Integrity Violation._
+_Please, just don't do it. I beg you, don't do it. I will not show you any mercy. I have a lot of experience with R programming, and I can tell if your code is yours or copied from some stackoverflow post. **Cheating is not an acceptable alternative for getting help or seeking an extension on an assignment. If you work with me, I will work with you!** But, if you cheat, there will be paperwork and consequences of a minimum Level 2 Academic Integrity Violation._
 
 
 # Rowan University Policies
