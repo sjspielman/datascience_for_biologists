@@ -65,15 +65,17 @@ a, a > code {
 /* Title Slide */
 
 .title-slide {
-  background-image: url("https://liao961120.github.io/slides/img/bg/coffee-blur.jpg");
+  background-image: 
+  url("https://liao961120.github.io/slides/img/bg/coffee-blur.jpg");
   background-position: center; 
   background-size: cover;
-  color:white;
+
 }
 
 
 .title-slide .bg-text{
   position: absolute;
+  font-size: 1.5em;
   top: 45%;
   left: 10%;
   text-align: left;
