@@ -13,8 +13,8 @@ output:
 
 #### "Types of plots"
 
-+ [Access via browser, _on-campus_](http://10.33.168.74:3838/spielman/types.of.plots)
-+ [Access via browser, _off-campus_](https://sjspielman.shinyapps.io/types_of_plots)
++ [Access via browser, _on-campus only_](http://10.33.168.74:3838/spielman/types.of.plots)
++ [Access via browser, _accessible from anywhere_](https://sjspielman.shinyapps.io/types_of_plots)
 + Access via the `ds4b.materials` library in RStudio Cloud:
 
   ```{r eval=F}
@@ -25,8 +25,8 @@ output:
 
 #### "Line by line"
 
-+ [Access via browser, _on-campus_](http://10.33.168.74:3838/spielman/ds4b.materials/inst/apps/line_by_line/)
-+ [Access via browser, _off-campus_](https://sjspielman.shinyapps.io/line_by_line)
++ [Access via browser, _on-campus only_](http://10.33.168.74:3838/spielman/ds4b.materials/inst/apps/line_by_line/)
++ [Access via browser, _accessible from anywhere_](https://sjspielman.shinyapps.io/line_by_line)
 + Access via the `ds4b.materials` library in RStudio Cloud:
 
   ```{r eval=F}
@@ -43,7 +43,7 @@ output:
 
 #### "Types of data and figures"
 
-+ [Access via browser _on-campus_](http://10.33.168.74:3838/spielman/ds4b.materials/inst/tutorials/data_figures/)
++ [Access via browser _on-campus only_](http://10.33.168.74:3838/spielman/ds4b.materials/inst/tutorials/data_figures/)
 + Access via the `ds4b.materials` library in RStudio Cloud:
 
   ```{r eval=F}
@@ -53,7 +53,7 @@ output:
 
 #### "Introduction to R"
 
-+ [Access via browser _on-campus_](http://10.33.168.74:3838/spielman/ds4b.materials/inst/tutorials/intro_R)
++ [Access via browser _on-campus only_](http://10.33.168.74:3838/spielman/ds4b.materials/inst/tutorials/intro_R)
 + Access via the `ds4b.materials` library in RStudio Cloud:
 
   ```{r eval=F}
@@ -64,7 +64,7 @@ output:
 
 #### "Introduction to `ggplot2`"
 
-+ [Access via browser _on-campus_](http://10.33.168.74:3838/spielman/ds4b.materials/inst/tutorials/ggplot2)
++ [Access via browser _on-campus only_](http://10.33.168.74:3838/spielman/ds4b.materials/inst/tutorials/ggplot2)
 + Access via the `ds4b.materials` library in RStudio Cloud:
 
   ```{r eval=F}
@@ -75,7 +75,7 @@ output:
 
 #### "Introduction to `dplyr`"
 
-+ [Access via browser _on-campus_](http://10.33.168.74:3838/spielman/ds4b.materials/inst/tutorials/dplyr)
++ [Access via browser _on-campus only_](http://10.33.168.74:3838/spielman/ds4b.materials/inst/tutorials/dplyr)
 + Access via the `ds4b.materials` library in RStudio Cloud:
 
   ```{r eval=F}
