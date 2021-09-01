@@ -8,6 +8,7 @@ grading-policies
 final-grade-calculations
 additional-attendance-information
 attendance-grade-calculation
+absence-due-to-non-compliance
 excused-absences
 personal-class-days
 catching-up-if-you-miss-class
