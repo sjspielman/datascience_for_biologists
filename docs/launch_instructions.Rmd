@@ -1,11 +1,11 @@
 ---
-title: Launching "Data Science for Biologists" exercises
+title: Launching "Data Science for Biologists" apps and interactive exercises
 output: 
   html_document:
     theme: lumen
     highlight: tango
 ---
-
+<br><br>
 
 
 ## Apps
@@ -37,7 +37,7 @@ output:
 <br><br>
 
 
-## Exercises 
+## Interactive Exercises 
 
 <br>
 
