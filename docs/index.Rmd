@@ -24,9 +24,9 @@ This website contains all materials used in BIOL 01301 Fall 2021 at Rowan Univer
 
  Date  | Topic                                  | In-class materials          | Assignment DUE
 :----------|:---------------------------------------|:----------------------------------------------------------|:---------------------------------------------------------------------
-W 9/1   | Introduction and class logistics <br> Types of data | "Types of data and figures" interactive exercises | -
-R 9/2   | Types of data and figures | "Types of data and figures" interactive exercises | Create a _free_ account on [RStudio Cloud](https://rstudio.cloud)
-T 9/7   | Types of data and figures | "Types of data and figures" interactive exercises | -
+W 9/1   | Introduction and class logistics | - | -
+R 9/2   | Types of data and figures | "Types of data and figures" interactive exercises | -
+T 9/7   | Types of data and figures | "Types of data and figures" interactive exercises and "Types of plots" app | -
 W 9/8   | Types of data and figures <br> Introduction to R and RStudio | | -
 R 9/9   | Introduction to R and RStudio <!-- Quiz: Types of data and figures?? -->  | | Homework 1: Identifying data types and figures <br> [Link to Instructions](./homeworks/hw1/hw1_instructions.html) <br> [Link to Answer Sheet](./homeworks/hw1/homework1_answer_sheet.docx)
 T 9/14  | Introduction to R and RStudio | | Homework 2: A Guided Introduction to Writing R Scripts  <!-- <br> [Link to Instructions](./homeworks/hw2/hw2_instructions.html) -->
