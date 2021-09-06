@@ -23,7 +23,7 @@ github-repo: sjspielman/ds4b_syllabus
   + Stephanie J. Spielman, PhD  (Dr. Spielman or Professor Spielman)
   + `spielman@rowan.edu` (**i before e**!)
 + **Course Meeting Times**
-  + Tuesday and Thursday 2:00 - 3:15 pm, Science Hall 126
+  + Monday and Thursday 2:00 - 3:15 pm, Science Hall 126
   + Wednesday 3:30 - 6:15 pm, Science Hall 126
 + **Course Websites**
   + [Main course website](https://sjspielman.github.io/datascience_for_biologists/) for course schedule
@@ -32,7 +32,7 @@ github-repo: sjspielman/ds4b_syllabus
 + **Should we have a class discord or slack?**
   + Let's talk about it on day 1!
 + **Virtual Office Hours**
-  + Monday 2:30-4 PM over Zoom (link in Canvas)
+  + TBD
   + You do NOT need to make an appointment! Feel free to show up in Zoom anytime during that window. 
 + **One-on-one Meeting with Dr. Spielman** 
   + Please _email_ to request a meeting (_not Starfish/RSN_).

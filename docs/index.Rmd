@@ -9,7 +9,7 @@ This website contains all materials used in BIOL 01301 Fall 2021 at Rowan Univer
 
 ## Key Information and Links
 
-+ This course meets Tuesday and Thursday 2-3:15 pm and Wednesday 3:30 - 6:15 pm in Science Hall 126. 
++ This course meets Monday and Thursday 2-3:15 pm and Wednesday 3:30 - 6:15 pm in Science Hall 126. 
 + All grading and assignment submissions (unless otherwise stated) will be hosted on [Canvas](https://rowan.instructure.com/). 
 + All course materials will be posted on _this site_ and/or within the [rstudio.cloud](https://rstudio.cloud) BIOL01301 workspace.
 + The [syllabus](syllabus/docs/index.html) contains all class information and policies.
@@ -22,50 +22,6 @@ This website contains all materials used in BIOL 01301 Fall 2021 at Rowan Univer
 >
 > [Instructions for launching interactive exercises and apps](./launch_instructions.html)
 
- Date  | Topic                                  | In-class materials          | Assignment DUE
-:----------|:---------------------------------------|:----------------------------------------------------------|:---------------------------------------------------------------------
-W 9/1   | Introduction and class logistics | - | -
-R 9/2   | Types of data and figures | "Types of data and figures" interactive exercises | -
-T 9/7   | Types of data and figures | "Types of data and figures" interactive exercises and "Types of plots" app | -
-W 9/8   | Types of data and figures <br> Introduction to R and RStudio | | -
-R 9/9   | Introduction to R and RStudio <!-- Quiz: Types of data and figures?? -->  | | Homework 1: Identifying data types and figures <br> [Link to Instructions](./homeworks/hw1/hw1_instructions.html) <br> [Link to Answer Sheet](./homeworks/hw1/homework1_answer_sheet.docx)
-T 9/14  | Introduction to R and RStudio | | Homework 2: A Guided Introduction to Writing R Scripts  <br> [Link to Instructions](./homeworks/hw2/hw2_instructions.html)
-W 9/15 | Introduction to R and RStudio <br> Introduction to RMarkdown  | | -
-R 9/16 | _Open work day_ | | -
-T 9/21 | The grammar of graphics, Part 1 | | Homework 3: Using R and RMarkdown <!-- <br> [Link to Instructions](./homeworks/hw3/hw3_instructions.html) -->
-W 9/22 | The grammar of graphics, Part 2 <br> Introduction to `ggplot2` | | -
-R 9/23 | _Open work day_  | | -
-T 9/28 | More `ggplot2` |  | Homework 4: Grammar of Graphics <!-- <br> [Link to Instructions](./homeworks/hw4/hw4_instructions.html) <br> [Link to Answer Sheet](./homeworks/hw4/homework4_answer_sheet.docx) -->
-W 9/29 | More `ggplot2`  | | -
-R 9/30 |  _Open work day_ | | -
-T 10/5 | From plot to data and tidy data | | Homework 5: Data visualization with `ggplot2`
-W 10/6 |  Best practices in data visualization <br> More `ggplot2`| | -
-R 10/7 |  _Open work day_ | | -
-T 10/12 | dplyr I | | Homework 6: More data visualization with `ggplot2`
-W 10/13 | dplyr II <br> readr | | -
-R 10/14 | _Open work day_ | | -
-T 10/19 | dplyr III | | Homework 7: Data wrangling and visualization
-W 10/20 | Tidy data and pivoting | | -
-R 10/21 | _Open work day_  | | -
-T 10/26 | **OPEN ACCESS PANEL** | | Homework 8: More data wrangling and visualization
-W 10/27 | Relational data | | -
-R 10/28 | _Open work day_  | | -
-T 11/2 | Introduction to ML | | Homework 9: Even more data wrangling and visualization
-W 11/3 | lm I | | -
-R 11/4 | _Open work day_ | | -
-T 11/9 | lm II | | NOTHING IS DUE: Free no homework week! 
-W 11/10 | lm III <br> logistic I | | -
-R 11/11 | _Open work day_ | | -
-T 11/16 | logistic II | | Homework 10: Linear models
-W 11/17 | logistic III | | -
-R 11/18 | _Open work day_ | | -
-T 11/23 | Clustering and PCA | | Homework 11: Logistic regressions
-W 11/24 | Clustering and PCA in-class activity | | -
-R 11/25 | _No class: Thanksgiving_  | - | -
-T 11/30 | UNIX and Github | |  **Monday 11/29 at 11:59 PM**: Homework 12: Final Project Proposal. _This homework may not be dropped._
-W 12/1 | UNIX and Github | | -
-R 12/2 | UNIX and Github | | -
-T 12/7 | Final Project Setup | | -
-W 12/8 | _Open work day_ | | -
+**SCHEDULE UNDER MAINTENANCE, STAY TUNED!!**
 
-**Final project due Tuesday December, 14th by 11:59 PM.**
+
