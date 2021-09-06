@@ -398,42 +398,6 @@ pre code {
 <p>The literal step-by-step instructions that you should take to complete this homework are in these videos. Please watch them in this order, and follow instructions as you go:</p>
 <p>[Link to video(s) will go here]</p>
 </div>
-<div id="what-not-to-do-vs-what-to-do" class="section level3">
-<h3>What NOT to do vs what TO do</h3>
-<blockquote>
-<p>The following code chunks provide examples of how <em>NOT TO</em> and how <em>TO</em> answer a hypothetical homework question using code. Notice how there are many ways to correctly achieve the right result! Welcome to coding :)</p>
-</blockquote>
-<p><strong>Hypothetical homework question: What is the length of an array with values 4, 6, and 10?</strong></p>
-<p><br></p>
-<p><strong>NO!</strong> This code is not acceptable, largely because it is not code - it is just the number 3. There is no code used at all to answer the question. Even if it is “easy” to do something in your head, you must use code to answer it. <em>It also will not produce any output from a script since it is not formally printed.</em></p>
-<pre class="r"><code>3</code></pre>
-<p><br><br> <strong>NO!</strong> This code is not acceptable, because even though code was used at some point, the code itself does not directly produce the output. This example represents a situation where you might run <code>length(c(4,6,10))</code> in the R Console, or run <code>length(c(4,6,10))</code> in the chunk but later delete or comment it out. You might look at the output and say, “the code calculated 3, so the answer is 3.” But, this is not ok, since the code you submit itself must produce the number 3, and we are missing the print statement.</p>
-<pre class="r"><code>#length(c(4,6,10))
-3</code></pre>
-<p><br><br> <strong>NO!</strong> This is getting much closer, since we now have the fully code needed to generate the output. However, nothing is actually printed, so the output is not revealed. It is critical to always reveal the output!</p>
-<pre class="r"><code>answer &lt;- length(c(4,6,10))</code></pre>
-<p><br><br> <strong>YES!</strong> This “fixes” the previous “NO!” example by revealing the output.</p>
-<pre class="r"><code>answer &lt;- length(c(4,6,10))
-print( answer )</code></pre>
-<pre><code>## [1] 3</code></pre>
-<p><br><br> <strong>YES!</strong> Only code is used to produce the output.</p>
-<pre class="r"><code># YES!
-print( length(c(4,6,10)) )</code></pre>
-<pre><code>## [1] 3</code></pre>
-<p><br><br> <strong>YES!</strong> Only code is used to produce the output. This strategy uses improved coding style by defining a <em>variable</em> for the array, and then using <code>length()</code> to calculate the length of the variable.</p>
-<pre class="r"><code># YES!
-my_array &lt;- c(4,6,10)
-print( length(my_array) )</code></pre>
-<pre><code>## [1] 3</code></pre>
-<p><br><br> <strong>YES!</strong> Only code is used to produce the output. This strategy uses improved coding style by defining a <em>variable</em> for the array, and then defining another variable to contain the output from the <code>length()</code> calculation.</p>
-<pre class="r"><code># YES!
-my_array &lt;- c(4,6,10)
-the_length &lt;- length(my_array)
-print( the_length )</code></pre>
-<pre><code>## [1] 3</code></pre>
-<p><br> <strong>Unless the instructions explicitly ask you to define certain variables, all “YES!” code versions here are equivalent and entirely accceptable!</strong></p>
-<p><br><br></p>
-</div>
 <div id="the-literal-homework-questions" class="section level3">
 <h3>The literal homework questions:</h3>
 <p>Again, all answers must have corresponding code, and answers must be directly derived from code. Your code must include comments. Use the example code as provided in the videos to learn how you are expected to comment!</p>
@@ -441,18 +405,49 @@ print( the_length )</code></pre>
 <p><strong>Example Question discussed answered in videos</strong>: Define a variable <code>w</code> as the value 10, and print the variable.</p>
 <p><br></p>
 <ol style="list-style-type: decimal">
-<li><p>Define a <em>character</em> variable named <code>sport</code> as a string value of your favorite sport (or other activity if you hate sports!). Print the variable using the <code>print()</code> function.</p></li>
-<li><p>Define the variable <code>a</code> with the numeric value 36. Use the <code>sqrt()</code> function to calculate the square root of the <code>a</code> variable, and print the result of this operation using the <code>print()</code> function.</p></li>
-<li><p>Define an array variable called <code>mammal_vectors</code> to contain these strings: “camel”, “civet”, “mink”, “bat”, “ferret”, and “pangolin” (these are all mammals known to be vectors for either SARS-CoV-2 or one of its close relatives SARS and MERS). Use the function <code>length()</code> to determine how long the array is, and print the result using the <code>print()</code> function.</p></li>
-<li><p>Create an array variable called <code>some_numbers</code> that contains 4 unique numbers of <em>your choosing</em>. Use the function <code>log</code> to calculate the natural log of all values in the array. This operation will produce a new array containing the natural log of the numbers you provided; print this new array using the <code>print()</code> function.</p></li>
-</ol>
-<ul>
-<li>Note that if you provide negative numbers or 0, you may get answers like <code>NnN</code> (“not a number”) or <code>Inf</code> (infinity). That’s completely fine! It’s the correct result of the calculation.</li>
-</ul>
-<ol start="5" style="list-style-type: decimal">
+<li><p>Define a <em>character</em> variable named <code>sport</code> as a string value of your favorite sport (or other activity if you hate sports, because as we learned on day 1 maybe nobody plays sports??). Print the variable using the <code>print()</code> function.</p></li>
+<li><p>Define a <em>numeric</em> variable named <code>favorite_month</code>, containing the number representing your favorite month of the year (for example, January is 1, February is 2, etc.). Print the variable using the <code>print()</code> function.</p></li>
+<li><p>Define two numeric variables called <code>x</code> and <code>y</code>, and assign <em>values of your choosing</em> to these variables (if you are working together with someone on the HW, make sure you each use different values!). Then, define a third variable <code>z</code> containing the <em>product</em> (multiplication) of <code>x</code> and <code>y</code>. Print the valye of <code>z</code> with the <code>print()</code> function.</p></li>
+<li><p>The function <code>nchar()</code> (<strong>n</strong>umber of <strong>char</strong>acters) can be used to ask how many characters are in a given string variable. Use the function <code>nchar()</code> to determine how many characters are <em>in the string variable <code>sport</code> you defined in question 1</em> (don’t redefine it! it’s already there!). Save this result to a variable called <code>sport_characters</code>, and print the result with the <code>print()</code> function.</p></li>
 <li><p>The templated code for this question has a bug! The tasks the code is meant to accomplish are provided in comments in the homework template. Fix the bugs in the templated code according to instructions in the homework videos.</p></li>
 <li><p>Again, the templated code for this question has a bug! The tasks the code is meant to accomplish are provided in comments in the homework template. Fix the bugs in the templated code according to instructions in the homework videos.</p></li>
 </ol>
+<p><br><br></p>
+</div>
+<div id="what-not-to-do-vs-what-to-do" class="section level3">
+<h3>What NOT to do vs what TO do</h3>
+<blockquote>
+<p>The following code chunks provide examples of how <em>NOT TO</em> and how <em>TO</em> answer a hypothetical homework question using code. Notice how there are many ways to correctly achieve the right result! Welcome to coding :)</p>
+</blockquote>
+<p><strong>Hypothetical homework question: Use the function <code>sqrt()</code> to calculate the square root of 25.</strong></p>
+<p><br></p>
+<p><strong>NO!</strong> This code is not acceptable, largely because it is not code - it is just the number 5. There is no code used at all to answer the question. Even if it is “easy” to do something in your head, you must use code to answer it. <em>It also will not produce any output from a script since it is not formally printed.</em></p>
+<pre class="r"><code>5</code></pre>
+<p><br><br> <strong>NO!</strong> This code is not acceptable, because even though code was used at some point, the code itself does not directly produce the output. This example represents a situation where you might run <code>sqrt(25)</code> in the R Console, or run <code>length(c(4,6,10))</code> in your script but later delete or comment it out. You might look at the output and say, “the code calculated 5, so the answer is 5.” But, this is <em>not ok</em>, since the code you submit itself must produce the number 5, and we are missing the print statement.</p>
+<pre class="r"><code>#sqrt(25)
+5</code></pre>
+<p><br><br> <strong>NO!</strong> This is getting much closer, since we now have the fully code needed to generate the output. However, nothing is actually printed, so the output is not revealed. It is critical to always reveal the output!</p>
+<pre class="r"><code>answer &lt;- sqrt(25)</code></pre>
+<p><br><br> <strong>YES!</strong> This “fixes” the previous “NO!” example by revealing the output.</p>
+<pre class="r"><code>answer &lt;- sqrt(25)
+print( answer )</code></pre>
+<pre><code>## [1] 5</code></pre>
+<p><br><br> <strong>YES!</strong> Only code is used to produce the output.</p>
+<pre class="r"><code># YES!
+print( sqrt(25) )</code></pre>
+<pre><code>## [1] 5</code></pre>
+<p><br><br> <strong>YES!</strong> Only code is used to produce the output. This strategy uses improved coding style by defining a <em>variable</em> for the number of interest, and then using <code>sqrt()</code> to calculate its square root of the variable.</p>
+<pre class="r"><code># YES!
+my_number &lt;- 25
+print( sqrt(my_number) )</code></pre>
+<pre><code>## [1] 5</code></pre>
+<p><br><br> <strong>YES!</strong> Only code is used to produce the output. This strategy uses improved coding style by defining a <em>variable</em> for the number, and then defining another variable to contain the output from the <code>sqrt()</code> calculation, and finally printing the answer out.</p>
+<pre class="r"><code># YES!
+my_number &lt;- 25
+number_sqrt &lt;- sqrt(my_number)
+print( number_sqrt )</code></pre>
+<pre><code>## [1] 5</code></pre>
+<p><br> <strong>Unless the instructions explicitly ask you to define certain variables, all “YES!” code versions here are equivalent and entirely accceptable!</strong></p>
 </div>
 
 
