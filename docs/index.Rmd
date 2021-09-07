@@ -33,7 +33,7 @@ W 9/8   | Types of data and figures  | "Types of data and figures" interactive e
 R 9/9   | Introduction to R and RStudio <!-- Quiz: Types of data and figures?? -->  | | Homework 1: Identifying data types and figures, due 9/14 <br> [Link to Instructions](./homeworks/hw1/hw1_instructions.html) <br> [Link to Answer Sheet](./homeworks/hw1/homework1_answer_sheet.docx)
 M 9/13  | Introduction to R and RStudio | "Introduction to R" interactive exercises <br> [Introduction to R stand-alone tutorial](./tutorials/introduction_to_R.html)| -
 W 9/15 | Introduction to R and RStudio | "Introduction to R" interactive exercises | -
-R 9/16 | Introduction to RMarkdown and _open work_ | - | Homework 2: Using R and RMarkdown, due 9/20  <!-- <br> [Link to Instructions](./homeworks/hw3/hw3_instructions.html) -->
+R 9/16 | Introduction to RMarkdown and _open work_ | - | Homework 2: Using R and RMarkdown, due 9/21  <!-- <br> [Link to Instructions](./homeworks/hw3/hw3_instructions.html) -->
 M 9/20 | The grammar of graphics, Part 1 | Slides, TBD  | -
 W 9/22 | The grammar of graphics, Part 2 <br> Identifying trends in visualizations | Slides, TBD  | -
 R 9/23 | _Open work day_  | | Homework 3: Grammar of Graphics, due 9/28 <!-- <br> [Link to Instructions](./homeworks/hw4/hw4_instructions.html) <br> [Link to Answer Sheet](./homeworks/hw4/homework4_answer_sheet.docx) -->
