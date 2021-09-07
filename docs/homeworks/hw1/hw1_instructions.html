@@ -166,6 +166,13 @@ pre code {
 </div>
 
 
+<style>
+.main-container {
+    max-width: 800px;
+    margin-left: 100px;
+    margin-right: auto;
+}
+</style>
 <style type="text/css">
 blockquote{
   margin-left: 25px;
@@ -202,6 +209,7 @@ blockquote{
 <li><p>Which variable(s), if any, in this dataset is/are <em>numeric discrete</em>?</p></li>
 <li><p>For which variable(s), if any, do we <strong>NOT</strong> know all of the values? (in other words, there is missing data)?</p></li>
 </ol>
+<p><br><br></p>
 </div>
 <div id="set-2" class="section level3">
 <h3>Set 2</h3>
@@ -222,6 +230,7 @@ blockquote{
 <li><p><code>83.25</code></p></li>
 <li><p><code>farm_name</code></p></li>
 </ol>
+<p><br><br></p>
 </div>
 <div id="set-3" class="section level3">
 <h3>Set 3</h3>
@@ -237,6 +246,7 @@ blockquote{
 <li><p>You make a <em>strip/jitter plot</em> to visualize the full distributions of <code>flavor</code> ratings for coffee grown in each <code>region</code>.</p></li>
 <li><p>You make a <em>barplot</em> to visualize the full distribution of <code>total_cup_points</code> coffee ratings.</p></li>
 </ol>
+<p><br><br></p>
 </div>
 <div id="set-4" class="section level3">
 <h3>Set 4</h3>
@@ -258,6 +268,7 @@ blockquote{
 </ul></li>
 <li>Each value is a <em>single</em> value; multiple values should not be stored in a single table cell.</li>
 </ol>
+<p><br></p>
 <div id="dataset-1" class="section level4">
 <h4><strong>Dataset 1</strong></h4>
 <p>This dataset shows results from an experiment assessing the effect of different pesticides (here, called <code>A</code>, <code>B</code>, …<code>F</code>) on insect control in agriculture. Different plots were sprayed with each pesticide, and the number of insects in each plot were counted after a certain period of time.</p>
@@ -267,7 +278,7 @@ blockquote{
 </div>
 <div id="dataset-2" class="section level4">
 <h4><strong>Dataset 2</strong></h4>
-<p>This dataset shows results from an experiment assessing oxygen use in seals when they dive. Researchers were testing the hypothesis that seals use more oxygen during feeding dives (i.e., dive to hunt and eat) compared to non-feeding dives (i.e., a dive without hunting/eating). Oxygen usage was measured twice for each seal: once on a non-feeding dive on once on a feeding dive..</p>
+<p>This dataset shows results from an experiment assessing oxygen use in seals when they dive. Researchers were testing the hypothesis that seals use more oxygen during feeding dives (i.e., dive to hunt and eat) compared to non-feeding dives (i.e., a dive without hunting/eating). Oxygen usage was measured twice for each seal: Once on a non-feeding dive on once on a feeding dive.</p>
 <div id="htmlwidget-7047e9c3d2030d5060f1" style="width:65%;height:auto;" class="datatables html-widget"></div>
 <script type="application/json" data-for="htmlwidget-7047e9c3d2030d5060f1">{"x":{"filter":"none","vertical":false,"data":[[1,2,3,4,5,6,7,8,9,10],[42.2,51.7,82.8,66.5,81.9,110.1,81.3,81.3,96,104.1],[71,77.3,78.6,96.1,106.6,102.8,121.2,126.4,127.5,143.1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>seal_number<\/th>\n      <th>non_feeding_oxygen_usage<\/th>\n      <th>feeding_oxygen_usage<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-left","targets":"_all"}],"order":[],"autoWidth":false,"orderClasses":false,"rowCallback":"function(row, data, displayNum, displayIndex, dataIndex) {\nvar value=data[0]; $(this.api().cell(row, 0).node()).css({'text-align':'left'});\nvar value=data[1]; $(this.api().cell(row, 1).node()).css({'text-align':'left'});\nvar value=data[2]; $(this.api().cell(row, 2).node()).css({'text-align':'left'});\n}"}},"evals":["options.rowCallback"],"jsHooks":[]}</script>
 <p><br></p>

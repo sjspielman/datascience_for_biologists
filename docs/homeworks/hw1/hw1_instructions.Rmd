@@ -6,6 +6,13 @@ output:
     theme: lumen
     highlight: tango
 ---
+<style>
+.main-container {
+    max-width: 800px;
+    margin-left: 100px;
+    margin-right: auto;
+}
+</style>
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
@@ -98,6 +105,8 @@ You do not need to write in complete sentences _except_ for one of your answers 
 
 4. For which variable(s), if any, do we **NOT** know all of the values? (in other words, there is missing data)?
 
+<br><br>
+
 ### Set 2
 
 **Instructions: For these questions, indicate if the presented information is a _variable_ or a _value_ in the dataset.** If it is a variable, provide one of the values associated with the variable (*don't make it up - find a value in the data!*). If it is a value, tell me what variable the value belongs to. 
@@ -128,6 +137,7 @@ For all items below, you CAN answer the first part (variable or value?). But, fo
 
 9. `farm_name`
 
+<br><br>
 
 ### Set 3
 
@@ -151,6 +161,7 @@ For all items below, you CAN answer the first part (variable or value?). But, fo
 
 9. You make a *barplot* to visualize the full distribution of `total_cup_points` coffee ratings.
 
+<br><br>
 
 ### Set 4
 
@@ -168,6 +179,7 @@ Recall that tidy data has _all of_ these qualities:
     + _Hint_: This means that, if the data records an experimental result with multiple measured _results_ for a given individual, those results should be on separate rows.
 3. Each value is a _single_ value; multiple values should not be stored in a single table cell. 
 
+<br>
 
 
 #### **Dataset 1**
@@ -184,7 +196,7 @@ datatable(InsectSprays %>% rename(n_insects = count, pesticide = spray),
 
 
 #### **Dataset 2**
-This dataset shows results from an experiment assessing oxygen use in seals when they dive. Researchers were testing the hypothesis that seals use more oxygen during feeding dives (i.e., dive to hunt and eat) compared to non-feeding dives (i.e., a dive without hunting/eating). Oxygen usage was measured twice for each seal: once on a non-feeding dive on once on a feeding dive..
+This dataset shows results from an experiment assessing oxygen use in seals when they dive. Researchers were testing the hypothesis that seals use more oxygen during feeding dives (i.e., dive to hunt and eat) compared to non-feeding dives (i.e., a dive without hunting/eating). Oxygen usage was measured twice for each seal: Once on a non-feeding dive on once on a feeding dive.
 
 ```{r}
 datatable(seals %>%
