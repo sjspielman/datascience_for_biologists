@@ -1,0 +1,102 @@
+---
+title: 'Homework #2'
+author: "Data Science for Biologists, Spring 2021"
+date: "Due as an R Script to Canvas on Tuesday 9/14/21 by 1 PM"
+output: 
+  html_document:
+    theme: lumen
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Instructions
+
+For this homework, you will be writing your very first R script and learning how to engage with RStudio and the `ds4b.materials` R library from Dr. Spielman. The goal of this homework is to provide you with a concrete opportunity to gain initial comfort with the fundamental tools used in this class and enable your future success for the rest of the semester. **You must use the associated video(s) to complete this homework!**
+
+
+### Homework questions:
+
+All answers must have corresponding code, and answers must be directly derived from code. Your code must include comments. Use the example code as provided in the video(s) to learn how you are expected to comment!
+
+<br>
+
+
+**Example Question discussed answered in videos**: Define a variable `w` as the value 10, and print the variable.
+
+<br>
+
+1. Define a _character_ variable named `sport` as a string value of your favorite sport (or other activity if you hate sports, because as we learned on day 1 maybe nobody plays sports??). Print the variable using the `print()` function.
+
+2. Define a _numeric_ variable named `favorite_month`, containing the number representing your favorite month of the year (for example, January is 1, February is 2, etc.). Print the variable using the `print()` function.
+
+3. Define two numeric variables called `x` and `y`, and assign _values of your choosing_ to these variables (if you are working together with someone on the HW, make sure you each use different values!). Then, define a third variable `z` containing the _product_ (multiplication) of `x` and `y`. Print the valye of `z` with the `print()` function.
+
+4. The function `nchar()` (**n**umber of **char**acters) can be used to ask how many characters are in a given string variable. Use the function `nchar()` to determine how many characters are _in the string variable `sport` you defined in question 1_ (don't redefine it! it's already there!). Save this result to a variable called `sport_characters`, and print the result with the `print()` function.
+
+5. The templated code for this question has a bug! The tasks the code is meant to accomplish are provided in comments in the homework template. Fix the bugs in the templated code according to instructions in the homework video(s).
+
+6. Again, the templated code for this question has a bug! The tasks the code is meant to accomplish are provided in comments in the homework template. Fix the bugs in the templated code according to instructions in the homework video(s).
+
+<br><br>
+
+### What NOT to do vs what TO do
+
+> The following code chunks provide examples of how *NOT TO* and how *TO* answer a hypothetical homework question using code. Notice how there are many ways to correctly achieve the right result! Welcome to coding :)
+
+
+**Hypothetical homework question: Use the function `sqrt()` to calculate the square root of 25.**
+
+<br>
+
+**NO!** This code is not acceptable, largely because it is not code - it is just the number 5. There is no code used at all to answer the question. Even if it is "easy" to do something in your head, you must use code to answer it. *It also will not produce any output from a script since it is not formally printed.*
+```{r eval=FALSE}
+5
+```
+
+<br><br>
+**NO!** This code is not acceptable, because even though code was used at some point, the code itself does not directly produce the output. This example represents a situation where you might run `sqrt(25)` in the R Console, or run `length(c(4,6,10))` in your script but later delete or comment it out. You might look at the output and say, "the code calculated 5, so the answer is 5." But, this is _not ok_, since the code you submit itself must produce the number 5, and we are missing the print statement.
+
+```{r eval=FALSE}
+#sqrt(25)
+5
+```
+
+<br><br>
+**NO!** This is getting much closer, since we now have the fully code needed to generate the output. However, nothing is actually printed, so the output is not revealed. It is critical to always reveal the output!
+```{r eval=FALSE}
+answer <- sqrt(25)
+```
+
+
+<br><br>
+**YES!** This "fixes" the previous "NO!" example by revealing the output.
+```{r}
+answer <- sqrt(25)
+print( answer )
+```
+<br><br>
+**YES!** Only code is used to produce the output.
+```{r}
+# YES!
+print( sqrt(25) )
+```
+
+<br><br>
+**YES!** Only code is used to produce the output. This strategy uses improved coding style by defining a _variable_ for the number of interest, and then using `sqrt()` to calculate its square root of the variable.
+```{r}
+# YES!
+my_number <- 25
+print( sqrt(my_number) )
+```
+<br><br>
+**YES!** Only code is used to produce the output. This strategy uses improved coding style by defining a _variable_ for the number, and then defining another variable to contain the output from the `sqrt()` calculation, and finally printing the answer out.
+```{r}
+# YES!
+my_number <- 25
+number_sqrt <- sqrt(my_number)
+print( number_sqrt )
+```
+<br>
+**Unless the instructions explicitly ask you to define certain variables, all "YES!" code versions here are equivalent and entirely accceptable!**
