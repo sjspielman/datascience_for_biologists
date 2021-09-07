@@ -32,7 +32,7 @@ github-repo: sjspielman/ds4b_syllabus
 + **Should we have a class discord or slack?**
   + Let's talk about it on day 1!
 + **Virtual Office Hours**
-  + Tuesday 2:30-4 PM over Zoom (link in Canvas)
+  + TBD over Zoom (link in Canvas)
   + You do NOT need to make an appointment! Feel free to show up in Zoom anytime during that window. 
 + **One-on-one Meeting with Dr. Spielman** 
   + Please _email_ to request a meeting (_not Starfish/RSN_).
@@ -199,10 +199,11 @@ When seeking assistance or feedback on code, it is **absolutely critical** that 
 
 ## Late Assignment Policy
 
-+ Assignments are generally due at 11:59 PM on Tuesdays to Canvas, with late penalties as follows:
++ Assignments are generally due at 2:00 PM on Wednesdays to Canvas, with late penalties as follows:
   + Submitted by Wednesday 11:59 PM: -10%
   + Submitted by Thursday 11:59 PM: -20%
-  + _[Final deadline]_ Submitted by Friday 11:59 PM: -30%
+  + Submitted by Friday 11:59 PM: -30%
+  + _[Final deadline]_ Submitted by Saturday 11:59 PM: -40%
 <br><br>
 + These late penalties and deadlines are _waived_ if you coordinate a later deadline with Dr. Spielman on a case-by-case basis. _Except in cases of emergency or other extentuating circumstances, excused late submissions must be APPROVED by Dr. Spielman at least 48 hours before the deadline._ 
 <br><br>

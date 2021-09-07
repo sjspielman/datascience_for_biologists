@@ -1,5 +1,5 @@
 ---
-title: "Homework #1: Due Tuesday 9/14/21 to Canvas as a PDF by 11:59 pm"
+title: "Homework #1: Due Wednesday 9/15/21 to Canvas as a PDF by 2:00 pm"
 author: "Data Science for Biologists, Fall 2021"
 output: 
   html_document:
