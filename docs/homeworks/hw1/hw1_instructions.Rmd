@@ -1,5 +1,5 @@
 ---
-title: "Homework #1: Due _Thursday 9/9/21_ to Canvas as a PDF by 1 pm"
+title: "Homework #1: Due Tuesday 9/14/21 to Canvas as a PDF by 11:59 pm"
 author: "Data Science for Biologists, Fall 2021"
 output: 
   html_document:
@@ -8,11 +8,12 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 options(htmlwidgets.TOJSON_ARGS = list(na = 'string'))
 library(DT)
 library(readr)
 library(dplyr)
+seals <- read_csv("seals.csv")
 set.seed(012021) # 01 for fall, 02 for spring
 readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-07-07/coffee_ratings.csv') %>%
     dplyr::filter(category_two_defects > 0) %>%
@@ -45,18 +46,6 @@ blockquote{
 }
 ```
 
-
-## Additional deadline information
-
-Since this is the _only_ homework in class to not be due on a Tuesday at 1 pm, slightly different grading deadlines apply:
-
-+ For full credit, the assignment should be submitted to Canvas by 1 pm on Thursday 9/9/21
-+ For -10%, submit to Canvas by 11:59 PM Thursday 9/9/21
-+ For -20%, submit to Canvas by 11:59 PM Friday 9/10/21
-+ For -30%, submit to Canvas by 11:59 PM Saturday 9/11/21
-+ [Final deadline]  For -40%, submit to Canvas by 11:59 PM Sunday 9/12/21
-
-
 ## Homework Dataset Background
 
 This dataset, called `coffee_ratings`, provides ratings of different coffee beans made around the world. Each row is a single coffee bean, and each column provides different information about that coffee bean including its total rating (variable `total_cup_points`, on a scale of 100), what species and variety of coffee it is, information about where the coffee comes from, information about the number of defects detected per coffee, and different graded measurements, on a scale of 10, for various coffee attributes (like aroma or sweetness). It has been subsetted (to only 20 rows and 14 columns) from the full dataset [here](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-07-07/readme.md).
@@ -75,7 +64,7 @@ You will see some entries in the dataset that are `NA`, which implies a *missing
 > 
 > Click on a column header to sort the data by that column.
 
-```{r, echo=F}
+```{r}
 datatable(coffee_ratings, 
           rownames=F, 
           options = list(
@@ -161,3 +150,105 @@ For all items below, you CAN answer the first part (variable or value?). But, fo
 8. You make a *strip/jitter plot* to visualize the full distributions of `flavor` ratings for coffee grown in each `region`.
 
 9. You make a *barplot* to visualize the full distribution of `total_cup_points` coffee ratings.
+
+
+### Set 4
+
+These questions consider _five different datasets_ that are not `coffee_ratings`, as shown below. For dataset, indicate if it is tidy or not by answering simply **yes or no.** Then...
+
++ If the data _is_ tidy, _state_ whether each variable is categorical, numeric continuous, or numeric discrete.
++ If the data is _not_ tidy, _state_ which of the two qualities of tidy data are violated. Note that both can be violated! You can simply use **1** and **2** to refer to the qualities, as described below...
+
+Recall that tidy data has _all of_ these qualities:
+
+1. All columns are _variables_
+    + This means for each value in a column, you should be able to say "this value can be one of <column name>. For example, considering `coffee_ratings`, "Arabica" can be one of `species`.
+2. All rows contain only a _single observation_
+    + Each row should contain ONE measured data point. For example, each row in `coffee_ratings` contains information about ONE recorded coffee bean. 
+    + _Hint_: This means that, if the data records an experimental result with multiple measured _results_ for a given individual, those results should be on separate rows.
+3. Each value is a _single_ value; multiple values should not be stored in a single table cell. 
+
+
+
+#### **Dataset 1**
+This dataset shows results from an experiment assessing the effect of different pesticides (here, called `A`, `B`, ...`F`) on insect control in agriculture. Different plots were sprayed with each pesticide, and the number of insects in each plot were counted after a certain period of time.
+
+```{r}
+datatable(InsectSprays %>% rename(n_insects = count, pesticide = spray), 
+          rownames=F, 
+          options = list(columnDefs = list(list(className = 'dt-left', targets = '_all'))), width = "65%") %>%
+  formatStyle(columns = 1:ncol(InsectSprays), `text-align` = 'left')
+```
+
+<br>
+
+
+#### **Dataset 2**
+This dataset shows results from an experiment assessing oxygen use in seals when they dive. Researchers were testing the hypothesis that seals use more oxygen during feeding dives (i.e., dive to hunt and eat) compared to non-feeding dives (i.e., a dive without hunting/eating). Oxygen usage was measured twice for each seal: once on a non-feeding dive on once on a feeding dive..
+
+```{r}
+datatable(seals %>%
+            tidyr::pivot_wider(names_from = feeding, values_from = oxygen_use) %>%
+            rename(seal_number = seal, 
+                   non_feeding_oxygen_usage = No,
+                   feeding_oxygen_usage = Yes), rownames=F,
+          options = list(columnDefs = list(list(className = 'dt-left', targets = '_all'))), width = "65%") %>%
+  formatStyle(columns = 1:3, `text-align` = 'left')
+```
+
+
+<br>
+
+#### **Dataset 3**
+This dataset shows partial results from a case-control study of esophageal cancer which enrolled individuals with esophageal cancer ("cases") and individuals without cancer ("controls"). Researchers obtained data from each patient including their age, and how much alcohol and tobacco they consume per day (don't worry about units). This data shows the how many patients in each combination of age, alcohol usage, and tobacco usage groups were enrolled.
+
+```{r}
+datatable(esoph %>%
+            rename(age_group = agegp,
+                   alcohol_consumption = alcgp,
+                   tobacco_consumption = tobgp,
+                   n_patients_cases = ncases,
+                   n_patients_controls = ncontrols) %>%
+            mutate(alcohol_consumption = stringr::str_replace(alcohol_consumption, "g/day", ""),
+                   tobacco_consumption = stringr::str_replace(alcohol_consumption, "g/day", "")), 
+          rownames=F,
+          options = list(columnDefs = list(list(className = 'dt-left', targets = '_all'))), width = "65%") %>%
+  formatStyle(columns = 1:5, `text-align` = 'left')
+```
+
+<br>
+
+#### **Dataset 4**
+This dataset shows the number of monthly deaths from 1974-1979 from lung disease, including bronchitis, emphysema and asthma, in the UK.  
+
+```{r}
+ldeaths_tibble <- tribble(
+~year,~Jan,  ~Feb,  ~Mar,  ~Apr,  ~May,  ~Jun,  ~Jul,  ~Aug,  ~Sep,  ~Oct,  ~Nov,  ~Dec,
+1974, 3035, 2552, 2704, 2554, 2014, 1655, 1721, 1524, 1596, 2074, 2199, 2512,
+1975, 2933, 2889, 2938, 2497, 1870, 1726, 1607, 1545, 1396, 1787, 2076, 2837,
+1976, 2787, 3891, 3179, 2011, 1636, 1580, 1489, 1300, 1356, 1653, 2013, 2823,
+1977, 3102, 2294, 2385, 2444, 1748, 1554, 1498, 1361, 1346, 1564, 1640, 2293,
+1978, 2815, 3137, 2679, 1969, 1870, 1633, 1529, 1366, 1357, 1570, 1535, 2491,
+1979, 3084, 2605, 2573, 2143, 1693, 1504, 1461, 1354, 1333, 1492, 1781, 1915
+)
+datatable(ldeaths_tibble, rownames=F,
+          options = list(columnDefs = list(list(className = 'dt-left', targets = '_all'))), width = "65%") %>%
+  formatStyle(columns = 1:13, `text-align` = 'left')
+```
+
+<br>
+
+
+
+#### **Dataset 5**
+This dataset shows the number of tuberculosis cases out of the total population in three different countries as recorded in years 1999 and 2000. 
+
+```{r}
+datatable(tidyr::table3 %>%
+            mutate(rate = stringr::str_replace(rate, "/", " cases in total population of ")) %>%
+            rename(cases_per_population = rate), rownames=F,
+          options = list(columnDefs = list(list(className = 'dt-left', targets = '_all'))), width = "65%") %>%
+  formatStyle(columns = 1:3, `text-align` = 'left')
+```
+
+<br>
