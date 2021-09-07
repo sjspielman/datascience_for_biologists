@@ -22,7 +22,8 @@ This website contains all materials used in BIOL 01301 Fall 2021 at Rowan Univer
 > [Link to the `{introverse}`](https://spielmanlab.github.io/introverse)
 >
 > [Instructions for launching homeworks, apps, and interactive exercises](./launch_instructions.html)
-
+> 
+> [All of the colors!!!](./misc/Rcolor.pdf)
 
  Date  | Topic                                  | In-class materials and other resources        | Assignment due the following _Tuesday_
 :----------|:---------------------------------------|:----------------------------------------------------------|:---------------------------------------------------------------------
@@ -30,7 +31,7 @@ W 9/1   | Introduction and class logistics | - | -
 R 9/2   | Types of data and figures | "Types of data and figures" interactive exercises | -
 M 9/6 | _No class: Labor Day_ |- |-
 W 9/8   | Types of data and figures  | "Types of data and figures" interactive exercises | -
-R 9/9   | Introduction to R and RStudio <!-- Quiz: Types of data and figures?? -->  | | Homework 1: Identifying data types and figures, due 9/14 <br> [Link to Instructions](./homeworks/hw1/hw1_instructions.html) <br> [Link to Answer Sheet](./homeworks/hw1/homework1_answer_sheet.docx)
+R 9/9   | Concepts in tidy data  | [Tidy data paper](./misc/tidy_data.pdf) | Homework 1: Identifying data types and figures, due 9/14 <br> [Link to Instructions](./homeworks/hw1/hw1_instructions.html) <br> [Link to Answer Sheet](./homeworks/hw1/homework1_answer_sheet.docx)
 M 9/13  | Introduction to R and RStudio | "Introduction to R" interactive exercises <br> [Introduction to R stand-alone tutorial](./tutorials/introduction_to_R.html)| -
 W 9/15 | Introduction to R and RStudio | "Introduction to R" interactive exercises | -
 R 9/16 | Introduction to RMarkdown and _open work_ | - | Homework 2: Using R and RMarkdown, due 9/21 <br> [Link to Instructions](./homeworks/hw2/hw2_instructions.html) <br> [Video: Using and customizing RStudio Cloud](https://youtu.be/dEOT_7O-27o)
