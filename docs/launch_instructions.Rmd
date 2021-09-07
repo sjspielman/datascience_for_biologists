@@ -1,5 +1,5 @@
 ---
-title: Launching "Data Science for Biologists" apps and interactive exercises
+title: Launching "Data Science for Biologists" homeworks, apps, and interactive exercises
 output: 
   html_document:
     theme: lumen
@@ -8,7 +8,24 @@ output:
 <br><br>
 
 
-## Apps
+## Lauching homeworks
+
+> All homeworks _except_ HW1 and HW3 should be obtained using this procedure:
+
+
++ In your class RStudio Cloud project in the `BIOL01301 Fall 2021` Workspace, load the `ds4b.materials` library in the Console:
+  ```{r eval=F}
+  library(ds4b.materials)
+  ```
+
++ Then, use the function `launch_homework()` to obtain and set up a given homework based on its number. For example, to launch homework #2, run:
+  ```{r eval=F}
+  launch_homework(2)
+  ```
+  
+  This will download and open the given homework template. If you run this function a second time, rest assured it will not delete your work! It will just open the homework template you already downloaded.
+  
+## Launching Apps
 <br>
 
 #### "Types of plots"
@@ -82,3 +99,5 @@ output:
   library(ds4b.materials)
   launch_app("dplyr")
   ```
+  
+  

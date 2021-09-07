@@ -21,7 +21,7 @@ This website contains all materials used in BIOL 01301 Fall 2021 at Rowan Univer
 >
 > [Link to the `{introverse}`](https://spielmanlab.github.io/introverse)
 >
-> [Instructions for launching interactive exercises and apps](./launch_instructions.html)
+> [Instructions for launching homeworks, apps, and interactive exercises](./launch_instructions.html)
 
 
  Date  | Topic                                  | In-class materials and other resources        | Assignment due the following _Tuesday_
