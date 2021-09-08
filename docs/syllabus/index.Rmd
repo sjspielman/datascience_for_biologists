@@ -29,10 +29,8 @@ github-repo: sjspielman/ds4b_syllabus
   + [Main course website](https://sjspielman.github.io/datascience_for_biologists/) for course schedule
   + [RStudio Cloud](https://rstudio.cloud/) for browser-based coding
   + [Canvas](https://rowan.instructure.com/) for submissions, grades, announcements, and Zoom links
-+ **Should we have a class discord or slack?**
-  + Let's talk about it on day 1!
 + **Virtual Office Hours**
-  + TBD over Zoom (link in Canvas)
+  + Tuesday 1-3 PM over Zoom (link in Canvas)
   + You do NOT need to make an appointment! Feel free to show up in Zoom anytime during that window. 
 + **One-on-one Meeting with Dr. Spielman** 
   + Please _email_ to request a meeting (_not Starfish/RSN_).
