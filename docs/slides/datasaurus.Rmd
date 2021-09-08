@@ -1,0 +1,104 @@
+---
+title: datasauRus!!
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      countIncrementalSlides: false
+---
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(fig.width=12, fig.height=8, echo=FALSE)
+library(xaringan)
+library(tidyverse) 
+library(colorblindr)
+library(datasauRus)
+library(cowplot)
+library(patchwork)
+theme_set(theme_linedraw() + theme(legend.position = "none"))
+
+datasaurus_dozen %>% 
+  filter(dataset !="x_shape") ->dino
+
+dino %>%
+  group_by(dataset) %>%
+  summarize(mean_x = mean(x),
+            mean_y = mean(y),
+            sd_x  = sd(x),
+            sd_y = sd(y)) -> dinosum
+```
+
+# The whole dataset
+
+```{r}
+dino
+```
+
+---
+
+# Plotting _Y against X_
+
+```{r}
+ggplot(dino) + 
+  aes(x = x, y = y,color = dataset) + 
+  geom_point(size = 2) + 
+  facet_wrap(~dataset, nrow=4) + 
+  ggtitle("y against x") 
+```
+
+---
+
+# Histograms of the X-values only
+
+```{r}
+ggplot(dino) + 
+  aes(x = x, fill = dataset) + 
+  geom_histogram(binwidth = 4, color = "black") + 
+  facet_wrap(~dataset, nrow=4, scales = "free") + 
+  ggtitle("Distributions of X-values") 
+```
+
+
+---
+
+# Barplots showing Mean and SD for X-axis distributions
+
+```{r}
+dinosum %>%
+  ggplot() + 
+  aes(x = dataset, y = mean_x, fill = dataset) + 
+  geom_col(color = "black") +
+  geom_errorbar(aes(x = dataset, ymin = mean_x - sd_x/2, 
+                    ymax = mean_x + sd_x/2), 
+                width = 0.2, size=1) 
+```
+
+---
+
+# Histograms of the Y-values only
+
+```{r}
+ggplot(dino) + 
+  aes(x = y, fill = dataset) + 
+  geom_histogram(binwidth = 4, color = "black") + 
+  facet_wrap(~dataset, nrow=4, scales = "free") + 
+  ggtitle("Distributions of Y-values") 
+```
+
+
+---
+
+# Barplots showing Mean and SD for Y-axis distributions
+
+```{r}
+dinosum %>%
+  ggplot() + 
+  aes(x = dataset, y = mean_y, fill = dataset) + 
+  geom_col(color = "black") +
+  geom_errorbar(aes(x = dataset, ymin = mean_y - sd_y/2, 
+                    ymax = mean_y + sd_y/2), 
+                width = 0.2, size=1) 
+```
