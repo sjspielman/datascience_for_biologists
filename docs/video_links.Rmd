@@ -1,0 +1,15 @@
+---
+title: Links to short help videos
+output: 
+  html_document:
+    theme: lumen
+    highlight: tango
+---
+<br><br>
+
+### Working in RStudio Cloud
+
++ [Customing RStudio pane layout](https://youtu.be/HuEn5s3qByI)
++ [Customizing RStudio font and editor theme](https://youtu.be/bAzWtVg-JjA)
++ [Helpful settings that make coding easier](https://youtu.be/stYKskGN15g)
++ [Dealing with _problems_ with the R session or RStudio Cloud Server](https://youtu.be/dlFsYx8-Zys)
