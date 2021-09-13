@@ -222,7 +222,8 @@ datatable(esoph %>%
                    n_patients_cases = ncases,
                    n_patients_controls = ncontrols) %>%
             mutate(alcohol_consumption = stringr::str_replace(alcohol_consumption, "g/day", ""),
-                   tobacco_consumption = stringr::str_replace(alcohol_consumption, "g/day", "")), 
+                   tobacco_consumption = stringr::str_replace(tobacco_consumption, "g/day", "")) %>%
+            distinct(), 
           rownames=F,
           options = list(columnDefs = list(list(className = 'dt-left', targets = '_all'))), width = "65%") %>%
   formatStyle(columns = 1:5, `text-align` = 'left')
