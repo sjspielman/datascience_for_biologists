@@ -24,7 +24,10 @@ output:
   ```
   
   This will download and open the given homework template. If you run this function a second time, rest assured it will not delete your work! It will just open the homework template you already downloaded.
-  
+
+
+<br><br>
+
 ## Launching Apps
 <br>
 
@@ -54,13 +57,14 @@ output:
 <br><br>
 
 
-## Interactive Exercises 
+## Launching Interactive Exercises 
 
 <br>
 
 #### "Types of data and figures"
 
 + [Access via browser _on-campus from Rowan Secure WiFi only_](http://10.33.168.74:3838/spielman/ds4b.materials/inst/tutorials/data_figures/)
++ [Access via browser, _accessible from anywhere_](https://sjspielman.shinyapps.io/data_figures)
 + Access via the `ds4b.materials` library in RStudio Cloud:
 
   ```{r eval=F}
@@ -71,6 +75,8 @@ output:
 #### "Introduction to R"
 
 + [Access via browser _on-campus from Rowan Secure WiFi only_](http://10.33.168.74:3838/spielman/ds4b.materials/inst/tutorials/intro_R)
++ [Access via browser, _accessible from anywhere_](https://sjspielman.shinyapps.io/intro_R)
+
 + Access via the `ds4b.materials` library in RStudio Cloud:
 
   ```{r eval=F}
@@ -82,6 +88,8 @@ output:
 #### "Introduction to `ggplot2`"
 
 + [Access via browser _on-campus from Rowan Secure WiFi only_](http://10.33.168.74:3838/spielman/ds4b.materials/inst/tutorials/ggplot2)
++ [Access via browser, _accessible from anywhere_](https://sjspielman.shinyapps.io/ggplot2)
+
 + Access via the `ds4b.materials` library in RStudio Cloud:
 
   ```{r eval=F}
@@ -93,6 +101,8 @@ output:
 #### "Introduction to `dplyr`"
 
 + [Access via browser _on-campus from Rowan Secure WiFi only_](http://10.33.168.74:3838/spielman/ds4b.materials/inst/tutorials/dplyr)
++ [Access via browser, _accessible from anywhere_](https://sjspielman.shinyapps.io/dplyr)
+
 + Access via the `ds4b.materials` library in RStudio Cloud:
 
   ```{r eval=F}
