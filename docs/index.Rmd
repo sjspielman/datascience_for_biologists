@@ -10,7 +10,7 @@ This website contains all materials used in BIOL 01301 Fall 2021 at Rowan Univer
 ## Key Information and Links
 
 + This course meets Monday and Thursday 2-3:15 pm and Wednesday 3:30 - 6:15 pm in Science Hall 126. 
-+ Virtual Office Hours are **1-3 PM on Tuesday** over Zoom (link is in Canvas).
++ Virtual Office Hours are 1-3 PM every Tuesday over Zoom (link is in Canvas).
 + All grading and assignment submissions (unless otherwise stated) will be hosted on [Canvas](https://rowan.instructure.com/). 
 + All course materials will be posted on _this site_ and/or within the [rstudio.cloud](https://rstudio.cloud) BIOL01301 workspace.
 + The [syllabus](syllabus/docs/index.html) contains all class information and policies.
@@ -24,6 +24,8 @@ This website contains all materials used in BIOL 01301 Fall 2021 at Rowan Univer
 > [Instructions for launching homeworks, apps, and interactive exercises](./launch_instructions.html)
 > 
 > [All of the colors!!!](./misc/Rcolor.pdf)
+>
+> [Links to short help videos](./video_links.html)
 
  Date  | Topic                                  | In-class materials and other resources        | Assignment DUE to Canvas by 2 PM
 :----------|:---------------------------------------|:----------------------------------------------------------|:---------------------------------------------------------------------
@@ -36,7 +38,7 @@ M 9/13  | Introduction to R and RStudio | "Introduction to R" interactive exerci
 W 9/15 | Introduction to R and RStudio | "Introduction to R" interactive exercises | Homework 1: Identifying data types and figures <br> [Link to Instructions](./homeworks/hw1/hw1_instructions.html) <br> [Link to Answer Sheet](./homeworks/hw1/homework1_answer_sheet.docx)
 R 9/16 | Introduction to RMarkdown and _open work_ | - | -
 M 9/20 | The grammar of graphics, Part 1 | Slides, TBD  | -
-W 9/22 | The grammar of graphics, Part 2 <br> Identifying trends in visualizations | Slides, TBD  | Homework 2: Using R and RMarkdown <br> [Link to Instructions](./homeworks/hw2/hw2_instructions.html) <br> [Video: Using and customizing RStudio Cloud](https://youtu.be/dEOT_7O-27o)
+W 9/22 | The grammar of graphics, Part 2 <br> Identifying trends in visualizations | Slides, TBD  | Homework 2: Using R and RMarkdown <br> [Link to Instructions](./homeworks/hw2/hw2_instructions.html)
 R 9/23 | _Open work day_  | | -
 M 9/27 | Introduction to `ggplot2` | "Introduction to `ggplot2`" interactive exercises | -
 W 9/29 | More `ggplot2`  | "Introduction to `ggplot2`" interactive exercises <br> "Line-by-line" application | Homework 3: Grammar of Graphics <!-- <br> [Link to Instructions](./homeworks/hw4/hw4_instructions.html) <br> [Link to Answer Sheet](./homeworks/hw4/homework4_answer_sheet.docx) -->
