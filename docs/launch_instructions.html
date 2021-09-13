@@ -53,6 +53,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -251,16 +252,19 @@ pre code {
 
 
 <p><br><br></p>
-<div id="lauching-homeworks" class="section level2">
-<h2>Lauching homeworks</h2>
+<div id="updating-course-resources" class="section level2">
+<h2>Updating course resources</h2>
+<p>Run the following line, and answer <code>1</code> or <code>2</code> to the prompt! This will delete your whole environment, so be careful to update only after everything you need to save is saved!!</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>ds4b.materials<span class="sc">::</span><span class="fu">update_materials</span>()</span></code></pre></div>
+<p><br><br> ## Lauching homeworks</p>
 <blockquote>
 <p>All homeworks <em>except</em> HW1 and HW3 should be obtained using this procedure:</p>
 </blockquote>
 <ul>
 <li><p>In your class RStudio Cloud project in the <code>BIOL01301 Fall 2021</code> Workspace, load the <code>ds4b.materials</code> library in the Console:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">library</span>(ds4b.materials)</span></code></pre></div></li>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ds4b.materials)</span></code></pre></div></li>
 <li><p>Then, use the function <code>launch_homework()</code> to obtain and set up a given homework based on its number. For example, to launch homework #2, run:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="kw">launch_homework</span>(<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">launch_homework</span>(<span class="dv">2</span>)</span></code></pre></div>
 <p>This will download and open the given homework template. If you run this function a second time, rest assured it will not delete your work! It will just open the homework template you already downloaded.</p></li>
 </ul>
 <p><br><br></p>
@@ -274,8 +278,8 @@ pre code {
 <li><p><a href="http://10.33.168.74:3838/spielman/types.of.plots">Access via browser, <em>on-campus from Rowan Secure WiFi only</em></a></p></li>
 <li><p><a href="https://sjspielman.shinyapps.io/types_of_plots">Access via browser, <em>accessible from anywhere</em></a></p></li>
 <li><p>Access via the <code>ds4b.materials</code> library in RStudio Cloud:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">library</span>(ds4b.materials)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="kw">launch_app</span>(<span class="st">&quot;types_of_plots&quot;</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ds4b.materials) <span class="co"># only run one time per R session</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">launch_app</span>(<span class="st">&quot;types_of_plots&quot;</span>)</span></code></pre></div></li>
 </ul>
 </div>
 <div id="line-by-line" class="section level4">
@@ -284,8 +288,8 @@ pre code {
 <li><p><a href="http://10.33.168.74:3838/spielman/ds4b.materials/inst/apps/line_by_line/">Access via browser, <em>on-campus from Rowan Secure WiFi only</em></a></p></li>
 <li><p><a href="https://sjspielman.shinyapps.io/line_by_line">Access via browser, <em>accessible from anywhere</em></a></p></li>
 <li><p>Access via the <code>ds4b.materials</code> library in RStudio Cloud:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="kw">library</span>(ds4b.materials)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="kw">launch_app</span>(<span class="st">&quot;line_by_line&quot;</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ds4b.materials) <span class="co"># only run one time per R session</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">launch_app</span>(<span class="st">&quot;line_by_line&quot;</span>)</span></code></pre></div></li>
 </ul>
 <p><br><br></p>
 </div>
@@ -299,8 +303,8 @@ pre code {
 <li><p><a href="http://10.33.168.74:3838/spielman/ds4b.materials/inst/tutorials/data_figures/">Access via browser <em>on-campus from Rowan Secure WiFi only</em></a></p></li>
 <li><p><a href="https://sjspielman.shinyapps.io/data_figures">Access via browser, <em>accessible from anywhere</em></a></p></li>
 <li><p>Access via the <code>ds4b.materials</code> library in RStudio Cloud:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="kw">library</span>(ds4b.materials)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a><span class="kw">launch_app</span>(<span class="st">&quot;data_figures&quot;</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ds4b.materials) <span class="co"># only run one time per R session</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">launch_app</span>(<span class="st">&quot;data_figures&quot;</span>)</span></code></pre></div></li>
 </ul>
 </div>
 <div id="introduction-to-r" class="section level4">
@@ -309,8 +313,8 @@ pre code {
 <li><p><a href="http://10.33.168.74:3838/spielman/ds4b.materials/inst/tutorials/intro_R">Access via browser <em>on-campus from Rowan Secure WiFi only</em></a></p></li>
 <li><p><a href="https://sjspielman.shinyapps.io/intro_R">Access via browser, <em>accessible from anywhere</em></a></p></li>
 <li><p>Access via the <code>ds4b.materials</code> library in RStudio Cloud:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="kw">library</span>(ds4b.materials)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a><span class="kw">launch_app</span>(<span class="st">&quot;intro_R&quot;</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ds4b.materials) <span class="co"># only run one time per R session</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">launch_app</span>(<span class="st">&quot;intro_R&quot;</span>)</span></code></pre></div></li>
 </ul>
 </div>
 <div id="introduction-to-ggplot2" class="section level4">
@@ -319,8 +323,8 @@ pre code {
 <li><p><a href="http://10.33.168.74:3838/spielman/ds4b.materials/inst/tutorials/ggplot2">Access via browser <em>on-campus from Rowan Secure WiFi only</em></a></p></li>
 <li><p><a href="https://sjspielman.shinyapps.io/ggplot2">Access via browser, <em>accessible from anywhere</em></a></p></li>
 <li><p>Access via the <code>ds4b.materials</code> library in RStudio Cloud:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="kw">library</span>(ds4b.materials)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="kw">launch_app</span>(<span class="st">&quot;ggplot2&quot;</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ds4b.materials) <span class="co"># only run one time per R session</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">launch_app</span>(<span class="st">&quot;ggplot2&quot;</span>)</span></code></pre></div></li>
 </ul>
 </div>
 <div id="introduction-to-dplyr" class="section level4">
@@ -329,8 +333,8 @@ pre code {
 <li><p><a href="http://10.33.168.74:3838/spielman/ds4b.materials/inst/tutorials/dplyr">Access via browser <em>on-campus from Rowan Secure WiFi only</em></a></p></li>
 <li><p><a href="https://sjspielman.shinyapps.io/dplyr">Access via browser, <em>accessible from anywhere</em></a></p></li>
 <li><p>Access via the <code>ds4b.materials</code> library in RStudio Cloud:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="kw">library</span>(ds4b.materials)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a><span class="kw">launch_app</span>(<span class="st">&quot;dplyr&quot;</span>)</span></code></pre></div></li>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ds4b.materials) <span class="co"># only run one time per R session</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">launch_app</span>(<span class="st">&quot;dplyr&quot;</span>)</span></code></pre></div></li>
 </ul>
 </div>
 </div>
