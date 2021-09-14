@@ -27,16 +27,11 @@ knitr::opts_chunk$set(echo = TRUE)
   + Always ensure your answers are being produced by code. No credit will be given for answers that are not directly produced by code. Please refer to the examples at the bottom of these instructions for examples of acceptable and unacceptable code.
   + You should have one comment per line of code. Comments should be written in "plain english" and give _brief descriptions_ about what the code is doing. Comments should be written _above_ the line of code they refer to. You will not be graded on whether I think your comment is "good enough" - your comments need only be "good enough" for YOU to understand what your code is doing.
 <br><br>
-+ You must set an **RMarkdown theme and code syntax highlighting scheme** of your choosing in the YAML front matter. These links will help you:
-  + Set the theme and syntax highlighting according to this demonstration video 
++ You must set an _RMarkdown theme and code syntax highlighting scheme_ of your choosing in the YAML front matter. These links will help you:
   + Choose your favorite _theme_ among the **pre-packaged themes** (ignore everything below "Even More Themes") shown at [this link](https://www.datadreaming.org/post/r-markdown-theme-gallery/)
   + Choose your favorite _syntax highlighting_ among these options at [this link](https://www.garrickadenbuie.com/blog/pandoc-syntax-highlighting-examples/)
 <br><br>
-+ Make sure to use the `ds4b.materials` function `check_homework(3)` to **check** whether there are any bugs in your homework. Make sure to find and fix all bugs before submitting! Your document _must knit without errors_ for full credit, so don't skip this step!
-<br><br>
-+ Additional tips for success:
-  + _**Start the homework EARLY. Do not wait until the day before the deadline to begin.**_
-  + Remember to use the `introverse` library interactively in the R Console to get help with the function `get_help()`.
++ [**Don't forget to watch these short videos as resources for navigating/customizing RStudio, writing RMarkdown documents, and using the `introverse`!**](https://sjspielman.github.io/datascience_for_biologists/video_links.html)
 
 
 ## Homework Questions
@@ -161,9 +156,9 @@ knitr::opts_chunk$set(echo = TRUE)
     
     
     
-    
+<br><br>  
 
-### What NOT to do vs what TO do
+## What NOT to do vs what TO do
 
 > The following code chunks provide examples of how *NOT TO* and how *TO* answer a hypothetical homework question using code. Notice how there are many ways to correctly achieve the right result! Welcome to coding :)
 

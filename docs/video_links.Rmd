@@ -2,10 +2,9 @@
 title: Links to short help videos
 output: 
   html_document:
-    theme: lumen
-    highlight: tango
+    theme: readable
 ---
-<br><br>
+<br>
 
 ### Working in RStudio Cloud
 
@@ -13,3 +12,16 @@ output:
 + [Customizing RStudio font and editor theme](https://youtu.be/bAzWtVg-JjA)
 + [Helpful settings that make coding easier](https://youtu.be/stYKskGN15g)
 + [Dealing with _problems_ with the R session or RStudio Cloud Server](https://youtu.be/dlFsYx8-Zys)
+
+
+### Working with RMarkdown Documents
+
++ [Creating a basic RMarkdown document](https://youtu.be/KqKs7y6k1r0)
++ [Working with RMarkdown code chunks](https://youtu.be/i6MzrdRnnz0)
++ [Setting the RMarkdown document theme and syntax highlighting](https://youtu.be/pvievwsAQWo)
++ [Using the RMarkdown Visual Editor Mode](https://youtu.be/VH1CJjkw4zc)
+
+
+### Additional Resources
+
++ [Using the `introverse` package](https://youtu.be/G2HYUtaMLAI)
