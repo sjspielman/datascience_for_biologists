@@ -44,6 +44,8 @@ credentials::set_github_pat()
 
 #### Command 4: Make sure it worked!
 
+> You should copy/paste the output from this command from the R Console into the Canvas assignment "Proof of RStudio Cloud/Github Setup." Submitting this copy/pasted text fully completes the assignment!! Completing this on time is part of your HW2 grade.
+
 ```{r}
 usethis::git_sitrep()
 ```
