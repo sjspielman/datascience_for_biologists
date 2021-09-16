@@ -1,0 +1,49 @@
+---
+title: "How to set up your GitHub Token in RStudio Cloud"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval=FALSE)
+```
+<br><br>
+
+### The video: [YouTube Link](https://youtu.be/h1ykWSTbUuI)
+
+<br><br>
+
+### Commands you'll need to use:
+
+<br>
+
+#### Command 1: Set your name and email
+
+```{r}
+# replace "Your Name" with your literal name (keep the quotes!!!)
+# replace "your@email.com" with the email you used to sign up for github.com (keep the quotes!!!)
+usethis::use_git_config(user.name = "Your Name", user.email = "your@email.com")
+```
+<br><br>
+
+#### Command 2: Create Github Token
+
+```{r}
+# will open github.com for you to make a token
+usethis::create_github_token() 
+```
+
+<br><br>
+
+#### Command 3: Tell RStudio Cloud about that token
+
+```{r}
+# will pop up a window where you PASTE the secret token!
+credentials::set_github_pat()
+```
+<br><br>
+
+#### Command 4: Make sure it worked!
+
+```{r}
+usethis::git_sitrep()
+```
