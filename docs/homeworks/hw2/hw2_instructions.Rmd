@@ -106,52 +106,60 @@ knitr::opts_chunk$set(echo = TRUE)
       # reveal value
       combined_string2
       ```
+      
+      ```{r paste_demo3}
+      # Let's use paste() to directly write a sentence (HINT!!)
+      # (don't worry about having a period at the end of sentence!)
+      variable_value <- 10
+      paste("The value of the variable is", variable_value)
+      ```      
 
     **Use the `paste()` function and the variable `q6_mean` you previously defined to print a sentence that says: "The mean of q6 is ...." where .... is the the `q6_mean` value.** Your code should _NOT_ include a number directly (don't copy/paste the value of the mean). You may _ONLY_ refer to this number value with the `q6_mean` variable.
-        + Need help? Run `get_help("paste")` in the R Console after loading the `introverse` library.
+        
+      + Need help? Run `get_help("paste")` in the R Console after loading the `introverse` library.
 
 <br>
 
 
-11. For the remaining questions, you will consider the built-in dataset `iris`, a famous dataset with 150 rows and 5 columns that provides physical measurements for 150 iris specimens from three different species.
+11. For the remaining questions, you will consider the built-in R dataset `iris`, a famous dataset with 150 rows and 5 columns that provides physical measurements for 150 iris specimens from three different species.
 
     For this question, write _code_ to determine the following information about `iris`. You need to use a single function for each task (there will be four lines of code in the end), and all output should be printed from the chunk.
 
-    + The number of rows
-    + The number of columns
-    + The _names_ of the columns (use a function that here that only tells you the names!)
-    + A _summary_ of the distribution of each column in the data
+    + The number of rows (using `nrow()`)
+    + The number of columns  (using `ncol()`)
+    + The _names_ of the columns (using `names()`)
+    + A _summary_ of the distribution of each column in the data (using `summary()`)
 
 
 <br>
 
-12. The goal of this question is to answer, "do sepal lengths or petal lengths have more variation?" When comparing variation across _different variables_, we can calculate the _coefficient of variation_ (COV) which is the standard deviation divided by the mean. Calculate the COV for sepal lengths and petal lengths, and save to variables `cov_sepal_length` and `cov_petal_length`, respectively. Then, use a logical operator to ask whether sepal lengths have _more_ (`>`) variation than petal lengths. **Your code should print `TRUE` if sepal lengths have more spread, and `FALSE` otherwise.**
+12. The goal of this question is to answer, "do sepal lengths or petal lengths have more variation?" When comparing variation across _different variables_, we can calculate the _coefficient of variation (COV) which is simply _the standard deviation divided by the mean_. Calculate the COV for sepal lengths and petal lengths, and save to variables `cov_sepal_length` and `cov_petal_length`, respectively. Then, use a logical operator to ask whether sepal lengths have _more_ (`>`) variation than petal lengths. **Your code should print `TRUE` if sepal lengths have more spread, and `FALSE` otherwise.**
 
 <br>
 
-13. Calculate the mean petal width and save the result to a variable `mean_petal_width`. Then, use `paste()` to print a sentence that reads: `"The mean petal width in the iris dataset is ..."`, where `...` is replaced with the value in `mean_petal_width`.
+13. Calculate the mean petal width and save the result to a variable `mean_petal_width`. Then, use `paste()` to print a sentence that reads: `"The mean petal width in the iris dataset is ..."`, where `...` is replaced with the value in `mean_petal_width`. Again, make sure your code is only using _variables_ and not values directly.
 
 <br>
 
-14. The `iris` variable `Species` is a _factor variable_, meaning R recognizes it as containing _categories_. By contrast, the variable `Sepal.Width` is numeric, not a factor, so R doesn't recognize that it has categories. Use the `levels()` function separately on each of these functions to determine the different categories in the column. **Your code should simply print the result of running the `levels()` function on those columns.**
-    + Hint: The code output should be consistent with whether the variables are factors. Non-factor variables don't have any levels and the code result will reflect this.
+14. The `iris` variable `Species` is a _factor variable_, meaning R recognizes it as containing _categories_. R refers to factor categories with the term *levels*. By contrast, the variable `Sepal.Width` is numeric, not a factor, so R doesn't recognize that it has categories (which is reasonable! it's numeric!). The R function `levels()` can be used to quickly see the categories (levels!) in a factor variable. For this question, practice using the `levels()` by running it twice: on the `Species` column and on the `Sepal.Width` column.  **Your code should simply print the result of running the `levels()` function on those two columns.**
+    + Hint: The code output will be consistent with whether the variables are factors. _Non-factor variables don't have any levels and the code result will reflect this._
 
 <br>
 
-15. To learn a little more about factors, let's _coerce_ some columns into and away from factors. To do this, we'll create a new dataset called `iris2` containing some coerced columns. Copy and paste the following code into the R chunk for this question (this code is part of the answer!). This code creates a new data frame `iris2` that contains the same information as `iris`, but `Species` is no longer factor (it is now character), and `Sepal.Width` is no longer numeric (it is now a factor).
+15. To learn a little more about factors, let's _coerce_ some columns into and away from factors. To do this, we'll create a new dataset called `iris2` containing some coerced columns. _Copy and paste the following code into the R chunk for this question (this code should be the first code in your answer!!). This code creates a new data frame `iris2` that contains the same information as `iris`, but `Species` is no longer factor (it is now character), and `Sepal.Width` is no longer numeric (it is now a factor).
 
     ```{r eval=F}
     # Create a copy of iris in iris2
     iris2 <- iris
     
-    # Coerce Species into a character
+    # Coerce Species into a character. Previously, it was a factor.
     iris2$Species <- as.character(iris2$Species)
     
-    # Coerce Sepal.Width into a factor
+    # Coerce Sepal.Width into a factor. Previously, it was numeric.
     iris2$Sepal.Width <- as.factor(iris2$Sepal.Width)
     ```
     
-    Again write code with `levels()` to see the categories in the **`iris2`** columns `Species` and `Sepal.Width`, and notice how the output differs. Finally, write two more line of code in this chunk to **calculate the mean of the `Sepal.Width` column in `iris` AND in `iris2`**, which should also be printed out. In ~1 sentence of written text _below the code chunk_, explain why _IN YOUR OWN WORDS_ this calculation didn't work as well as you might have hoped (hint: the output from `levels()` is informative!). 
+    Again write code with `levels()` to see the categories in the **`iris2`** columns `Species` and `Sepal.Width`, and notice (on your own - no need to write anything) how the output differs. Finally, write two more line of code in this chunk to **calculate the mean of the `Sepal.Width` column in `iris` AND in `iris2`**, which should also be printed out. In ~1 sentence of written text _below the code chunk_, explain why _IN YOUR OWN WORDS_ this calculation didn't work as well as you might have hoped (hint: the output from `levels()` is informative!). 
     
     
     

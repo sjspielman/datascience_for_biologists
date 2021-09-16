@@ -357,46 +357,54 @@ pre code {
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># reveal value</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>combined_string2</span></code></pre></div>
 <pre><code>## [1] &quot;string 1 hello there string 2&quot;</code></pre>
-<p><strong>Use the <code>paste()</code> function and the variable <code>q6_mean</code> you previously defined to print a sentence that says: “The mean of q6 is ….” where …. is the the <code>q6_mean</code> value.</strong> Your code should <em>NOT</em> include a number directly (don’t copy/paste the value of the mean). You may <em>ONLY</em> refer to this number value with the <code>q6_mean</code> variable. + Need help? Run <code>get_help(&quot;paste&quot;)</code> in the R Console after loading the <code>introverse</code> library.</p></li>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let&#39;s use paste() to directly write a sentence (HINT!!)</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (don&#39;t worry about having a period at the end of sentence!)</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>variable_value <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">&quot;The value of the variable is&quot;</span>, variable_value)</span></code></pre></div>
+<pre><code>## [1] &quot;The value of the variable is 10&quot;</code></pre>
+<p><strong>Use the <code>paste()</code> function and the variable <code>q6_mean</code> you previously defined to print a sentence that says: “The mean of q6 is ….” where …. is the the <code>q6_mean</code> value.</strong> Your code should <em>NOT</em> include a number directly (don’t copy/paste the value of the mean). You may <em>ONLY</em> refer to this number value with the <code>q6_mean</code> variable.</p>
+<ul>
+<li>Need help? Run <code>get_help(&quot;paste&quot;)</code> in the R Console after loading the <code>introverse</code> library.</li>
+</ul></li>
 </ol>
 <p><br></p>
 <ol start="11" style="list-style-type: decimal">
-<li><p>For the remaining questions, you will consider the built-in dataset <code>iris</code>, a famous dataset with 150 rows and 5 columns that provides physical measurements for 150 iris specimens from three different species.</p>
+<li><p>For the remaining questions, you will consider the built-in R dataset <code>iris</code>, a famous dataset with 150 rows and 5 columns that provides physical measurements for 150 iris specimens from three different species.</p>
 <p>For this question, write <em>code</em> to determine the following information about <code>iris</code>. You need to use a single function for each task (there will be four lines of code in the end), and all output should be printed from the chunk.</p>
 <ul>
-<li>The number of rows</li>
-<li>The number of columns</li>
-<li>The <em>names</em> of the columns (use a function that here that only tells you the names!)</li>
-<li>A <em>summary</em> of the distribution of each column in the data</li>
+<li>The number of rows (using <code>nrow()</code>)</li>
+<li>The number of columns (using <code>ncol()</code>)</li>
+<li>The <em>names</em> of the columns (using <code>names()</code>)</li>
+<li>A <em>summary</em> of the distribution of each column in the data (using <code>summary()</code>)</li>
 </ul></li>
 </ol>
 <p><br></p>
 <ol start="12" style="list-style-type: decimal">
-<li>The goal of this question is to answer, “do sepal lengths or petal lengths have more variation?” When comparing variation across <em>different variables</em>, we can calculate the <em>coefficient of variation</em> (COV) which is the standard deviation divided by the mean. Calculate the COV for sepal lengths and petal lengths, and save to variables <code>cov_sepal_length</code> and <code>cov_petal_length</code>, respectively. Then, use a logical operator to ask whether sepal lengths have <em>more</em> (<code>&gt;</code>) variation than petal lengths. <strong>Your code should print <code>TRUE</code> if sepal lengths have more spread, and <code>FALSE</code> otherwise.</strong></li>
+<li>The goal of this question is to answer, “do sepal lengths or petal lengths have more variation?” When comparing variation across <em>different variables</em>, we can calculate the _coefficient of variation (COV) which is simply <em>the standard deviation divided by the mean</em>. Calculate the COV for sepal lengths and petal lengths, and save to variables <code>cov_sepal_length</code> and <code>cov_petal_length</code>, respectively. Then, use a logical operator to ask whether sepal lengths have <em>more</em> (<code>&gt;</code>) variation than petal lengths. <strong>Your code should print <code>TRUE</code> if sepal lengths have more spread, and <code>FALSE</code> otherwise.</strong></li>
 </ol>
 <p><br></p>
 <ol start="13" style="list-style-type: decimal">
-<li>Calculate the mean petal width and save the result to a variable <code>mean_petal_width</code>. Then, use <code>paste()</code> to print a sentence that reads: <code>&quot;The mean petal width in the iris dataset is ...&quot;</code>, where <code>...</code> is replaced with the value in <code>mean_petal_width</code>.</li>
+<li>Calculate the mean petal width and save the result to a variable <code>mean_petal_width</code>. Then, use <code>paste()</code> to print a sentence that reads: <code>&quot;The mean petal width in the iris dataset is ...&quot;</code>, where <code>...</code> is replaced with the value in <code>mean_petal_width</code>. Again, make sure your code is only using <em>variables</em> and not values directly.</li>
 </ol>
 <p><br></p>
 <ol start="14" style="list-style-type: decimal">
-<li>The <code>iris</code> variable <code>Species</code> is a <em>factor variable</em>, meaning R recognizes it as containing <em>categories</em>. By contrast, the variable <code>Sepal.Width</code> is numeric, not a factor, so R doesn’t recognize that it has categories. Use the <code>levels()</code> function separately on each of these functions to determine the different categories in the column. <strong>Your code should simply print the result of running the <code>levels()</code> function on those columns.</strong>
+<li>The <code>iris</code> variable <code>Species</code> is a <em>factor variable</em>, meaning R recognizes it as containing <em>categories</em>. R refers to factor categories with the term <em>levels</em>. By contrast, the variable <code>Sepal.Width</code> is numeric, not a factor, so R doesn’t recognize that it has categories (which is reasonable! it’s numeric!). The R function <code>levels()</code> can be used to quickly see the categories (levels!) in a factor variable. For this question, practice using the <code>levels()</code> by running it twice: on the <code>Species</code> column and on the <code>Sepal.Width</code> column. <strong>Your code should simply print the result of running the <code>levels()</code> function on those two columns.</strong>
 <ul>
-<li>Hint: The code output should be consistent with whether the variables are factors. Non-factor variables don’t have any levels and the code result will reflect this.</li>
+<li>Hint: The code output will be consistent with whether the variables are factors. <em>Non-factor variables don’t have any levels and the code result will reflect this.</em></li>
 </ul></li>
 </ol>
 <p><br></p>
 <ol start="15" style="list-style-type: decimal">
-<li><p>To learn a little more about factors, let’s <em>coerce</em> some columns into and away from factors. To do this, we’ll create a new dataset called <code>iris2</code> containing some coerced columns. Copy and paste the following code into the R chunk for this question (this code is part of the answer!). This code creates a new data frame <code>iris2</code> that contains the same information as <code>iris</code>, but <code>Species</code> is no longer factor (it is now character), and <code>Sepal.Width</code> is no longer numeric (it is now a factor).</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a copy of iris in iris2</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>iris2 <span class="ot">&lt;-</span> iris</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Coerce Species into a character</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>iris2<span class="sc">$</span>Species <span class="ot">&lt;-</span> <span class="fu">as.character</span>(iris2<span class="sc">$</span>Species)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Coerce Sepal.Width into a factor</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>iris2<span class="sc">$</span>Sepal.Width <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(iris2<span class="sc">$</span>Sepal.Width)</span></code></pre></div>
-<p>Again write code with <code>levels()</code> to see the categories in the <strong><code>iris2</code></strong> columns <code>Species</code> and <code>Sepal.Width</code>, and notice how the output differs. Finally, write two more line of code in this chunk to <strong>calculate the mean of the <code>Sepal.Width</code> column in <code>iris</code> AND in <code>iris2</code></strong>, which should also be printed out. In ~1 sentence of written text <em>below the code chunk</em>, explain why <em>IN YOUR OWN WORDS</em> this calculation didn’t work as well as you might have hoped (hint: the output from <code>levels()</code> is informative!).</p></li>
+<li><p>To learn a little more about factors, let’s <em>coerce</em> some columns into and away from factors. To do this, we’ll create a new dataset called <code>iris2</code> containing some coerced columns. _Copy and paste the following code into the R chunk for this question (this code should be the first code in your answer!!). This code creates a new data frame <code>iris2</code> that contains the same information as <code>iris</code>, but <code>Species</code> is no longer factor (it is now character), and <code>Sepal.Width</code> is no longer numeric (it is now a factor).</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a copy of iris in iris2</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>iris2 <span class="ot">&lt;-</span> iris</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Coerce Species into a character. Previously, it was a factor.</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>iris2<span class="sc">$</span>Species <span class="ot">&lt;-</span> <span class="fu">as.character</span>(iris2<span class="sc">$</span>Species)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Coerce Sepal.Width into a factor. Previously, it was numeric.</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>iris2<span class="sc">$</span>Sepal.Width <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(iris2<span class="sc">$</span>Sepal.Width)</span></code></pre></div>
+<p>Again write code with <code>levels()</code> to see the categories in the <strong><code>iris2</code></strong> columns <code>Species</code> and <code>Sepal.Width</code>, and notice (on your own - no need to write anything) how the output differs. Finally, write two more line of code in this chunk to <strong>calculate the mean of the <code>Sepal.Width</code> column in <code>iris</code> AND in <code>iris2</code></strong>, which should also be printed out. In ~1 sentence of written text <em>below the code chunk</em>, explain why <em>IN YOUR OWN WORDS</em> this calculation didn’t work as well as you might have hoped (hint: the output from <code>levels()</code> is informative!).</p></li>
 </ol>
 <p><br><br></p>
 </div>
@@ -408,32 +416,32 @@ pre code {
 <p><strong>Hypothetical homework question: What is the length of an array with values 4, 6, and 10?</strong></p>
 <p><br></p>
 <p><strong>NO!</strong> This code is not acceptable, largely because it is not code - it is just the number 3. There is no code used at all to answer the question. Even if it is “easy” to do something in your head, you must use code to answer it. <em>It also will not produce any output from a script since it is not formally printed.</em></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span></span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p><br><br> <strong>NO!</strong> This code is not acceptable, because even though code was used at some point, the code itself does not directly produce the output. This example represents a situation where you might run <code>length(c(4,6,10))</code> in the R Console, or run <code>length(c(4,6,10))</code> in the chunk but later delete or comment it out. You might look at the output and say, “the code calculated 3, so the answer is 3.” But, this is not ok, since the code itself must reveal the number 3.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#length(c(4,6,10))</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#length(c(4,6,10))</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span></span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p><br><br> <strong>NO!</strong> This is getting much closer, since we now have the fully code needed to generate the output. However, nothing is actually printed, so the output is not revealed. <em>It is critical to always reveal the output!</em></p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>answer <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">10</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>answer <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">10</span>))</span></code></pre></div>
 <p><br><br> <strong>YES!</strong> This “fixes” the previous “NO!” example by revealing the output.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>answer <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">10</span>))</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>answer</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>answer <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">10</span>))</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>answer</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p><br><br> <strong>YES!</strong> Only code is used to produce the output.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YES!</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">10</span>)) </span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YES!</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">10</span>)) </span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p><br><br> <strong>YES!</strong> Only code is used to produce the output. This strategy uses improved coding style by defining a <em>variable</em> for the array, and then using <code>length()</code> to calculate the length of the variable.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YES!</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>my_array <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">10</span>)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(my_array)</span></code></pre></div>
-<pre><code>## [1] 3</code></pre>
-<p><br><br> <strong>YES!</strong> Only code is used to produce the output. This strategy uses improved coding style by defining a <em>variable</em> for the array, and then defining another variable to contain the output from the <code>length()</code> calculation.</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YES!</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>my_array <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">10</span>)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>the_length <span class="ot">&lt;-</span> <span class="fu">length</span>(my_array)</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>the_length</span></code></pre></div>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(my_array)</span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<p><br><br> <strong>YES!</strong> Only code is used to produce the output. This strategy uses improved coding style by defining a <em>variable</em> for the array, and then defining another variable to contain the output from the <code>length()</code> calculation.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># YES!</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>my_array <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">10</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>the_length <span class="ot">&lt;-</span> <span class="fu">length</span>(my_array)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>the_length</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p><br> <strong>Unless the instructions explicitly ask you to define certain variables, all “YES!” code versions here are equivalent and entirely accceptable!</strong></p>
 <p><br><br></p>
