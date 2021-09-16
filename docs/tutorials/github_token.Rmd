@@ -49,3 +49,11 @@ credentials::set_github_pat()
 ```{r}
 usethis::git_sitrep()
 ```
+
+<br><br>
+
+#### Finally, you can update materials!!
+
+```{r}
+ds4b.materials::update_materials()
+```
