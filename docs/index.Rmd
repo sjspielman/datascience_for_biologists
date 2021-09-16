@@ -38,7 +38,7 @@ W 9/8   | Types of data and figures  | "Types of data and figures" interactive e
 R 9/9   | Concepts in tidy data  | [Tidy data paper](./misc/tidy-data.pdf) | -
 M 9/13  | Introduction to R and RStudio | "Introduction to R" interactive exercises <br> [Introduction to R stand-alone tutorial](./tutorials/introduction_to_R.html)| -
 W 9/15 | Introduction to R and RStudio | "Introduction to R" interactive exercises | Homework 1: Identifying data types and figures <br> [Link to Instructions](./homeworks/hw1/hw1_instructions.html) <br> [Link to Answer Sheet](./homeworks/hw1/homework1_answer_sheet.docx)
-R 9/16 | Exercise Recap and Introduction to RMarkdown | - | -
+R 9/16 | Exercise Recap and Introduction to RMarkdown | Rmarkdown activity | -
 M 9/20 | The grammar of graphics, Part 1 | Slides, TBD  | -
 W 9/22 | The grammar of graphics, Part 2 <br> Identifying trends in visualizations | Slides, TBD  | Homework 2: Using R and RMarkdown <br> [Link to Instructions](./homeworks/hw2/hw2_instructions.html) <br> [Starting and submitting HW2 video](https://youtu.be/n7dyNVH0gE0) <br> [Additonal (important!) help videos](./video_links.html) <br><br> [_**ALSO:** watch/follow this video to setup RStudio Cloud/Github_](./tutorials/github_token.html) and complete Canvas assignment: _"Proof of RStudio Cloud/Github Setup"_
 R 9/23 | _Open work day_  | | -
