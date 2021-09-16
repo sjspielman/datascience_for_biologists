@@ -40,7 +40,7 @@ M 9/13  | Introduction to R and RStudio | "Introduction to R" interactive exerci
 W 9/15 | Introduction to R and RStudio | "Introduction to R" interactive exercises | Homework 1: Identifying data types and figures <br> [Link to Instructions](./homeworks/hw1/hw1_instructions.html) <br> [Link to Answer Sheet](./homeworks/hw1/homework1_answer_sheet.docx)
 R 9/16 | Introduction to RMarkdown and _open work_ | - | -
 M 9/20 | The grammar of graphics, Part 1 | Slides, TBD  | -
-W 9/22 | The grammar of graphics, Part 2 <br> Identifying trends in visualizations | Slides, TBD  | Homework 2: Using R and RMarkdown <br> [Link to Instructions](./homeworks/hw2/hw2_instructions.html) <br> [Help videos](./video_links.html)
+W 9/22 | The grammar of graphics, Part 2 <br> Identifying trends in visualizations | Slides, TBD  | Homework 2: Using R and RMarkdown <br> [Link to Instructions](./homeworks/hw2/hw2_instructions.html) <br> [Help videos](./video_links.html) <br><br> [_Please also watch/follow this video to setup RStudio Cloud/Github_](./tutorials/github_token.html)
 R 9/23 | _Open work day_  | | -
 M 9/27 | Introduction to `ggplot2` | "Introduction to `ggplot2`" interactive exercises | -
 W 9/29 | More `ggplot2`  | "Introduction to `ggplot2`" interactive exercises <br> "Line-by-line" application | Homework 3: Grammar of Graphics <!-- <br> [Link to Instructions](./homeworks/hw4/hw4_instructions.html) <br> [Link to Answer Sheet](./homeworks/hw4/homework4_answer_sheet.docx) -->
