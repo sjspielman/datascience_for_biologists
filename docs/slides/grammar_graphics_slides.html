@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>grammar_graphics_slides.utf8</title>
+    <title>grammar_graphics_slides.knit</title>
     <meta charset="utf-8" />
-    <script src="libs/header-attrs/header-attrs.js"></script>
-    <link href="libs/remark-css/default.css" rel="stylesheet" />
-    <link href="libs/remark-css/chocolate.css" rel="stylesheet" />
-    <link href="libs/remark-css/chocolate-fonts.css" rel="stylesheet" />
+    <script src="grammar_graphics_slides_files/header-attrs/header-attrs.js"></script>
+    <link href="grammar_graphics_slides_files/remark-css/default.css" rel="stylesheet" />
+    <link href="grammar_graphics_slides_files/remark-css/default-fonts.css" rel="stylesheet" />
   </head>
   <body>
     <textarea id="source">
@@ -17,17 +16,28 @@
 
 class: title-slide
 
-background-image: url(slide_background_images/student1.png)
-
 .bg-text[
-# The grammar of graphics
-## Data Science for Biologists
-
-&lt;hr /&gt;
-**Image collage by Lalita Martin**
+# Data viz and the grammar of graphics
+## Data Science for Biologists, Fall 2021
 ]
 
 ---
+
+# Reminder: The "Types of Plots" App is here for you!!
+
+
++ Access from anywhere: https://sjspielman.shinyapps.io/types_of_plots
+
++ Access from your RStudio Cloud project:
+
+
+```r
+library(ds4b.materials) # Load the library if not already loaded
+launch_app("types_of_plots") # Launch the app once library is loaded
+```
+
+---
+
 # Grammar
 
 The dog runs in a park.
@@ -60,19 +70,19 @@ msleep_subvore
 ```
 
 ```
-## # A tibble: 46 x 5
-##    name               vore  awake brainwt  bodywt
-##    &lt;chr&gt;              &lt;fct&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
-##  1 Owl monkey         omni    7   0.0155    0.48 
-##  2 Greater short-tai… omni    9.1 0.00029   0.019
-##  3 Cow                herbi  20   0.423   600    
-##  4 Dog                carni  13.9 0.07     14    
-##  5 Roe deer           herbi  21   0.0982   14.8  
-##  6 Goat               herbi  18.7 0.115    33.5  
-##  7 Guinea pig         herbi  14.6 0.0055    0.728
-##  8 Chinchilla         herbi  11.5 0.0064    0.42 
-##  9 Star-nosed mole    omni   13.7 0.001     0.06 
-## 10 African giant pou… omni   15.7 0.0066    1    
+## # A tibble: 46 × 5
+##    name                       vore  awake brainwt  bodywt
+##    &lt;chr&gt;                      &lt;fct&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+##  1 Owl monkey                 omni    7   0.0155    0.48 
+##  2 Greater short-tailed shrew omni    9.1 0.00029   0.019
+##  3 Cow                        herbi  20   0.423   600    
+##  4 Dog                        carni  13.9 0.07     14    
+##  5 Roe deer                   herbi  21   0.0982   14.8  
+##  6 Goat                       herbi  18.7 0.115    33.5  
+##  7 Guinea pig                 herbi  14.6 0.0055    0.728
+##  8 Chinchilla                 herbi  11.5 0.0064    0.42 
+##  9 Star-nosed mole            omni   13.7 0.001     0.06 
+## 10 African giant pouched rat  omni   15.7 0.0066    1    
 ## # … with 36 more rows
 ```
 
@@ -86,20 +96,20 @@ summary(msleep_subvore)
 ```
 
 ```
-##      name              vore        awake      
-##  Length:46          carni: 9   Min.   : 6.00  
-##  Class :character   herbi:20   1st Qu.:11.50  
-##  Mode  :character   omni :17   Median :14.25  
-##                                Mean   :14.39  
-##                                3rd Qu.:17.70  
-##                                Max.   :21.10  
-##     brainwt             bodywt        
-##  Min.   :0.000140   Min.   :   0.005  
-##  1st Qu.:0.005125   1st Qu.:   0.542  
-##  Median :0.016500   Median :   2.788  
-##  Mean   :0.339623   Mean   : 245.575  
-##  3rd Qu.:0.173500   3rd Qu.:  47.525  
-##  Max.   :5.712000   Max.   :6654.000
+##      name              vore        awake          brainwt        
+##  Length:46          carni: 9   Min.   : 6.00   Min.   :0.000140  
+##  Class :character   herbi:20   1st Qu.:11.50   1st Qu.:0.005125  
+##  Mode  :character   omni :17   Median :14.25   Median :0.016500  
+##                                Mean   :14.39   Mean   :0.339623  
+##                                3rd Qu.:17.70   3rd Qu.:0.173500  
+##                                Max.   :21.10   Max.   :5.712000  
+##      bodywt        
+##  Min.   :   0.005  
+##  1st Qu.:   0.542  
+##  Median :   2.788  
+##  Mean   : 245.575  
+##  3rd Qu.:  47.525  
+##  Max.   :6654.000
 ```
 
 ---
@@ -110,72 +120,43 @@ unique(msleep_subvore$name)
 ```
 
 ```
-##  [1] "Owl monkey"                    
-##  [2] "Greater short-tailed shrew"    
-##  [3] "Cow"                           
-##  [4] "Dog"                           
-##  [5] "Roe deer"                      
-##  [6] "Goat"                          
-##  [7] "Guinea pig"                    
-##  [8] "Chinchilla"                    
-##  [9] "Star-nosed mole"               
-## [10] "African giant pouched rat"     
-## [11] "Lesser short-tailed shrew"     
-## [12] "Long-nosed armadillo"          
-## [13] "Tree hyrax"                    
-## [14] "North American Opossum"        
-## [15] "Asian elephant"                
-## [16] "Horse"                         
-## [17] "Donkey"                        
-## [18] "European hedgehog"             
-## [19] "Patas monkey"                  
-## [20] "Domestic cat"                  
-## [21] "Galago"                        
-## [22] "Gray seal"                     
-## [23] "Gray hyrax"                    
-## [24] "Human"                         
-## [25] "African elephant"              
-## [26] "Macaque"                       
-## [27] "Golden hamster"                
-## [28] "House mouse"                   
-## [29] "Slow loris"                    
-## [30] "Rabbit"                        
-## [31] "Sheep"                         
-## [32] "Chimpanzee"                    
-## [33] "Jaguar"                        
-## [34] "Baboon"                        
-## [35] "Laboratory rat"                
-## [36] "Squirrel monkey"               
-## [37] "Cotton rat"                    
-## [38] "Arctic ground squirrel"        
-## [39] "Thirteen-lined ground squirrel"
-## [40] "Pig"                           
-## [41] "Brazilian tapir"               
-## [42] "Tenrec"                        
-## [43] "Tree shrew"                    
-## [44] "Genet"                         
-## [45] "Arctic fox"                    
-## [46] "Red fox"
+##  [1] "Owl monkey"                     "Greater short-tailed shrew"    
+##  [3] "Cow"                            "Dog"                           
+##  [5] "Roe deer"                       "Goat"                          
+##  [7] "Guinea pig"                     "Chinchilla"                    
+##  [9] "Star-nosed mole"                "African giant pouched rat"     
+## [11] "Lesser short-tailed shrew"      "Long-nosed armadillo"          
+## [13] "Tree hyrax"                     "North American Opossum"        
+## [15] "Asian elephant"                 "Horse"                         
+## [17] "Donkey"                         "European hedgehog"             
+## [19] "Patas monkey"                   "Domestic cat"                  
+## [21] "Galago"                         "Gray seal"                     
+## [23] "Gray hyrax"                     "Human"                         
+## [25] "African elephant"               "Macaque"                       
+## [27] "Golden hamster"                 "House mouse"                   
+## [29] "Slow loris"                     "Rabbit"                        
+## [31] "Sheep"                          "Chimpanzee"                    
+## [33] "Jaguar"                         "Baboon"                        
+## [35] "Laboratory rat"                 "Squirrel monkey"               
+## [37] "Cotton rat"                     "Arctic ground squirrel"        
+## [39] "Thirteen-lined ground squirrel" "Pig"                           
+## [41] "Brazilian tapir"                "Tenrec"                        
+## [43] "Tree shrew"                     "Genet"                         
+## [45] "Arctic fox"                     "Red fox"
 ```
 
 ---
 
 # Identifying components of a plot
 
-![](grammar_graphics_slides_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+![](grammar_graphics_slides_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
 
 **Aesthetics**: How is the data *mapped onto* visual components of the plot?
 + X-axis?
 + Y-axis?
 + Colors? Shapes? Sizes?
 
-**Geometries**: What *shapes* aka *geometric objects* are displayed in the plot?
-
-
----
-
-
-![](grammar_graphics_slides_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+**Geometries**: What *shapes* aka *geometric objects* are displayed in the plot? (Often AKA: What type of plot?)
 
 ---
 
@@ -183,34 +164,43 @@ unique(msleep_subvore$name)
 
 ---
 
+
 ![](grammar_graphics_slides_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
 
-
 ---
+
 ![](grammar_graphics_slides_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+
 
 ---
 ![](grammar_graphics_slides_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
----
 
-![](grammar_graphics_slides_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+
+```
+##  [1]  6.0  6.6  7.0  7.4  8.4  9.1  9.7 10.2 11.0 11.5 11.5 11.5 11.5 12.7 13.0
+## [16] 13.1 13.6 13.7 13.9 13.9 13.9 14.2 14.2 14.3 14.4 14.6 14.6 14.9 14.9 15.1
+## [31] 15.6 15.7 16.0 17.7 17.7 17.8 18.7 18.7 19.6 20.0 20.1 20.2 20.7 20.9 21.0
+## [46] 21.1
+```
 
 ---
 
 ![](grammar_graphics_slides_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
 
----
+--
 
 ![](grammar_graphics_slides_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+
 
 ---
 
 ![](grammar_graphics_slides_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
-
 ---
+
 ![](grammar_graphics_slides_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
 
 ---
+
 ![](grammar_graphics_slides_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
 
 ---
@@ -222,10 +212,8 @@ unique(msleep_subvore$name)
 ![](grammar_graphics_slides_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
 
 
----
-
-
 ![](grammar_graphics_slides_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
+
 
 ---
 
@@ -235,10 +223,55 @@ unique(msleep_subvore$name)
 
 ![](grammar_graphics_slides_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
 
----
 
 
 ![](grammar_graphics_slides_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+
+---
+
+
+![](grammar_graphics_slides_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
+
+---
+
+
+![](grammar_graphics_slides_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+
+---
+
+
+
+![](grammar_graphics_slides_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+
+---
+
+![](grammar_graphics_slides_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
+
+
+---
+
+
+
+![](grammar_graphics_slides_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
+
+
+---
+
+
+![](grammar_graphics_slides_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
+
+---
+
+![](grammar_graphics_slides_files/figure-html/unnamed-chunk-29-1.png)&lt;!-- --&gt;
+
+---
+
+![](grammar_graphics_slides_files/figure-html/unnamed-chunk-30-1.png)&lt;!-- --&gt;
+
+---
+
+
+![](grammar_graphics_slides_files/figure-html/unnamed-chunk-31-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -247,13 +280,13 @@ unique(msleep_subvore$name)
 
 
 .pull-left[
-![](grammar_graphics_slides_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
+![](grammar_graphics_slides_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
 ]
 
 --
 
 .pull-right[
-![](grammar_graphics_slides_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+![](grammar_graphics_slides_files/figure-html/unnamed-chunk-33-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -261,7 +294,7 @@ class: center
 
 # Use log scales for data with extreme ranges
 
-![](grammar_graphics_slides_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+![](grammar_graphics_slides_files/figure-html/unnamed-chunk-34-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -269,15 +302,16 @@ class: center
 
 &lt;br&gt;&lt;br&gt;
 
-+ What variable is on the X-axis? What *type* of data is it?
-&lt;br&gt;&lt;br&gt;
-+ What variable is on the Y-axis? What *type* of data is it?
-&lt;br&gt;&lt;br&gt;
++ _Always start with axes_:
+  + What variable is on the X-axis? What *type* of data is it?
+&lt; br&gt;&lt;br&gt;
+  + What variable is on the Y-axis? What *type* of data is it?
+  &lt;br&gt;&lt;br&gt;
 + Are there colors or fills? Are they "just colors" or are they *aesthetics*?
 &lt;br&gt;&lt;br&gt;
 + What are the geometries in the plot?
 &lt;br&gt;&lt;br&gt;
-+ What *interpretations* can we make about the plot? What question does the plot address or not address? (there are MANY right answers here!). 
++ What *interpretations* can we make about the plot? What question(s) does the plot address or not address? (there are MANY right answers here!). 
 &lt;br&gt;&lt;br&gt;
 + What might the underlying dataset actually look like? *What variables (columns) are likely present?*
 &lt;br&gt;&lt;br&gt;
@@ -298,6 +332,23 @@ Density estimates of the butterfat percentage in the milk of four cattle breeds.
 
 ---
 
+
+# Butterfat from different cows, as bars
+
+
+&lt;img src="img/gg/butterfat-bars-1.png" width="600px" /&gt;
+
+---
+
+# Let's compare:
+
+
+&lt;img src="img/gg/butterfat-densitites-1.png" width="400px" /&gt;
+
+
+&lt;img src="img/gg/butterfat-bars-1.png" width="400px" /&gt;
+
+---
 
 # Average daily temperatures
 
@@ -372,21 +423,60 @@ Head length versus body mass for 123 blue jays. The birds’ sex is indicated by
 
 ---
 
+
+# Bluejays, redux 1
+
+&lt;img src="img/gg/blue-jays-scatter-bubbles-1.png" width="700px" /&gt;
+
+---
+
+
+# Bluejays, redux 2
+
+&lt;img src="img/gg/blue-jays-scatter-line-1.png" width="550px" /&gt;
+
+
+---
+
+# Male bluejays only
+
+
+&lt;img src="img/gg/blue-jays-male-conf-band-1.png" width="550px" /&gt;
+
+---
+
+# Getting an intuition for the _confidence interval_
+
+
+&lt;img src="img/gg/blue-jays-male-fitted-draws-1.png" width="550px" /&gt;
+
+---
+
+
+
 # Airplane delays
 
 
-&lt;img src="img/gg/arrival-delay-vs-distance-1-bad.png" width="500px" /&gt;
+&lt;img src="img/gg/arrival-delay-vs-distance-1-bad.png" width="475px" /&gt;
 
 
 Mean arrival delay versus distance from New York City. Data source: U.S. Dept. of Transportation, Bureau of Transportation Statistics. 
 
+--
+
 This figure is labeled as “bad” because it is overly complex. Most readers will find it confusing and will not intuitively grasp what it is the figure is showing.
-
-
 
 --
 
-**"Looking cool/smart" is NOT the same as effectively communicating.**" 
+**"Looking cool/smart" is NOT the same as effectively communicating.** We'll talk more about data viz style and best practices after we start learning how to plot in R next week!
+
+---
+
+# Data is beautiful and ugly
+
+https://www.reddit.com/r/dataisbeautiful/
+
+https://www.reddit.com/r/dataisugly/
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

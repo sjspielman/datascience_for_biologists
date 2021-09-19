@@ -1,13 +1,10 @@
 ---
 output:
   xaringan::moon_reader:
-    lib_dir: libs
-    css: [default, chocolate, chocolate-fonts]
     nature:
       highlightStyle:  rainbow
       highlightLines: true
       countIncrementalSlides: false
-    seal: false
 ---
 
 
@@ -19,23 +16,33 @@ library(tidyverse)
 library(cowplot)
 library(patchwork)
 library(colorblindr)
-theme_set(theme_cowplot())
+
 source("grammar_graphics_plots.R")
 ```
 
 class: title-slide
 
-background-image: url(slide_background_images/student1.png)
-
 .bg-text[
-# The grammar of graphics
-## Data Science for Biologists
-
-<hr />
-**Image collage by Lalita Martin**
+# Data viz and the grammar of graphics
+## Data Science for Biologists, Fall 2021
 ]
 
 ---
+
+# Reminder: The "Types of Plots" App is here for you!!
+
+
++ Access from anywhere: https://sjspielman.shinyapps.io/types_of_plots
+
++ Access from your RStudio Cloud project:
+
+```{r, eval=F, echo=T}
+library(ds4b.materials) # Load the library if not already loaded
+launch_app("types_of_plots") # Launch the app once library is loaded
+```
+
+---
+
 # Grammar
 
 The dog runs in a park.
@@ -86,7 +93,7 @@ unique(msleep_subvore$name)
 
 # Identifying components of a plot
 
-```{r, echo=F, fig.width = 6, fig.height = 4}
+```{r, echo=F, fig.width = 8, fig.height = 4}
 box_plain
 ```
 
@@ -95,20 +102,19 @@ box_plain
 + Y-axis?
 + Colors? Shapes? Sizes?
 
-**Geometries**: What *shapes* aka *geometric objects* are displayed in the plot?
+**Geometries**: What *shapes* aka *geometric objects* are displayed in the plot? (Often AKA: What type of plot?)
 
+---
+
+```{r, echo=F, fig.width = 8, fig.height = 6}
+box_single_fill
+```
 
 ---
 
 
 ```{r, echo=F, fig.width = 10, fig.height = 4}
 box_fill + box_fill_cb
-```
-
----
-
-```{r, echo=F, fig.width = 10, fig.height = 4}
-box_fill + box_single_fill
 ```
 
 ---
@@ -123,48 +129,98 @@ box_fill + box_single_fill
 hist_all
 ```
 
+```{r, echo=F}
+msleep_subvore %>%
+  arrange(awake) %>%
+  pull(awake)
+```
+
 ---
-```{r, echo=F, fig.width = 12, fig.height = 6}
+
+```{r, echo=F, fig.width = 14, fig.height = 5}
+(hist_smaller + hist_bigger)
+```
+
+--
+
+```{r, echo=F, fig.width = 14, fig.height = 5}
+(hist_dumb1 + hist_dumb2)
+```
+
+
+---
+
+```{r, echo=F, fig.width = 14, fig.height = 6}
 hist_all + hist_all_facet
 ```
 ---
 
-```{r, echo=F, fig.width = 12, fig.height = 6}
+```{r, echo=F, fig.width = 14, fig.height = 6}
 hist_all_facet + hist_fill_facet
 ```
 
 ---
 
-```{r, echo=F, fig.width = 16, fig.height = 6}
+```{r, echo=F, fig.width = 14, fig.height = 6}
 hist_fill_facet + hist_fill_onepanel
 ```
 
 ---
 
-```{r, echo=F, fig.width = 12, fig.height = 6}
+```{r, echo=F, fig.width = 14, fig.height = 6}
 hist_all + density_all
 ```
 
 ---
 
-```{r, echo=F, fig.width = 14, fig.height = 5}
-density_all + density_fill 
+```{r, echo=F, fig.width = 6, fig.height = 4}
+density_all
 ```
 
+
+```{r, echo=F, fig.width = 14, fig.height = 5}
+density_fill + density_facet
+```
+
+
 ---
+
 ```{r, echo=F, fig.width = 14, fig.height = 5}
 density_fill + density_fill_noalpha
 ```
 
 ---
-```{r, echo=F, fig.width = 8, fig.height = 6}
-scatter_plain
+
+```{r, echo=F, fig.width = 14, fig.height = 4.5}
+(box_fill_cb + violin)
+```
+
+
+
+```{r, echo=F, fig.width = 14, fig.height = 4.5}
+density_fill + strip
 ```
 
 ---
 
-```{r, echo=F, fig.width = 14, fig.height = 6}
-scatter_plain + scatter_bigpoint
+
+```{r, echo=F, fig.width = 14, fig.height = 5}
+strip + strip_points
+```
+
+---
+
+
+```{r, echo=F, fig.width = 14, fig.height = 5}
+strip + strip_filled
+```
+
+---
+
+
+
+```{r, echo=F, fig.width = 8, fig.height = 6}
+scatter_bigpoint
 ```
 
 ---
@@ -177,14 +233,23 @@ scatter_bigpoint_pch17
 ---
 
 
+
+```{r, echo=F, fig.width = 8, fig.height = 6}
+scatter_bigpoint_pch21
+```
+
+
+---
+
+
 ```{r, echo=F, fig.width = 8, fig.height = 6}
 scatter_color_discrete
 ```
 
 ---
 
-```{r, echo=F, fig.width = 14, fig.height = 6}
-scatter_color_discrete +scatter_color_cont
+```{r, echo=F, fig.width = 8, fig.height = 6}
+scatter_color_cont
 ```
 
 ---
@@ -239,15 +304,16 @@ msleep_subvore %>%
 
 <br><br>
 
-+ What variable is on the X-axis? What *type* of data is it?
-<br><br>
-+ What variable is on the Y-axis? What *type* of data is it?
-<br><br>
++ _Always start with axes_:
+  + What variable is on the X-axis? What *type* of data is it?
+< br><br>
+  + What variable is on the Y-axis? What *type* of data is it?
+  <br><br>
 + Are there colors or fills? Are they "just colors" or are they *aesthetics*?
 <br><br>
 + What are the geometries in the plot?
 <br><br>
-+ What *interpretations* can we make about the plot? What question does the plot address or not address? (there are MANY right answers here!). 
++ What *interpretations* can we make about the plot? What question(s) does the plot address or not address? (there are MANY right answers here!). 
 <br><br>
 + What might the underlying dataset actually look like? *What variables (columns) are likely present?*
 <br><br>
@@ -270,6 +336,29 @@ Density estimates of the butterfat percentage in the milk of four cattle breeds.
 
 ---
 
+
+# Butterfat from different cows, as bars
+
+
+```{r out.width = '600px', echo=F}
+knitr::include_graphics("img/gg/butterfat-bars-1.png")
+```
+
+---
+
+# Let's compare:
+
+
+```{r out.width = '400px', echo=F}
+knitr::include_graphics("img/gg/butterfat-densitites-1.png")
+```
+
+
+```{r out.width = '400px', echo=F}
+knitr::include_graphics("img/gg/butterfat-bars-1.png")
+```
+
+---
 
 # Average daily temperatures
 
@@ -372,20 +461,67 @@ Head length versus body mass for 123 blue jays. The birds’ sex is indicated by
 
 ---
 
+
+# Bluejays, redux 1
+
+```{r out.width = '700px', echo=F}
+knitr::include_graphics("img/gg/blue-jays-scatter-bubbles-1.png")
+```
+
+---
+
+
+# Bluejays, redux 2
+
+```{r out.width = '550px', echo=F}
+knitr::include_graphics("img/gg/blue-jays-scatter-line-1.png")
+```
+
+
+---
+
+# Male bluejays only
+
+
+```{r out.width = '550px', echo=F}
+knitr::include_graphics("img/gg/blue-jays-male-conf-band-1.png")
+```
+
+---
+
+# Getting an intuition for the _confidence interval_
+
+
+```{r out.width = '550px', echo=F}
+knitr::include_graphics("img/gg/blue-jays-male-fitted-draws-1.png")
+```
+
+---
+
+
+
 # Airplane delays
 
 
-```{r out.width = '500px', echo=F}
+```{r out.width = '475px', echo=F}
 knitr::include_graphics("img/gg/arrival-delay-vs-distance-1-bad.png")
 ```
 
 
 Mean arrival delay versus distance from New York City. Data source: U.S. Dept. of Transportation, Bureau of Transportation Statistics. 
 
+--
+
 This figure is labeled as “bad” because it is overly complex. Most readers will find it confusing and will not intuitively grasp what it is the figure is showing.
-
-
 
 --
 
-**"Looking cool/smart" is NOT the same as effectively communicating.**" 
+**"Looking cool/smart" is NOT the same as effectively communicating.** We'll talk more about data viz style and best practices after we start learning how to plot in R next week!
+
+---
+
+# Data is beautiful and ugly
+
+https://www.reddit.com/r/dataisbeautiful/
+
+https://www.reddit.com/r/dataisugly/
