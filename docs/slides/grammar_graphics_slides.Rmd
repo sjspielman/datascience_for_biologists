@@ -517,11 +517,3 @@ This figure is labeled as “bad” because it is overly complex. Most readers w
 --
 
 **"Looking cool/smart" is NOT the same as effectively communicating.** We'll talk more about data viz style and best practices after we start learning how to plot in R next week!
-
----
-
-# Data is beautiful and ugly
-
-https://www.reddit.com/r/dataisbeautiful/
-
-https://www.reddit.com/r/dataisugly/

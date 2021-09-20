@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>dataviz_style_slides.utf8</title>
+    <title>dataviz_style_slides.knit</title>
     <meta charset="utf-8" />
-    <script src="libs/header-attrs/header-attrs.js"></script>
-    <link href="libs/remark-css/default.css" rel="stylesheet" />
-    <link href="libs/remark-css/chocolate-fonts.css" rel="stylesheet" />
-    <link rel="stylesheet" href="my_chocolate.css" type="text/css" />
+    <script src="dataviz_style_slides_files/header-attrs/header-attrs.js"></script>
+    <link href="dataviz_style_slides_files/remark-css/default.css" rel="stylesheet" />
+    <link href="dataviz_style_slides_files/remark-css/default-fonts.css" rel="stylesheet" />
   </head>
   <body>
     <textarea id="source">
@@ -17,17 +16,11 @@
 
 
 class: title-slide
-background-image: url(slide_background_images/rileysarge.png)
-background-size: contain
 
 .bg-text[
-.title-color-dataviz-style[
 # Best practices for data visualization
-## Data Science for Biologists
-
-&lt;hr /&gt;
-**Good doggos from Caitlyn (L) and Kevin (R)**
-]]
+## Data Science for Biologists, Fall 2021
+]
 
 ---
 
@@ -91,13 +84,13 @@ Number of inhabitants in Rhode Island counties. Data source: 2010 Decennial U.S.
 
 Pies are sized based on relative *area*. Human eyes are really bad at properly perceiving area.
 
-.pull-left2[
 &lt;img src="img/dataviz_best_practices/RI-pop-pie-1.png" width="300px" /&gt;
-]
---
+
+
 .pull-right2[
-&lt;img src="img/dataviz_best_practices/RI-pop-bars-1.png" width="600px" /&gt;
-]
+&lt;img src="img/dataviz_best_practices/RI-pop-bars-1.png" width="400px" /&gt;
+
+
 ---
 
 &lt;img src="img/dataviz_best_practices/tech-stocks-bad-legend-1.png" width="800px" /&gt;
@@ -110,12 +103,12 @@ Stock price over time for four major tech companies. The stock price for each co
 
 
 
-&lt;img src="img/dataviz_best_practices/tech-stocks-bad-legend-1.png" width="400px" /&gt;
+&lt;img src="img/dataviz_best_practices/tech-stocks-bad-legend-1.png" width="350px" /&gt;
 
 
 --
 
-&lt;img src="img/dataviz_best_practices/tech-stocks-good-legend-1.png" width="500px" /&gt;
+&lt;img src="img/dataviz_best_practices/tech-stocks-good-legend-1.png" width="450px" /&gt;
 
 ---
 
@@ -190,7 +183,7 @@ msleep_subvore
 ```
 
 ```
-## # A tibble: 46 x 5
+## # A tibble: 46 × 5
 ##    name                       vore  awake brainwt  bodywt
 ##    &lt;chr&gt;                      &lt;fct&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
 ##  1 Owl monkey                 omni    7   0.0155    0.48 
@@ -234,15 +227,13 @@ msleep_subvore
 
 
 ```r
-myplot &lt;- ggplot(msleep_subvore, 
-       aes(x = vore, y = awake, fill = vore)) + 
+ggplot(msleep_subvore) + 
+  aes(x = vore, y = awake, fill = vore) + 
   geom_violin() + 
 * scale_fill_manual(name = "Legend name",
 *                   values = c("cornflowerblue",
 *                              "coral3",
 *                              "blueviolet"))
-
-print(myplot)
 ```
 
 ![](dataviz_style_slides_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
@@ -252,14 +243,28 @@ print(myplot)
 # How to check CVD friendliness
 
 
-```r
-library(colorblindr) # installed for you our RStudio Cloud
-cvd_grid(myplot)
-```
-
-![](dataviz_style_slides_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
 
 ---
+
+
+![](dataviz_style_slides_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
+
+---
+
+
+# `introverse` resources for styling your plots
+
++ [Customizing `ggplot2` axes](https://spielmanlab.github.io/introverse/articles/axes.html)
++ [Customizing `ggplot2` themes](https://spielmanlab.github.io/introverse/articles/themes.html)
++ [Customizing `ggplot2` colors and fills](https://spielmanlab.github.io/introverse/articles/color_fill_scales.html)
+
+---
+
+# Data is beautiful and ugly
+
+https://www.reddit.com/r/dataisbeautiful/
+
+https://www.reddit.com/r/dataisugly/
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
