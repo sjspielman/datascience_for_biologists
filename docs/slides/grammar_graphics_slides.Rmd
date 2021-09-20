@@ -217,7 +217,63 @@ strip + strip_filled
 
 ---
 
+# The world is your oyster
 
+
+```{r, echo=F, fig.width = 14, fig.height = 5}
+strip
+```
+
+```{r, echo=F, fig.width = 14, fig.height = 5}
+sina + bees
+```
+
+---
+
+# Ok, that wasn't super compelling...
+
+```{r}
+diamonds
+```
+
+---
+
+
+```{r, echo=F, fig.width = 14, fig.height = 5}
+stripd + pointd
+```
+
+```{r, echo=F, fig.width = 14, fig.height = 5}
+sinad + beesd
+```
+
+---
+
+
+
+```{r, echo=F, fig.width = 14, fig.height = 5}
+stripda + pointda
+```
+
+```{r, echo=F, fig.width = 14, fig.height = 5}
+sinada + beesda
+```
+
+---
+
+```{r, echo=F, fig.width = 14, fig.height = 5}
+sinada + beesda
+```
+
+
+```{r, echo=F, fig.width = 7, fig.height = 5}
+violind
+```
+
+
+---
+
+# Onto scatterplots!
 
 ```{r, echo=F, fig.width = 8, fig.height = 6}
 scatter_bigpoint

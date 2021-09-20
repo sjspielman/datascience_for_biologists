@@ -1,7 +1,12 @@
 library(tidyverse)
+library(ggforce)
+library(ggbeeswarm)
+
+
 theme_set(theme_bw() + 
           theme(axis.text = element_text(size = rel(2)),
                 axis.title = element_text(size = rel(2)),
+                plot.title = element_text(size = rel(2)),
                 strip.text = element_text(size = rel(1.5)),
                 legend.text = element_text(size = rel(1.5)),
                 legend.title = element_text(size = rel(1.5)))
@@ -13,6 +18,77 @@ msleep%>%
   select(name, vore, awake, brainwt, bodywt) %>%
   mutate(vore = as.factor(vore)) %>%
   drop_na() -> msleep_subvore
+
+diamonds %>%
+  ggplot(aes(x = cut, y = carat, color = cut)) + 
+  scale_color_brewer(palette = "Dark2") +
+  geom_jitter(width = 0.2, size = 1) +
+  theme(axis.text = element_text(size = rel(1.5)),
+        legend.position = "none") -> stripd
+
+diamonds %>%
+  ggplot(aes(x = cut, y = carat, color = cut)) + 
+  scale_color_brewer(palette = "Dark2") +
+  geom_point(size = 1)+
+  theme(axis.text = element_text(size = rel(1.5)),
+        legend.position = "none")  -> pointd
+
+diamonds %>%
+  ggplot(aes(x = cut, y = carat, color = cut)) + 
+  scale_color_brewer(palette = "Dark2") +
+  geom_sina(size = 1) + ggtitle("Sina plot")+
+  theme(axis.text = element_text(size = rel(1.5)),
+        legend.position = "none")  -> sinad
+
+
+diamonds %>%
+  ggplot(aes(x = cut, y = carat, color = cut)) + 
+  scale_color_brewer(palette = "Dark2") +
+  geom_quasirandom(size = 1) + ggtitle("Beeswarm plot") +
+  theme(axis.text = element_text(size = rel(1.5)),
+        legend.position = "none") -> beesd
+
+
+diamonds %>%
+  ggplot(aes(x = cut, y = carat, color = cut)) + 
+  scale_color_brewer(palette = "Dark2") +
+  geom_jitter(size = 1, width = 0.2, alpha = 0.4) +
+  theme(axis.text = element_text(size = rel(1.5)),
+        legend.position = "none") -> stripda
+
+diamonds %>%
+  ggplot(aes(x = cut, y = carat, color = cut)) + 
+  scale_color_brewer(palette = "Dark2") +
+  geom_point(size = 1, alpha = 0.4) +
+  theme(axis.text = element_text(size = rel(1.5)),
+        legend.position = "none") -> pointda
+
+diamonds %>%
+  ggplot(aes(x = cut, y = carat, color = cut)) + 
+  scale_color_brewer(palette = "Dark2") +
+  geom_sina(size = 1, alpha = 0.4) + ggtitle("Sina plot") +
+  theme(axis.text = element_text(size = rel(1.5)),
+        legend.position = "none") -> sinada
+
+
+diamonds %>%
+  ggplot(aes(x = cut, y = carat, color = cut)) + 
+  scale_color_brewer(palette = "Dark2") +
+  geom_quasirandom(size = 1, alpha = 0.4) + ggtitle("Beeswarm plot")+
+  theme(axis.text = element_text(size = rel(1.5)),
+        legend.position = "none")  -> beesda
+
+
+diamonds %>%
+  ggplot(aes(x = cut, y = carat, fill = cut)) + 
+  scale_fill_brewer(palette = "Dark2") +
+  geom_violin() +
+  theme(axis.text = element_text(size = rel(1.5)),
+        legend.position = "none")  -> violind
+
+
+
+
 
 
 # Make ALL THE PLOTS HERE
@@ -65,18 +141,35 @@ msleep_subvore %>%
 msleep_subvore %>%
   ggplot(aes(x = vore, y = awake, color = vore)) + 
   scale_color_brewer(palette = "Dark2") +
-  geom_jitter(width = 0.2, size = 4) -> strip
+  geom_jitter(width = 0.2, size = 4) + theme(axis.text = element_text(size = rel(1.5)),
+                                           legend.position = "none")-> strip
+
+msleep_subvore %>%
+  ggplot(aes(x = vore, y = awake, color = vore)) + 
+  scale_color_brewer(palette = "Dark2") +
+  geom_sina(size = 4) + ggtitle("Sina plot") +theme(axis.text = element_text(size = rel(1.5)),
+                                                    legend.position = "none")-> sina
+
+
+msleep_subvore %>%
+  ggplot(aes(x = vore, y = awake, color = vore)) + 
+  scale_color_brewer(palette = "Dark2") +
+  geom_quasirandom(size = 4) + ggtitle("Beeswarm plot") +theme(axis.text = element_text(size = rel(1.5)),
+                                                               legend.position = "none")-> bees
+
   
 msleep_subvore %>%
   ggplot(aes(x = vore, y = awake, color = vore)) + 
   scale_color_brewer(palette = "Dark2") +
-  geom_point(size = 4) -> strip_points
+  geom_point(size = 4) +theme(axis.text = element_text(size = rel(1.5)),
+                              legend.position = "none")-> strip_points
 
 
 msleep_subvore %>%
   ggplot(aes(x = vore, y = awake, fill = vore)) + 
   scale_fill_brewer(palette = "Dark2") +
-  geom_jitter(width = 0.2, size = 4, pch=21) -> strip_filled
+  geom_jitter(width = 0.2, size = 4, pch=21) +theme(axis.text = element_text(size = rel(1.5)),
+                                                    legend.position = "none")-> strip_filled
   
   
 msleep_subvore %>%
