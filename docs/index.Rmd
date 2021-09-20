@@ -40,10 +40,10 @@ M 9/13  | Introduction to R and RStudio | "Introduction to R" interactive exerci
 W 9/15 | Introduction to R and RStudio | "Introduction to R" interactive exercises | Homework 1: Identifying data types and figures <br> [Link to Instructions](./homeworks/hw1/hw1_instructions.html) <br> [Link to Answer Sheet](./homeworks/hw1/homework1_answer_sheet.docx)
 R 9/16 | Exercise Recap and Introduction to RMarkdown | Rmarkdown activity | -
 M 9/20 | The grammar of graphics, Part 1 | [Slides](./slides/grammar_graphics_slides.pdf) | -
-W 9/22 | The grammar of graphics, Part 2 | Same slides as Monday 9/20  | Homework 2: Using R and RMarkdown <br> [Link to Instructions](./homeworks/hw2/hw2_instructions.html) <br> [Starting and submitting HW2 video](https://youtu.be/n7dyNVH0gE0) <br> [Additonal (important!) help videos](./video_links.html) <br><br> [_**ALSO:** watch/follow this video to setup RStudio Cloud/Github_](./tutorials/github_token.html) and complete Canvas assignment: _"Proof of RStudio Cloud/Github Setup"_
+W 9/22 | The grammar of graphics, Part 2 <br> Homework 1 Review | Same slides as Monday 9/20  | Homework 2: Using R and RMarkdown <br> [Link to Instructions](./homeworks/hw2/hw2_instructions.html) <br> [Starting and submitting HW2 video](https://youtu.be/n7dyNVH0gE0) <br> [Additonal (important!) help videos](./video_links.html) <br><br> [_**ALSO:** watch/follow this video to setup RStudio Cloud/Github_](./tutorials/github_token.html) and complete Canvas assignment: _"Proof of RStudio Cloud/Github Setup"_
 R 9/23 | _Open work day_  | | -
 M 9/27 | Introduction to `ggplot2` | "Introduction to `ggplot2`" interactive exercises | -
-W 9/29 | More `ggplot2`  | "Introduction to `ggplot2`" interactive exercises <br> "Line-by-line" application | Homework 3: Grammar of Graphics <!-- <br> [Link to Instructions](./homeworks/hw4/hw4_instructions.html) <br> [Link to Answer Sheet](./homeworks/hw4/homework4_answer_sheet.docx) -->
+W 9/29 | More `ggplot2`  | "Introduction to `ggplot2`" interactive exercises <br> "Line-by-line" application | Homework 3: Grammar of Graphics <br> [Link to Instructions](./homeworks/hw3/hw3_instructions.html) <br> [Link to Answer Sheet](./homeworks/hw3/homework3_answer_sheet.docx)
 R 9/30 |  _Open work day_ | | -
 M 10/4 | Tidy data and deriving data from plots | - | -
 W 10/6 |  Best practices in data visualization <br> Importing and exporting data | Slides, TBD  | Homework 4: Data visualization with `ggplot2`

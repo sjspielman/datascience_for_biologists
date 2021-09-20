@@ -1,7 +1,7 @@
 ---
-title: 'Instructions: Homework #4'
+title: 'Instructions: Homework #3'
 author: "Data Science for Biologists, Fall 2021"
-date: "Complete the .docx answer sheet and submit to Canvas as a PDF by 9/28/21 at 1 PM"
+date: "Complete the .docx answer sheet and submit to Canvas as a PDF by 9/29/21 at 1 PM"
 output: 
   html_document:
     theme: lumen
@@ -23,18 +23,26 @@ areas <- c("Umbria", "East-Liguria", "West-Liguria",
 ```
 
 
-The goal of this assignment is to explore datasets and interpret the grammatical components of figures created for you from two different datasets, described below. *You will NOT be submitting any code for this assignment!* Instead, you will submit some brief interpretations for each of the plots below using the Homework 4 Template, which should be submitted to Canvas as a PDF document. 
+The goal of this assignment is to explore datasets and interpret the grammatical components of figures created for you from two different datasets, described below. *You will NOT be submitting any code for this assignment!* Instead, you will submit some brief interpretations for each of the plots below using the Homework #3 Template, which should be submitted to Canvas as a PDF document. 
 
-Below, you will see several plots, each of which was made with one of two datasets: `olives` or `wine`. These datasets can be accessed from the `ds4b.materials` library, as shown.
+Below, you will see several plots, each of which was made with one of two datasets: `olives` or `wine`. These datasets can be accessed from the `ds4b.materials` library, as shown:
 
-```{r, eval=F}
-library(ds4b.materials)
+```{r, eval=F, echo=T}
+library(ds4b.materials) # need to load this ONCE per R session
 
-# Look at olives:
+# I also recommend this command which will make it easier to see the datasets interactively
+# We'll learn more about this command next week!
+library(tidyverse)
+
+# Look at olives by typing olives and other functions like head(), names(), etc.
 olives
 
-# Look at wine:
+# Or, see a full view with View():
+View(olives)
+
+# And you can do the same with wine:
 wine
+View(wine)
 ```
 
 
