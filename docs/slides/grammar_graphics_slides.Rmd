@@ -19,6 +19,12 @@ library(colorblindr)
 
 source("grammar_graphics_plots.R")
 ```
+@media print {
+  .has-continuation {
+    display: block !important;
+  }
+}
+
 
 class: title-slide
 

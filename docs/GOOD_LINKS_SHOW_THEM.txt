@@ -1,0 +1,3 @@
+Gif of building up a ggplot2: https://twitter.com/icymi_r/status/1426281495564636163?s=12
+
+Hadley tweet: https://twitter.com/hadleywickham/status/589068687669243905?s=12
