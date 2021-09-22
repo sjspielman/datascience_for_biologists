@@ -293,16 +293,17 @@ pre code {
 </ol>
 <p><br></p>
 <ol start="3" style="list-style-type: decimal">
-<li>Define an array variable called <code>mammal_vectors</code> to contain these strings: “camel”, “civet”, “mink”, “bat”, “ferret”, and “pangolin” (these are all mammals known to be vectors for either SARS-CoV-2 or one of its close relatives SARS and MERS). Use the logical operator <code>%in%</code> to determine if the string “elephant” is in the array. <strong>If “elephant” is in the array, your code should print <code>TRUE</code>, and <code>FALSE</code> otherwise.</strong>
+<li>Define an array variable called <code>mammals_vector</code> to contain these strings: “camel”, “civet”, “mink”, “bat”, “ferret”, and “pangolin” (these are all mammals known to be vectors for either SARS-CoV-2 or one of its close relatives SARS and MERS). Use the logical operator <code>%in%</code> to determine if the string “elephant” is in the array. <strong>If “elephant” is in the array, your code should print <code>TRUE</code>, and <code>FALSE</code> otherwise.</strong>
 <ul>
 <li>Need help? Run <code>get_help(&quot;logical&quot;)</code> in the R Console after loading the <code>introverse</code> library.</li>
 </ul></li>
 </ol>
 <p><br></p>
 <ol start="4" style="list-style-type: decimal">
-<li>Define an array variable called <code>dinosaurs</code> to contain the three strings: “eagle”, “ostrich”, and “sparrow” (wait, those are all birds?! That’s right, birds are dinosaurs!). Then, define two other variables called <code>mammals_length</code> and <code>dinosaurs_length</code>, which should each contain the result of running <code>length()</code> on each array. Finally, use a logical operator to compare these variables. <strong>If <code>mammals_length</code> is larger than <code>dinosaurs_length</code> (in other words, the mammals array is longer than the dinosaurs array), your code should print <code>TRUE</code>. Otherwise, your code should print <code>FALSE</code>.</strong>
+<li>Define an array variable called <code>dinosaurs</code> to contain the three strings: “eagle”, “ostrich”, and “sparrow” (wait, those are all birds?! That’s right, birds are dinosaurs!). Then, define two other variables called <code>mammals_length</code> and <code>dinosaurs_length</code>. The variable <code>mammals_length</code> should be defined as the result of running <code>length()</code> on the <code>mammals_vector</code> array you defined in the previous question. The variable <code>dinosaurs_length</code> should similar be defined as the result of running <code>length()</code> on the <code>dinosaurs</code> array. Finally, use a logical operator to compare these variables. <strong>If <code>mammals_length</code> is larger than <code>dinosaurs_length</code> (in other words, the mammals array is longer than the dinosaurs array), your code should print <code>TRUE</code>. Otherwise, your code should print <code>FALSE</code>.</strong>
 <ul>
 <li>Need help? Run <code>get_help(&quot;length&quot;)</code> in the R Console after loading the <code>introverse</code> library.</li>
+<li>Make sure to have variables dynamically assigned with <code>length()</code>! Scroll to the bottom of these instructions to see what I mean by making sure code produces the length variables!</li>
 </ul></li>
 </ol>
 <p><br></p>

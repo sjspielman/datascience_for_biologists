@@ -48,13 +48,14 @@ knitr::opts_chunk$set(echo = TRUE)
 
 <br> 
 
-3. Define an array variable called `mammal_vectors` to contain these strings: "camel", "civet", "mink", "bat", "ferret", and "pangolin" (these are all mammals known to be vectors for either SARS-CoV-2 or one of its close relatives SARS and MERS).  Use the logical operator `%in%` to determine if the string "elephant" is in the array. **If "elephant" is in the array, your code should print `TRUE`, and `FALSE` otherwise.**
+3. Define an array variable called `mammals_vector` to contain these strings: "camel", "civet", "mink", "bat", "ferret", and "pangolin" (these are all mammals known to be vectors for either SARS-CoV-2 or one of its close relatives SARS and MERS).  Use the logical operator `%in%` to determine if the string "elephant" is in the array. **If "elephant" is in the array, your code should print `TRUE`, and `FALSE` otherwise.**
     + Need help? Run `get_help("logical")` in the R Console after loading the `introverse` library.
 
 <br>
 
-4. Define an array variable called `dinosaurs` to contain the three strings: "eagle", "ostrich", and "sparrow" (wait, those are all birds?! That's right, birds are dinosaurs!). Then, define two other variables called `mammals_length` and `dinosaurs_length`, which should each contain the result of running `length()` on each array. Finally, use a logical operator to compare these variables. **If `mammals_length` is larger than `dinosaurs_length` (in other words, the mammals array is longer than the dinosaurs array), your code should print `TRUE`. Otherwise, your code should print `FALSE`.**
+4. Define an array variable called `dinosaurs` to contain the three strings: "eagle", "ostrich", and "sparrow" (wait, those are all birds?! That's right, birds are dinosaurs!). Then, define two other variables called `mammals_length` and `dinosaurs_length`. The variable `mammals_length` should be defined as the result of running `length()` on the `mammals_vector` array you defined in the previous question. The variable `dinosaurs_length` should similar be defined as the result of running `length()` on the `dinosaurs` array. Finally, use a logical operator to compare these variables. **If `mammals_length` is larger than `dinosaurs_length` (in other words, the mammals array is longer than the dinosaurs array), your code should print `TRUE`. Otherwise, your code should print `FALSE`.**
     + Need help? Run `get_help("length")` in the R Console after loading the `introverse` library.
+    + Make sure to have variables dynamically assigned with `length()`! Scroll to the bottom of these instructions to see what I mean by making sure code produces the length variables!
 
 <br> 
 
