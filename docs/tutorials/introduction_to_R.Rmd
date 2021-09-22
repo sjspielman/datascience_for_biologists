@@ -424,7 +424,7 @@ We will begin our exploration with the old trusted dataset `iris`, which comes w
 ### Exploring and indexing data frames
 
 The first step to using any data is to LOOK AT IT!!! RStudio contains a special function `View()` which allows you to literally VIEW a variable. Try it out with `View(iris)`. You'll see a new table pop up in the "editor" pane:
-![iris][img/irisview.png].
+![iris](img/irisview.png).
 
 As you can see, there are FIVE columns and 150 rows in this data frame. While `View()` is convenient, there are also more dynamic ways of exploring our data which do not require specialized RStudio features. Some useful functions include:
 
@@ -471,7 +471,7 @@ levels(iris$Species)
 ```
 
 
-## Writing Scripts
+## Writing Scripts (not RMarkdown!)
 
 So far, we have been directly typing code into the console and interactively examining its output. While this is tremendously valuable for a) getting comfortable with R, and b) trying out different coding strategies, _it is not a good idea long term_. Future You wants to be able to look back at your code, but if Today You types directly into the console, Future You will never know about it.
 
@@ -497,6 +497,6 @@ You can now type code as you normally would in this script. Code can be executed
 
 2. The **Source** button will execute all code in the entire script.
 
-When writing scripts, to view _any_ output, you MUST use the `print()` function. In interactive environments, simply typing a variable name will automatically reveal its value. This is NOT the case in scripts, so you must always print print print PRINT PRINT PPPPRRRRIIIINNNTTTT!!! **If you learn nothing else in this workshop, you will learn to PRINT. It's _that_ important**.
+When writing scripts, to view _any_ output, you MUST use the `print()` function. In interactive environments, simply typing a variable name will automatically reveal its value. This is NOT the case in scripts, so you must always print print print PRINT PRINT PPPPRRRRIIIINNNTTTT!!!
 
 
