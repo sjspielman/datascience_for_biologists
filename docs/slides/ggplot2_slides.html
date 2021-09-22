@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>ggplot2_slides.utf8</title>
+    <title>ggplot2_slides.knit</title>
     <meta charset="utf-8" />
-    <script src="libs/header-attrs/header-attrs.js"></script>
-    <link href="libs/remark-css/default.css" rel="stylesheet" />
-    <link href="libs/remark-css/chocolate-fonts.css" rel="stylesheet" />
-    <link rel="stylesheet" href="my_chocolate.css" type="text/css" />
+    <script src="ggplot2_slides_files/header-attrs/header-attrs.js"></script>
+    <link href="ggplot2_slides_files/remark-css/default.css" rel="stylesheet" />
+    <link href="ggplot2_slides_files/remark-css/default-fonts.css" rel="stylesheet" />
   </head>
   <body>
     <textarea id="source">
@@ -16,19 +15,10 @@
 
 
 
-class: title-slide
-background-image: url(slide_background_images/rhino_jawn.png)
-background-size: contain
-
 .bg-text[
 # Introduction to `ggplot2`
-## Data Science for Biologists
-
-&lt;hr /&gt;
-&lt;br&gt;&lt;br&gt;
-**Rhino jawn from Naman Srivastava**
+## Data Science for Biologists, Fall 2021
 ]
-
 
 
 ---
@@ -42,7 +32,7 @@ background-size: contain
 install.packages("nameoflib")
 ```
 
-2. **Load** the library/package for *each R session or script* where you want to use it.
+2. **Load** the library/package for *each R session/Rmd/script* where you want to use it.
 
 
 ```r
@@ -74,23 +64,6 @@ https://www.tidyverse.org/
 library("tidyverse") 
 ```
 
-```
-## ── Attaching packages ─────────
-```
-
-```
-## ✓ tibble  3.0.4     ✓ dplyr   1.0.2
-## ✓ tidyr   1.1.2     ✓ stringr 1.4.0
-## ✓ readr   1.4.0     ✓ forcats 0.5.0
-## ✓ purrr   0.3.4
-```
-
-```
-## ── Conflicts ──────────────────
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()
-```
-
 ### If you don't load your package, you can't use its functions
 
 &gt; Ok, only kind of. We'll talk more about this later!
@@ -113,38 +86,24 @@ Error in ggplot() : could not find function "ggplot"
 
 
 ```r
-msleep_smol
+msleep
 ```
 
 ```
-## # A tibble: 20 x 7
-##    name  vore  order
-##    &lt;chr&gt; &lt;fct&gt; &lt;fct&gt;
-##  1 Grea… omni  Sori…
-##  2 Dog   carni Carn…
-##  3 Roe … herbi Arti…
-##  4 Guin… herbi Rode…
-##  5 Chin… herbi Rode…
-##  6 Star… omni  Sori…
-##  7 Less… omni  Sori…
-##  8 Long… carni Cing…
-##  9 Tree… herbi Hyra…
-## 10 Nort… omni  Dide…
-## 11 Euro… omni  Erin…
-## 12 Pata… omni  Prim…
-## 13 Dome… carni Carn…
-## 14 Gray… herbi Hyra…
-## 15 Gold… herbi Rode…
-## 16 Hous… herbi Rode…
-## 17 Rabb… herbi Lago…
-## 18 Labo… herbi Rode…
-## 19 Arct… herbi Rode…
-## 20 Thir… herbi Rode…
-## # … with 4 more variables:
-## #   conservation &lt;fct&gt;,
-## #   awake &lt;dbl&gt;,
-## #   brainwt &lt;dbl&gt;,
-## #   bodywt &lt;dbl&gt;
+## # A tibble: 83 × 11
+##    name   genus vore  order conservation sleep_total sleep_rem sleep_cycle awake
+##    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;
+##  1 Cheet… Acin… carni Carn… lc                  12.1      NA        NA      11.9
+##  2 Owl m… Aotus omni  Prim… &lt;NA&gt;                17         1.8      NA       7  
+##  3 Mount… Aplo… herbi Rode… nt                  14.4       2.4      NA       9.6
+##  4 Great… Blar… omni  Sori… lc                  14.9       2.3       0.133   9.1
+##  5 Cow    Bos   herbi Arti… domesticated         4         0.7       0.667  20  
+##  6 Three… Brad… herbi Pilo… &lt;NA&gt;                14.4       2.2       0.767   9.6
+##  7 North… Call… carni Carn… vu                   8.7       1.4       0.383  15.3
+##  8 Vespe… Calo… &lt;NA&gt;  Rode… &lt;NA&gt;                 7        NA        NA      17  
+##  9 Dog    Canis carni Carn… domesticated        10.1       2.9       0.333  13.9
+## 10 Roe d… Capr… herbi Arti… lc                   3        NA        NA      21  
+## # … with 73 more rows, and 2 more variables: brainwt &lt;dbl&gt;, bodywt &lt;dbl&gt;
 ```
 
 ---
@@ -154,58 +113,34 @@ msleep_smol
 
 
 ```r
-summary(msleep_smol)
+summary(msleep)
 ```
 
 ```
-##      name              vore   
-##  Length:20          carni: 3  
-##  Class :character   herbi:11  
-##  Mode  :character   omni : 6  
-##                               
-##                               
-##                               
-##                               
-##           order  
-##  Rodentia    :7  
-##  Soricomorpha:3  
-##  Carnivora   :2  
-##  Hyracoidea  :2  
-##  Artiodactyla:1  
-##  Cingulata   :1  
-##  (Other)     :4  
-##        conservation
-##  domesticated: 5   
-##  en          : 1   
-##  lc          :13   
-##  nt          : 1   
-##  vu          : 0   
-##                    
-##                    
-##      awake      
-##  Min.   : 6.00  
-##  1st Qu.:10.07  
-##  Median :12.30  
-##  Mean   :12.58  
-##  3rd Qu.:14.68  
-##  Max.   :21.00  
-##                 
-##     brainwt        
-##  Min.   :0.000140  
-##  1st Qu.:0.001675  
-##  Median :0.006000  
-##  Mean   :0.019620  
-##  3rd Qu.:0.012278  
-##  Max.   :0.115000  
-##                    
-##      bodywt       
-##  Min.   : 0.0050  
-##  1st Qu.: 0.1153  
-##  Median : 0.8450  
-##  Mean   : 2.9430  
-##  3rd Qu.: 3.0375  
-##  Max.   :14.8000  
-## 
+##      name              genus               vore              order          
+##  Length:83          Length:83          Length:83          Length:83         
+##  Class :character   Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+##                                                                             
+##                                                                             
+##                                                                             
+##                                                                             
+##  conservation        sleep_total      sleep_rem      sleep_cycle    
+##  Length:83          Min.   : 1.90   Min.   :0.100   Min.   :0.1167  
+##  Class :character   1st Qu.: 7.85   1st Qu.:0.900   1st Qu.:0.1833  
+##  Mode  :character   Median :10.10   Median :1.500   Median :0.3333  
+##                     Mean   :10.43   Mean   :1.875   Mean   :0.4396  
+##                     3rd Qu.:13.75   3rd Qu.:2.400   3rd Qu.:0.5792  
+##                     Max.   :19.90   Max.   :6.600   Max.   :1.5000  
+##                                     NA's   :22      NA's   :51      
+##      awake          brainwt            bodywt        
+##  Min.   : 4.10   Min.   :0.00014   Min.   :   0.005  
+##  1st Qu.:10.25   1st Qu.:0.00290   1st Qu.:   0.174  
+##  Median :13.90   Median :0.01240   Median :   1.670  
+##  Mean   :13.57   Mean   :0.28158   Mean   : 166.136  
+##  3rd Qu.:16.15   3rd Qu.:0.12550   3rd Qu.:  41.750  
+##  Max.   :22.10   Max.   :5.71200   Max.   :6654.000  
+##                  NA's   :27
 ```
 
 ---
@@ -225,7 +160,7 @@ summary(msleep_smol)
 
 
 ```r
-ggplot(msleep_smol)
+ggplot(msleep)
 ```
 
 ![](ggplot2_slides_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
@@ -236,7 +171,7 @@ ggplot(msleep_smol)
 
 
 ```r
-ggplot(msleep_smol) + 
+ggplot(msleep) + 
   aes(x = brainwt, y = bodywt)
 ```
 
@@ -250,13 +185,13 @@ ggplot(msleep_smol) +
 
 
 ```r
-ggplot(msleep_smol) + 
+ggplot(msleep) + 
   (x = brainwt, y = bodywt)
 ```
 
 ```
 ## Error: &lt;text&gt;:2:15: unexpected ','
-## 1: ggplot(msleep_smol) + 
+## 1: ggplot(msleep) + 
 ## 2:   (x = brainwt,
 ##                  ^
 ```
@@ -269,9 +204,13 @@ ggplot(msleep_smol) +
 
 
 ```r
-ggplot(msleep_smol) + 
+ggplot(msleep) + 
   aes(x = brainwt, y = bodywt) + 
 * geom_point()
+```
+
+```
+## Warning: Removed 27 rows containing missing values (geom_point).
 ```
 
 ![](ggplot2_slides_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
@@ -283,9 +222,13 @@ ggplot(msleep_smol) +
 
 
 ```r
-ggplot(msleep_smol) + 
+ggplot(msleep) + 
   aes(x = brainwt, y = bodywt) + 
 * geom_point(color = "firebrick")
+```
+
+```
+## Warning: Removed 27 rows containing missing values (geom_point).
 ```
 
 ![](ggplot2_slides_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
@@ -296,9 +239,13 @@ ggplot(msleep_smol) +
 
 
 ```r
-ggplot(msleep_smol) + 
+ggplot(msleep) + 
   aes(x = brainwt, y = bodywt) + 
 * geom_point(color = "firebrick", size = 3)
+```
+
+```
+## Warning: Removed 27 rows containing missing values (geom_point).
 ```
 
 ![](ggplot2_slides_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
@@ -309,11 +256,15 @@ ggplot(msleep_smol) +
 
 
 ```r
-sleep_scatter &lt;- ggplot(msleep_smol) + 
+sleep_scatter &lt;- ggplot(msleep) + 
   aes(x = brainwt, y = bodywt) + 
   geom_point(color = "firebrick", size = 3) 
 
 print(sleep_scatter)
+```
+
+```
+## Warning: Removed 27 rows containing missing values (geom_point).
 ```
 
 ![](ggplot2_slides_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
@@ -324,11 +275,15 @@ print(sleep_scatter)
 
 
 ```r
-ggplot(msleep_smol) + 
+ggplot(msleep) + 
   aes(x = brainwt, y = bodywt) + 
   geom_point(color = "firebrick", size = 3) -&gt; sleep_scatter 
 
 print(sleep_scatter)
+```
+
+```
+## Warning: Removed 27 rows containing missing values (geom_point).
 ```
 
 ![](ggplot2_slides_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
@@ -339,18 +294,22 @@ print(sleep_scatter)
 
 
 ```r
-ggplot(msleep_smol) + 
+ggplot(msleep) + 
   aes(x = brainwt, y = bodywt) + 
   geom_point(color = "firebrick", size = 3) 
 ```
 
 
 ```r
-ggplot(msleep_smol) + 
+ggplot(msleep) + 
   aes(x = brainwt, y = bodywt) -&gt; sleep_xy
 
 sleep_xy + 
   geom_point(color = "firebrick", size = 3)
+```
+
+```
+## Warning: Removed 27 rows containing missing values (geom_point).
 ```
 
 ![](ggplot2_slides_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
@@ -370,10 +329,18 @@ sleep_xy +
 sleep_scatter
 ```
 
+```
+## Warning: Removed 27 rows containing missing values (geom_point).
+```
+
 ![](ggplot2_slides_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
 
 ```r
 sleep_scatter + theme_classic()
+```
+
+```
+## Warning: Removed 27 rows containing missing values (geom_point).
 ```
 
 ![](ggplot2_slides_files/figure-html/unnamed-chunk-18-2.png)&lt;!-- --&gt;
@@ -385,10 +352,18 @@ sleep_scatter + theme_classic()
 sleep_scatter + theme_dark()
 ```
 
+```
+## Warning: Removed 27 rows containing missing values (geom_point).
+```
+
 ![](ggplot2_slides_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
 
 ```r
 sleep_scatter + theme_minimal()
+```
+
+```
+## Warning: Removed 27 rows containing missing values (geom_point).
 ```
 
 ![](ggplot2_slides_files/figure-html/unnamed-chunk-19-2.png)&lt;!-- --&gt;
@@ -401,10 +376,14 @@ sleep_scatter + theme_minimal()
 
 
 ```r
-ggplot(msleep_smol) + 
+ggplot(msleep) + 
   aes(x = brainwt, y = bodywt) + 
   geom_point() + 
 * theme_bw()
+```
+
+```
+## Warning: Removed 27 rows containing missing values (geom_point).
 ```
 
 ![](ggplot2_slides_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
@@ -442,7 +421,7 @@ theme_set(theme_classic())
 
 
 ```r
-ggplot(msleep_smol)
+ggplot(msleep)
 ```
 
 ![](ggplot2_slides_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
@@ -453,7 +432,7 @@ ggplot(msleep_smol)
 
 
 ```r
-ggplot(msleep_smol) + 
+ggplot(msleep) + 
 * aes(x = awake)
 ```
 
@@ -465,15 +444,13 @@ ggplot(msleep_smol) +
 
 
 ```r
-ggplot(msleep_smol) + 
+ggplot(msleep) + 
   aes(x = awake) + 
 * geom_histogram()
 ```
 
 ```
-## `stat_bin()` using `bins =
-## 30`. Pick better value with
-## `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
 ![](ggplot2_slides_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
@@ -484,7 +461,7 @@ ggplot(msleep_smol) +
 
 
 ```r
-ggplot(msleep_smol) + 
+ggplot(msleep) + 
   aes(x = awake) + 
 * geom_histogram(bins = 10)
 ```
@@ -499,7 +476,7 @@ ggplot(msleep_smol) +
 
 
 ```r
-ggplot(msleep_smol) + 
+ggplot(msleep) + 
   aes(x = awake) + 
 * geom_histogram(binwidth = 2)
 ```
@@ -514,7 +491,7 @@ ggplot(msleep_smol) +
 .pull-left[
 
 ```r
-ggplot(msleep_smol) + 
+ggplot(msleep) + 
   aes(x = awake) + 
 * geom_histogram(bins = 2)
 ```
@@ -525,7 +502,7 @@ ggplot(msleep_smol) +
 .pull-right[
 
 ```r
-ggplot(msleep_smol) + 
+ggplot(msleep) + 
   aes(x = awake) + 
 * geom_histogram(bins = 30)
 ```
@@ -539,7 +516,7 @@ ggplot(msleep_smol) +
 
 
 ```r
-ggplot(msleep_smol) + 
+ggplot(msleep) + 
   aes(x = awake) + 
 * geom_histogram(binwidth = 2, color = "dodgerblue")
 ```
@@ -553,7 +530,7 @@ ggplot(msleep_smol) +
 
 
 ```r
-ggplot(msleep_smol) + 
+ggplot(msleep) + 
   aes(x = awake) + 
 * geom_histogram(binwidth = 2,
 *                color = "dodgerblue")
@@ -568,7 +545,7 @@ ggplot(msleep_smol) +
 
 
 ```r
-ggplot(msleep_smol) + 
+ggplot(msleep) + 
   aes(x = awake) + 
   geom_histogram(binwidth = 2,   
                  color = "dodgerblue",
@@ -583,7 +560,7 @@ ggplot(msleep_smol) +
 
 
 ```r
-ggplot(msleep_smol) + 
+ggplot(msleep) + 
   aes(x = awake) + 
   geom_histogram(binwidth = 2,   
                  color = "dodgerblue",
@@ -600,7 +577,7 @@ ggplot(msleep_smol) +
 
 
 ```r
-ggplot(msleep_smol) + 
+ggplot(msleep) + 
   # specify x on the x-axis 
   aes(x = awake) + 
   geom_histogram(binwidth = 2, # use binwidth of 2  
@@ -631,7 +608,7 @@ ggplot(msleep_smol) +
 
 
 ```r
-ggplot(msleep_smol) + 
+ggplot(msleep) + 
   aes(x = awake) + 
 * geom_density()
 ```
@@ -644,7 +621,7 @@ ggplot(msleep_smol) +
 
 
 ```r
-ggplot(msleep_smol) + 
+ggplot(msleep) + 
   aes(x = awake) + 
 * geom_density(fill = "cornflowerblue",
 *              color = "chartreuse",
@@ -670,7 +647,7 @@ ggplot(msleep_smol) +
 
 
 ```r
-ggplot(msleep_smol) +  
+ggplot(msleep) +  
 * aes(x = awake, fill = vore) +
   geom_density()
 ```
@@ -685,7 +662,7 @@ ggplot(msleep_smol) +
 
 
 ```r
-ggplot(msleep_smol) +  
+ggplot(msleep) +  
 * aes(x = awake, fill = vore) +
 * geom_density(alpha = 0.5)
 ```
@@ -703,7 +680,7 @@ ggplot(msleep_smol) +
 
 
 ```r
-ggplot(msleep_smol) +  
+ggplot(msleep) +  
   aes(x = awake, 
 *     fill = vore,
 *     color = vore) +
@@ -730,7 +707,7 @@ ggplot(msleep_smol) +
 
 
 ```r
-ggplot(msleep_smol) + 
+ggplot(msleep) + 
 * aes(x = vore, y = awake)
 ```
 
@@ -743,7 +720,7 @@ ggplot(msleep_smol) +
 
 
 ```r
-ggplot(msleep_smol) + 
+ggplot(msleep) + 
   aes(x = vore, y = awake) +
 * geom_boxplot()
 ```
@@ -756,7 +733,7 @@ ggplot(msleep_smol) +
 
 
 ```r
-ggplot(msleep_smol) + 
+ggplot(msleep) + 
   aes(x = vore, y = awake) +
 * geom_boxplot(color = "deeppink",
 *              fill  = "goldenrod1")
@@ -774,7 +751,7 @@ ggplot(msleep_smol) +
 
 
 ```r
-ggplot(msleep_smol) + 
+ggplot(msleep) + 
 * aes(x = vore, y = awake, fill = vore) +
   geom_boxplot()
 ```
@@ -789,7 +766,7 @@ ggplot(msleep_smol) +
 .pull-left[
 
 ```r
-ggplot(msleep_smol) + 
+ggplot(msleep) + 
   aes(x = vore, y = awake) +  
 * geom_violin()
 ```
@@ -800,7 +777,7 @@ ggplot(msleep_smol) +
 .pull-right[
 
 ```r
-ggplot(msleep_smol) + 
+ggplot(msleep) + 
   aes(x = vore, 
       y = awake, 
 *     fill = vore) +
@@ -817,7 +794,7 @@ ggplot(msleep_smol) +
 
 
 ```r
-ggplot(msleep_smol) + 
+ggplot(msleep) + 
   aes(x = vore, y = awake) +
   # size = 2 to see more easily in slides
 * geom_jitter(size = 2)
@@ -832,7 +809,7 @@ ggplot(msleep_smol) +
 
 
 ```r
-ggplot(msleep_smol) + 
+ggplot(msleep) + 
   aes(x = vore, y = awake) +  
 * geom_jitter(width = 0.2,
               size  = 2)
@@ -847,7 +824,7 @@ ggplot(msleep_smol) +
 
 
 ```r
-ggplot(msleep_smol) + 
+ggplot(msleep) + 
   # COLOR, NOT FILL!! These are points
   aes(x = vore, 
       y = awake, 
@@ -875,7 +852,7 @@ ggplot(msleep_smol) +
 
 
 ```r
-ggplot(msleep_smol) +
+ggplot(msleep) +
   aes(x = vore) + 
 * geom_bar()
 ```
@@ -887,7 +864,7 @@ ggplot(msleep_smol) +
 
 
 ```r
-ggplot(msleep_smol) +
+ggplot(msleep) +
   aes(x = vore) + 
 * geom_bar(fill = "blueviolet")
 ```
@@ -898,7 +875,7 @@ ggplot(msleep_smol) +
 
 
 ```r
-ggplot(msleep_smol) +
+ggplot(msleep) +
   aes(x = vore) + 
 * geom_bar(fill = "blueviolet",
 *          color = "black", size = 2)
@@ -913,7 +890,7 @@ ggplot(msleep_smol) +
 
 
 ```r
-ggplot(msleep_smol) +
+ggplot(msleep) +
   aes(x = vore,
 *     fill = vore) +
   geom_bar() 
@@ -926,7 +903,7 @@ ggplot(msleep_smol) +
 
 
 ```r
-ggplot(msleep_smol) +
+ggplot(msleep) +
   aes(x = vore,
       fill = vore) +  
 * geom_bar(color = "black")
@@ -939,7 +916,7 @@ ggplot(msleep_smol) +
 
 
 ```r
-ggplot(msleep_smol) +
+ggplot(msleep) +
   aes(x = vore,
 *     fill = conservation) +
   geom_bar() 
@@ -953,7 +930,7 @@ ggplot(msleep_smol) +
 
 
 ```r
-ggplot(msleep_smol) +
+ggplot(msleep) +
   aes(x = vore,
       fill = conservation) + 
 * geom_bar(position = position_dodge())
@@ -967,7 +944,7 @@ ggplot(msleep_smol) +
 
 
 ```r
-ggplot(msleep_smol) +
+ggplot(msleep) +
   aes(x = vore,
       fill = conservation) + 
 * geom_bar(position = position_dodge(preserve="single"))
@@ -982,7 +959,7 @@ ggplot(msleep_smol) +
 .pull-left[
 
 ```r
-ggplot(msleep_smol) +
+ggplot(msleep) +
   aes(x = vore,
       fill = conservation) +  
   geom_bar() 
@@ -994,7 +971,7 @@ ggplot(msleep_smol) +
 .pull-right[
 
 ```r
-ggplot(msleep_smol) +
+ggplot(msleep) +
   aes(x = conservation,
       fill = vore) +  
   geom_bar() 
@@ -1009,7 +986,7 @@ ggplot(msleep_smol) +
 
 
 ```r
-ggplot(msleep_smol) +
+ggplot(msleep) +
   aes(x = vore,
       fill = order) +  
   geom_bar() 
@@ -1027,7 +1004,7 @@ ggplot(msleep_smol) +
 
 
 ```r
-ggplot(msleep_smol) +
+ggplot(msleep) +
   aes(x = vore) +  
   geom_bar()  + 
 * labs(x = "X-axis label",
@@ -1047,6 +1024,11 @@ Always make sure your x and y axes are professionally labeled (*no underscores!*
 
 
 
+
+```
+## Warning: Removed 27 rows containing missing values (geom_point).
+```
+
 ![](ggplot2_slides_files/figure-html/unnamed-chunk-62-1.png)&lt;!-- --&gt;![](ggplot2_slides_files/figure-html/unnamed-chunk-62-2.png)&lt;!-- --&gt;
 
 ---
@@ -1058,7 +1040,7 @@ Always make sure your x and y axes are professionally labeled (*no underscores!*
 
 
 ```r
-ggplot(msleep_smol, aes(x = awake)) + 
+ggplot(msleep, aes(x = awake)) + 
   geom_histogram(binwidth = 2, 
                  color = "black", 
                  fill = "firebrick2")
@@ -1074,7 +1056,7 @@ ggplot(msleep_smol, aes(x = awake)) +
 
 
 ```r
-ggplot(msleep_smol, aes(x = awake, fill = vore)) + 
+ggplot(msleep, aes(x = awake, fill = vore)) + 
   geom_histogram(binwidth = 2, 
                  color = "black")
 ```
@@ -1087,7 +1069,7 @@ ggplot(msleep_smol, aes(x = awake, fill = vore)) +
 
 
 ```r
-ggplot(msleep_smol, aes(x = awake)) + 
+ggplot(msleep, aes(x = awake)) + 
   geom_histogram(binwidth = 2, # may need to tweak again!
                  color = "black", 
                  fill = "firebrick2")  +
@@ -1106,7 +1088,7 @@ ggplot(msleep_smol, aes(x = awake)) +
 
 
 ```r
-ggplot(msleep_smol, aes(x = awake)) + 
+ggplot(msleep, aes(x = awake)) + 
   geom_histogram(binwidth = 2, # may need to tweak again!
                  color = "black", 
                  fill = "firebrick2")  +
@@ -1124,7 +1106,7 @@ ggplot(msleep_smol, aes(x = awake)) +
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
-"highlightStyle": "github",
+"highlightStyle": "rainbow",
 "highlightLines": true,
 "countIncrementalSlides": false
 });
