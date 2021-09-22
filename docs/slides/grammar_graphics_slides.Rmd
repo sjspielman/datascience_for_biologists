@@ -7,7 +7,6 @@ output:
       countIncrementalSlides: false
 ---
 
-
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(fig.width=6, fig.height=4, echo=FALSE)
@@ -19,11 +18,7 @@ library(colorblindr)
 
 source("grammar_graphics_plots.R")
 ```
-@media print {
-  .has-continuation {
-    display: block !important;
-  }
-}
+
 
 
 class: title-slide
@@ -53,7 +48,6 @@ launch_app("types_of_plots") # Launch the app once library is loaded
 
 The dog runs in a park.
 
---
 <br><br><br><br><br><br>
 
 The runs in park dog a.
@@ -143,19 +137,25 @@ msleep_subvore %>%
 
 ---
 
-```{r, echo=F, fig.width = 14, fig.height = 5}
+```{r, echo=F, fig.width = 14, fig.height = 4}
 (hist_smaller + hist_bigger)
 ```
 
---
+---
 
-```{r, echo=F, fig.width = 14, fig.height = 5}
+
+
+```{r, echo=F, fig.width = 14, fig.height = 4}
+(hist_smaller + hist_bigger)
+```
+
+
+```{r, echo=F, fig.width = 14, fig.height = 4}
 (hist_dumb1 + hist_dumb2)
 ```
 
 
 ---
-
 ```{r, echo=F, fig.width = 14, fig.height = 6}
 hist_all + hist_all_facet
 ```
@@ -184,14 +184,14 @@ density_all
 ```
 
 
-```{r, echo=F, fig.width = 14, fig.height = 5}
+```{r, echo=F, fig.width = 14, fig.height = 4}
 density_fill + density_facet
 ```
 
 
 ---
 
-```{r, echo=F, fig.width = 14, fig.height = 5}
+```{r, echo=F, fig.width = 14, fig.height = 4}
 density_fill + density_fill_noalpha
 ```
 
@@ -210,14 +210,14 @@ density_fill + strip
 ---
 
 
-```{r, echo=F, fig.width = 14, fig.height = 5}
+```{r, echo=F, fig.width = 14, fig.height = 4}
 strip + strip_points
 ```
 
 ---
 
 
-```{r, echo=F, fig.width = 14, fig.height = 5}
+```{r, echo=F, fig.width = 14, fig.height = 4}
 strip + strip_filled
 ```
 
@@ -226,11 +226,11 @@ strip + strip_filled
 # The world is your oyster
 
 
-```{r, echo=F, fig.width = 14, fig.height = 5}
+```{r, echo=F, fig.width = 12, fig.height = 3}
 strip
 ```
 
-```{r, echo=F, fig.width = 14, fig.height = 5}
+```{r, echo=F, fig.width = 12, fig.height = 3.5}
 sina + bees
 ```
 
@@ -245,11 +245,11 @@ diamonds
 ---
 
 
-```{r, echo=F, fig.width = 14, fig.height = 5}
+```{r, echo=F, fig.width = 14, fig.height = 4}
 stripd + pointd
 ```
 
-```{r, echo=F, fig.width = 14, fig.height = 5}
+```{r, echo=F, fig.width = 14, fig.height = 4}
 sinad + beesd
 ```
 
@@ -257,22 +257,22 @@ sinad + beesd
 
 
 
-```{r, echo=F, fig.width = 14, fig.height = 5}
+```{r, echo=F, fig.width = 14, fig.height = 4}
 stripda + pointda
 ```
 
-```{r, echo=F, fig.width = 14, fig.height = 5}
+```{r, echo=F, fig.width = 14, fig.height = 4}
 sinada + beesda
 ```
 
 ---
 
-```{r, echo=F, fig.width = 14, fig.height = 5}
+```{r, echo=F, fig.width = 14, fig.height = 3.5}
 sinada + beesda
 ```
 
 
-```{r, echo=F, fig.width = 7, fig.height = 5}
+```{r, echo=F, fig.width = 7, fig.height = 4}
 violind
 ```
 
@@ -339,7 +339,19 @@ scatter_bigpoint
 ```
 ]
 
---
+
+---
+
+
+# Do the axes look at all "strange" to you?
+
+
+.pull-left[
+```{r, echo=F}
+scatter_bigpoint
+```
+]
+
 
 .pull-right[
 ```{r, echo=F}
@@ -572,10 +584,19 @@ knitr::include_graphics("img/gg/arrival-delay-vs-distance-1-bad.png")
 
 Mean arrival delay versus distance from New York City. Data source: U.S. Dept. of Transportation, Bureau of Transportation Statistics. 
 
---
-
 This figure is labeled as “bad” because it is overly complex. Most readers will find it confusing and will not intuitively grasp what it is the figure is showing.
 
---
+---
+
+# Airplane delays
+
+
+```{r out.width = '475px', echo=F}
+knitr::include_graphics("img/gg/arrival-delay-vs-distance-1-bad.png")
+```
+
+
+Mean arrival delay versus distance from New York City. Data source: U.S. Dept. of Transportation, Bureau of Transportation Statistics. 
+
 
 **"Looking cool/smart" is NOT the same as effectively communicating.** We'll talk more about data viz style and best practices after we start learning how to plot in R next week!
