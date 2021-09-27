@@ -2,7 +2,7 @@
 output:
   xaringan::moon_reader:
     nature:
-      highlightStyle:  rainbow
+      highlightStyle:  github
       highlightLines: true
       countIncrementalSlides: false
 ---
@@ -113,14 +113,14 @@ msleep
 
 
 ```{r}
-summary(msleep)
+str(msleep)
 ```
 
 ---
 
 # Let's dive in: Scatterplots in `ggplot2`
 
-### Goal: Visualize the relationship between body weight (`bodywt`) and brain weight `brainwt`) of all smol mammals, where `bodywt` is across `brainwt`
+### Goal: Visualize the relationship between body weight (`bodywt`) and brain weight `brainwt`) of all mammals, where `bodywt` is across `brainwt`
 
 --
 
@@ -280,6 +280,11 @@ All plots created _after_ this line is run will use `theme_classic()`. All remai
 ```{r}
 theme_set(theme_classic())
 ```
+
+
+> `get_help("theme_set")`
+> `get_help("theme_classic")`
+
 
 
 ```{r, echo=F, include=F}
@@ -497,7 +502,7 @@ ggplot(msleep) +
 # Density plots in `ggplot2`
 
 
-```{r}
+```{r fig.height=3, fig.width=5}
 ggplot(msleep) +  
   aes(x = awake, fill = vore) +  #<<
   geom_density(alpha = 0.5) #<<

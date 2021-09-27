@@ -42,7 +42,7 @@ R 9/16 | Exercise Recap and Introduction to RMarkdown | Rmarkdown activity | -
 M 9/20 | The grammar of graphics, Part 1 | [Slides](./slides/grammar_graphics_slides.pdf) | -
 W 9/22 | The grammar of graphics, Part 2 <br> Homework 1 Review | Same slides as Monday 9/20  | **HW2 DEADLINE POSTPONED TO FRIDAY 9/24/21 - SEE CANVAS ANNOUNCEMENT** <br> Homework 2: Using R and RMarkdown <br> [Link to Instructions](./homeworks/hw2/hw2_instructions.html) <br> [Starting and submitting HW2 video](https://youtu.be/n7dyNVH0gE0) <br> [Additonal (important!) help videos](./video_links.html) <br><br> [_**ALSO:** watch/follow this video to setup RStudio Cloud/Github_](./tutorials/github_token.html) and complete Canvas assignment: _"Proof of RStudio Cloud/Github Setup"_
 R 9/23 | _Open work day_  | | -
-M 9/27 | Introduction to `ggplot2` | "Introduction to `ggplot2`" interactive exercises | -
+M 9/27 | Introduction to `ggplot2` | [Reference slides](./slides/ggplot2_slides.html) | -
 W 9/29 | More `ggplot2`  | "Introduction to `ggplot2`" interactive exercises <br> "Line-by-line" application | Homework 3: Grammar of Graphics <br> [Link to Instructions](./homeworks/hw3/hw3_instructions.html) <br> [Link to Answer Sheet](./homeworks/hw3/homework3_answer_sheet.docx)
 R 9/30 |  _Open work day_ | | -
 M 10/4 | Best practices in data visualization | - | -
