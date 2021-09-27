@@ -86,24 +86,30 @@ Error in ggplot() : could not find function "ggplot"
 
 
 ```r
-msleep
+msleep_smol
 ```
 
 ```
-## # A tibble: 83 × 11
-##    name   genus vore  order conservation sleep_total sleep_rem sleep_cycle awake
-##    &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;              &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;
-##  1 Cheet… Acin… carni Carn… lc                  12.1      NA        NA      11.9
-##  2 Owl m… Aotus omni  Prim… &lt;NA&gt;                17         1.8      NA       7  
-##  3 Mount… Aplo… herbi Rode… nt                  14.4       2.4      NA       9.6
-##  4 Great… Blar… omni  Sori… lc                  14.9       2.3       0.133   9.1
-##  5 Cow    Bos   herbi Arti… domesticated         4         0.7       0.667  20  
-##  6 Three… Brad… herbi Pilo… &lt;NA&gt;                14.4       2.2       0.767   9.6
-##  7 North… Call… carni Carn… vu                   8.7       1.4       0.383  15.3
-##  8 Vespe… Calo… &lt;NA&gt;  Rode… &lt;NA&gt;                 7        NA        NA      17  
-##  9 Dog    Canis carni Carn… domesticated        10.1       2.9       0.333  13.9
-## 10 Roe d… Capr… herbi Arti… lc                   3        NA        NA      21  
-## # … with 73 more rows, and 2 more variables: brainwt &lt;dbl&gt;, bodywt &lt;dbl&gt;
+## # A tibble: 17 × 7
+##    name                           vore  order  conservation awake brainwt bodywt
+##    &lt;chr&gt;                          &lt;fct&gt; &lt;fct&gt;  &lt;fct&gt;        &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+##  1 Greater short-tailed shrew     omni  Soric… lc             9.1 0.00029  0.019
+##  2 Guinea pig                     herbi Roden… domesticated  14.6 0.0055   0.728
+##  3 Chinchilla                     herbi Roden… domesticated  11.5 0.0064   0.42 
+##  4 Star-nosed mole                omni  Soric… lc            13.7 0.001    0.06 
+##  5 Lesser short-tailed shrew      omni  Soric… lc            14.9 0.00014  0.005
+##  6 Long-nosed armadillo           carni Cingu… lc             6.6 0.0108   3.5  
+##  7 Tree hyrax                     herbi Hyrac… lc            18.7 0.0123   2.95 
+##  8 North American Opossum         omni  Didel… lc             6   0.0063   1.7  
+##  9 European hedgehog              omni  Erina… lc            13.9 0.0035   0.77 
+## 10 Domestic cat                   carni Carni… domesticated  11.5 0.0256   3.3  
+## 11 Gray hyrax                     herbi Hyrac… lc            17.7 0.0123   2.62 
+## 12 Golden hamster                 herbi Roden… en             9.7 0.001    0.12 
+## 13 House mouse                    herbi Roden… nt            11.5 0.0004   0.022
+## 14 Rabbit                         herbi Lagom… domesticated  15.6 0.0121   2.5  
+## 15 Laboratory rat                 herbi Roden… lc            11   0.0019   0.32 
+## 16 Arctic ground squirrel         herbi Roden… lc             7.4 0.0057   0.92 
+## 17 Thirteen-lined ground squirrel herbi Roden… lc            10.2 0.004    0.101
 ```
 
 ---
@@ -113,29 +119,25 @@ msleep
 
 
 ```r
-str(msleep)
+str(msleep_smol)
 ```
 
 ```
-## tibble [83 × 11] (S3: tbl_df/tbl/data.frame)
-##  $ name        : chr [1:83] "Cheetah" "Owl monkey" "Mountain beaver" "Greater short-tailed shrew" ...
-##  $ genus       : chr [1:83] "Acinonyx" "Aotus" "Aplodontia" "Blarina" ...
-##  $ vore        : chr [1:83] "carni" "omni" "herbi" "omni" ...
-##  $ order       : chr [1:83] "Carnivora" "Primates" "Rodentia" "Soricomorpha" ...
-##  $ conservation: chr [1:83] "lc" NA "nt" "lc" ...
-##  $ sleep_total : num [1:83] 12.1 17 14.4 14.9 4 14.4 8.7 7 10.1 3 ...
-##  $ sleep_rem   : num [1:83] NA 1.8 2.4 2.3 0.7 2.2 1.4 NA 2.9 NA ...
-##  $ sleep_cycle : num [1:83] NA NA NA 0.133 0.667 ...
-##  $ awake       : num [1:83] 11.9 7 9.6 9.1 20 9.6 15.3 17 13.9 21 ...
-##  $ brainwt     : num [1:83] NA 0.0155 NA 0.00029 0.423 NA NA NA 0.07 0.0982 ...
-##  $ bodywt      : num [1:83] 50 0.48 1.35 0.019 600 ...
+## tibble [17 × 7] (S3: tbl_df/tbl/data.frame)
+##  $ name        : chr [1:17] "Greater short-tailed shrew" "Guinea pig" "Chinchilla" "Star-nosed mole" ...
+##  $ vore        : Factor w/ 3 levels "carni","herbi",..: 3 2 2 3 3 1 2 3 3 1 ...
+##  $ order       : Factor w/ 13 levels "Afrosoricida",..: 13 11 11 13 13 3 7 4 6 2 ...
+##  $ conservation: Factor w/ 5 levels "domesticated",..: 3 1 1 3 3 3 3 3 3 1 ...
+##  $ awake       : num [1:17] 9.1 14.6 11.5 13.7 14.9 6.6 18.7 6 13.9 11.5 ...
+##  $ brainwt     : num [1:17] 0.00029 0.0055 0.0064 0.001 0.00014 0.0108 0.0123 0.0063 0.0035 0.0256 ...
+##  $ bodywt      : num [1:17] 0.019 0.728 0.42 0.06 0.005 3.5 2.95 1.7 0.77 3.3 ...
 ```
 
 ---
 
 # Let's dive in: Scatterplots in `ggplot2`
 
-### Goal: Visualize the relationship between body weight (`bodywt`) and brain weight `brainwt`) of all mammals, where `bodywt` is across `brainwt`
+### Goal: Visualize the relationship between body weight (`bodywt`) and brain weight `brainwt`) of all smol mammals, where `bodywt` is across `brainwt`
 
 --
 
@@ -148,7 +150,7 @@ str(msleep)
 
 
 ```r
-ggplot(msleep)
+ggplot(msleep_smol)
 ```
 
 ![](ggplot2_slides_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
@@ -159,7 +161,7 @@ ggplot(msleep)
 
 
 ```r
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = brainwt, y = bodywt)
 ```
 
@@ -173,13 +175,13 @@ ggplot(msleep) +
 
 
 ```r
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   (x = brainwt, y = bodywt)
 ```
 
 ```
 ## Error: &lt;text&gt;:2:15: unexpected ','
-## 1: ggplot(msleep) + 
+## 1: ggplot(msleep_smol) + 
 ## 2:   (x = brainwt,
 ##                  ^
 ```
@@ -192,13 +194,9 @@ ggplot(msleep) +
 
 
 ```r
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = brainwt, y = bodywt) + 
 * geom_point()
-```
-
-```
-## Warning: Removed 27 rows containing missing values (geom_point).
 ```
 
 ![](ggplot2_slides_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
@@ -210,13 +208,9 @@ ggplot(msleep) +
 
 
 ```r
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = brainwt, y = bodywt) + 
 * geom_point(color = "firebrick")
-```
-
-```
-## Warning: Removed 27 rows containing missing values (geom_point).
 ```
 
 ![](ggplot2_slides_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
@@ -227,13 +221,9 @@ ggplot(msleep) +
 
 
 ```r
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = brainwt, y = bodywt) + 
 * geom_point(color = "firebrick", size = 3)
-```
-
-```
-## Warning: Removed 27 rows containing missing values (geom_point).
 ```
 
 ![](ggplot2_slides_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
@@ -244,15 +234,11 @@ ggplot(msleep) +
 
 
 ```r
-sleep_scatter &lt;- ggplot(msleep) + 
+sleep_scatter &lt;- ggplot(msleep_smol) + 
   aes(x = brainwt, y = bodywt) + 
   geom_point(color = "firebrick", size = 3) 
 
-print(sleep_scatter)
-```
-
-```
-## Warning: Removed 27 rows containing missing values (geom_point).
+sleep_scatter
 ```
 
 ![](ggplot2_slides_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
@@ -263,15 +249,11 @@ print(sleep_scatter)
 
 
 ```r
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = brainwt, y = bodywt) + 
   geom_point(color = "firebrick", size = 3) -&gt; sleep_scatter 
 
-print(sleep_scatter)
-```
-
-```
-## Warning: Removed 27 rows containing missing values (geom_point).
+sleep_scatter
 ```
 
 ![](ggplot2_slides_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
@@ -282,22 +264,18 @@ print(sleep_scatter)
 
 
 ```r
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = brainwt, y = bodywt) + 
   geom_point(color = "firebrick", size = 3) 
 ```
 
 
 ```r
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = brainwt, y = bodywt) -&gt; sleep_xy
 
 sleep_xy + 
   geom_point(color = "firebrick", size = 3)
-```
-
-```
-## Warning: Removed 27 rows containing missing values (geom_point).
 ```
 
 ![](ggplot2_slides_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
@@ -317,18 +295,10 @@ sleep_xy +
 sleep_scatter
 ```
 
-```
-## Warning: Removed 27 rows containing missing values (geom_point).
-```
-
 ![](ggplot2_slides_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
 
 ```r
 sleep_scatter + theme_classic()
-```
-
-```
-## Warning: Removed 27 rows containing missing values (geom_point).
 ```
 
 ![](ggplot2_slides_files/figure-html/unnamed-chunk-18-2.png)&lt;!-- --&gt;
@@ -340,18 +310,10 @@ sleep_scatter + theme_classic()
 sleep_scatter + theme_dark()
 ```
 
-```
-## Warning: Removed 27 rows containing missing values (geom_point).
-```
-
 ![](ggplot2_slides_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
 
 ```r
 sleep_scatter + theme_minimal()
-```
-
-```
-## Warning: Removed 27 rows containing missing values (geom_point).
 ```
 
 ![](ggplot2_slides_files/figure-html/unnamed-chunk-19-2.png)&lt;!-- --&gt;
@@ -364,14 +326,10 @@ sleep_scatter + theme_minimal()
 
 
 ```r
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = brainwt, y = bodywt) + 
   geom_point() + 
 * theme_bw()
-```
-
-```
-## Warning: Removed 27 rows containing missing values (geom_point).
 ```
 
 ![](ggplot2_slides_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
@@ -390,10 +348,10 @@ theme_set(theme_classic())
 ```
 
 
-&gt; `get_help("theme_set")`
-&gt; `get_help("theme_classic")`
-
-
++ `get_help("theme_set")`
++ `get_help("theme_classic")`
++ All the built-in themes in action: https://spielmanlab.github.io/introverse/introverse_docs/ggplot2_theme_gray.html
++ Customizing themes: https://spielmanlab.github.io/introverse/articles/themes.html
 
 
 ---
@@ -414,7 +372,7 @@ theme_set(theme_classic())
 
 
 ```r
-ggplot(msleep)
+ggplot(msleep_smol)
 ```
 
 ![](ggplot2_slides_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
@@ -425,7 +383,7 @@ ggplot(msleep)
 
 
 ```r
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
 * aes(x = awake)
 ```
 
@@ -437,7 +395,7 @@ ggplot(msleep) +
 
 
 ```r
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = awake) + 
 * geom_histogram()
 ```
@@ -454,7 +412,7 @@ ggplot(msleep) +
 
 
 ```r
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = awake) + 
 * geom_histogram(bins = 10)
 ```
@@ -469,7 +427,7 @@ ggplot(msleep) +
 
 
 ```r
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = awake) + 
 * geom_histogram(binwidth = 2)
 ```
@@ -484,7 +442,7 @@ ggplot(msleep) +
 .pull-left[
 
 ```r
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = awake) + 
 * geom_histogram(bins = 2)
 ```
@@ -495,7 +453,7 @@ ggplot(msleep) +
 .pull-right[
 
 ```r
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = awake) + 
 * geom_histogram(bins = 30)
 ```
@@ -509,7 +467,7 @@ ggplot(msleep) +
 
 
 ```r
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = awake) + 
 * geom_histogram(binwidth = 2, color = "dodgerblue")
 ```
@@ -523,7 +481,7 @@ ggplot(msleep) +
 
 
 ```r
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = awake) + 
 * geom_histogram(binwidth = 2,
 *                color = "dodgerblue")
@@ -538,7 +496,7 @@ ggplot(msleep) +
 
 
 ```r
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = awake) + 
   geom_histogram(binwidth = 2,   
                  color = "dodgerblue",
@@ -553,7 +511,7 @@ ggplot(msleep) +
 
 
 ```r
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = awake) + 
   geom_histogram(binwidth = 2,   
                  color = "dodgerblue",
@@ -570,7 +528,7 @@ ggplot(msleep) +
 
 
 ```r
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   # specify x on the x-axis 
   aes(x = awake) + 
   geom_histogram(binwidth = 2, # use binwidth of 2  
@@ -601,7 +559,7 @@ ggplot(msleep) +
 
 
 ```r
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = awake) + 
 * geom_density()
 ```
@@ -614,7 +572,7 @@ ggplot(msleep) +
 
 
 ```r
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = awake) + 
 * geom_density(fill = "cornflowerblue",
 *              color = "chartreuse",
@@ -640,7 +598,7 @@ ggplot(msleep) +
 
 
 ```r
-ggplot(msleep) +  
+ggplot(msleep_smol) +  
 * aes(x = awake, fill = vore) +
   geom_density()
 ```
@@ -655,7 +613,7 @@ ggplot(msleep) +
 
 
 ```r
-ggplot(msleep) +  
+ggplot(msleep_smol) +  
 * aes(x = awake, fill = vore) +
 * geom_density(alpha = 0.5)
 ```
@@ -673,7 +631,7 @@ ggplot(msleep) +
 
 
 ```r
-ggplot(msleep) +  
+ggplot(msleep_smol) +  
   aes(x = awake, 
 *     fill = vore,
 *     color = vore) +
@@ -700,7 +658,7 @@ ggplot(msleep) +
 
 
 ```r
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
 * aes(x = vore, y = awake)
 ```
 
@@ -713,7 +671,7 @@ ggplot(msleep) +
 
 
 ```r
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = vore, y = awake) +
 * geom_boxplot()
 ```
@@ -726,7 +684,7 @@ ggplot(msleep) +
 
 
 ```r
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = vore, y = awake) +
 * geom_boxplot(color = "deeppink",
 *              fill  = "goldenrod1")
@@ -744,7 +702,7 @@ ggplot(msleep) +
 
 
 ```r
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
 * aes(x = vore, y = awake, fill = vore) +
   geom_boxplot()
 ```
@@ -759,7 +717,7 @@ ggplot(msleep) +
 .pull-left[
 
 ```r
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = vore, y = awake) +  
 * geom_violin()
 ```
@@ -770,7 +728,7 @@ ggplot(msleep) +
 .pull-right[
 
 ```r
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = vore, 
       y = awake, 
 *     fill = vore) +
@@ -787,7 +745,7 @@ ggplot(msleep) +
 
 
 ```r
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = vore, y = awake) +
   # size = 2 to see more easily in slides
 * geom_jitter(size = 2)
@@ -802,7 +760,7 @@ ggplot(msleep) +
 
 
 ```r
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = vore, y = awake) +  
 * geom_jitter(width = 0.2,
               size  = 2)
@@ -817,7 +775,7 @@ ggplot(msleep) +
 
 
 ```r
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   # COLOR, NOT FILL!! These are points
   aes(x = vore, 
       y = awake, 
@@ -830,6 +788,32 @@ ggplot(msleep) +
 **Did you notice the points were placed little differently each plot version?**
 ---
 
+# Other types of points
+
++ Any time you use `geom_point()` or `geom_jitter()` you can specify a different point!
++ _Point shapes 21-25 have a color and a fill_
+
+&lt;img src="img/ggplot2//r_pch.png" width="350px" /&gt;
+
+---
+
+# Example of shape 21
+
+
+```r
+ggplot(msleep_smol) +
+  aes(x = vore, 
+      y = awake, 
+*     fill = vore) +
+  geom_jitter(width = 0.2, 
+              size = 4,
+*             color = "black",
+*             shape = 21)
+```
+
+![](ggplot2_slides_files/figure-html/unnamed-chunk-50-1.png)&lt;!-- --&gt;
+
+---
 
 # Barplots in `ggplot2`
 
@@ -845,36 +829,36 @@ ggplot(msleep) +
 
 
 ```r
-ggplot(msleep) +
+ggplot(msleep_smol) +
   aes(x = vore) + 
 * geom_bar()
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-49-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-51-1.png)&lt;!-- --&gt;
 
 ---
 # Barplots in `ggplot2`
 
 
 ```r
-ggplot(msleep) +
+ggplot(msleep_smol) +
   aes(x = vore) + 
 * geom_bar(fill = "blueviolet")
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-50-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-52-1.png)&lt;!-- --&gt;
 ---
 # Barplots in `ggplot2`
 
 
 ```r
-ggplot(msleep) +
+ggplot(msleep_smol) +
   aes(x = vore) + 
 * geom_bar(fill = "blueviolet",
 *          color = "black", size = 2)
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-51-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-53-1.png)&lt;!-- --&gt;
 ---
 
 
@@ -883,64 +867,36 @@ ggplot(msleep) +
 
 
 ```r
-ggplot(msleep) +
+ggplot(msleep_smol) +
   aes(x = vore,
 *     fill = vore) +
   geom_bar() 
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-52-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-54-1.png)&lt;!-- --&gt;
 ---
 
 # Barplots in `ggplot2`
 
 
 ```r
-ggplot(msleep) +
+ggplot(msleep_smol) +
   aes(x = vore,
       fill = vore) +  
 * geom_bar(color = "black")
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-53-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-55-1.png)&lt;!-- --&gt;
 ---
 
 # Barplots in `ggplot2`
 
 
 ```r
-ggplot(msleep) +
+ggplot(msleep_smol) +
   aes(x = vore,
 *     fill = conservation) +
   geom_bar() 
-```
-
-![](ggplot2_slides_files/figure-html/unnamed-chunk-54-1.png)&lt;!-- --&gt;
-
----
-
-# Barplots in `ggplot2`
-
-
-```r
-ggplot(msleep) +
-  aes(x = vore,
-      fill = conservation) + 
-* geom_bar(position = position_dodge())
-```
-
-![](ggplot2_slides_files/figure-html/unnamed-chunk-55-1.png)&lt;!-- --&gt;
-
----
-
-# Barplots in `ggplot2`
-
-
-```r
-ggplot(msleep) +
-  aes(x = vore,
-      fill = conservation) + 
-* geom_bar(position = position_dodge(preserve="single"))
 ```
 
 ![](ggplot2_slides_files/figure-html/unnamed-chunk-56-1.png)&lt;!-- --&gt;
@@ -949,28 +905,56 @@ ggplot(msleep) +
 
 # Barplots in `ggplot2`
 
+
+```r
+ggplot(msleep_smol) +
+  aes(x = vore,
+      fill = conservation) + 
+* geom_bar(position = position_dodge())
+```
+
+![](ggplot2_slides_files/figure-html/unnamed-chunk-57-1.png)&lt;!-- --&gt;
+
+---
+
+# Barplots in `ggplot2`
+
+
+```r
+ggplot(msleep_smol) +
+  aes(x = vore,
+      fill = conservation) + 
+* geom_bar(position = position_dodge(preserve="single"))
+```
+
+![](ggplot2_slides_files/figure-html/unnamed-chunk-58-1.png)&lt;!-- --&gt;
+
+---
+
+# Barplots in `ggplot2`
+
 .pull-left[
 
 ```r
-ggplot(msleep) +
+ggplot(msleep_smol) +
   aes(x = vore,
       fill = conservation) +  
   geom_bar() 
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-57-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-59-1.png)&lt;!-- --&gt;
 ]
 
 .pull-right[
 
 ```r
-ggplot(msleep) +
+ggplot(msleep_smol) +
   aes(x = conservation,
       fill = vore) +  
   geom_bar() 
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-58-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-60-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -979,13 +963,13 @@ ggplot(msleep) +
 
 
 ```r
-ggplot(msleep) +
+ggplot(msleep_smol) +
   aes(x = vore,
       fill = order) +  
   geom_bar() 
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-59-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-61-1.png)&lt;!-- --&gt;
 
 ### My first impression of this plot is _feeling overwhelmed_. 
 
@@ -997,7 +981,7 @@ ggplot(msleep) +
 
 
 ```r
-ggplot(msleep) +
+ggplot(msleep_smol) +
   aes(x = vore) +  
   geom_bar()  + 
 * labs(x = "X-axis label",
@@ -1007,7 +991,7 @@ ggplot(msleep) +
 *      caption = "Would you like a caption?")
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-60-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-62-1.png)&lt;!-- --&gt;
 
 Always make sure your x and y axes are professionally labeled (*no underscores!*). Title, subtitle, caption are optional to include.
 
@@ -1017,12 +1001,7 @@ Always make sure your x and y axes are professionally labeled (*no underscores!*
 
 
 
-
-```
-## Warning: Removed 27 rows containing missing values (geom_point).
-```
-
-![](ggplot2_slides_files/figure-html/unnamed-chunk-62-1.png)&lt;!-- --&gt;![](ggplot2_slides_files/figure-html/unnamed-chunk-62-2.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-64-1.png)&lt;!-- --&gt;![](ggplot2_slides_files/figure-html/unnamed-chunk-64-2.png)&lt;!-- --&gt;
 
 ---
 
@@ -1033,13 +1012,13 @@ Always make sure your x and y axes are professionally labeled (*no underscores!*
 
 
 ```r
-ggplot(msleep, aes(x = awake)) + 
+ggplot(msleep_smol, aes(x = awake)) + 
   geom_histogram(binwidth = 2, 
                  color = "black", 
                  fill = "firebrick2")
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-64-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-66-1.png)&lt;!-- --&gt;
 
 ### What if we want a separate histogram for each `vore`?
 
@@ -1049,12 +1028,12 @@ ggplot(msleep, aes(x = awake)) +
 
 
 ```r
-ggplot(msleep, aes(x = awake, fill = vore)) + 
+ggplot(msleep_smol, aes(x = awake, fill = vore)) + 
   geom_histogram(binwidth = 2, 
                  color = "black")
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-65-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-67-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -1062,14 +1041,14 @@ ggplot(msleep, aes(x = awake, fill = vore)) +
 
 
 ```r
-ggplot(msleep, aes(x = awake)) + 
+ggplot(msleep_smol, aes(x = awake)) + 
   geom_histogram(binwidth = 2, # may need to tweak again!
                  color = "black", 
                  fill = "firebrick2")  +
 * facet_wrap( vars(vore) )
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-66-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-68-1.png)&lt;!-- --&gt;
 &lt;br&gt;
 **Faceting is the _ONLY TIME_ we do not use `aes()` to refer to a column!!! We use `vars()` when faceting.**
 
@@ -1081,7 +1060,7 @@ ggplot(msleep, aes(x = awake)) +
 
 
 ```r
-ggplot(msleep, aes(x = awake)) + 
+ggplot(msleep_smol, aes(x = awake)) + 
   geom_histogram(binwidth = 2, # may need to tweak again!
                  color = "black", 
                  fill = "firebrick2")  +
@@ -1090,7 +1069,7 @@ ggplot(msleep, aes(x = awake)) +
 *             cols = vars(conservation) )
 ```
 
-![](ggplot2_slides_files/figure-html/unnamed-chunk-68-1.png)&lt;!-- --&gt;
+![](ggplot2_slides_files/figure-html/unnamed-chunk-70-1.png)&lt;!-- --&gt;
 
 
 **Use `facet_grid()` to make a panel grid across 2 variables. This plot is _pretty bad_, but it teaches `facet_grid()`!**

@@ -1,0 +1,86 @@
+---
+title: 'Template: Homework #2'
+author: "Data Science for Biologists, Fall 2021"
+date: "Submit this completed Rmd file to Canvas on **(POSTPONED) FRIDAY 9/24/21 by 11:59 PM**"
+output: 
+  html_document:
+    theme: lumen
+    highlight: tango
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Answers
+
+
+```{r q1}
+x <- 5
+x
+```
+
+
+```{r q2}
+
+```
+
+```{r q3}
+
+```
+
+```{r q4}
+
+```
+
+```{r q5}
+
+```
+
+```{r q6}
+
+```
+
+```{r q7}
+
+```
+
+```{r q8}
+
+```
+
+```{r q9}
+
+```
+
+```{r q10}
+
+```
+
+```{r q11}
+
+```
+
+
+```{r q12}
+
+```
+
+
+
+```{r q13}
+
+```
+
+
+```{r q14}
+
+```
+
+
+```{r q15}
+
+```
+
+Replace this text with your explanation for question 15.

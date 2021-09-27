@@ -104,7 +104,7 @@ theme_set(theme_gray() + theme(axis.text = element_text(size = rel(1.75)),
 
 
 ```{r}
-msleep
+msleep_smol
 ```
 
 ---
@@ -113,14 +113,14 @@ msleep
 
 
 ```{r}
-str(msleep)
+str(msleep_smol)
 ```
 
 ---
 
 # Let's dive in: Scatterplots in `ggplot2`
 
-### Goal: Visualize the relationship between body weight (`bodywt`) and brain weight `brainwt`) of all mammals, where `bodywt` is across `brainwt`
+### Goal: Visualize the relationship between body weight (`bodywt`) and brain weight `brainwt`) of all smol mammals, where `bodywt` is across `brainwt`
 
 --
 
@@ -132,7 +132,7 @@ str(msleep)
 # Scatterplots in `ggplot2`
 
 ```{r}
-ggplot(msleep)
+ggplot(msleep_smol)
 ```
 
 ---
@@ -140,7 +140,7 @@ ggplot(msleep)
 # Scatterplots in `ggplot2`
 
 ```{r}
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = brainwt, y = bodywt)
 ```
 
@@ -151,7 +151,7 @@ ggplot(msleep) +
 # Scatterplots in `ggplot2`
 
 ```{r, error=T}
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   (x = brainwt, y = bodywt)
 ```
 
@@ -162,7 +162,7 @@ ggplot(msleep) +
 # Scatterplots in `ggplot2`
 
 ```{r}
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = brainwt, y = bodywt) + 
   geom_point() #<<
 ```
@@ -173,7 +173,7 @@ ggplot(msleep) +
 # Scatterplots in `ggplot2`
 
 ```{r}
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = brainwt, y = bodywt) + 
   geom_point(color = "firebrick") #<<
 ```
@@ -183,7 +183,7 @@ ggplot(msleep) +
 # Scatterplots in `ggplot2`
 
 ```{r}
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = brainwt, y = bodywt) + 
   geom_point(color = "firebrick", size = 3) #<<
 ```
@@ -193,11 +193,11 @@ ggplot(msleep) +
 # Plots can be saved just like variables
 
 ```{r}
-sleep_scatter <- ggplot(msleep) + 
+sleep_scatter <- ggplot(msleep_smol) + 
   aes(x = brainwt, y = bodywt) + 
   geom_point(color = "firebrick", size = 3) 
 
-print(sleep_scatter)
+sleep_scatter
 ```
 
 ---
@@ -205,11 +205,11 @@ print(sleep_scatter)
 # Don't forget the _forward_ assignment operator
 
 ```{r, fig.width = 5, fig.height = 3}
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = brainwt, y = bodywt) + 
   geom_point(color = "firebrick", size = 3) -> sleep_scatter 
 
-print(sleep_scatter)
+sleep_scatter
 ```
 
 ---
@@ -217,13 +217,13 @@ print(sleep_scatter)
 # Adding onto an existing plot
 
 ```{r, eval=F}
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = brainwt, y = bodywt) + 
   geom_point(color = "firebrick", size = 3) 
 ```
 
 ```{r, fig.width = 5, fig.height = 3}
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = brainwt, y = bodywt) -> sleep_xy
 
 sleep_xy + 
@@ -242,7 +242,7 @@ theme_set(theme_gray())
 > The default theme is `theme_gray()` (`theme_grey()`)
 
 .pull-left[
-```{r, fig.width = 3, fig.height = 2}
+```{r, fig.width = 3, fig.height = 2, message=FALSE}
 sleep_scatter
 
 sleep_scatter + theme_classic()
@@ -250,7 +250,7 @@ sleep_scatter + theme_classic()
 ]
 
 .pull-left[
-```{r, fig.width = 3, fig.height = 2}
+```{r, fig.width = 3, fig.height = 2, message=FALSE}
 sleep_scatter + theme_dark()
 
 sleep_scatter + theme_minimal()
@@ -263,7 +263,7 @@ sleep_scatter + theme_minimal()
 # Adding on a theme
 
 ```{r}
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = brainwt, y = bodywt) + 
   geom_point() + 
   theme_bw() #<<
@@ -282,10 +282,10 @@ theme_set(theme_classic())
 ```
 
 
-> `get_help("theme_set")`
-> `get_help("theme_classic")`
-
-
++ `get_help("theme_set")`
++ `get_help("theme_classic")`
++ All the built-in themes in action: https://spielmanlab.github.io/introverse/introverse_docs/ggplot2_theme_gray.html
++ Customizing themes: https://spielmanlab.github.io/introverse/articles/themes.html
 
 ```{r, echo=F, include=F}
 theme_set(theme_classic()+ theme(axis.text = element_text(size = rel(1.75)),
@@ -311,7 +311,7 @@ theme_set(theme_classic()+ theme(axis.text = element_text(size = rel(1.75)),
 --
 
 ```{r}
-ggplot(msleep)
+ggplot(msleep_smol)
 ```
 
 ---
@@ -319,7 +319,7 @@ ggplot(msleep)
 # Histograms in `ggplot2`
 
 ```{r}
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = awake)  #<<
 ```
 
@@ -328,7 +328,7 @@ ggplot(msleep) +
 # Histograms in `ggplot2`
 
 ```{r}
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = awake) + 
   geom_histogram()  #<<
 ```
@@ -338,7 +338,7 @@ ggplot(msleep) +
 # Histograms in `ggplot2`
 
 ```{r}
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = awake) + 
   geom_histogram(bins = 10)  #<<
 ```
@@ -350,7 +350,7 @@ ggplot(msleep) +
 # Histograms in `ggplot2`
 
 ```{r}
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = awake) + 
   geom_histogram(binwidth = 2)  #<<
 ```
@@ -362,7 +362,7 @@ ggplot(msleep) +
 
 .pull-left[
 ```{r, fig.height = 3, fig.width =4}
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = awake) + 
   geom_histogram(bins = 2)  #<<
 ```
@@ -370,7 +370,7 @@ ggplot(msleep) +
 
 .pull-right[
 ```{r, fig.height = 3, fig.width =4}
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = awake) + 
   geom_histogram(bins = 30)  #<<
 ```
@@ -381,7 +381,7 @@ ggplot(msleep) +
 # Histograms in `ggplot2`
 
 ```{r}
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = awake) + 
   geom_histogram(binwidth = 2, color = "dodgerblue") #<<  
 ```
@@ -392,7 +392,7 @@ ggplot(msleep) +
 # Histograms in `ggplot2`
 
 ```{r}
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = awake) + 
   geom_histogram(binwidth = 2,    #<<
                  color = "dodgerblue")    #<<
@@ -404,7 +404,7 @@ ggplot(msleep) +
 # Histograms in `ggplot2`
 
 ```{r}
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = awake) + 
   geom_histogram(binwidth = 2,   
                  color = "dodgerblue",
@@ -416,7 +416,7 @@ ggplot(msleep) +
 # Histograms in `ggplot2`
 
 ```{r}
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = awake) + 
   geom_histogram(binwidth = 2,   
                  color = "dodgerblue",
@@ -430,7 +430,7 @@ ggplot(msleep) +
 # COMMENT COMMENT COMMENT COMMENT
 
 ```{r, fig.width = 4, fig.height = 3}
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   # specify x on the x-axis 
   aes(x = awake) + 
   geom_histogram(binwidth = 2, # use binwidth of 2  
@@ -458,7 +458,7 @@ ggplot(msleep) +
 # Density plots in `ggplot2`
 
 ```{r}
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = awake) + 
   geom_density() #<<
 ```
@@ -468,7 +468,7 @@ ggplot(msleep) +
 # Density plots in `ggplot2`
 
 ```{r}
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = awake) + 
   geom_density(fill = "cornflowerblue",  #<<
                color = "chartreuse",  #<<
@@ -491,7 +491,7 @@ ggplot(msleep) +
 
 
 ```{r}
-ggplot(msleep) +  
+ggplot(msleep_smol) +  
   aes(x = awake, fill = vore) +  #<<
   geom_density()
 ```
@@ -503,7 +503,7 @@ ggplot(msleep) +
 
 
 ```{r fig.height=3, fig.width=5}
-ggplot(msleep) +  
+ggplot(msleep_smol) +  
   aes(x = awake, fill = vore) +  #<<
   geom_density(alpha = 0.5) #<<
 ```
@@ -518,7 +518,7 @@ ggplot(msleep) +
 
 
 ```{r}
-ggplot(msleep) +  
+ggplot(msleep_smol) +  
   aes(x = awake, 
       fill = vore,     #<<
       color = vore) +  #<<
@@ -542,7 +542,7 @@ ggplot(msleep) +
 
 
 ```{r}
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = vore, y = awake) #<<
 ```
 ---
@@ -552,7 +552,7 @@ ggplot(msleep) +
 
 
 ```{r}
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = vore, y = awake) +
   geom_boxplot() #<<
 ```
@@ -562,7 +562,7 @@ ggplot(msleep) +
 
 
 ```{r}
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = vore, y = awake) +
   geom_boxplot(color = "deeppink",   #<<
                fill  = "goldenrod1")  #<<
@@ -577,7 +577,7 @@ ggplot(msleep) +
 
 
 ```{r}
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = vore, y = awake, fill = vore) +  #<<
   geom_boxplot()
 ```
@@ -589,7 +589,7 @@ ggplot(msleep) +
 
 .pull-left[
 ```{r}
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = vore, y = awake) +  
   geom_violin() #<<
 ```
@@ -597,7 +597,7 @@ ggplot(msleep) +
 
 .pull-right[
 ```{r}
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = vore, 
       y = awake, 
       fill = vore) +  #<<
@@ -611,7 +611,7 @@ ggplot(msleep) +
 
 
 ```{r}
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = vore, y = awake) +
   # size = 2 to see more easily in slides
   geom_jitter(size = 2) #<<
@@ -623,7 +623,7 @@ ggplot(msleep) +
 
 
 ```{r}
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   aes(x = vore, y = awake) +  
   geom_jitter(width = 0.2, #<<
               size  = 2)
@@ -635,7 +635,7 @@ ggplot(msleep) +
 # Strip/jitter plots in `ggplot2`
 
 ```{r}
-ggplot(msleep) + 
+ggplot(msleep_smol) + 
   # COLOR, NOT FILL!! These are points
   aes(x = vore, 
       y = awake, 
@@ -646,6 +646,31 @@ ggplot(msleep) +
 **Did you notice the points were placed little differently each plot version?**
 ---
 
+# Other types of points
+
++ Any time you use `geom_point()` or `geom_jitter()` you can specify a different point!
++ _Point shapes 21-25 have a color and a fill_
+
+```{r out.width = '350px', echo=F}
+knitr::include_graphics(file.path(img_path, "r_pch.png"))
+```
+
+---
+
+# Example of shape 21
+
+```{r}
+ggplot(msleep_smol) +
+  aes(x = vore, 
+      y = awake, 
+      fill = vore) +  #<<
+  geom_jitter(width = 0.2, 
+              size = 4,
+              color = "black",#<< 
+              shape = 21) #<< 
+```
+
+---
 
 # Barplots in `ggplot2`
 
@@ -660,7 +685,7 @@ ggplot(msleep) +
 # Barplots in `ggplot2`
 
 ```{r}
-ggplot(msleep) +
+ggplot(msleep_smol) +
   aes(x = vore) + 
   geom_bar() #<<
 ```
@@ -669,7 +694,7 @@ ggplot(msleep) +
 # Barplots in `ggplot2`
 
 ```{r}
-ggplot(msleep) +
+ggplot(msleep_smol) +
   aes(x = vore) + 
   geom_bar(fill = "blueviolet") #<<
 ```
@@ -677,7 +702,7 @@ ggplot(msleep) +
 # Barplots in `ggplot2`
 
 ```{r}
-ggplot(msleep) +
+ggplot(msleep_smol) +
   aes(x = vore) + 
   geom_bar(fill = "blueviolet",#<<
            color = "black", size = 2) #<<
@@ -689,7 +714,7 @@ ggplot(msleep) +
 # Barplots in `ggplot2`
 
 ```{r}
-ggplot(msleep) +
+ggplot(msleep_smol) +
   aes(x = vore,
       fill = vore) +  #<<
   geom_bar() 
@@ -699,7 +724,7 @@ ggplot(msleep) +
 # Barplots in `ggplot2`
 
 ```{r}
-ggplot(msleep) +
+ggplot(msleep_smol) +
   aes(x = vore,
       fill = vore) +  
   geom_bar(color = "black")   #<<
@@ -709,7 +734,7 @@ ggplot(msleep) +
 # Barplots in `ggplot2`
 
 ```{r, width = 8, height = 5}
-ggplot(msleep) +
+ggplot(msleep_smol) +
   aes(x = vore,
       fill = conservation) +  #<<
   geom_bar() 
@@ -720,7 +745,7 @@ ggplot(msleep) +
 # Barplots in `ggplot2`
 
 ```{r, fig.width = 8, fig.height = 5}
-ggplot(msleep) +
+ggplot(msleep_smol) +
   aes(x = vore,
       fill = conservation) + 
   geom_bar(position = position_dodge())   #<<
@@ -731,7 +756,7 @@ ggplot(msleep) +
 # Barplots in `ggplot2`
 
 ```{r, fig.width = 8, fig.height = 5}
-ggplot(msleep) +
+ggplot(msleep_smol) +
   aes(x = vore,
       fill = conservation) + 
   geom_bar(position = position_dodge(preserve="single"))   #<<
@@ -743,7 +768,7 @@ ggplot(msleep) +
 
 .pull-left[
 ```{r}
-ggplot(msleep) +
+ggplot(msleep_smol) +
   aes(x = vore,
       fill = conservation) +  
   geom_bar() 
@@ -752,7 +777,7 @@ ggplot(msleep) +
 
 .pull-right[
 ```{r}
-ggplot(msleep) +
+ggplot(msleep_smol) +
   aes(x = conservation,
       fill = vore) +  
   geom_bar() 
@@ -764,7 +789,7 @@ ggplot(msleep) +
 # Barplots in `ggplot2`
 
 ```{r, fig.width = 7, fig.height = 4}
-ggplot(msleep) +
+ggplot(msleep_smol) +
   aes(x = vore,
       fill = order) +  
   geom_bar() 
@@ -779,7 +804,7 @@ ggplot(msleep) +
 
 
 ```{r, fig.width = 5, fig.height = 3}
-ggplot(msleep) +
+ggplot(msleep_smol) +
   aes(x = vore) +  
   geom_bar()  + 
   labs(x = "X-axis label",                  #<<
@@ -800,7 +825,7 @@ theme_set(theme_classic())
 ```
 
 ```{r, echo=F, fig.height = 2.5, fig.width = 11, message = F}
-raw <- ggplot(msleep)
+raw <- ggplot(msleep_smol)
 scatter <- raw + aes(x = brainwt, y = bodywt) + geom_point() + ggtitle("Scatterplot")
 histo <- raw + aes(x = awake) + geom_histogram(bins = 6)+ ggtitle("Histogram")
 dens <- raw + aes(x = awake) + geom_density() + ggtitle("Density plot") 
@@ -830,7 +855,7 @@ theme_set(theme_classic()+ theme(axis.text = element_text(size = rel(1.75)),
 ```
 
 ```{r}
-ggplot(msleep, aes(x = awake)) + 
+ggplot(msleep_smol, aes(x = awake)) + 
   geom_histogram(binwidth = 2, 
                  color = "black", 
                  fill = "firebrick2")
@@ -843,7 +868,7 @@ ggplot(msleep, aes(x = awake)) +
 # This is a bad idea.
 
 ```{r}
-ggplot(msleep, aes(x = awake, fill = vore)) + 
+ggplot(msleep_smol, aes(x = awake, fill = vore)) + 
   geom_histogram(binwidth = 2, 
                  color = "black")
 ```
@@ -853,7 +878,7 @@ ggplot(msleep, aes(x = awake, fill = vore)) +
 # Adding panels ("facets") to plots
 
 ```{r}
-ggplot(msleep, aes(x = awake)) + 
+ggplot(msleep_smol, aes(x = awake)) + 
   geom_histogram(binwidth = 2, # may need to tweak again!
                  color = "black", 
                  fill = "firebrick2")  +
@@ -871,7 +896,7 @@ theme_set(theme_classic())
 ```
 
 ```{r, fig.height = 3.5, fig.width = 5}
-ggplot(msleep, aes(x = awake)) + 
+ggplot(msleep_smol, aes(x = awake)) + 
   geom_histogram(binwidth = 2, # may need to tweak again!
                  color = "black", 
                  fill = "firebrick2")  +
