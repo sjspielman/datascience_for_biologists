@@ -126,7 +126,7 @@ ggplot(wine, aes(x = cultivar,
 
 ### Plot 2
 
-**Plot question: Do wine cultivars show the same or different relationships between color and flavanoid percentage? Compare each of A-B, A-C, and B-C in your answer.**
+**Plot question: Considering each cultivar separately, what is the relationship (indicate positive/negative/no relationship) between color and flavonoid percentage? Provide a separate answer for each of A, B, and C cultivars.**
 
 
 ```{r message=F}
@@ -140,7 +140,7 @@ ggplot(wine, aes(y = flavonoids, x = color, color = cultivar)) +
 
 ### Plot 3
 
-**Plot question: What is the shape of the malic acid percentage distribution for each cultivar? Specifically, for each of A, B, C cultivars, answer if the distribution is _unimodal_, _bimodal_, or _multimodal_ and whether it is either roughly symmetric or has some skew (no further details needed).**
+**Plot question: What is the shape of the malic acid percentage distribution for each cultivar? Specifically, for each of A, B, C cultivars, answer if the distribution is _unimodal_, _bimodal_, or _multimodal_ and whether it is either roughly symmetric or has some skew (no further details needed). (Some of these answers about unimodal/bimodal/multimodal are a little ambiguous, and that's ok!)**
 ```{r}
 ggplot(wine, aes(x = malic_acid, fill = cultivar)) + 
   geom_histogram(binwidth = 0.315, color = "black") +
