@@ -1,0 +1,28 @@
+.prompt {
+  color: #686868;  
+  font-weight: 600;
+  font-size: 1.05em;  
+  margin-top: 75px;
+}
+
+
+
+ol {
+  line-height: 1.2em;
+  font-size:1em;
+  margin-left: -10px;
+  padding-top: 30px;
+  padding-bottom:0px;
+}
+
+ul > ul {
+  line-height: 1.2em;
+  font-size:1em;
+  padding-top: 0px;
+}
+
+
+/* Move code folding buttons to the left */
+div.col-md-12 .pull-right {
+  float: left !important
+}
