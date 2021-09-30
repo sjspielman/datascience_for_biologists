@@ -87,7 +87,7 @@ summary(sparrows)
 
 <div class = "prompt">Remember, you can examine individual columns with several helpful functions (`summary()` is easily the most comprehensive) using the dollar sign to reference them from the data frame. Run the code below to see this in action, and then adapt the code to look at the variable `Sex` instead of `Wingspread`.</div>
 
-```
+```wingspreadsummary
 summary(sparrows$Wingspread)
 ```
 
@@ -194,7 +194,7 @@ ggplot(sparrows) +
 #### **ALERT!** 
 An *extremely common* bug/typo you can now look forward to doing for the rest of your life is accidentally placing a column *outside* of `aes()`. Here's an example of that bug - run the code to see how it produces a error by coping/pasting into Console. _There's a bug here!_
 
-```
+```alert
 ggplot(sparrows) + 
   aes(x = Wingspread, y = Femur_Length) +  
   geom_point(color = Survival) 
