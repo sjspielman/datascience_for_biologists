@@ -1,0 +1,971 @@
+---
+title: "Introduction to data wrangling with `dplyr`"
+author: "Data Science for Biologists"
+output: 
+  learnr::tutorial:
+    css: css/custom-css.css
+    toc: true
+    toc_float: true
+    progressive: true
+    allow_skip: true
+runtime: shiny_prerendered
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(learnr)
+tutorial_options(exercise.lines = 6)
+```
+
+
+> The library `dplyr` (and more!) has been pre-loaded for use using the command `library(tidyverse)`.
+
+## Part 1: Examine the data frame you'll be working with
+
+These exercises use a pre-loaded dataset called `msleep` (sound familiar?), which provides different physical and behavioral characteristics of mammals, including how much they sleep.
+
+Use this code chunk to familiarize yourself with the dataset before you proceed to work with it. In particular, there is a great `dplyr` function `glimpse()` which can reveal a lot of helpful information about a data frame. It's similar to the `str()` function, but the output is much nicer to look at.
+
+```{r explore-msleep, exercise=TRUE}
+glimpse(msleep)
+```
+
+## Set 1: Using `dplyr` verbs
+
+### Using `filter()` to subset data based on a condition
+
+<div class = "prompt"> Use `filter()` to subset `msleep` to only herbivores.</div>
+
++ Hint: The `vore` column will tell you if a mammal is an herbivore. You want find all rows where `vore == "herbi"`. 
++ Think: Why not `vore == herbi`? ... `"herbi"` is a STRING, not a variable!
+
+```{r dplyr_filter1, exercise = TRUE}
+
+```
+
+``` {r, dplyr_filter1-solution}
+msleep %>%
+  filter(vore == "herbi")
+```
+
+<div class = "prompt"> Use `filter()` to subset `msleep` to only animals who are *awake* for at least 12 hours of the day.</div>
+
++ Hint: "At least" like saying "greater than or equal to," i.e. `>=`
+
+ 
+```{r dplyr_filter2, exercise = TRUE}
+
+```
+``` {r, dplyr_filter2-solution}
+msleep %>%
+  filter(awake >= 12)
+```
+
+<div class = "prompt"> Use `filter()` to subset `msleep` to only *herbivores* who are *awake* for at least 12 hours of the days.</div>
+
++ Hint: `dplyr` makes it easy to supply "and" conditions to `filter()` simply with commas: `filter(statement1, statement2)`. This is "the same" as writing: `filter(statement1 & statement2)`.
+
+  
+```{r dplyr_filter3, exercise = TRUE}
+
+```  
+
+```{r dplyr_filter3-solution}
+msleep %>%
+  filter(vore == "herbi", awake >= 12)
+```  
+
+<div class = "prompt"> The code below uses `filter()` to subset `msleep` to include only *herbivores and insectivores*, using the `%in%` logical operator to help craft the statement. Engage with and understand the code, and modify it to subset the data to keep only *herbivores and carnivores*. </div>
+
++ Hint: You can do this in multiple ways. Try it out! Either...
++ Use the logical `%in%` operator as in: `filter(column %in% c(thing_i_want, other_thing_i_want))`. In this case you want the `vore` to be something in this array: `c("herbi", "insecti")`
++ OR, use the pipe `|` symbol to ask if `vore` equal "herbi" or if `vore` equals "insecti"
+
+
+```{r dplyr_filter4, exercise = TRUE}
+msleep %>%
+  filter(vore %in% c("herbi", "insecti"))
+```   
+
+```{r dplyr_filter4-solution}
+msleep %>%
+  filter(vore %in% c("herbi", "carni"))
+
+# OR:
+
+msleep %>%
+  filter(vore == "herbi" | vore ==  "carni")
+```   
+
+<div class = "prompt">  Use `filter()` to subset `msleep` to include only herbivores and carnivores who sleep at least 12 hours a day.</div>
+
++ This is two "and" statements to `filter()`: subet based on `vore` AND subset based on `sleep_total`
+
+```{r dplyr_filter5, exercise = TRUE}
+
+```   
+
+```{r dplyr_filter5-solution}
+msleep %>%
+  filter(vore %in% c("herbi", "carni"), 
+         sleep_total >= 12)
+
+# OR:
+msleep %>%
+  filter((vore == "herbi" | vore ==  "carni"), 
+         sleep_total >= 12)
+```   
+
+<div class = "prompt"> Use `filter()` to subset the data to only carnivores who weigh more than 50 kg. </div>
+
++ Hint: mammals that are carnivores _and_ that weigh more than 50 kgg
+
+```{r dplyr_filter6, exercise = TRUE}
+
+```   
+
+```{r dplyr_filter6-solution}
+msleep %>%
+  filter(vore == "carni", bodywt > 50)
+```   
+
+<div class = "prompt"> Modify your code to the previous question so that it uses *variables rather than values* in `filter()`.</div>
+
++ Hint: You want to define a variable whose value is "carni" and another whose value is 50, and use these inside your `filter()` function instead of the actual string "carni" and the value 50. 
++ Hint 2: Try to use _meaningful variable names_! I recommend using variable names `target_vore` and `target_weight`.
+
+```{r dplyr_filter7, exercise = TRUE}
+
+```   
+
+```{r dplyr_filter7-solution}
+target_vore <- "carni"
+target_weight <- 50
+msleep %>%
+  filter(vore == target_vore, bodywt > target_weight)
+```   
+
+<div class = "prompt"> Modify your code to the previous question (with the variables!) to instead subset the dataset to herbivores who weigh more than 25 kg. </div>
+
++ Hint: This question demonstrates how it is much easier to modify code when you use variables!! You should be able to use the exact same `filter()` code; you only need to change the variable definitions.
+
+```{r dplyr_filter8, exercise = TRUE}
+
+```   
+
+```{r dplyr_filter8-solution}
+# the variables change, but not the filtering
+target_vore <- "herbi"
+target_weight <- 25
+# see, this next code stays the same:
+msleep %>%
+  filter(vore == target_vore, bodywt > target_weight)
+```   
+
+
+
+
+
+### Subsetting columns with `select()`
+
+
+<div class = "prompt">  Use `select()` to keep only the columns `name`, `awake`, `sleep_total`, `sleep_rem`, and `sleep_cycle`. </div>
+
++ Hint: Simply list the columns (without quotes!) in select. No need to use `c()`.
+
+``` {r dplyr_select1, exercise = TRUE}
+
+```
+
+``` {r dplyr_select1-solution}
+msleep %>%
+  select(name, awake, sleep_total, sleep_rem, sleep_cycle)
+```
+
+<div class = "prompt"> Use `select()` to *remove* the columns `genus` and `order`. </div>
+
++ Hint: To remove a column, preface it with the minus sign.
+
+``` {r dplyr_select2, exercise = TRUE}
+
+```
+
+``` {r dplyr_select2-solution}
+msleep %>%
+  select(-genus, -order)
+```
+
+<div class = "prompt"> You can also use `select()` to re-order columns. This is often useful, for example, when viewing datasets that have a lot of columns, and you want to move some columns to the front. The code below moves the column `vore` to the front, followed by "everything else", which is represented by the extremely cool and convenient code `everything()`. Engage with and understand this code, and then modify it code below to reorder the columns as: `bodywt`, `brainwt`, then everything else. </div>
+
++ Hint: You need provide THREE arguments (not including the piped in dataset) to `select()`: The column you want to appear first, the column you want to appear second, and finally everything else.
+
+``` {r dplyr_select3, exercise = TRUE}
+msleep %>%
+  select(vore, everything())
+```
+
+``` {r dplyr_select3-solution}
+msleep %>%
+  select(bodywt, brainwt, everything())
+```
+
+
+### Using `mutate()` to create new columns
+
+
+<div class = "prompt"> Use `mutate()` to create a new column called `class` which literally just contains the string "Mammalia". Indeed, these are all mammals!</div>
+
++ Hint: Need help with `mutate()`? Don't forget: `get_help("mutate")`!
+
+```{r dplyr_mutate1, exercise = TRUE}
+
+``` 
+```{r dplyr_mutate1-solution}
+msleep %>%
+  mutate(class = "Mammalia")
+``` 
+
+
+### Helpful tip!
+
+By default when you create a new column, the column is placed at the END of the data frame. It can be pretty annoying to scroll through the whole dataset to check that your new column was made correctly. It is very helpful to use the `select()` function to rearrange or subset *columns* to make sure your code worked properly. As we will see more in depth very soon, the beauty of the pipe `%>%` if that you can chain more and more `dplyr` commands together. 
+
+<div class = "prompt"> Engage with these code chunks to see how `select()` can be used to help you reorganize columns so that you can more easily check that your answers are right. </div>
+
+```{r dplyr_select_demo1, exercise=TRUE}
+msleep %>%
+  # first, create the column class
+  mutate(class = "Mammalia") %>%
+  # second, keep only the column class to more easily make sure it worked
+  select(class)
+```
+
+```{r dplyr_select_demo2, exercise=TRUE, exercise.lines = 8}
+# Or, reorganize columns using everything() when calling select to place `class` first to make sure it worked
+# This rearranges columns: place `class` first, and then have "everything else"
+msleep %>%
+  # first, create the column class
+  mutate(class = "Mammalia") %>%
+  # then, make class the first-appearing column
+  select(class, everything())
+``` 
+
+
+### Another helpful tip!
+
+When writing multiple pipes, always build it up ONE line at a time! _There is no race to the finish line._ For example, if your first command doesn't work properly, there is no chance your second one will work properly. You have to check with your own personal eyeballs that each line of code worked BEFORE appending the next.
+
+
+<div class = "prompt">Practice writing pipeline code one line at a time below. For each step of the pipeline, look at the result to confirm it worked _before adding the next step._:</div>
+
++ First, use `mutate()` to add a new column to `msleep` called `class` that contains the string "Mammalia". _Look at the output to make sure it worked._
++ Then, add onto the pipeline: code with `filter()` to REMOVE all mammals in the order "Rodentia" (hint: remember the `!=`logical operator!).
++ Finally, add onto the pipeline: use `select()` to only keep columns in this order: `class`, `order`, `genus`, `name`.
++ _If all done correctly, the result should have 4 columns and 61 rows._
+
+```{r pipeline1, exercise=TRUE}
+
+
+```
+
+```{r pipeline1-solution}
+msleep %>%
+  mutate(class = "Mammalia") %>%
+  filter(order != "Rodentia") %>%
+  select(class, order, genus, name)
+```
+
+<div class = "prompt"> The code below uses `mutate()` to create a new column called `bodywt_g` which contains the body weight but in grams instead of kg, as is recorded in the existing `bodywt` column. Engage with this code, and then modify it to instead create a new variable called `bodywt_lbs` which contains the body weight in pounds (1 kg = 2.2 lbs).</div>
+
++ Hint: This question shows you that you can directly refer to and use existing columns when creating new ones.
++ Hint 2: Can you add `select()` to the end of your pipeline to make sure your code worked as intended?
+
+```{r dplyr_mutate2, exercise = TRUE}
+msleep %>%
+  mutate(bodywt_g = bodywt * 1000) # multiply kg by 1000 to get grams
+``` 
+
+```{r dplyr_mutate2-solution}
+msleep %>%
+  mutate(bodywt_lbs = bodywt * 2.2) # multiply kg by 2.2 to get pounds
+
+# To check your answer, I recommend:
+msleep %>%
+  mutate(bodywt_lbs = bodywt * 2.2) %>%
+  # selecting both of these columns will help you confirm that bodywt_lbs=2.2*bodywt
+  select(bodywt_lbs, bodywt)
+``` 
+
+<div class = "prompt"> Use `mutate()` to create a new column called `percent_day_awake` that gives the percentage of the day that each species spends awake, and use `select()` at the end to make sure your calculations worked. </div>
+
++ Hint: There are 24 hours in a day, and the column `awake` says how many hours a day (on average) that species is awake. So, `(awake / 24) * 100` is the percent awake!
+
+```{r dplyr_mutate3, exercise = TRUE}
+
+``` 
+
+```{r dplyr_mutate3-solution}
+msleep %>%
+  mutate(percent_day_awake = (awake / 24) * 100) %>%
+  # Select the column we created to ensure it worked
+  select(percent_day_awake)
+``` 
+
+
+<div class = "prompt"> Use `mutate()` to create a new column called `log_bodywt` that gives the natural logarithm of the body weight, and use `select()` at the end to make sure your calculations worked.</div>
+
++ Hint: `log()` by default calculates the natural logarithm (ln).
+
+  
+```{r dplyr_mutate4, exercise = TRUE}
+
+``` 
+```{r dplyr_mutate4-solution}
+msleep %>%
+  mutate(log_bodywt = log(bodywt)) %>%
+  select(log_bodywt)
+``` 
+
+
+<div class = "prompt"> Use `mutate()` to create a new column called `sleep_awake_ratio` that has the ratio of total time spent asleep to total time spent awake (`sleep_total` divided by `awake`), and again use `select()` to make sure it worked.</div>
+
+```{r dplyr_mutate5, exercise = TRUE}
+
+``` 
+```{r dplyr_mutate5-solution}
+msleep %>%
+  mutate(sleep_awake_ratio = sleep_total/awake) %>%
+  select(sleep_awake_ratio)
+``` 
+
+
+<div class = "prompt"> Let's take a quick detour out of `dplyr` and into the package `tidyr`, which is part of the `tidyverse`. This package (which has been loaded for you!) contains a function `drop_na()` which removes `NA`'s from a tibble. Explore the use of this function with `get_help("drop_na")`, and then use the function to remove _all rows from `msleep` that contain `NA`s in the following columns:_</div>
+
++ `brainwt`
++ `sleep_cycle`
+
++ Hint: If done correctly, there should only be 30 rows remaining out of the original total 83.
+
+
+```{r dplyr_mutate_jktidyr, exercise = TRUE}
+
+``` 
+```{r dplyr_mutate_jktidyr-solution}
+msleep %>%
+  drop_na(brainwt, sleep_cycle)
+``` 
+
+<div class = "prompt"> Modify the code from the previous question to add a another pipe that creates TWO new columns with `mutate()` containing the _mean brainwt_ and then _median bodywt_ for all mammals. Name these columns `mean_brainwt` and `median_bodywt`, respectively, and use `select()` at the end to make sure it worked.</div>
+
++ Hint: You can create two columns at once in `mutate()`, just add commas!
++ _Think_: Why would this code _not have worked_ if we didn't remove `NA`s first? Try it without removing the `NAs` to figure out the issue!
++ _For an added challenge_, find a way to do this without using `drop_na()`
+
+```{r dplyr_mutate_jktidyr2, exercise = TRUE}
+
+``` 
+```{r dplyr_mutate_jktidyr2-solution}
+msleep %>%
+  drop_na(brainwt, sleep_cycle) %>%
+  mutate(mean_brainwt = mean(brainwt),
+         median_sleep_cycle = median(sleep_cycle)) %>%
+  select(mean_brainwt, median_sleep_cycle)
+
+
+# Without drop_na():
+msleep %>%
+  mutate(mean_brainwt = mean(brainwt, na.rm = TRUE),
+         median_sleep_cycle = median(sleep_cycle, na.rm = TRUE)) %>%
+  select(mean_brainwt, median_bodywt)
+``` 
+
+
+<div class = "prompt"> Recall the function `ifelse()` which can define a value based on a condition. Engage with the code below to refresh your memory:</div>
+
+```{r demo_ifelse, exercise=TRUE, exercise.lines = 8}
+animal <- "goat"
+#                      T/F condition     use if T   use if F                       
+is_it_a_goat <- ifelse(animal == "goat", "totes goat", "goatless")
+
+# FIRST, think about what value you expect `is_it_a_goat` to be. Then, print it in the space below to see:
+```
+
+`dplyr` actually has *its own* version of this function called `if_else()` (it has an underscore). This version of the function is technically faster and "safer" to use in your `dplyr` code, but either `ifelse()` or `if_else()` will be fine for the purposes of our class. We'll use `if_else()` here to get in the habit! (Come to office hours to learn more about how `ifelse()` differs from `if_else()`!)
+
+
+<div class = "prompt">We can use this *in combination* with `mutate()` to create new columns whose value is conditioned on something else. For example, the code below creates a new column using `if_else()` to record if a mammal is, or is not, a carnivore. Engage with this code to understand it, and then modify the code to instead make a new column called `are_you_herbi`. This column should contain the value "herbivore" if yes, and "not_an_herbivore" if no.</div>
+
++ Hint: Notice we can still directly refer to existing columns like `vore` even when using `if_else()`, _because it is all part of the `mutate()` code._
++ Hint 2: To reiterate, `if_else()` is part of the `mutate()` code - **It is not a stand-alone `dplyr verb whose first argument is a data frame!!**
++ Hint 3: Again, it's helpful to use `select()` to make sure you did it all correctly! We'll want to select `vore` and `are_you_herbi` to make sure "herbivores" match up with the right value, etc.
+
+
+```{r dplyr_mutate6, exercise=TRUE}
+msleep %>%
+  mutate(are_you_carni = if_else(vore == "carni", "carnivore", "not_a_carnivore")) 
+# Add a select() pipe to keep `vore` and `are_you_carni` to see how this worked, before you proceed to adapt
+```
+```{r dplyr_mutate6-solution}
+msleep %>%
+  mutate(are_you_herbi = if_else(vore == "herbi", "herbivore", "not_an_herbivore"))
+```
+
+
+<div class = "prompt"> Use your new skills to create a column called "weight_class", where mammals that greater than or equal to 100 kg are considered "heavy" and mammals that weigh less than 100 kg are considered "light".</div>
+
++ Hint: First determine an appropriate logical statement you want to ask if TRUE or FALSE? It will have something to do with the body weight value.
++ Hint 2: For improved coding style, use a variable for the value of 100 instead of directly including it in the `mutate()` code.
+
+```{r dplyr_mutate7, exercise=TRUE}
+
+```
+```{r dplyr_mutate7-solution}
+weight_threshold <- 100
+msleep %>%
+  mutate(weight_class = if_else(bodywt >= weight_threshold, "heavy", "light")) %>%
+  # and check with select:
+  select(bodywt, weight_class)
+```
+
+
+<div class = "prompt"> Create a new column in `msleep` called `needs_more_caffeine` where mammals who are awake (`awake`) more than 16 hours a day have the value "definitely" and other mammals have "nope". </div>
+
++ For an improved coding style, make sure to define the value 16 separately to *avoid hardcoding!!*
+
+```{r dplyr_mutate8, exercise=TRUE}
+
+```
+```{r dplyr_mutate8-solution}
+awake_level <- 16
+msleep %>% 
+  mutate(needs_more_caffeine = if_else(awake > awake_level, "definitely", "nope")) %>%
+  # and check:
+  select(awake, needs_more_caffeine)
+```
+
+
+
+### Organizing data frames with `rename()` and `arrange()`
+
+<div class = "prompt">Use `rename()` to change the name of the column `conservation` to `conservation_status`.</div>
+
++ Hint: `rename()` syntax is: `rename(newname = oldname)`. You do NOT need to use quotes.
++ Hint 2: Spielman gets the arguments backwards all the time, and you probably will too! Just remember if there are bugs, it's `NEWname = OLDname`.
+
+```{r dplyr_misc1, exercise = TRUE}
+
+``` 
+```{r dplyr_misc1-solution}
+msleep %>%
+  rename(conservation_status = conservation)
+``` 
+
+<div class = "prompt">Use `arrange()` to sort the dataset in *ascending* order of `bodywt`.</div>
+
++ Hint: `arrange()` sorts in ascending order by default
+
+```{r dplyr_misc2, exercise = TRUE}
+
+``` 
+
+```{r dplyr_misc2-solution}
+msleep %>%
+  arrange(bodywt)
+``` 
+
+<div class = "prompt">Use `arrange()` to sort the dataset in *descending* order of `bodywt`.</div>
+ 
++ Hint: Use `desc()` to sort by descending order of a column instead of just writing the column name, like: `arrange( desc(COLUMN) )`.
+
+```{r dplyr_misc3, exercise = TRUE}
+
+``` 
+```{r dplyr_misc3-solution}
+msleep %>%
+  arrange(desc(bodywt))
+``` 
+
+<div class = "prompt">Use `rename()` to change the name of the column `vore` to `food_preference`.</div>
+
+```{r dplyr_misc4, exercise = TRUE}
+
+``` 
+```{r dplyr_misc4-solution}
+msleep %>%
+  rename(food_preference = vore)
+``` 
+
+
+<div class = "prompt">There is a very useful function in `dplyr` called `slice()`, which will keep/remove rows based on _which row it is_ (similar but different from `filter()`, which subsets rows based on `TRUE` or `FALSE`). The code below keeps only the first two rows of `msleep` for example. Engage with this code to make sure you understand:</div>
+
++ Hint: You should also peek at the full `msleep` tibble so you can convince yourself that indeed these are the first three rows.
+
+```{r dplyr_misc5, exercise = TRUE}
+msleep %>%
+  # Keep rows 1-3
+  slice(1:3)
+``` 
+
+The `slice()` function is really conveniently used along with `arrange()`: Imagine we want to only keep the top 10 values of a certain variable? We can _arrange_ on that variable and then _slice_ the top 10 rows (i.e. rows 1-10, which in R is `1:10`). 
+
+<div class = "prompt">Engage with the code below to understand how it works, and then _modify it_ to keep rows featuring the top 5 values of `bodywt`.</div>
+
++ Hint: Don't forget, ONE PIPELINE STEP AT A TIME! If you don't make sure to know the output from one step, it's pretty challenging to add on the next step confidently.
++ Hint 2: The result should make some sense - the mammals that were kept are **large**!
+
+```{r dplyr_misc6, exercise = TRUE}
+msleep %>%
+  # Arrange in *descending order* (we want top values!) of sleep_cycle
+  arrange(desc(sleep_cycle)) %>%
+  # Keep top 5 sleep cycles
+  slice(1:5) 
+```
+```{r dplyr_misc6-solution, exercise = TRUE}
+msleep %>%
+  arrange(desc(bodywt)) %>%
+  slice(1:5) 
+```
+
+
+### Removing duplicate rows
+
+In many circumstances, we are interested in subsetting data to only keep _unique_ rows and therefore remove duplicates. We simply use the `dplyr` function `distinct()` for this - no arguments! Below shows you how to use the function, but it's not very interesting yet since there are no duplicate rows in `msleep`! 
+
+
+```{r demo-distinct, exercise=TRUE}
+msleep %>%
+  distinct()
+```
+
+
+<div class = "prompt">Modify the pipeline below to only keep distinct rows at the end. First, engage with to understand which duplicate rows you expect will be removed.</div>
+
++ Hint: Can you also remove all `NA`s?
+
+```{r demo-distinct2, exercise=TRUE}
+msleep %>%
+  select(vore, conservation)
+```
+```{r demo-distinct2-solution, exercise=TRUE}
+msleep %>%
+  drop_na() %>% 
+  select(vore, conservation) %>%
+  distinct() 
+```
+
+### Counting the number of rows
+
+Often we need to know "how many rows are in this wrangled data frame?" There are broadly two ways to do this:
+
++ Use the `nrow()` function which you already know! Because `nrow()` takes a data frame as its argument, we can pipe `dplyr` pipelines into it! But it returns a NUMBER, NOT another data frame, so we can't pipe *out* of it into another `dplyr` function.
+
+```{r demo-nrow, exercise=TRUE}
+nrow(msleep)
+
+# or..
+msleep %>%
+  nrow()
+```
+
+
++ Use the `dplyr` function `tally()` which gives you a _tibble_ of the row count. *We will learn more interesting uses of this function later, but for now, you should know that it will count your rows and return a tibble:*
+
+
+```{r demo-tally, exercise=TRUE}
+msleep %>%
+  tally()
+```
+
+
+<div class = "prompt">Answer the question: How many mammals weigh more than 2000 kg?</div>
+
++ To answer this, we'd use `filter()` to get only the rows of interest (mammals which weigh more than 2000)
++ The number of rows remaining represents the answer to the question. (add `tally()` to the pipeline)
++ **HOWEVER**, rather than just looking at our own eyes and determining ourselves how many rows are there, we want to use **code** to figure that out for us. **This is a central concept in coding: We are using computers, so let's ask the computer to do it for us! Eyeballs are not reproducible.**
+
+```{r tally_q1, exercise=TRUE}
+
+```
+```{r tally_q1-solution}
+msleep %>%
+  filter(bodywt > 2000) %>%
+  tally()
+```
+
+
+
+## Set 2: Creating `dplyr` pipelines
+
+> Remember: You can always use functions like `select()` to _check_ your code, even if `select()` is not actually part of the solution.
+
+<div class = "prompt"> Use `filter()` to subset `msleep` to only herbivores, and then use `arrange()` to order the data by `name`.</div>
+
+```{r dplyr_pipe1, exercise = TRUE}
+
+``` 
+```{r dplyr_pipe1-solution}
+msleep %>%
+  filter(vore == "herbi") %>%
+  arrange(name)
+``` 
+
+<div class = "prompt"> Use `filter()` to subset `msleep` to only species whose conservation status is least concern ("lc"), and then use `select()` to remove the `conservation` column, and finally remove all `NA`s with `drop_na()`. **Save the final output** of your piped commands to a new data frame called `msleep_lc`, and then print the new data frame to confirm your work was successful.</div>
+
++ Try using the forward assignment symbol, `->` to "send" the final output into the variable name `msleep_lc`.
+
+```{r dplyr_pipe2, exercise = TRUE}
+
+``` 
+```{r dplyr_pipe2-solution}
+msleep %>%
+  filter(conservation == "lc") %>%
+  select(-conservation) %>%
+  drop_na() -> msleep_lc
+
+msleep_lc
+``` 
+
+<div class = "prompt"> The goal of this question is to find all the mammals whose awake/asleep ratio is greater than 1.</div>
+
++ To accomplish this, first calculate the ratio (make it a new column!), and then filter the data to only keep those calculations which are greater than 1.
+
+
+```{r dplyr_pipe3, exercise = TRUE}
+
+``` 
+
+```{r dplyr_pipe3-solution}
+msleep %>%
+  mutate(sleep_awake_ratio = awake/sleep_total) %>%
+  filter(sleep_awake_ratio > 1)
+``` 
+
+
+
+<div class = "prompt"> Use `filter()` to subset `msleep` to only primate species (order is "Primates") whose conservation status is least concern ("lc") (two things to filter!!), and then use `rename()` to change the column `vore` to be called `diet`.</div>
+
++ Hint: There are two things to filter on here! Remember to use a comma within `filter()` to specify them both.
+
+```{r dplyr_pipe4, exercise = TRUE}
+
+``` 
+```{r dplyr_pipe4-solution}
+msleep %>%
+  filter(order == "Primates", conservation == "lc") %>%
+  rename(diet = vore)
+``` 
+
+<div class = "prompt"> Subset the data to contain only carnivores with body weights greater than 50 kg. Then, arrange the data in ascending order ofbody weight. Finally, keep only columns `name`, `bodywt`, `brainwt` in that order. </div>
+
++ For an added challenge, _simultaneously rename_ the column `name` to `common_name`. You can do this in `select()` using `rename()` syntax.
+
+```{r dplyr_pipe5, exercise = TRUE}
+
+``` 
+```{r dplyr_pipe5-solution}
+msleep %>%
+  filter(vore == "carni", bodywt > 50) %>%
+  arrange(bodywt) %>%
+  select(name, bodywt, brainwt)
+
+# Added challenge
+msleep %>%
+  filter(vore == "carni", bodywt > 50) %>%
+  arrange(bodywt) %>%
+  select(common_name = name, bodywt, brainwt)
+``` 
+
+<div class = "prompt"> Modify the code from the previous question by *switching* the order of `arrange()` and `select()`. Does this change the output? _Understand why or why not._</div>
+
++ Ok, here's the answer: there is NO difference in the output, because these commands are just rearranging existing data. Nothing is being added or removed.
+
+```{r dplyr_pipe6, exercise = TRUE}
+
+``` 
+```{r dplyr_pipe6-solution}
+msleep %>%
+  filter(vore == "carni", bodywt > 50) %>%
+  select(name, bodywt, brainwt) %>%
+  arrange(brainwt)
+``` 
+
+
+<div class = "prompt"> Modify the code from the previous question _again_ by reordering pipeline commands: first select, then filter, and then arrange. _In fact, this will lead to a BUG!! Why?_</div>
+
++ Hint: This is why it is CRUCIAL to do one step at a time. If you select first, you actually get rid of the `vore` column, so you can't posssibly filter it.
+
+
+```{r dplyr_pipe6-5, exercise = TRUE}
+
+``` 
+```{r dplyr_pipe6-5-solution, error=TRUE}
+msleep %>%
+  select(name, bodywt, brainwt) %>%
+  filter(vore == "carni", bodywt > 50) %>%
+  arrange(brainwt)
+``` 
+
+<div class = "prompt"> Engage with the templated code below, whose goal is to show just the `bodywt` and `name` columns for all mammals whose brain weight is less than 2. Alas, the code has a bug! Can you figure out *WHY* the code has a bug and fix the code? </div>
+
++ Hint: What lessons did you just learn in the previous question? Apply them here!
+
+```{r dplyr_pipe7, exercise = TRUE}
+msleep %>%
+  select(bodywt, name) %>%
+  filter(brainwt < 2) 
+``` 
+
+```{r dplyr_pipe7-solution}
+# Need to reverse the order! The original "logic" was flawed
+msleep %>%
+  filter(brainwt < 2) %>%
+  select(bodywt, name) 
+``` 
+
+<div class = "prompt"> Engage with the templated code below, whose goal is to show just the REM sleep amounts for carnivores, where data is arranged in order of `genus`. Alas, the code has a bug yet again! Can you fix the code? </div>
+
++ Once again, the lesson here is _you must code and CHECK THE RESULT one line at a time!!_
+
+```{r dplyr_pipe8, exercise = TRUE}
+msleep %>%
+  filter(vore == "carni") %>%
+  select(sleep_rem) %>%
+  arrange(genus)
+``` 
+
+```{r dplyr_pipe8-solution}
+msleep %>%
+  arrange(genus) %>%
+  filter(vore == "carni") %>%
+  select(sleep_rem)
+
+# Works just as well! 
+msleep %>%
+  filter(vore == "carni") %>%
+  arrange(genus) %>%
+  select(sleep_rem)
+``` 
+
+<div class = "prompt"> Now, let's finally see why `distinct()` is a helpful function. We want to answer this question using a `dplyr` framework: What are the unique vores in the dataset? To address this question, we need to first subset the data to only contain the `vore` column, and then use `distinct()`:</div>
+
++ Engage with the code below, and understand _why I had to write it in this order._ Think about why it would NOT work to first get all unique rows and then select only `vore`. 
+
+```{r distinct-vore-demo, exercise=TRUE}
+msleep %>%
+  select(vore) %>%
+  distinct()
+```
+
+
+<div class = "prompt"> Subset `msleep` to arrive at a tibble that contains just the column `vore` and shows only the unique vores that mammals of the order `"Carnivora"` belong to. In other words, what do carnivores eat? (The answer should make some sense...)</div>
+
++ Hint: You first want to filter to the rows of interest (carnivores!!), and then figure out how to get the distinct vores for that group.
+
+```{r dplyr_pipe10, exercise=TRUE}
+
+```
+
+
+```{r dplyr_pipe10-solution}
+msleep %>%
+  filter(order == "Carnivora") %>%
+  select(vore) %>%
+  distinct()
+```
+
+
+
+## Set 3: Summarizing data with `dplyr`
+
+
+<div class = "prompt"> Use `summarize()` to create a summarized dataframe with a column `mean_awake` that contains the mean number of hours spent awake.</div>
+
+```{r dplyr_summarize1, exercise = TRUE}
+
+``` 
+```{r dplyr_summarize1-solution}
+msleep %>%
+  summarize(mean_awake = mean(awake))
+``` 
+
+<div class = "prompt"> Perform the same exact task as the last question, except this time use `mutate()` rather than `summarize()`. The goal of this question is so you can see clearly how mutate and summarize differ. </div>
+
+
+```{r dplyr_summarize2, exercise = TRUE}
+
+``` 
+```{r dplyr_summarize2-solution}
+msleep %>%
+  # Now we have a whole column where all rows have the same value.
+  mutate(mean_awake = mean(awake))
+``` 
+
+
+<div class = "prompt"> Let's keep building our intuition for `mutate()` vs `summarize()`. We want to know: How does each mammal's time spent asleep compare to the average amount of time mammals sleep? In this case, we'll calculate the *difference* between each species' sleep and the average sleep, and we want a *row for each mammal* showing the difference. </div>
+
++ Your final answer should contain only TWO COLUMNS: `name` and `awake_difference` (representing the difference between the species and the average).
++ Hint: First plan your steps CONCEPTUALLY, and then begin to implement in code. You'll need to decide if `mutate()` or `summarize()` is more appropriate. 
+
+
+```{r dplyr_summarize3, exercise = TRUE}
+
+``` 
+```{r dplyr_summarize3-solution}
+
+msleep %>%
+  mutate(mean_awake = mean(awake)) %>%
+  mutate(awake_difference = awake - mean_awake) %>%
+  select(name, awake_difference)
+
+# Done another way:
+# You can use a single call to mutate() to make several columns at once, and new lines know about the previous ones!
+msleep %>%
+  mutate(mean_awake = mean(awake),
+         awake_difference = awake - mean_awake) %>%
+  select(name, awake_difference)
+
+# Done another way: No need to even make mean_awake!
+msleep %>%
+  mutate(awake_difference = awake - mean(awake)) %>%
+  select(name, awake_difference)
+``` 
+
+
+
+<div class = "prompt"> Use `summarize()` and `mean()` to determine the average amount of time spent in REM sleep (column `sleep_rem`)  by all mammals in the dataset `msleep`. </div>
+
++ Make sure to give your new column an informative name!
++ There are `NA`'s in this column, so you need to tell the function `mean()` to ignore NA's with the extra argument `na.rm = TRUE`. Remember that?! It's an argument to **`mean()`**, NOT to `summarize()`!!
+  
+```{r dplyr_summarize4, exercise = TRUE}
+
+``` 
+```{r dplyr_summarize4-solution}
+msleep %>%
+  summarize(mean_rem = mean(sleep_rem, na.rm=TRUE))
+``` 
+
+
+<div class = "prompt"> Use `group_by()` calculate the median (with `summarize()` and `median()`!) body weight (`bodywt`) of each `vore` group.</div>
+
++ Make sure to give your new column an informative name!
++ First, you set up the grouping with `group_by(COLUMN-TO-GROUP-BY)` (in this case, `vore`), and then pipe into `summarize()`
+
+```{r dplyr_summarize5, exercise = TRUE}
+
+``` 
+```{r dplyr_summarize5-solution}
+msleep %>%
+  group_by(vore) %>%
+  summarize(med_bodywt = median(bodywt))
+``` 
+
+
+<div class = "prompt"> Use `group_by()` calculate the *maximum* (with `summarize()` and `max()`!) brain weight (`brainwt`) of each `vore` group. Then, *sort* the data according to maximum brain weight (your new well-named column!) with `arrange()`.</div>
+
+```{r dplyr_summarize6, exercise = TRUE}
+
+``` 
+```{r dplyr_summarize6-solution}
+msleep %>%
+  group_by(vore) %>%
+  summarize(max_brainwt = max(brainwt)) %>%
+  arrange(max_brainwt)
+``` 
+
+
+<div class = "prompt">Use `group_by()` calculate the mean body weight (`bodywt`) of each *combination* of `vore` and `conservation` groups. </div>
+
++ You can specify multiple groupings to `group_by()` just by listing the columns. 
++ Added challenge: can you add a pipeline step that will remove _all rows_ containing `NA`?
+
+```{r dplyr_summarize7, exercise = TRUE}
+
+``` 
+
+```{r dplyr_summarize7-solution}
+msleep %>%
+  group_by(vore, conservation) %>%
+  summarize(mean_bodywt = mean(bodywt)) %>%
+  drop_na()
+``` 
+
+### Important learning moment:
+
+<div class = "prompt"> Examine the output of the last question: _The outputted tibble remains a grouped tibble, grouped on `vore`._ The preserved grouping can lead to unintended behavior. For example, let's say I want to add up the `mean_body` values: I should end up with 1 number (the sum), but I don't!</div>
+
+```{r dplyr_ungroup_demo, exercise=TRUE}
+msleep %>%
+  group_by(vore, conservation) %>%
+  summarize(mean_bodywt = mean(bodywt)) %>%
+  drop_na() %>%
+  # Add up the mean_body
+  summarize(sum_bw = sum(mean_bodywt))
+``` 
+<div class = "prompt">We ended up summing across vores - well, that's what happens on a grouped tibble! The data was previously grouped! If we really want ONE NUMBER, we must `ungroup()` before proceeding:</div>
+
++ As a general rule, always `ungroup()` to be safe _right after your grouped calculations._ 
+
+```{r dplyr_ungroup_demo2, exercise=TRUE}
+msleep %>%
+  group_by(vore, conservation) %>%
+  summarize(mean_bodywt = mean(bodywt)) %>%
+  # REMOVE ANY PREVIOUS GROUPINGS AFTER DONE WITH GROUPED CALCULATIONS:
+  ungroup() %>%
+  drop_na() %>%
+  # Add up the mean_body
+  summarize(sum_bw = sum(mean_bodywt))
+``` 
+
+
+<div class = "prompt"> Use `count()` to count how many different taxonomic orders (column `order`) are in the dataset `msleep`. *Rename* the new column this creates to be called `order_count`, and then *sort* the output in *descending* order of `order_count`.</div>
+  
++ Hint: `count(COLUMN)` is an awesome shortcut for counting all observations in a group `COLUMN`. Need help? Use `get_help("count")`
++ Hint 2: Be really sure to run this code one line at a time!! Otherwise, you won't necessarily know the name of the column to run `arrange()` on!!! 
+
+```{r dplyr_summarize9, exercise = TRUE}
+
+``` 
+```{r dplyr_summarize9-solution}
+msleep %>%
+  count(order) %>%
+  rename(order_count = n) %>%
+  arrange(desc(order_count))
+``` 
+
+
+<div class = "prompt">  Use all your skills to wrangle the data to arrive at the answer to this question: Which group has the highest average body weight: herbivores or insectivores? </div>
+
+```{r, dplyr_summarize10, exercise=TRUE}
+
+```
+```{r, dplyr_summarize10-solution}
+# There are MANY WAYS to arrive at this solution! Below is one good option:
+msleep %>%
+  filter(vore %in% c("herbi", "insecti")) %>%
+  group_by(vore) %>%
+  summarize(mean_bodywt = mean(bodywt)) %>%
+  arrange(desc(mean_bodywt)) # answer: herbivores!
+```
+
+<div class = "prompt"> Use all your skills to wrangle the data to arrive at the answer to this question: Which group has the highest **average ratio** of body weight to brain weight: domesticated or non-domesticated mammals? *Make sure to PLAN your steps before coding them. When coding, go LINE by LINE.*</div>
+
++ Hint: `if_else()` will be useful here!
++ Hint 2: These columns contain plenty of `NA`s. How do I know? I LOOKED AT THE DATA!
+
+```{r, dplyr_challenge, exercise=TRUE}
+
+```
+```{r, dplyr_challenge-solution}
+msleep %>%
+  # I personally find it much easier to see what's going on by only keeping these 3 columns
+  select(conservation, bodywt, brainwt) %>%
+  # remove rows where at least one of our variables of interest is NA. How do I know to do this? I ran code without first this line, and results had tons of NA! So, maybe I should have removed them
+  drop_na(conservation, bodywt, brainwt) %>%  
+  mutate(cons_type = if_else(conservation == "domesticated", "dom", "notdom")) %>%
+  group_by(cons_type) %>%
+  mutate(ratio = bodywt/brainwt) %>%
+  summarize(mean_ratio = mean(ratio)) # answer: domesticated
+```

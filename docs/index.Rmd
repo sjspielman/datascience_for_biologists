@@ -20,39 +20,36 @@ This website contains all materials used in BIOL 01301 Fall 2021 at Rowan Univer
 > Scheduled topics are subject to change up until the week before, depending on class pace. Homeworks will be made available no later than one week in advance of their deadlines.
 >
 > [Link to the `{introverse}`](https://spielmanlab.github.io/introverse)
->
-> [Instructions for launching homeworks, apps, and interactive exercises](./launch_instructions.html)
 > 
 > [All of the colors!!!](./misc/Rcolor.pdf)
 >
 > [Links to short help videos](./video_links.html)
->
-> [Instructions for setting up RStudio Cloud/GitHub Token](./tutorials/github_token.html)
+
 
  Date  | Topic                                  | In-class materials and other resources        | Assignment DUE to Canvas by 2 PM
 :----------|:---------------------------------------|:----------------------------------------------------------|:---------------------------------------------------------------------
 W 9/1   | Introduction and class logistics | - | -
-R 9/2   | Types of data and figures | "Types of data and figures" interactive exercises | -
+R 9/2   | Types of data and figures | ["Types of data and figures" interactive exercises](https://sjspielman.shinyapps.io/data_figures) | -
 M 9/6 | _No class: Labor Day_ |- |-
-W 9/8   | Types of data and figures  | "Types of data and figures" interactive exercises | -
+W 9/8   | Types of data and figures  | ["Types of data and figures" interactive exercises](https://sjspielman.shinyapps.io/data_figures) | -
 R 9/9   | Concepts in tidy data  | [Tidy data paper](./misc/tidy-data.pdf) | -
-M 9/13  | Introduction to R and RStudio | "Introduction to R" interactive exercises <br> [Introduction to R stand-alone tutorial](./tutorials/introduction_to_R.html)| -
-W 9/15 | Introduction to R and RStudio | "Introduction to R" interactive exercises | Homework 1: Identifying data types and figures <br> [Link to Instructions](./homeworks/hw1/hw1_instructions.html) <br> [Link to Answer Sheet](./homeworks/hw1/homework1_answer_sheet.docx)
+M 9/13  | Introduction to R and RStudio | ["Introduction to R" exercises](./exercises/intro_R.html) <br> [Introduction to R stand-alone tutorial](./tutorials/introduction_to_R.html)| -
+W 9/15 | Introduction to R and RStudio | ["Introduction to R" exercises](./exercises/intro_R.html) | Homework 1: Identifying data types and figures <br> [Link to Instructions](./homeworks/hw1/hw1_instructions.html) <br> [Link to Answer Sheet](./homeworks/hw1/homework1_answer_sheet.docx)
 R 9/16 | Exercise Recap and Introduction to RMarkdown | Rmarkdown activity | -
 M 9/20 | The grammar of graphics, Part 1 | [Slides](./slides/grammar_graphics_slides.pdf) | -
 W 9/22 | The grammar of graphics, Part 2 <br> Homework 1 Review | Same slides as Monday 9/20  | **HW2 DEADLINE POSTPONED TO FRIDAY 9/24/21 - SEE CANVAS ANNOUNCEMENT** <br> Homework 2: Using R and RMarkdown <br> [Link to Instructions](./homeworks/hw2/hw2_instructions.html) <br> [Starting and submitting HW2 video](https://youtu.be/n7dyNVH0gE0) <br> [Additonal (important!) help videos](./video_links.html) <br><br> [_**ALSO:** watch/follow this video to setup RStudio Cloud/Github_](./tutorials/github_token.html) and complete Canvas assignment: _"Proof of RStudio Cloud/Github Setup"_
 R 9/23 | _Open work day_  | | -
 M 9/27 | Introduction to `ggplot2` | [Reference slides](./slides/ggplot2_slides.html) <br> [In-class script](./inclass/ggplot2_day1.R) (Upload this to your RStudio Cloud project to open it) | -
-W 9/29 | More `ggplot2`  | "Introduction to `ggplot2`" interactive exercises <br> "Line-by-line" application | Homework 3: Grammar of Graphics <br> [Link to Instructions](./homeworks/hw3/hw3_instructions.html) <br> [Link to Answer Sheet](./homeworks/hw3/homework3_answer_sheet.docx)
+W 9/29 | More `ggplot2`  | ["Introduction to `ggplot2`" exercises](./exercises/ggplot2.html) <br> ["Line-by-line" application](https://sjspielman.shinyapps.io/line_by_line) | Homework 3: Grammar of Graphics <br> [Link to Instructions](./homeworks/hw3/hw3_instructions.html) <br> [Link to Answer Sheet](./homeworks/hw3/homework3_answer_sheet.docx)
 R 9/30 |  _Open work day_ | | -
 M 10/4 | Best practices in data visualization | - | -
 W 10/6 | Deriving data from plots <br> Customizing your plots in `ggplot2` | Slides, TBD  | Homework 4: Data visualization with `ggplot2`<br> [Link to Instructions](./homeworks/hw4/hw4_instructions.html)
 R 10/7 |  _Open work day_ | - | -
 M 10/11 | Introduction to data wrangling with `dplyr` and `tidyr` I | Slides, TBD | -
-W 10/13 | `dplyr` and `tidyr` II | "Introduction to `dplyr`" interactive exercises <br> "Line-by-line" application  | Homework 5: More data visualization with `ggplot2`
+W 10/13 | `dplyr` and `tidyr` II | "Introduction to `dplyr`" exercises <br> ["Line-by-line" application](https://sjspielman.shinyapps.io/line_by_line)  | Homework 5: More data visualization with `ggplot2`
 R 10/14 | _Open work day_ | | -
 M 10/18 | `dplyr` and `tidyr` III | Slides, TBD | -
-W 10/20 | `dplyr` and `tidyr` IV |  "Introduction to `dplyr`" interactive exercises <br> "Line-by-line" application  | Homework 6: Data wrangling and visualization
+W 10/20 | `dplyr` and `tidyr` IV |  "Introduction to `dplyr`" exercises <br> ["Line-by-line" application](https://sjspielman.shinyapps.io/line_by_line)  | Homework 6: Data wrangling and visualization
 R 10/21 | _Open work day_  |- | -
 M 10/25 | Reading and writing data  | [Background reading: "FILE NOT FOUND"](https://www.theverge.com/22684730/students-file-folder-directory-structure-education-gen-z)| -
 W 10/27 | Working with strings and relational data | [Background reading: "A hypothesis is a liability"](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02133-w) <br> Slides  | Homework 7: More data wrangling and visualization

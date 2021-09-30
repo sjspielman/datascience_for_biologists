@@ -1,0 +1,13 @@
+name: data_figures
+title: data_figures
+username:
+account: sjspielman
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 4642941
+bundleId: 5028890
+url: https://sjspielman.shinyapps.io/data_figures/
+when: 1631553261.27846
+lastSyncTime: 1631553261.27848
+asMultiple: FALSE
+asStatic: FALSE
