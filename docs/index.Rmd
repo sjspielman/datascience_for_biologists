@@ -46,10 +46,10 @@ M 10/4 | Best practices in data visualization | - | -
 W 10/6 | Deriving data from plots <br> Customizing your plots in `ggplot2` | Slides, TBD  | Homework 4: Data visualization with `ggplot2`<br> [Link to Instructions](./homeworks/hw4/hw4_instructions.html)
 R 10/7 |  _Open work day_ | - | -
 M 10/11 | Introduction to data wrangling with `dplyr` and `tidyr` I | Slides, TBD | -
-W 10/13 | `dplyr` and `tidyr` II | "Introduction to `dplyr`" exercises <br> ["Line-by-line" application](https://sjspielman.shinyapps.io/line_by_line)  | Homework 5: More data visualization with `ggplot2`
+W 10/13 | `dplyr` and `tidyr` II | ["Introduction to `dplyr`" exercises](./exercises/dplyr.html) <br> ["Line-by-line" application](https://sjspielman.shinyapps.io/line_by_line)  | Homework 5: More data visualization with `ggplot2`
 R 10/14 | _Open work day_ | | -
 M 10/18 | `dplyr` and `tidyr` III | Slides, TBD | -
-W 10/20 | `dplyr` and `tidyr` IV |  "Introduction to `dplyr`" exercises <br> ["Line-by-line" application](https://sjspielman.shinyapps.io/line_by_line)  | Homework 6: Data wrangling and visualization
+W 10/20 | `dplyr` and `tidyr` IV |  ["Introduction to `dplyr`" exercises](./exercises/dplyr.html) <br> ["Line-by-line" application](https://sjspielman.shinyapps.io/line_by_line)  | Homework 6: Data wrangling and visualization
 R 10/21 | _Open work day_  |- | -
 M 10/25 | Reading and writing data  | [Background reading: "FILE NOT FOUND"](https://www.theverge.com/22684730/students-file-folder-directory-structure-education-gen-z)| -
 W 10/27 | Working with strings and relational data | [Background reading: "A hypothesis is a liability"](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02133-w) <br> Slides  | Homework 7: More data wrangling and visualization
