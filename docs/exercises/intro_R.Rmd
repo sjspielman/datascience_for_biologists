@@ -1,0 +1,1194 @@
+---
+title: 'Exercises: Introduction to `R`'
+author: "Data Science for Biologists, Fall 2021"
+output: 
+  html_document:
+    css: css/custom-css.css
+    theme: united
+    highlight: tango
+    toc: true
+    toc_float: true
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval=FALSE)
+
+library(tidyverse)
+library(ds4b.materials)
+```
+
+
+
+## Set 1: Using R as a calculator
+
+<div class = "prompt"> What is 5 times 6?</div>
++ Hint:  Use the asterisk `*` to multiply numbers
+
+
+
+```{r calc_q1-solution}
+5*6
+```
+
+<div class = "prompt"> What is 600 divided by 2.53?</div>
+
++ Hint:  Use the forward slash `/` to divide numbers
+
+
+
+```{r calc_q2-solution}
+600/2.53
+```
+
+<div class = "prompt"> What is 138 squared?</div>
+
++ Hint:  Use the carot symbol `^` *or* two asterisks (`**`) to raise numbers to an exponent.
+
+
+```{r calc_q3-solution, collapse=TRUE}
+138**2 
+
+# Equally valid approach
+138^2 
+```
+
+<div class = "prompt"> What is the square root of 14?</div>
+
++ Hint:  Square roots are like raising to the power of 0.5
+
+```{r calc_q4, exercise = TRUE}
+
+``` 
+```{r calc_q4-solution}
+14^0.5
+```
+
+<div class = "prompt">What is the answer to: 11 plus 10, all divided by 3?</div>
+
++ Hint: You'll need parentheses do this math correctly - remember your PEMDAS!
+
+```{r calc_q5, exercise = TRUE}
+
+``` 
+
+```{r calc_q5-solution}
+(11+10)/3
+```
+
+
+<br>
+
+---
+
+<br>
+
+## Set 2: Working with variables 
+
+
+After you define a variable, **always** print out the variable to make sure it was defined correctly! You can reveal the value of a variable simply by typing and running the variable's name:
+  
+```demo_print
+## Gives no output on its own, but does something *internally*. 
+y <- 8.5 
+
+## But if you run y by itself in the interactive Console, its value will appear!
+y
+```
+
+**Remember that the computer is this annoying person (AP):**
+
+You: "Can you calculate 5 times 2 for me?"
+
+AP: "Sure I can do that!"
+
+You: "..."
+
+AP: "..."
+
+You: "Ugh, can you TELL ME what 5 times 2 is?"
+
+AP: "It's 10"
+
+You: "Well why didn't you just tell me the first time?!"
+
+AP: "You didn't ask me to TELL you 5 times 2. You just asked me to CALCULATE 5 times 2."
+
+
+### Defining and using variables
+
+
+  
+<div class = "prompt">Define a variable named `banana_price` whose value is 0.55 (aka 55 cents). </div>
+
++ Hint:  Use the assignment operator `<-` to assign the value 0.55 to the variable name `banana_price`.
+
+
+```{r variables_q1-solution}
+banana_price <- 0.55
+```
+
+<div class = "prompt">Again, define the `banana_price` variable (since these questions don't communicate with each other!!). Use R as a calculator to determine the cost of 17 bananas. Perform this operation using the `banana_price` variable itself.</div>
+
++ Hint: Don't let the fact that you are coding confuse you about things you know how to do! The calculation simply entails multiplying the cost of one banana by 17. 
+
+
+```{r variables_q2-solution}
+banana_price <- 0.55
+banana_price * 17
+```
+
+<div class = "prompt">Modify your code to the previous question by creating a second variable called `num_bananas`. Assign this variable the value 17, and recalculate your answer using only the variables `banana_price` and `num_bananas`.</div>
+
+
+
+```{r variables_q3-solution}
+banana_price <- 0.55
+num_bananas <- 17
+banana_price * num_bananas
+```
+  
+<div class = "prompt">Again modify the code to change the banana price to 62 cents (0.62) and re-calculate the cost of buying 17 bananas.</div>
+
+
+```{r variables_q4-solution}
+banana_price <- 0.62
+num_bananas <- 17
+banana_price * num_bananas
+```
+
+<div class = "prompt">You're sick of bananas - time to buy some [persimmons](https://en.wikipedia.org/wiki/Persimmon). These are more expensive at \$2.75 a piece. You want to buy 10 persimmons. How much will it cost you?</div>
+
++ Again, perform all calculations with variables: You need to multiply the number of persimmons (10) by the cost (2.75). This math is easy enough to do in your head, but you must use code!! 
+                                                  
+
+```{r variables_q5-solution}
+persimmon_price <- 2.75
+num_persimmons <- 10
+persimmon_price * num_persimmons
+```
+
+<div class = "prompt">Modify your previous code to *save* the calculations to a new variable, `total_cost`. Print out this variable to be sure it's correct.</div>
+
+
+
+```{r variables_q6-solution}
+persimmon_price <- 2.75
+num_persimmons <- 10
+total_cost <- persimmon_price * num_persimmons
+total_cost
+```
+
+<div class = "prompt">Define a variable called `my_favorite_fruit`, and give it the value of...your favorite fruit! This is a *string* variable, so you must enclose the assigned value in quotes. Print your variable to make sure it is correct.</div>
+
+
++ You are allowed to not have a favorite fruit, in which case please use `my_favorite_food` :).
++ The goal of this question is to practice defining a STRING variable (no more math!)
+
+
+```{r variables_q7-solution}
+my_favorite_fruit <- "papaya"
+my_favorite_fruit
+```
+
+
+<br>
+
+---
+
+<br>
+
+## Set 3: Working with functions
+
+<div class = "prompt">Use the function `sqrt()` to calculate the square root of 206.</div>
+
++ Hint: Provide 206 as an *argument* to the function `sqrt()`
+
+
+```{r func_q1-solution}
+sqrt(206)
+```
+
+<div class = "prompt">Use the function `log()` to calculate the *natural log* (this is actually the default behavior of this function) of 206.</div>
+
+  
+
+```{r func_q2-solution}
+log(206)
+```
+
+<div class = "prompt">Use the function `log()` to calculate the log in base 10 of 206.</div>
+
++ Hint: The function `log()` can optionally take a *second* argument specifying the base. For example, `log(500, 6)` takes the log of 500 in base 6. 
+
+
+```{r func_q3-solution}
+log(206, 10)
+```
+
+<div class = "prompt">The function `class()` will tell you what *type* of data a given variable or value is. Use `class()` to find the *type* of value 7.</div>
+
++ Hint: Provide 7 as the argument to `class()`
+
+  
+
+```{r func_q4-solution}
+class(7)
+```
+
+<div class = "prompt">Now, use `class()` to determine the *type* of value `"7"`.</div>
+
++ Hint: Don't forget the quotes! Think: what did you learn from the last two questions about how quotes work?
+
+```{r func_q5, exercise = TRUE}
+
+```   
+```{r func_q5-solution}
+class("7")
+```
+
+<div class = "prompt">The `nchar()` function will tell you how many individual characters are in a string. The code below defines a character variable. Use the `nchar()` function to determine how many characters it contains.</div>
+
+```{r func_q6, exercise = TRUE}
+banana_color <- "yellow"
+```   
+```{r func_q6-solution}
+banana_color <- "yellow"
+nchar(banana_color)
+```
+
+
+<br>
+
+---
+
+<br>
+
+## Set 4: Working with arrays
+
+
+> Note: The terms "array" and "vector" both refer to the same thing and are used interchangeably, but a "list" is something else entirely! These exercises don't consider lists at all.
+
+
+<div class = "prompt">Define an array variable called `array_numbers` that contains the values 1, 2, 3, 4, and 5. Then, print the variable itself to make sure its contents look right.</div>
+
++ Hint: Use the function `c()` ("combine") to define your array.
++ Hint 2: Spaces do NOT matter! For example, `c(8,9,10)` and `c(8, 9,   10)` are equivalent.
+
+
+```{r array_q1-solution}
+array_numbers <- c(1, 2, 3, 4, 5)
+array_numbers
+```
+
+<div class = "prompt">Define an array variable called `array_numbers2` that again contains the values 1, 2, 3, 4, and 5, **but!** this time use a colon `:` instead of `c()`. Again, type the variable name itself to make sure its contents look right.</div>
+
+
+```{r array_q2-solution}
+array_numbers2 <- 1:5
+array_numbers2
+```
+
+<div class = "prompt">Define an array variable called `even_numbers` that contains the values 2, 4, 6, 8, and 10 using the `c()` function.</div>
+
++ The colon will not work here. The colon can only define an array with whole numbers in exact order.
+
+```{r array_q3-solution}
+even_numbers <- c(2,4,6,8,10)
+even_numbers
+```
+
+
+<div class = "prompt">The function `length()` tells you how many items are in a given array. This function is analogous to the `nchar()` function we previously learned: Just like we use `nchar()` to ask how long a string is, we use `length()` to ask how long an array is. Define an array with 5 numbers of your choosing (be brave!!), and use the function `length()` to determine how many values it contains.</div>
+
++ Hint: First make sure (print print print!) that you are defining your array correctly. *Only once* you can see that the array is correct should you calculate its length. **Write your code one line at a time for success!!**
++ Hint 2: If you did the question correctly, the length should be 5!
+
+  
+```{r array_q4-solution}
+some_numbers <- c(10, 11, 2, 19, 6)
+length(some_numbers)
+```
+
+<div class = "prompt">One place where R really shines is *vectorization* - it performs an operation on *all items in an array (vector)* at the same time! The code below divides every value in the array `example_array` by 10. Engage with and understand this code, and then modify the the code to instead multiply every item in the array by 5.</div>
+
++ In fact, every operation in R is vectorized because every value is a vector, if only of length 1.
++ When modifying the code be careful not to delete the definition of `example_array`.
+
+  
+
+```{r array_q8-solution}
+example_array <- c(5, 78, -3, 11, 6, 0)
+example_array*5
+```
+
+
+<div class = "prompt">Add 15 to every number in the array defined below, and _save_ the result to a new array called `example_array_plus15`, which you should print to ensure looks correct.</div>
+
+
+```{r array_q9-solution}
+example_array <- 4:14
+example_array_plus15 <- example_array + 15
+example_array_plus15
+```
+
+
+
+<div class = "prompt">Use the `sqrt()` function to quickly calculate the square root of every value in the array defined below.</div>
+
++ Hint: Simply provide the array as an argument to the `sqrt()` function to perform all the calculations at once.
+
+  
+```{r array_q10-solution}
+example_array <- 4:14
+sqrt(example_array)
+```
+
+
+<div class = "prompt">Use a colon to define an array with values -3 through 3 (i.e., -3, -2, -1, 0, 1, 2, 3). Then, calculate the _log in base 10_ of this array.</div>
+
++ Hint: Remember that the `log()` function takes a _second_ argument to specify a base other than the default *e*.
++ Hint 2: You can do this either in one line of code (directly provide an array to `log()` as the first argument), or in two lines of code where you first define an array variable and then give that variable to `log()` as the first argument.
++ Hint 3: Remember, we can't take the log of negative numbers or 0! The output should reflect that `log()` doesn't work well on non-positive numbers.
+
+ 
+```{r array_q11-solution}
+log(-3:3, 10)
+```
+
+<div class = "prompt">R has several useful functions for calculating _summary statistics_, like `mean()`, `median()`, and `sd()` for calculating the mean (average), median, and standard deviation of some numbers. The code below defines an array aptly named `calculate_me_please`. Use the `mean()`, `median()`, and `sd()` functions to calculate these statistics.</div>
+
++ Simply provide the array as an argument to those functions to perform these calculations.
++ This is a good time to point out that means are _heavily influenced by outliers_ (see that `0.0000004`?), but the median is not!
+
+```definethisarrayplz
+# Define this array first by running in Console
+calculate_me_please <- c(88.1, 89.5, 92.22, 85.17, 87.56, 0.0000004, 82.2, 85.1, 90.998, 97.25)
+```  
+
+```{r array_q12-solution}
+mean(calculate_me_please)
+median(calculate_me_please)
+sd(calculate_me_please)
+```
+
+
+<br>
+
+---
+
+<br>
+
+## Set 5: Working with logical statements
+
+
+### Set 5.1: Basic logical operations
+
+<div class = "prompt">Is 56 greater than 7?</div>
+
+
+```{r logical_q1-solution}
+56 > 7
+```
+
+<div class = "prompt">Is 110 is equal to 12?</div>
+
++ Hint:  When comparing *equality* of numbers, you MUST use two equals!! `==`
+
+
+
+```{r logical_q2-solution}
+110 == 12
+```
+
+<div class = "prompt">Is 32 *less than or equal to* 88?</div>
+
+
+
+
+```{r logical_q3-solution}
+32 <= 88
+```
+
+<div class = "prompt">Is 100 equal to -10 squared?</div>
+
++ Hint: Remember your PEMDAS and don't forget to use parentheses!! Otherwise, your answer will not be right.
+  
+
+```{r logical_q4-solution}
+100 == (-10)^2
+```
+
+<div class = "prompt">Is 100 *not equal* to -55?</div>
+
++ Hint: Check if values are *not equal* with the logical operator `!=`. Generally speaking, exclamation marks mean "not."
+
+
+
+```{r logical_q5-solution}
+100 != -55
+```
+
+<div class = "prompt">Is 75 greater than 75?</div>
+
+ 
+
+```{r logical_q6-solution}
+75 > 75
+```
+
+<div class = "prompt">Is 12 raised to the 4th power (remember your exponent symbol!) less than 13 raised to the 3rd power?</div>
+
+
+
+```{r logical_q7-solution}
+12^4 < 13^3
+```
+
+<br><br>
+
+### Set 5.2: Compound logical statements
+
+<div class = "prompt">In all previous questions in this section, you wrote *single logical statements* - you used a logical operator to evaluate if a single statement was `TRUE` or `FALSE`. This time, write a *compound logical statement* to ask if: 100 is equal to 100 *and* 66 is equal to 66.</div>
+
++ Engage with the template code below to get you started, and then adapt to answer the current question. 
++ Statements with "and" will only evaluate as `TRUE` if BOTH conditions are `TRUE`. Simply use an ampersand `&` to combine logical statements. 
++ Once you've got that down, try changing the numbers to see how the logic evaluates to `TRUE` and `FALSE` to develop a comfort with `&`.
+
+```compoundexample
+# This example code asks: is 1 equal to 1 and is 2 equal to 5?
+1 == 1 & 2 == 5
+# This is equivalent, but the parentheses are your choice!
+(1 == 1) & (2 == 5)
+```
+
+```{r compound_logical_q1-solution}
+100 == 100 & 66 == 66
+```
+
+
+<div class = "prompt">Is 100 greater than 87 *and* is 66 less than 12?</div>
+
+  
+
+```{r compound_logical_q2-solution}
+100 > 87  & 66 < 12
+```
+
+<div class = "prompt">Is 100 greater than 50 *and* is 100 less than 150?</div>
+
++ Hint: Even though we might say out loud, "Is 100 greater than 50 and less than 150?", we need to _write the code_ much more explicitly as: is 100 greater than 50 AND is 100 less than 150? We must write the two comparisons to 100 separately.
+
+
+```{r compound_logical_q3-solution}
+100 > 50  & 100 < 150
+```
+
+<div class = "prompt">Is 50 greater than or equal 35, and is 60 equal to -20?</div>
+
+
+
+```{r compound_logical_q4-solution}
+50 >= 35 & 60 == -20
+```
+
+
+<div class = "prompt">Is 17 less than 111, and is 18 greater than 4, and (yes, another and!) is 66 not equal to 67?</div>
+
++ Hint: All you need is more `&`!
+
+
+
+```{r compound_logical_q5-solution}
+17 < 111 & 18 > 4 & 66 != 67
+```
+
+<br><br>
+
+### Set 5.2.5: Compound logical statements with "or"
+
+In the previous questions, you used `&` to evaluate whether multiple statements were _all_ `TRUE`. We can also use an operator for "or", the pipe operator `|` (located above your Enter/Return Key! Press: `Shift` and `\`), to evaluate whether _at least one_ statement is `TRUE`. 
+
++ Fair warning: Soon in the semester we will learn about a different symbol called pipe: `%>%`, which will be used more frequently in this class where we code in R. _In the rest of the computing world_, people think of `|` as the "default" pipe symbol.
+
+
+<div class = "prompt">Practice using `|` to ask: Is 100 greater than 87 *or* is 66 less than 12?</div>
+
+  
+
+```{r compound_logical2_q2-solution}
+100 > 87  | 66 < 12
+```
+
+<div class = "prompt">Is 100 greater than 50 *or* is 100 less than 150?</div>
+
++ Hint: Again, Even though we might say out loud, "Is 100 greater than 50 and less than 150?", we need to _write the code_ much more explicitly as: is 100 greater than 50 AND is 100 less than 150? We must write the two comparisons to 100 separately.
+
+
+```{r compound_logical2_q3-solution}
+100 > 50 | 100 < 150
+```
+
+<div class = "prompt">Is 50 greater than or equal to 35, or is 60 equal to -20?</div>
+
+
+
+```{r compound_logical2_q4-solution}
+50 >= 35 | 60 == -20
+```
+
+
+<div class = "prompt">Is 17 less than 111 and is 18 greater than 4, *OR* is 66 not equal to 67?</div>
+
++ Hint: Use parentheses to split up the logic appropriately.
+
+
+
+```{r compound_logical2_q5-solution}
+(17 < 111 & 18 > 4) | 66 != 67
+```
+
+<br><br>
+
+### Set 5.3: Working with variables and logical statements
+
+
+For this section, you will perform logical comparisons on _variables_ rather than directly on values. The goal of this activity is to get you into the habit of working preferentially with variables that stand in for values. This strategy makes your code cleaner and easier to work with.
+
+The first example is templated for you. **Remember: Variables should always start with a letter can should only contain letters, numbers, and underscores.**
+
+
+<div class = "prompt">Is 12 greater than -4? **Again, this is templated for you. Engage with and run this code to understand what it's doing.**</div>
+  
+```demodefine
+# First we define variables
+value1 <- 12
+value2 <- -4
+
+# Then we compare variables INSTEAD OF comparing values 12 and -4
+value1 > value2
+``` 
+
+<div class = "prompt">Is 7 is equal to 5.44?</div>
+
+
+
+
+```{r logical_q12-solution}
+value1 <- 7
+value2 <- 5.44
+
+value1 == value2
+```
+
+<div class = "prompt">Is 18 greater than 5 *and* is 11 less than 100?</div>
+
++ Hint: You need to define four variables here!
+
+
+
+```{r logical_q13-solution}
+comp1_val1 <- 18
+comp1_val2 <- 5
+
+comp2_val1 <- 11
+comp2_val2 <- 100
+
+comp1_val1 > comp1_val2 & comp2_val1 < comp2_val2
+```
+
+<br><br>
+
+### Set 5.4: Logical statements and functions
+
+
+In this section, you will continue practicing logical operations (asking if something is `TRUE` or `FALSE`) incorporating functions into your code. **The first question is templated for you.**
+
+<div class = "prompt">Is the square root of 25 equal to 5? **Run and engage with this code as practice!**</div>
+
+```demodoingthings
+sqrt(25) == 5
+
+# Or with improved coding style:
+value1 <- sqrt(25)  
+value2 <- 5
+value1 == value2
+```
+
+<div class = "prompt">As you've seen in these exercises, the function `nchar()` asks how many characters are in a string (how long is a string?). See this function in action below. **Again, run and engage with this code below as practice!**</div>
+
+
+```practice_nchar
+nchar("hello")
+
+hello_phrase <- "hi there!" # there are 9 characters in this string including space and !
+# Note that the answer is 9 and NOT 12 (the number of characters in the variable)
+nchar(hello_phrase)
+
+# Does the number of characters equal 10? Nope!
+nchar(hello_phrase) ==  10
+```
+
+
+<div class = "prompt">Now, use this function as part of your code to answer: Does the string "blazing" have the same number of characters as "saddles"?</div>
+
++ Hint: You want to compare `nchar("blazing")` to `nchar("saddles")` using a logical operator that asks if two things are equal: `==`. 
++ Hint 2: Your code should print `TRUE` if done correctly (they both have 7 letters).
++ Hint 3: This is not a hint, but a suggestion to definitely watch this movie if you've never seen it.
+
+
+```{r logical_fxn_2-solution}
+nchar("blazing") == nchar("saddles")
+
+# Or with improved coding style:
+nchar_blazing <- nchar("blazing")
+nchar_saddles <- nchar("saddles")
+nchar_blazing == nchar_saddles
+
+# This approach also uses variables well:
+blazing_str <- "blazing"
+saddles_str <- "saddles"
+nchar(blazing_str) == nchar(saddles_str)
+```
+
+
+<div class = "prompt">Assign the string value "data science" to a variable called `string1`, and assign the value "for biologists" to a variable called `string2`. Then, ask whether the number of characters in `string1` is *greater than or equal to* the number of characters in `string2`.</div>
+
++ Hint: This is very similar to the previous question, except you _must_ define variables, and you need to use a different logical operator.
+
+
+```{r logical_fxn_3-solution}
+string1 <- "data science"
+string2 <- "for biologists"
+nchar(string1) >= nchar(string2)
+```
+
+  
+  
+<div class = "prompt">Is the natural log of 10 less than the natural log of 100 *and* is the natural log of 10 equal to 1.5?</div>
+
++ Hint: the `log()` function calculates the natural log by default.
++ Hint 2: Don't forget to use `&` for multiple comparisons!
+
+
+```{r logical_fxn_4-solution}
+log(10) < log(100) & log(10) == 1.5
+
+# Or, with variables:
+value1 <- log(10)
+value2 <- log(100)
+value3 <- 1.5
+value1 < value2 & value1 == value3
+```
+
+
+<br><br>
+
+### Set 5.5: Logical operators and arrays
+
+<div class = "prompt">The code below defines an array. Use the function `length()` to determine the length of the array, *and then ask* using a logical operator if the length equal 5. If done correctly, your answer should be `FALSE`.</div>
+
+
+```array_q5
+multiples_of_11 <- c(11, 22, 33, 44, 55, 66)
+```   
+
+```{r array_q5-solution}
+multiples_of_11 <- c(11, 22, 33, 44, 55, 66)
+length(multiples_of_11) == 5
+```
+
+<div class = "prompt">Create an array yourself that contains with *FOUR* values, but this time make sure all the values are *strings* (each value should be surrounded by quotes). Similar to the previous question, use the function `length()` to ask how long the array is. *Then*, ask if the length of the array is equal to 4.</div>
+
++ Hint: Even though each string in the array has multiple characters, each string comprises only one value in the overall array.
++ Hint 2: The output for your logical comparison should be `TRUE` if done correctly.
+
+  
+```{r array_q6-solution}
+my_favorite_things <- c("raindrops on roses", "whiskers on kittens", "bright copper kettles", "warm_woolen_mittens")
+length(my_favorite_things)
+length(my_favorite_things) == 4
+```
+
+  
+  
+<div class = "prompt">We can also perform logical operations in a vectorized context. The code below asks if all values in `example_array` are greater than 0. Engage with and understand this code, and then modify the the code to instead ask if every item is **equal to 0** (again, be careful not to delete the `example_array` definition when modifying!).</div>
+
++ Note: This type of output would be referred to as a *logical array* - it is an array of `TRUE` or `FALSE` values.
+
+
+```array_q7
+example_array <- c(5, 78, -3, 1, 6, 0)
+example_array > 0
+``` 
+```{r array_q7-solution}
+example_array <- c(5, 78, -3, 1, 6, 0)
+# All are FALSE except the last entry 
+example_array == 0
+```
+
+<br><br>
+
+### Set 5.6: Arrays and the new logical operator `%in%`
+
+
+One of the most POWERFUL logical operators is `%in%` - it's literally the word `in` enclosed by `%`. You can use it to ask if a given value is present *in* an array. 
+
+Here is an example of this logical operator in action. Notice how **helpful** it is that I added the extra print statements so you know for sure what is being printed when!
+
+```in_example
+# Define array
+rainbow <- c("red", "orange", "yellow", "green", "blue", "indigo", "violet")
+
+# Will return TRUE
+print("Is 'red' in the rainbow array?")
+"red" %in% rainbow
+
+# Will return FALSE
+print("Is 'black' in the rainbow array?")
+"black" %in% rainbow
+
+# This is _not_ The Way 
+# It asks: Is each value in rainbow equal to "red"?
+# This code technically works, but is not at all the same as using %in%
+print("Does 'red' equal the whole rainbow array?")
+"red" == rainbow
+```
+
+<div class = "prompt">The code below defines an array of different animals. Use the `%in%` operator to ask three separate logical questions:</div>
+
++ Is "goat" in this array? 
++ Is "marmoset" in this array?
++ Is "GOAT" in this array? *What does the answer to this code tell you about the importance of letter case??*
+
++ Hint: Case (uppercase and lowercase letters) matters. "goat" and "GOAT" are totally different.
+
+```array_logic_q1
+animals <- c("goat", "turtle", "axolotl", "hyena", "coral")
+```  
+
+```{r array_logic_q1-solution}
+animals <- c("goat", "turtle", "axolotl", "hyena", "coral")
+"goat" %in% animals
+"marmoset" %in% animals
+"GOAT" %in% animals
+``` 
+
+<div class = "prompt">Define an array with all values 50-500 using the colon `:`. Then, use the `%in%` operator to ask if the value -25 is in this array. </div>
+
+ 
+```{r array_logic_q2-solution}
+many_numbers <- 50:500 
+-25 %in% many_numbers
+```  
+
+<div class = "prompt">Consider the array defined below. Is the capital letter "W" in the array? *When answering this question*, SAVE the output from your comparison as a variable, and print that variable to see the answer.</div>
+
++ Hint: Don't forget to write "W" with quotes! We are literally asking about the letter "W", not a variable `W`.
+
+```array_logic_q3
+misc_letters <- c("F", "Z", "U", "t", "g", "b", "R", "O", "i", "P", "e", "o", "I", "q", "M", "N", "D", "m", "y", "s")
+```  
+```{r array_logic_q3-solution}
+is_W_there <- "W" %in% misc_letters
+is_W_there
+```  
+
+
+
+
+<br>
+
+---
+
+<br>
+
+## Set 6: Conditional variable definition
+
+This section will teach you how to use the `ifelse()` function. It allows you to define a variable *based on a certain logical statement* (thing that is `TRUE` or `FALSE`). Here's the anatomy of the function, which takes *three* arguments:
+
+`ifelse(<logical statement>, <value if the statement is TRUE>, <value if the statement is FALSE>)`
+
+<div class = "prompt">Here is an example for you to run and engage with:</div>
+
+```ifelse_example
+# Evaluates to "greater", since the statement is TRUE
+print("example 1")
+ifelse(10 > 5, "greater", "less than")
+
+# Evaluates to "crocodile", since the statement is FALSE
+print("example 2")
+ifelse(10 == 12, "aligator", "crocodile")
+
+# Save it to a variable!
+print("example 3")
+beast <- ifelse(10 == 12, "aligator", "crocodile")
+beast
+```
+
+Practice using the `ifelse()` function to define several variables as follows...
+
+
+<div class = "prompt">Define a variable based on whether 5 is greater than 20. If the condition is `TRUE`, the variable value should be "yup". If the condition is `FALSE`, the variable value should be "nope".</div>
+
+
+```{r ifelse_1-solution}
+var <- ifelse(5 > 20, "yup", "nope")
+# Always *look at* your variable to make sure it worked!
+var
+```
+
+<div class = "prompt">Define a variable based on whether the type of value `11` is is a number (or in R terms, its class is "numeric"). If it is a number, the variable value should be "number". If is it not a number, the variable value should be "not a number".</div>
+
++ Hint: Use the function `class()`! Remember also that `numeric` is not a class, but `"numeric"` (with quotes!) is.
+
+
+
+```{r ifelse_2-solution}
+var <- ifelse(class(11) == "numeric", "number", "not a number")
+var
+```
+
+<div class = "prompt">Define a variable based on whether the type of the value `"11"` (it has quotes!) is a number. If it is a number, the variable value should be "number". If is it not a number, the variable value should be "not a number".</div>
+
+
+
+```{r ifelse_3-solution}
+var <- ifelse(class("11") == "numeric", "number", "not a number")
+var
+```
+
+
+<div class = "prompt">Define a variable based on whether the number of characters in the string "rumbledyhump" (defined for you) is equal to 200. If the condition is `TRUE`, the variable value should be 100. If the condition is `FALSE`, the variable value should be 10.</div>
+
+
+```
+my_string <- "rumbledyhump"
+```
+
+```{r ifelse_4-solution}
+my_string <- "rumbledyhump"
+var <- ifelse(nchar(my_string) == 200, 100, 10)
+var
+```
+
+<div class = "prompt">Define a variable based on whether 6 squared is 36. If this condition is `TRUE`, the variable value should be 4. If this is `FALSE`, the variable value should be 25.</div>
+
+
+
+```{r ifelse_5-solution}
+var <- ifelse(6**2 == 36, 4, 25)
+var
+```
+
+
+<br>
+
+---
+
+<br>
+
+## Set 7: Data frames
+
+
+### Exploring data frames
+
+This set of exercises will use a *data frame* (aka *tibble*- we will learn the distinction between these terms!) called `msleep`, which has been pre-loaded for you. This dataset contains information about some species of mammals as follows:
+  
++ `name`: The common name
++ `genus`: The taxonomic genus
++ `vore`: Dietary strategy (carnivore, omnivore or herbivore)
++ `order`: The taxonomic order
++ `conservation`: The species' conservation status
+  + `cd` --> conservation-dependent
+  + `en` --> endangered
+  + `lc` --> least concern
+  + `nt` --> near-threatened
+  + `vu` --> vulnerable    
++ `sleep_total`: Total amount of sleep, in hours, the species tends to experience
++ `sleep_rem`: Total amount of REM sleep, in hours, the species tends to experience
++ `sleep_cycle`: Length of sleep cycle, in hours, the species tends to experience
++ `awake`: Amount of time spent awake, in hours, the species tends to experience
++ `brainwt`: Average brain weight, in kilograms, for this species
++ `bodywt`: Average body weight, in kilograms, for this species
+
+
+<div class = "prompt">First examine the data frame using functions `head()`, `nrow()`, `ncol()`, and `names()`.</div>
+
+
+```{r explore}
+# What are the first six rows of the msleep dataset?
+head(msleep)
+
+# How many rows are there in the msleep dataset?
+nrow(msleep)
+
+# How many columns are there in the msleep dataset?
+ncol(msleep)
+
+# What are the column names in the msleep dataset?
+names(msleep)
+```
+
+
+### Working with data frame columns
+
+<div class = "prompt">Technically, columns in data frames are actually *named arrays*. We can access them to work with directly using a dollar sign `$`. The code below extracts the `name` variable from the data frame. Run and understand this code, and then modify it to extract the `awake` column.</div>
+
++ Hint:  Make sure to *not* use any quotes, i.e. do **not** run `msleep$"name"`. You can, technically, but it's good habit not to.
+
+
+```msleep_q1
+msleep$name
+``` 
+
+``` {r msleep_q1-solution}
+msleep$awake
+```
+
+<div class = "prompt">Let's get to everyone's favorite part - statistics! Below shows you how to calculate the *average* (mean!) hours that these mammals are awake for. Try out these other functions to calculate other summary statistics: `median()`, `min()`, `max()`, and `sd()` (standard deviation) on the `awake` column. </div>
+
++ Hint: Help yourself _clearly understand_ which outputted number is which by printing informative statements!
+
+```msleep_q2
+mean(msleep$awake)
+``` 
+
+
+``` {r msleep_q2-solution}
+# calculate the median
+median(msleep$awake)
+
+# calculate the minimum
+min(msleep$awake)
+
+# calculate the maximum
+max(msleep$awake)
+
+# calculate the standard deviation
+sd(msleep$awake)
+```
+
+<div class = "prompt">Using your new skills, calculate the _median_ hours of REM sleep (column `sleep_rem`) these mammals get. The output will not look like you expect - instead of a number, you get the output "NA". To start to understand why, view the full contents of this column (i.e. `msleep$sleep_rem`). You will see some values "NA", meaning there is *missing data*. Missing data is very common - real life science (especially biology!) is tricky, and sometimes we can't gather as much data as we want. </div>
+
+
+Whenever R encounters `NA`'s in *summary statistics* functions (`mean()`, `median()`, `sd()`, etc.), it gets scared and won't calculate anything at all. Run the code below to see how this column contains `NA`s, and then how the `median()` calculation doesn't work.
+
+```msleep_q3
+# Look at data first - it has NAs!
+msleep$sleep_rem
+
+# Try to calculate median
+median(msleep$sleep_rem)
+``` 
+
+  
+<div class = "prompt">So, how do we calculate the median from the question above? We need to change how we use the `median()` function by including the *second argument* `na.rm=TRUE`. This argument tells `median()` to ignore ("rm" for remove) NA's when performing calculations. See this code in action below, and then modify it to calculate the _mean_ of this column instead. </div>
+
++ Note: `na.rm` is _not a function_!!! It is an _ARGUMENT_ we can use with summary statistics functions.
+
+```msleep_q4
+median(msleep$sleep_rem, na.rm = TRUE)
+``` 
+
+``` {r msleep_q4-solution}
+mean(msleep$sleep_rem, na.rm = TRUE)
+```
+
+<div class = "prompt">The column `vore` is a *character* column - it contains strings rather than numbers. Let's examine this column using the function `unique()`, which returns all unique values in a given array - What are the unique vores in this dataset?</div>
+
++ This function takes one argument: the array to find unique values in. Here, that array is the `msleep$vore` column.
+
+
+``` {r msleep_q5-solution}
+unique(msleep$vore)
+```
+
+<div class = "prompt">We can also use the function `table()` to get a _count_ of all unique values in a categorical (or factor) variable. Use `table()` to determine how many of each `vore` category is in the dataset. This function takes one argument: the array to make a table of. Here, that array is the `msleep$vore` column.</div>
+
++ You'll notice that `table()` doesn't even consider `NA` values. Very kind!
+
+
+``` {r msleep_q6-solution}
+table(msleep$vore)
+```
+
+<div class = "prompt">We can use the function `summary()` to summarize arrays, and even entire data frames. Run this function twice: first on the `awake` column and then on `msleep` itself (without indexing any columns), and behold the information!</div>
+
+
+
+``` {r msleep_q7-solution}
+summary(msleep$awake)
+summary(msleep)
+```
+
+<br><br>
+
+### Factors: An important learning moment
+
+You'll notice in the full `summary()` output for `msleep`, there isn't much useful information for the character columns. You may have expected all the *categories* in these columns to be revealed. In fact, R does not treat character variables this way. To force R to consider a vector specifically as containing *categories*, you need to convert it into a new type of data called **factor**, which is a special type of variable in R for, you guessed it, working with categories. 
+
+The code below shows how the column `vore` would be summarized when _coerce_ to a factor with the function `as.factor()`. **Factors are extremely important, and also extremely irritating. We will learn more about dealing with them later!**
+
+```vore_factor
+# Adding spacing helps to see which function is which and where all the parentheses go
+summary( as.factor(msleep$vore) )
+```
+
+
+### Combining all your skills
+
+In this section we'll use functions and logical operators to explore and answer questions about the `msleep` dataset.
+
+  
+<div class = "prompt">Is the species whose common name is "Arctic fox" represented in the `msleep` dataset? </div>
+
++ Hint: The common names of mammals are stored in the `name` column.
++ Hint 2: Don't forget that you can use the `%in%` operator to ask if a value is in an array!
+
+
+``` {r msleep2_q1-solution}
+"Arctic fox" %in% msleep$name
+```
+<br> 
+
+<div class = "prompt">Is the *genus* "Ailuropoda" (giant pandas!) represented in the `msleep` dataset?</div>
+
++ Hint: The genera of mammals is stored in the `genus` column. 
+
+
+``` {r msleep2_q2-solution}
+"Ailuropoda" %in% msleep$genus
+```
+
+
+<div class = "prompt">How many *unique* number of different mammal orders are in this dataset?</div>
+
++ Hint: You need to FIRST determine the unique values in the `order` column with `unique()`, and then ask what the _length_ of that array is. It is extremely important to do one step at a time and print as you go to make sure you're on the right track!!
++ Hint 2: The code needs to actually print out the number that answers the question - don't count yourself, ask R to count for you!
+
+``` {r msleep2_q3-solution}
+unique_orders <- unique(msleep$order)
+length(unique_orders)
+```
+  
+<div class = "prompt">Modify your code from the previous question to ask: Are there more than 20 unique orders in the dataset?</div>
+
++ Hint: You'll need to use a logical operator!
+
+``` {r msleep2_q4-solution}
+unique_orders <- unique(msleep$order)
+length(unique_orders) > 20
+```
+
+<div class = "prompt">Is the mean number of hours slept (`sleep_total`) greater than 12? </div>
+
+
+
+``` {r msleep2_q5-solution}
+mean(msleep$sleep_total) > 12
+```
+
+<div class = "prompt">Is the mean brain weight (`brainwt`) of all mammals equal to 7? </div>
+
++ Hint: First, calculate the mean to make sure your code works. If your answer is not as expected, you may need to explore the data further to figure out what to do!
+
+
+``` {r msleep2_q6-solution}
+mean(msleep$brainwt, na.rm = TRUE) == 7
+```
+
+<div class = "prompt">On average, do mammals spend more time awake or asleep? To answer this question, compare the means of the `awake` and `sleep_total` columns.</div>
+
+
+``` {r msleep2_q7-solution}
+# This is TRUE, so mammals are awake on average as much or more time than they are asleep
+mean(msleep$awake) >= mean(msleep$sleep_total)
+```
+
+<div class = "prompt">Calculate the *median RATIO* of how often mammals are awake vs asleep. </div>
+
++ Hint: Remember, you can directly work with vectors (columns!) like you would any numbers. Ratios are just divisions.
++ Hint 2: Take this one step at a time. First, calculate a array. of ratios, and then calculate the median value of that array.
+
+
+``` {r msleep2_q8-solution}
+ratio <- msleep$awake / msleep$sleep_total
+median(ratio)
+```
+
+<div class = "prompt">Is the number of rows in this dataset greater than 100?</div>
+
++ Use the `nrow()` function in your code!
+  
+
+``` {r msleep2_q9-solution}
+nrow(msleep) > 100
+```
+  
+<div class = "prompt">Does any mammal have a body weight of 33.5? In other words, is the value 33.5 in the `bodywt` column?</div>
+  
+  
+
+``` {r msleep2_q10-solution}
+5 %in% msleep$bodywt
+```
+
+<div class = "prompt">Is the standard deviation (`sd()`) of body weights greater than or equal to 300?</div>
+  
+
+``` {r msleep2_q11-solution}
+sd(msleep$bodywt) >= 300
+```
+
+
+<div class = "prompt">Which is larger: the smallest value in `sleep_rem` or the smallest value in `awake`? </div>
+
++ Use the function `min()`, and go one step at a time.
++ Remember, you might get` NA``'s! The `min()` function needs **another argument** to deal with this.
+
+
+
+``` {r msleep2_q12-solution}
+min_sleep_rem <- min(msleep$sleep_rem, na.rm=TRUE)
+min_awake <- min(msleep$awake)
+
+# Answer is TRUE: smallest awake hours is greater than smallest REM hours
+min_awake > min_sleep_rem
+```
+
+
+
+<div class = "prompt">Define a variable based on whether "Cheetah" is an animal in `msleep` (use the `name`) column. If the condition is `TRUE`, the variable value should be "present". If the condition is `FALSE`, the variable value should be "absent".</div>
+
++ Hint: You will need to use `ifelse()` and the `%in%` operator!
+
+
+```{r msleep2_q13-solution}
+var <- ifelse("Cheetah" %in% msleep$name, "present", "absent")
+var
+```
+
+<div class = "prompt">Define a variable based on whether the *maximum body weight* in `msleep` is greater than 2000. If the condition is `TRUE`, the variable value should be 1 (the number 1, no quotes!). If the condition is `FALSE`, the variable value should be 0.</div>
+
+
+
+```{r msleep2_q14-solution}
+var <- ifelse(max(msleep$bodywt) > 2000, 1, 0)
+var
+
+# Or more spaced out for clarity:
+max_bodywt <- max(msleep$bodywt)
+var <- ifelse(max_bodywt > 2000, 1, 0)
+var
+```
+
+<div class = "prompt">Define a variable based on whether number of rows in `msleep` equals 80. If the condition is `TRUE`, the variable value should be 10. If the condition is `FALSE`, the variable value should be -10.</div>
+
+
+
+
+```{r msleep2_q15-solution}
+var <- ifelse(nrow(msleep) == 80, 10, -10)
+var
+```
