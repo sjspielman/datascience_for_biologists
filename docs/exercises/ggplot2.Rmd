@@ -24,7 +24,7 @@ To do these exercises, you will need to load two libraries: `tidyverse` (allows 
 
 Copy and paste this code into Console to begin:
 
-```
+```loadlibs
 library(tidyverse)
 library(ds4b.materials)
 ```

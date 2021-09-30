@@ -95,3 +95,8 @@ ggplot(msleep_smol) +
       color = vore) +
   # The width = 0.2 argument is helpful to make sure the separate jitters are clearly separate on the x-axis. There is nothing magic about the 0.2 value, just that Spielman likes it from trial and error.
   geom_jitter(width = 0.2)
+
+
+### Continued on Wednesday 9/29/21
+
+# Making barplots, specifically barplots that show COUNTS OF A CATEGORICAL VARIABLE!
