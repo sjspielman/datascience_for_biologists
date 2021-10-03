@@ -1,0 +1,157 @@
+---
+title: 'Instructions: Homework #5'
+author: "Data Science for Biologists, Fall 2021"
+date: "Complete the template Rmd and submit to Canvas on Wednesday 10/13/21 by 2 PM"
+output: 
+  html_document:
+    theme: lumen
+    highlight: tango
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F, fig.width = 6, fig.height = 4, message = F, warning = F)
+
+library(tidyverse)
+library(ds4b.materials)
+```
+
+
+```{css, echo=F}
+ul :last-child, ol :last-child,ul :first-child, ol :first-child {
+    margin-bottom: 0;
+    padding-bottom:0;
+}
+
+blockquote {
+  margin-left: 50px;
+  border-left: 5px solid #DF4469;
+  font-size:1em;
+}
+```
+
+
+## Obtaining and setting up the homework
+
++ Obtain the homework template from your RStudio Cloud class project by running the following code in the R Console:
+
+  ```{r, eval=FALSE, echo=T}
+  library(ds4b.materials) # Load the class library
+  launch_homework(5)      # Launch Homework 5
+  ```
+<br>
++ You must set an _RMarkdown theme and code syntax highlighting scheme_ of your choosing in the YAML front matter. These links will help you:
+  + Choose your favorite _theme_ among the **pre-packaged themes** (ignore everything below "Even More Themes") shown at [this link](https://www.datadreaming.org/post/r-markdown-theme-gallery/)
+  + Choose your favorite _syntax highlighting_ among these options at [this link](https://www.garrickadenbuie.com/blog/pandoc-syntax-highlighting-examples/)
++ **Make sure your Rmd knits without errors before submitting.** If it does not produce an HTML output, this means it does not knit. _DO NOT SKIP THIS STEP!_ Ensuring code runs without errors is MORE IMPORTANT than writing code in the first place.
+  + If there are errors in your code, you should *comment out* the code so that it does not actually run. This is **BETTER** than keeping the buggy code in there without commenting out - _it shows me you attempted the code, but understood that it didn't work properly._ Partial credit will come to you! But, if you leave buggy code in, then the Rmd will not knit and there will be deductions.
++ As always, you are encouraged to work together and use the class Slack to help each other out, but you must submit YOUR OWN CODE.
+<br><br>
+
+
+## Instructions
+
+You will be conducting _exploratory data analysis_ on three different datasets for this assignment. For each dataset, you must ask two exploratory/scientific questions, make a figure that addresses your question, and finally answer the question in a brief 1-2 sentences. There are five options for datasets to explore, and you must choose THREE AND ONLY THREE OF THEM!!
+
+> **HUGE HINT!! BIGGEST HINT!!** One way to think about this assignment is that you could first make some figures of the dataset (play around, move fast, break things, and plot stuff!). Once you have a figure you like, figure out: What does this figure tell me about the data, and how can I phrase that in the form of a question? _"Reverse engineering" exploratory data analysis like this when you are first starting out is a great way to get comfortable exploring datasets._ Spielman highly recommends making some plots in a separate R script or directly in the Console, and when you make a plot you like for the HW, pop it into the Rmarkdown template and add a question/answer accordingly.
+
+
++ The template contains three Level 2 headers to separate the three different datasets you will be exploring. You should add text to each Level 2 header as: **Dataset: `Name of dataset`**. Make sure to use _backticks_ around the dataset name
+  + Within each Level 2 header section, you will see a Level 4 header where you should write the exploratory question. Below the level 4 header, you should write a brief 1-2 sentence answer to your question based on interpreting the figure you have made.
+  + Below the question/answer, you will see a _code chunk_ for where you can write your plotting code. But, the code chunks are not yet named! You must name your code chunks as `nameofdataset_plotX`, where `X` is either 1 or 2 for the two plots. Please see the templated example!
+  
+
++ Your questions can be about *anything at all* you want to explore in the dataset, and it does not specifically need to have to do with the "purpose" of the dataset. But, it must be a question! It cannot be phrased a task ("make a histogram of that variable" is not a question; it's a task).
+  + For example, there is a dataset in this homework about characteristics of urine samples for individuals with and without kidney stones. You do not have to ask a question that is about differences between individuals with and without kidney stones - you can ask whatever you want about any of the variables you choose!!
++ As with HW4, you must have comments for any line of code you do not like exact muscle-memory understand.
+
+
+
+
+
+### Rules for plotting
+
++ There is no requirement to make certain types of plots. You are not specifically required to make a different plot for each question. There will be no deductions for repeated plots/geoms. 
++ You can place `aes()` wherever you want, as long as the plot works! You can include aesthetics on their own, within the `ggplot()` call, or within the relevant `geom` function. There is lots of flexibility for how you code aesthetic mappings, so use this opportunity to explore your coding style preference.
++ You should make the type of plot that, in your opinion, is able to address your exploratory/scientific question. There will be deductions if your plot is not at all related to your question. 
+  + For example, considering the `iris` dataset, a scatterplot showing the relationship between sepal width and sepal length (the example plot in the template!) does *not* address the question, "How many of each species are in the dataset?" (even if the points are colored by species!!!).
++ As in HW4, you must _save plots to variables, and only reveal plots by printing the variable._
++ **Although you can make any kind of plot you want, your plots MUST have the following features:**
+  + **You must use a non-default theme** (as in, do not use default `theme_gray()`) for each plot you make. There are several ways to accomplish non-default themes:
+    + Set a different theme for each plot
+    + Set a different theme with `theme_set()` for your entire script
+    + Use `theme_gray()`, but customize certain theme elements
+  + **All figures that contain mapped colors and/or fills must use a non-default palette, and all figures with manual colors must be colorblind friendly.** You can check they are colorblind friendly with the `colorblindr` function `cvd_grid()`, as we have seen in class. **Furthermore, each figure with a palette should have a DIFFERENT PALETTE!** This is important so you can practice working with different types of palettes.
+  + **All plots must be visible and fully legible at a reasonable size, and the figure should not appear "stretched" or "squished."** By default, plots will be sized 4 inches tall and 6 inches wide. If you want to change it, change it for the _individual chunk_, which may require some trial and error to get it sized properly.
+  + **Ensure customized and professional axis labels.** There should never be underscores, for example, in an axis label. You do not need to include a title/subtitle/caption for any figure, but you may if you want to.
+
+  
+
+
+### Datasets to explore
+
+> You must choose THREE and ONLY THREE datasets, and ask two questions about each. Datasets are available in the `ds4b.materials` library.
+
+
+#### Dataset 1: `pima`
+
+This dataset contains physical measurements from Pima Indian women from the American southwest. This population has been heavily studied by epidemiologists since they tend to have high levels of Type II Diabetes. Variables include:
+
++ `npreg` : number of times the woman has been pregnant
++ `glucose` : plasma glucose concentration at 2 hours in an oral glucose tolerance test (units: mg/dL) 
++ `dpb` : diastolic blood pressure (units: mm Hg)
++ `skin` : triceps skin-fold thickness (units: mm)
++ `insulin` : 2-hour serum insulin level (units: μU/mL)
++ `bmi` : Body Mass Index
++ `age` : age in years
++ `diabetic` : whether or not the individual has diabetes
+
+<br>
+
+#### Dataset 2: `urine`
+
+
+This dataset contains urinalysis measurements (don’t worry about units) from 78 men, indicating whether traces of kidney stones (aka "crystal") were detected their urine samples. Variables include:
+
++ `crystal` : Whether calcium oxalate crystals (kidney stones) were detected. "No" means there are no kidney stones, and "Yes" means there are.
++ `gravity` : The specific gravity of the urine
++ `ph` : The pH of the urine
++ `osmo` : The [osmolarity](https://en.wikipedia.org/wiki/Osmotic_concentration) of the urine
++ `conduct` : The [conductivity](https://en.wikipedia.org/wiki/Conductivity_(electrolytic)) of the urine
++ `urea` : The urea concentration
+
+<br>
+
+#### Dataset 3: `damselfly`
+
+This dataset details physical measurements from the collected samples of the damselfly, Ischnura ramburii, from the Hawaiian Islands Oahu, Kauai, and Hawaii. Researchers originally collected this data to study these damselflies’ unique color patterns: all males are blue-green, while some females are orange and some are blue-green like the males. The orange females are referred to as "gynomorph" (female-like morphs) and the blue-green females are referred to as "andromorphs" (male-like morphs).
+The dataset contains the following variables:
+
++ `Island`, the Hawaiian island from which the individual damselfly was collected
++ `Sex`, the damselfly’s sex
++ `Morphology`, the damselfly’s morphology (color pattern, as described above - "gyno" for gynomorph, and "andro" for andropmorph)
++ `Wing.size` wing size, in unit pixels
++ `Mating.status`, whether or not the damselfly was a member of a mated pair
++ `Abdomen.length` length of abdomen in unit "mm"
+
+<br>
+
+#### Dataset 4: `biopsy`
+
+This dataset contains biopsy measurements obtained from breast cancer biopsy samples at the University of Wisconsin Hospitals, Madison. Each of nine attributes about the tumor were scored on a scale of 1-10, and the `outcome` column indicates whether the tumor was benign or malignant. 
+
+<br>
+
+
+#### Dataset 5: `wine`
+
+This (familiar!) dataset contains information from a chemical analysis of three different cultivars (A, B, and C) of wine, including alcohol percentage and amounts of different chemical components. Variables include:
+
++ `Cultivar`: The wine cultivar (A, B, or C)
++ `Alcohol`: The alcohol percentage of the wine
++ `MalicAcid`: The percentage of the wine that is malic acid
++ `Ash`: The percentage of the wine that is ash
++ `Magnesium`: The percentage of the wine that is magnesium
++ `TotalPhenol`: The percentage of the wine that is phenols
++ `Flavonoids`: The percentage of the wine that is flavonoids
++ `NonflavPhenols`: The percentage of the wine that is non-flavonoid phenols
++ `Color`: The color intensity of the wine, measured numerically
