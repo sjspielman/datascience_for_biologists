@@ -15,20 +15,21 @@
 
 
 
-class: title-slide
-
 .bg-text[
-# Best practices for data visualization
+# Best practices in data visualization
 ## Data Science for Biologists, Fall 2021
 ]
 
----
 
+---
 # Guiding principle
 
 ### The goal of data visualization is to communicate. 
 
---
+---
+# Guiding principle
+
+### The goal of data visualization is to communicate. 
 
 ### We do not want to create plots that are...
 
@@ -38,11 +39,11 @@ class: title-slide
 + **so ugly that you don't even want to try interpreting them**
 
 
-All figures (except the `msleep` figures) in the following slides are from [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/).
+All figures (except the `msleep` figures) in the following slides are from [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/), unless otherwise stated.
 
 ---
 
-&lt;img src="img/dataviz_best_practices/hawaii-income-bars-bad-1.png" width="800px" /&gt;
+&lt;img src="img/dataviz_best_practices//hawaii-income-bars-bad-1.png" width="800px" /&gt;
 
 Median income in the five counties of the state of Hawaii. Data source: 2015 Five-Year American Community Survey.
 
@@ -54,26 +55,47 @@ Median income in the five counties of the state of Hawaii. Data source: 2015 Fiv
 
 **Truncating the y-axis is highly misleading.** 
 
---
+---
 
-&lt;img src="img/dataviz_best_practices/hawaii-income-bars-good-1.png" width="600px" /&gt;
+
+
+# Best Principle: The principle of proportional ink
+
+&gt; The sizes of shaded areas in a visualization need to be proportional to the data values they represent. 
+
+**Truncating the y-axis is highly misleading.** 
+
+
+&lt;img src="img/dataviz_best_practices//hawaii-income-bars-good-1.png" width="600px" /&gt;
 
 ---
+
 
 .left-column[
 Stock price of Facebook (FB) from Oct. 22, 2016 to Jan. 21, 2017.
 ]
 .right-column[ 
-&lt;img src="img/dataviz_best_practices/fb-stock-drop-bad-1.png" width="450px" /&gt;
+&lt;img src="img/dataviz_best_practices//fb-stock-drop-bad-1.png" width="450px" /&gt;
 ]
-
---
-
-&lt;img src="img/dataviz_best_practices/fb-stock-drop-good-1.png" width="450px" /&gt;
 
 ---
 
-&lt;img src="img/dataviz_best_practices/RI-pop-pie-1.png" width="1000px" /&gt;
+
+.left-column[
+Stock price of Facebook (FB) from Oct. 22, 2016 to Jan. 21, 2017.
+]
+.right-column[ 
+&lt;img src="img/dataviz_best_practices//fb-stock-drop-bad-1.png" width="450px" /&gt;
+]
+
+&lt;img src="img/dataviz_best_practices//fb-stock-drop-good-1.png" width="450px" /&gt;
+
+
+---
+
+# A new kind of plot: Pie charts
+
+&lt;img src="img/dataviz_best_practices//RI-pop-pie-1.png" width="1000px" /&gt;
 
 Number of inhabitants in Rhode Island counties. Data source: 2010 Decennial U.S. Census.
 
@@ -84,16 +106,16 @@ Number of inhabitants in Rhode Island counties. Data source: 2010 Decennial U.S.
 
 Pies are sized based on relative *area*. Human eyes are really bad at properly perceiving area.
 
-&lt;img src="img/dataviz_best_practices/RI-pop-pie-1.png" width="300px" /&gt;
+&lt;img src="img/dataviz_best_practices//RI-pop-pie-1.png" width="300px" /&gt;
 
 
 .pull-right2[
-&lt;img src="img/dataviz_best_practices/RI-pop-bars-1.png" width="400px" /&gt;
-
+&lt;img src="img/dataviz_best_practices//RI-pop-bars-1.png" width="400px" /&gt;
+]
 
 ---
 
-&lt;img src="img/dataviz_best_practices/tech-stocks-bad-legend-1.png" width="800px" /&gt;
+&lt;img src="img/dataviz_best_practices//tech-stocks-bad-legend-1.png" width="800px" /&gt;
 
 Stock price over time for four major tech companies. The stock price for each company has been normalized to equal 100 in June 2012. Data source: Yahoo Finance.
 
@@ -103,52 +125,69 @@ Stock price over time for four major tech companies. The stock price for each co
 
 
 
-&lt;img src="img/dataviz_best_practices/tech-stocks-bad-legend-1.png" width="350px" /&gt;
+&lt;img src="img/dataviz_best_practices//tech-stocks-bad-legend-1.png" width="350px" /&gt;
 
-
---
-
-&lt;img src="img/dataviz_best_practices/tech-stocks-good-legend-1.png" width="450px" /&gt;
 
 ---
 
 
-&lt;img src="img/dataviz_best_practices/Aus-athletes-small-1.png" width="400px" /&gt;
+
+
+# Best Principle: Make your viewer's life easy
+
+
+
+&lt;img src="img/dataviz_best_practices//tech-stocks-bad-legend-1.png" width="350px" /&gt;
+
+
+
+&lt;img src="img/dataviz_best_practices//tech-stocks-good-legend-1.png" width="450px" /&gt;
+
+---
+
+&lt;img src="img/dataviz_best_practices//Aus-athletes-small-1.png" width="400px" /&gt;
 
 Percent body fat versus height in professional male Australian athletes. (Each point represents one athlete.) Data source: Telford and Cunningham (1991)
  
---
-
-&lt;img src="img/dataviz_best_practices/Aus-athletes-big.png" width="400px" /&gt;
 
 ---
+
+&lt;img src="img/dataviz_best_practices//Aus-athletes-small-1.png" width="400px" /&gt;
+
+Percent body fat versus height in professional male Australian athletes. (Each point represents one athlete.) Data source: Telford and Cunningham (1991)
+
+
+&lt;img src="img/dataviz_best_practices//Aus-athletes-big.png" width="400px" /&gt;
+
+---
+
 
 # Use trial and error to get the right style
 
 ### "Goldilocks" text size:
 
 
-&lt;img src="img/dataviz_best_practices/Aus-athletes-good-1.png" width="600px" /&gt;
+&lt;img src="img/dataviz_best_practices//Aus-athletes-good-1.png" width="600px" /&gt;
 
 ---
 
 # Don't annoy your viewers, either
 
-### People are more likely to _want_ to interpret aesthetically pleasing figures
+### People are more likely to _want_ to interpret aesthetically pleasing figures, BUT not everyone always agrees on what counts as "ugly"!
 
 .pull-left[
-&lt;img src="img/dataviz_best_practices/iris-densities-lines-1.png" width="300px" /&gt;
+&lt;img src="img/dataviz_best_practices//iris-densities-lines-1.png" width="300px" /&gt;
 
-&lt;img src="img/dataviz_best_practices/iris-densities-colored-lines-1.png" width="300px" /&gt;
+&lt;img src="img/dataviz_best_practices//iris-densities-colored-lines-1.png" width="300px" /&gt;
 ]
 
 .pull-right[
-&lt;img src="img/dataviz_best_practices/iris-densities-filled-1.png" width="500px" /&gt;
+&lt;img src="img/dataviz_best_practices//iris-densities-filled-1.png" width="500px" /&gt;
 ]
 
 ---
 
-&lt;img src="img/dataviz_best_practices/mpg-cty-displ-solid-1.png" width="700px" /&gt;
+&lt;img src="img/dataviz_best_practices//mpg-cty-displ-solid-1.png" width="700px" /&gt;
 
 City fuel economy versus engine displacement, for popular cars released between 1999 and 2008. Each point represents one car. The point color encodes the drive train: front-wheel drive (FWD), rear-wheel drive (RWD), or four-wheel drive (4WD). 
 
@@ -157,11 +196,11 @@ City fuel economy versus engine displacement, for popular cars released between 
 # Best Principle: Make sure your data is visible
 
 
-&lt;img src="img/dataviz_best_practices/mpg-cty-displ-transp-1.png" width="700px" /&gt;
+&lt;img src="img/dataviz_best_practices//mpg-cty-displ-transp-1.png" width="700px" /&gt;
 
 ---
 
-&lt;img src="img/dataviz_best_practices/popgrowth-vs-popsize-colored-1.png" width="400px" /&gt;
+&lt;img src="img/dataviz_best_practices//popgrowth-vs-popsize-colored-1.png" width="400px" /&gt;
 
 Population growth from 2000 to 2010 versus population size in 2000, for all 50 U.S. states and the District of Columbia. Every state is marked in a different color. Data source: U.S. Census Bureau
 
@@ -171,7 +210,7 @@ Population growth from 2000 to 2010 versus population size in 2000, for all 50 U
 
 One possible solution to the "busy-ness":
 
-&lt;img src="img/dataviz_best_practices/popgrowth-vs-popsize-bw-1.png" width="600px" /&gt;
+&lt;img src="img/dataviz_best_practices//popgrowth-vs-popsize-bw-1.png" width="600px" /&gt;
 
 ---
 
@@ -202,11 +241,11 @@ msleep_subvore
 ---
 # How many hours do the different "vores" spend awake?
 
-![](dataviz_style_slides_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+![](dataviz_style_slides_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
 
 ---
 
-&lt;img src="img/dataviz_best_practices/box_fill_cvd_grid.png" width="800px" /&gt;
+&lt;img src="img/dataviz_best_practices//box_fill_cvd_grid.png" width="800px" /&gt;
 
 ---
 
@@ -214,57 +253,57 @@ msleep_subvore
 
 &gt; In this example, color differentiation is not _needed_ to interpret the plot. In other cases when colors are needed, always check that your plot is accessible.
 
-![](dataviz_style_slides_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+![](dataviz_style_slides_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
 
 ---
 
-&lt;img src="img/dataviz_best_practices/box_fill_cb_cvd_grid.png" width="800px" /&gt;
+&lt;img src="img/dataviz_best_practices//box_fill_cb_cvd_grid.png" width="800px" /&gt;
 
 ---
 
-# Want manual fills (colors)?
 
+# Data visualization and "bullshit"
 
+https://www.callingbullshit.org/ 
 
-```r
-ggplot(msleep_subvore) + 
-  aes(x = vore, y = awake, fill = vore) + 
-  geom_violin() + 
-* scale_fill_manual(name = "Legend name",
-*                   values = c("cornflowerblue",
-*                              "coral3",
-*                              "blueviolet"))
-```
-
-![](dataviz_style_slides_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
-
----
-
-# How to check CVD friendliness
-
+&gt;What do we mean, exactly, by bullshit and calling bullshit? As a first approximation:
+&gt;
+&gt;Bullshit involves language, statistical figures, data graphics, and other forms of presentation intended to persuade by impressing and overwhelming a reader or listener, with a blatant disregard for truth and logical coherence.
+&gt;
+&gt;Calling bullshit is a performative utterance, a speech act in which one publicly repudiates something objectionable. The scope of targets is broader than bullshit alone. You can call bullshit on bullshit, but you can also call bullshit on lies, treachery, trickery, or injustice.
 
 
 ---
 
 
-![](dataviz_style_slides_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
+
+# What do you conclude happened in 2020?
+
+&lt;img src="img/dataviz_best_practices//bad1.jpeg" width="700px" /&gt;
 
 ---
 
 
-# `introverse` resources for styling your plots
+# And now the actual murder rates
 
-+ [Customizing `ggplot2` axes](https://spielmanlab.github.io/introverse/articles/axes.html)
-+ [Customizing `ggplot2` themes](https://spielmanlab.github.io/introverse/articles/themes.html)
-+ [Customizing `ggplot2` colors and fills](https://spielmanlab.github.io/introverse/articles/color_fill_scales.html)
+&lt;img src="img/dataviz_best_practices//better1.jpeg" width="500px" /&gt;
+
 
 ---
 
+# Watch and enjoy Part 6 videos for Wednesday!!
+
+https://www.callingbullshit.org/videos.html
+
+
+
+&lt;!--
 # Data is beautiful and ugly
 
 https://www.reddit.com/r/dataisbeautiful/
 
 https://www.reddit.com/r/dataisugly/
+--&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

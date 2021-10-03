@@ -42,11 +42,11 @@ R 9/23 | _Open work day_  | | -
 M 9/27 | Introduction to `ggplot2` | [Reference slides](./slides/ggplot2_slides.html) <br> [In-class script](./inclass/ggplot2_day1.R) (Upload this to your RStudio Cloud project to open it) | -
 W 9/29 | More `ggplot2`  | ["Introduction to `ggplot2`" exercises](./exercises/ggplot2.html) <br> ["Line-by-line" application](https://sjspielman.shinyapps.io/line_by_line) <br> [In-class script](./inclass/ggplot2_day2.R) (Upload this to your RStudio Cloud project to open it) | Homework 3: Grammar of Graphics <br> [Link to Instructions](./homeworks/hw3/hw3_instructions.html) <br> [Link to Answer Sheet](./homeworks/hw3/homework3_answer_sheet.docx)
 R 9/30 |  _Open work day_ | | -
-M 10/4 | Best practices in data visualization | - | -
-W 10/6 | Deriving data from plots <br> Customizing your plots in `ggplot2` | Slides, TBD  | Homework 4: Data visualization with `ggplot2`<br> [Link to Instructions](./homeworks/hw4/hw4_instructions.html)
+M 10/4 | Best practices in data visualization | [Slides](./slides/dataviz_style_slides.pdf) | Nothing due today, but watch Part 6 "Calling Bullshit" for Wednesday 
+W 10/6 |  Customizing your plots in `ggplot2` | -  |Watch Part 6 video playlist (~1 hour) from "Calling Bullshit": <br> [Link from "Calling Bullshit" class website](https://www.callingbullshit.org/videos.html) <br> [Direct YouTube link](https://www.youtube.com/watch?v=T-5aLbNeGo0) <br><br> Homework 4: Data visualization with `ggplot2`<br> [Link to Instructions](./homeworks/hw4/hw4_instructions.html)
 R 10/7 |  _Open work day_ | - | -
 M 10/11 | Introduction to data wrangling with `dplyr` and `tidyr` I | Slides, TBD | -
-W 10/13 | `dplyr` and `tidyr` II | ["Introduction to `dplyr`" exercises](./exercises/dplyr.html) <br> ["Line-by-line" application](https://sjspielman.shinyapps.io/line_by_line)  | Homework 5: More data visualization with `ggplot2`
+W 10/13 | `dplyr` and `tidyr` II | ["Introduction to `dplyr`" exercises](./exercises/dplyr.html) <br> ["Line-by-line" application](https://sjspielman.shinyapps.io/line_by_line)  | Homework 5: Exploratory data analysis with `ggplot2` <br> [Link to instructions](./homeworks/hw5/hw5_instructions.html)
 R 10/14 | _Open work day_ | | -
 M 10/18 | `dplyr` and `tidyr` III | Slides, TBD | -
 W 10/20 | `dplyr` and `tidyr` IV |  ["Introduction to `dplyr`" exercises](./exercises/dplyr.html) <br> ["Line-by-line" application](https://sjspielman.shinyapps.io/line_by_line)  | Homework 6: Data wrangling and visualization

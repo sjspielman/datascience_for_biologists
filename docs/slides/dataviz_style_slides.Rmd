@@ -10,14 +10,14 @@ output:
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
-knitr::opts_chunk$set(fig.width=6, fig.height=4, echo=FALSE)
+knitr::opts_chunk$set(fig.width=6, fig.height=4)
 library(xaringan)
 library(tidyverse) 
-library(colorblindr)
 library(cowplot)
 library(patchwork)
-theme_set(theme_cowplot())
-img_path <- "img/dataviz_best_practices"
+library(colorblindr)
+img_path <- "img/dataviz_best_practices/"
+
 source("grammar_graphics_plots.R")
 theme_set(theme_bw() + 
           theme(axis.text = element_text(size = rel(2)),
@@ -29,20 +29,21 @@ theme_set(theme_bw() +
 ```
 
 
-class: title-slide
-
 .bg-text[
-# Best practices for data visualization
+# Best practices in data visualization
 ## Data Science for Biologists, Fall 2021
 ]
 
----
 
+---
 # Guiding principle
 
 ### The goal of data visualization is to communicate. 
 
---
+---
+# Guiding principle
+
+### The goal of data visualization is to communicate. 
 
 ### We do not want to create plots that are...
 
@@ -52,7 +53,7 @@ class: title-slide
 + **so ugly that you don't even want to try interpreting them**
 
 
-All figures (except the `msleep` figures) in the following slides are from [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/).
+All figures (except the `msleep` figures) in the following slides are from [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/), unless otherwise stated.
 
 ---
 
@@ -70,13 +71,23 @@ Median income in the five counties of the state of Hawaii. Data source: 2015 Fiv
 
 **Truncating the y-axis is highly misleading.** 
 
---
+---
+
+
+
+# Best Principle: The principle of proportional ink
+
+> The sizes of shaded areas in a visualization need to be proportional to the data values they represent. 
+
+**Truncating the y-axis is highly misleading.** 
+
 
 ```{r out.width = '600px', echo=F}
 knitr::include_graphics(file.path(img_path, "hawaii-income-bars-good-1.png"))
 ```
 
 ---
+
 
 .left-column[
 Stock price of Facebook (FB) from Oct. 22, 2016 to Jan. 21, 2017.
@@ -87,13 +98,26 @@ knitr::include_graphics(file.path(img_path, "fb-stock-drop-bad-1.png"))
 ```
 ]
 
---
+---
+
+
+.left-column[
+Stock price of Facebook (FB) from Oct. 22, 2016 to Jan. 21, 2017.
+]
+.right-column[ 
+```{r out.width = '450px', echo=F}
+knitr::include_graphics(file.path(img_path, "fb-stock-drop-bad-1.png"))
+```
+]
 
 ```{r out.width = '450px', echo=F}
 knitr::include_graphics(file.path(img_path, "fb-stock-drop-good-1.png"))
 ```
 
+
 ---
+
+# A new kind of plot: Pie charts
 
 ```{r out.width = '1000px', echo=F}
 knitr::include_graphics(file.path(img_path, "RI-pop-pie-1.png"))
@@ -117,7 +141,7 @@ knitr::include_graphics(file.path(img_path, "RI-pop-pie-1.png"))
 ```{r out.width = '400px', echo=F}
 knitr::include_graphics(file.path(img_path, "RI-pop-bars-1.png"))
 ```
-
+]
 
 ---
 
@@ -138,7 +162,20 @@ knitr::include_graphics(file.path(img_path, "tech-stocks-bad-legend-1.png"))
 ```
 
 
---
+---
+
+
+
+
+# Best Principle: Make your viewer's life easy
+
+
+
+```{r out.width = '350px', echo=F}
+knitr::include_graphics(file.path(img_path, "tech-stocks-bad-legend-1.png"))
+```
+
+
 
 ```{r out.width = '450px', echo=F}
 knitr::include_graphics(file.path(img_path, "tech-stocks-good-legend-1.png"))
@@ -146,20 +183,28 @@ knitr::include_graphics(file.path(img_path, "tech-stocks-good-legend-1.png"))
 
 ---
 
-
 ```{r out.width = '400px', echo=F}
 knitr::include_graphics(file.path(img_path, "Aus-athletes-small-1.png"))
 ```
 
 Percent body fat versus height in professional male Australian athletes. (Each point represents one athlete.) Data source: Telford and Cunningham (1991)
  
---
+
+---
+
+```{r out.width = '400px', echo=F}
+knitr::include_graphics(file.path(img_path, "Aus-athletes-small-1.png"))
+```
+
+Percent body fat versus height in professional male Australian athletes. (Each point represents one athlete.) Data source: Telford and Cunningham (1991)
+
 
 ```{r out.width = '400px', echo=F}
 knitr::include_graphics(file.path(img_path, "Aus-athletes-big.png"))
 ```
 
 ---
+
 
 # Use trial and error to get the right style
 
@@ -174,7 +219,7 @@ knitr::include_graphics(file.path(img_path, "Aus-athletes-good-1.png"))
 
 # Don't annoy your viewers, either
 
-### People are more likely to _want_ to interpret aesthetically pleasing figures
+### People are more likely to _want_ to interpret aesthetically pleasing figures, BUT not everyone always agrees on what counts as "ugly"!
 
 .pull-left[
 ```{r out.width = '300px', echo=F}
@@ -238,7 +283,7 @@ msleep_subvore
 ---
 # How many hours do the different "vores" spend awake?
 
-```{r, fig.width = 8, fig.height = 4}
+```{r, fig.width = 8, fig.height = 4, echo=F}
 box_fill
 ```
 
@@ -254,7 +299,7 @@ knitr::include_graphics(file.path(img_path, "box_fill_cvd_grid.png"))
 
 > In this example, color differentiation is not _needed_ to interpret the plot. In other cases when colors are needed, always check that your plot is accessible.
 
-```{r, fig.width = 10, fig.height = 4}
+```{r, fig.width = 10, fig.height = 4, echo=F}
 box_fill +  box_fill_cb
 ```
 
@@ -266,59 +311,50 @@ knitr::include_graphics(file.path(img_path, "box_fill_cb_cvd_grid.png"))
 
 ---
 
-# Want manual fills (colors)?
 
+# Data visualization and "bullshit"
 
-```{r, echo = T}
-ggplot(msleep_subvore) + 
-  aes(x = vore, y = awake, fill = vore) + 
-  geom_violin() + 
-  scale_fill_manual(name = "Legend name",  #<<
-                    values = c("cornflowerblue", #<<
-                               "coral3",          #<<
-                               "blueviolet"))        #<<
-```
+https://www.callingbullshit.org/ 
+
+>What do we mean, exactly, by bullshit and calling bullshit? As a first approximation:
+>
+>Bullshit involves language, statistical figures, data graphics, and other forms of presentation intended to persuade by impressing and overwhelming a reader or listener, with a blatant disregard for truth and logical coherence.
+>
+>Calling bullshit is a performative utterance, a speech act in which one publicly repudiates something objectionable. The scope of targets is broader than bullshit alone. You can call bullshit on bullshit, but you can also call bullshit on lies, treachery, trickery, or injustice.
+
 
 ---
 
-# How to check CVD friendliness
 
-```{r include=FALSE}
-library(colorblindr) # installed for you in our RStudio Cloud Workspace!!
 
-# Save plot to variable:
-my_plot <- ggplot(msleep_subvore) + 
-  aes(x = vore, y = awake, fill = vore) + 
-  geom_violin() + 
-  scale_fill_manual(name = "Legend name",  #<<
-                    values = c("cornflowerblue", #<<
-                               "coral3",          #<<
-                               "blueviolet"))        #<<
+# What do you conclude happened in 2020?
 
-# Run it through `cvd_grid()`
-cvd_grid(my_plot)
+```{r out.width = '700px', echo=F}
+knitr::include_graphics(file.path(img_path, "bad1.jpeg"))
 ```
 
 ---
 
 
-```{r, fig.width = 14, fig.height =9, echo = F}
-cvd_grid(my_plot)
+# And now the actual murder rates
+
+```{r out.width = '500px', echo=F}
+knitr::include_graphics(file.path(img_path, "better1.jpeg"))
 ```
 
----
-
-
-# `introverse` resources for styling your plots
-
-+ [Customizing `ggplot2` axes](https://spielmanlab.github.io/introverse/articles/axes.html)
-+ [Customizing `ggplot2` themes](https://spielmanlab.github.io/introverse/articles/themes.html)
-+ [Customizing `ggplot2` colors and fills](https://spielmanlab.github.io/introverse/articles/color_fill_scales.html)
 
 ---
 
+# Watch and enjoy Part 6 videos for Wednesday!!
+
+https://www.callingbullshit.org/videos.html
+
+
+
+<!--
 # Data is beautiful and ugly
 
 https://www.reddit.com/r/dataisbeautiful/
 
 https://www.reddit.com/r/dataisugly/
+-->

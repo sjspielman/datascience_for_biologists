@@ -109,7 +109,7 @@ ggsave("box_fill_cvd_grid.png", box_fill_cvd_grid, width = 8, height = 6)
 msleep_subvore %>%
   ggplot(aes(x = vore, y = awake, fill = vore)) + 
   geom_boxplot(size=1)+
-  scale_fill_brewer(palette = "Dark2") +
+  scale_fill_viridis_d() +
   theme(legend.position = "none") -> box_fill_cb
 
 colorblindr::cvd_grid(box_fill_cb) -> box_fill_cb_cvd_grid
