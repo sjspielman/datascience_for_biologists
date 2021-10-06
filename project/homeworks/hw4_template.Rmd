@@ -1,0 +1,97 @@
+---
+title: 'Template: Homework #4'
+author: "Data Science for Biologists, Fall 2021"
+date: "Submit this completed Rmd file to Canvas on Wednesday 10/6/21 by 2 PM"
+output: 
+  html_document:
+    theme: lumen
+    highlight: tango
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.height=4, fig.width=6)
+
+# Always load libraries in the setup chunk:
+library(tidyverse) # allows you to use ggplot2 
+library(ds4b.materials) # allows access to the sparrows dataset
+```
+
+
+## Plot 1
+
+```{r plot1}
+
+
+((((((((()))))))))
+ggplot(sparrows) + 
+  aes(x = Skull_Width, y =  Femur_Length) +
+  geom_point(color = "WHAT IS YOUR FAVORITE COLOR!!") +
+  geom_smooth(method = "lm", color = "black") +
+  theme_classic() +
+  labs(x = "Sparrow skill width (mm)",
+       y = "SOMETHING HAS TO GO HERE AND IT'S NOT THIS!"
+       title = "Plot 1") -> plot1
+
+plot1
+```
+
+
+
+## Plot 2
+
+```{r plot2}
+
+```
+
+## Plot 3
+
+```{r plot3}
+
+```
+
+
+## Plot 4
+
+```{r plot4}
+
+```
+
+## Plot 5
+
+```{r plot5}
+
+```
+
+## Plot 6
+
+```{r plot6}
+
+```
+
+
+## Plot 7 
+
+```{r plot7}
+
+```
+
+
+## Plot 8
+
+```{r plot8}
+
+```
+
+## Plot 9
+
+```{r plot9}
+
+```
+
+
+## Plot 10
+
+```{r plot10}
+
+```
+
