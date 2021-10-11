@@ -45,17 +45,17 @@ R 9/30 |  _Open work day_ | | -
 M 10/4 | Best practices in data visualization | [Slides](./slides/dataviz_style_slides.pdf) | Nothing due today, but watch Part 6 "Calling Bullshit" for Wednesday 
 W 10/6 |  Critiquing data viz <br> Customizing your plots in `ggplot2` | [In-class script](./inclass/ggplot2_facets_palettes.R)  | Watch Part 6 video playlist (~1 hour) from "Calling Bullshit": <br> [Link from "Calling Bullshit" class website](https://www.callingbullshit.org/videos.html) <br> [Direct YouTube link](https://www.youtube.com/watch?v=T-5aLbNeGo0) <br><br> Homework 4: Data visualization with `ggplot2`<br> [Link to Instructions](./homeworks/hw4/hw4_instructions.html)
 R 10/7 |  Introduction to exploratory data analysis | In-class activity | [Background reading: "A hypothesis is a liability"](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02133-w) 
-M 10/11 | Reading and writing data  | In-class activity |  [Background reading: "FILE NOT FOUND"](https://www.theverge.com/22684730/students-file-folder-directory-structure-education-gen-z)
-W 10/13 | Introduction to data wrangling with `dplyr` and `tidyr` | Slides, TBD <br> ["Introduction to `dplyr`" exercises](./exercises/dplyr.html) <br> ["Line-by-line" application](https://sjspielman.shinyapps.io/line_by_line) | Homework 5: Exploratory data analysis with `ggplot2` <br> [Link to instructions](./homeworks/hw5/hw5_instructions.html)
+M 10/11 | Reading and writing data  |See Canvas for spreadsheet links <br> [Download in-class activity](https://github.com/sjspielman/datascience_for_biologists/raw/master/docs/inclass/mammals_activity.zip) |  [Background reading: "FILE NOT FOUND"](https://www.theverge.com/22684730/students-file-folder-directory-structure-education-gen-z)
+W 10/13 | Reading and writing data <br> Introduction to data wrangling | ["Introduction to `dplyr`" exercises](./exercises/dplyr.html) <br> ["Line-by-line" application](https://sjspielman.shinyapps.io/line_by_line) | Homework 5: Exploratory data analysis with `ggplot2` <br> [Link to instructions](./homeworks/hw5/hw5_instructions.html)
 R 10/14 | _Open work day_ |  ["Introduction to `dplyr`" exercises](./exercises/dplyr.html) <br> ["Line-by-line" application](https://sjspielman.shinyapps.io/line_by_line) | -
 M 10/18 | `dplyr` and `tidyr` II | Slides, TBD | -
-W 10/20 | `dplyr` and `tidyr` III | -  | Homework 6: Data wrangling and visualization
+W 10/20 | `dplyr` and `tidyr` III | -  | Homework 6: Introduction to data wrangling and visualization
 R 10/21 | _Open work day_  |- | -
 M 10/25 | Working with strings  | | -
 W 10/27 | Working with relational data | Slides  | Homework 7: More data wrangling and visualization
 R 10/28 | _Open work day_  | - | -
 M 11/1 | Introduction to machine learning | Slides, TBD | -
-W 11/3 | Linear modeling I | Slides, TBD  | Homework 8: Even more data wrangling and visualization <!-- Real life: Trees!!! -->
+W 11/3 | Linear modeling I | Slides, TBD  | Homework 8: Even more data wrangling and visualization 
 R 11/4 | Linear modeling II and _open work_ | Slides, TBD  | -
 M 11/8 | Linear modeling II | Slides, TBD  |-
 W 11/10 | Model selection and _open work_ | Slides, TBD  | Homework 9: Introduction to linear models

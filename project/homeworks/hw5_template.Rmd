@@ -1,0 +1,116 @@
+---
+title: 'Template: Homework #5'
+author: "Data Science for Biologists, Fall 2021"
+date: "Submit this completed Rmd file to Canvas on Wednesday 10/13/21 by 2 PM"
+output: 
+  html_document:
+    theme: lumen
+    highlight: tango
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.width = 6, fig.height = 4)
+
+# Always load libraries in the setup chunk:
+library(tidyverse) # allows you to use ggplot2, forcats, etc. 
+library(ds4b.materials) # allows access to all datasets dataset
+
+theme_set(theme_classic())
+```
+
+
+## Example dataset: `iris`
+
+#### What is the relationship between sepal lengths and sepal widths, for each specices of iris?
+
+All species show a positive relationship between sepal length and sepal width. Because confidence intervals for `virginica` and `versicolor` are overlapping, it is likely they have the same relationship between sepal lengths and widths. However, the `setosa` relationship has a steeper slope.
+
+```{r iris_plot1}
+ggplot(iris) + 
+  aes(x = Sepal.Length, 
+      y = Sepal.Width, 
+      # color aes allows to see relationships for each species separately
+      color = Species) + 
+  geom_point() + 
+  # add trendline to see relationship more clearly
+  geom_smooth(method = "lm") + 
+  # use a non-default color palette
+  scale_color_brewer(palette = "Set1") +
+  # add professional labels
+  labs(x = "Sepal Length", y = "Sepal Width") + 
+  # set a non-default theme
+  theme_minimal()
+```
+
+<br><br>
+
+
+## Dataset `urine`
+
+#### Replace this text with your first question, ensuring it remains a proper Level 4 header in the knitted HTML.
+
+Replace this text with your answer to the first question.
+
+```{r urine_plot1}
+
+```
+
+<br>
+
+#### Replace this text with your second question, ensuring it remains a proper Level 4 header in the knitted HTML.
+
+Replace this text with your answer to the second question.
+
+```{r}
+
+```
+
+<br><br>
+
+
+## Dataset `replace this text with the chosen dataset, keeping the backticks`
+
+#### Replace this text with your first question, ensuring it remains a proper Level 4 header in the knitted HTML.
+
+Replace this text with your answer to the first question.
+
+```{r}
+
+```
+
+<br>
+
+#### Replace this text with your second question, ensuring it remains a proper Level 4 header in the knitted HTML.
+
+Replace this text with your answer to the second question.
+
+```{r}
+
+```
+
+<br><br>
+
+
+## Dataset `replace this text with the chosen dataset, keeping the backticks`
+
+#### Replace this text with your first question, ensuring it remains a proper Level 4 header in the knitted HTML.
+
+Replace this text with your answer to the first question.
+
+```{r}
+
+```
+
+<br>
+
+#### Replace this text with your second question, ensuring it remains a proper Level 4 header in the knitted HTML.
+
+Replace this text with your answer to the second question.
+
+```{r}
+
+```
+
+<br><br>

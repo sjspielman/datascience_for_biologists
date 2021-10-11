@@ -1,10 +1,9 @@
 ## Instructions for in-class activity on 2/24/21
 #### Data Science for Biologists, Spring 2021
 
-> This activity uses the RStudio Cloud Project "Paths and file input-output". Start this project as you would start a homework, but remember - **this is NOT A GRADED HOMEWORK! Just an in-class activity!**
+> This activity uses the RStudio Cloud Project "Paths and file input-output". Click the "Start" button you see with this Project to get a copy of this project!
 
-
-In the virtual cloud computer you are using on the RStudio Cloud website, by default, your *working directory* (aka, folder where you are running R from) is `/cloud/project/`. There are several files and directories you see inside this directory, which have this nested structure:
+In the virtual cloud computer you are using on the RStudio Cloud website, by default, your *working directory* (aka, folder where you are working in R from) is `/cloud/project/`. There are several files and directories you see inside this directory, which have this _directory structure_:
 
 ```
 /cloud/project/
@@ -26,11 +25,9 @@ In the virtual cloud computer you are using on the RStudio Cloud website, by def
 │   │   ├── seal_experiment_data/
 │   │   │  └── seals.csv
 ├── project.Rproj
-├── spielman_setup_ignore_this_folder/
-│   └── install.R
 ```
 
-For these "exercises," you will practice writing the *relative paths* to different files and directories. The relative path means: What is the path to the file/directory *FROM* (relative to) the working directory? It is in contrast to the "absolute path," also known as the "full path," which refers to the fully defined path that can be reached anywhere from the computer. 
+For these "exercises," you will practice writing the *relative paths* to different files and directories. **The relative path means: What is the path to the file/directory *FROM* (relative to) the directory where I am working, aka the "working directory"?** It is in contrast to the "absolute path," also known as the "full path," which refers to the fully defined path that can be reached anywhere from the computer. 
 
 ##### _An analogy: What is the path to Walgreens?_
 
@@ -42,28 +39,25 @@ For these "exercises," you will practice writing the *relative paths* to differe
     + The absolute path does NOT depend on where you are starting from. You can reach the address from any starting location.
 
 
-### _FILE NAMES ARE PATHS! EVERYTHING'S A PATH!_
-
-In other words, the "file name" is NOT a separate entity from "the path to the file." 
-
-  + For more information on how everything is a path, you may be interested in watching [this "extremely relevant" video which really emphasize the point](https://imgur.com/gallery/YGaaJ6F). After you watch this video, you will never forget that **_EVERTHING'S A PATH_**. 
-  + WARNING: This actually-only-sort-of-relevant-video contains some _language which could be considered NSFW_, but the language is reasonably appropriate for a _biology class being taught to adults_, which this is. If you like Australian humor, you will like this video. If you don't like Australian humor, you will not understand at all how this could possibly be funny. Alternatively, use this video to figure out whether you like Australian humor or not.
-
-
-
 ## Exercises
 
 ### Part 1
 
-1. First, using "regular point and click," explore the contents of the `mammals` folder to make sure you understand the file structure diagram. 
+1. First, using "regular point and click" in the Files Pane, explore the contents of the `mammals` folder to make sure you understand the file structure diagram. Spend 2-4 minutes on this!!
 
-2. Create a new R script, as we have learned. [If you need a refresher, see here](https://sjspielman.github.io/datascience_for_biologists/tutorials/introduction_to_R.html#Writing_Scripts). This script should be saved as `practice_paths.R`. When you save it, it will automatically saved in your working directory (`/cloud/project/`). You can confirm where it was saved by looking in your Files Pane.  **Write your answers to the following questions as _character variables in this R script._** Also, since we'll need to use `tidyverse` today, please include the code `library(tidyverse)` as the first line of the script.
+2. Open the templated script `practice_paths.R` in the RStudio Cloud project, which contains a variable `path_to_koala_directory` and is defined as the *relative path* from this script's directory (`/cloud/project/`) to the `koala/` directory. Then, the function `dir.exists()` is used to confirm the directory exists (aka was correctly written!!). See how this function prints `TRUE`!
 
-3. Determine the relative path from the working directory to the directory `koala/`. Save this string as `path_to_koala_directory`. To check that you defined the path correctly, use the function `dir.exists()` - this will print `TRUE` if indeed the given *directory* exists, and `FALSE` otherwise. Make sure it prints `TRUE`, and if not, go sleuthing for typos. 
+3. The script also contains a pre-defined variable that defines the path to the script `run_koala_code.R` The function `file.exists()` is then used to confirm the file exists, and it does - output is `TRUE`!
 
-4. Determine the relative path from the working directory to the file `we_are_not_wallabies.R`. Save this string as `path_to_kangaroo_clarification`. Since this is a _file and not a directory_, check that you defined correctly with the function `file.exists()`, and make sure `TRUE` is the output.
+4. **Task:** 
 
-5. Determine the relative path from the working directory to the directory `placentals/`. Save this string as `path_to_placentals_directory`. Use `dir.exists()` to check your work.
+
+  + `path_to_devils_directory`, which should contain the relative path to the directory `tasmanian_devils/`.
+  + `path_to_not_wallabies` which shoud contain the relative path to the `file` we_are_not_wallabies
+  + `path_to_datasets`, which should contain the relative path to the directory `datasets/`.
+  + `path_to_alive_code`, which should contain the r
+
+5. Determine the relative path from the working directory to the directory `tasmanian_devil/`. Save this string as `path_to_devils_directory`. Use `dir.exists()` to check your work.
 
 6. Determine the relative path from the working directory to the directory `seal_experiment_data/`. Save this string as `path_to_seals_directory`. Use `dir.exists()` to check your work.
 
