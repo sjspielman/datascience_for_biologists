@@ -114,7 +114,7 @@ This dataset contains urinalysis measurements (don’t worry about units) from 7
 
 + `crystal` : Whether calcium oxalate crystals (kidney stones) were detected. "No" means there are no kidney stones, and "Yes" means there are.
 + `gravity` : The specific gravity of the urine
-+ `ph` : The pH of the urine
++ `pH` : The pH of the urine
 + `osmo` : The [osmolarity](https://en.wikipedia.org/wiki/Osmotic_concentration) of the urine
 + `conduct` : The [conductivity](https://en.wikipedia.org/wiki/Conductivity_(electrolytic)) of the urine
 + `urea` : The urea concentration
