@@ -98,7 +98,7 @@ This dataset contains physical measurements from Pima Indian women from the Amer
 
 + `npreg` : number of times the woman has been pregnant
 + `glucose` : plasma glucose concentration at 2 hours in an oral glucose tolerance test (units: mg/dL) 
-+ `dpb` : diastolic blood pressure (units: mm Hg)
++ `dbp` : diastolic blood pressure (units: mm Hg)
 + `skin` : triceps skin-fold thickness (units: mm)
 + `insulin` : 2-hour serum insulin level (units: μU/mL)
 + `bmi` : Body Mass Index
