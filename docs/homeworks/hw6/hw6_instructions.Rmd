@@ -1,0 +1,436 @@
+---
+title: 'Instructions: Homework #6'
+author: "Data Science for Biologists, Fall 2021"
+date: "Complete the template Rmd and submit to Canvas on Wednesday 10/20/21 by 2 PM"
+output: 
+  html_document:
+    theme: lumen
+    highlight: tango
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F, fig.width = 6, fig.height = 4, message = F, warning = F)
+
+library(tidyverse)
+coffee_ratings <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-07-07/coffee_ratings.csv')
+```
+
+
+```{css, echo=F}
+ul :last-child, ol :last-child,ul :first-child, ol :first-child {
+    margin-bottom: 0;
+    padding-bottom:0;
+}
+
+blockquote {
+  margin-left: 50px;
+  border-left: 5px solid #DF4469;
+  font-size:1em;
+}
+```
+
+
+## Obtaining and setting up the homework
+
++ Obtain the homework template from your RStudio Cloud class project by running the following code in the R Console:
+
+  ```{r, eval=FALSE, echo=T}
+  library(ds4b.materials) # Load the class library
+  launch_homework(6)      # Launch Homework 6
+  ```
+<br>
++ You must set an _RMarkdown theme and code syntax highlighting scheme_ of your choosing in the YAML front matter. These links will help you:
+  + Choose your favorite _theme_ among the **pre-packaged themes** (ignore everything below "Even More Themes") shown at [this link](https://www.datadreaming.org/post/r-markdown-theme-gallery/)
+  + Choose your favorite _syntax highlighting_ among these options at [this link](https://www.garrickadenbuie.com/blog/pandoc-syntax-highlighting-examples/)
++ **Make sure your Rmd knits without errors before submitting.** If it does not produce an HTML output, this means it does not knit. _DO NOT SKIP THIS STEP!_ Ensuring code runs without errors is MORE IMPORTANT than writing code in the first place.
+  + If there are errors in your code, you should *comment out* the code so that it does not actually run. This is **BETTER** than keeping the buggy code in there without commenting out - _it shows me you attempted the code, but understood that it didn't work properly._ Partial credit will come to you! But, if you leave buggy code in, then the Rmd will not knit and there will be deductions.
++ As always, you are encouraged to work together and use the class Slack to help each other out, but you must submit YOUR OWN CODE.
+<br><br>
+
+
+## Instructions
+
+For this homework, you will be...
+
++ Practicing reading datasets into R and saving figures to files.
++ Beginning to engage with `dplyr` and `tidyr` packages for data wrangling. These packages are part of the core tidyverse and are loaded when you run `library(tidyverse)`. Specifically, there are **four functions** you will be using in this homework from those packages (use `get_help()` anytime!!)
+  + `dplyr` functions:
+    + `filter()` to subset rows
+    + `select()` to subset columns
+    + `mutate()` to create new columns
+  + `tidyr` function:
+    + `drop_na()` to remove `NA` values
++ Practicing using the pipe `%>%` operator a whole bunch (`get_help("pipe")`)
++ *Creating your own Rmarkdown organization!!* For each question, you should create a level-4 header with the question number and _named_ code chunk to provide the answer in. Make sure to knit frequently to make sure the format is as you intend!
+
+
+
+## Part 1: Setting up directories and obtaining the dataset 
+
+On the class website, there is a CSV file you can download called `coffee_ratings.csv` which contains the dataset documented [here](https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-07-07/readme.md). *Take a few minutes to read about this dataset before you begin!*
+
+To begin the homework, you need to take the following steps:
+
++ In RStudio Cloud, use the "New Folder" button in the Files Pane to create _two new directories_ (folders) in your RStudio Cloud account inside the `homeworks/` directory called `figures/` and `datasets/`. In other words you are creating directories that will end up having these full paths:
+  + `/cloud/project/homeworks/figures/`
+  + `/cloud/project/homeworks/datasets/`
++ Download the CSV file to your computer
++ Upload the CSV file to your RStudio Cloud, and save it to the directory `/cloud/project/homeworks/datasets/`
+
+
+## Part 2: Defining paths you will need for the homework
+
+In the Homework 6 template, you will see a chunk at the top whose name is `paths_and_data`. Here, we want to define paths to certain directories and files this homework uses. However, there's a major catch: When we are interactively working in Console, the default working directory in RStudio Cloud is `/cloud/project/`. But, when you click the knit button for an Rmd file, the knitting engine assumes the working directory is _where ever the Rmd file is saved_, which in this case is `/cloud/project/homeworks/`. This leads to very frustrating conflicts that bothers pretty much everyone working in R!!
+
+The solution arrives to us from the amazing `{here}` package, which provides help clarifying paths in these annoying situations. The package has a function called `here()` (same name!) which is typically called as `here::here()` (following syntax `package::function()`) that automatically finds the "top-level directory" of an R project on whichever machine it is being run on!! _It's super helpful._
+
+Returning to the `paths_and_data` chunk, you will need to create _three variables_ using the `file.path()` function:
+
++ `path_to_datasets`, which should be the path to the `homeworks/datasets/` directory (this one has been done for you!)
++ `path_to_figures`, which should be the path to the `homeworks/figures/` directory
++ `coffee_ratings_file`, which should be the path to the `coffee_ratings.csv` file you saved in the new `homeworks/datasets/` directory. *This variable definition must use the `path_to_datasets` variable.*
+
+Then, in this chunk, you should read in the coffee ratings dataset with `read_csv()` and save it to a variable `coffee_ratings` for use in the assignment. 
+
+
+<br><br>
+
+## Questions
+
+> All questions that do not ask you to make a plot should simply print out the tibble from tyour wrangling pipeline. No further answer is needed.
+
+1. Use `filter()` to subset the data to contain only "Arabica" (column `species`) coffees in the dataset.
+
+
+2. There is one farm in Guatemala (column `country_of_origin`) which has a `total_cup_points` score less than 70. What is its name (column `farm_name`)? Your code should print a tibble with one column, `farm_name`, and one row with the farm name of interest. 
+
+    To answer this question, first use `filter()` to find all coffees (rows) that meet the conditions given (its `country_of_origin` is Guatemala and its `total_cup_points` is below 70). Then, use `select()` to keep only the `farm_name` column. There you go!
+
+```{r}
+coffee_ratings %>%
+  filter(total_cup_points < 70, country_of_origin == "Guatemala") %>%
+  select(farm_name)
+```
+
+<br>
+
+2. How many different Bourbon variety coffees (`variety` column) are from Brazil? Your code should yield a single number that answers the question.
+
+    Hint: To answer this question, first use `filter()` to subset the data to coffees (rows) that meet the conditions. Then, as the next step in the same pipeline, use `tally()` or `nrow()` as the final function in your pipeline to count the rows. *See the `dplyr` exercises for more about those functions in this context!*
+
+```{r}
+coffee_ratings %>%
+  filter(variety == "Bourbon", country_of_origin == "Brazil") %>%
+  tally()
+```
+
+<br>
+
+3. How many distinct combinations of species and country of origin are in this dataset? Your code should yield a single number that answers the question,  To do this...
+
+   + First select only the relevant columns (makes it easier to see and do the next steps)
+   + Find all distinct rows
+   + For fun (and also for your grade), ensure that your results are sorted (arranged!) by the name of the country. 
+
+
+> Hint: There is a specific `dplyr` function we have learned to keep only the _distinct_ rows - `distinct()`!
+>
+> Hint: Do not worry about any potential NAs in your answers. Let's consider those as countries/species for now.
+
+```{r}
+coffee_ratings %>%
+  select(species, country_of_origin) %>%
+  distinct() %>%
+  arrange(country_of_origin)
+```
+
+<br>
+
+4. In the previous question, I told you to find all distinct rows in step 2. The order of these steps actually matters! The goal of this question is for you to really understand why we have to carefully plan our steps in the right order, which also illuminates why it is so important to build up your pipelines *one step at a time.*
+
+    For this question, write code that takes the same steps as the previous question, but in this order:
+
+     + First all distinct rows in the full dataset
+     + THEN select only those columns 
+     + Finally, arrange by country of origin
+ 
+    
+    After examining the output from that code, in a comment **BELOW** that code (two sentences max!), explain _in your own words_ why re-ordering the steps like this does not give the same answer as #3 and why this answer is wrong.
+
+> Hint: To really understand the difference, go LINE! BY! LINE!
+> 
+> Hint: Here is an analogy. Imagine you are doing laundry. To accomplish this goal, you first wash dirty clothes in the washing machine, then dry them in the dryer, and then put them back in the closet. It would be silly to take these steps in any other order, because _it's all about the OVERALL PROCESS, not just running individual lines of code, oh, I mean steps_.
+
+```{r}
+coffee_ratings %>%
+  distinct() %>%
+  select(species, country_of_origin) %>%
+  arrange(country_of_origin)
+```
+
+<br> 
+
+5.  Use `mutate()` to make a new column in the dataset called `moisture_decimal` which contains the moisture score divided by 100. Your final code should yield a tibble with only TWO columns: `moisture` and `moisture_decimal` _in that order_, and _arranged in **descending** order of moisture_.
+
+> Hint: You will need to use the functions `select()` and `arrange()` as well for this question. 
+>
+> Hint: For this question, there are many ways you can combine these commands together into the final pipeline. _As a general rule: As long as your code works and achieves the goal, the specific pipeline order doesn't matter at all._ It's all about taking the steps in the order that achieves the goal.
+
+
+```{r}
+coffee_ratings %>%
+  mutate(moisture_decimal = moisture * 100) %>%
+  select(moisture, moisture_decimal) %>%
+  arrange(desc(moisture))
+```
+
+<br>
+
+6. Arabica is the most commonly grown species of coffee that is grown, but there is another species "Robusta." Find all *farms* (`farm_name` column) that grow Robusta coffees. Your code should yield a tibble with TWO columns: the `farm_name` and `country_of_origin` for all places growing Robusta coffee, _without any duplicated rows_.
+
+> Hint: Do not worry about any potential NAs in your answers. Let's consider those as countries/species for now.
+>
+> Hint 2: Did you notice that _without any duplicated rows_ is italicized?
+
+```{r}
+coffee_ratings %>% 
+  filter(species == "Robusta") %>% 
+  select(farm_name, country_of_origin) %>%
+  distinct()
+```
+
+
+<br>
+
+7. Find all the coffees grown in the USA. In this dataset, USA locations are represented as _one of the following_ in `country_of_origin`: `"United States"`, `"United States (Hawaii)"` , `"United States (Puerto Rico)"`. Your code should yield a tibble containing all columns from the original dataset, but subsetted to rows *where the `country_of_origin` is one of those USA options.*
+
+> Hint: You cannot use the `==` operator in your `filter()` command, since we are looking for _one of three conditions_, not all at once!. You therefore need to use the `%in%` operator to filter for rows where the `country_of_origin` is `%in%` an array containing those options.
+
+```{r}
+coffee_ratings %>%
+  filter(country_of_origin %in% c("United States", 
+                                  "United States (Hawaii)", 
+                                  "United States (Puerto Rico)"))
+```
+
+<br>
+
+8. An awesome `dplyr` function that we haven't seen yet is `count()`: This function counts the number of rows for a given variable. For example, the code below counts how many coffees (rows) from each country. **You will want to run this code to clearly examine and engage with the `count()` function and its output!!**
+
+    ```{r, include=T, echo=T}
+    coffee_ratings %>%
+      # counts: how many rows are there for each country_of_origin
+      count(country_of_origin) 
+    ```
+
+    Use this function to count the number of each coffee species in the dataset. Your code should yield a tibble indicating how many of each species there are. **Make sure that the name of the column showing the number of species is called `total_count`.** 
+    
+  > Hint: You will want to use `dplyr` the function `rename()`.
+    
+```{r}
+coffee_ratings %>%
+  count(country_of_origin)%>%
+  rename(total_count = n)
+```
+
+
+<br>
+
+9. Consider the _demo code_ for the previous question: Modify this code (it needs _one_ more pipe!!) to answer the question, Which country grows the *most* coffees in the world? Your code should yield a tibble with one row representing the country with the most coffees.
+
+> Hint: The country that appears the most times in the dataset (remember how the demo _counts the number of times each country appears?_) grows the most coffees in the world. 
+>
+> Hint 2: How do you subset to only that row? It should have the _maximum count value_. In other words, only keep the row whose `n` value is equal to the maximum value for `n`.
+>
+> Hint 3: **Do NOT** use the `arrange()` function to find the answer, and do NOT hardcode any values!
+
+```{r}
+coffee_ratings %>%
+  count(country_of_origin) %>%
+  filter(n == max(n))
+```
+<br>
+
+
+10. Use `mutate()` to create a new column in the dataset called `cup_rank` where coffees with < 88 `total_cup_points` have the value "low", and coffees with >= 88 (aka, otherwise) `total_cup_points` have the value "high". Then, *count* how many coffees are in each new category. Your code should yield a tibble with just the counts and cup rank categories (two rows and two columns).
+
+> Hint: As part of your `mutate()` code, you will need to use the `ifelse()` function.
+
+```{r}
+coffee_ratings %>%
+  mutate(cup_rank = ifelse(total_cup_points < 88, "low", "high")) %>%
+  count(cup_rank)
+```
+
+
+<br>
+
+11. Choose your three favorite countries in the dataset which have at least 25 rows of data. Then...
+
+    + Create an array of your three countries. Use this array variable as part of your code going forward - do not ever type those country names again!
+    + Subset your data to only contain coffees from those countries. 
+    + Subset your data columns to only keep the columns `country_of_origin`, `number_of_bags`, `acidity`, and `balance` (any order is fine). 
+    + Create a new column called `acid_balance_ratio` that contains the acidity divided by balance values. 
+    + Save this tibble to a new variable called `my_coffees`. You do not need to print anything for this question.
+  
+> Hint: Need help choosing countries? Why not use `dplyr` to explore the data first and figure out which countries have at least 25 rows of data, and then choose one of those!
+>
+> Hint 2: If you do use code to explore the data and help you choose a country (and there are MANY ways to do this!), keep that code in your homework but _commented out_ so I can see your exploration, and I'll give some extra credit if it's not buggy! _This sort of exploration is one of the main benefits of `dplyr`!_
+
+```{r}
+top_three_countries <- c("Mexico", "Colombia", "Guatemala")
+
+coffee_ratings %>%
+  filter(species == "Arabica", country_of_origin %in% top_three_countries) %>%
+  select(country_of_origin, acidity, balance, number_of_bags) %>%
+  mutate(acid_balance_ratio = acidity/balance) ->my_coffees
+```
+
+<br>
+
+12. Using your fancy new `my_coffees` dataset, you will make two plots (one for this question, one for the next question) that show the *relationship* between acidity and balance.
+
+    For this question, make a scatterplot to show the relationship between the variables `acidity` and `balance`, where the plot is _faceted by country_, points are colored by country, and each facet should have its own trendline for the given country. Save your plot with `ggsave()` to a file called `"acidity_balance.png"` (do not also submit the png file with your homework though!). You do not need to print the plot, but you can. 
+
+    In a comment below your plotting code, provide a brief 1-2 sentence interpretation of this figure - what is the relationship between acidity and balance, and is it different/same across your three countries? 
+
+
+```{r}
+ggplot(my_coffees, aes(x = acidity, y = balance, color = country_of_origin)) + 
+  geom_point() + 
+  geom_smooth(method = "lm") +
+  facet_wrap(~country_of_origin)
+```
+
+<br>
+
+13. Again using your `my_coffees` dataset, visualize the relationship between these variables in a different way: Plot the distribution of `acid_balance_ratio` across your three chosen countries. You can facet or not based on your preference, but all three distributions should have distinct colors and/or fills. Save your plot with `ggsave()` to a file called `"acid_balance_ratio.png"` (do not also submit the png file with your homework though!). You do not need to print the plot, but you can.
+
+    In a comment below your plotting code, provide a brief 1-2 sentence interpretation of this figure, bearing in mind: If the values for this ratio are generally greater than 1, that means the coffees have more acidicity than balance. If the values for this ratio are generally less than 1, that means the coffees have more balance than acidity. If the values for this ratio are roughl equal to 1, the coffees have roughly the same acidity and balance levels.
+
+
+
+**Random geoms you might want when making this plot, just in case**
+(no pressure, or need at all, just sometimes students ask about these):
+
+<br>
+Are you interested in adding a horizontal line or vertical line?
+```{r, include=T}
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width)) + 
+  geom_point() + 
+  # makes a horizontal line at y = 3
+  geom_hline(yintercept = 3,  color = "red")
+
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width)) + 
+  geom_point() + 
+  # makes a vertical line at x = 6
+  geom_vline(xintercept = 6, color = "red")
+```
+
+Do you remember `stat_summary()` to show mean +/- SE? It's a really powerful and flexible function, actually.
+```{r, include=T}
+ggplot(iris, aes(x = Species, y = Sepal.Length)) + 
+  geom_violin(fill = "grey80") + 
+  #let's have fun!
+  stat_summary(geom = "point", # specifies to just make the summary a point
+               fun = "mean",   # calculate and show mean (NOT default mean +/- se)
+               shape = 21,     # when using this shape, ......
+               size = 5,       # size specifies size of the point itself
+               stroke = 2,     # stroke specifies size of the point outline  
+               color = "black", 
+               fill = "orange")
+```
+
+<br>
+
+14. Plot the distribution of altitudes where the coffee is grown (use the column `altitude_mean_meters`), specifically considering all coffees grown in Costa Rica and Honduras (plotted as _separate distributions_, not all pooled together). First, create the dataset you need to plot using `dplyr`, save it to a variable, and then use that data to plot the distributions using styling and a geom of your choosing, as long as the distributions are clearly shown! You do NOT need to save this image to a file, but you SHOULD save to a variable and print it.
+
+
+```{r}
+coffee_ratings %>%
+  filter(country_of_origin == "Honduras") -> Braxil_coffee
+ggplot(Braxil_coffee, aes(x = altitude_mean_meters)) + 
+  geom_density()
+```
+
+<br>
+
+15. In fact, it is possible to directly pipe datasets into `ggplot()` because `ggplot()`'s first argument is also a dataframe!! The example code below shows this in action **(you must be careful to type `%>%` and `+` in the right place!!!)**
+
+    Use this strategy (ie, like the second example above) to re-make a version of your plot from the previous question. Wrangle the data just as you did, but *pipe it into ggplot2 directly*. In addition, this time use a *different geom* from question 14's version to show these two distributions. Again, just print the plot - no need to save to a file. 
+
+    In a comment below your plotting code, answer in 1-2 sentences: *In your opinion*, which of your two plots better communicates the two distributions of altitudes, and **why?**
+
+#### Examples of piping into `ggplot()`
+
+  ```{r, include=T, echo=T, error=T}
+  iris %>% # data frame out --->
+    # ----> data frame in. We can "SKIP" the first argument since it's being PIPED IN INSTEAD
+    ggplot(aes(x = Sepal.Length)) + 
+      geom_histogram()
+  
+  
+  iris %>%
+    filter(Species == "setosa") %>% # data frame out --->
+    # ----> data frame in
+    ggplot(aes(x = Sepal.Length)) + 
+      geom_histogram(bins = 10)
+  
+  ## NO!! This is giving ggplot() iris TWICE!! 
+  ## Again, NO!!!
+  ## See? There's an error!!
+  iris %>% 
+    ggplot(iris, aes(x = Sepal.Length)) + 
+      geom_histogram()
+  ```
+
+
+<br><br>
+
+
+## Bonus Questions 
+
+<br><br>
+
+**BONUS QUESTION Part 1**
+<br>
+Let's learn one more geom: [`geom_text()`](https://ggplot2.tidyverse.org/reference/geom_text.html). This geom will place a label at a particular x/y location: It's just like `geom_point()` but instead of a point, it draws a label instead. The label needs to be specified either as "just a label", or as an *aesthetic* mapped to the data using `aes(label = COLUMN)`. 
+
+   Use `geom_text()` to make a plot of the relationship between `balance` and `flavor` (`balance` on Y, `flavor`on X) for all coffee from El Salvador, and set the label aesthetic to be `number_of_bags` (how many bags of coffee the farm produces). Specify both `geom_point()` and `geom_text()` (this plot will NOT look ideal; that's correct!). When writing your code, directly pipe your wrangling into `ggplot()` and style away as you wish. You should *print* the plot (no need to save to a file) for this question.
+  
+
+```{r}
+coffee_ratings %>% 
+  filter(country_of_origin == "El Salvador") %>%
+  ggplot(aes(x = flavor, y = balance, label = number_of_bags)) + 
+  geom_point() + geom_text()
+```
+
+<br>
+
+**BONUS QUESTION Part 2**
+<br>
+Now, feel disappointed in how ugly that plot looks, and take this opportunity to learn the basic usage of a new library [`ggrepel`](https://cran.r-project.org/web/packages/ggrepel/vignettes/ggrepel.html) (that is a link to a post!! Go over the post to do this question!!) If you choose to do this bonus, please add the code `library(ggrepel)` to the top of the script in the section where libraries are loaded (it is installed for you in RStudio Cloud). Use `ggrepel` to make a scatterplot of the relationship between `balance` and `flavor` for all coffees from El Salvador. Using either `geom_text_repel()` or `geom_label_repel()` (your choice), label all points based on their *farm name*. You can include any other viz strategies and styles you like here! Again, print the plot, but don't save it to a file.
+
+```{r}
+coffee_ratings %>% 
+  filter(country_of_origin == "El Salvador") %>%
+  ggplot(aes(x = flavor, y = balance, label = number_of_bags)) + 
+  geom_point() + geom_text_repel()
+```
+
+<br>
+
+**BONUS QUESTION Part 3**
+<br>
+
+For fun, make the plot in one more way - instead of labeling points based on `number_of_bags`, **color** (or fill if you specify a different type of point) points based on `number_of_bags`. You do not need to include any text geoms, repelled or otherwise. Ensure professional labels all around, including the legend! *To get these bonus points, you MUST use a non-default color scale of your choosing.*
+
+```{r}
+coffee_ratings %>% 
+  filter(country_of_origin == "El Salvador") %>%
+  ggplot(aes(x = flavor, y = balance, color = number_of_bags)) + 
+  geom_point()
+```
+
+
