@@ -20,17 +20,16 @@ library(tidyverse) # allows you to use ggplot2, readr, forcats, etc.
 
 ```{r paths_and_data, include=FALSE}
 # Use here::here() to define the top-level directory
-
 top_level_directory <- here::here()
 
 # Define path to datasets directory
 path_to_datasets <- file.path(top_level_directory, "homeworks", "datasets")
 
-# Define path to figures directory below:
+# Your task: define path to figures directory below:
 
-# Define path to the coffee_ratings.csv file below, using `path_to_datasets` as part of the code:
+# Your task: define the path to the coffee_ratings.csv file below, using `path_to_datasets` as part of the code:
 
-# Read in the dataset and save to a variable coffee_ratings:
+# Your task: read in the dataset with read_csv() and save to a variable coffee_ratings:
 
 ```
 

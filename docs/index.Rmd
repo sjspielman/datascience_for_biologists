@@ -49,8 +49,8 @@ M 10/11 | Reading and writing data  |[Download in-class activity](https://github
 W 10/13 | Reading and writing data | See Canvas for spreadsheet links <br> In-class activity from Monday continued | Homework 5: Exploratory data analysis with `ggplot2` <br> [Link to instructions](./homeworks/hw5/hw5_instructions.html)
 R 10/14 | Introduction to data wrangling with `dplyr` and `tidyr` | - | -
 M 10/18 | Data wrangling with `dplyr` and `tidyr` II | Slides, TBD | -
-W 10/20 | Data wrangling with `dplyr` and `tidyr` III | -  | Homework 6: Introduction to data wrangling and visualization
-R 10/21 | _Open work day_  |- | -
+W 10/20 | Data wrangling with `dplyr` and `tidyr` III | -  | Homework 6: Introduction to data wrangling and visualization <br> [Link to instructions](./homeworks/hw6/hw6_instructions.html)
+R 10/21 | Introducing `#tidytuesday` extra credit  |- | -
 M 10/25 | Data wrangling with `dplyr` and `tidyr` IV  | | -
 W 10/27 | Working with relational data | Slides  | Homework 7: More data wrangling and visualization
 R 10/28 | Working with strings  | - | -
