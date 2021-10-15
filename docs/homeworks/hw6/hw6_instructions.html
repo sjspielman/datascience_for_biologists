@@ -300,8 +300,12 @@ pre code {
 <li><code>/cloud/project/homeworks/figures/</code></li>
 <li><code>/cloud/project/homeworks/datasets/</code></li>
 </ul></li>
-<li>Download the CSV file to your computer</li>
-<li>Upload the CSV file to your RStudio Cloud, and save it to the directory <code>/cloud/project/homeworks/datasets/</code></li>
+<li>Download the CSV file to your computer from <a href="https://raw.githubusercontent.com/sjspielman/datascience_for_biologists/master/docs/homeworks/hw6/coffee_ratings.csv">this link</a>
+<ul>
+<li>To force the file to download rather than appearing in a new tab, right click the link and select “Save Link As” to download it.</li>
+<li><strong>CAUTION: When you download this file, your computer may save it as <code>coffee_ratings.txt</code> instead of <code>coffee_ratings.csv</code>. THAT’S OK!!</strong> You should use whatever extension it downloaded as when you are referring to the file name! It will not affect the file or the procedure to read it in. Just make sure to refer to the file name that yours downloaded as. If you are feeling fancy, you can always rename it to <code>coffee_ratings.csv</code> once it’s in the cloud (keep reading!) using the “Rename” button.</li>
+</ul></li>
+<li>Upload the CSV file to your RStudio Cloud, and save it in the new directory <code>/cloud/project/homeworks/datasets/</code></li>
 </ul>
 </div>
 <div id="part-2-defining-paths-you-will-need-for-the-homework" class="section level2">
@@ -312,7 +316,7 @@ pre code {
 <ul>
 <li><code>path_to_datasets</code>, which should be the path to the <code>homeworks/datasets/</code> directory (this one has been done for you!)</li>
 <li><code>path_to_figures</code>, which should be the path to the <code>homeworks/figures/</code> directory</li>
-<li><code>coffee_ratings_file</code>, which should be the path to the <code>coffee_ratings.csv</code> file you saved in the new <code>homeworks/datasets/</code> directory. <em>This variable definition must use the <code>path_to_datasets</code> variable.</em></li>
+<li><code>coffee_ratings_file</code>, which should be the path to the <code>coffee_ratings.csv</code> (or <code>coffee_ratings.txt</code> if that’s how yours saved) file you saved in the new <code>homeworks/datasets/</code> directory. <em>This variable definition must use the <code>path_to_datasets</code> variable.</em></li>
 </ul>
 <p>Then, in this chunk, you should read in the coffee ratings dataset with <code>read_csv()</code> and save it to a variable <code>coffee_ratings</code> for use in the assignment.</p>
 </div>
@@ -346,7 +350,7 @@ pre code {
 <ol start="6" style="list-style-type: decimal">
 <li><p>Make a plot that shows the relationship between <code>total_cup_points</code> and <code>balance</code>, where points are <em>colored by</em> <code>country_of_origin</code> and <code>balance</code> is plotted <em>across</em> <code>total_cup_points</code>.</p>
 <ul>
-<li><p>For this question you <strong>must</strong> pipe the dataset into the <code>ggplot()</code> function rather than directly providing the argument. In other words…</p>
+<li><p>For this question, and <strong>all other ggplot questions</strong>, you <strong>must</strong> pipe the dataset into the <code>ggplot()</code> function rather than directly providing the argument. In other words…</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># NO!!</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(coffee_ratings) <span class="sc">+</span> ...</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
