@@ -352,9 +352,9 @@ div.tocify {
 
 <div id="setup" class="section level2">
 <h2>Setup</h2>
-<p>To do these exercises, you will need to the <code>tidyverse</code> library. Copy and paste this code into Console to begin:</p>
+<p>To do these exercises, you will need to the <code>tidyverse</code> library. Create a script so you can save your work for future reference, and start with this code to begin:</p>
 <pre class="loadlibs"><code>library(tidyverse)
-library(ds4b.materials)</code></pre>
+library(introverse) # if you want :)</code></pre>
 <p><br></p>
 <hr />
 <p><br></p>
@@ -368,8 +368,8 @@ library(ds4b.materials)</code></pre>
 <hr />
 <p><br></p>
 </div>
-<div id="set-1-using-dplyr-verbs" class="section level2">
-<h2>Set 1: Using <code>dplyr</code> verbs</h2>
+<div id="set-1-introducing-dplyr-verbs" class="section level2">
+<h2>Set 1: Introducing <code>dplyr</code> verbs</h2>
 <p><br><br></p>
 <div id="subsetting-rows-with-filter" class="section level3">
 <h3>Subsetting rows with <code>filter()</code></h3>
@@ -492,253 +492,6 @@ You can also use <code>select()</code> to re-order columns. This is often useful
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(bodywt, brainwt, <span class="fu">everything</span>())</span></code></pre></div>
 <p><br><br></p>
 </div>
-<div id="creating-new-columns-with-mutate" class="section level3">
-<h3>Creating new columns with <code>mutate()</code></h3>
-<div class="prompt">
-Use <code>mutate()</code> to create a new column called <code>class</code> which literally just contains the string “Mammalia”. Indeed, these are all mammals!
-</div>
-<ul>
-<li>Hint: Need help with <code>mutate()</code>? Don’t forget: <code>get_help(&quot;mutate&quot;)</code>!</li>
-</ul>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">class =</span> <span class="st">&quot;Mammalia&quot;</span>)</span></code></pre></div>
-<p><br><br></p>
-<div id="helpful-tip" class="section level4">
-<h4>Helpful tip!</h4>
-<p>By default when you create a new column, the column is placed at the END of the data frame. It can be pretty annoying to scroll through the whole dataset to check that your new column was made correctly. It is very helpful to use the <code>select()</code> function to rearrange or subset <em>columns</em> to make sure your code worked properly. As we will see more in depth very soon, the beauty of the pipe <code>%&gt;%</code> if that you can chain more and more <code>dplyr</code> commands together.</p>
-<div class="prompt">
-Engage with these code chunks to see how <code>select()</code> can be used to help you reorganize columns so that you can more easily check that your answers are right.
-</div>
-<pre class="dplyr_select_demo1"><code>msleep %&gt;%
-  # first, create the column class
-  mutate(class = &quot;Mammalia&quot;) %&gt;%
-  # second, keep only the column class to more easily make sure it worked
-  select(class)</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Or, reorganize columns using everything() when calling select to place `class` first to make sure it worked</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># This rearranges columns: place `class` first, and then have &quot;everything else&quot;</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># first, create the column class</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">class =</span> <span class="st">&quot;Mammalia&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># then, make class the first-appearing column</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(class, <span class="fu">everything</span>())</span></code></pre></div>
-<p><br><br></p>
-</div>
-<div id="another-helpful-tip" class="section level4">
-<h4>Another helpful tip!</h4>
-<p>When writing multiple pipes, always build it up ONE line at a time! <em>There is no race to the finish line.</em> For example, if your first command doesn’t work properly, there is no chance your second one will work properly. You have to check with your own personal eyeballs that each line of code worked BEFORE appending the next.</p>
-<div class="prompt">
-Practice writing pipeline code one line at a time below. For each step of the pipeline, look at the result to confirm it worked <em>before adding the next step.</em>:
-</div>
-<ul>
-<li>First, use <code>mutate()</code> to add a new column to <code>msleep</code> called <code>class</code> that contains the string “Mammalia”. <em>Look at the output to make sure it worked.</em></li>
-<li>Then, add onto the pipeline: code with <code>filter()</code> to REMOVE all mammals in the order “Rodentia” (hint: remember the <code>!=</code>logical operator!).</li>
-<li>Finally, add onto the pipeline: use <code>select()</code> to only keep columns in this order: <code>class</code>, <code>order</code>, <code>genus</code>, <code>name</code>.</li>
-<li><em>If all done correctly, the result should have 4 columns and 61 rows.</em></li>
-</ul>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">class =</span> <span class="st">&quot;Mammalia&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(order <span class="sc">!=</span> <span class="st">&quot;Rodentia&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(class, order, genus, name)</span></code></pre></div>
-<div class="prompt">
-The code below uses <code>mutate()</code> to create a new column called <code>bodywt_g</code> which contains the body weight but in grams instead of kg, as is recorded in the existing <code>bodywt</code> column. Engage with this code, and then modify it to instead create a new variable called <code>bodywt_lbs</code> which contains the body weight in pounds (1 kg = 2.2 lbs).
-</div>
-<ul>
-<li>Hint: This question shows you that you can directly refer to and use existing columns when creating new ones.</li>
-<li>Hint 2: Can you add <code>select()</code> to the end of your pipeline to make sure your code worked as intended?</li>
-</ul>
-<pre class="dplyr_mutate2"><code>msleep %&gt;%
-  mutate(bodywt_g = bodywt * 1000) # multiply kg by 1000 to get grams</code></pre>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bodywt_lbs =</span> bodywt <span class="sc">*</span> <span class="fl">2.2</span>) <span class="co"># multiply kg by 2.2 to get pounds</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># To check your answer, I recommend:</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bodywt_lbs =</span> bodywt <span class="sc">*</span> <span class="fl">2.2</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># selecting both of these columns will help you confirm that bodywt_lbs=2.2*bodywt</span></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(bodywt_lbs, bodywt)</span></code></pre></div>
-<div class="prompt">
-Use <code>mutate()</code> to create a new column called <code>percent_day_awake</code> that gives the percentage of the day that each species spends awake, and use <code>select()</code> at the end to make sure your calculations worked.
-</div>
-<ul>
-<li>Hint: There are 24 hours in a day, and the column <code>awake</code> says how many hours a day (on average) that species is awake. So, <code>(awake / 24) * 100</code> is the percent awake!</li>
-</ul>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent_day_awake =</span> (awake <span class="sc">/</span> <span class="dv">24</span>) <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Select the column we created to ensure it worked</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(percent_day_awake)</span></code></pre></div>
-<div class="prompt">
-Use <code>mutate()</code> to create a new column called <code>log_bodywt</code> that gives the natural logarithm of the body weight, and use <code>select()</code> at the end to make sure your calculations worked.
-</div>
-<ul>
-<li>Hint: <code>log()</code> by default calculates the natural logarithm (ln).</li>
-</ul>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_bodywt =</span> <span class="fu">log</span>(bodywt)) <span class="sc">%&gt;%</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(log_bodywt)</span></code></pre></div>
-<div class="prompt">
-Use <code>mutate()</code> to create a new column called <code>sleep_awake_ratio</code> that has the ratio of total time spent asleep to total time spent awake (<code>sleep_total</code> divided by <code>awake</code>), and again use <code>select()</code> to make sure it worked.
-</div>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sleep_awake_ratio =</span> sleep_total<span class="sc">/</span>awake) <span class="sc">%&gt;%</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sleep_awake_ratio)</span></code></pre></div>
-<div class="prompt">
-Let’s take a quick detour out of <code>dplyr</code> and into the package <code>tidyr</code>, which is part of the <code>tidyverse</code>. This package (which has been loaded for you!) contains a function <code>drop_na()</code> which removes <code>NA</code>’s from a tibble. Explore the use of this function with <code>get_help(&quot;drop_na&quot;)</code>, and then use the function to remove <em>all rows from <code>msleep</code> that contain <code>NA</code>s in the following columns:</em>
-</div>
-<ul>
-<li><p><code>brainwt</code></p></li>
-<li><p><code>sleep_cycle</code></p></li>
-<li><p>Hint: If done correctly, there should only be 30 rows remaining out of the original total 83.</p></li>
-</ul>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(brainwt, sleep_cycle)</span></code></pre></div>
-<div class="prompt">
-Modify the code from the previous question to add a another pipe that creates TWO new columns with <code>mutate()</code> containing the <em>mean brainwt</em> and then <em>median bodywt</em> for all mammals. Name these columns <code>mean_brainwt</code> and <code>median_bodywt</code>, respectively, and use <code>select()</code> at the end to make sure it worked.
-</div>
-<ul>
-<li>Hint: You can create two columns at once in <code>mutate()</code>, just add commas!</li>
-<li><em>Think</em>: Why would this code <em>not have worked</em> if we didn’t remove <code>NA</code>s first? Try it without removing the <code>NAs</code> to figure out the issue!</li>
-<li><em>For an added challenge</em>, find a way to do this without using <code>drop_na()</code></li>
-</ul>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(brainwt, sleep_cycle) <span class="sc">%&gt;%</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mean_brainwt =</span> <span class="fu">mean</span>(brainwt),</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">median_sleep_cycle =</span> <span class="fu">median</span>(sleep_cycle)) <span class="sc">%&gt;%</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(mean_brainwt, median_sleep_cycle)</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Without drop_na():</span></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mean_brainwt =</span> <span class="fu">mean</span>(brainwt, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">median_sleep_cycle =</span> <span class="fu">median</span>(sleep_cycle, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(mean_brainwt, median_bodywt)</span></code></pre></div>
-<div class="prompt">
-Recall the function <code>ifelse()</code> which can define a value based on a condition. Engage with the code below to refresh your memory:
-</div>
-<pre class="demo_ifelse"><code>animal &lt;- &quot;goat&quot;
-#                      T/F condition     use if TRUE   use if FALSE                       
-is_it_a_goat &lt;- ifelse(animal == &quot;goat&quot;, &quot;totes goat&quot;, &quot;goatless&quot;)</code></pre>
-<p><code>dplyr</code> actually has <em>its own</em> version of this function called <code>if_else()</code> (it has an underscore). This version of the function is technically faster and “safer” to use in your <code>dplyr</code> code, but either <code>ifelse()</code> or <code>if_else()</code> will be fine for the purposes of our class. We’ll use <code>if_else()</code> here to get in the habit! (Come to office hours to learn more about how <code>ifelse()</code> differs from <code>if_else()</code>!)</p>
-<div class="prompt">
-We can use this <em>in combination</em> with <code>mutate()</code> to create new columns whose value is conditioned on something else. For example, the code below creates a new column using <code>if_else()</code> to record if a mammal is, or is not, a carnivore. Engage with this code to understand it, and then modify the code to instead make a new column called <code>are_you_herbi</code>. This column should contain the value “herbivore” if yes, and “not_an_herbivore” if no.
-</div>
-<ul>
-<li>Hint: Notice we can still directly refer to existing columns like <code>vore</code> even when using <code>if_else()</code>, <em>because it is all part of the <code>mutate()</code> code.</em></li>
-<li>Hint 2: To reiterate, <code>if_else()</code> is part of the <code>mutate()</code> code - <strong>It is not a stand-alone `dplyr verb whose first argument is a data frame!!</strong></li>
-<li>Hint 3: Again, it’s helpful to use <code>select()</code> to make sure you did it all correctly! We’ll want to select <code>vore</code> and <code>are_you_herbi</code> to make sure “herbivores” match up with the right value, etc.</li>
-</ul>
-<pre class="dplyr_mutate6"><code>msleep %&gt;%
-  mutate(are_you_carni = if_else(vore == &quot;carni&quot;, &quot;carnivore&quot;, &quot;not_a_carnivore&quot;)) 
-  
-# Helpful to pipe into select() to keep `vore` and `are_you_carni` FOR THE PURPOSES OF CHECKING IF THE MUTATE WORKED, eg:
-msleep %&gt;%
-  mutate(are_you_carni = if_else(vore == &quot;carni&quot;, &quot;carnivore&quot;, &quot;not_a_carnivore&quot;)) %&gt;%
-  select(vore, are_you_carni)</code></pre>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">are_you_herbi =</span> <span class="fu">if_else</span>(vore <span class="sc">==</span> <span class="st">&quot;herbi&quot;</span>, <span class="st">&quot;herbivore&quot;</span>, <span class="st">&quot;not_an_herbivore&quot;</span>))</span></code></pre></div>
-<div class="prompt">
-Use your new skills to create a column called “weight_class”, where mammals that greater than or equal to 100 kg are considered “heavy” and mammals that weigh less than 100 kg are considered “light”.
-</div>
-<ul>
-<li>Hint: First determine an appropriate logical statement you want to ask if TRUE or FALSE? It will have something to do with the body weight value.</li>
-<li>Hint 2: For improved coding style, use a variable for the value of 100 instead of directly including it in the <code>mutate()</code> code.</li>
-</ul>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>weight_threshold <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">weight_class =</span> <span class="fu">if_else</span>(bodywt <span class="sc">&gt;=</span> weight_threshold, <span class="st">&quot;heavy&quot;</span>, <span class="st">&quot;light&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># and check with select:</span></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(bodywt, weight_class)</span></code></pre></div>
-<div class="prompt">
-Create a new column in <code>msleep</code> called <code>needs_more_caffeine</code> where mammals who are awake (<code>awake</code>) more than 16 hours a day have the value “definitely” and other mammals have “nope”.
-</div>
-<ul>
-<li>For an improved coding style, make sure to define the value 16 separately to <em>avoid hardcoding!!</em></li>
-</ul>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>awake_level <span class="ot">&lt;-</span> <span class="dv">16</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span> </span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">needs_more_caffeine =</span> <span class="fu">if_else</span>(awake <span class="sc">&gt;</span> awake_level, <span class="st">&quot;definitely&quot;</span>, <span class="st">&quot;nope&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># and check:</span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(awake, needs_more_caffeine)</span></code></pre></div>
-<p><br><br></p>
-</div>
-</div>
-<div id="organizing-data-frames-with-rename-and-arrange" class="section level3">
-<h3>Organizing data frames with <code>rename()</code> and <code>arrange()</code></h3>
-<div class="prompt">
-Use <code>rename()</code> to change the name of the column <code>conservation</code> to <code>conservation_status</code>.
-</div>
-<ul>
-<li>Hint: <code>rename()</code> syntax is: <code>rename(newname = oldname)</code>. You do NOT need to use quotes.</li>
-<li>Hint 2: Spielman gets the arguments backwards all the time, and you probably will too! Just remember if there are bugs, it’s <code>NEWname = OLDname</code>.</li>
-</ul>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">conservation_status =</span> conservation)</span></code></pre></div>
-<div class="prompt">
-Use <code>arrange()</code> to sort the dataset in <em>ascending</em> order of <code>bodywt</code>.
-</div>
-<ul>
-<li>Hint: <code>arrange()</code> sorts in ascending order by default</li>
-</ul>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(bodywt)</span></code></pre></div>
-<div class="prompt">
-Use <code>arrange()</code> to sort the dataset in <em>descending</em> order of <code>bodywt</code>.
-</div>
-<ul>
-<li>Hint: Use <code>desc()</code> to sort by descending order of a column instead of just writing the column name, like: <code>arrange( desc(COLUMN) )</code>.</li>
-</ul>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(bodywt))</span></code></pre></div>
-<div class="prompt">
-Use <code>rename()</code> to change the name of the column <code>vore</code> to <code>food_preference</code>.
-</div>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">food_preference =</span> vore)</span></code></pre></div>
-<div class="prompt">
-There is a very useful function in <code>dplyr</code> called <code>slice()</code>, which will keep/remove rows based on <em>which row it is</em> (similar but different from <code>filter()</code>, which subsets rows based on <code>TRUE</code> or <code>FALSE</code>). The code below keeps only the first two rows of <code>msleep</code> for example. Engage with this code to make sure you understand:
-</div>
-<ul>
-<li>Hint: You should also peek at the full <code>msleep</code> tibble so you can convince yourself that indeed these are the first three rows.</li>
-</ul>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Keep rows 1-3</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span></code></pre></div>
-<p>The <code>slice()</code> function is really conveniently used along with <code>arrange()</code>: Imagine we want to only keep the top 10 values of a certain variable? We can <em>arrange</em> on that variable and then <em>slice</em> the top 10 rows (i.e. rows 1-10, which in R is <code>1:10</code>).</p>
-<div class="prompt">
-Engage with the code below to understand how it works, and then <em>modify it</em> to keep rows featuring the top 5 values of <code>bodywt</code>.
-</div>
-<ul>
-<li>Hint: Don’t forget, ONE PIPELINE STEP AT A TIME! If you don’t make sure to know the output from one step, it’s pretty challenging to add on the next step confidently.</li>
-<li>Hint 2: The result should make some sense - the mammals that were kept are <strong>large</strong>!</li>
-</ul>
-<pre class="dplyr_misc6"><code>msleep %&gt;%
-  # Arrange in *descending order* (we want top values!) of sleep_cycle
-  arrange(desc(sleep_cycle)) %&gt;%
-  # Keep top 5 sleep cycles
-  slice(1:5) </code></pre>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(bodywt)) <span class="sc">%&gt;%</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) </span></code></pre></div>
-<p><br><br></p>
-</div>
-<div id="removing-duplicate-rows" class="section level3">
-<h3>Removing duplicate rows</h3>
-<p>In many circumstances, we are interested in subsetting data to only keep <em>unique</em> rows and therefore remove duplicates. We simply use the <code>dplyr</code> function <code>distinct()</code> for this - no arguments! Below shows you how to use the function, but it’s not very interesting yet since there are no duplicate rows in <code>msleep</code>!</p>
-<pre class="demo-distinct"><code>msleep %&gt;%
-  distinct()</code></pre>
-<div class="prompt">
-Modify the pipeline below to only keep distinct rows at the end. First, engage with to understand which duplicate rows you expect will be removed.
-</div>
-<ul>
-<li>Hint: Can you also remove all <code>NA</code>s?</li>
-</ul>
-<pre class="demo-distinct2"><code>msleep %&gt;%
-  select(vore, conservation)</code></pre>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(vore, conservation) <span class="sc">%&gt;%</span></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>() </span></code></pre></div>
-<p><br><br></p>
-</div>
 <div id="counting-the-number-of-rows" class="section level3">
 <h3>Counting the number of rows</h3>
 <p>Often we need to know “how many rows are in this wrangled data frame?” There are broadly two ways to do this:</p>
@@ -763,16 +516,269 @@ Answer the question: How many mammals weigh more than 2000 kg?
 <li>The number of rows remaining represents the answer to the question. (add <code>tally()</code> to the pipeline)</li>
 <li><strong>HOWEVER</strong>, rather than just looking at our own eyes and determining ourselves how many rows are there, we want to use <strong>code</strong> to figure that out for us. <strong>This is a central concept in coding: We are using computers, so let’s ask the computer to do it for us! Eyeballs are not reproducible.</strong></li>
 </ul>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(bodywt <span class="sc">&gt;</span> <span class="dv">2000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tally</span>()</span></code></pre></div>
+<p><br><br></p>
+</div>
+<div id="creating-new-columns-with-mutate" class="section level3">
+<h3>Creating new columns with <code>mutate()</code></h3>
+<div class="prompt">
+Use <code>mutate()</code> to create a new column called <code>class</code> which literally just contains the string “Mammalia”. Indeed, these are all mammals!
+</div>
+<ul>
+<li>Hint: Need help with <code>mutate()</code>? Don’t forget: <code>get_help(&quot;mutate&quot;)</code>!</li>
+</ul>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">class =</span> <span class="st">&quot;Mammalia&quot;</span>)</span></code></pre></div>
+<p><br><br></p>
+<div id="helpful-tip" class="section level4">
+<h4>Helpful tip!</h4>
+<p>By default when you create a new column, the column is placed at the END of the data frame. It can be pretty annoying to scroll through the whole dataset to check that your new column was made correctly. It is very helpful to use the <code>select()</code> function to rearrange or subset <em>columns</em> to make sure your code worked properly. As we will see more in depth very soon, the beauty of the pipe <code>%&gt;%</code> if that you can chain more and more <code>dplyr</code> commands together.</p>
+<div class="prompt">
+Engage with these code chunks to see how <code>select()</code> can be used to help you reorganize columns so that you can more easily check that your answers are right.
+</div>
+<pre class="dplyr_select_demo1"><code>msleep %&gt;%
+  # first, create the column class
+  mutate(class = &quot;Mammalia&quot;) %&gt;%
+  # second, keep only the column class to more easily make sure it worked
+  select(class)</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Or, reorganize columns using everything() when calling select to place `class` first to make sure it worked</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># This rearranges columns: place `class` first, and then have &quot;everything else&quot;</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># first, create the column class</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">class =</span> <span class="st">&quot;Mammalia&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># then, make class the first-appearing column</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(class, <span class="fu">everything</span>())</span></code></pre></div>
+<p><br><br></p>
+</div>
+<div id="another-helpful-tip" class="section level4">
+<h4>Another helpful tip!</h4>
+<p>When writing multiple pipes, always build it up ONE line at a time! <em>There is no race to the finish line.</em> For example, if your first command doesn’t work properly, there is no chance your second one will work properly. You have to check with your own personal eyeballs that each line of code worked BEFORE appending the next.</p>
+<div class="prompt">
+Practice writing pipeline code one line at a time below. For each step of the pipeline, look at the result to confirm it worked <em>before adding the next step.</em>:
+</div>
+<ul>
+<li>First, use <code>mutate()</code> to add a new column to <code>msleep</code> called <code>class</code> that contains the string “Mammalia”. <em>Look at the output to make sure it worked.</em></li>
+<li>Then, add onto the pipeline: code with <code>filter()</code> to REMOVE all mammals in the order “Rodentia” (hint: remember the <code>!=</code>logical operator!).</li>
+<li>Finally, add onto the pipeline: use <code>select()</code> to only keep columns in this order: <code>class</code>, <code>order</code>, <code>genus</code>, <code>name</code>.</li>
+<li><em>If all done correctly, the result should have 4 columns and 61 rows.</em></li>
+</ul>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">class =</span> <span class="st">&quot;Mammalia&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(order <span class="sc">!=</span> <span class="st">&quot;Rodentia&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(class, order, genus, name)</span></code></pre></div>
+<div class="prompt">
+The code below uses <code>mutate()</code> to create a new column called <code>bodywt_g</code> which contains the body weight but in grams instead of kg, as is recorded in the existing <code>bodywt</code> column. Engage with this code, and then modify it to instead create a new variable called <code>bodywt_lbs</code> which contains the body weight in pounds (1 kg = 2.2 lbs).
+</div>
+<ul>
+<li>Hint: This question shows you that you can directly refer to and use existing columns when creating new ones.</li>
+<li>Hint 2: Can you add <code>select()</code> to the end of your pipeline to make sure your code worked as intended?</li>
+</ul>
+<pre class="dplyr_mutate2"><code>msleep %&gt;%
+  mutate(bodywt_g = bodywt * 1000) # multiply kg by 1000 to get grams</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bodywt_lbs =</span> bodywt <span class="sc">*</span> <span class="fl">2.2</span>) <span class="co"># multiply kg by 2.2 to get pounds</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># To check your answer, I recommend:</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bodywt_lbs =</span> bodywt <span class="sc">*</span> <span class="fl">2.2</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># selecting both of these columns will help you confirm that bodywt_lbs=2.2*bodywt</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(bodywt_lbs, bodywt)</span></code></pre></div>
+<div class="prompt">
+Use <code>mutate()</code> to create a new column called <code>percent_day_awake</code> that gives the percentage of the day that each species spends awake, and use <code>select()</code> at the end to make sure your calculations worked.
+</div>
+<ul>
+<li>Hint: There are 24 hours in a day, and the column <code>awake</code> says how many hours a day (on average) that species is awake. So, <code>(awake / 24) * 100</code> is the percent awake!</li>
+</ul>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent_day_awake =</span> (awake <span class="sc">/</span> <span class="dv">24</span>) <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Select the column we created to ensure it worked</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(percent_day_awake)</span></code></pre></div>
+<div class="prompt">
+Use <code>mutate()</code> to create a new column called <code>log_bodywt</code> that gives the natural logarithm of the body weight, and use <code>select()</code> at the end to make sure your calculations worked.
+</div>
+<ul>
+<li>Hint: <code>log()</code> by default calculates the natural logarithm (ln).</li>
+</ul>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_bodywt =</span> <span class="fu">log</span>(bodywt)) <span class="sc">%&gt;%</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(log_bodywt)</span></code></pre></div>
+<div class="prompt">
+Use <code>mutate()</code> to create a new column called <code>sleep_awake_ratio</code> that has the ratio of total time spent asleep to total time spent awake (<code>sleep_total</code> divided by <code>awake</code>), and again use <code>select()</code> to make sure it worked.
+</div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sleep_awake_ratio =</span> sleep_total<span class="sc">/</span>awake) <span class="sc">%&gt;%</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sleep_awake_ratio)</span></code></pre></div>
+<div class="prompt">
+Let’s take a quick detour out of <code>dplyr</code> and into the package <code>tidyr</code>, which is part of the <code>tidyverse</code>. This package (which has been loaded for you!) contains a function <code>drop_na()</code> which removes <code>NA</code>’s from a tibble. Explore the use of this function with <code>get_help(&quot;drop_na&quot;)</code>, and then use the function to remove <em>all rows from <code>msleep</code> that contain <code>NA</code>s in the following columns:</em>
+</div>
+<ul>
+<li><p><code>brainwt</code></p></li>
+<li><p><code>sleep_cycle</code></p></li>
+<li><p>Hint: If done correctly, there should only be 30 rows remaining out of the original total 83.</p></li>
+</ul>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(brainwt, sleep_cycle)</span></code></pre></div>
+<div class="prompt">
+Modify the code from the previous question to add a another pipe that creates TWO new columns with <code>mutate()</code> containing the <em>mean brainwt</em> and then <em>median bodywt</em> for all mammals. Name these columns <code>mean_brainwt</code> and <code>median_bodywt</code>, respectively, and use <code>select()</code> at the end to make sure it worked.
+</div>
+<ul>
+<li>Hint: You can create two columns at once in <code>mutate()</code>, just add commas!</li>
+<li><em>Think</em>: Why would this code <em>not have worked</em> if we didn’t remove <code>NA</code>s first? Try it without removing the <code>NAs</code> to figure out the issue!</li>
+<li><em>For an added challenge</em>, find a way to do this without using <code>drop_na()</code></li>
+</ul>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(brainwt, sleep_cycle) <span class="sc">%&gt;%</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mean_brainwt =</span> <span class="fu">mean</span>(brainwt),</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">median_sleep_cycle =</span> <span class="fu">median</span>(sleep_cycle)) <span class="sc">%&gt;%</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(mean_brainwt, median_sleep_cycle)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Without drop_na():</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">mean_brainwt =</span> <span class="fu">mean</span>(brainwt, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">median_sleep_cycle =</span> <span class="fu">median</span>(sleep_cycle, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(mean_brainwt, median_bodywt)</span></code></pre></div>
+<div class="prompt">
+Recall the function <code>ifelse()</code> which can define a value based on a condition. Engage with the code below to refresh your memory:
+</div>
+<pre class="demo_ifelse"><code>animal &lt;- &quot;goat&quot;
+#                      T/F condition     use if TRUE   use if FALSE                       
+is_it_a_goat &lt;- ifelse(animal == &quot;goat&quot;, &quot;totes goat&quot;, &quot;goatless&quot;)</code></pre>
+<p><code>dplyr</code> actually has <em>its own</em> version of this function called <code>if_else()</code> (it has an underscore). This version of the function is technically faster and “safer” to use in your <code>dplyr</code> code, but either <code>ifelse()</code> or <code>if_else()</code> will be fine for the purposes of our class. We’ll use <code>if_else()</code> here to get in the habit! (Come to office hours to learn more about how <code>ifelse()</code> differs from <code>if_else()</code>!)</p>
+<div class="prompt">
+We can use this <em>in combination</em> with <code>mutate()</code> to create new columns whose value is conditioned on something else. For example, the code below creates a new column using <code>if_else()</code> to record if a mammal is, or is not, a carnivore. Engage with this code to understand it, and then modify the code to instead make a new column called <code>are_you_herbi</code>. This column should contain the value “herbivore” if yes, and “not_an_herbivore” if no.
+</div>
+<ul>
+<li>Hint: Notice we can still directly refer to existing columns like <code>vore</code> even when using <code>if_else()</code>, <em>because it is all part of the <code>mutate()</code> code.</em></li>
+<li>Hint 2: To reiterate, <code>if_else()</code> is part of the <code>mutate()</code> code - <strong>It is not a stand-alone `dplyr verb whose first argument is a data frame!!</strong></li>
+<li>Hint 3: Again, it’s helpful to use <code>select()</code> to make sure you did it all correctly! We’ll want to select <code>vore</code> and <code>are_you_herbi</code> to make sure “herbivores” match up with the right value, etc.</li>
+</ul>
+<pre class="dplyr_mutate6"><code>msleep %&gt;%
+  mutate(are_you_carni = if_else(vore == &quot;carni&quot;, &quot;carnivore&quot;, &quot;not_a_carnivore&quot;)) 
+  
+# Helpful to pipe into select() to keep `vore` and `are_you_carni` FOR THE PURPOSES OF CHECKING IF THE MUTATE WORKED, eg:
+msleep %&gt;%
+  mutate(are_you_carni = if_else(vore == &quot;carni&quot;, &quot;carnivore&quot;, &quot;not_a_carnivore&quot;)) %&gt;%
+  select(vore, are_you_carni)</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">are_you_herbi =</span> <span class="fu">if_else</span>(vore <span class="sc">==</span> <span class="st">&quot;herbi&quot;</span>, <span class="st">&quot;herbivore&quot;</span>, <span class="st">&quot;not_an_herbivore&quot;</span>))</span></code></pre></div>
+<div class="prompt">
+Use your new skills to create a column called “weight_class”, where mammals that greater than or equal to 100 kg are considered “heavy” and mammals that weigh less than 100 kg are considered “light”.
+</div>
+<ul>
+<li>Hint: First determine an appropriate logical statement you want to ask if TRUE or FALSE? It will have something to do with the body weight value.</li>
+<li>Hint 2: For improved coding style, use a variable for the value of 100 instead of directly including it in the <code>mutate()</code> code.</li>
+</ul>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>weight_threshold <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">weight_class =</span> <span class="fu">if_else</span>(bodywt <span class="sc">&gt;=</span> weight_threshold, <span class="st">&quot;heavy&quot;</span>, <span class="st">&quot;light&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># and check with select:</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(bodywt, weight_class)</span></code></pre></div>
+<div class="prompt">
+Create a new column in <code>msleep</code> called <code>needs_more_caffeine</code> where mammals who are awake (<code>awake</code>) more than 16 hours a day have the value “definitely” and other mammals have “nope”.
+</div>
+<ul>
+<li>For an improved coding style, make sure to define the value 16 separately to <em>avoid hardcoding!!</em></li>
+</ul>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>awake_level <span class="ot">&lt;-</span> <span class="dv">16</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span> </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">needs_more_caffeine =</span> <span class="fu">if_else</span>(awake <span class="sc">&gt;</span> awake_level, <span class="st">&quot;definitely&quot;</span>, <span class="st">&quot;nope&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># and check:</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(awake, needs_more_caffeine)</span></code></pre></div>
+<p><br><br></p>
+</div>
+</div>
+<div id="organizing-data-frames-with-rename-and-arrange" class="section level3">
+<h3>Organizing data frames with <code>rename()</code> and <code>arrange()</code></h3>
+<div class="prompt">
+Use <code>rename()</code> to change the name of the column <code>conservation</code> to <code>conservation_status</code>.
+</div>
+<ul>
+<li>Hint: <code>rename()</code> syntax is: <code>rename(newname = oldname)</code>. You do NOT need to use quotes.</li>
+<li>Hint 2: Spielman gets the arguments backwards all the time, and you probably will too! Just remember if there are bugs, it’s <code>NEWname = OLDname</code>.</li>
+</ul>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">conservation_status =</span> conservation)</span></code></pre></div>
+<div class="prompt">
+Use <code>arrange()</code> to sort the dataset in <em>ascending</em> order of <code>bodywt</code>.
+</div>
+<ul>
+<li>Hint: <code>arrange()</code> sorts in ascending order by default</li>
+</ul>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(bodywt)</span></code></pre></div>
+<div class="prompt">
+Use <code>arrange()</code> to sort the dataset in <em>descending</em> order of <code>bodywt</code>.
+</div>
+<ul>
+<li>Hint: Use <code>desc()</code> to sort by descending order of a column instead of just writing the column name, like: <code>arrange( desc(COLUMN) )</code>.</li>
+</ul>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(bodywt))</span></code></pre></div>
+<div class="prompt">
+Use <code>rename()</code> to change the name of the column <code>vore</code> to <code>food_preference</code>.
+</div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">food_preference =</span> vore)</span></code></pre></div>
+<div class="prompt">
+There is a very useful function in <code>dplyr</code> called <code>slice()</code>, which will keep/remove rows based on <em>which row it is</em> (similar but different from <code>filter()</code>, which subsets rows based on <code>TRUE</code> or <code>FALSE</code>). The code below keeps only the first two rows of <code>msleep</code> for example. Engage with this code to make sure you understand:
+</div>
+<ul>
+<li>Hint: You should also peek at the full <code>msleep</code> tibble so you can convince yourself that indeed these are the first two rows (and 5th, 7th, and 16th later!).</li>
+</ul>
+<pre class="dplyr_slice"><code>msleep %&gt;%
+  # Keep rows 1-2
+  slice(1,2)
+
+# Or:
+msleep %&gt;%
+  # Keep rows 1-2. They are contiguous so I can use : also
+  slice(1:2)
+  
+# One more example: keep rows 5, 7, and 16
+msleep %&gt;%
+  slice(5, 7, 15)</code></pre>
+<p><strong>Importantly,</strong> the <code>slice()</code> function is really conveniently used along with <code>arrange()</code>: Imagine we want to only keep the top 10 values of a certain variable? We can <em>arrange</em> on that variable and then <em>slice</em> the top 10 rows (i.e. rows 1-10, which in R is <code>1:10</code>).</p>
+<div class="prompt">
+Engage with the code below to understand how it works, and then <em>modify it</em> to keep rows featuring the top 5 values of <code>bodywt</code>.
+</div>
+<ul>
+<li>Hint: Don’t forget, ONE PIPELINE STEP AT A TIME! If you don’t make sure to know the output from one step, it’s pretty challenging to add on the next step confidently.</li>
+<li>Hint 2: The result should make some sense - the mammals that were kept are <strong>large</strong>!</li>
+</ul>
+<pre class="dplyr_misc6"><code>msleep %&gt;%
+  # Arrange in *descending order* (we want top values!) of sleep_cycle
+  arrange(desc(sleep_cycle)) %&gt;%
+  # Keep top 5 sleep cycles
+  slice(1:5) </code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(bodywt)) <span class="sc">%&gt;%</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) </span></code></pre></div>
+<p><br><br></p>
+</div>
+<div id="removing-duplicate-rows" class="section level3">
+<h3>Removing duplicate rows</h3>
+<p>In many circumstances, we are interested in subsetting data to only keep <em>unique</em> rows and therefore remove duplicates. We simply use the <code>dplyr</code> function <code>distinct()</code> for this - no arguments! Below shows you how to use the function, but it’s not very interesting yet since there are no duplicate rows in <code>msleep</code>!</p>
+<pre class="demo-distinct"><code>msleep %&gt;%
+  distinct()</code></pre>
+<div class="prompt">
+Modify the pipeline below to only keep distinct rows at the end. First, engage with to understand which duplicate rows you expect will be removed. Finally, you also remove all combinations in the result with <code>NA</code>?
+</div>
+<pre class="demo-distinct2"><code>msleep %&gt;%
+  select(vore, conservation)</code></pre>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(bodywt <span class="sc">&gt;</span> <span class="dv">2000</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tally</span>()</span></code></pre></div>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(vore, conservation) <span class="sc">%&gt;%</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>()</span></code></pre></div>
 <p><br></p>
 <hr />
 <p><br></p>
 </div>
 </div>
-<div id="set-2-creating-dplyr-pipelines" class="section level2">
-<h2>Set 2: Creating <code>dplyr</code> pipelines</h2>
+<div id="set-2-practice-with-dplyr-verbs" class="section level2">
+<h2>Set 2: Practice with <code>dplyr</code> verbs</h2>
 <blockquote>
 <p>Remember: You can always use functions like <code>select()</code> to <em>check</em> your code, even if <code>select()</code> is not actually part of the solution.</p>
 </blockquote>
@@ -795,14 +801,33 @@ Use <code>filter()</code> to subset <code>msleep</code> to only species whose co
 <span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>msleep_lc</span></code></pre></div>
 <div class="prompt">
-The goal of this question is to find all the mammals whose awake/asleep ratio is greater than 1.
+The goal of this question is to find all the mammals who are generally more awake than asleep. In other words, their ratio of awake hours to asleep hours is &gt;1, se awake/asleep ratio is greater than 1.
 </div>
 <ul>
-<li>To accomplish this, first calculate the ratio (make it a new column!), and then filter the data to only keep those calculations which are greater than 1.</li>
+<li>You can think of this in a couple of ways:
+<ul>
+<li>The amount of hours spent awake (<code>awake</code>) is greater than the amount of hours spent asleep (<code>sleep_total</code></li>
+<li>The difference between awake and asleep hours is positive (meaning the absolute value of their difference is position aka &gt; 0).</li>
+<li>The ratio of dividing <code>awake</code> by <code>sleep_total</code> is greater than 1.</li>
+</ul></li>
+<li>There are many ways to solve a problem! Neither is necessarily better or worse.</li>
 </ul>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sleep_awake_ratio =</span> awake<span class="sc">/</span>sleep_total) <span class="sc">%&gt;%</span></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sleep_awake_ratio <span class="sc">&gt;</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One approach:</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(awake <span class="sc">&gt;</span> sleep_total)</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Another approach:</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">abs</span>(awake <span class="sc">-</span> sleep_total) <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a><span class="co"># And anther approach</span></span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(awake<span class="sc">/</span>sleep_total <span class="sc">&gt;</span> <span class="dv">1</span>)</span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Or make a variable along the way, why not! However you want to do it, as long as you use dplyr code</span></span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">difference =</span> awake <span class="sc">-</span> sleep_total)</span>
+<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">abs</span>(difference) <span class="sc">&gt;</span> <span class="dv">0</span>)</span></code></pre></div>
 <div class="prompt">
 Use <code>filter()</code> to subset <code>msleep</code> to only primate species (order is “Primates”) whose conservation status is least concern (“lc”) (two things to filter!!), and then use <code>rename()</code> to change the column <code>vore</code> to be called <code>diet</code>.
 </div>

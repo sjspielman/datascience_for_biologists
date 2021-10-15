@@ -15,16 +15,15 @@ output:
 knitr::opts_chunk$set(echo = TRUE, eval=FALSE)
 
 library(tidyverse)
-library(ds4b.materials)
 ```
 
 ## Setup
 
-To do these exercises, you will need to the `tidyverse` library. Copy and paste this code into Console to begin:
+To do these exercises, you will need to the `tidyverse` library. Create a script so you can save your work for future reference, and start with this code to begin:
 
 ```loadlibs
 library(tidyverse)
-library(ds4b.materials)
+library(introverse) # if you want :)
 ```
 
 <br>
@@ -52,7 +51,7 @@ glimpse(msleep)
 <br>
 
 
-## Set 1: Using `dplyr` verbs
+## Set 1: Introducing `dplyr` verbs
 
 <br><br>
 
@@ -212,6 +211,47 @@ msleep %>%
 msleep %>%
   select(bodywt, brainwt, everything())
 ```
+
+
+<br><br>
+
+### Counting the number of rows
+
+Often we need to know "how many rows are in this wrangled data frame?" There are broadly two ways to do this:
+
++ Use the `nrow()` function which you already know! Because `nrow()` takes a data frame as its argument, we can pipe `dplyr` pipelines into it! But it returns a NUMBER, NOT another data frame, so we can't pipe *out* of it into another `dplyr` function.
+
+```demo-nrow
+nrow(msleep)
+
+# or..
+msleep %>%
+  nrow()
+```
+
+
++ Use the `dplyr` function `tally()` which gives you a _tibble_ of the row count. *We will learn more interesting uses of this function later, but for now, you should know that it will count your rows and return a tibble:*
+
+
+```demo-tally
+msleep %>%
+  tally()
+```
+
+
+<div class = "prompt">Answer the question: How many mammals weigh more than 2000 kg?</div>
+
++ To answer this, we'd use `filter()` to get only the rows of interest (mammals which weigh more than 2000)
++ The number of rows remaining represents the answer to the question. (add `tally()` to the pipeline)
++ **HOWEVER**, rather than just looking at our own eyes and determining ourselves how many rows are there, we want to use **code** to figure that out for us. **This is a central concept in coding: We are using computers, so let's ask the computer to do it for us! Eyeballs are not reproducible.**
+
+
+```{r tally_q1-solution}
+msleep %>%
+  filter(bodywt > 2000) %>%
+  tally()
+```
+
 
 <br><br>
 
@@ -475,24 +515,24 @@ msleep %>%
 
 <div class = "prompt">There is a very useful function in `dplyr` called `slice()`, which will keep/remove rows based on _which row it is_ (similar but different from `filter()`, which subsets rows based on `TRUE` or `FALSE`). The code below keeps only the first two rows of `msleep` for example. Engage with this code to make sure you understand:</div>
 
-+ Hint: You should also peek at the full `msleep` tibble so you can convince yourself that indeed these are the first three rows.
++ Hint: You should also peek at the full `msleep` tibble so you can convince yourself that indeed these are the first two rows (and 5th, 7th, and 16th later!).
 
 ```dplyr_slice
 msleep %>%
   # Keep rows 1-2
-  slice(1:2)
-  
+  slice(1,2)
+
 # Or:
 msleep %>%
-  # Keep rows 1-2
-  slice(1,2)
+  # Keep rows 1-2. They are contiguous so I can use : also
+  slice(1:2)
   
-# keep rows 5, 7, and 16 (for example)
+# One more example: keep rows 5, 7, and 16
 msleep %>%
   slice(5, 7, 15)
 ``` 
 
-The `slice()` function is really conveniently used along with `arrange()`: Imagine we want to only keep the top 10 values of a certain variable? We can _arrange_ on that variable and then _slice_ the top 10 rows (i.e. rows 1-10, which in R is `1:10`). 
+**Importantly,** the `slice()` function is really conveniently used along with `arrange()`: Imagine we want to only keep the top 10 values of a certain variable? We can _arrange_ on that variable and then _slice_ the top 10 rows (i.e. rows 1-10, which in R is `1:10`). 
 
 <div class = "prompt">Engage with the code below to understand how it works, and then _modify it_ to keep rows featuring the top 5 values of `bodywt`.</div>
 
@@ -525,9 +565,8 @@ msleep %>%
 ```
 
 
-<div class = "prompt">Modify the pipeline below to only keep distinct rows at the end. First, engage with to understand which duplicate rows you expect will be removed.</div>
+<div class = "prompt">Modify the pipeline below to only keep distinct rows at the end. First, engage with to understand which duplicate rows you expect will be removed. Finally, you also remove all combinations in the result with `NA`?</div>
 
-+ Hint: Can you also remove all `NA`s?
 
 ```demo-distinct2
 msleep %>%
@@ -536,48 +575,9 @@ msleep %>%
 
 ```{r demo-distinct2-solution}
 msleep %>%
-  drop_na() %>% 
   select(vore, conservation) %>%
-  distinct() 
-```
-
-<br><br>
-
-### Counting the number of rows
-
-Often we need to know "how many rows are in this wrangled data frame?" There are broadly two ways to do this:
-
-+ Use the `nrow()` function which you already know! Because `nrow()` takes a data frame as its argument, we can pipe `dplyr` pipelines into it! But it returns a NUMBER, NOT another data frame, so we can't pipe *out* of it into another `dplyr` function.
-
-```demo-nrow
-nrow(msleep)
-
-# or..
-msleep %>%
-  nrow()
-```
-
-
-+ Use the `dplyr` function `tally()` which gives you a _tibble_ of the row count. *We will learn more interesting uses of this function later, but for now, you should know that it will count your rows and return a tibble:*
-
-
-```demo-tally
-msleep %>%
-  tally()
-```
-
-
-<div class = "prompt">Answer the question: How many mammals weigh more than 2000 kg?</div>
-
-+ To answer this, we'd use `filter()` to get only the rows of interest (mammals which weigh more than 2000)
-+ The number of rows remaining represents the answer to the question. (add `tally()` to the pipeline)
-+ **HOWEVER**, rather than just looking at our own eyes and determining ourselves how many rows are there, we want to use **code** to figure that out for us. **This is a central concept in coding: We are using computers, so let's ask the computer to do it for us! Eyeballs are not reproducible.**
-
-
-```{r tally_q1-solution}
-msleep %>%
-  filter(bodywt > 2000) %>%
-  tally()
+  distinct() %>%
+  drop_na()
 ```
 
 <br>
@@ -587,7 +587,7 @@ msleep %>%
 <br>
 
 
-## Set 2: Creating `dplyr` pipelines
+## Set 2: Practice with `dplyr` verbs
 
 > Remember: You can always use functions like `select()` to _check_ your code, even if `select()` is not actually part of the solution.
 
@@ -614,15 +614,32 @@ msleep %>%
 msleep_lc
 ``` 
 
-<div class = "prompt"> The goal of this question is to find all the mammals whose awake/asleep ratio is greater than 1.</div>
+<div class = "prompt"> The goal of this question is to find all the mammals who are generally more awake than asleep. In other words, their ratio of awake hours to asleep hours is >1, se awake/asleep ratio is greater than 1.</div>
 
-+ To accomplish this, first calculate the ratio (make it a new column!), and then filter the data to only keep those calculations which are greater than 1.
++ You can think of this in a couple of ways:
+  + The amount of hours spent awake (`awake`) is greater than the amount of hours spent asleep (`sleep_total`
+  + The difference between awake and asleep hours is positive (meaning the absolute value of their difference is position aka > 0).
+  + The ratio of dividing `awake` by `sleep_total` is greater than 1.
++ There are many ways to solve a problem! Neither is necessarily better or worse.
 
 
 ```{r dplyr_pipe3-solution}
+# One approach:
 msleep %>%
-  mutate(sleep_awake_ratio = awake/sleep_total) %>%
-  filter(sleep_awake_ratio > 1)
+  filter(awake > sleep_total)
+
+# Another approach:
+msleep %>%
+  filter(abs(awake - sleep_total) > 0)
+
+# And anther approach
+msleep %>%
+  filter(awake/sleep_total > 1)
+
+# Or make a variable along the way, why not! However you want to do it, as long as you use dplyr code
+msleep %>%
+  mutate(difference = awake - sleep_total)
+  filter(abs(difference) > 0)
 ``` 
 
 
