@@ -1,0 +1,61 @@
+---
+title: 'Template: Homework #6'
+author: "Data Science for Biologists, Fall 2021"
+date: "Submit this completed Rmd file to Canvas on Wednesday 10/20/21 by 2 PM"
+output: 
+  html_document:
+    theme: lumen
+    highlight: tango
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.width = 6, fig.height = 4)
+
+# Always load libraries in the setup chunk:
+library(tidyverse) # allows you to use ggplot2, readr, forcats, etc. 
+```
+
+
+```{r paths_and_data, include=FALSE}
+# Use here::here() to define the top-level directory
+top_level_directory <- here::here()
+
+# Define path to datasets directory
+path_to_datasets <- file.path(top_level_directory, "homeworks", "datasets")
+
+# Your task: define path to figures directory below:
+path_to_figures <- file.path(top_level_directory, "homeworks", "figures")
+
+
+# Your task: define the path to the coffee_ratings.csv file below, using `path_to_datasets` as part of the code:
+coffee_ratings_file <- file.path(path_to_datasets, "coffee_ratings.txt") 
+
+
+# Your task: read in the dataset with read_csv() and save to a variable coffee_ratings:
+coffee_ratings <- read_csv(coffee_ratings_file)
+coffee_ratings
+```
+
+<br><br>
+
+#### Question 1
+
+```{r question1}
+coffee_ratings %>%  # send input to next line
+  filter(species == "Arabica")  # keep only where TRUE that species is Arabica
+```
+
+
+<!-- You have to make the rest of the question headers and chunks! Use the green button at the top "+C" to create an R chunk with point-and-click (watch the Rmd videos too!), or type out backticks and curly braces manually.--> 
+
+<br> 
+
+#### Question 2
+
+```{r question2}
+
+```
+
+
