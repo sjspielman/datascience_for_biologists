@@ -333,7 +333,7 @@ pre code {
 </ol>
 <p><br></p>
 <ol start="3" style="list-style-type: decimal">
-<li><p>Modify code from your previous question by <em>piping it into</em> the function <code>nrow()</code>. This is a way to quickly answer the question: How many coffee farms in Guatemala have a <code>total_cup_points</code> score less than 70? The code should reveal a single number telling you how many rows there are in the subsetted data, which corresponds to how many farms there are. Your code should print out a single number that answers that question.</p>
+<li><p>Using a similar strategy to the previous question, answer the question: <em>How many coffee farms in Guatemala have a <code>total_cup_points</code> score less than 70?</em> The code should reveal a single number telling you how many rows there are in the subsetted data, aka how many farms. To achieve this, you should <em>pipe into</em> the function <code>nrow()</code> after filtering.</p>
 <ul>
 <li>Hint: Instead of <code>nrow()</code> you can use the <code>dplyr</code> function <code>tally()</code> if you want! Look it up with <code>get_help(&quot;tally&quot;)</code>. If you use this approach, your code will print a tibble containing the number answering the question - that’s totally fine!!</li>
 </ul></li>
