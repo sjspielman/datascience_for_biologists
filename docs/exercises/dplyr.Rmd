@@ -394,16 +394,16 @@ msleep %>%
 
 ```{r dplyr_mutate_jktidyr2-solution}
 msleep %>%
-  drop_na(brainwt, sleep_cycle) %>%
+  drop_na(brainwt, bodywt) %>%
   mutate(mean_brainwt = mean(brainwt),
-         median_sleep_cycle = median(sleep_cycle)) %>%
-  select(mean_brainwt, median_sleep_cycle)
+         median_bodywt = median(bodywt)) %>%
+  select(mean_brainwt, median_bodywt)
 
 
 # Without drop_na():
 msleep %>%
   mutate(mean_brainwt = mean(brainwt, na.rm = TRUE),
-         median_sleep_cycle = median(sleep_cycle, na.rm = TRUE)) %>%
+         median_bodywt = median(bodywt, na.rm = TRUE)) %>%
   select(mean_brainwt, median_bodywt)
 ``` 
 
