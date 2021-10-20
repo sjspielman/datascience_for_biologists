@@ -24,6 +24,8 @@ This website contains all materials used in BIOL 01301 Fall 2021 at Rowan Univer
 > [All of the colors!!!](./misc/Rcolor.pdf)
 >
 > [Links to short help videos](./video_links.html)
+>
+> [`#tidytuesday` instructions](./misc/tidytuesday_instructions.pdf)
 
 
  Date  | Topic                                  | In-class materials and other resources        | Assignment DUE to Canvas by 2 PM
