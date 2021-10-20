@@ -1,0 +1,46 @@
+---
+title: 'Template: Homework #7'
+author: "Data Science for Biologists, Fall 2021"
+date: "Submit this completed Rmd file to Canvas on Wednesday 10/27/21 by 2 PM"
+output: 
+  html_document:
+    theme: lumen
+    highlight: tango
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.width = 6, fig.height = 4)
+
+# Always load libraries in the setup chunk:
+library(tidyverse) # allows you to use ggplot2, readr, forcats, etc. 
+```
+
+
+```{r paths_and_data, include=FALSE}
+# Use here::here() to define the top-level directory
+top_level_directory <- here::here()
+
+# Your task: define path to datasets directory using the function file.path():
+
+# Your task: define path to figures directory using the function file.path():
+
+# Read the coffee data from URL
+coffee_ratings <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-07-07/coffee_ratings.csv')
+
+# Remove the incorrect point from the dataset
+coffee_ratings %>%
+  filter(total_cup_points != 0) -> clean_coffee_ratings
+```
+
+<br><br>
+
+#### Question 1
+
+```{r question1}
+
+```
+
+
+<!-- You have to make the rest of the question headers and chunks! Use the green button at the top "+C" to create an R chunk with point-and-click (watch the Rmd videos too!), or type out backticks and curly braces manually.--> 
