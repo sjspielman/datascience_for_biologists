@@ -52,7 +52,7 @@ M 10/18 | Data wrangling with `dplyr` and `tidyr` III | [Introduction to `dplyr`
 W 10/20 | Data wrangling with `dplyr` and `tidyr` IV <br> Introducing `#tidytuesday` extra credit | [Introduction to `dplyr` exercises Sets 1-3](./exercises/dplyr.html) | Homework 6: Introduction to data wrangling and visualization <br> [Link to instructions](./homeworks/hw6/hw6_instructions.html)
 R 10/21 | Data wrangling with `dplyr` and `tidyr` V |  [Introduction to `dplyr` exercises Sets 2-3](./exercises/dplyr.html)  | -
 M 10/25 | Exploratory analysis II   | - | -
-W 10/27 | Data tidying with `tidyr` <br> Working with relational data <br> Working with strings | Slides  | Homework 7: More data wrangling and visualization
+W 10/27 | Data tidying with `tidyr` <br> Working with relational data <br> Working with strings | Slides  | Homework 7: More data wrangling and visualization <br> [Link to instructions](./homeworks/hw7/hw7_instructions.html)
 R 10/28 | Introduction to real-life data science  | - | -
 M 11/1 | Introduction to machine learning | Slides, TBD | -
 W 11/3 | Linear modeling I | Slides, TBD  | Homework 8: A real life data adventure
