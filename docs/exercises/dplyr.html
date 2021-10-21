@@ -988,9 +988,10 @@ Use <code>group_by()</code> calculate the median (with <code>summarize()</code> 
 Use <code>group_by()</code> calculate the <em>maximum</em> (with <code>summarize()</code> and <code>max()</code>!) brain weight (<code>brainwt</code>) of each <code>vore</code> group. Then, <em>sort</em> the data according to maximum brain weight (your new well-named column!) with <code>arrange()</code>.
 </div>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>msleep <span class="sc">%&gt;%</span></span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(vore) <span class="sc">%&gt;%</span></span>
-<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">max_brainwt =</span> <span class="fu">max</span>(brainwt)) <span class="sc">%&gt;%</span></span>
-<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(max_brainwt)</span></code></pre></div>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(brainwt) <span class="sc">%&gt;%</span></span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(vore) <span class="sc">%&gt;%</span></span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">max_brainwt =</span> <span class="fu">max</span>(brainwt)) <span class="sc">%&gt;%</span></span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(max_brainwt)</span></code></pre></div>
 <div class="prompt">
 Use <code>group_by()</code> calculate the mean body weight (<code>bodywt</code>) of each <em>combination</em> of <code>vore</code> and <code>conservation</code> groups.
 </div>

@@ -849,6 +849,7 @@ msleep %>%
 
 ```{r dplyr_summarize6-solution}
 msleep %>%
+  drop_na(brainwt) %>%
   group_by(vore) %>%
   summarize(max_brainwt = max(brainwt)) %>%
   arrange(max_brainwt)
