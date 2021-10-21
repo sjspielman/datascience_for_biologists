@@ -1,7 +1,7 @@
 ---
 title: 'Template: Homework #7'
 author: "Data Science for Biologists, Fall 2021"
-date: "Submit this completed Rmd file to Canvas on Wednesday 10/27/21 by 2 PM"
+date: "Submit this completed Rmd file to Canvas on Friday 10/29/21 by 11:59 PM"
 output: 
   html_document:
     theme: lumen
