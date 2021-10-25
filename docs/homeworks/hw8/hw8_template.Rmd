@@ -1,0 +1,82 @@
+---
+title: 'Template: Homework #8'
+author: "Data Science for Biologists, Fall 2021"
+date: "Submit this completed Rmd file to Canvas on Wednesday 11/3/21 by 11:59 PM"
+output: 
+  html_document:
+    theme: lumen
+    highlight: tango
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.width = 6, fig.height = 4)
+
+# Always load libraries in the setup chunk:
+library(tidyverse) # allows you to use ggplot2, readr, forcats, etc. 
+```
+
+
+```{r read_data, include=FALSE}
+# Read the coffee data from URL
+coffee_ratings <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-07-07/coffee_ratings.csv')
+
+# Your task: Remove the incorrect row from the dataset and save to a new tibble to use in the homework
+
+```
+
+<br><br>
+
+#### Question 1: How does the spread of coffee `uniformity` distributions compare among different coffee processing methods, excluding unknown (`NA`) processing methods? 
+
+Replace this text with your answer to question 1.
+
+```{r question1}
+
+```
+
+<br>
+
+
+#### Question 2: Which countries grow Robusta coffees, and how many Robusta coffees are grown in each of these countries?
+
+Replace this text with your answer to question 2.
+
+```{r question2}
+
+```
+
+<br>
+
+#### Question 3: Does there appear to be an association between `color` and `moisture` across coffees? In other words, do certain colors have a higher or lower moisture on average?
+
+Replace this text with your answer to question 3.
+
+```{r question3}
+
+```
+
+
+<br>
+
+#### Question 4: Replace this text with your question. 
+
+Replace this text with your answer to question 4.
+
+```{r question4}
+
+```
+
+
+
+<br>
+
+#### Question 5: Replace this text with your question. 
+
+Replace this text with your answer to question 5.
+
+```{r question5}
+
+```
+

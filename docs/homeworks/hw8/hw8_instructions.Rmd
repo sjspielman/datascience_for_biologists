@@ -1,0 +1,103 @@
+---
+title: 'Instructions: Homework #8'
+author: "Data Science for Biologists, Fall 2021"
+date: "Complete the template Rmd and submit to Canvas on Wednesday 11/3/21 by 11:59 PM"
+output: 
+  html_document:
+    theme: lumen
+    highlight: tango
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F, include=F, fig.width = 6, fig.height = 4, message = F, warning = F)
+
+library(tidyverse)
+coffee_ratings <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-07-07/coffee_ratings.csv')
+coffee_ratings <- coffee_ratings %>%
+  filter(total_cup_points != 0)
+```
+
+
+```{css, echo=F}
+ul :last-child, ol :last-child,ul :first-child, ol :first-child {
+    margin-bottom: 0;
+    padding-bottom:0;
+}
+
+blockquote {
+  margin-left: 50px;
+  border-left: 5px solid #DF4469;
+  font-size:1em;
+}
+```
+
+
+### Obtaining and setting up the homework
+
++ Obtain the homework template from your RStudio Cloud class project by running the following code in the R Console:
+
+  ```{r, eval=FALSE, echo=T, include=T}
+  library(ds4b.materials) # Load the class library
+  launch_homework(8)      # Launch Homework 8
+  ```
+
++ You must set an _RMarkdown theme and code syntax highlighting scheme_ of your choosing in the YAML front matter. These links will help you:
+  + Choose your favorite _theme_ among the **pre-packaged themes** (ignore everything below "Even More Themes") shown at [this link](https://www.datadreaming.org/post/r-markdown-theme-gallery/)
+  + Choose your favorite _syntax highlighting_ among these options at [this link](https://www.garrickadenbuie.com/blog/pandoc-syntax-highlighting-examples/)
++ **Make sure your Rmd knits without errors before submitting.** If it does not produce an HTML output, this means it does not knit. _DO NOT SKIP THIS STEP!_ Ensuring code runs without errors is MORE IMPORTANT than writing code in the first place.
+  + If there are errors in your code, you should *comment out* the code so that it does not actually run. This is **BETTER** than keeping the buggy code in there without commenting out - _it shows me you attempted the code, but understood that it didn't work properly._ Partial credit will come to you! But, if you leave buggy code in, then the Rmd will not knit and there will be deductions.
++ As always, you are encouraged to work together and use the class Slack to help each other out, but you must submit YOUR OWN CODE.
+<br><br>
+
+
+<br><br>
+
+# The actual instructions
+
+
+## Part 1: Reading in the data
+
+In the top chunk named `read_data`, first... 
+
++ Read in the `coffee_ratings` dataset *directly from the URL where it lives on the internet* (not from the file). _This is done for you._
++ Then, since we know there is an error in this dataset where 1 row has a point score of 0, let's remove it before proceeding. Filter the data to only keep rows rows where `total_cup_points != 0`, and save the data to `clean_coffee_ratings`.**You should use this tibble, `clean_coffee_ratings`, for the whole homework.** Feel free to change the variable name if you like as long as it remains informative and _not the same as_ the raw data `coffee_ratings`.
+
+## Part 2: Go for it!!
+
+You will be conducting exploratory data analysis on the coffee ratings dataset by answering **five questions** about the coffee data using a combination of wrangling and visualization. Three of these questions are asked for you, and you ask the other two questions. Each question needs at least _some wrangling_ with one or more `dplyr` and/or `tidyr` functions, its own plot (although question 3 has two plots!), and a brief answer in 1-3 sentences. Please follow the given template to organize your code (as you did in Homework #5). You can style your plots _however you want_ as long as you ensure professional labeling (no underscores!) of all axes and legend titles. 
+
+**Importantly, for every written answer you give there MUST BE corresponding code.** For the first three questions templated for you, you must conduct calculations as described.
+
+**Finally, YOU MUST SPELL CHECK. Seriously.**
+
+<br>
+
+#### Specific tasks you have to do as part of questions 1-3
+
+**Question 1**
+
++ Your code should make sure to accomplish the following goals:
+  + Use wrangling to reveal a tibble of the _standard deviation_ of each processing method's uniformity. This tibble should have two columns named `processing_method` and `sd_uniformity`.
+  + Create a figure to visualize the spread of the uniformity distributions across non-`NA` processing methods
+
+<br>
+
+**Question 2**
+
++ Your code should make sure to accomplish the following goals:
+  + Reveal a tibble of how many Robusta coffees are grown in countries that grow Robusta coffees (i.e. no rows with "0"). This tibble should have two columns named `country_of_origin` and `number_robusta` 
+  + Create a figure to visualize these counts. 
+    + For some bonus points, make a [waffle plot](https://liamgilbey.github.io/ggwaffle/)! If you want to pursue this bonus option, you first need to install the package `ggwaffle` with this code (copy/paste into Console): `remotes::install_github("liamgilbey/ggwaffle")`.
+  
+<br>
+
+**Question 3**
+
++ Your code should make sure to accomplish the following goals:
+  + Use wrangling to reveal a tibble of the _mean_ of each color's moisture, excluding unknown (`NA`) colors. This tibble should have two columns named `color` and `mean_moisture`.
+  + Create TWO FIGURES for this question: The first should show the moisture distributions across non-`NA` colors, and the second should show the the literal mean values of each moisture distribution (hint: barplot!). You can make both figures in the same chunk, or create an additional (named!) chunk as needed.
++ _Your answer_ should specifically address which figure, in your opinion, is most helpful for answering the question _and why._
+    
+    

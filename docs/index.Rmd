@@ -57,7 +57,7 @@ M 10/25 | Data wrangling with `dplyr` and `tidyr` VI | [Introduction to `dplyr` 
 W 10/27 | Exploratory analysis II | Slides  | -
 R 10/28 | _Open work day_  | - | Homework 7: More data wrangling and visualization due **FRIDAY 10/29 at 11:59 PM** <br> [Link to instructions](./homeworks/hw7/hw7_instructions.html)
 M 11/1 | Data tidying with `tidyr` |  | -
-W 11/3 | Working with relational data <br> Working with strings | Slides, TBD  | Homework 8: Exploratory analysis of coffee ratings
+W 11/3 | Working with relational data <br> Working with strings | Slides, TBD  | Homework 8: Exploratory analysis of coffee ratings <br> [Link to instructions](./homeworks/hw8/hw8_instructions.html)
 R 11/4 | _Open work day_ |  | -
 M 11/8 | Introduction to machine learning | Slides, TBD | -
 W 11/10 | Linear modeling I | Slides, TBD  | Homework 9: A real life data analysis
