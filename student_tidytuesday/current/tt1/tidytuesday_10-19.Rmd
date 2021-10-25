@@ -1,0 +1,56 @@
+---
+title: "Giant Pumpkins"
+author: "Courtney Charlesworth"
+date: "10/19/2021"
+output: 
+  html_document:
+    theme: readable
+    highlight: pygments
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+
+#dataset
+pumpkins <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-10-19/pumpkins.csv')
+
+```
+
+<br>
+
+#### Giant Pumpkins Plot
+```{r pumpkin_plot, fig.height=4, fig.width=6}
+#shows what countries are in dataset using pipeline (tibble output)
+pumpkins %>%
+  select(country) %>% #have to select first
+  distinct() 
+
+
+#Which country in North America submitted the most pumpkins???
+#can also make this plot with no count() and geom_bar instead
+pumpkins %>%
+  filter(country %in% c("United States", "Canada")) %>% 
+  count(country) %>% #counts number of times those countries show up, sets up y = n and geom_col() to work
+  ggplot() +
+  aes(x = fct_reorder(country, n, .desc = TRUE), #ascending order
+      y = n,
+      fill = country) +
+  geom_col(color = "black",
+           width = 0.70) + #can set x and y 
+  scale_fill_brewer(palette = "Dark2") +
+  labs(x = "Country",
+       y = "Number of pumpkins submitted") +
+  theme_classic() +
+  theme(legend.position='none') -> pumpkin_plot #removes legend, must go after theme set
+
+pumpkin_plot
+
+#save image
+ggsave("pumpkin_plot.png",
+       pumpkin_plot,
+       width = 6,         
+       height = 4)
+
+```

@@ -1,0 +1,53 @@
+---
+title: "tidy_tuesday_10-19"
+author: "Nikita Thadani"
+date: "10/21/2021"
+output: 
+  html_document:
+    theme: lumen
+    highlight: tango
+editor_options: 
+chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# Always load libraries in the setup chunk:
+library(tidyverse) # allows you to use ggplot2, readr, forcats, etc. 
+theme_set(theme_classic()) 
+```
+
+
+
+```{r pump_cl}
+pumpkins <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-10-19/pumpkins.csv')
+
+pumpkins %>% 
+  mutate(weight_lbs= as.numeric(weight_lbs))%>%
+  drop_na(weight_lbs) -> pump_cl
+
+
+```
+
+```{r plot}
+
+pump_cl %>%
+  filter(country %in% c("Canada", "United States"))%>%
+  select (country, weight_lbs) %>%
+  ggplot()+
+  aes(x= country,
+      y = weight_lbs,
+      fill = country)+
+  geom_boxplot()+ 
+  labs(x= "Country", 
+       y= "Weight (lbs)",
+       fill = "Country",
+       title = "Average Weight of Pumpkins in USA vs Canada")+
+  scale_fill_viridis_d(option = "plasma")-> pump_boxplot
+pump_boxplot
+
+ggsave("pump_boxplot.png")
+
+
+```
+
