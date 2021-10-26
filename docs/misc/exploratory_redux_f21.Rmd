@@ -1,0 +1,234 @@
+---
+title: "Exploratory analysis redux"
+output: 
+  html_document:
+    theme: readable
+    highlight: pygments
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.width = 6, fig.height = 4, message=F, warning=F)
+library(tidyverse)
+library(ds4b.materials)
+```
+
+
+## Punchlines:
+
++ Read your words out loud to check that they make sense and use the spell check.
++ Questions should be about one or more variables in the data.
++ Be _specific_ and _precise_ about what are you asking about.
++ Questions should not be very creative. Don't overthink - keep it simple!
+  + "Reverse engineering" questions from creative plots can lead to questions that don't make sense.
++ Limit questions to the scope of the data. Being too fancy = being wrong.
++ *Do not even think about cause and effect unless the data was an experiment evaluating cause and effect.*
+
+## Good (non-creative!) places to explore
+
++ Distributions of a numeric variable
+  + Shape and skew, mean/median, range, spread
++ Counts of a categorical variable
++ Relationships between variables. *Seriously, never cause/effect.*
+  + Relationship between two numeric variables - positive? negative? strong? weak?
+  + Relationship between two categorical variables - joint counts!
+  + Relationship between numeric and categorical - "how do means compare?" etc.
+
+
+## Peer review of student exploratory analyses
+
+<br><br>
+
+
+#### How many bins are in the histogram?
+
+There are 14 bins in the histogram.
+
+```{r}
+ggplot(wine) + 
+  aes(x = color) + 
+  geom_histogram(color = "black", 
+                 fill = "red", 
+                 bins = 14) + 
+  labs(x = "Color intensity of the wine", 
+       y = "Count")
+```
+
+
+<br>
+
+
+####  What is the difference between the disbutions?
+
+Females wing size tends to be larger than males. 
+
+```{r}
+ggplot(damselfly) +
+  aes(x = Wing.size, fill = Sex) + 
+  geom_density(alpha = 0.6) +
+  labs(x = " Wing size ") +
+  theme_classic()
+```
+
+
+
+<br>
+
+#### Is the distribution of urea unimodal, bimodal, or multimodal in this histogram?
+This histogram is multimodal because it has only one peak. 
+
+```{r}
+ggplot(urine) +
+  aes(x = urea) +
+  geom_histogram(fill = "orange1",
+                 color = "black",
+                 size = 0.5,
+                 bins = 3) +
+  labs(x = "Urea concentration",
+       y = "count")
+
+```
+
+
+<br>
+
+
+#### Is there a relationship between osmolarity of urine and specific gravity of urine?
+
+Yes there exists a positive relationship between the two. As osmolarity increases, specific gravity increases as well.
+
+  
+```{r}
+ggplot(urine) +
+  aes(x = osmo,
+      color = pH,
+      y = gravity) +
+  geom_point(size = 3) +
+  geom_smooth(method = "lm") + 
+  scale_color_viridis_c(option = "plasma") + 
+  labs(x = "Osmolarity",
+       y = "Specific Gravity") +
+  theme_bw() 
+```
+
+
+<br>
+
+
+#### What is the relationship between the body mass and age of women, for whether or not they have diabetes?
+
+There is no relationship overall because the trend line is flat.
+
+```{r}
+
+ggplot(pima) +
+  aes(x = bmi,
+      y = age,
+      color = diabetic) + # added color to aes to map color to diabetic
+  geom_point() +
+  scale_color_manual(values = c("darkorange2",
+                               "black")) +
+    geom_smooth(method = "lm", color = "black") + # added color to trendline and used function "lm" for trendline
+  labs(x = "Body mass index of Women",
+       y = "Age of Women")
+```
+
+
+<br>
+
+
+#### Is a person with a higher urea concentration more likely to have kidney stones?
+
+As urea concentration increase the likelihood of crystal formation of kidney stones is more likely to occur as seen as a higher density of those with crystals have a high concentration of urea.
+  
+
+```{r}
+ggplot(urine) +
+  aes(x = urea,
+      fill = crystal) +
+  geom_density(color = "black",
+               alpha = 0.90) +
+  scale_fill_brewer(palette = "PuRd") +
+  theme_classic() +
+  labs(x = "Urea Concentration", y = "Density")
+```
+
+
+<br>
+
+
+#### Is there a BMI that women did not have have any pregnancies?
+
+Yes the BMI range of 60-67 the women did not have any pregnancies.
+
+
+```{r}
+ggplot(pima) + 
+  aes(x = bmi) + 
+  geom_histogram(fill = "yellow",
+                 color = "chocolate3", bins = 15) + 
+  labs(x = "BMI", #labels
+       y = "Number of times a Women is Pregnant", 
+       title = "Number of times a Women is Pregnant and their BMI's")
+```
+
+
+<br>
+
+
+
+#### What is the higest insulin vaule in people without diabetes ?
+
+The highest insulin value for people with out diabetes is around 750.
+
+```{r}
+ggplot(pima)+
+  aes(x=diabetic,
+      y=insulin,
+      fill=age)+
+  geom_jitter(shape=21,
+             alpha=0.7,
+             width=0.2)+
+  scale_fill_viridis_c(option="turbo")+
+  theme_bw()+
+  labs(x="Diabetes",
+       y="Insulin (μU/mL)")
+```
+
+
+<br>
+
+#### Is there sexual selection for wing size?
+
+Females choose their mate based on wing size, with the average male having a wing size of 1900.
+
+```{r}
+ggplot(damselfly) +
+  aes(x = Wing.size, fill = Sex) +
+   scale_fill_brewer(palette = "Set3") +
+  geom_density(alpha = 0.8) +
+  facet_grid(vars(Mating.status)) +
+  theme_minimal() +
+  labs(x = "Wing size",
+       title = "Wing Size in Mating Pairs") 
+```
+
+<br>
+
+
+#### Does abdomen length play a role in damsel fly sexual selection?
+
+Abdomen length seems to play a role in damsel fly sexual selection, as those with smaller abdomens seem to be more likely to be mated. This was not what I actually expected.
+
+```{r}
+ggplot(damselfly)+
+  aes(fill=Mating.status, y=Abdomen.length, x=Sex)+
+  geom_violin()+
+  labs(x="Fly sex", 
+       y="Abdomen Length", 
+       fill="Mating Status")+
+  scale_fill_brewer(palette="Pastel1")+
+  theme_light()
+
+```
