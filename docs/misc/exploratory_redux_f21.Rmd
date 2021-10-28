@@ -12,6 +12,7 @@ editor_options:
 knitr::opts_chunk$set(echo = TRUE, fig.width = 6, fig.height = 4, message=F, warning=F)
 library(tidyverse)
 library(ds4b.materials)
+library(ggforce)
 ```
 
 
@@ -48,20 +49,23 @@ There are 14 bins in the histogram.
 ```{r}
 ggplot(wine) + 
   aes(x = color) + 
-  geom_histogram(color = "black", 
-                 fill = "red", 
-                 bins = 14) + 
+  geom_density(color = "black", 
+                 fill = "red") + 
   labs(x = "Color intensity of the wine", 
        y = "Count")
 ```
 
 
+
+
+
+
 <br>
 
 
-####  What is the difference between the disbutions?
+####  What is the difference between the distributions of wing size between sexes?
 
-Females wing size tends to be larger than males. 
+Females wing size tends to be larger than males, on average.  
 
 ```{r}
 ggplot(damselfly) +
@@ -84,7 +88,7 @@ ggplot(urine) +
   geom_histogram(fill = "orange1",
                  color = "black",
                  size = 0.5,
-                 bins = 3) +
+                 bins = 25) +
   labs(x = "Urea concentration",
        y = "count")
 
@@ -102,11 +106,9 @@ Yes there exists a positive relationship between the two. As osmolarity increase
 ```{r}
 ggplot(urine) +
   aes(x = osmo,
-      color = pH,
       y = gravity) +
   geom_point(size = 3) +
   geom_smooth(method = "lm") + 
-  scale_color_viridis_c(option = "plasma") + 
   labs(x = "Osmolarity",
        y = "Specific Gravity") +
   theme_bw() 
@@ -123,15 +125,14 @@ There is no relationship overall because the trend line is flat.
 ```{r}
 
 ggplot(pima) +
-  aes(x = bmi,
-      y = age,
-      color = diabetic) + # added color to aes to map color to diabetic
+  aes(x = age,
+      y = bmi) + # added color to aes to map color to diabetic
   geom_point() +
   scale_color_manual(values = c("darkorange2",
                                "black")) +
-    geom_smooth(method = "lm", color = "black") + # added color to trendline and used function "lm" for trendline
-  labs(x = "Body mass index of Women",
-       y = "Age of Women")
+    geom_smooth() + 
+  labs(x = "age",
+       y = "BMI")
 ```
 
 
@@ -148,7 +149,7 @@ ggplot(urine) +
   aes(x = urea,
       fill = crystal) +
   geom_density(color = "black",
-               alpha = 0.90) +
+               alpha = 0.50) +
   scale_fill_brewer(palette = "PuRd") +
   theme_classic() +
   labs(x = "Urea Concentration", y = "Density")
@@ -183,14 +184,15 @@ ggplot(pima) +
 The highest insulin value for people with out diabetes is around 750.
 
 ```{r}
+pima %>%
+  filter(diabetic ==  "No") %>%
+  summarize(max_insulin = max(insulin))
+
 ggplot(pima)+
   aes(x=diabetic,
-      y=insulin,
-      fill=age)+
-  geom_jitter(shape=21,
-             alpha=0.7,
-             width=0.2)+
-  scale_fill_viridis_c(option="turbo")+
+      y=insulin)+
+  geom_boxplot() + 
+  geom_sina()+
   theme_bw()+
   labs(x="Diabetes",
        y="Insulin (μU/mL)")

@@ -1,0 +1,108 @@
+---
+title: "Plot size considerations"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.width = 6, fig.height = 4)
+# ^^^ that line sets the DEFAULT figure size in the knitted Rmd to be 6"x4"
+
+
+library(tidyverse)
+coffee_ratings <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-07-07/coffee_ratings.csv')
+
+
+coffee_clean <- coffee_ratings %>%
+  filter(total_cup_points != 0)
+```
+
+### Let's make a figure!
+
+Oh no, all the labels are overlapping!! 
+Why? The figure is only 6x4!! There's not room for the labels :(
+
+```{r}
+coffee_clean %>%
+  filter(country_of_origin == "Ethiopia") %>%
+  drop_na(variety) %>%
+  ggplot() + 
+  aes(x = variety) + 
+  geom_bar()
+```
+
+### One solution: change the size of the given chunk's figure
+
+Inside the `{}`, I have set figures made by THIS CHUNK ONLY to be 8"x4"
+```{r, fig.width = 8, fig.height = 4}
+coffee_clean %>%
+  filter(country_of_origin == "Ethiopia") %>%
+  drop_na(variety) %>%
+  ggplot() + 
+  aes(x = variety) + 
+  geom_bar()
+```
+
+
+### Another solution: modify the text size itself
+
+To do this you'll need to learn more about modifying the theme [here](https://spielmanlab.github.io/introverse/articles/themes.html)
+
+
+```{r}
+coffee_clean %>%
+  filter(country_of_origin == "Ethiopia") %>%
+  drop_na(variety) %>%
+  ggplot() + 
+  aes(x = variety) + 
+  geom_bar() + 
+  # change x-axis text only - some trial and error to get the right relative size
+  theme(axis.text.x = element_text(size = rel(0.65)))
+```
+
+BUT!! That's now a little too small to read, so be careful!! Maybe instead change the *angle*? But this is a little ugly... Have to play around!
+
+
+```{r}
+coffee_clean %>%
+  filter(country_of_origin == "Ethiopia") %>%
+  drop_na(variety) %>%
+  ggplot() + 
+  aes(x = variety) + 
+  geom_bar() + 
+  # rotate x-axis text 90 degrees
+  theme(axis.text.x = element_text(angle = 90))
+```
+
+### Another solution: reconsider the plot
+
+Maybe a *horizontal* plot would help...
+
+
+```{r}
+coffee_clean %>%
+  filter(country_of_origin == "Ethiopia") %>%
+  drop_na(variety) %>%
+  ggplot() + 
+  aes(y = variety) + 
+  geom_bar()
+```
+
+### What about saving the figure to a file?
+
+Chunk figure size doesn't matter - your arguments to `ggsave()` matter!!
+
+```{r}
+coffee_clean %>%
+  filter(country_of_origin == "Ethiopia") %>%
+  drop_na(variety) %>%
+  ggplot() + 
+  aes(x = variety) + 
+  geom_bar() -> my_figure
+
+ggsave("myfigure.png", 
+       my_figure, 
+       width = 8, 
+       height = 4)
+```
