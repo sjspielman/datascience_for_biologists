@@ -1,0 +1,342 @@
+---
+title: "Notes and activity: Linear modeling"
+author: "Data Science for Biologists, Fall 2021"
+date: "Week of 11/1/21"
+output: 
+  html_document:
+      theme: readable
+      highlight: tango
+editor_options: 
+  chunk_output_type: console
+---
+
+**BEFORE WE BEGIN, DO THE FOLLOWING:**
+
++ update materials with: `ds4b.materials::update_materials()`
++ install the package `ggtext` with: `install.packages("ggtext")`
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, collapse=TRUE)
+
+# Load libraries
+library(tidyverse)
+library(palmerpenguins)
+library(ds4b.materials)
+library(broom)
+library(modelr) 
+library(ggtext) 
+my_seed <- 11 # keep this!!
+theme_set(theme_classic()) # I like this, you do you!
+```
+
+
+
+
+
+## Linear model formula
+
++ Simple linear regression:
+  + $Y = \beta_1X_1 + \beta_0 + \epsilon$
+  + $Y = mX + b$
+  + Here, $\beta_1$ is the model coefficient representing SLOPE. $\beta_0$ is the model coefficient representing Y-INTERCEPT.
+
++ General formula for $n$ predictors
+  + $Y =  \beta_0 + \beta_1X_1 + \beta_2X_2 + \beta_3X_3 ... + \beta_nX_n + \epsilon$
+  + Each coefficient indicates the effect of the given predictor on the response, considering all other predictors. Interpreting is a mess. 
+
+
+
+### Datasets we'll be using here
+
++ `domestic_cats`: body weight and heart weight from 144 cats
++ `penguins`: A whole bunch of measurements from 344 of penguins 
+
+
+<br><br>  
+
+## Part 1: Simple linear regression to build intuition of modeling
+
++ If I know something about a cat's body weight, can I know something about their heart weight?
+  + _How does body weight explain variation in heart weight?_
+  + Predictor: `body_weight`
+  + Response: `heart_weight`
+  
+```{r}
+
+# Step 1: Look at the data and when possible plot some of it!!! Our method assumes a LINEAR relationship.
+domestic_cats
+
+ggplot(domestic_cats) +
+  aes(x = body_weight, y = heart_weight) + 
+  geom_point()
+
+# Step 2: Build the model using the function `lm()` and save to variable
+# lm(response ~ predictors, data = nameofthetibble)
+
+fitted_model <- lm(heart_weight ~ body_weight, data = domestic_cats) 
+
+
+# Step 3: Explore the model results
+
+# Like this:
+summary(fitted_model) # Coefficient is POSITIVE: for every 1 unit increase in body weight, heart weight increases by 4.03
+
+# Or like this:
+broom::tidy(fitted_model)
+broom::glance(fitted_model)
+rsquare(fitted_model, domestic_cats)
+
+# Step 3.5: Don't forget RMSE from modelr package!
+rmse(fitted_model, domestic_cats) 
+summary(domestic_cats$heart_weight) # RMSE is in units of the RESPONSE. This RMSE is pretty low.
+```
+
+$R^2 = 0.64$ which means 64% of the variation in heart weight is explained by body weight. 36% of variation remains unexplained. The RMSE is 0.0014 and the response variable ranges from 0.0063 - 0.0205.
+
+
+```{r}
+ggplot(domestic_cats) +
+  aes(x = body_weight, y = heart_weight) + 
+  geom_point() + 
+  geom_smooth(method = "lm") +
+  labs(x = "Body weight", y = "Heart weight")
+
+
+ggplot(domestic_cats) +
+  aes(x = body_weight, y = heart_weight) + 
+  geom_point() + 
+  geom_smooth(method = "lm") +
+  labs(x = "Body weight", y = "Heart weight",
+       subtitle = "R<sup>2</sup> = 0.64") + 
+  theme(plot.subtitle = element_markdown())
+```
+
+<br><br>
+
+
+### How can we use this model to predict heart weight from body weight in _other domestic cats_?
+
++ Imagine I have three new cats. What does the model predict their hearts weigh?
+  + One weighs 2.4 kg
+  + One weighs 3.3 kg
+  + One weights 4.5 kg
+  
+  
+```{r}
+# Step 1: Create a new tibble that EXACTLY MATCHES!! names of predictors in the original dataset
+
+# Remind yourself:
+names(domestic_cats)
+
+# Use tibble::tibble() or tibble::tribble() to make a tibble (get_help()!)
+# The tibble package is loaded with library(tidyverse), so don't need ::
+tibble(body_weight = c(2.4, 3.3, 4.5)) -> new_cats
+
+new_cats
+
+# Step 2: Use the predict() function. **There is no get_help() for this one**.
+# Usage: predict(the fitted model we want to use to predict, new data as a tibble to run predictions on)
+
+predict(fitted_model, new_cats) # gross output...
+
+predict(fitted_model, new_cats) %>%
+  as_tibble() %>%
+  rename(predicted_heart_weight = value)
+```
+
+
+### Are those predictions good? How accurate are they?
+
+We can use *model validation and evaluation* procedures to determine how good its predictions probably are. This section details the procedure **without model selection.**
+
+
+```{r}
+# BEFORE WE DO ANYTHING, we set our seed to ensure reproducibility. Then we must run code in precise order!!
+set.seed(my_seed)
+
+# Step 1: Split up the data using dplyr::sample_frac() (not yet in get_help()) and dplyr::anti_join() (get_help()!)
+
+domestic_cats %>%
+  sample_frac(0.7) -> training_split
+
+domestic_cats %>%
+  # anti_join: keep rows in domestic_cats that are NOT FOUND in training_split
+  anti_join(training_split) -> testing_split
+
+
+# Step 2: Build and assess model from training data
+fitted_model <- lm(heart_weight ~ body_weight, data = training_split)
+
+# What's its RMSE? R^2?
+rmse(fitted_model, training_split)    # 0.001489762. Expected error in predictions!
+rsquare(fitted_model, training_split)  # 0.6684863. Percent of heart weight that is explained by body weight
+
+
+# Step 3: Evaluate the fitted_model on the testing data
+
+rmse(fitted_model, testing_split) # 0.001368045. Expected error in predictions!
+rsquare(fitted_model, testing_split) # 0.5642091.  Percent of heart weight that is explained by body weight
+
+# Step 4: Remind ourselves the overall distribution of heart_weight values so we can interpret RMSE
+summary(domestic_cats$heart_weight)
+```
+
+Our training dataset yielded a model with RMSE = 0.00148 and $R^2=0.67$. When evaluated on testing data, the RMSE = 0.00136 and $R^2=0.57$. This suggests comparable error between testing and training (RMSE). This value is about 10% of the mean heart weight in the data (which was 0.01!), so predictions are expected to be wrong by about 10% on average. 
+
+Considering $R^2$, the model is better at explaining variation in the training data compared to testing (0.67 vs. 0.56), which is not unexpected. Because training/testing metrics are highly similar, this model is not likely to be overfit to the training data. 
+
+
+### Model selection with $R^2$ and RMSE
+
+Goal: We want to model `bill_depth_mm` in the penguins data using *a whole bunch of data about penguins.* How do we know what to include? We can try out some "candidate models" and compare with $R^2$ and RMSE to pick the "best" among "candidate" models. As a quick example...
+
+```{r}
+
+# A model with two predictors only:
+model_candidate1 <- lm(bill_depth_mm ~ bill_length_mm + flipper_length_mm, data = penguins)
+
+# A model with three predictors, the same 2 as before plus an added species
+model_candidate2 <- lm(bill_depth_mm ~ bill_length_mm + flipper_length_mm + species, data = penguins)
+
+
+# Which is preferred????????
+
+# Candidate 1 metrics:
+rsquare(model_candidate1, penguins) # 0.3793799
+rmse(model_candidate1, penguins) # 1.553455
+
+
+# Candidate 2 metrics:
+rsquare(model_candidate2, penguins) # 0.7916275
+rmse(model_candidate2, penguins) # 0.9001315
+```
+
+Candidate model 2 has higher $R^2$ and lower RMSE, so it's preferred out of those two choices. We can evaluate alllll combinations of this by "hand" like this, or use built-in functions like `step()` (next section!) to choose for us using a fancy metric called Akaike Information Criterion! Let's do that!
+
+
+
+### Model selection: Choosing predictors wisely in exploratory scenarios
+
+
+Goal: We want to model `bill_depth_mm` in the penguins data using *a whole bunch of data about penguins.* This time, we'll use `step()` to help determine the optimal predictors for us, aka those which minimize noise and reduce the chances of overfitting and underfitting.
+
+```{r}
+# Step 1: Look at the data!!!
+penguins
+
+summary(penguins)
+
+# Step 2: Use model selection to determine the optimal predictors for our model
+# step( lm(stuff), trace = FALSE ). The second argument tells it to shush annoying output.
+model_selection_fitted <- step( lm(bill_depth_mm ~  ., data = penguins ), trace = FALSE)
+
+# Grab the formula:
+selected_formula <- as.formula(model_selection_fitted)
+
+# Let's see what got removed. Looks like island didn't make the cut!
+names(penguins)
+
+
+# Step 3: Split into training and testing
+set.seed(my_seed)
+fraction <- 0.75  # let's use a variable with 75% going into training this time.
+
+penguins %>% 
+  sample_frac(fraction) -> training_penguins
+
+penguins %>% 
+  anti_join(training_penguins) -> testing_penguins
+
+
+# Step 4: Build model from training and evaluate using our pre-determined formula of which predictors to use
+
+training_model <- lm(selected_formula, data = training_penguins)
+
+# training metrics:
+rsquare(training_model, training_penguins) #  0.8443401
+rmse(training_model, training_penguins) # 0.7832127
+
+# testing metrics (second argument differs!!!)
+rsquare(training_model, testing_penguins) # 0.8476286
+rmse(training_model, testing_penguins) # 0.764918
+
+
+# And remind ourselves the values of bill_depth_mm to be able to interpret RMSE
+summary(penguins$bill_depth_mm)
+```
+
+
+Our training dataset yielded a model with RMSE = 0.7832127 and $R^2=0.84$. When evaluated on testing data, the RMSE = 0.764918 and $R^2=0.85$. The training and testing metrics are extremely similar, and error is extremely low considering the mean bill depth in the data is 17.15. Because training/testing metrics are highly similar _and_ very strong, this model is not likely to be overfit to the training data and appears to do a good job predicting!
+
+Let's not forget that we know how to use this model to predict future outcomes! I got a new penguin whose information is....
++ Gentoo species
++ 47.5 mm bill length
++ 188.2 mm flipper length
++ 3800 g body mass
++ female
++ collected in 2008
+
+
+
+```{r}
+# Make a tibble with the predictor information the model needs
+names(penguins)
+
+tibble(species = "Gentoo",
+       bill_length_mm = 47.5,
+       flipper_length_mm = 188.2, 
+       body_mass_g = 3800, 
+       sex = "female", 
+       year = 2008) -> my_new_penguin
+
+my_new_penguin
+
+# Use the predict() function
+predict(training_model, my_new_penguin)
+```
+
+The model predicts this new has a body depth of 13.13 mm.
+
+
+
+### A quick cautionary tale of the importance of considering confounding factors.
+
+
+```{r}
+
+ggplot(penguins) +
+  aes(x = bill_depth_mm, y = bill_length_mm) + 
+  geom_point()
+
+fitted_model <- lm(bill_length_mm ~ bill_depth_mm, data = penguins) 
+summary(fitted_model) # Coefficient is NEGATIVE: as bill depth increases, bill length decreases. THINK ABOUT THAT!!
+
+
+ggplot(penguins) +
+  aes(x = bill_depth_mm, y = bill_length_mm) + 
+  geom_point() + 
+  geom_smooth(method = "lm")
+
+
+# MUST account for confounding influences to get a reliable model!!
+ggplot(penguins) +
+  aes(x = bill_depth_mm, y = bill_length_mm, color = species) + 
+  geom_point() + 
+  scale_color_manual(values = c("darkorchid4", "mediumseagreen", "goldenrod3")) 
+
+
+ggplot(penguins) +
+  aes(x = bill_depth_mm, y = bill_length_mm, color = species) + 
+  geom_point() + 
+  scale_color_manual(values = c("darkorchid4", "mediumseagreen", "goldenrod3")) +
+  geom_smooth(method = "lm") 
+  
+```
+
+
+
+
+
+
+

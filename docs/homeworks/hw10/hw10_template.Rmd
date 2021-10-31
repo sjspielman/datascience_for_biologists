@@ -1,0 +1,85 @@
+---
+title: 'Template: Homework #10'
+author: "Data Science for Biologists, Fall 2021"
+date: "Submit this completed Rmd file to Canvas on Wednesday 11/17/21 by 11:59 PM"
+output: 
+  html_document:
+    theme: lumen
+    highlight: tango
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.width = 6, fig.height = 4)
+
+# Always load libraries in the setup chunk:
+library(tidyverse) # allows you to use ggplot2, readr, forcats, etc. 
+library(ds4b.materials) # contains the bodyfat dataset
+
+
+# Uncomment below and define this variable as your Banner ID number. You MUST use this variable in Question 2 to set your seed.
+#my_banner_id <- 
+
+```
+
+
+
+## Questions
+
+<br><br>
+
+#### Question 1
+
+```{q1}
+
+
+```
+
+
+<br>
+
+
+#### Question 2
+
+```{q2}
+
+
+```
+
+
+<br>
+
+
+
+#### Question 3
+
+```{q3}
+
+
+```
+
+<br>
+
+#### Question 4
+
+<br>
+
+```{q4}
+
+
+```
+
+<br>
+
+#### Question 5
+
+```{q5}
+
+
+```
+
+
+
+
+

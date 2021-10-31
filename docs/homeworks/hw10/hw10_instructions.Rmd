@@ -1,0 +1,116 @@
+---
+title: 'Instructions: Homework #10'
+author: "Data Science for Biologists, Fall 2021"
+date: "Complete the template Rmd and submit to Canvas on Wednesday 11/17/21 by 2 PM"
+output: 
+  html_document:
+    theme: lumen
+    highlight: tango
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F, include=F, fig.width = 6, fig.height = 4, message = F, warning = F)
+
+library(tidyverse)
+library(ds4b.materials)
+```
+
+
+```{css, echo=F}
+ul :last-child, ol :last-child,ul :first-child, ol :first-child {
+    margin-bottom: 0;
+    padding-bottom:0;
+}
+
+blockquote {
+  margin-left: 50px;
+  border-left: 5px solid #DF4469;
+  font-size:1em;
+}
+```
+
+
+### Obtaining and setting up the homework
+
++ Obtain the homework template from your RStudio Cloud class project by running the following code in the R Console:
+
+  ```{r, eval=FALSE, echo=T, include=T}
+  library(ds4b.materials) # Load the class library
+  launch_homework(10)      # Launch Homework 10
+  ```
+
++ You must set an _RMarkdown theme and code syntax highlighting scheme_ of your choosing in the YAML front matter. These links will help you:
+  + Choose your favorite _theme_ among the **pre-packaged themes** (ignore everything below "Even More Themes") shown at [this link](https://www.datadreaming.org/post/r-markdown-theme-gallery/)
+  + Choose your favorite _syntax highlighting_ among these options at [this link](https://www.garrickadenbuie.com/blog/pandoc-syntax-highlighting-examples/)
++ **Make sure your Rmd knits without errors before submitting.** If it does not produce an HTML output, this means it does not knit. _DO NOT SKIP THIS STEP!_ Ensuring code runs without errors is MORE IMPORTANT than writing code in the first place.
+  + If there are errors in your code, you should *comment out* the code so that it does not actually run. This is **BETTER** than keeping the buggy code in there without commenting out - _it shows me you attempted the code, but understood that it didn't work properly._ Partial credit will come to you! But, if you leave buggy code in, then the Rmd will not knit and there will be deductions.
++ As always, you are encouraged to work together and use the class Slack to help each other out, but you must submit YOUR OWN CODE.
+<br><br>
+
+
+## Questions
+
+> Caution: This homework is VERY short, which means each question is worth a lot of points. This is both a blessing and a curse. Plan accordingly. 
+
+This assignment will use an dataset of various physical measurements from 250 adult males. Your goal for this assignment is to build and evaluate a model from this data to **predict body fat percentage** (column `Percent`) in adult males, and then use this model to predict future outcomes. Age is measured in years, weight in pounds, height in inches, and all other measurements are circumference measured in cm.
+
+0. **Prepare the data for use:** You'll notice a column called `id` in the dataset, which is a single identifying number for each male in the study. This is not "measured data", and we definitely don't want to end up modeling it. Create a new version of the dataset called `bodyfat_noid` that does not contain the `id` column. This is a one-line pipeline - don't overthink! Use the **`bodyfat_noid`** dataset for questions 1-4, but not 5.
+
+<br><br>
+
+
+1. **Perform model selection:** Using the `step()` function, determine the most appropriate model to explain variation in bodyfat percentage in this data, and reveal the full model output with the function `summary()` and/or the broom function `tidy()`. 
+*After the code*, write a properly-formatted (make sure to knit and check!) bullet point list stating the final predictors. You do not need to include information about the specific coefficient values or P-values - just bullet out what the predictors are. *Make sure you have properly formatted bullet points in your knitted output!!*
+
+<br><br>
+
+2. **Evaluate your model with testing and training splits:** Create a testing-training split where the training data comprises a random *65%* subset of the total `bodyfat` dataset. Build the model using the training data, and then evaluate how the model performs on both the training and testing splits. After the code, provide a brief explanation (1-2 sentences) about whether the model is likely overfit to the training data or not, and these results suggest the model will do a good or poor job predicting future outcomes.
+
+    Your code must have the following components:
+
+    + First, set your seed AS YOUR PERSONAL BANNER ID, using the variable defined in the `setup` chunk. YOU MUST USE YOUR BANNER ID AS THE NUMBER, which you should have defined in the `setup` code chunk!!! **If you do not do this properly, there will be unpredictable mismatches between your written answer and the results your code produces when run. You must set your seed, and use it consistently.**
+    + Create a variable to represent the 65% split instead of hardcoding this value.
+    + There is be other code you need to run to help you interpret RMSE. This code should be included in the code chunk as part of the homework (i.e., not run separately in Console.) 
+
+<br><br>
+
+3. **Some data fun:** Make either a faceted barplot or a lollipop plot to simply show your $R^2$ and RMSE results. To do this, you need to create from scratch a properly structured tibble that contains columns you want to plot! **I cannot recommend enough the need to draw this out first before proceeding. If you do not draw this out to plan, you will be stuck here forever. Please, draw. Draw the data, draw the plot, just draw!!**
+
+    To achieve a plot, you will need to create a tibble with columns as follows (`get_help("tibble")`). The tibble should end up having four rows and three columns called:
+
+      + `dataset`, which contains values "testing" and "training"
+      + `metric`, which contains values "RMSE" and "R2" (don't worry about superscript! "R2" is fine.)
+      + `value`, which contains the relevant values for each metric
+    
+    
+    Then, you should make a plot showing the `value` for each `dataset`, where the plot is faceted by `metric` and uses *separate axis scales* for each facet (see the faceting notes from 10/6/21 on the class website!). You should also add a color or fill (depends on what type of plot you make) mapped to `dataset`. The figure should be cleanly and professionally visible in the knitted Rmd, but you do _not_ need to export it to a file with `ggsave()`.
+
+
+<br><br>
+
+4. **Prediction**: A new man has arrived, and we want to use our model to predict his body fat percentage. Predict what the body fat percentage will be for a man with the following physical attributes. Your code should reveal the predicted bodyfat percentage.
+
+    *Hint: Do you need all this information? In fact you do not!* For full credit, make sure your code is only considering body measurements that are relevant for answering the question. In other words, your code should not use any data the model doesn't need.
+
+
+    + Age:      38
+    + Weight:   175.2
+    + Height:   62.25
+    + Neck:     31.4
+    + Chest:    107.4
+    + Abdomen:  93.3
+    + Hip:      114.7
+    + Thigh:    68.5
+    + Knee:     34.1
+    + Ankle:    26.2
+    + Biceps:   32.2
+    + Forearm:  35.4
+    + Wrist:    15.9
+
+
+<br><br>
+
+
+5. Wrangle the original `bodyfat` (not `bodyfat_noid`) dataset to instead have four columns (`id`, `Percent`, `measurement`, `value`) as a _longer version_ of the dataset. The `measurement` column should be a character column of the different bodily measurements, and `value` should contain the corresponding numeric values. Then, use this dataset to make a plot showing the *relationship* between `Percent` and each of the other measurements, **specifically only those that were predictors in the model** (this means at some point in your wrangling, some data has to be removed). This figure should be *faceted scatterplot* where you are plotting `Percent` against `value` and faceting by `measurement`. Each panel should contain its own line of best fit, and you may wish to use free panel scales. Display the figure legibly in the knitted Rmd, but you do NOT need to export to a file with `ggsave()`. Style the figure as you like as long as labeling is clean! (Hint: This is wildly similar to the last question on HW9!!).

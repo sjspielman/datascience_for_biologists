@@ -51,7 +51,7 @@ For this set of questions, we will learn some of this new tidy-select magic.
 
 <br>
 
-1.0. Let's make a *managable* version of the `wine_version1` dataset to use to learn and practice tidy-select skills. To do this, we will create a new tibble called `wine` that contains only wine indices 1-3. Write the code to peform this task in the space below.
+1.0. Let's make a *managable* version of the `wine_version1` dataset to use to learn and practice tidy-select skills. To do this, we will create a new tibble called `wine` that contains only wine indices 1-3. Write the code to perform this task in the space below.
 
 ```{r q1.0}
 
