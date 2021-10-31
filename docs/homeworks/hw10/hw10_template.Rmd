@@ -31,7 +31,7 @@ library(ds4b.materials) # contains the bodyfat dataset
 
 #### Question 1
 
-```{q1}
+```{r q1}
 
 
 ```
@@ -42,7 +42,7 @@ library(ds4b.materials) # contains the bodyfat dataset
 
 #### Question 2
 
-```{q2}
+```{r q2}
 
 
 ```
@@ -54,7 +54,7 @@ library(ds4b.materials) # contains the bodyfat dataset
 
 #### Question 3
 
-```{q3}
+```{r q3}
 
 
 ```
@@ -65,7 +65,7 @@ library(ds4b.materials) # contains the bodyfat dataset
 
 <br>
 
-```{q4}
+```{r q4}
 
 
 ```
@@ -74,7 +74,7 @@ library(ds4b.materials) # contains the bodyfat dataset
 
 #### Question 5
 
-```{q5}
+```{r q5}
 
 
 ```

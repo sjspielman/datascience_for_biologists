@@ -180,13 +180,13 @@ This figure should be faceted, where `total_cup_points` is always on the Y-axis,
 + Create a new column `coffee_id` which contains values 1-[number of rows]. This allows each observation of coffee to have a uniquely identifying value, so that when we pivot we still know what values belong together. _Surprise, this part is written for you!! Run and engage with it to see the `dplyr` helper function `n()` in action (and for more, `get_help("n")`)_
 + Tack onto the pipeline code: select only the columns you are interested in using, which include `coffee_id`, `total_cup_points`, and the other attributes listed above. 
 + Use a pivot function to make the data *longer* and end up with the following four columns: `coffee_id`, `total_cup_points`, `attribute` (a new character column), and `value` (a new numeric column).
-+ Finally, save to a new tibble called `coffee_part3` and print the tibble out.
++ Finally, save to a new tibble called `coffee_part4` and print the tibble out.
 
 
 <br> 
 
 
-4.2. Make a figure from `coffee_part3` as described. **Drawing this out will help you!!** You want to make a _faceted scatterplot_ with `facet_wrap()`, where `total_cup_points` is plotted across each other attribute. Each panel in the plot should have its own linear line-of-best-fit. You may wish to ensure free axis (see lecture notes from 10/6!) ranges as well, and use any other styling you wish. Show the figure in your knitted Rmd, but you do not need to export with `ggsave()`.
+4.2. Make a figure from `coffee_part4` as described. **Drawing this out will help you!!** You want to make a _faceted scatterplot_ with `facet_wrap()`, where `total_cup_points` is plotted across each other attribute. Each panel in the plot should have its own linear line-of-best-fit. You should ensure free axis (see lecture notes from 10/6!) ranges as well, and use any other styling you wish. Show the figure in your knitted Rmd, but you do not need to export with `ggsave()`.
 
   + HINT: Scatterplots look at relationships between NUMBERS. Things won't work too well if you place a categorical variable on an axis!
   + For this plot, there will be no deductions if your facet labels ("strips") contain underscores. But, I will give you bonus points if your code (in either part of question 3) is able to clean that data up so the final plot has no underscores whatsoever. Either way, axis labels should be informative and without underscores.

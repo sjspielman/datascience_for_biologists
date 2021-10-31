@@ -139,7 +139,9 @@ Replace this plain text above the chunk with your answer.
 
 
 ```{r q2.4}
-
+coffee_ratings %>%
+  # add the coffee_id column
+  mutate(coffee_id = 1:n())
 
 ```
 
