@@ -297,6 +297,11 @@ pre code {
 <li>Use wrangling to reveal a tibble of the <em>standard deviation</em> of each processing method’s uniformity. This tibble should have two columns named <code>processing_method</code> and <code>sd_uniformity</code>.</li>
 <li>Create a figure to visualize the spread of the uniformity distributions across non-<code>NA</code> processing methods</li>
 </ul></li>
+<li><strong>Tips</strong>
+<ul>
+<li>Your wrangling is totally separate from your plotting. Wrangling needs <em>three</em> <code>dplyr</code> verbs.</li>
+<li><em>Do not make a bar plot!</em> You should plot the <em>distributions</em> (overlapping density, faceted histogram, boxplot, jitter, violin, etc). of uniformity across processing methods. The idea here is that the wrangling and the plot are <em>complementary ways to think about data spread.</em> The wrangling tells us precisely what the spread is, and the plot allows us to derive a visual sense of how spread out of the data is.</li>
+</ul></li>
 </ul>
 <p><br></p>
 <p><strong>Question 2</strong></p>
@@ -309,6 +314,11 @@ pre code {
 <li>For some bonus points, make a <a href="https://liamgilbey.github.io/ggwaffle/">waffle plot</a>! If you want to pursue this bonus option, you first need to install the package <code>ggwaffle</code> with this code (copy/paste into Console): <code>remotes::install_github(&quot;liamgilbey/ggwaffle&quot;)</code>.</li>
 </ul></li>
 </ul></li>
+<li><strong>Tips</strong>
+<ul>
+<li>Your wrangling needs <em>two</em> <code>dplyr</code> verbs.</li>
+<li>You can pipe the wrangling into the plot if you want, but not strictly required.</li>
+</ul></li>
 </ul>
 <p><br></p>
 <p><strong>Question 3</strong></p>
@@ -319,6 +329,13 @@ pre code {
 <li>Create TWO FIGURES for this question: The first should show the moisture distributions across non-<code>NA</code> colors, and the second should show the the literal mean values of each moisture distribution (hint: barplot!). You can make both figures in the same chunk, or create an additional (named!) chunk as needed.</li>
 </ul></li>
 <li><em>Your answer</em> should specifically address which figure, in your opinion, is most helpful for answering the question <em>and why.</em></li>
+<li><strong>Tips</strong>
+<ul>
+<li>The first plot you have to make here is a bar plot (using <code>geom_col()</code>! Think about why this geom!).</li>
+<li>The second plot you have to make here is literally only asking you to plot <code>moisture</code> across (non-<code>NA</code>) categories of <code>color</code>. It has nothing to do with the means that were necessary to calculate for making the first plot.</li>
+<li>The purpose of this question is to see the difference between looking at numeric distributions as “just the mean of all those numbers” vs “the full distributions of the numbers themselves.” So, your answer should discuss which is more informative for understanding GENERALLY how moisture differs across color categories.</li>
+<li>I highly recommend <em>not making a boxplot</em> for your second plot. It might be a neat adventure to take along the way though so you can see why I recommend no boxplots here (it will also teach you something about pitfalls of boxplots!).</li>
+</ul></li>
 </ul>
 </div>
 </div>

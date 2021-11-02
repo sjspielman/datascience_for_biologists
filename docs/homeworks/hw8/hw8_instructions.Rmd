@@ -81,6 +81,9 @@ You will be conducting exploratory data analysis on the coffee ratings dataset b
 + Your code should make sure to accomplish the following goals:
   + Use wrangling to reveal a tibble of the _standard deviation_ of each processing method's uniformity. This tibble should have two columns named `processing_method` and `sd_uniformity`.
   + Create a figure to visualize the spread of the uniformity distributions across non-`NA` processing methods
++ **Tips**
+  + Your wrangling is totally separate from your plotting. Wrangling needs *three* `dplyr` verbs.
+  + _Do not make a bar plot!_ You should plot the *distributions* (overlapping density, faceted histogram, boxplot, jitter, violin, etc). of uniformity across processing methods. The idea here is that the wrangling and the plot are *complementary ways to think about data spread.* The wrangling tells us precisely what the spread is, and the plot allows us to derive a visual sense of how spread out of the data is.
 
 <br>
 
@@ -90,6 +93,9 @@ You will be conducting exploratory data analysis on the coffee ratings dataset b
   + Reveal a tibble of how many Robusta coffees are grown in countries that grow Robusta coffees (i.e. no rows with "0"). This tibble should have two columns named `country_of_origin` and `number_robusta` 
   + Create a figure to visualize these counts. 
     + For some bonus points, make a [waffle plot](https://liamgilbey.github.io/ggwaffle/)! If you want to pursue this bonus option, you first need to install the package `ggwaffle` with this code (copy/paste into Console): `remotes::install_github("liamgilbey/ggwaffle")`.
++ **Tips**
+  + Your wrangling needs *two* `dplyr` verbs. 
+  + You can pipe the wrangling into the plot if you want, but not strictly required.
   
 <br>
 
@@ -99,5 +105,8 @@ You will be conducting exploratory data analysis on the coffee ratings dataset b
   + Use wrangling to reveal a tibble of the _mean_ of each color's moisture, excluding unknown (`NA`) colors. This tibble should have two columns named `color` and `mean_moisture`.
   + Create TWO FIGURES for this question: The first should show the moisture distributions across non-`NA` colors, and the second should show the the literal mean values of each moisture distribution (hint: barplot!). You can make both figures in the same chunk, or create an additional (named!) chunk as needed.
 + _Your answer_ should specifically address which figure, in your opinion, is most helpful for answering the question _and why._
-    
-    
++ **Tips**
+  + The first plot you have to make here is a bar plot (using `geom_col()`! Think about why this geom!).
+  + The second plot you have to make here is literally only asking you to plot `moisture` across (non-`NA`) categories of `color`. It has nothing to do with the means that were necessary to calculate for making the first plot.
+  + The purpose of this question is to see the difference between looking at numeric distributions as "just the mean of all those numbers" vs "the full distributions of the numbers themselves." So, your answer should discuss which is more informative for understanding GENERALLY how moisture differs across color categories.
+  + I highly recommend _not making a boxplot_ for your second plot. It might be a neat adventure to take along the way though so you can see why I recommend no boxplots here (it will also teach you something about pitfalls of boxplots!).
