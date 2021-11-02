@@ -106,6 +106,7 @@ You will be conducting exploratory data analysis on the coffee ratings dataset b
   + Create TWO FIGURES for this question: The first should show the moisture distributions across non-`NA` colors, and the second should show the the literal mean values of each moisture distribution (hint: barplot!). You can make both figures in the same chunk, or create an additional (named!) chunk as needed.
 + _Your answer_ should specifically address which figure, in your opinion, is most helpful for answering the question _and why._
 + **Tips**
+  + Your wrangling needs *three* `dplyr` verbs. 
   + The first plot you have to make here is a bar plot (using `geom_col()`! Think about why this geom!).
   + The second plot you have to make here is literally only asking you to plot `moisture` across (non-`NA`) categories of `color`. It has nothing to do with the means that were necessary to calculate for making the first plot.
   + The purpose of this question is to see the difference between looking at numeric distributions as "just the mean of all those numbers" vs "the full distributions of the numbers themselves." So, your answer should discuss which is more informative for understanding GENERALLY how moisture differs across color categories.
