@@ -4,5 +4,5 @@ output_dir: "."
 output:  
   html_document:  
     self_contained: no  
-    theme: paper
+    theme: simplex
     css: assets/custom.css
