@@ -56,17 +56,17 @@ blockquote {
 
 This assignment will use an dataset of various physical measurements from 250 adult males. Your goal for this assignment is to build and evaluate a model from this data to **predict body fat percentage** (column `Percent`) in adult males, and then use this model to predict future outcomes. Age is measured in years, weight in pounds, height in inches, and all other measurements are circumference measured in cm.
 
-0. **Prepare the data for use:** You'll notice a column called `id` in the dataset, which is a single identifying number for each male in the study. This is not "measured data", and we definitely don't want to end up modeling it. Create a new version of the dataset called `bodyfat_noid` that does not contain the `id` column. This is a one-line pipeline - don't overthink! Use the **`bodyfat_noid`** dataset for questions 1-4, but not 5.
+1. **Prepare the data for use:** You'll notice a column called `id` in the dataset, which is a single identifying number for each male in the study. This is not "measured data", and we definitely don't want to end up modeling it. Create a new version of the dataset called `bodyfat_noid` that does not contain the `id` column. This is a one-line pipeline - don't overthink! Use the **`bodyfat_noid`** dataset for questions 1-4, but not 5.
 
 <br><br>
 
 
-1. **Perform model selection:** Using the `step()` function, determine the most appropriate model to explain variation in bodyfat percentage in this data, and reveal the full model output with the function `summary()` and/or the broom function `tidy()`. 
-*After the code*, write a properly-formatted (make sure to knit and check!) bullet point list stating the final predictors. You do not need to include information about the specific coefficient values or P-values - just bullet out what the predictors are. *Make sure you have properly formatted bullet points in your knitted output!!*
+2. **Perform model selection:** Using the `step()` function, determine the most appropriate model to explain variation in bodyfat percentage in this data, and reveal the full model output with the function `summary()` and/or the broom function `tidy()`. 
+*After the code*, write a properly-formatted (make sure to knit and check!) bullet point list stating the final predictors. You do not need to include information about the specific coefficient values or P-values - just bullet out what the predictors are. *Make sure you have properly formatted bullet points in your knitted output!!* **The purpose of this part of the question is for you to practice writing markdown bullet points and ensure they knit properly.**
 
 <br><br>
 
-2. **Evaluate your model with testing and training splits:** Create a testing-training split where the training data comprises a random *65%* subset of the total `bodyfat` dataset. Build the model using the training data, and then evaluate how the model performs on both the training and testing splits. After the code, provide a brief explanation (1-2 sentences) about whether the model is likely overfit to the training data or not, and these results suggest the model will do a good or poor job predicting future outcomes.
+3. **Evaluate your model with testing and training splits:** Create a testing-training split where the training data comprises a random *65%* subset of the total `bodyfat` dataset. Build the model using the training data, and then evaluate how the model performs on both the training and testing splits. After the code, provide a brief explanation (1-2 sentences) about whether the model is likely overfit to the training data or not, and these results suggest the model will do a good or poor job predicting future outcomes.
 
     Your code must have the following components:
 
@@ -76,7 +76,7 @@ This assignment will use an dataset of various physical measurements from 250 ad
 
 <br><br>
 
-3. **Some data fun:** Make either a faceted barplot or a lollipop plot to simply show your $R^2$ and RMSE results. To do this, you need to create from scratch a properly structured tibble that contains columns you want to plot! **I cannot recommend enough the need to draw this out first before proceeding. If you do not draw this out to plan, you will be stuck here forever. Please, draw. Draw the data, draw the plot, just draw!!**
+4. **Some data fun:** Make either a faceted barplot or a lollipop plot to simply show your $R^2$ and RMSE results. To do this, you need to create from scratch a properly structured tibble that contains columns you want to plot! **I cannot recommend enough the need to draw this out first before proceeding. If you do not draw this out to plan, you will be stuck here forever. Please, draw. Draw the data, draw the plot, just draw!!**
 
     To achieve a plot, you will need to create a tibble with columns as follows (`get_help("tibble")`). The tibble should end up having four rows and three columns called:
 
@@ -90,7 +90,7 @@ This assignment will use an dataset of various physical measurements from 250 ad
 
 <br><br>
 
-4. **Prediction**: A new man has arrived, and we want to use our model to predict his body fat percentage. Predict what the body fat percentage will be for a man with the following physical attributes. Your code should reveal the predicted bodyfat percentage.
+5. **Prediction**: A new man has arrived, and we want to use our model to predict his body fat percentage. Predict what the body fat percentage will be for a man with the following physical attributes. Your code should reveal the predicted bodyfat percentage.
 
     *Hint: Do you need all this information? In fact you do not!* For full credit, make sure your code is only considering body measurements that are relevant for answering the question. In other words, your code should not use any data the model doesn't need.
 
@@ -113,4 +113,4 @@ This assignment will use an dataset of various physical measurements from 250 ad
 <br><br>
 
 
-5. **Plotting:** Wrangle the original `bodyfat` (not `bodyfat_noid`) dataset to instead have four columns (`id`, `Percent`, `measurement`, `value`) as a _longer version_ of the dataset. The `measurement` column should be a character column of the different bodily measurements, and `value` should contain the corresponding numeric values. Then, use this dataset to make a plot showing the *relationship* between `Percent` and each of the other measurements, **specifically only those that were predictors in the model** (this means at some point in your wrangling, some data has to be removed). This figure should be *faceted scatterplot* where you are plotting `Percent` against `value` and faceting by `measurement`. Each panel should contain its own line of best fit, and you may wish to use free panel scales. Display the figure legibly in the knitted Rmd, but you do NOT need to export to a file with `ggsave()`. Style the figure as you like as long as labeling is clean! (Hint: This is wildly similar to the last question on HW9!!).
+6. **Plotting:** Wrangle the original `bodyfat` (not `bodyfat_noid`) dataset to instead have four columns (`id`, `Percent`, `measurement`, `value`) as a _longer version_ of the dataset. The `measurement` column should be a character column of the different bodily measurements, and `value` should contain the corresponding numeric values. Then, use this dataset to make a plot showing the *relationship* between `Percent` and each of the other measurements, **specifically only those that were predictors in the model** (this means at some point in your wrangling, some data has to be removed). This figure should be *faceted scatterplot* where you are plotting `Percent` against `value` and faceting by `measurement`. Each panel should contain its own line of best fit, and you may wish to use free panel scales. Display the figure legibly in the knitted Rmd, but you do NOT need to export to a file with `ggsave()`. Style the figure as you like as long as labeling is clean! (Hint: This is wildly similar to the last question on HW9!!).

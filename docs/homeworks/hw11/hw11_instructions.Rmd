@@ -1,0 +1,141 @@
+---
+title: 'Instructions: Homework #11'
+author: "Data Science for Biologists, Fall 2021"
+date: "Complete the template Rmd and submit to Canvas on Wednesday 11/24/21 by 2 PM"
+output: 
+  html_document:
+    theme: lumen
+    highlight: tango
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F, include=F, fig.width = 6, fig.height = 4, message = F, warning = F)
+
+library(tidyverse)
+library(ds4b.materials)
+```
+
+
+```{css, echo=F}
+ul :last-child, ol :last-child,ul :first-child, ol :first-child {
+    margin-bottom: 0;
+    padding-bottom:0;
+}
+
+blockquote {
+  margin-left: 50px;
+  border-left: 5px solid #DF4469;
+  font-size:1em;
+}
+```
+
+
+### Obtaining and setting up the homework
+
++ Obtain the homework template from your RStudio Cloud class project by running the following code in the R Console:
+
+  ```{r, eval=FALSE, echo=T, include=T}
+  library(ds4b.materials) # Load the class library
+  launch_homework(11)      # Launch Homework 11
+  ```
+
++ You must set an _RMarkdown theme and code syntax highlighting scheme_ of your choosing in the YAML front matter. These links will help you:
+  + Choose your favorite _theme_ among the **pre-packaged themes** (ignore everything below "Even More Themes") shown at [this link](https://www.datadreaming.org/post/r-markdown-theme-gallery/)
+  + Choose your favorite _syntax highlighting_ among these options at [this link](https://www.garrickadenbuie.com/blog/pandoc-syntax-highlighting-examples/)
++ **Make sure your Rmd knits without errors before submitting.** If it does not produce an HTML output, this means it does not knit. _DO NOT SKIP THIS STEP!_ Ensuring code runs without errors is MORE IMPORTANT than writing code in the first place.
+  + If there are errors in your code, you should *comment out* the code so that it does not actually run. This is **BETTER** than keeping the buggy code in there without commenting out - _it shows me you attempted the code, but understood that it didn't work properly._ Partial credit will come to you! But, if you leave buggy code in, then the Rmd will not knit and there will be deductions.
++ As always, you are encouraged to work together and use the class Slack to help each other out, but you must submit YOUR OWN CODE.
+<br><br>
+
+
+## Questions
+
+> Caution: This homework is VERY short, which means each question is worth a lot of points. This is both a blessing and a curse. Plan accordingly. 
+
+For your assignment, you will be building and evaluating a logistic regression from a dataset of various physical measurements from 752 adult [Pima Native American women](https://en.wikipedia.org/wiki/Pima_people), some of whom are Type II Diabetic and some are not. Your goal for this assignment is to build and evaluate a model from this data to **predict whether an individual has Type II Diabetes** (column `diabetic`). Other columns in this dataset include:
+
++ `npreg`: number of times pregnant
++ `glucose`: plasma glucose concentration at 2 hours in an oral glucose tolerance test (units: mg/dL)
++ `dbp`: diastolic blood pressure (units: mm Hg)
++ `skin`: triceps skin-fold thickness (units: mm)
++ `insulin`: 2-hour serum insulin level (units: μU/mL)
++ `bmi`: Body Mass Index
++ `age`: age in years
++ `diabetic`: whether or not the individual has diabetes ("Yes" or "No")
+
+<br><br>
+
+1. **Prepare the data for modeling:** The `glm()` function that we use to perform a logistic regression in R really really wants the response variable to contain values 0 and 1, where 0 corresponds to so-called "failure" and 1 corresponds to so-called "success." In addition, `glm()` gets very upset when there are `NA`s anywhere in the data. For this question, you want to create **two** new versions of the `pima` dataset whose column `diabetic` says 0 instead of "No" and 1 instead of "Yes". Write two pipelines as follows:
+    + For the first very quick pipeline, simply remove all `NA`s from `pima` using `drop_na()` (no argument!). Save this new tibble as `pima_clean`. This will be our new "baseline" `pima` dataset.
+    + For the second pipeline, _starting with your new `pima_nona`_ to...
+      + Use `mutate()` with `if_else()` to create a new column called `diabetic_01` that contains 0/1 instead of "No"/"Yes"
+      + Use `select()` to _remove_ the original `diabetic` column
+      + Save the tibble as `pima_clean_01`, and then print it out. **This is the tibble you will use to build your model!**
+
+
+<br> 
+
+
+2. **Perform model selection:** Using the `step()` function, determine the most appropriate model to explain diabetic status from the newly-wrangled dataset `pima_clean_01`. Reveal the full model output with the broom function `tidy()`. 
+
+    *After the code*, write a properly-formatted (make sure to knit and check!) bullet point list stating the final predictors. You do not need to include information about the specific coefficient values or P-values - just bullet out what the predictors are. *Make sure you have properly formatted bullet points in your knitted output!!* **The purpose of this part of the question is for you to practice writing markdown bullet points and ensure they knit properly.**
+
+
+<br>
+
+3. **Evaluate your model with testing and training splits:** Create a testing-training split where the training data comprises a random *70%* subset of the total `pima_clean_01` dataset. Build the model using the training data, and then evaluate how the model performs on both the training and testing splits by determining the **AUC** for each model. After the code, provide a brief explanation (1-2 sentences) about whether the model is likely overfit to the training data or not, and whether the AUC values suggest the model will do a good or poor job predicting future outcomes.
+
+    Your code must have the following components:
+
+    + First, set your seed AS YOUR PERSONAL BANNER ID, using the variable defined in the `setup` chunk. YOU MUST USE YOUR BANNER ID AS THE NUMBER, which you should have defined in the `setup` code chunk!!! **If you do not do this properly, there will be unpredictable mismatches between your written answer and the results your code produces when run. You must set your seed, and use it consistently.**
+    + Create a variable to represent the 70% split instead of hardcoding this value.
+    + Remember: $R^2$ and RMSE are not quantities we use to evaluate logistic regressions. We only are thinking about AUC here.
+
+<br><br>
+
+3. **Plot the ROC curves:** Visualize the *model performance* by plotting ROC curves for the training and testing splits. Specifically...
+    + First, you will need to create the tibble that contains data to plot for this question. Do this in one wrangling pipeline, and save the tibble to `roc_data`. Print the tibble out, and _then_ use the tibble to great your plot.
+    + Your plot should have a single panel with two ROC curves, one for training and testing each. Do not facet the plot.
+    + Curves should be _colored_ based on testing and training. Non-default colors must be used here.
+    + You should also include a $Y=X$ line (add on include `geom_abline()`) that is a different color from the ROC curves themselves. This represents the "guiding line" indicating 
+    + *For bonus points*, teach yourself the [`annotate()` function in `ggplot2`](https://ggplot2.tidyverse.org/reference/annotate.html) an add in reasonably placed text annotations saying `AUC=...` for each curve. Note that this function is not (yet!) in the `introverse`. If you choose to try this bonus, you will need to use `annotate()` twice: once for each curve's AUC label.
+    + No need to export with `ggsave()` but make sure the figure is fully legible (no overlapping text!!) in the final knitted Rmd.
+
+<br><br>
+
+
+4. **Visualize the model itself:** Plot the resulting logistic curve from the *model built with training data ONLY.* Specifically...
+    + First, you will need to create the tibble that contains data to plot for this question. Do this in one wrangling pipeline, and save the tibble to `curve_data`. Print the tibble out, and _then_ use the tibble to great your plot.
+    + Your plot should contain a **black** logistic curve.
+    + On top of the black logistic curve, your plot should contain **colored points** based on diabetic status along the line. You must use non-default colors, and ensure that the points are sufficiently _transparent_ to be able to see the black logistic curve.
+    + No need to export with `ggsave()` but make sure the figure is fully legible (no overlapping text!!) in the final knitted Rmd.
+    + **Hint:** Your legend here should not say 0/1 for the diabetic status of each point. It should say "No"/Yes". 
+    
+
+<br><br>
+
+4. **Model metrics**: Determine the following give performance measures for this model using a success threshold of *>=0.90*. Specifically...
+    + First, you will need to create the tibble that contains counts for TP, FP, TN, and FN at the 90% threshold. Save this tibble to `pima_confusion` and print it out.
+    + Then, use the values in the tibble to calculate and print the five measures below. For some bonus points, incorporate a `tidyr` pivot function into your code and perform all calculations using `dplyr` strategies. For regular full-credit without bonus, you are welcome to "use R as a calculator" using values seen in `pima_confusion`. *But remember: No code, no credit. No arithmetic in your head.* 
+      + Accuracy
+      + False discovery rate
+      + True positive rate (aka sensitivity aka recall)
+      + False positive rate
+      + Positive predictive value (aka precision)
+
+
+<br><br>
+
+
+5. **Prediction**: A new Pima woman has arrived, and we want to use our model to predict whether she is diabetic. Write code and then **answer in 1-2 brief markdown sentences**: What is the probability according to our model that she has diabetes, and at a 90% success threshold, would this model classify her as Diabetic or Not Diabetic?
+
+    *Hint: Do you need all this information? In fact you do not!* For full credit, make sure your code is only considering variables that are relevant for answering the question. In other words, your code should not use any data the model doesn't need.
+    + `pregnancies`: 4
+    + `glucose`: 127
+    + `bp`: 92
+    + `skin_thickness`: 28
+    + `insulin`: 160
+    + `bmi`: 31
+    + `age`: 44

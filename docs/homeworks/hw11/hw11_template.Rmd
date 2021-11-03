@@ -1,7 +1,7 @@
 ---
-title: 'Template: Homework #10'
+title: 'Template: Homework #11'
 author: "Data Science for Biologists, Fall 2021"
-date: "Submit this completed Rmd file to Canvas on Wednesday 11/17/21 by 11:59 PM"
+date: "Submit this completed Rmd file to Canvas on Wednesday 11/24/21 by 11:59 PM"
 output: 
   html_document:
     theme: lumen
@@ -14,8 +14,9 @@ editor_options:
 knitr::opts_chunk$set(echo = TRUE, fig.width = 6, fig.height = 4)
 
 # Always load libraries in the setup chunk:
-library(tidyverse) # allows you to use ggplot2, readr, forcats, etc. 
-library(ds4b.materials) # contains the bodyfat dataset
+library(tidyverse) # allows you to use ggplot2, readr, forcats, etc.
+library(ds4b.materials) # contains the pima dataset
+library(pROC) # allows ROC analysis
 
 
 # Uncomment below and define this variable as your Banner ID number. You MUST use this variable in Question 3 to set your seed.
@@ -35,7 +36,6 @@ library(ds4b.materials) # contains the bodyfat dataset
 
 
 ```
-
 
 <br>
 
@@ -83,6 +83,7 @@ library(ds4b.materials) # contains the bodyfat dataset
 
 ```
 
+
 <br>
 
 #### Question 6
@@ -92,6 +93,7 @@ library(ds4b.materials) # contains the bodyfat dataset
 
 ```
 
+Replace this with your answer to the question.
 
 
 
