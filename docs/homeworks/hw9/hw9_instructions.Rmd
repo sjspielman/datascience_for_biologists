@@ -73,7 +73,7 @@ For this set of questions, practice some of this new tidy-select magic, and use 
 
 <br>
 
-1.3. Select all columns in `wine` that contain the word "sulfur" as well as the columns `sulphates` and `chlorides`.
+1.3. Select all columns in `wine5` that contain the word "sulfur" as well as the columns `sulphates` and `chlorides`.
 
 <br>
 
@@ -89,11 +89,11 @@ For this set of questions, practice some of this new tidy-select magic, and use 
 
 <br>
 
-1.7. Use your skills to select the columns `wine_index`, `type`, and `density` *through* `sulphates`. 
+1.7. Use your skills to select the columns `wine_index`, `type`, and `density` *through* `sulphates` from `wine5`.
 
 <br>
 
-1.8. Combine all your skills to select the following columns: `wine_index`, `type`, `quality`, `free_sulfur_dioxide`, `total_sulfur_dioxide`, and `alcohol`. Your code must incorporate **THREE** of the new tidy-select skills used in this homework section. 
+1.8. Combine all your skills to select the following columns from `wine5`: `wine_index`, `type`, `quality`, `free_sulfur_dioxide`, `total_sulfur_dioxide`, and `alcohol`. Your code must incorporate **THREE** of the new tidy-select skills used in this homework section. 
 
 
 <br><br>
@@ -135,17 +135,22 @@ wine_version1 %>%
 
 ### Part 3: Plotting some seals
 
-Consider the `ds4b.materials` dataset `seals`, which contains information about 10 seals (column `seal`). Researchers had each seal dive underwater twice: once to feed (`feeding` is "Yes") and once just to dive without any feeding (`feeding` is "No"). They hypothesized that seals used more oxygen (`oxygen_use`) while going on feeding dives compared to non-feeding dives. For this section of the homework you will make two plots that each answer the question: Do feeding dives use more oxygen than non-feeding dives, on average?
+Consider the `ds4b.materials` dataset `seals`, which contains information about 10 seals (column `seal`). Researchers had each seal dive underwater twice: once to feed (`feeding` is "Yes") and once just to dive without any feeding (`feeding` is "No"). They hypothesized that seals used more oxygen (`oxygen_use`) while going on feeding dives compared to non-feeding dives. For this section of the homework you will make two plots that each answer the question: *Do feeding dives use more oxygen than non-feeding dives, on average?*
 
 <br>
 
-3.1. Let's get back to our fundamentals: Make a jitter plot showing the distributions of `oxygen_use` across `feeding` categories. Color (or fill if you use a different point shape!) points based on `feeding` category. Style in any way of your choosing as long as you color based on `feeding`. **In 1-2 sentences**, explain why or why not this figure shows evidence that feeding dives use more oxygen than do non-feeding dives.
+3.1. Let's get back to our fundamentals: Make a jitter plot showing the distributions of `oxygen_use` across `feeding` categories. Specifically...
+
+  + Color (or fill if you use a different point shape!) points based on `feeding` category using a non-default palette. Style the rest any way you like, as long as no underscores!
+  + Add on `stat_summary()` in a clearly-visible color and size to see the means of each distribution.
+  + **In 1-2 sentences**, explain why or why not this figure shows evidence that feeding dives use more oxygen than do non-feeding dives.
+  + Note: One reason a jitter plot is good here is there are only 10 points for each distribution! With such few data points, we are really able to see them all at once.
 
 <br>
 
 3.2. The goal for this question is to make a *scatterplot* that contains one point for each seal. The x-axis should show the oxygen use when NOT feeding, and the y-axis should show the oxygen use WHEN FEEDING.
 
-  It is not actually possible to make the plot with the data in its current structure! To achieve this plot, we need to have these values in separate columns....
+  **BUT!** It is not actually possible to make the plot with the data in its current structure! To achieve this plot, we need to have these values in separate columns....
   
   + Wrangle the data using `pivot_wider()` to create a new version of the data that contains these three columns: `seal` (the seal ID number), `oxygen_feeding` (oxygen use while feeding), and `oxygen_nonfeeding` (oxygen use while not feeding). 
   + Then, use this data to make your scatterplot, styled in any way of your choosing as long as there are no underscores. You can do this in two steps (make the dataset and then plot it) or as a single pipeline from wrangling directly into `ggplot()`.

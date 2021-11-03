@@ -284,7 +284,7 @@ pre code {
 <p><br></p>
 <p>1.2. Use <code>contains()</code> to select all columns in <code>wine5</code> that contain the word “sulfur” (make sure you’re spelling is right!).</p>
 <p><br></p>
-<p>1.3. Select all columns in <code>wine</code> that contain the word “sulfur” as well as the columns <code>sulphates</code> and <code>chlorides</code>.</p>
+<p>1.3. Select all columns in <code>wine5</code> that contain the word “sulfur” as well as the columns <code>sulphates</code> and <code>chlorides</code>.</p>
 <p><br></p>
 <p>1.4 You can use colons to specify a range of columns in order (just like making arrays of numbers in order, i.e. <code>1:10</code> makes the array of numbers 1-10). Use colons to select all columns in <code>wine5</code> <em>from <code>citric_acid</code> through <code>pH</code></em>.</p>
 <p><br></p>
@@ -292,9 +292,9 @@ pre code {
 <p><br></p>
 <p>1.6. Combine your colon and <code>last_col()</code> skills to select all columns from <code>citric_acid</code> <em>through</em> the last column, <em>without ever using the name of the last column.</em></p>
 <p><br></p>
-<p>1.7. Use your skills to select the columns <code>wine_index</code>, <code>type</code>, and <code>density</code> <em>through</em> <code>sulphates</code>.</p>
+<p>1.7. Use your skills to select the columns <code>wine_index</code>, <code>type</code>, and <code>density</code> <em>through</em> <code>sulphates</code> from <code>wine5</code>.</p>
 <p><br></p>
-<p>1.8. Combine all your skills to select the following columns: <code>wine_index</code>, <code>type</code>, <code>quality</code>, <code>free_sulfur_dioxide</code>, <code>total_sulfur_dioxide</code>, and <code>alcohol</code>. Your code must incorporate <strong>THREE</strong> of the new tidy-select skills used in this homework section.</p>
+<p>1.8. Combine all your skills to select the following columns from <code>wine5</code>: <code>wine_index</code>, <code>type</code>, <code>quality</code>, <code>free_sulfur_dioxide</code>, <code>total_sulfur_dioxide</code>, and <code>alcohol</code>. Your code must incorporate <strong>THREE</strong> of the new tidy-select skills used in this homework section.</p>
 <p><br><br></p>
 </div>
 <div id="part-2-pivoting-the-wine-versions" class="section level3">
@@ -316,12 +316,18 @@ pre code {
 </div>
 <div id="part-3-plotting-some-seals" class="section level3">
 <h3>Part 3: Plotting some seals</h3>
-<p>Consider the <code>ds4b.materials</code> dataset <code>seals</code>, which contains information about 10 seals (column <code>seal</code>). Researchers had each seal dive underwater twice: once to feed (<code>feeding</code> is “Yes”) and once just to dive without any feeding (<code>feeding</code> is “No”). They hypothesized that seals used more oxygen (<code>oxygen_use</code>) while going on feeding dives compared to non-feeding dives. For this section of the homework you will make two plots that each answer the question: Do feeding dives use more oxygen than non-feeding dives, on average?</p>
+<p>Consider the <code>ds4b.materials</code> dataset <code>seals</code>, which contains information about 10 seals (column <code>seal</code>). Researchers had each seal dive underwater twice: once to feed (<code>feeding</code> is “Yes”) and once just to dive without any feeding (<code>feeding</code> is “No”). They hypothesized that seals used more oxygen (<code>oxygen_use</code>) while going on feeding dives compared to non-feeding dives. For this section of the homework you will make two plots that each answer the question: <em>Do feeding dives use more oxygen than non-feeding dives, on average?</em></p>
 <p><br></p>
-<p>3.1. Let’s get back to our fundamentals: Make a jitter plot showing the distributions of <code>oxygen_use</code> across <code>feeding</code> categories. Color (or fill if you use a different point shape!) points based on <code>feeding</code> category. Style in any way of your choosing as long as you color based on <code>feeding</code>. <strong>In 1-2 sentences</strong>, explain why or why not this figure shows evidence that feeding dives use more oxygen than do non-feeding dives.</p>
+<p>3.1. Let’s get back to our fundamentals: Make a jitter plot showing the distributions of <code>oxygen_use</code> across <code>feeding</code> categories. Specifically…</p>
+<ul>
+<li>Color (or fill if you use a different point shape!) points based on <code>feeding</code> category using a non-default palette. Style the rest any way you like, as long as no underscores!</li>
+<li>Add on <code>stat_summary()</code> in a clearly-visible color and size to see the means of each distribution.</li>
+<li><strong>In 1-2 sentences</strong>, explain why or why not this figure shows evidence that feeding dives use more oxygen than do non-feeding dives.</li>
+<li>Note: One reason a jitter plot is good here is there are only 10 points for each distribution! With such few data points, we are really able to see them all at once.</li>
+</ul>
 <p><br></p>
 <p>3.2. The goal for this question is to make a <em>scatterplot</em> that contains one point for each seal. The x-axis should show the oxygen use when NOT feeding, and the y-axis should show the oxygen use WHEN FEEDING.</p>
-<p>It is not actually possible to make the plot with the data in its current structure! To achieve this plot, we need to have these values in separate columns….</p>
+<p><strong>BUT!</strong> It is not actually possible to make the plot with the data in its current structure! To achieve this plot, we need to have these values in separate columns….</p>
 <ul>
 <li>Wrangle the data using <code>pivot_wider()</code> to create a new version of the data that contains these three columns: <code>seal</code> (the seal ID number), <code>oxygen_feeding</code> (oxygen use while feeding), and <code>oxygen_nonfeeding</code> (oxygen use while not feeding).</li>
 <li>Then, use this data to make your scatterplot, styled in any way of your choosing as long as there are no underscores. You can do this in two steps (make the dataset and then plot it) or as a single pipeline from wrangling directly into <code>ggplot()</code>.</li>

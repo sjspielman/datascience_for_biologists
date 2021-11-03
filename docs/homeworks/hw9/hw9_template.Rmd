@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE, fig.width = 6, fig.height = 4)
 
 # Always load libraries in the setup chunk:
 library(tidyverse) # allows you to use ggplot2, readr, forcats, etc. 
-library(ds4b.materials) # contains all but the coffee dataset
+library(ds4b.materials) # contains all data except the coffee dataset
 
 # Read in the coffee dataset, used in part 4:
 # This code also gets rid of the "bad" point!
@@ -139,9 +139,7 @@ Replace this plain text above the chunk with your answer.
 
 
 ```{r q2.4}
-coffee_ratings %>%
-  # add the coffee_id column
-  mutate(coffee_id = 1:n())
+
 
 ```
 
@@ -184,7 +182,9 @@ Replace this plain text above the chunk with your answer to the question.
 #### Question 4.1
 
 ```{r q4.1}
-
+coffee_ratings %>%
+  # add the coffee_id column
+  mutate(coffee_id = 1:n())
 
 ```
 
