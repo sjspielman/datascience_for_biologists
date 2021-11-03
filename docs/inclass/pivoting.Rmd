@@ -1,0 +1,79 @@
+---
+title: "Notes and activity: Data reshaping ('pivoting') with `tidyr`"
+author: "Data Science for Biologists, Fall 2021"
+date: "Week of 11/1/21"
+output: 
+  html_document:
+      theme: readable
+      highlight: tango
+editor_options: 
+  chunk_output_type: console
+---
+
+**BEFORE WE BEGIN, PLEASE UPDATE:** `ds4b.materials::update_materials()`
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, collapse=TRUE)
+
+# Load libraries
+library(tidyverse)
+library(ds4b.materials) # contains the datasets
+```
+
+
+## Pivoting
+
+We go from wide --> long with `pivot_wider()`
+
+
+
+
+
+# Same data! `messy1` is WIDE and `tidy` is LONG. How do we go back and forth?
+# We use functions pivot_longer() and pivot_wider() from tidyr. ****We do not use spread() and gather() anymore - beware of the internet!!!!*****
+messy1
+
+tidy
+
+
+
+# Let's so another one:
+
+
+wine_version1  
+
+
+wine_version2
+
+
+
+
+
+
+
+
+# Goal: Make a faceted plot where total_cup_points is plotted across each of the other rating columns.
+# This is analogous to question 5 on HW9!!!!
+
+
+
+
+
+
+wine_version1
+
+
+wine_version2
+
+
+# select helper functions:
+#everything()
+#contains()
+#starts_with()
+#ends_with()
+
+# and colons!
+
+
+

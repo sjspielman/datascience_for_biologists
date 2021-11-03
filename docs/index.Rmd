@@ -57,7 +57,7 @@ M 10/25 | Data wrangling with `dplyr` and `tidyr` VI | [Introduction to `dplyr` 
 W 10/27 | Exploratory analysis II | [Peer review plots](./misc/exploratory_redux_f21.html) | -
 R 10/28 | _Open work day_  | Resource: [Modifying figure sizes](./misc/figure_size_rmd.Rmd) | Homework 7: More data wrangling and visualization due **FRIDAY 10/29 at 11:59 PM** <br> [Link to instructions](./homeworks/hw7/hw7_instructions.html)
 M 11/1 | Data reshaping ("pivoting") with `tidyr` I | [HW1 tidy data redux](./homeworks/hw1/hw1_instructions.html) | -
-W 11/3 | Data reshaping ("pivoting") with `tidyr` II  | -  | Homework 8: Exploratory analysis of coffee ratings <br> [Link to instructions](./homeworks/hw8/hw8_instructions.html)
+W 11/3 | Data reshaping ("pivoting") with `tidyr` II  | In-class activity: [Let's do HW9!](./homeworks/hw9/hw9_instructions.html)  | Homework 8: Exploratory analysis of coffee ratings <br> [Link to instructions](./homeworks/hw8/hw8_instructions.html)
 R 11/4 | Introduction to machine learning | [Slides](./slides/slides_ml_lm.pdf)  | -
 M 11/8 | Linear modeling I | Same slides as R 11/3 <br> RMarkdown activity: `linear_modeling`  |-
 W 11/10 | Linear modeling II | Same slides/activity  | Homework 9: Data reshaping with `tidyr` <br>  [Link to instructions](./homeworks/hw9/hw9_instructions.html)
@@ -66,7 +66,7 @@ M 11/15 | Introduction to logistic regression | Slides <br> RMarkdown activity: 
 W 11/17 | Logistic regression II | Same slides/activity | Homework 10: Linear modeling  <br>  [Link to instructions](./homeworks/hw10/hw10_instructions.html)
 R 11/18 | Logistic regression III | Same slides/activity | -
 M 11/22 | Clustering and PCA | | -
-W 11/24 | Clustering and PCA | | Homework 11: Logistic regression
+W 11/24 | Clustering and PCA | | Homework 11: Logistic regression  <br>  [Link to instructions](./homeworks/hw11/hw11_instructions.html)
 R 11/25 | _No class: Thanksgiving_  | - | 
 M 11/29 | UNIX and Github | Cheatsheets TBD | Homework 12: Final Project Proposal. _This homework may NOT be dropped. **It is due MONDAY 11:59 PM**_
 W 12/1 | UNIX and Github | Cheatsheets TBD | -
