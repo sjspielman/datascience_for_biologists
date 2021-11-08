@@ -1,7 +1,7 @@
 ---
 title: "Notes and activity: Linear modeling"
 author: "Data Science for Biologists, Fall 2021"
-date: "Week of 11/1/21"
+date: "Week of 11/8/21"
 output: 
   html_document:
       theme: readable
@@ -12,7 +12,6 @@ editor_options:
 
 **BEFORE WE BEGIN, DO THE FOLLOWING:**
 
-+ update materials with: `ds4b.materials::update_materials()`
 + install the package `ggtext` with: `install.packages("ggtext")`
 
 
