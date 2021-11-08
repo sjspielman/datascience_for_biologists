@@ -48,7 +48,7 @@ theme_set(theme_classic()) # I like this, you do you!
 
 ### Datasets we'll be using here
 
-+ `domestic_cats`: body weight and heart weight from 144 cats
++ `domestic_cats`: body weight and heart weight from 129 cats
 + `penguins`: A whole bunch of measurements from 344 of penguins 
 
 
