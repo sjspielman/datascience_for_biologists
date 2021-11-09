@@ -1,0 +1,87 @@
+---
+title: Understanding numeric distributions
+author: Data Science for Biologists, Spring 2022
+output: 
+  html_document:
+    theme: united
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = FALSE,
+	include = TRUE,
+	message = FALSE,
+	warning = FALSE
+)
+options(htmlwidgets.TOJSON_ARGS = list(na = 'string'))
+library(tidyverse)
+library(palmerpenguins)
+library(DT)
+```
+
+<br>
+
+## The full dataset
+
+Consider the following dataset called [`penguins`](https://github.com/allisonhorst/palmerpenguins), a dataset of 344 individual penguins collected and made available by Dr. Kristen Gorman and the Palmer Station, Antarctica LTER, a member of the Long Term Ecological Research Network.
+
+```{r penguins}
+datatable(penguins)
+```
+
+
+### Questions:
+
+Explore the dataset to determine which columns, aka _dataset variables_ contain numeric data and which contain categorical data. 
+
++ The numeric columns are:
+
++ The categorical columns are:
+
++ One column could be considered *either* categorical or numeric. Which one?
+
+
+<br>
+
+
+**Broadly speaking** there are two ways we can examine data. We can either look at the full data, or we can look at summaries. These are both important approaches that complement each other - summarizing shows overall properties but can hide nuances. 
+
+
+## Exploring numeric distributions
+
+This section explores the dataset variable `flipper_length_mm`, which is a _numeric dataset variable_.  
+
+
++ What is the data? Let's get an overall sense of the values by looking at them directly. 
+
+```{r}
+
+```
+
+That's a lot! Imagine if we had 5000000 rows instead of only 344. This would be tricky.
+We might want to quickly summarize the data in a few ways.
+
+
+#### Look at the literal data
+
+
+#### Consider summaries of the data
+
+
+#### Consider visualizations of the data
+
+5 histograms with different binning
+density plot
+boxplot
+violin plot
+
+#### Consider how distribution may vary across other variables
+
+
+
+
+## Exploring categorical distributions
+
+
+
+
