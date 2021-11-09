@@ -1,14 +1,18 @@
 ---
-title: Understanding numeric distributions
+title: Understanding distributions
 author: Data Science for Biologists, Spring 2022
 output: 
   html_document:
-    theme: united
+    theme: readable
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
 	echo = FALSE,
+	fig.width = 4, 
+	fig.height = 3,
 	include = TRUE,
 	message = FALSE,
 	warning = FALSE
@@ -16,7 +20,9 @@ knitr::opts_chunk$set(
 options(htmlwidgets.TOJSON_ARGS = list(na = 'string'))
 library(tidyverse)
 library(palmerpenguins)
+library(patchwork)
 library(DT)
+theme_set(theme_minimal() + theme(axis.line = element_line()))
 ```
 
 <br>
@@ -44,38 +50,167 @@ Explore the dataset to determine which columns, aka _dataset variables_ contain 
 <br>
 
 
-**Broadly speaking** there are two ways we can examine data. We can either look at the full data, or we can look at summaries. These are both important approaches that complement each other - summarizing shows overall properties but can hide nuances. 
+**Broadly speaking** there are two ways we can examine data. We can either look at the full data, or we can look at summaries of the data. These are both important approaches that complement each other - summarizing shows overall properties but can hide nuances. For both approaches, we can directly look at data (numbers or written information), or we can look at _visualizations_ (figures!) to build a sense of the data.
 
 
 ## Exploring numeric distributions
 
 This section explores the dataset variable `flipper_length_mm`, which is a _numeric dataset variable_.  
 
+### What can we ask about numeric data?
 
-+ What is the data? Let's get an overall sense of the values by looking at them directly. 
++ We can calculate _summary statistics_ to summarize the full data in only a few values
+  + What is the _mean_ of the distribution?
+  + What is the _median_ of the distribution?
+  + What is the _spread_ of the distribution? This is commonly measured with _standard deviation_.
+  + What is the _range_ of the distribution (minimum and maximum values)?
+  + While these quantities give an overall sense of the data, they often fail to tell you about the *shape* of the distribution!!
++ We can also explore the distribution in full by examining its _shape_. Summary statistics often cannot tell us anything about shape.
+  + It is symmetric or skewed?
+  + It is unimodal? Bimodal? Multimodal?
+  + Is the distribution very wide (lots of spread), or very narrow (not a lot of spread)? This is another way to think of spread besides "standard deviation" - it can be a descriptive concept.
+  
+
+
+### 1: Look at the literal data
+
+Often, you can get an overall sense of the values by looking at them directly. Below are printed all 344 flipper lengths from this dataset:
 
 ```{r}
+penguins$flipper_length_mm
+```
+That's a lot! Imagine if we had 5,000,000 (getting close to "big data") rows instead of only 344. We definitely couldn't look at all of those numbers **(but, some of them aren't numbers - what are they?)**
+
+
+### 2: Determine summaries of the dataset
+
++ The **mean** is `r round(mean(penguins$flipper_length_mm, na.rm=TRUE), 2)`.
++ The **median** is `r round(median(penguins$flipper_length_mm, na.rm=TRUE),2)`.
++ The **standard deviation** is `r round(sd(penguins$flipper_length_mm, na.rm=TRUE),2)`.
++ The **range** is [`r range(penguins$flipper_length_mm, na.rm=TRUE)`].
+  + AKA, the **minimum** is `r min(penguins$flipper_length_mm, na.rm=TRUE)` and the **maximum** is `r max(penguins$flipper_length_mm, na.rm=TRUE)`.
+
+
+### 3: Visualize the data 
+
+#### Histograms visualize _binned_ numeric distributions
+
+```{r fig.height=7, fig.width=12}
+build_histogram <- function(x) {
+  ggplot(penguins) +
+    aes(x = flipper_length_mm) + 
+    geom_histogram(fill = "maroon", color = "black", bins = x) + 
+    labs(title = glue::glue("Histogram of flipper_length_mm values with {x} bins")) + 
+    theme(plot.title = element_text(size = rel(0.8)))
+}
+
+hist_panel <- (build_histogram(3) + build_histogram(10) + build_histogram(20)) / (build_histogram(30) + build_histogram(40) + build_histogram(50))
+
+hist_panel
+```
+
+
+#### Density plots are like "smooth" histograms whose interpretation is not affected by binning, since there are no bins!
+
++ We IGNORE the values on the Y-axis (the density values of 0.01, 0.02, etc. are _meaningless_).
++ We interpret it based on TRENDS:
+  + More area under the curve = more values in that region of the x-axis
+
+```{r }
+ggplot(penguins) +
+  aes(x = flipper_length_mm) + 
+  geom_density(fill = "maroon", color = "black") + 
+  labs(title = "Density plot of flipper_length_mm values") + 
+  theme(plot.title = element_text(size = rel(0.8)))
+```
+
+Here is the same density plot but with a "point rug," literally a "rug" of the data points along the x-axis number line. Notice how the density graph is "taller" (more area under curve!) where there are more points, and it dips lower when there are fewer points in that region on the x-axis.
+
+```{r }
+ggplot(penguins) +
+  aes(x = flipper_length_mm) + 
+  geom_density(fill = "maroon", color = "black") + 
+  geom_point(y = 0, alpha = 0.25, size = 1.5, color = "black") + 
+  labs(title = "Density plot of flipper_length_mm values, with point rug") + 
+  theme(plot.title = element_text(size = rel(0.8)))
+```
+
+
+#### Boxplots visualize data using summary statistics
+
++ Boxplots were invented because you can draw them by hand!
++ The "box" is the *interquartile range*, representing the boundaries of the middle 50% of the data
++ The line in the box is the **median** (50% of the data is above and below)
++ The "whiskers" represent (usually) the range of data that is within 150% of the IQR (but there are other ways!)
+  + Often this equates to minimum and maximum, but sometimes there are "outliers." This boxplot does not contain any outliers.
+
+
+```{r }
+ggplot(penguins) +
+  aes(x = "", y = flipper_length_mm) + 
+  geom_boxplot(fill = "maroon", color = "black") + 
+  labs(x = "", title = "Boxplot of flipper_length_mm values") + 
+  theme(plot.title = element_text(size = rel(0.8)), 
+        axis.ticks.x = element_blank())
+```
+
+
+#### Violin plots are "sideways mirrored" density plots
+
+
+```{r}
+ggplot(penguins) +
+  aes(x = "", y = flipper_length_mm) + 
+  geom_violin(fill = "maroon", color = "black") + 
+  labs(x = "", title = "Violin plot of flipper_length_mm values") + 
+  theme(plot.title = element_text(size = rel(0.8)), 
+        axis.ticks.x = element_blank())
+```
+
+
+
+
+### 4: Visualize distributions *across* groupings.
+
+We can also explore the distribution of `flipper_length_mm` values **across** a categorical dataset variable, such as `species`. To compare distributions, it is very common to use *overlapping* density plots, boxplots, and violin plots. Generally we avoid histograms when _comparing_ distributions.
+
+
+```{r, fig.width = 12, fig.height = 4}
+species_colors <- c("maroon", "navy", "goldenrod")
+ggplot(penguins) +
+  aes(fill = species, x = flipper_length_mm) + 
+  geom_density(alpha = 0.7, color = "black") + 
+  scale_fill_manual(values = species_colors) + 
+  labs(x = "", title = "Density plot of flipper_length_mm values for each species") + 
+  theme(plot.title = element_text(size = rel(0.8)), 
+        axis.ticks.x = element_blank(), 
+        legend.position = "bottom") -> density
+
+ggplot(penguins) +
+  aes(x = species, fill = species, y = flipper_length_mm) + 
+  geom_violin(color = "black", alpha = 0.9) + 
+  labs(x = "", title = "Violin plot of flipper_length_mm values for each species") + 
+  scale_fill_manual(values = species_colors) + 
+  theme(plot.title = element_text(size = rel(0.8)), 
+        axis.ticks.x = element_blank(), 
+        legend.position = "none") -> violin
+
+ggplot(penguins) +
+  aes(x = species, fill = species, y = flipper_length_mm) + 
+  geom_boxplot(color = "black", alpha = 0.9) + 
+  labs(x = "", title = "Boxplot of flipper_length_mm values for each species") + 
+  scale_fill_manual(values = species_colors) + 
+  theme(plot.title = element_text(size = rel(0.8)), 
+        axis.ticks.x = element_blank(), 
+        legend.position = "none") -> box
+
+
+density + box + violin
 
 ```
 
-That's a lot! Imagine if we had 5000000 rows instead of only 344. This would be tricky.
-We might want to quickly summarize the data in a few ways.
 
 
-#### Look at the literal data
-
-
-#### Consider summaries of the data
-
-
-#### Consider visualizations of the data
-
-5 histograms with different binning
-density plot
-boxplot
-violin plot
-
-#### Consider how distribution may vary across other variables
 
 
 
