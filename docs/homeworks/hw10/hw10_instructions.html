@@ -278,7 +278,7 @@ pre code {
 </blockquote>
 <p>This assignment will use an dataset of various physical measurements from 250 adult males. Your goal for this assignment is to build and evaluate a model from this data to <strong>predict body fat percentage</strong> (column <code>Percent</code>) in adult males, and then use this model to predict future outcomes. Age is measured in years, weight in pounds, height in inches, and all other measurements are circumference measured in cm.</p>
 <ol style="list-style-type: decimal">
-<li><strong>Prepare the data for use:</strong> You’ll notice a column called <code>id</code> in the dataset, which is a single identifying number for each male in the study. This is not “measured data”, and we definitely don’t want to end up modeling it. Create a new version of the dataset called <code>bodyfat_noid</code> that does not contain the <code>id</code> column. This is a one-line pipeline - don’t overthink! Use the <strong><code>bodyfat_noid</code></strong> dataset for questions 1-4, but not 5.</li>
+<li><strong>Prepare the data for use:</strong> You’ll notice a column called <code>id</code> in the dataset, which is a single identifying number for each male in the study. This is not “measured data”, and we definitely don’t want to end up modeling it. Create a new version of the dataset called <code>bodyfat_noid</code> that does not contain the <code>id</code> column. This is a one-line pipeline - don’t overthink! Use the <strong><code>bodyfat_noid</code></strong> dataset for questions 2-5, but not 6.</li>
 </ol>
 <p><br><br></p>
 <ol start="2" style="list-style-type: decimal">
@@ -291,7 +291,7 @@ pre code {
 <ul>
 <li>First, set your seed AS YOUR PERSONAL BANNER ID, using the variable defined in the <code>setup</code> chunk. YOU MUST USE YOUR BANNER ID AS THE NUMBER, which you should have defined in the <code>setup</code> code chunk!!! <strong>If you do not do this properly, there will be unpredictable mismatches between your written answer and the results your code produces when run. You must set your seed, and use it consistently.</strong></li>
 <li>Create a variable to represent the 65% split instead of hardcoding this value.</li>
-<li>There is be other code you need to run to help you interpret RMSE. This code should be included in the code chunk as part of the homework (i.e., not run separately in Console.)</li>
+<li>There is other code you need to run to help you interpret RMSE. This code should be included in the code chunk as part of the homework (i.e., not run separately in Console.)</li>
 </ul></li>
 </ol>
 <p><br><br></p>
@@ -307,7 +307,7 @@ pre code {
 </ol>
 <p><br><br></p>
 <ol start="5" style="list-style-type: decimal">
-<li><p><strong>Prediction</strong>: A new man has arrived, and we want to use our model to predict his body fat percentage. Predict what the body fat percentage will be for a man with the following physical attributes. Your code should reveal the predicted bodyfat percentage.</p>
+<li><p><strong>Prediction</strong>: A new man has arrived, and we want to use our model (as built with the training data split!) to predict his body fat percentage. Predict what the body fat percentage will be for a man with the following physical attributes. Your code should reveal the predicted body fat percentage.</p>
 <p><em>Hint: Do you need all this information? In fact you do not!</em> For full credit, make sure your code is only considering body measurements that are relevant for answering the question. In other words, your code should not use any data the model doesn’t need.</p>
 <ul>
 <li>Age: 38</li>

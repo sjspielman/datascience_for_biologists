@@ -56,7 +56,7 @@ blockquote {
 
 This assignment will use an dataset of various physical measurements from 250 adult males. Your goal for this assignment is to build and evaluate a model from this data to **predict body fat percentage** (column `Percent`) in adult males, and then use this model to predict future outcomes. Age is measured in years, weight in pounds, height in inches, and all other measurements are circumference measured in cm.
 
-1. **Prepare the data for use:** You'll notice a column called `id` in the dataset, which is a single identifying number for each male in the study. This is not "measured data", and we definitely don't want to end up modeling it. Create a new version of the dataset called `bodyfat_noid` that does not contain the `id` column. This is a one-line pipeline - don't overthink! Use the **`bodyfat_noid`** dataset for questions 1-4, but not 5.
+1. **Prepare the data for use:** You'll notice a column called `id` in the dataset, which is a single identifying number for each male in the study. This is not "measured data", and we definitely don't want to end up modeling it. Create a new version of the dataset called `bodyfat_noid` that does not contain the `id` column. This is a one-line pipeline - don't overthink! Use the **`bodyfat_noid`** dataset for questions 2-5, but not 6.
 
 <br><br>
 
@@ -72,7 +72,7 @@ This assignment will use an dataset of various physical measurements from 250 ad
 
     + First, set your seed AS YOUR PERSONAL BANNER ID, using the variable defined in the `setup` chunk. YOU MUST USE YOUR BANNER ID AS THE NUMBER, which you should have defined in the `setup` code chunk!!! **If you do not do this properly, there will be unpredictable mismatches between your written answer and the results your code produces when run. You must set your seed, and use it consistently.**
     + Create a variable to represent the 65% split instead of hardcoding this value.
-    + There is be other code you need to run to help you interpret RMSE. This code should be included in the code chunk as part of the homework (i.e., not run separately in Console.) 
+    + There is other code you need to run to help you interpret RMSE. This code should be included in the code chunk as part of the homework (i.e., not run separately in Console.) 
 
 <br><br>
 
@@ -90,7 +90,7 @@ This assignment will use an dataset of various physical measurements from 250 ad
 
 <br><br>
 
-5. **Prediction**: A new man has arrived, and we want to use our model to predict his body fat percentage. Predict what the body fat percentage will be for a man with the following physical attributes. Your code should reveal the predicted bodyfat percentage.
+5. **Prediction**: A new man has arrived, and we want to use our model (as built with the training data split!) to predict his body fat percentage. Predict what the body fat percentage will be for a man with the following physical attributes. Your code should reveal the predicted body fat percentage.
 
     *Hint: Do you need all this information? In fact you do not!* For full credit, make sure your code is only considering body measurements that are relevant for answering the question. In other words, your code should not use any data the model doesn't need.
 
