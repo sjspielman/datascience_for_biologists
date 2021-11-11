@@ -282,7 +282,8 @@ pre code {
 </ol>
 <p><br><br></p>
 <ol start="2" style="list-style-type: decimal">
-<li><strong>Perform model selection:</strong> Using the <code>step()</code> function, determine the most appropriate model to explain variation in bodyfat percentage in this data, and reveal the full model output with the function <code>summary()</code> and/or the broom function <code>tidy()</code>. <em>After the code</em>, write a properly-formatted (make sure to knit and check!) bullet point list stating the final predictors. You do not need to include information about the specific coefficient values or P-values - just bullet out what the predictors are. <em>Make sure you have properly formatted bullet points in your knitted output!!</em> <strong>The purpose of this part of the question is for you to practice writing markdown bullet points and ensure they knit properly.</strong></li>
+<li><p><strong>Perform model selection:</strong> Using the <code>step()</code> function, determine the most appropriate model to explain variation in bodyfat percentage in this data, and then do <em>ONE</em> of the following (pick your favorite!): reveal the full model output with the function <code>summary()</code>, reveal the full model output with the broom function <code>tidy()</code> (you’ll need to load broom in the setup chunk!), OR reveal the model formula.</p>
+<p><em>After the code</em>, write a properly-formatted (make sure to knit and check!) bullet point list stating the final predictors. You do not need to include information about the specific coefficient values or P-values - just bullet out what the predictors are. <em>Make sure you have properly formatted bullet points in your knitted output!!</em> <strong>The purpose of this part of the question is for you to practice writing markdown bullet points and ensure they knit properly.</strong></p></li>
 </ol>
 <p><br><br></p>
 <ol start="3" style="list-style-type: decimal">
@@ -292,6 +293,7 @@ pre code {
 <li>First, set your seed AS YOUR PERSONAL BANNER ID, using the variable defined in the <code>setup</code> chunk. YOU MUST USE YOUR BANNER ID AS THE NUMBER, which you should have defined in the <code>setup</code> code chunk!!! <strong>If you do not do this properly, there will be unpredictable mismatches between your written answer and the results your code produces when run. You must set your seed, and use it consistently.</strong></li>
 <li>Create a variable to represent the 65% split instead of hardcoding this value.</li>
 <li>There is other code you need to run to help you interpret RMSE. This code should be included in the code chunk as part of the homework (i.e., not run separately in Console.)</li>
+<li>Note that the functions <code>rsquare()</code> and <code>rmse()</code> are part of the <code>modelr</code> package - you will need to load that package in your setup chunk if it isn’t already loaded!</li>
 </ul></li>
 </ol>
 <p><br><br></p>

@@ -61,8 +61,9 @@ This assignment will use an dataset of various physical measurements from 250 ad
 <br><br>
 
 
-2. **Perform model selection:** Using the `step()` function, determine the most appropriate model to explain variation in bodyfat percentage in this data, and reveal the full model output with the function `summary()` and/or the broom function `tidy()`. 
-*After the code*, write a properly-formatted (make sure to knit and check!) bullet point list stating the final predictors. You do not need to include information about the specific coefficient values or P-values - just bullet out what the predictors are. *Make sure you have properly formatted bullet points in your knitted output!!* **The purpose of this part of the question is for you to practice writing markdown bullet points and ensure they knit properly.**
+2. **Perform model selection:** Using the `step()` function, determine the most appropriate model to explain variation in bodyfat percentage in this data, and then do *ONE* of the following (pick your favorite!): reveal the full model output with the function `summary()`, reveal the full model output with the broom function `tidy()` (you'll need to load broom in the setup chunk!), OR reveal the model formula.
+
+    *After the code*, write a properly-formatted (make sure to knit and check!) bullet point list stating the final predictors. You do not need to include information about the specific coefficient values or P-values - just bullet out what the predictors are. *Make sure you have properly formatted bullet points in your knitted output!!* **The purpose of this part of the question is for you to practice writing markdown bullet points and ensure they knit properly.**
 
 <br><br>
 
@@ -73,6 +74,7 @@ This assignment will use an dataset of various physical measurements from 250 ad
     + First, set your seed AS YOUR PERSONAL BANNER ID, using the variable defined in the `setup` chunk. YOU MUST USE YOUR BANNER ID AS THE NUMBER, which you should have defined in the `setup` code chunk!!! **If you do not do this properly, there will be unpredictable mismatches between your written answer and the results your code produces when run. You must set your seed, and use it consistently.**
     + Create a variable to represent the 65% split instead of hardcoding this value.
     + There is other code you need to run to help you interpret RMSE. This code should be included in the code chunk as part of the homework (i.e., not run separately in Console.) 
+    + Note that the functions `rsquare()` and `rmse()` are part of the `modelr` package - you will need to load that package in your setup chunk if it isn't already loaded!
 
 <br><br>
 
