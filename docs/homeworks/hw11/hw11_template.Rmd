@@ -17,11 +17,6 @@ knitr::opts_chunk$set(echo = TRUE, fig.width = 6, fig.height = 4)
 library(tidyverse) # allows you to use ggplot2, readr, forcats, etc.
 library(ds4b.materials) # contains the pima dataset
 library(pROC) # allows ROC analysis
-
-
-# Uncomment below and define this variable as your Banner ID number. You MUST use this variable in Question 3 to set your seed.
-#my_banner_id <- 
-
 ```
 
 
@@ -47,11 +42,7 @@ library(pROC) # allows ROC analysis
 
 ```
 
-+ bullet
-+ points
-+ go
-+ here
-
+Replace this with your 1 SPELL-CHECKED AND REASONABLY GRAMMAR-CHECKED sentence explaining which is preferred and why.
 
 <br>
 
@@ -93,7 +84,6 @@ library(pROC) # allows ROC analysis
 
 ```
 
-Replace this with your answer to the question.
-
+Replace this with your 1 SPELL-CHECKED AND REASONABLY GRAMMAR-CHECKED sentence explaining whether this woman likely has diabetes or not at the threshold.
 
 

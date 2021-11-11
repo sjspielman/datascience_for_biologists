@@ -63,62 +63,48 @@ For your assignment, you will be building and evaluating a logistic regression f
 + `insulin`: 2-hour serum insulin level (units: μU/mL)
 + `bmi`: Body Mass Index
 + `age`: age in years
-+ `diabetic`: whether or not the individual has diabetes ("Yes" or "No")
++ `diabetic`: whether or not the individual has diabetes ("Yes" or "No"). (This is your "outcome" column!)
 
 <br><br>
 
-1. **Prepare the data for modeling:** The `glm()` function that we use to perform a logistic regression in R really really wants the response variable to contain values 0 and 1, where 0 corresponds to so-called "failure" and 1 corresponds to so-called "success." In addition, `glm()` gets very upset when there are `NA`s anywhere in the data. For this question, you want to create **two** new versions of the `pima` dataset whose column `diabetic` says 0 instead of "No" and 1 instead of "Yes". Write two pipelines as follows:
-    + For the first very quick pipeline, simply remove all `NA`s from `pima` using `drop_na()` (no argument!). Save this new tibble as `pima_clean`. This will be our new "baseline" `pima` dataset.
-    + For the second pipeline, _starting with your new `pima_nona`_ to...
-      + Use `mutate()` with `if_else()` to create a new column called `diabetic_01` that contains 0/1 instead of "No"/"Yes"
-      + Use `select()` to _remove_ the original `diabetic` column
-      + Save the tibble as `pima_clean_01`, and then print it out. **This is the tibble you will use to build your model!**
+1. **Prepare the data for modeling:** The `glm()` function that we use to perform a logistic regression in R really really wants the response variable to contain values 0 and 1, where 0 corresponds to so-called "failure" and 1 corresponds to so-called "success." In addition, `glm()` gets very upset when there are `NA`s anywhere in the data. Therefore, for this question, you should to create a new version of the `pima` that contains no `NA`s, and the column `diabetic` contains *0 instead of "No" and 1 instead of "Yes"*. **Save the tibble as `pima_01`, and then print it out. _This is the tibble you will use for the rest of the homework!_**
 
 
 <br> 
 
 
-2. **Perform model selection:** Using the `step()` function, determine the most appropriate model to explain diabetic status from the newly-wrangled dataset `pima_clean_01`. Reveal the full model output with the broom function `tidy()`. 
+2. **Build two candidate models:** Rather than using model selection for this homework, you will practice logistic regression by comparing two potential candidate models. (There will not be any training/testing on this HW, but please remember that in the "real world" one should always perform some kind of validation!) For this question, build these two models and calculate their AUCs. **In one _markdown_ sentence, explain which model is preferred and why.**
 
-    *After the code*, write a properly-formatted (make sure to knit and check!) bullet point list stating the final predictors. You do not need to include information about the specific coefficient values or P-values - just bullet out what the predictors are. *Make sure you have properly formatted bullet points in your knitted output!!* **The purpose of this part of the question is for you to practice writing markdown bullet points and ensure they knit properly.**
-
+    + Candidate model 1 should have the following predictors:
+      + `glucose`
+      + `dbp`
+      + `skin`
+    + Candidate model 2 should have the following predictors:
+      + `insulin`
+      + `skin`  
+      + `age`
 
 <br>
 
-3. **Evaluate your model with testing and training splits:** Create a testing-training split where the training data comprises a random *70%* subset of the total `pima_clean_01` dataset. Build the model using the training data, and then evaluate how the model performs on both the training and testing splits by determining the **AUC** for each model. After the code, provide a brief explanation (1-2 sentences) about whether the model is likely overfit to the training data or not, and whether the AUC values suggest the model will do a good or poor job predicting future outcomes.
-
-    Your code must have the following components:
-
-    + First, set your seed AS YOUR PERSONAL BANNER ID, using the variable defined in the `setup` chunk. YOU MUST USE YOUR BANNER ID AS THE NUMBER, which you should have defined in the `setup` code chunk!!! **If you do not do this properly, there will be unpredictable mismatches between your written answer and the results your code produces when run. You must set your seed, and use it consistently.**
-    + Create a variable to represent the 70% split instead of hardcoding this value.
-    + Remember: $R^2$ and RMSE are not quantities we use to evaluate logistic regressions. We only are thinking about AUC here.
+3. **Plot the ROC curves for both candidate models.** Create a tibble of the data needed to plot both ROC curves (one for each candidate model), and then use that data to make a figure with two ROC curves. Curves should be colored by candidate model with a non-default palette, and the plot should include a guiding line representing "random chance." Do not facet - curves should be in a single panel, distinguished only by color. 
 
 <br><br>
 
-3. **Plot the ROC curves:** Visualize the *model performance* by plotting ROC curves for the training and testing splits. Specifically...
-    + First, you will need to create the tibble that contains data to plot for this question. Do this in one wrangling pipeline, and save the tibble to `roc_data`. Print the tibble out, and _then_ use the tibble to great your plot.
-    + Your plot should have a single panel with two ROC curves, one for training and testing each. Do not facet the plot.
-    + Curves should be _colored_ based on testing and training. Non-default colors must be used here.
-    + You should also include a $Y=X$ line (add on include `geom_abline()`) that is a different color from the ROC curves themselves. This represents the "guiding line" indicating 
-    + *For bonus points*, teach yourself the [`annotate()` function in `ggplot2`](https://ggplot2.tidyverse.org/reference/annotate.html) an add in reasonably placed text annotations saying `AUC=...` for each curve. Note that this function is not (yet!) in the `introverse`. If you choose to try this bonus, you will need to use `annotate()` twice: once for each curve's AUC label.
-    + No need to export with `ggsave()` but make sure the figure is fully legible (no overlapping text!!) in the final knitted Rmd.
-
-<br><br>
-
-
-4. **Visualize the model itself:** Plot the resulting logistic curve from the *model built with training data ONLY.* Specifically...
-    + First, you will need to create the tibble that contains data to plot for this question. Do this in one wrangling pipeline, and save the tibble to `curve_data`. Print the tibble out, and _then_ use the tibble to great your plot.
-    + Your plot should contain a **black** logistic curve.
-    + On top of the black logistic curve, your plot should contain **colored points** based on diabetic status along the line. You must use non-default colors, and ensure that the points are sufficiently _transparent_ to be able to see the black logistic curve.
-    + No need to export with `ggsave()` but make sure the figure is fully legible (no overlapping text!!) in the final knitted Rmd.
-    + **Hint:** Your legend here should not say 0/1 for the diabetic status of each point. It should say "No"/Yes". 
+4. **Plot the logistic curve for the preferred model.** Now that you know which model is preferred (either Candidate 1 or Candidate 2!), visualize the logistic curve that is that model. Create a tibble of the data needed to plot the logistic curve, and then create your plot which should have....
+    + A **black** logistic curve.
+    + Indications of the true diabetic status, EITHER as...
+      + Transparent colored points based on diabetic status along the curve. Must be transparent enough to see the curve!
+      + A colored point rug. 
+      + Either way, use non-default colors. 
+    + Ensure that your legend says "Diabetic"/"Not diabetic" instead of "1" and "0". *This will be part of your initial tibble creation with a little wrangling.*
     
 
 <br><br>
 
-4. **Model metrics**: Determine the following give performance measures for this model using a success threshold of *>=0.90*. Specifically...
+5. **Model metrics**: Again considering only the preferred candidate model, determine the following give performance measures for this model using a success threshold of *>=0.90*. Specifically...
     + First, you will need to create the tibble that contains counts for TP, FP, TN, and FN at the 90% threshold. Save this tibble to `pima_confusion` and print it out.
     + Then, use the values in the tibble to calculate and print the five measures below. For some bonus points, incorporate a `tidyr` pivot function into your code and perform all calculations using `dplyr` strategies. For regular full-credit without bonus, you are welcome to "use R as a calculator" using values seen in `pima_confusion`. *But remember: No code, no credit. No arithmetic in your head.* 
+    + *You don't have to write anything else in markdown, but ensure these calculated values are printed out, and __your code is commented to clearly state which calculation is which__*.
       + Accuracy
       + False discovery rate
       + True positive rate (aka sensitivity aka recall)
@@ -129,13 +115,13 @@ For your assignment, you will be building and evaluating a logistic regression f
 <br><br>
 
 
-5. **Prediction**: A new Pima woman has arrived, and we want to use our model to predict whether she is diabetic. Write code and then **answer in 1-2 brief markdown sentences**: What is the probability according to our model that she has diabetes, and at a 90% success threshold, would this model classify her as Diabetic or Not Diabetic?
+6. **Prediction**: A new Pima woman has arrived, and we want to use our preferred model to predict whether she is diabetic. Write code and then **answer in a brief markdown sentence**: What is the probability according to our model that she has diabetes, and at a 90% success threshold, would this model classify her as Diabetic or Not Diabetic?
 
-    *Hint: Do you need all this information? In fact you do not!* For full credit, make sure your code is only considering variables that are relevant for answering the question. In other words, your code should not use any data the model doesn't need.
+    *Hint: Do you need all this information? In fact you do not!* For full credit, make sure your code is only considering predictors that are relevant for answering the question. In other words, your code should not use any data the model doesn't need.
     + `pregnancies`: 4
     + `glucose`: 127
-    + `bp`: 92
-    + `skin_thickness`: 28
+    + `dbp`: 92
+    + `skin`: 28
     + `insulin`: 160
     + `bmi`: 31
     + `age`: 44

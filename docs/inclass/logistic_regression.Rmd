@@ -1,0 +1,296 @@
+---
+title: "Notes and activity: Logistic regression"
+author: "Data Science for Biologists, Fall 2021"
+date: "Week of 11/15/21"
+output: 
+  html_document:
+      theme: readable
+      highlight: tango
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, collapse=TRUE)
+
+# Load libraries
+library(tidyverse)
+library(ds4b.materials)
+library(pROC) ## make ROC curves
+library(broom)
+theme_set(theme_classic()) # I like this, you do you!
+```
+
+
+**Goal: Predict whether tumor samples are benign ("positive/success") or malignant ("negative/failure")**
+
++ Dataset of breast cancer samples, `biopsy` (from `ds4b.materials`)
+
+```{r}
+biopsy
+
+# The "result" column is `outcome`
+biopsy$outcome
+```
+
+
+### Part 1: Prepare the data for logistic regression
+
++ We use the function `glm()` with the added argument `family = "binomial"` to perform logistic regression.
++ `glm()` wants to see:
+  + No `NA`s in the data
+  + The result column (`biopsy$outcome`) should contain values 0 and 1, where 0 = failure and 1 = success
+  + **By convention:** disease is success, no disease is failture.
+  
+```{r}
+# Remove all NAs and change the outcome column
+biopsy %>%
+  drop_na() %>%
+  mutate(outcome = if_else(outcome == "malignant", 1, 0)) %>%
+  #move outcome to the front so we can check this worked
+  select(outcome, everything()) -> biopsy_01
+
+# We will use this new dataset for the logistic regression:
+biopsy_01
+```
+
+
+
+### Part 2: Choosing among candidate models with AUC
+
+Model selection is one approach that can help us choose predictors. We can alternatively build several models, evaluate them separately, and then choose the best ("select our model") based on which of those shows better performance. **This is what you will be doing on HW11 instead of model selection - there is no `step()` on HW11.**
+
+The goal of this section is to compare performance between models that have different sets of predictors. Note that this section does not perform training/testing validation (and similarly your homework does not do that either!!), but in the "real world" one should always build models with validation procedures.
+
++ **The first candidate model should have these predictors:**
+  + `epithelial_cell_size`
+  + `mitoses`
++ **The second candidate model should have these predictors:**
+  + `uniform_cell_size`
+  + `mitoses`
+
+```{r}
+# Build candidate model 1 and obtain its AUC:
+candidate1 <- glm(outcome ~ epithelial_cell_size + mitoses, 
+                  data = biopsy_01,
+                  family = "binomial")
+
+candidate1_roc <- roc(biopsy_01$outcome, 
+                      candidate1$fitted.values)
+candidate1_roc$auc
+
+# Build candidate model 2 and obtain its AUC:
+candidate2 <- glm(outcome ~ uniform_cell_size + mitoses, 
+                  data = biopsy_01,
+                  family = "binomial")
+candidate2_roc <- roc(biopsy_01$outcome, 
+                      candidate2$fitted.values)
+candidate2_roc$auc
+```
+
+Candidate model 1 has an AUC of 0.9381. Candidate model 2 has an AUC of 0.9791. While both AUCs suggest excellent performance, *candidate model 2* is likely to be the better classifier since it has the higher AUC. _Note: These AUC values are outrageously high, and such high AUCs "in the wild" are not common!!_
+
+### Part 3: Visualizing candidate model performances with ROC curves
+
+**We can make a single plot with BOTH ROC CURVES** to visually compare the models. 
+
+Remember: ROC curves are NOT THE MODEL. They are plots showing PERFORMANCE OF A CLASSIFIER!! 
+
+```{r}
+
+# Step 1: Make the tibbles for candidate1 roc data, which has TPR on x-axis and FPR on y-axis
+candidate1_roc_data <- tibble(
+  tpr = candidate1_roc$sensitivities,
+  fpr = 1 - candidate1_roc$specificities,
+  model = "Candidate 1"
+)
+
+candidate2_roc_data <- tibble(
+  tpr = candidate2_roc$sensitivities,
+  fpr = 1 - candidate2_roc$specificities,
+  model = "Candidate 2"
+)
+
+# Combine the two tibbles with dplyr::bind_rows
+bind_rows(candidate1_roc_data, candidate2_roc_data) -> roc_data
+roc_data
+
+# Plot!!
+ggplot(roc_data) + 
+  aes(x = fpr, y = tpr, color = model) + 
+  geom_line() +
+  # fancy!
+  scale_color_manual(values = c("chocolate4", "dodgerblue")) +
+  # Add a "guiding line" representing a "random chance" ROC
+  geom_abline() 
+
+# Best practices!!! We should probably reorder the legend!
+ggplot(roc_data) + 
+  aes(x = fpr, 
+      y = tpr, 
+      color = fct_relevel(model, "Candidate 2", "Candidate 1")) +  # reordered!!
+  geom_line() +
+  # fancy!
+  scale_color_manual(values = c("chocolate4", "dodgerblue")) +
+  # Add a "guiding line" representing a "random chance" ROC
+  geom_abline() + 
+  labs(color = "Model")
+```
+
+
+
+### Part 4: Visualizing the best-performing candidate model itself: Plot the logistic curve
+
+
+```{r}
+# The logistic curve's X-axis
+candidate2$linear.predictors
+
+# The logistic curve's Y-axis (see how these are all between 0-1?)
+candidate2$fitted.values
+range(candidate2$fitted.values)
+
+
+# Make a tibble and plot it up:
+tibble(logistic_x = candidate2$linear.predictors, 
+       logistic_y = candidate2$fitted.values, 
+       truth = biopsy_01$outcome) -> logistic_model_plot_data
+
+logistic_model_plot_data
+
+# but wait, that truth column :( 
+# Make tibble with INFORMATIVE truth column for COMMUNICATING WITH DATA VIZ!
+tibble(logistic_x = candidate2$linear.predictors, 
+       logistic_y = candidate2$fitted.values, 
+       truth = if_else(biopsy_01$outcome == 1, "Malignant", "Benign")) -> logistic_model_plot_data
+
+# much better!
+logistic_model_plot_data
+
+# The curve alone with `geom_line()`:
+ggplot(logistic_model_plot_data) + 
+  aes(x = logistic_x,
+      y = logistic_y) + 
+  geom_line() + 
+  labs(x = "Linear predictors", 
+       y = "Model's predicted probability of SUCCESS AKA MALIGNANT")
+
+# The curve with THE TRUE OUTCOMES added in (HW11!!)
+ggplot(logistic_model_plot_data) + 
+  aes(x = logistic_x,
+      y = logistic_y) + 
+  geom_line() + 
+  geom_point(aes(color = truth), alpha = 0.4) + # alpha trial/error here
+  # feeling fancy :)
+  scale_color_manual(values = c("maroon", "goldenrod")) + 
+  labs(x = "Linear predictors", 
+       y = "Predicted probability of malignancy", 
+       color = "True disease status")
+
+# Don't forget best practices: Let's order our legend.
+ggplot(logistic_model_plot_data) + 
+  aes(x = logistic_x,
+      y = logistic_y) + 
+  geom_line() + 
+  geom_point(aes(color = fct_relevel(truth, "Malignant", "Benign")), 
+             alpha = 0.4) + 
+  scale_color_manual(values = c("maroon", "goldenrod")) + 
+  labs(x = "Linear predictors", 
+       y = "Predicted probability of malignancy", 
+       color = "True disease status")
+
+# DO YOU PREFER A RUG???? DO THAT INSTEAD!!!!!! TOTALLY ALLOWED ON HW11 FOR THIS QUESTION!!!!!!!
+ggplot(logistic_model_plot_data) + 
+  aes(x = logistic_x,
+      y = logistic_y) + 
+  geom_line() + 
+  geom_rug(aes(color = truth)) + # alpha trial/error here
+  # feeling fancy :)
+  scale_color_manual(values = c("maroon", "goldenrod")) + 
+  labs(x = "Linear predictors", 
+       y = "Predicted probability of malignancy", 
+       color = "True disease status")
+```
+
+
+
+### Part 5: Performance at a given threshold
+
+This section will evaluate performance of the best-performing model at different thresholds. We will use a success threshold of *85%*: If the model predicts success (malignancy) >= 85%, then we consider the model as identifying a "success" (malignancy).
+
+
+```{r}
+# Step 1: Define the threshold
+sucess_threshold <- 0.85
+
+# Step 2: Collect model results *and truth* into a usable tibble
+results_and_truths <- tibble(
+  truth = biopsy$outcome,
+  model_prob_success = candidate2$fitted.values
+)
+
+# Step 2 (or combine with last step if you want! slowly here for notes and learning): Determine model predictions
+results_and_truths %>%
+  mutate(model_result = if_else(model_prob_success >=sucess_threshold, 
+                                "malignant", 
+                                "benign")) %>%
+  select(-model_prob_success)  %>%
+  # Is each row FP, TP, FN, TN??? COMMENTS ARE SO HELPFUL!!!!!!!!!!!!!!!!!!!
+  ##################################################
+  mutate(result_type = case_when(
+            # positive truth and positive result: TP
+            truth == "malignant" & model_result == "malignant" ~ "TP",
+            # positive truth and negative result: FN
+            truth == "malignant" & model_result == "benign" ~ "FN",            
+            # negative truth and positive result: FP
+            truth == "benign" & model_result == "malignant" ~ "FP",    
+            # negative truth and negative result: TP
+            truth == "benign" & model_result == "benign" ~ "TN") 
+  ) %>%
+  # Add them up!! Note that if one was missing, that means it was ****0***
+  count(result_type) -> confusion_results
+
+confusion_results
+
+
+# Step 3: Calculate a thing! for example, accuracy.
+# Accuracy = (TP + TN) / (TP + TN + FP + FN)
+
+#### Approach #1: Use R as a calculator
+(441 + 176) / (63+3+441+176)
+
+#### Approach #2: Use the tidyverse and avoid all hardcoding (SAFER!!!)
+confusion_results %>%
+  pivot_wider(names_from = "result_type", 
+              values_from = "n") -> wide_confusion
+wide_confusion
+
+wide_confusion %>%
+  mutate(accuracy = (TN + TP)/(TN+TP+FN+FP))
+```
+
+
+
+## Part 6: Predicting new diabetic status
+
++ Remember: We only want to consider *relevant predictors!*
+
++ We have a new biopsy sample with the following values (these are Candidate Model 2's predictors!). At a threshold of 85%, does this model predict the sample is malignant or benign?
+  + `uniform_cell_size`: 5
+  + `mitoses`: 3
+  
+```{r}
+# make a tibble with new information with names exactly matching!
+tibble(uniform_cell_size = 5, 
+       mitoses = 3) -> new_data
+
+# Predict **WITH ARGUMENT type = "response"** OR ELSE IT WONT WORK CORRECTLY, EVEN THOUGH IT LOOKS LIKE IT WORKS!!!!!
+predict(candidate2, new_data, type = "response")
+```
+
+According to our model, There is a 97.4% chance this new biopsy sample is malignant. This is larger than the threshold of 85%, so we conclude YES the model thinks this is a malignant sample. **The logistic regression CLASSIFIES this sample as malignant at an 85% threshold.**
+
+
+
+

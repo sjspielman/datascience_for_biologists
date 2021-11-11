@@ -285,65 +285,56 @@ pre code {
 <li><code>insulin</code>: 2-hour serum insulin level (units: μU/mL)</li>
 <li><code>bmi</code>: Body Mass Index</li>
 <li><code>age</code>: age in years</li>
-<li><code>diabetic</code>: whether or not the individual has diabetes (“Yes” or “No”)</li>
+<li><code>diabetic</code>: whether or not the individual has diabetes (“Yes” or “No”). (This is your “outcome” column!)</li>
 </ul>
 <p><br><br></p>
 <ol style="list-style-type: decimal">
-<li><strong>Prepare the data for modeling:</strong> The <code>glm()</code> function that we use to perform a logistic regression in R really really wants the response variable to contain values 0 and 1, where 0 corresponds to so-called “failure” and 1 corresponds to so-called “success.” In addition, <code>glm()</code> gets very upset when there are <code>NA</code>s anywhere in the data. For this question, you want to create <strong>two</strong> new versions of the <code>pima</code> dataset whose column <code>diabetic</code> says 0 instead of “No” and 1 instead of “Yes”. Write two pipelines as follows:
-<ul>
-<li>For the first very quick pipeline, simply remove all <code>NA</code>s from <code>pima</code> using <code>drop_na()</code> (no argument!). Save this new tibble as <code>pima_clean</code>. This will be our new “baseline” <code>pima</code> dataset.</li>
-<li>For the second pipeline, <em>starting with your new <code>pima_nona</code></em> to…
-<ul>
-<li>Use <code>mutate()</code> with <code>if_else()</code> to create a new column called <code>diabetic_01</code> that contains 0/1 instead of “No”/“Yes”</li>
-<li>Use <code>select()</code> to <em>remove</em> the original <code>diabetic</code> column</li>
-<li>Save the tibble as <code>pima_clean_01</code>, and then print it out. <strong>This is the tibble you will use to build your model!</strong></li>
-</ul></li>
-</ul></li>
+<li><strong>Prepare the data for modeling:</strong> The <code>glm()</code> function that we use to perform a logistic regression in R really really wants the response variable to contain values 0 and 1, where 0 corresponds to so-called “failure” and 1 corresponds to so-called “success.” In addition, <code>glm()</code> gets very upset when there are <code>NA</code>s anywhere in the data. Therefore, for this question, you should to create a new version of the <code>pima</code> that contains no <code>NA</code>s, and the column <code>diabetic</code> contains <em>0 instead of “No” and 1 instead of “Yes”</em>. <strong>Save the tibble as <code>pima_01</code>, and then print it out. <em>This is the tibble you will use for the rest of the homework!</em></strong></li>
 </ol>
 <p><br></p>
 <ol start="2" style="list-style-type: decimal">
-<li><p><strong>Perform model selection:</strong> Using the <code>step()</code> function, determine the most appropriate model to explain diabetic status from the newly-wrangled dataset <code>pima_clean_01</code>. Reveal the full model output with the broom function <code>tidy()</code>.</p>
-<p><em>After the code</em>, write a properly-formatted (make sure to knit and check!) bullet point list stating the final predictors. You do not need to include information about the specific coefficient values or P-values - just bullet out what the predictors are. <em>Make sure you have properly formatted bullet points in your knitted output!!</em> <strong>The purpose of this part of the question is for you to practice writing markdown bullet points and ensure they knit properly.</strong></p></li>
+<li><p><strong>Build two candidate models:</strong> Rather than using model selection for this homework, you will practice logistic regression by comparing two potential candidate models. (There will not be any training/testing on this HW, but please remember that in the “real world” one should always perform some kind of validation!) For this question, build these two models and calculate their AUCs. <strong>In one <em>markdown</em> sentence, explain which model is preferred and why.</strong></p>
+<ul>
+<li>Candidate model 1 should have the following predictors:
+<ul>
+<li><code>glucose</code></li>
+<li><code>dbp</code></li>
+<li><code>skin</code></li>
+</ul></li>
+<li>Candidate model 2 should have the following predictors:
+<ul>
+<li><code>insulin</code></li>
+<li><code>skin</code><br />
+</li>
+<li><code>age</code></li>
+</ul></li>
+</ul></li>
 </ol>
 <p><br></p>
 <ol start="3" style="list-style-type: decimal">
-<li><p><strong>Evaluate your model with testing and training splits:</strong> Create a testing-training split where the training data comprises a random <em>70%</em> subset of the total <code>pima_clean_01</code> dataset. Build the model using the training data, and then evaluate how the model performs on both the training and testing splits by determining the <strong>AUC</strong> for each model. After the code, provide a brief explanation (1-2 sentences) about whether the model is likely overfit to the training data or not, and whether the AUC values suggest the model will do a good or poor job predicting future outcomes.</p>
-<p>Your code must have the following components:</p>
-<ul>
-<li>First, set your seed AS YOUR PERSONAL BANNER ID, using the variable defined in the <code>setup</code> chunk. YOU MUST USE YOUR BANNER ID AS THE NUMBER, which you should have defined in the <code>setup</code> code chunk!!! <strong>If you do not do this properly, there will be unpredictable mismatches between your written answer and the results your code produces when run. You must set your seed, and use it consistently.</strong></li>
-<li>Create a variable to represent the 70% split instead of hardcoding this value.</li>
-<li>Remember: <span class="math inline">\(R^2\)</span> and RMSE are not quantities we use to evaluate logistic regressions. We only are thinking about AUC here.</li>
-</ul></li>
-</ol>
-<p><br><br></p>
-<ol start="3" style="list-style-type: decimal">
-<li><strong>Plot the ROC curves:</strong> Visualize the <em>model performance</em> by plotting ROC curves for the training and testing splits. Specifically…
-<ul>
-<li>First, you will need to create the tibble that contains data to plot for this question. Do this in one wrangling pipeline, and save the tibble to <code>roc_data</code>. Print the tibble out, and <em>then</em> use the tibble to great your plot.</li>
-<li>Your plot should have a single panel with two ROC curves, one for training and testing each. Do not facet the plot.</li>
-<li>Curves should be <em>colored</em> based on testing and training. Non-default colors must be used here.</li>
-<li>You should also include a <span class="math inline">\(Y=X\)</span> line (add on include <code>geom_abline()</code>) that is a different color from the ROC curves themselves. This represents the “guiding line” indicating</li>
-<li><em>For bonus points</em>, teach yourself the <a href="https://ggplot2.tidyverse.org/reference/annotate.html"><code>annotate()</code> function in <code>ggplot2</code></a> an add in reasonably placed text annotations saying <code>AUC=...</code> for each curve. Note that this function is not (yet!) in the <code>introverse</code>. If you choose to try this bonus, you will need to use <code>annotate()</code> twice: once for each curve’s AUC label.</li>
-<li>No need to export with <code>ggsave()</code> but make sure the figure is fully legible (no overlapping text!!) in the final knitted Rmd.</li>
-</ul></li>
+<li><strong>Plot the ROC curves for both candidate models.</strong> Create a tibble of the data needed to plot both ROC curves (one for each candidate model), and then use that data to make a figure with two ROC curves. Curves should be colored by candidate model with a non-default palette, and the plot should include a guiding line representing “random chance.” Do not facet - curves should be in a single panel, distinguished only by color.</li>
 </ol>
 <p><br><br></p>
 <ol start="4" style="list-style-type: decimal">
-<li><strong>Visualize the model itself:</strong> Plot the resulting logistic curve from the <em>model built with training data ONLY.</em> Specifically…
+<li><strong>Plot the logistic curve for the preferred model.</strong> Now that you know which model is preferred (either Candidate 1 or Candidate 2!), visualize the logistic curve that is that model. Create a tibble of the data needed to plot the logistic curve, and then create your plot which should have….
 <ul>
-<li>First, you will need to create the tibble that contains data to plot for this question. Do this in one wrangling pipeline, and save the tibble to <code>curve_data</code>. Print the tibble out, and <em>then</em> use the tibble to great your plot.</li>
-<li>Your plot should contain a <strong>black</strong> logistic curve.</li>
-<li>On top of the black logistic curve, your plot should contain <strong>colored points</strong> based on diabetic status along the line. You must use non-default colors, and ensure that the points are sufficiently <em>transparent</em> to be able to see the black logistic curve.</li>
-<li>No need to export with <code>ggsave()</code> but make sure the figure is fully legible (no overlapping text!!) in the final knitted Rmd.</li>
-<li><strong>Hint:</strong> Your legend here should not say 0/1 for the diabetic status of each point. It should say “No”/Yes&quot;.</li>
+<li>A <strong>black</strong> logistic curve.</li>
+<li>Indications of the true diabetic status, EITHER as…
+<ul>
+<li>Transparent colored points based on diabetic status along the curve. Must be transparent enough to see the curve!</li>
+<li>A colored point rug.</li>
+<li>Either way, use non-default colors.</li>
+</ul></li>
+<li>Ensure that your legend says “Diabetic”/“Not diabetic” instead of “1” and “0”. <em>This will be part of your initial tibble creation with a little wrangling.</em></li>
 </ul></li>
 </ol>
 <p><br><br></p>
-<ol start="4" style="list-style-type: decimal">
-<li><strong>Model metrics</strong>: Determine the following give performance measures for this model using a success threshold of <em>&gt;=0.90</em>. Specifically…
+<ol start="5" style="list-style-type: decimal">
+<li><strong>Model metrics</strong>: Again considering only the preferred candidate model, determine the following give performance measures for this model using a success threshold of <em>&gt;=0.90</em>. Specifically…
 <ul>
 <li>First, you will need to create the tibble that contains counts for TP, FP, TN, and FN at the 90% threshold. Save this tibble to <code>pima_confusion</code> and print it out.</li>
-<li>Then, use the values in the tibble to calculate and print the five measures below. For some bonus points, incorporate a <code>tidyr</code> pivot function into your code and perform all calculations using <code>dplyr</code> strategies. For regular full-credit without bonus, you are welcome to “use R as a calculator” using values seen in <code>pima_confusion</code>. <em>But remember: No code, no credit. No arithmetic in your head.</em>
+<li>Then, use the values in the tibble to calculate and print the five measures below. For some bonus points, incorporate a <code>tidyr</code> pivot function into your code and perform all calculations using <code>dplyr</code> strategies. For regular full-credit without bonus, you are welcome to “use R as a calculator” using values seen in <code>pima_confusion</code>. <em>But remember: No code, no credit. No arithmetic in your head.</em></li>
+<li><em>You don’t have to write anything else in markdown, but ensure these calculated values are printed out, and <strong>your code is commented to clearly state which calculation is which</strong></em>.
 <ul>
 <li>Accuracy</li>
 <li>False discovery rate</li>
@@ -354,14 +345,14 @@ pre code {
 </ul></li>
 </ol>
 <p><br><br></p>
-<ol start="5" style="list-style-type: decimal">
-<li><p><strong>Prediction</strong>: A new Pima woman has arrived, and we want to use our model to predict whether she is diabetic. Write code and then <strong>answer in 1-2 brief markdown sentences</strong>: What is the probability according to our model that she has diabetes, and at a 90% success threshold, would this model classify her as Diabetic or Not Diabetic?</p>
-<p><em>Hint: Do you need all this information? In fact you do not!</em> For full credit, make sure your code is only considering variables that are relevant for answering the question. In other words, your code should not use any data the model doesn’t need.</p>
+<ol start="6" style="list-style-type: decimal">
+<li><p><strong>Prediction</strong>: A new Pima woman has arrived, and we want to use our preferred model to predict whether she is diabetic. Write code and then <strong>answer in a brief markdown sentence</strong>: What is the probability according to our model that she has diabetes, and at a 90% success threshold, would this model classify her as Diabetic or Not Diabetic?</p>
+<p><em>Hint: Do you need all this information? In fact you do not!</em> For full credit, make sure your code is only considering predictors that are relevant for answering the question. In other words, your code should not use any data the model doesn’t need.</p>
 <ul>
 <li><code>pregnancies</code>: 4</li>
 <li><code>glucose</code>: 127</li>
-<li><code>bp</code>: 92</li>
-<li><code>skin_thickness</code>: 28</li>
+<li><code>dbp</code>: 92</li>
+<li><code>skin</code>: 28</li>
 <li><code>insulin</code>: 160</li>
 <li><code>bmi</code>: 31</li>
 <li><code>age</code>: 44</li>
