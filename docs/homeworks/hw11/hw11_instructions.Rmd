@@ -67,13 +67,13 @@ For your assignment, you will be building and evaluating a logistic regression f
 
 <br><br>
 
-1. **Prepare the data for modeling:** The `glm()` function that we use to perform a logistic regression in R really really wants the response variable to contain values 0 and 1, where 0 corresponds to so-called "failure" and 1 corresponds to so-called "success." In addition, `glm()` gets very upset when there are `NA`s anywhere in the data. Therefore, for this question, you should to create a new version of the `pima` that contains no `NA`s, and the column `diabetic` contains *0 instead of "No" and 1 instead of "Yes"*. **Save the tibble as `pima_01`, and then print it out. _This is the tibble you will use for the rest of the homework!_**
+1. **Prepare the data for modeling:** The `glm()` function that we use to perform a logistic regression in R really really wants the response variable to contain values 0 and 1, where 0 corresponds to so-called "failure" and 1 corresponds to so-called "success." In addition, `glm()` gets very upset when there are `NA`s anywhere in the data. Therefore, for this question, create a new version of the `pima` that contains no `NA`s, and the column `diabetic` contains *0 instead of "No" and 1 instead of "Yes"* (we consider not diabetic as "failure" and diabetic as "success"). **Save the tibble as `pima_01`, and then print it out. _This is the tibble you will use for the rest of the homework!_**
 
 
 <br> 
 
 
-2. **Build two candidate models:** Rather than using model selection for this homework, you will practice logistic regression by comparing two potential candidate models. (There will not be any training/testing on this HW, but please remember that in the "real world" one should always perform some kind of validation!) For this question, build these two models and calculate their AUCs. **In one _markdown_ sentence, explain which model is preferred and why.**
+2. **Build two candidate models:** Rather than using model selection for this homework, you will practice logistic regression by comparing two potential candidate models. (There will not be any training/testing on this HW, but please remember that in the "real world" one should always perform build a model with a validation procedure!) For this question, build these two models and calculate their AUCs. **In one _markdown_ sentence, explain which model is preferred and why.**
 
     + Candidate model 1 should have the following predictors:
       + `glucose`
@@ -86,11 +86,11 @@ For your assignment, you will be building and evaluating a logistic regression f
 
 <br>
 
-3. **Plot the ROC curves for both candidate models.** Create a tibble of the data needed to plot both ROC curves (one for each candidate model), and then use that data to make a figure with two ROC curves. Curves should be colored by candidate model with a non-default palette, and the plot should include a guiding line representing "random chance." Do not facet - curves should be in a single panel, distinguished only by color. 
+3. **Plot the ROC curves for both candidate models.** Create a tibble of the data needed to plot both ROC curves (one for each candidate model), and then use that data to make a figure with two ROC curves. Curves should be colored by candidate model with a non-default palette, and the plot should include a guiding line representing "random chance." Do not facet - curves should be in a single panel, distinguished only by color, as was shown in class.
 
 <br><br>
 
-4. **Plot the logistic curve for the preferred model.** Now that you know which model is preferred (either Candidate 1 or Candidate 2!), visualize the logistic curve that is that model. Create a tibble of the data needed to plot the logistic curve, and then create your plot which should have....
+4. **Plot the logistic curve for the preferred model.** Now that you know which model is preferred (either Candidate 1 or Candidate 2!), visualize that model's logistic curve. Create a tibble of the data needed to plot the logistic curve (as done in class!), and then create your plot which should have....
     + A **black** logistic curve.
     + Indications of the true diabetic status, EITHER as...
       + Transparent colored points based on diabetic status along the curve. Must be transparent enough to see the curve!
@@ -115,10 +115,10 @@ For your assignment, you will be building and evaluating a logistic regression f
 <br><br>
 
 
-6. **Prediction**: A new Pima woman has arrived, and we want to use our preferred model to predict whether she is diabetic. Write code and then **answer in a brief markdown sentence**: What is the probability according to our model that she has diabetes, and at a 90% success threshold, would this model classify her as Diabetic or Not Diabetic?
+6. **Prediction**: A new Pima woman has arrived! Use the preferred model to predict whether she is diabetic. Write code and then **answer in a brief markdown sentence**: What is the probability according to our model that she has diabetes, and at a 90% success threshold, would this model classify her as Diabetic or Not Diabetic?
 
     *Hint: Do you need all this information? In fact you do not!* For full credit, make sure your code is only considering predictors that are relevant for answering the question. In other words, your code should not use any data the model doesn't need.
-    + `pregnancies`: 4
+    + `npreg`: 4
     + `glucose`: 127
     + `dbp`: 92
     + `skin`: 28

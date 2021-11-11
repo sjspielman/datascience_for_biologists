@@ -289,11 +289,11 @@ pre code {
 </ul>
 <p><br><br></p>
 <ol style="list-style-type: decimal">
-<li><strong>Prepare the data for modeling:</strong> The <code>glm()</code> function that we use to perform a logistic regression in R really really wants the response variable to contain values 0 and 1, where 0 corresponds to so-called “failure” and 1 corresponds to so-called “success.” In addition, <code>glm()</code> gets very upset when there are <code>NA</code>s anywhere in the data. Therefore, for this question, you should to create a new version of the <code>pima</code> that contains no <code>NA</code>s, and the column <code>diabetic</code> contains <em>0 instead of “No” and 1 instead of “Yes”</em>. <strong>Save the tibble as <code>pima_01</code>, and then print it out. <em>This is the tibble you will use for the rest of the homework!</em></strong></li>
+<li><strong>Prepare the data for modeling:</strong> The <code>glm()</code> function that we use to perform a logistic regression in R really really wants the response variable to contain values 0 and 1, where 0 corresponds to so-called “failure” and 1 corresponds to so-called “success.” In addition, <code>glm()</code> gets very upset when there are <code>NA</code>s anywhere in the data. Therefore, for this question, create a new version of the <code>pima</code> that contains no <code>NA</code>s, and the column <code>diabetic</code> contains <em>0 instead of “No” and 1 instead of “Yes”</em> (we consider not diabetic as “failure” and diabetic as “success”). <strong>Save the tibble as <code>pima_01</code>, and then print it out. <em>This is the tibble you will use for the rest of the homework!</em></strong></li>
 </ol>
 <p><br></p>
 <ol start="2" style="list-style-type: decimal">
-<li><p><strong>Build two candidate models:</strong> Rather than using model selection for this homework, you will practice logistic regression by comparing two potential candidate models. (There will not be any training/testing on this HW, but please remember that in the “real world” one should always perform some kind of validation!) For this question, build these two models and calculate their AUCs. <strong>In one <em>markdown</em> sentence, explain which model is preferred and why.</strong></p>
+<li><p><strong>Build two candidate models:</strong> Rather than using model selection for this homework, you will practice logistic regression by comparing two potential candidate models. (There will not be any training/testing on this HW, but please remember that in the “real world” one should always perform build a model with a validation procedure!) For this question, build these two models and calculate their AUCs. <strong>In one <em>markdown</em> sentence, explain which model is preferred and why.</strong></p>
 <ul>
 <li>Candidate model 1 should have the following predictors:
 <ul>
@@ -312,11 +312,11 @@ pre code {
 </ol>
 <p><br></p>
 <ol start="3" style="list-style-type: decimal">
-<li><strong>Plot the ROC curves for both candidate models.</strong> Create a tibble of the data needed to plot both ROC curves (one for each candidate model), and then use that data to make a figure with two ROC curves. Curves should be colored by candidate model with a non-default palette, and the plot should include a guiding line representing “random chance.” Do not facet - curves should be in a single panel, distinguished only by color.</li>
+<li><strong>Plot the ROC curves for both candidate models.</strong> Create a tibble of the data needed to plot both ROC curves (one for each candidate model), and then use that data to make a figure with two ROC curves. Curves should be colored by candidate model with a non-default palette, and the plot should include a guiding line representing “random chance.” Do not facet - curves should be in a single panel, distinguished only by color, as was shown in class.</li>
 </ol>
 <p><br><br></p>
 <ol start="4" style="list-style-type: decimal">
-<li><strong>Plot the logistic curve for the preferred model.</strong> Now that you know which model is preferred (either Candidate 1 or Candidate 2!), visualize the logistic curve that is that model. Create a tibble of the data needed to plot the logistic curve, and then create your plot which should have….
+<li><strong>Plot the logistic curve for the preferred model.</strong> Now that you know which model is preferred (either Candidate 1 or Candidate 2!), visualize that model’s logistic curve. Create a tibble of the data needed to plot the logistic curve (as done in class!), and then create your plot which should have….
 <ul>
 <li>A <strong>black</strong> logistic curve.</li>
 <li>Indications of the true diabetic status, EITHER as…
@@ -346,10 +346,10 @@ pre code {
 </ol>
 <p><br><br></p>
 <ol start="6" style="list-style-type: decimal">
-<li><p><strong>Prediction</strong>: A new Pima woman has arrived, and we want to use our preferred model to predict whether she is diabetic. Write code and then <strong>answer in a brief markdown sentence</strong>: What is the probability according to our model that she has diabetes, and at a 90% success threshold, would this model classify her as Diabetic or Not Diabetic?</p>
+<li><p><strong>Prediction</strong>: A new Pima woman has arrived! Use the preferred model to predict whether she is diabetic. Write code and then <strong>answer in a brief markdown sentence</strong>: What is the probability according to our model that she has diabetes, and at a 90% success threshold, would this model classify her as Diabetic or Not Diabetic?</p>
 <p><em>Hint: Do you need all this information? In fact you do not!</em> For full credit, make sure your code is only considering predictors that are relevant for answering the question. In other words, your code should not use any data the model doesn’t need.</p>
 <ul>
-<li><code>pregnancies</code>: 4</li>
+<li><code>npreg</code>: 4</li>
 <li><code>glucose</code>: 127</li>
 <li><code>dbp</code>: 92</li>
 <li><code>skin</code>: 28</li>
