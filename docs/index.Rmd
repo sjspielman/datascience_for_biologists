@@ -62,8 +62,8 @@ R 11/4 | Introduction to machine learning | [Slides](./slides/slides_ml_lm.pdf) 
 M 11/8 | Linear modeling I | Same slides as R 11/3 <br> RMarkdown activity: `linear_modeling`  |-
 W 11/10 | Linear modeling II | Same slides/activity  | Homework 9: Data reshaping with `tidyr` <br>  [Link to instructions](./homeworks/hw9/hw9_instructions.html)
 R 11/11 | Linear modeling III  | Same slides/activity | 
-M 11/15 | Introduction to logistic regression | Slides <br> RMarkdown activity: `logistic_regression` | -
-W 11/17 | Logistic regression II | Same slides/activity | Homework 10: Linear modeling  <br>  [Link to instructions](./homeworks/hw10/hw10_instructions.html)
+M 11/15 | Introduction to logistic regression | [Slides](./slides/slides_logistic.pdf) | -
+W 11/17 | Logistic regression II |  RMarkdown activity: `logistic_regression` | Homework 10: Linear modeling  <br>  [Link to instructions](./homeworks/hw10/hw10_instructions.html)
 R 11/18 | Logistic regression III | Same slides/activity | -
 M 11/22 | Clustering and PCA | | -
 W 11/24 | Clustering and PCA | | Homework 11: Logistic regression  <br>  [Link to instructions](./homeworks/hw11/hw11_instructions.html)
