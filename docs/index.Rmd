@@ -65,11 +65,11 @@ R 11/11 | Linear modeling III  | Same slides/activity |
 M 11/15 | Introduction to logistic regression | [Slides](./slides/slides_logistic.pdf) | -
 W 11/17 | Logistic regression II |  RMarkdown activity: `logistic_regression` | Homework 10: Linear modeling  <br>  [Link to instructions](./homeworks/hw10/hw10_instructions.html)
 R 11/18 | Logistic regression III | Same slides/activity | -
-M 11/22 | Clustering and PCA | | -
-W 11/24 | Clustering and PCA | | Homework 11: Logistic regression  <br>  [Link to instructions](./homeworks/hw11/hw11_instructions.html)
+M 11/22 | Introduction to UNIX I | [Cheatsheet](./tutorials/unix_cheatsheet.html) | -
+W 11/24 | Introduction to UNIX II <br> Introduction to Final Project | | Homework 11: Logistic regression  <br>  [Link to instructions](./homeworks/hw11/hw11_instructions.html)
 R 11/25 | _No class: Thanksgiving_  | - | 
-M 11/29 | UNIX and Github | Cheatsheets TBD | Homework 12: Final Project Proposal. _This homework may NOT be dropped. **It is due MONDAY 11:59 PM**_
-W 12/1 | UNIX and Github | Cheatsheets TBD | -
+M 11/29 | UNIX, continued | Cheatsheets TBD | -
+W 12/1 | UNIX and Github | Cheatsheets TBD | Homework 12: Final Project Proposal. _This homework may NOT be dropped._
 R 12/2 | UNIX and Github | Cheatsheets TBD | -
 M 12/6 | Final Project Setup | - | -
 W 12/8 | Grabbag! <br> How to make your own website <br> Setting up R/RStudio on your computer | - | -

@@ -1,14 +1,15 @@
 ---
 title: "UNIX Cheatsheet"
-output: html_document
-css: ../static/sjs-style.css
+output: 
+  html_document:
+    theme: simplex
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-> **This document is NOWHERE NEAR COMPREHENSIVE.** To learn more, visit Dr. Spielman's website and see "Resources"!
+> **This document is NOWHERE NEAR COMPREHENSIVE.** To learn more, visit [Dr. Spielman's website](https://spielmanlab.github.io/#resources) and see "Resources" --> "Command Line"!
 
 
 
@@ -24,30 +25,34 @@ knitr::opts_chunk$set(echo = TRUE)
     - **Relative path** represents the path of a given directory/file relative to the working/current directory.
 
 
-### Basic UNIX commands
+<br><br>
 
-> Note that # also represent comments in UNIX!
+## Fundamental UNIX commands
 
-Command | Description | | | | |Examples
--------|--------------|-|-|-|-|---------- 
-`touch` | Create an empty file. |||||`touch new_blank_file.txt`
-`pwd` | Display the path of the current directory (aka **p**rint **w**orking **d**irectory) ||||| `pwd # yup that's it!`
-`ls` | **L**i**s**t files and directories in current directory. |||||  `ls` <br> `ls -l # display long` <br> `ls -a # show hidden files` <br> `ls -la # display long and show hidden files` 
-`cd` | **C**hange **d**irectory |||||  `# Go into Desktop (assumed in the current directory!` <br> `cd Desktop` <br><br> `# Go one directory BACK` <br> `cd .. # one directory back` 
-`cp` | **C**o**p**y a file or directory (use `cp -r`) ||||| `Make a copy of oldfile.txt called newfile.txt` <br> `cp oldfile.txt newfile.txt` <br><br>  ` # Make a copy of oldfile.txt (same name!) that will live one directory back` <br> `cp oldfile.txt ..` <br><br> ` # Copy the whole directory first_directory called second_directory` <br> `cp -r first_directory second_directory`
-`mv` | **M**o**v**e or rename a file or directory (_original file is changed_ - like "cut" aka ctl+X) |||||  `# RENAME file from oldfile.txt to newfile.txt` <br> `mv oldfile.txt newfile.txt`  <br><br> `# MOVE oldfile.txt to live in the directory into_this_directory/`<br> `cp oldfile.txt into_this_directory/`  <br><br> `# MOVE oldfile.txt to live one directory back` <br> `cp oldfile.txt ..`
-`mkdir` | Create a new directory (aka **m**a**k**e **dir**ectory) ||||| `# Create a new folder called new_directory` <br> `mkdir new_directory`
-`rm` | **R**e**m**ove a file or directory (use `rm -r`). **This is PERMANENT!** ||||| `# PERMANENTLY delete a file` <br> `rm file_I_dont_need.txt` <br><br> `# PERMANENTLY delete a folder` <br> `rm -r directory_I_dont_need/`
-`clear` | **Clear** screen (simply scroll up for past commands). Can also use Ctrl + L ||||| `clear # yup that's it!`
-`history`| View history of recent past commands ||||| `history # yup that's it!`
+> Note that # are used for comments UNIX, just like in R (and python!)
+
+Command | Description | Usage 
+:-------|:-------------------------------------------------------------------------------------|:-----
+`pwd` | Display the path of the current directory (aka **p**rint **w**orking **d**irectory) | `pwd  # yup that's it!`
+`ls` | **L**i**s**t files and directories in current directory. |  `ls # yup that's it!` <br> `ls -l # display long` <br> `ls -a # show hidden files` <br> `ls -la # display long and show hidden files` 
+`cd` | **C**hange **d**irectory | `cd path/to/where/I/want/to/go`  <br>  <br><br> `# Go one directory BACK` <br> `cd .. # one directory back. We move backwards with ..` 
+`cp` | **C**o**p**y a file or directory (use `cp -r`). The original file is NOT changed, like "copy and paste" (`cmd+C`/`cmd+V`)| `Make a copy of oldfile.txt called newfile.txt` <br> `cp oldfile.txt newfile.txt`  <br><br> ` # Make a copy of the directory first_directory to be called second_directory` <br> `cp -r first_directory second_directory`
+`mv` | **M**o**v**e or rename a file or directory. The original file is changed, like "cut and paste" (`cmd+X`/`cmd+V`) |  `# RENAME file from oldfile.txt to newfile.txt` <br> `mv oldfile.txt newfile.txt`  <br><br> `# MOVE oldfile.txt to live in the directory into_this_directory/`<br> `cp oldfile.txt into_this_directory/`  <br><br> `# MOVE oldfile.txt to live one directory back` <br> `cp oldfile.txt ..`
+`touch` | Create an new (empty) file. | `touch name-of-the-new-file-you-want-to-make.txt` 
+`mkdir` | Create a new directory/folder (aka **m**a**k**e **dir**ectory) | `# Create a new folder called new_directory` <br> `mkdir new_directory`
+`rm` | **R**e**m**ove a file or directory (use `rm -r`). **This is PERMANENT!!!** | `# PERMANENTLY delete a file` <br> `rm file_I_dont_need.txt` <br><br> `# PERMANENTLY delete a folder` <br> `rm -r directory_I_dont_need/`
+`clear` | **Clear** screen (can still simply scroll up for past commands! they aren't gone!). | `clear # yup that's it!`
+`history`| View history of recent past commands | `history # yup that's it!`
+
+<br><br>
 
 ## Shortcuts and symbols
 
 Shortcut/symbol | Description
-----------|-----
-`Ctrl + C` | Kills current process/command
+----------|-----------------------------------------------------------
+`Ctrl+C` | Kills current process/command. **USE THIS WHEN THINGS GET WEIRD!**
 `tab` (tab key) | autocomplete word
 `↑` (up arrow)| scroll back through previous commands
-`.` | Current directory
-`..` | One directory level up 
+`.` | Represent the current directory you are in.
+`..` | Represents one directory backwards. For example, the path `../..` means: two directories back.
 
