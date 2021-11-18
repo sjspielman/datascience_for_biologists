@@ -1,6 +1,6 @@
 ---
 title: "Final Project Proposal and Final Project Instructions"
-subtitle: "Data Science for Biologists, Spring 2021"
+subtitle: "Data Science for Biologists, Fall 2021"
 output: 
   html_document:
       toc: true
@@ -77,7 +77,7 @@ For your proposal, you will identify a dataset to analyze, using the provided te
 
 > Complete and push all code by Tuesday 12/14/21 by 11:59 PM. Whatever code you most recently pushed before this time will be your final submission. **To be clear: Even if you push commits AFTER the deadline, those code changes will not be considered at all.**
 >
-> Unless you have an extremely extuenuating circumstance that we specifically discuss (in which case you are likely to get an "Incomplete" grade for the class), there are NO EXTENSIONS WHATSOEVER because this is equivalent to a "final exam." 
+> Unless you have an _extremely_ extuenuating circumstance that we specifically discuss (in which case you are likely to get an "Incomplete" grade for the class), there are NO EXTENSIONS WHATSOEVER because this is equivalent to a "final exam." 
 
 
 You must complete your final project using the template Rmarkdown file in your copy of the final project Github repository, which we will setup together as a class activity. 
@@ -102,7 +102,7 @@ Your final repository should contain only these files:
 
 #### Template
 
-The proposal is templated out for you as follows:
+The project is templated out for you as follows:
 
 + The **Introduction** section should first briefly describe the dataset (you can use the exact text you used in the proposal), including a direct link to the data's source. You should then include code to read in and briefly explore the dataset so readers have a sense of the data. _Again, if you are reading data from a file, make sure the file is properly named._
 

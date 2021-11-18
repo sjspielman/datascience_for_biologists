@@ -1,6 +1,6 @@
 ---
-title: "Project Proposal"
-subtitle: "Data Science for Biologists, Spring 2021"
+title: "Final Project Proposal"
+subtitle: "Data Science for Biologists, Fall 2021"
 author: "Your name goes here"
 output: html_document
 editor_options: 
@@ -15,18 +15,28 @@ library(tidyverse)
 
 
 
-### Data and Description
+### Introduction
 
-Replace this text with a brief description of your data, including why you chose this dataset and a properly markdown formatted link to the source.
-
+Delete this text and replace with your introduction of the dataset. Make sure you include a properly-formatted link to the data as well.
 
 ```{r read-and-glimpse-data}
+# Code to read in the data:
+
+
+# Code to dplyr::glimpse() the data:
+
 
 ```
 
+The variables in the dataset are as follows:
 
+<!-- Delete this HTML comment and instead include a bullet point list or table introducing all variables in the data. -->
 
-### Github account
+<br>
 
-My github account is: `replace this text with your account name, but make sure to keep the code formatting with backticks!`.
+### Proposed model
+
+<!-- Below is a "fill in the blanks!" situation! Delete the blanks, and replace, in order, with 1) either: linear or logistic, 2) the name of the variable **in backticks!!**, like `Species`. ---> 
+
+I plan to use a ______________ model to predict the variable ____________.
 

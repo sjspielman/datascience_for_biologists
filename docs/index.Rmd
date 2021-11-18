@@ -69,10 +69,10 @@ M 11/22 | Introduction to UNIX I | [Cheatsheet](./tutorials/unix_cheatsheet.html
 W 11/24 | Introduction to UNIX II <br> Introduction to Final Project | | Homework 11: Logistic regression  <br>  [Link to instructions](./homeworks/hw11/hw11_instructions.html)
 R 11/25 | _No class: Thanksgiving_  | - | 
 M 11/29 | UNIX, continued | Cheatsheets TBD | -
-W 12/1 | UNIX and Github | Cheatsheets TBD | Homework 12: Final Project Proposal. _This homework may NOT be dropped._
+W 12/1 | UNIX and Github | Cheatsheets TBD | Homework 12: Final Project Proposal. _This homework may NOT be dropped._ <br> [Link to instructions](./homeworks/project/project_proposal_instructions.html) <br> [Link to Rmd template](./homeworks/project/proposal_template.Rmd) 
 R 12/2 | UNIX and Github | Cheatsheets TBD | -
 M 12/6 | Final Project Setup | - | -
 W 12/8 | Grabbag! <br> How to make your own website <br> Setting up R/RStudio on your computer | - | -
 
 
-**Final project due Tuesday December, 14th by 11:59 PM.**
+**Final project due Tuesday December, 14th by 11:59 PM. [Link to instructions](./homeworks/project/project_proposal_instructions.html)**

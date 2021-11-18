@@ -1,0 +1,78 @@
+---
+title: "Final Project"
+subtitle: "Data Science for Biologists, Spring 2021"
+author: "Replace this with your name. It will super awkward if you don't."
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+# DON'T CHANGE THE NEXT LINE, except to add NEW options if you have any.
+knitr::opts_chunk$set(warning=FALSE, message=FALSE, echo = TRUE, include = TRUE)
+
+# Load all libraries you use HERE:
+```
+
+<br><br>
+
+## Introduction
+
+
+
+
+```{r read-examine-data}
+
+```
+
+<br><br>
+
+## Question 1: Modeling
+
+#### REPLACE TEXT WITH YOUR QUESTION. Your question should literally be a level-4 header.
+
+### Methods
+
+<!-- Insert R chunk(s) here to perform your exploratory analyses. --> 
+
+### Answer
+
+Replace this text with your answer to your question.
+
+
+<br><br>
+
+## Question 2
+
+#### REPLACE TEXT WITH YOUR QUESTION. Your question should literally be a level-4 header.
+
+### Methods
+
+### Answer
+
+Replace this text with your answer to your question.
+
+<br><br>
+
+## Question 3
+
+#### REPLACE TEXT WITH YOUR QUESTION. Your question should literally be a level-4 header.
+
+### Methods
+
+### Answer
+
+Replace this text with your answer to your question.
+
+
+<br><br>
+
+## Question 4
+
+#### REPLACE TEXT WITH YOUR QUESTION. Your question should literally be a level-4 header.
+
+### Methods
+
+### Answer
+
+Replace this text with your answer to your question.
