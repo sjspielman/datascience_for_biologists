@@ -330,11 +330,14 @@ pre code {
 </ol>
 <p><br><br></p>
 <ol start="5" style="list-style-type: decimal">
-<li><strong>Model metrics</strong>: Again considering only the preferred candidate model, determine the following give performance measures for this model using a success threshold of <em>&gt;=0.90</em>. Specifically…
+<li><strong>Model metrics</strong>: Again considering only the preferred candidate model, determine the following give performance measures for this model using a success threshold of <em>&gt;=0.75</em>. Specifically…
 <ul>
-<li>First, you will need to create the tibble that contains counts for TP, FP, TN, and FN at the 90% threshold. Save this tibble to <code>pima_confusion</code> and print it out.</li>
-<li>Then, use the values in the tibble to calculate and print the five measures below. For some bonus points, incorporate a <code>tidyr</code> pivot function into your code and perform all calculations using <code>dplyr</code> strategies. For regular full-credit without bonus, you are welcome to “use R as a calculator” using values seen in <code>pima_confusion</code>. <em>But remember: No code, no credit. No arithmetic in your head.</em></li>
-<li><em>You don’t have to write anything else in markdown, but ensure these calculated values are printed out, and <strong>your code is commented to clearly state which calculation is which</strong></em>.
+<li>First, you will need to create the tibble that contains counts for TP, FP, TN, and FN at the 75% threshold. This tibble should have <em>two columns and four rows (or if pivoted for some bonus points, four columns and 1 row - either is ok!)</em>. <strong>Save this tibble to <code>pima_confusion</code> and print it out.</strong></li>
+<li>Then, use information in your new <code>pima_confusion</code> tibble to calculate and <em>print</em> the five measures below.
+<ul>
+<li>For some bonus points, incorporate a <code>tidyr</code> pivot function into your code and perform all calculations using <code>dplyr</code> strategies. For regular full-credit without bonus, you are welcome to “use R as a calculator” using values seen in <code>pima_confusion</code>. <em>But remember: No code, no credit. No arithmetic in your head.</em></li>
+</ul></li>
+<li><em>You don’t have to write anything else in markdown, but ensure these calculated values are printed out, and <strong>your code contains COMMENTS that clearly state which calculation is which</strong></em>.
 <ul>
 <li>Accuracy</li>
 <li>False discovery rate</li>
@@ -346,7 +349,7 @@ pre code {
 </ol>
 <p><br><br></p>
 <ol start="6" style="list-style-type: decimal">
-<li><p><strong>Prediction</strong>: A new Pima woman has arrived! Use the preferred model to predict whether she is diabetic. Write code and then <strong>answer in a brief markdown sentence</strong>: What is the probability according to our model that she has diabetes, and at a 90% success threshold, would this model classify her as Diabetic or Not Diabetic?</p>
+<li><p><strong>Prediction</strong>: A new Pima woman has arrived! Use the preferred model to predict whether she is diabetic. Write code and then <strong>answer in a brief markdown sentence</strong>: What is the probability according to our model that she has diabetes, and at a 75% success threshold, would this model classify her as Diabetic or Not Diabetic?</p>
 <p><em>Hint: Do you need all this information? In fact you do not!</em> For full credit, make sure your code is only considering predictors that are relevant for answering the question. In other words, your code should not use any data the model doesn’t need.</p>
 <ul>
 <li><code>npreg</code>: 4</li>
@@ -358,6 +361,7 @@ pre code {
 <li><code>age</code>: 44</li>
 </ul></li>
 </ol>
+<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
 </div>
 
 

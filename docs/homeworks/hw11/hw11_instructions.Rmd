@@ -101,10 +101,11 @@ For your assignment, you will be building and evaluating a logistic regression f
 
 <br><br>
 
-5. **Model metrics**: Again considering only the preferred candidate model, determine the following give performance measures for this model using a success threshold of *>=0.90*. Specifically...
-    + First, you will need to create the tibble that contains counts for TP, FP, TN, and FN at the 90% threshold. Save this tibble to `pima_confusion` and print it out.
-    + Then, use the values in the tibble to calculate and print the five measures below. For some bonus points, incorporate a `tidyr` pivot function into your code and perform all calculations using `dplyr` strategies. For regular full-credit without bonus, you are welcome to "use R as a calculator" using values seen in `pima_confusion`. *But remember: No code, no credit. No arithmetic in your head.* 
-    + *You don't have to write anything else in markdown, but ensure these calculated values are printed out, and __your code is commented to clearly state which calculation is which__*.
+5. **Model metrics**: Again considering only the preferred candidate model, determine the following give performance measures for this model using a success threshold of *>=0.75*. Specifically...
+    + First, you will need to create the tibble that contains counts for TP, FP, TN, and FN at the 75% threshold. This tibble should have *two columns and four rows (or if pivoted for some bonus points, four columns and 1 row - either is ok!)*. **Save this tibble to `pima_confusion` and print it out.**
+    + Then, use information in your new `pima_confusion` tibble to calculate and _print_ the five measures below. 
+      + For some bonus points, incorporate a `tidyr` pivot function into your code and perform all calculations using `dplyr` strategies. For regular full-credit without bonus, you are welcome to "use R as a calculator" using values seen in `pima_confusion`. *But remember: No code, no credit. No arithmetic in your head.* 
+    + *You don't have to write anything else in markdown, but ensure these calculated values are printed out, and __your code contains COMMENTS that clearly state which calculation is which__*.
       + Accuracy
       + False discovery rate
       + True positive rate (aka sensitivity aka recall)
@@ -115,7 +116,7 @@ For your assignment, you will be building and evaluating a logistic regression f
 <br><br>
 
 
-6. **Prediction**: A new Pima woman has arrived! Use the preferred model to predict whether she is diabetic. Write code and then **answer in a brief markdown sentence**: What is the probability according to our model that she has diabetes, and at a 90% success threshold, would this model classify her as Diabetic or Not Diabetic?
+6. **Prediction**: A new Pima woman has arrived! Use the preferred model to predict whether she is diabetic. Write code and then **answer in a brief markdown sentence**: What is the probability according to our model that she has diabetes, and at a 75% success threshold, would this model classify her as Diabetic or Not Diabetic?
 
     *Hint: Do you need all this information? In fact you do not!* For full credit, make sure your code is only considering predictors that are relevant for answering the question. In other words, your code should not use any data the model doesn't need.
     + `npreg`: 4
@@ -125,3 +126,5 @@ For your assignment, you will be building and evaluating a logistic regression f
     + `insulin`: 160
     + `bmi`: 31
     + `age`: 44
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
