@@ -57,7 +57,7 @@ For your proposal, you will identify a dataset to analyze, using the provided te
 
 #### For your proposal, you will...
 
-+ Use the template and refer to the example proposal as a formatting guide.
++ Use the template!!
 + Introduce and briefly describe your dataset:
   + Provide a brief description (in your own words! do not plagiarize!!) of the data itself so anyone who views your analysis has a solid grounding to understand what you are doing!
   + Explain what excites or interests you about this data! Why did you choose it?
