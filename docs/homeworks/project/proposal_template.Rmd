@@ -17,7 +17,7 @@ library(tidyverse)
 
 ### Introduction
 
-Delete this text and replace with your introduction of the dataset. Make sure you include a properly-formatted link to the data as well.
+Delete all this text and replace with your introduction of the dataset. *Seriously, it's really awkward if you don't replace this template text! Make sure to always be __KNITTING AND CHECKING THE OUTPUT__ of your Rmds before submitting! Rmd files are the "source code" for the targeted goal of making fancy reports in R in HTML (the knitted stuff!).* Anyways, make sure you also include a properly-formatted link to the data as well. Hint: [this](https://youtu.be/iik25wqIuFo) is a properly formatted link. Knit to see how it looks with your Rmd theme! 
 
 ```{r read-and-glimpse-data}
 # Code to read in the data:
@@ -30,7 +30,9 @@ Delete this text and replace with your introduction of the dataset. Make sure yo
 
 The variables in the dataset are as follows:
 
-<!-- Delete this HTML comment and instead include a bullet point list or table introducing all variables in the data. -->
+<!-- Instructions inside an HTML comment! Use HTML comments to leave yourself notes in the Rmd that you *don't* want to appear in the knitted output. 
+Below, OUTSIDE the comment, include a bullet point list or table introducing all variables in the data. 
+-->
 
 <br>
 
