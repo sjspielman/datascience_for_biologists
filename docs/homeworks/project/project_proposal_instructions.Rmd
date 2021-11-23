@@ -17,17 +17,22 @@ library(tidyverse)
 
 ## Overall Instructions
 
-For your final project, you will be analyzing a dataset of your choosing. Your goal will be to ask **FOUR** scientific/explanatory questions about your dataset, and answer each question with any necessary associated wrangling, modeling, and visualization to address the question. Ground rules:
+For your final project, you will be analyzing a dataset of your choosing. Your goal will be to ask **FOUR** scientific/explanatory questions about your dataset, and answer each question with any necessary associated wrangling, modeling, and visualization to address *and/or complement* the question.
+
+
+#### Ground rules
 
 
 + You must complete your project each using the respective Rmarkdown template, and it must knit without errors for full credit. The template should knit to HTML only.
 + Your Rmarkdown document must use an Rmarkdown document theme and code syntax highlighting theme of your choosing.
 + Every question requires a data visualization. _It does not matter which geoms you use for your plots_, as long as the plots are properly made and are relevant to/address your given exploratory question. 
   + In other words: IT IS OK if you have the same type of plot for multiple (or all!) questions, as long each plot answers your question appropriately!
+    + *Carefully go over any HW feedback you have received for exploratory analysis to prepare!!*
 + You must ensure that all rendered plots are _fully visible and legible with an appropriate aspect ratio_. 
-+ At least ONE question must be EITHER a linear model or logistic regression. You can do more models if you want, but only one is required on the project. Associated ground rules:
++ At least ONE question must be EITHER a linear model or logistic regression. You can do more models if you want, but only one is required on the project. **Associated ground rules:**
   + You do not need to use testing/training splits for model training and validation, but you can if you choose. *If you do this, you must ensure your random number seed is properly set, and your written text and code output are precisely consistent.*
-  + Make it easier on yourself: Use `step()` to perform model selection, and consider the literal output of using `step()` to be your model itself. End of story!
+  + You can either do a specific hypothesis-based analysis (your question is: "do these specific variables explain variation in/predict status of response?", for linear/logistic respectively) OR use model selection to determine predictors (your question is: "does the model explain variation in/predict status of response?"). 
+  + If you perform model selection, make it easier on yourself: Use `step()` to perform model selection, and consider the literal output of using `step()` to be your model itself. End of story!
   + For any linear models, your explanation must include a brief interpretation of the model's RMSE and $R^2$. You are not required to interpret coefficients. There are several options for how you can include a visualization for this question, which we will discuss together based on your circumstance if you decide to include a linear model.
   + For any logistic regressions, your explanation must include a brief interpretation of the model's AUC. Your visualization must be the logistic curve itself.
 
@@ -53,7 +58,7 @@ For your proposal, you will identify a dataset to analyze, using the provided te
   + https://www.dataquest.io/blog/free-datasets-for-projects/
 + If you have read a scientific paper that you think has accessible data you want to use, *please reach out to me and I will help you track it down!*
 + If there is a specific of data from a certain field you want to use but you don't know where to find it, *reach out to me and I will help see if I can find one for you!*
-
++ If you find multiple related datasets from the same source (e.g. some `#tidytuesday` datasets have several CSVs associated with them), you can use them all and consider it "one" dataset.
 
 #### For your proposal, you will...
 
@@ -63,14 +68,17 @@ For your proposal, you will identify a dataset to analyze, using the provided te
   + Explain what excites or interests you about this data! Why did you choose it?
   + Include an _properly-formatted markdown link_ to the source of the data. Properly formatted markdown links are formatted as: `[text you want displayed](link)`. Please refer to the file `activities/rmarkdown_demonstration.Rmd` for further help.
   + Include either a bullet point list *or* a table (learn how to make a markdown table using resources embedded in `activities/rmarkdown_demonstration.Rmd`) that briefly describes all the variables (columns) in your data. If you obtained your data from a website that already contains such a bullet list or table description, feel free to literally use the same wording.
-    + If there's an insane amount of columns in your data such that this is ridiculous (like 50+ columns), please talk to me about it.
+    + If there's an insane amount of columns in your data such that this is ridiculous (like 30+ columns), please talk to me about it.
 + Read in the dataset with `read_csv()` and display the dataset with the `dplyr::glimpse()` function. 
   + Your dataset will either be a literal file, or it may be available online as a URL (like the `#tidytuesday` datasets). If it's a URL, just read from URL as normal.
   + *If your dataset is a literal file,* being read in from a file and NOT A URL, you **MUST** take the following actions:
     + Ensure the name of your file (and hence the code to read it in) is called `yourlastname_dataset.csv` (or a different extension as approrpiate). For example, I would name my data file as `spielman_dataset.csv`.
     + Submit the dataset to Canvas along with your Rmd (multi-file submission.) If the data is not also provided, the Rmd will not knit, and you will not be able to get credit.
 + Indicate which variable you plan to model and whether you will be using linear or logistic regression. (Hint: it entirely depends on the type of data!)
-
++ **FOR BONUS POINTS!! (CONCERNED ABOUT YOUR GRADE??!?! DOING THIS BONUS WILL SERIOUSLY HELP! THIS!!)** 
+  + Also tell me (casually is ok!) the other three questions you are considering asking for your final project, and to the extent possible, tell me about what kind of plot you are thinking of making.
+  + Doing this bonus means I will give you direct feedback on your project ideas while I grade the proposal! We can even use this bonus to start a back-and-forth conversation (after this submission, can continue on Slack!) about how you can approach each of your questions. This initiative will set you up for much more success completing the project!
+  
 <br><br>
 
 ## Final Project Instructions
@@ -92,7 +100,7 @@ Your final repository should contain only these files:
 + The `.gitignore` file (I have written this file for you)
 + The `.Rproj` file associated with the project
 + Your final project as an Rmarkdown named `<lastname>_final_project.Rmd`. 
-  + For example, I would call this `Spielman_final_project.Rmd`
+  + For example, I would call this `spielman_final_project.Rmd`. If you have two last names, you may use a dash: `last-name_final_project.Rmd` or choose to use only one - whichever you prefer!
 + Your final knitted project `<lastname>_final_project.html` (should be automatically named correctly if the `Rmd` is named correctly!)
 + Your dataset named `<lastname>_dataset.csv` (or `.tsv`, etc. depending on the file type)
   + Unless your data is being directly read in from a URL. If it's accessible from a URL, there does not need to be a separate file included in your project. 

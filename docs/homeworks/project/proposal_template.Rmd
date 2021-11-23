@@ -1,7 +1,7 @@
 ---
 title: "Final Project Proposal"
 subtitle: "Data Science for Biologists, Fall 2021"
-author: "Your name goes here"
+author: "Your name goes here. Seriously, don't forget to replace this with your name! Not a good look in the knitted output otherwise!"
 output: html_document
 editor_options: 
   chunk_output_type: console
@@ -17,7 +17,7 @@ library(tidyverse)
 
 ### Introduction
 
-Delete all this text and replace with your introduction of the dataset. *Seriously, it's really awkward if you don't replace this template text! Make sure to always be __KNITTING AND CHECKING THE OUTPUT__ of your Rmds before submitting! Rmd files are the "source code" for the targeted goal of making fancy reports in R in HTML (the knitted stuff!).* Anyways, make sure you also include a properly-formatted link to the data as well. Hint: [this](https://youtu.be/iik25wqIuFo) is a properly formatted link. Knit to see how it looks with your Rmd theme! 
+Delete all this text and replace with your introduction of the dataset. *Seriously, it's really __awkward__ if you don't replace this template text! Make sure to always be __KNITTING AND CHECKING THE OUTPUT__ of your Rmds before submitting! Rmd files are the "source code" for the targeted goal of making fancy reports in R in HTML (the knitted stuff!).* Anyways, make sure you also include a properly-formatted link to the data as well. Hint: [this](https://youtu.be/iik25wqIuFo) is a properly formatted link. Knit to see how it looks with your Rmd theme! 
 
 ```{r read-and-glimpse-data}
 # Code to read in the data:
@@ -40,5 +40,27 @@ Below, OUTSIDE the comment, include a bullet point list or table introducing all
 
 <!-- Below is a "fill in the blanks!" situation! Delete the blanks, and replace, in order, with 1) either: linear or logistic, 2) the name of the variable **in backticks!!**, like `Species`. ---> 
 
-I plan to use a ______________ model to predict the variable ____________.
+I plan to use a ______________ model to predict the variable ____________. 
 
+
+<!-- Another fill in the blank! Write either "hypothesis" or "exploratory". The "hypothesis" options means you will choose your predictor(s) yourself because you want to know how those predictors (or single predictor) affect(s) the response variable. The "exploratory" option means you will let `step()` pick predictors for you. IF YOU ARE GOING HYPOTHESIS: You must also include a list of bullet points with the predictors, in `backticks`, you plan to use. --> 
+
+My model framework will be ______________.
+
+
+
+### Optional but Highly Recommended Bonus
+
+<!-- Below is where you can put bonus, or ignore if you prefer! -->
+
+#### My proposed first question
+
+Replace this text with your thoughts on a question you will ask and how you will wrangle (as needed) and use visualization to address it. Please refer to dataset variables in `backticks` (not 'quotes'.) You do NOT have to actually do any coding here, but you can insert an R chunk if you want to show me something!
+
+#### My proposed second question
+
+Replace this text with your thoughts on a question you will ask and how you will wrangle (as needed) and use visualization to address it. Please refer to dataset variables in `backticks` (not 'quotes'.) You do NOT have to actually do any coding here, but you can insert an R chunk if you want to show me something!
+
+#### My proposed third question
+
+Replace this text with your thoughts on a question you will ask and how you will wrangle (as needed) and use visualization to address it. Please refer to dataset variables in `backticks` (not 'quotes'.) You do NOT have to actually do any coding here, but you can insert an R chunk if you want to show me something!

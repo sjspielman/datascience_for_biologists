@@ -33,7 +33,7 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE, echo = TRUE, include = TRUE)
 
 ### Methods
 
-<!-- Insert R chunk(s) here to perform your exploratory analyses. --> 
+<!-- Insert R chunk(s) here to build your model and make your visualization. --> 
 
 ### Answer
 
@@ -48,6 +48,9 @@ Replace this text with your answer to your question.
 
 ### Methods
 
+<!-- Insert R chunk(s) here to perform your exploratory analysis. --> 
+
+
 ### Answer
 
 Replace this text with your answer to your question.
@@ -59,6 +62,9 @@ Replace this text with your answer to your question.
 #### REPLACE TEXT WITH YOUR QUESTION. Your question should literally be a level-4 header.
 
 ### Methods
+
+<!-- Insert R chunk(s) here to perform your exploratory analysis. --> 
+
 
 ### Answer
 
@@ -72,6 +78,9 @@ Replace this text with your answer to your question.
 #### REPLACE TEXT WITH YOUR QUESTION. Your question should literally be a level-4 header.
 
 ### Methods
+
+<!-- Insert R chunk(s) here to perform your exploratory analysis. --> 
+
 
 ### Answer
 
