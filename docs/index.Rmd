@@ -66,7 +66,7 @@ M 11/15 | Introduction to logistic regression | [Slides](./slides/slides_logisti
 W 11/17 | Logistic regression II |  RMarkdown activity: `logistic_regression` | Homework 10: Linear modeling  <br>  [Link to instructions](./homeworks/hw10/hw10_instructions.html)
 R 11/18 | Logistic regression III | Same slides/activity | -
 M 11/22 | Introduction to UNIX I | [Cheatsheet](./tutorials/unix_cheatsheet.html) | -
-W 11/24 | **CLASS IS OVER ZOOM TODAY!!** <br> Introduction to Final Project <br> <br> [Link to instructions](./homeworks/project/project_proposal_instructions.html) <br> [Link to Rmd template](./homeworks/project/proposal_template.Rmd)  | Homework 11: Logistic regression  <br>  [Link to instructions](./homeworks/hw11/hw11_instructions.html)
+W 11/24 | **CLASS IS OVER ZOOM TODAY!!** <br> Introduction to Final Project | [Link to proposal and project instructions](./homeworks/project/project_proposal_instructions.html) <br> [Link to proposal Rmd template](./homeworks/project/proposal_template.Rmd)  | Homework 11: Logistic regression  <br>  [Link to instructions](./homeworks/hw11/hw11_instructions.html)
 R 11/25 | _No class: Thanksgiving_  | - | 
 M 11/29 | UNIX, continued | Cheatsheets TBD | -
 W 12/1 | UNIX and Github | Cheatsheets TBD | Homework 12: Final Project Proposal. _This homework may NOT be dropped._ <br> (The below links are the same as those shown on 11/24) <br> [Link to instructions](./homeworks/project/project_proposal_instructions.html) <br> [Link to Rmd template](./homeworks/project/proposal_template.Rmd) 
