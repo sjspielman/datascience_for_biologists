@@ -249,10 +249,6 @@ pre code {
 <li>Provide a brief description (in your own words! do not plagiarize!!) of the data itself so anyone who views your analysis has a solid grounding to understand what you are doing!</li>
 <li>Explain what excites or interests you about this data! Why did you choose it?</li>
 <li>Include an <em>properly-formatted markdown link</em> to the source of the data. Properly formatted markdown links are formatted as: <code>[text you want displayed](link)</code>. Please refer to the file <code>activities/rmarkdown_demonstration.Rmd</code> for further help.</li>
-<li>Include either a bullet point list <em>or</em> a table (learn how to make a markdown table using resources embedded in <code>activities/rmarkdown_demonstration.Rmd</code>) that briefly describes all the variables (columns) in your data. If you obtained your data from a website that already contains such a bullet list or table description, feel free to literally use the same wording.
-<ul>
-<li>If there’s an insane amount of columns in your data such that this is ridiculous (like 30+ columns), please talk to me about it.</li>
-</ul></li>
 </ul></li>
 <li>Read in the dataset with <code>read_csv()</code> and display the dataset with the <code>dplyr::glimpse()</code> function.
 <ul>
@@ -262,6 +258,10 @@ pre code {
 <li>Ensure the name of your file (and hence the code to read it in) is called <code>yourlastname_dataset.csv</code> (or a different extension as appropriate). For example, I would name my data file as <code>spielman_dataset.csv</code>.</li>
 <li>Submit the dataset to Canvas along with your Rmd (multi-file submission.) <strong>If the data is not also provided, the Rmd will not knit, and you will not be able to get credit.</strong></li>
 </ul></li>
+</ul></li>
+<li>Include either a bullet point list <em>or</em> a table (learn how to make a markdown table using resources embedded in <code>activities/rmarkdown_demonstration.Rmd</code>) that briefly describes all the variables (columns) in your data. If you obtained your data from a website that already contains such a bullet list or table description, feel free to literally use the same wording.
+<ul>
+<li>If there’s an insane amount of columns in your data such that this is ridiculous (like 30+ columns), please talk to me about it.</li>
 </ul></li>
 <li>Indicate which variable you plan to model and whether you will be using linear or logistic regression. (Hint: it entirely depends on the type of data!)</li>
 <li><strong>FOR BONUS POINTS!! (CONCERNED ABOUT YOUR GRADE??!?! DOING THIS BONUS WILL SERIOUSLY HELP! THIS!!)</strong>
@@ -307,6 +307,7 @@ pre code {
 <ul>
 <li><p>The <strong>Introduction</strong> section should first briefly describe the dataset (you can use the exact text you used in the proposal), including a direct link to the data’s source. You should then include code to read in and briefly explore the dataset so readers have a sense of the data. <em>Again, if you are reading data from a file, make sure the file is properly named.</em></p></li>
 <li><p>For each <strong>Question</strong> section, you should provide your question (questions are <em>questions</em>, not tasks) as a level-4 header. Under the <strong>Methods</strong> sub-header, include <em>named</em> code chunk(s) you need to wrangle and visualize data to answer the question and make your plot(s). Chunks should be reasonably named for the given task, and you can have as many chunks as you want as long as they are all under <strong>Methods</strong> and you ensure <em>that plot(s) are revealed as the last piece of code output in <strong>Methods.</strong></em> Then, under the <strong>Answer</strong> sub-header, provide your brief answer to your question.</p></li>
+<li><p>Remember! At the top of these instructions are <strong>associated ground rules</strong> for doing your modeling!</p></li>
 </ul>
 <p><br></p>
 </div>
