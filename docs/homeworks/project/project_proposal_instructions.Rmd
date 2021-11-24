@@ -25,22 +25,22 @@ For your final project, you will be analyzing a dataset of your choosing. Your g
 
 + You must complete your project each using the respective Rmarkdown template, and it must knit without errors for full credit. The template should knit to HTML only.
 + Your Rmarkdown document must use an Rmarkdown document theme and code syntax highlighting theme of your choosing.
-+ Every question requires a data visualization. _It does not matter which geoms you use for your plots_, as long as the plots are properly made and are relevant to/address your given exploratory question. 
-  + In other words: IT IS OK if you have the same type of plot for multiple (or all!) questions, as long each plot answers your question appropriately!
++ Every question requires a data visualization. _It does not matter which geoms you use for your plots_, as long as the plots are properly made and are relevant to address or complement your given exploratory question. 
+  + In other words: IT IS OK if you have the same type of plot for multiple questions, as long each plot is appropriately relevant for your question!
     + *Carefully go over any HW feedback you have received for exploratory analysis to prepare!!*
 + You must ensure that all rendered plots are _fully visible and legible with an appropriate aspect ratio_. 
 + At least ONE question must be EITHER a linear model or logistic regression. You can do more models if you want, but only one is required on the project. **Associated ground rules:**
   + You do not need to use testing/training splits for model training and validation, but you can if you choose. *If you do this, you must ensure your random number seed is properly set, and your written text and code output are precisely consistent.*
   + You can either do a specific hypothesis-based analysis (your question is: "do these specific variables explain variation in/predict status of response?", for linear/logistic respectively) OR use model selection to determine predictors (your question is: "does the model explain variation in/predict status of response?"). 
   + If you perform model selection, make it easier on yourself: Use `step()` to perform model selection, and consider the literal output of using `step()` to be your model itself. End of story!
-  + For any linear models, your explanation must include a brief interpretation of the model's RMSE and $R^2$. You are not required to interpret coefficients. There are several options for how you can include a visualization for this question, which we will discuss together based on your circumstance if you decide to include a linear model.
+  + For any linear models, your explanation must include a brief interpretation of the model's RMSE and $R^2$. You are not required to interpret coefficients. There are several options for how you can include a visualization for this question, which we will discuss together based on your circumstance if you decide to include a linear model. _Because you are not likely to be doing training/testing, it is only possible to evaluate model performance (% explained and error)._ Overfitting is only possible to learn about with validation procedures, so this is not part of your project (unless you decide you want to do a validation procedure!)
   + For any logistic regressions, your explanation must include a brief interpretation of the model's AUC. Your visualization must be the logistic curve itself.
 
 <br><br>
 
 ## Project Proposal Instructions 
 
-> Due Wednesday 12/1/21 by 11:59 PM. Timely submission is extremely important in case there are problems with your data's suitability for the final project and you need to find a new one. You will be able to resubmit the proposal for a full regrade if I do not approve it, as long as your initial submission arrives by the deadline AND knits without errors.
+> Due Wednesday 12/1/21 by 11:59 PM. Timely submission is extremely important in case there are problems with your data's suitability for the final project and you need to find a new one. As long as you submit a complete proposal by the deadline, you will be able to resubmit the proposal for a full regrade if I do not approve it.
 
 For your proposal, you will identify a dataset to analyze, using the provided template. You must choose a dataset that we have NOT used in class and you have not personally used for a `#tidytuesday` extra credit Some fantastic options for finding data include:
 
@@ -71,13 +71,15 @@ For your proposal, you will identify a dataset to analyze, using the provided te
     + If there's an insane amount of columns in your data such that this is ridiculous (like 30+ columns), please talk to me about it.
 + Read in the dataset with `read_csv()` and display the dataset with the `dplyr::glimpse()` function. 
   + Your dataset will either be a literal file, or it may be available online as a URL (like the `#tidytuesday` datasets). If it's a URL, just read from URL as normal.
-  + *If your dataset is a literal file,* being read in from a file and NOT A URL, you **MUST** take the following actions:
-    + Ensure the name of your file (and hence the code to read it in) is called `yourlastname_dataset.csv` (or a different extension as approrpiate). For example, I would name my data file as `spielman_dataset.csv`.
-    + Submit the dataset to Canvas along with your Rmd (multi-file submission.) If the data is not also provided, the Rmd will not knit, and you will not be able to get credit.
+  + *If your dataset is a literal file and CANNOT be read from a URL directly*, you **MUST** take the following actions:
+    + Ensure the name of your file (and hence the code to read it in) is called `yourlastname_dataset.csv` (or a different extension as appropriate). For example, I would name my data file as `spielman_dataset.csv`.
+    + Submit the dataset to Canvas along with your Rmd (multi-file submission.) **If the data is not also provided, the Rmd will not knit, and you will not be able to get credit.**
 + Indicate which variable you plan to model and whether you will be using linear or logistic regression. (Hint: it entirely depends on the type of data!)
 + **FOR BONUS POINTS!! (CONCERNED ABOUT YOUR GRADE??!?! DOING THIS BONUS WILL SERIOUSLY HELP! THIS!!)** 
   + Also tell me (casually is ok!) the other three questions you are considering asking for your final project, and to the extent possible, tell me about what kind of plot you are thinking of making.
   + Doing this bonus means I will give you direct feedback on your project ideas while I grade the proposal! We can even use this bonus to start a back-and-forth conversation (after this submission, can continue on Slack!) about how you can approach each of your questions. This initiative will set you up for much more success completing the project!
+  + If you want to up your game more, you can literally do your whole project effectively for a completion grade, and my grading feedback will guide you to what steps you need to take to tweak work you've started to really crush the final project. 
+  + **Punchline: Get bonus credit to put in more effort for the proposal so that you can put in less effort on the final project AND likely get a better grade on the final project.**
   
 <br><br>
 
@@ -129,9 +131,10 @@ This project is worth 20% of your final grade and is worth 150 points as follows
   + NOT using "forbidden" code like `View()`, `install.packages()`, etc. _If you need to use other packages that aren't already installed, please talk to me first!_
   + Setting your favorite Rmarkdown theme and syntax highlighting theme 
   + Ensuring all markdown elements appear in the knitted output as intended.
-+ **50 points** for successfully completing the project with git version control
++ **50 points** for successfully completing the project with `git` version control
   + **8 points** are for your five required commits (total 40 points)
   + **10 points** for a properly organized repository with correctly named files according to instructions
-  + If you do not use git for your final project (i.e. you write an Rmarkdown and _email it to me_ by the deadline), you can still get credit for your final project, BUT your maximum possible grade will be 100/150 (66.7%) since those 50 points are automatically lost.
+  + If you do not use `git` for your final project (i.e. you write an Rmarkdown and _email it to me_ by the deadline), you can still get credit for your final project, BUT your maximum possible grade will be 100/150 (66.7%) since those 50 points are automatically lost.
 
 
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
