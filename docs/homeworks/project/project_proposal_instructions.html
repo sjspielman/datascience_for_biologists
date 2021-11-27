@@ -512,7 +512,7 @@ pre code {
 <li><p>All figures must be both shown in the Rmd AND saved to a separate file inside a directory called <code>figures/</code>. Figures must always be <em>fully visible and legible</em> which will require you to set proper figure sizes</p>
 <ul>
 <li><strong>Export:</strong> Figures must be exported as PNG files to the <code>figures/</code> directory and named as <code>questionX.png</code> where <code>X</code> is the question number. If there are multiple figures for the question, use <code>questionX_figureY.png</code> (like <code>question1_figure1.png</code> and <code>question1_figure2.png</code> for example).</li>
-<li><code>ggsave()</code> must be used as taught <a href>here</a></li>
+<li><code>ggsave()</code> must be used as taught <a href="./tutorials/readr_ggsave.html">here</a></li>
 <li>You must use the variable <code>path_to_figures</code> (defined in setup chunk) along with the function <code>file.path()</code> when using <code>ggsave()</code> to export figures.</li>
 </ul></li>
 </ul>
@@ -529,7 +529,7 @@ pre code {
 <li>Naming all code chunks</li>
 <li>Proper use of the <code>file.path()</code> function with the <code>path_to_figures</code> variable when exporting figures</li>
 <li>NOT using “forbidden” code like <code>View()</code>, <code>install.packages()</code>, etc. <em>If you need to use other packages that aren’t already installed, please talk to me first!</em></li>
-<li>Setting your favorite Rmarkdown theme and syntax highlighting theme</li>
+<li>Setting your favorite Rmarkdown theme and syntax highlighting theme. Note that the template does not contain a default, so you must set your themes.</li>
 <li>Ensuring all markdown elements appear in the knitted output as intended.</li>
 </ul></li>
 <li><strong>50 points</strong> for successfully completing the project with <code>git</code> version control
