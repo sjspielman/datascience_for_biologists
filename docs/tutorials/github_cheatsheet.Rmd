@@ -8,29 +8,35 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ### Words to the wise
-+ In the cheatsheet, `<>` stands for a placeholder for how you might type something. You aren't meant to type these.
 + **These are `git` commands to be run in TERMINAL**: Make sure you are not running them from the R CONSOLE!
-+ When we type passwords in UNIX, no symbols appear - the password is STILL BEING TYPED, I promise.
 + Within RStudio Cloud, you may get this warning message when pushing:
 `error: cannot run rpostback-askpass: No such file or directory`. **Ignore it and do what you're doing!**
-+ Be careful with quotes. Programming needs plain quotes, *not curly quotes*. If you ever copy/paste via a Word Document or Google Doc, there is a good chance your quotes became curly. Your commands will NOT WORK in that case!
 + All `git` commands can be run from anywhere INSIDE the git repository - doesn't matter which specific directory (doesn't need to be "top level") as long as you are in one of them.
 + When you make typos (like `git pusj` misspelling `git push`), `git` will try to suggest to you which command you actually want! It's very helpful.
 
 ### Vocabulary
 
++ `git` is a software that performs version control (specifically, "distributed version control.") `github.com` is a website that you can use with `git`
+  + There are other such websites like `gitlab.com` and `bitbucket.org`, but `github.com` is probably the most popular.
 + A **repository** is a directory that `git` is managing 
 + Files that `git` knows about are **tracked**, i.e they are **under version control**
-+ File changed that will become part of the next commit are **staged**
-+ The **origin** refers to the remote (i.e., not on your computer - in this case it's `github.com`) repository where your local repository was originally cloned from.
-+ The word **master** refers to the primary repository branch. *Don't worry about it in this class*
-    + When you see `origin/master` displayed, interpret this to mean: the repository as it looks on `github.com`
++ File changes that will become part of the next commit are **staged**. We can **stage** changes in **tracked files** to take snapshots of them.
++ We take actions like....
+  + **add** files to either:
+    + If file is untracked, tell `git` it should track the file and stage it for the next commit
+    + If file is already tracked, tell `git` the file has been modified and we want to stage it (prepare for commit)
+  + **commit** files to take a permanent "snapshot" of all staged files
+  + **push** to send commits to the `github.com` *remote* of the repository
+  + **pull** to get commits from the remote `github.com` repository to the *local* clone
 
-### Initial setup
 
-To avoid being constantly prompted, you need to do this one time **per RStudio Cloud project** (aka "per computer" you work on - each RStudio Cloud project is technically a different little virtual computer in the cloud!).
+### Initial setup in Terminal
 
-These commands should be typed into **Terminal**. They tell `git` who you are, since you are about to be contributing to a `git` repository.
+<br>
+
+#### Step 1: Tell your computer who you are
+
+These commands should be typed into **Terminal**. This tells `git` about the identity of the "person working with `git` on this computer."
 
 ```{bash, eval=F}
 git config --global user.email "you@example.com"
@@ -43,12 +49,35 @@ git config --global user.email "spielman@rowan.edu"
 git config --global user.name "Stephanie Spielman"
 ```
 
+<br>
+
+#### Step 2: Tell `github.com` who your computer is
+
+These commands should be typed in **R Console**, making use of the handy `credentials` R package. You can also accomplish this with different commands in the Terminal, but this is much less irritating, I promise.
+
+*First, enter the following into the R Console in RStudio Cloud.* We'll need its output:
+
+```{bash, eval=F}
+# Generate an SSH Key to pair with GitHub
+credentials::ssh_keygen()
+```
+
+*Then...*
+  
+  1. Navigate to github.com, and go to Settings --> "SSH and GPG Keys" (or click [https://github.com/settings/keys](https://github.com/settings/keys)).
+  2. Click the big green button in the top right: "New SSH Key"
+  3. **Title** your key "RStudio Cloud"
+  4. In the **"Key"** field, paste the full output from `$pubkey`, _excluding the quotes_.
+  5. Click the big green button "Add SSH Key." *All set!!*
+
+
+<br><br>
 
 ### The _very basic_ `git` command reference
 
 Command | Description
 -------|--------------
-`git clone <URL>` |  Clone the repository to a new computer/Cloud project. **This should only be run ONCE**. This like like downloading the repository.
+`git clone <ssh repo address>` |  Clone the repository to a new computer. **This should only be run ONCE**. This like like downloading the repository.
 `git add <filename>` | Stage a file with changes. Use this to tell git: `There are changes here you should know about.`
 `git commit -m "message"` | Commit files that have been added/removed with a message! **Don't forget to type the `-m "message"` - you will be stuck in VIM if you forget, and that will not be pleasant.**
 `git push` | Send commit(s) to `github.com`
@@ -56,8 +85,8 @@ Command | Description
 `git mv <filename>` | Move a file and track this move with `git` in a shortcut version of `mv <filename> <newfilename>; git add <newfilename>` (Note: there is no analogous shortcut for `cp`). Use this to mv files that git knows about!
 `git rm <filename>`  | Remove a file from being tracked by git entirely. Hopefully you won't have to do this :).
 `git status` | Check the status of files. 
-`git checkout <filename>` | Obtain the current `github.com` version of the file. **Use this if you screwed something up and need to "reset" to the last COMMITTED version.**
-`git log` | See past commits and associated messages (press the `q` key to exit)
+`git checkout <filename>` | Obtain the most recent commited version of the file. **Use this if you screwed something up and need to "reset" to the last COMMITTED version. It's like an "Undo" button!**
+`git log` | See past commits and associated messages (may need to press the `q` key to exit)
 
 
 
@@ -66,7 +95,7 @@ Command | Description
 
 > At any and all times, running `git status` will show you what is staged, what is tracked but not staged, and what is not tracked at all.
 
-1. **Obtain** a local version (aka, on your computer) of a repository with `git clone <repository URL>`
+1. **Obtain** a local version (aka, on your computer) of a repository with `git clone <repo ssh address>`
 2. **Use `cd`** to navigate into that repository's directory in the terminal. 
 3. **Add files for staging** with `git add <filename>`
     + Any time you make a change to a file, it must be re-added
@@ -79,7 +108,11 @@ Command | Description
 6. **Update** your local repository with the `github.com` version of the repository with `git pull`
     + *This is ALWAYS STEP 1 when returning to a project! YOU DON'T WANT CONFLICTS*
 
+<br><br>
+
 ### Different types of output from `git status`
+
+<br>
 
 ##### Everything is up to date and there are no new changes. 
 ```
@@ -88,6 +121,8 @@ Your branch is up to date with 'origin/main'.
 
 nothing to commit, working tree clean
 ```
+
+<br>
 
 ##### New files are present, but `git` doesn't know about the files yet.
 ```
@@ -101,6 +136,8 @@ Untracked files:
 nothing added to commit but untracked files present (use "git add" to track)
 ```
 
+<br>
+
 ##### New files have been ADDED but not yet COMMITTED.
 ```
 On branch main
@@ -111,6 +148,7 @@ Changes to be committed:
 	new file:   new_file.txt
 ```
 
+<br>
 
 ##### Files have been committed, but not yet PUSHED to the github website
 ```
@@ -121,11 +159,15 @@ Your branch is ahead of 'origin/main' by 1 commit.
 nothing to commit, working tree clean
 ```
 
+<br><br>
 
 ### Miscellaneous Troubleshooting
 
 Some messages you might see, what they mean, and how to deal with them:
 
+
+
+<br>
 #### When running pretty much any git command:
 ```
 fatal: not a git repository (or any of the parent directories): .git
@@ -133,12 +175,17 @@ fatal: not a git repository (or any of the parent directories): .git
 
 This means you are running git commands but you are not in a git repository! You have to `cd` into the a repository's directory to run git commands.
 
+
+<br>
+
 #### When trying to add or remove a file:
 ```
 fatal: pathspec <name of file> did not match any files
 ```
 
 This means you are trying to add or remove a file that doesn't exist! Potentially, the file isn't there at all - (did you spell it wrong? are you in right directory? However, if the file *does* exist and you can't `git rm` it, that's because the file isn't actually under version control! `git` doesn't already know about the file so it doesn't want to remove it. Instead, you need to just remove the file regularly with plain `rm` instead of `git rm`. 
+
+<br>
 
 
 #### When trying to `commit`
@@ -148,3 +195,4 @@ error: switch `m' requires a value
 You forgot the commit *message*! You can't just type `git commit -m` - you need `git commit -m "YOUR MESSAGE GOES HERE"`.
 
 
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

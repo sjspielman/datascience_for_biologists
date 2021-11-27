@@ -100,13 +100,14 @@ Your final repository should contain only these files:
 
 + `README.md` (I have written this file for you)
 + The `.gitignore` file (I have written this file for you)
-+ The `.Rproj` file associated with the project
++ The `final_project.Rproj` file associated with the project 
+  + DO NOT WORRY if this file has unstaged changes throughout your work. NOT A BIG DEAL if you end up adding/committing or not!
 + Your final project as an Rmarkdown named `<lastname>_final_project.Rmd`. 
   + For example, I would call this `spielman_final_project.Rmd`. If you have two last names, you may use a dash: `last-name_final_project.Rmd` or choose to use only one - whichever you prefer!
 + Your final knitted project `<lastname>_final_project.html` (should be automatically named correctly if the `Rmd` is named correctly!)
 + Your dataset named `<lastname>_dataset.csv` (or `.tsv`, etc. depending on the file type)
   + Unless your data is being directly read in from a URL. If it's accessible from a URL, there does not need to be a separate file included in your project. 
-
++ A directory called **`figures/`** which contains all figures you have made in PNG format. Figures must be named as: `questionX.png`, and if there are multiple figures per question, `questionX_figureY.png` (where `X` and `Y` are numbers).
 
 <br>
 
@@ -120,22 +121,28 @@ The project is templated out for you as follows:
 
 + Remember! At the top of these instructions are **associated ground rules** for doing your modeling!
 
++ All figures must be both shown in the Rmd AND saved to a separate file inside a directory called `figures/`. Figures must always be *fully visible and legible* which will require you to set proper figure sizes
+  + **Export:** Figures must be exported as PNG files to the `figures/` directory and named as `questionX.png` where `X` is the question number. If there are multiple figures for the question, use `questionX_figureY.png` (like `question1_figure1.png` and `question1_figure2.png` for example).
+  + `ggsave()` must be used as taught [here]()
+  + You must use the variable `path_to_figures` (defined in setup chunk) along with the function `file.path()` when using `ggsave()` to export figures.
+
 <br>
 
 #### How will you be graded?
 
 This project is worth 20% of your final grade and is worth 150 points as follows:
 
-+ **20 points for each (total is 4x20=80)** successfully-completed question and answer, where each question/answer must have at least one associated figure.
++ **20 points for each (total is 4x20=80)** successfully-completed question and answer, where each question/answer must have at least one associated figure that is both revealed and exported.
 + **20 points** for adhering to the format. This includes...
   + Placing code into their intended code chunk. For example, libraries should only be loaded in the setup code chunk.
   + Naming all code chunks
+  + Proper use of the `file.path()` function with the `path_to_figures` variable when exporting figures
   + NOT using "forbidden" code like `View()`, `install.packages()`, etc. _If you need to use other packages that aren't already installed, please talk to me first!_
   + Setting your favorite Rmarkdown theme and syntax highlighting theme 
   + Ensuring all markdown elements appear in the knitted output as intended.
 + **50 points** for successfully completing the project with `git` version control
-  + **8 points** are for your five required commits (total 40 points)
-  + **10 points** for a properly organized repository with correctly named files according to instructions
+  + **6 points** are for your _six required commits_ (total 36 points)
+  + **14 points** for a properly organized repository with correctly named files according to instructions
   + If you do not use `git` for your final project (i.e. you write an Rmarkdown and _email it to me_ by the deadline), you can still get credit for your final project, BUT your maximum possible grade will be 100/150 (66.7%) since those 50 points are automatically lost.
 
 

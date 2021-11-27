@@ -59,6 +59,15 @@ if (!!window.navigator.userAgent.match("MSIE 8")) {
 !function(a){"use strict";a.matchMedia=a.matchMedia||function(a){var b,c=a.documentElement,d=c.firstElementChild||c.firstChild,e=a.createElement("body"),f=a.createElement("div");return f.id="mq-test-1",f.style.cssText="position:absolute;top:-100em",e.style.background="none",e.appendChild(f),function(a){return f.innerHTML='&shy;<style media="'+a+'"> #mq-test-1 { width: 42px; }</style>',c.insertBefore(e,d),b=42===f.offsetWidth,c.removeChild(e),{matches:b,media:a}}}(a.document)}(this),function(a){"use strict";function b(){u(!0)}var c={};a.respond=c,c.update=function(){};var d=[],e=function(){var b=!1;try{b=new a.XMLHttpRequest}catch(c){b=new a.ActiveXObject("Microsoft.XMLHTTP")}return function(){return b}}(),f=function(a,b){var c=e();c&&(c.open("GET",a,!0),c.onreadystatechange=function(){4!==c.readyState||200!==c.status&&304!==c.status||b(c.responseText)},4!==c.readyState&&c.send(null))};if(c.ajax=f,c.queue=d,c.regex={media:/@media[^\{]+\{([^\{\}]*\{[^\}\{]*\})+/gi,keyframes:/@(?:\-(?:o|moz|webkit)\-)?keyframes[^\{]+\{(?:[^\{\}]*\{[^\}\{]*\})+[^\}]*\}/gi,urls:/(url\()['"]?([^\/\)'"][^:\)'"]+)['"]?(\))/g,findStyles:/@media *([^\{]+)\{([\S\s]+?)$/,only:/(only\s+)?([a-zA-Z]+)\s?/,minw:/\([\s]*min\-width\s*:[\s]*([\s]*[0-9\.]+)(px|em)[\s]*\)/,maxw:/\([\s]*max\-width\s*:[\s]*([\s]*[0-9\.]+)(px|em)[\s]*\)/},c.mediaQueriesSupported=a.matchMedia&&null!==a.matchMedia("only all")&&a.matchMedia("only all").matches,!c.mediaQueriesSupported){var g,h,i,j=a.document,k=j.documentElement,l=[],m=[],n=[],o={},p=30,q=j.getElementsByTagName("head")[0]||k,r=j.getElementsByTagName("base")[0],s=q.getElementsByTagName("link"),t=function(){var a,b=j.createElement("div"),c=j.body,d=k.style.fontSize,e=c&&c.style.fontSize,f=!1;return b.style.cssText="position:absolute;font-size:1em;width:1em",c||(c=f=j.createElement("body"),c.style.background="none"),k.style.fontSize="100%",c.style.fontSize="100%",c.appendChild(b),f&&k.insertBefore(c,k.firstChild),a=b.offsetWidth,f?k.removeChild(c):c.removeChild(b),k.style.fontSize=d,e&&(c.style.fontSize=e),a=i=parseFloat(a)},u=function(b){var c="clientWidth",d=k[c],e="CSS1Compat"===j.compatMode&&d||j.body[c]||d,f={},o=s[s.length-1],r=(new Date).getTime();if(b&&g&&p>r-g)return a.clearTimeout(h),h=a.setTimeout(u,p),void 0;g=r;for(var v in l)if(l.hasOwnProperty(v)){var w=l[v],x=w.minw,y=w.maxw,z=null===x,A=null===y,B="em";x&&(x=parseFloat(x)*(x.indexOf(B)>-1?i||t():1)),y&&(y=parseFloat(y)*(y.indexOf(B)>-1?i||t():1)),w.hasquery&&(z&&A||!(z||e>=x)||!(A||y>=e))||(f[w.media]||(f[w.media]=[]),f[w.media].push(m[w.rules]))}for(var C in n)n.hasOwnProperty(C)&&n[C]&&n[C].parentNode===q&&q.removeChild(n[C]);n.length=0;for(var D in f)if(f.hasOwnProperty(D)){var E=j.createElement("style"),F=f[D].join("\n");E.type="text/css",E.media=D,q.insertBefore(E,o.nextSibling),E.styleSheet?E.styleSheet.cssText=F:E.appendChild(j.createTextNode(F)),n.push(E)}},v=function(a,b,d){var e=a.replace(c.regex.keyframes,"").match(c.regex.media),f=e&&e.length||0;b=b.substring(0,b.lastIndexOf("/"));var g=function(a){return a.replace(c.regex.urls,"$1"+b+"$2$3")},h=!f&&d;b.length&&(b+="/"),h&&(f=1);for(var i=0;f>i;i++){var j,k,n,o;h?(j=d,m.push(g(a))):(j=e[i].match(c.regex.findStyles)&&RegExp.$1,m.push(RegExp.$2&&g(RegExp.$2))),n=j.split(","),o=n.length;for(var p=0;o>p;p++)k=n[p],l.push({media:k.split("(")[0].match(c.regex.only)&&RegExp.$2||"all",rules:m.length-1,hasquery:k.indexOf("(")>-1,minw:k.match(c.regex.minw)&&parseFloat(RegExp.$1)+(RegExp.$2||""),maxw:k.match(c.regex.maxw)&&parseFloat(RegExp.$1)+(RegExp.$2||"")})}u()},w=function(){if(d.length){var b=d.shift();f(b.href,function(c){v(c,b.href,b.media),o[b.href]=!0,a.setTimeout(function(){w()},0)})}},x=function(){for(var b=0;b<s.length;b++){var c=s[b],e=c.href,f=c.media,g=c.rel&&"stylesheet"===c.rel.toLowerCase();e&&g&&!o[e]&&(c.styleSheet&&c.styleSheet.rawCssText?(v(c.styleSheet.rawCssText,e,f),o[e]=!0):(!/^([a-zA-Z:]*\/\/)/.test(e)&&!r||e.replace(RegExp.$1,"").split("/")[0]===a.location.host)&&("//"===e.substring(0,2)&&(e=a.location.protocol+e),d.push({href:e,media:f})))}w()};x(),c.update=x,c.getEmValue=t,a.addEventListener?a.addEventListener("resize",b,!1):a.attachEvent&&a.attachEvent("onresize",b)}}(this);
 };
 </script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script>
 
 /**
@@ -228,14 +237,9 @@ color: #d14;
   div.column{display: inline-block; vertical-align: top; width: 50%;}
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
-      </style>
+    </style>
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -248,32 +252,7 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
 
 
 
@@ -283,10 +262,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -303,6 +278,9 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
@@ -315,7 +293,6 @@ summary {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -379,7 +356,7 @@ summary {
 
 
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -391,11 +368,8 @@ summary {
 <div id="words-to-the-wise" class="section level3">
 <h3>Words to the wise</h3>
 <ul>
-<li>In the cheatsheet, <code>&lt;&gt;</code> stands for a placeholder for how you might type something. You aren’t meant to type these.</li>
 <li><strong>These are <code>git</code> commands to be run in TERMINAL</strong>: Make sure you are not running them from the R CONSOLE!</li>
-<li>When we type passwords in UNIX, no symbols appear - the password is STILL BEING TYPED, I promise.</li>
 <li>Within RStudio Cloud, you may get this warning message when pushing: <code>error: cannot run rpostback-askpass: No such file or directory</code>. <strong>Ignore it and do what you’re doing!</strong></li>
-<li>Be careful with quotes. Programming needs plain quotes, <em>not curly quotes</em>. If you ever copy/paste via a Word Document or Google Doc, there is a good chance your quotes became curly. Your commands will NOT WORK in that case!</li>
 <li>All <code>git</code> commands can be run from anywhere INSIDE the git repository - doesn’t matter which specific directory (doesn’t need to be “top level”) as long as you are in one of them.</li>
 <li>When you make typos (like <code>git pusj</code> misspelling <code>git push</code>), <code>git</code> will try to suggest to you which command you actually want! It’s very helpful.</li>
 </ul>
@@ -403,25 +377,55 @@ summary {
 <div id="vocabulary" class="section level3">
 <h3>Vocabulary</h3>
 <ul>
+<li><code>git</code> is a software that performs version control (specifically, “distributed version control.”) <code>github.com</code> is a website that you can use with <code>git</code>
+<ul>
+<li>There are other such websites like <code>gitlab.com</code> and <code>bitbucket.org</code>, but <code>github.com</code> is probably the most popular.</li>
+</ul></li>
 <li>A <strong>repository</strong> is a directory that <code>git</code> is managing</li>
 <li>Files that <code>git</code> knows about are <strong>tracked</strong>, i.e they are <strong>under version control</strong></li>
-<li>File changed that will become part of the next commit are <strong>staged</strong></li>
-<li>The <strong>origin</strong> refers to the remote (i.e., not on your computer - in this case it’s <code>github.com</code>) repository where your local repository was originally cloned from.</li>
-<li>The word <strong>master</strong> refers to the primary repository branch. <em>Don’t worry about it in this class</em>
+<li>File changes that will become part of the next commit are <strong>staged</strong>. We can <strong>stage</strong> changes in <strong>tracked files</strong> to take snapshots of them.</li>
+<li>We take actions like….
 <ul>
-<li>When you see <code>origin/master</code> displayed, interpret this to mean: the repository as it looks on <code>github.com</code></li>
+<li><strong>add</strong> files to either:
+<ul>
+<li>If file is untracked, tell <code>git</code> it should track the file and stage it for the next commit</li>
+<li>If file is already tracked, tell <code>git</code> the file has been modified and we want to stage it (prepare for commit)</li>
+</ul></li>
+<li><strong>commit</strong> files to take a permanent “snapshot” of all staged files</li>
+<li><strong>push</strong> to send commits to the <code>github.com</code> <em>remote</em> of the repository</li>
+<li><strong>pull</strong> to get commits from the remote <code>github.com</code> repository to the <em>local</em> clone</li>
 </ul></li>
 </ul>
 </div>
-<div id="initial-setup" class="section level3">
-<h3>Initial setup</h3>
-<p>To avoid being constantly prompted, you need to do this one time <strong>per RStudio Cloud project</strong> (aka “per computer” you work on - each RStudio Cloud project is technically a different little virtual computer in the cloud!).</p>
-<p>These commands should be typed into <strong>Terminal</strong>. They tell <code>git</code> who you are, since you are about to be contributing to a <code>git</code> repository.</p>
+<div id="initial-setup-in-terminal" class="section level3">
+<h3>Initial setup in Terminal</h3>
+<p><br></p>
+<div id="step-1-tell-your-computer-who-you-are" class="section level4">
+<h4>Step 1: Tell your computer who you are</h4>
+<p>These commands should be typed into <strong>Terminal</strong>. This tells <code>git</code> about the identity of the “person working with <code>git</code> on this computer.”</p>
 <pre class="bash"><code>git config --global user.email &quot;you@example.com&quot;
 git config --global user.name &quot;Your Name&quot;</code></pre>
 <p>For example, I would type:</p>
 <pre class="bash"><code>git config --global user.email &quot;spielman@rowan.edu&quot;
 git config --global user.name &quot;Stephanie Spielman&quot;</code></pre>
+<p><br></p>
+</div>
+<div id="step-2-tell-github.com-who-your-computer-is" class="section level4">
+<h4>Step 2: Tell <code>github.com</code> who your computer is</h4>
+<p>These commands should be typed in <strong>R Console</strong>, making use of the handy <code>credentials</code> R package. You can also accomplish this with different commands in the Terminal, but this is much less irritating, I promise.</p>
+<p><em>First, enter the following into the R Console in RStudio Cloud.</em> We’ll need its output:</p>
+<pre class="bash"><code># Generate an SSH Key to pair with GitHub
+credentials::ssh_keygen()</code></pre>
+<p><em>Then…</em></p>
+<ol style="list-style-type: decimal">
+<li>Navigate to github.com, and go to Settings –&gt; “SSH and GPG Keys” (or click <a href="https://github.com/settings/keys">https://github.com/settings/keys</a>).</li>
+<li>Click the big green button in the top right: “New SSH Key”</li>
+<li><strong>Title</strong> your key “RStudio Cloud”</li>
+<li>In the <strong>“Key”</strong> field, paste the full output from <code>$pubkey</code>, <em>excluding the quotes</em>.</li>
+<li>Click the big green button “Add SSH Key.” <em>All set!!</em></li>
+</ol>
+<p><br><br></p>
+</div>
 </div>
 <div id="the-very-basic-git-command-reference" class="section level3">
 <h3>The <em>very basic</em> <code>git</code> command reference</h3>
@@ -438,8 +442,8 @@ git config --global user.name &quot;Stephanie Spielman&quot;</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>git clone &lt;URL&gt;</code></td>
-<td>Clone the repository to a new computer/Cloud project. <strong>This should only be run ONCE</strong>. This like like downloading the repository.</td>
+<td><code>git clone &lt;ssh repo address&gt;</code></td>
+<td>Clone the repository to a new computer. <strong>This should only be run ONCE</strong>. This like like downloading the repository.</td>
 </tr>
 <tr class="even">
 <td><code>git add &lt;filename&gt;</code></td>
@@ -471,11 +475,11 @@ git config --global user.name &quot;Stephanie Spielman&quot;</code></pre>
 </tr>
 <tr class="odd">
 <td><code>git checkout &lt;filename&gt;</code></td>
-<td>Obtain the current <code>github.com</code> version of the file. <strong>Use this if you screwed something up and need to “reset” to the last COMMITTED version.</strong></td>
+<td>Obtain the most recent commited version of the file. <strong>Use this if you screwed something up and need to “reset” to the last COMMITTED version. It’s like an “Undo” button!</strong></td>
 </tr>
 <tr class="even">
 <td><code>git log</code></td>
-<td>See past commits and associated messages (press the <code>q</code> key to exit)</td>
+<td>See past commits and associated messages (may need to press the <code>q</code> key to exit)</td>
 </tr>
 </tbody>
 </table>
@@ -486,7 +490,7 @@ git config --global user.name &quot;Stephanie Spielman&quot;</code></pre>
 <p>At any and all times, running <code>git status</code> will show you what is staged, what is tracked but not staged, and what is not tracked at all.</p>
 </blockquote>
 <ol style="list-style-type: decimal">
-<li><strong>Obtain</strong> a local version (aka, on your computer) of a repository with <code>git clone &lt;repository URL&gt;</code></li>
+<li><strong>Obtain</strong> a local version (aka, on your computer) of a repository with <code>git clone &lt;repo ssh address&gt;</code></li>
 <li><strong>Use <code>cd</code></strong> to navigate into that repository’s directory in the terminal.</li>
 <li><strong>Add files for staging</strong> with <code>git add &lt;filename&gt;</code>
 <ul>
@@ -507,15 +511,18 @@ git config --global user.name &quot;Stephanie Spielman&quot;</code></pre>
 <li><em>This is ALWAYS STEP 1 when returning to a project! YOU DON’T WANT CONFLICTS</em></li>
 </ul></li>
 </ol>
+<p><br><br></p>
 </div>
 <div id="different-types-of-output-from-git-status" class="section level3">
 <h3>Different types of output from <code>git status</code></h3>
+<p><br></p>
 <div id="everything-is-up-to-date-and-there-are-no-new-changes." class="section level5">
 <h5>Everything is up to date and there are no new changes.</h5>
 <pre><code>On branch main
 Your branch is up to date with &#39;origin/main&#39;.
 
 nothing to commit, working tree clean</code></pre>
+<p><br></p>
 </div>
 <div id="new-files-are-present-but-git-doesnt-know-about-the-files-yet." class="section level5">
 <h5>New files are present, but <code>git</code> doesn’t know about the files yet.</h5>
@@ -527,6 +534,7 @@ Untracked files:
     new_file.txt
 
 nothing added to commit but untracked files present (use &quot;git add&quot; to track)</code></pre>
+<p><br></p>
 </div>
 <div id="new-files-have-been-added-but-not-yet-committed." class="section level5">
 <h5>New files have been ADDED but not yet COMMITTED.</h5>
@@ -536,6 +544,7 @@ Your branch is up to date with &#39;origin/main&#39;.
 Changes to be committed:
   (use &quot;git restore --staged &lt;file&gt;...&quot; to unstage)
     new file:   new_file.txt</code></pre>
+<p><br></p>
 </div>
 <div id="files-have-been-committed-but-not-yet-pushed-to-the-github-website" class="section level5">
 <h5>Files have been committed, but not yet PUSHED to the github website</h5>
@@ -544,25 +553,27 @@ Your branch is ahead of &#39;origin/main&#39; by 1 commit.
   (use &quot;git push&quot; to publish your local commits)
 
 nothing to commit, working tree clean</code></pre>
+<p><br><br></p>
 </div>
 </div>
 <div id="miscellaneous-troubleshooting" class="section level3">
 <h3>Miscellaneous Troubleshooting</h3>
 <p>Some messages you might see, what they mean, and how to deal with them:</p>
-<div id="when-running-pretty-much-any-git-command" class="section level4">
-<h4>When running pretty much any git command:</h4>
+<p><br> #### When running pretty much any git command:</p>
 <pre><code>fatal: not a git repository (or any of the parent directories): .git</code></pre>
 <p>This means you are running git commands but you are not in a git repository! You have to <code>cd</code> into the a repository’s directory to run git commands.</p>
-</div>
+<p><br></p>
 <div id="when-trying-to-add-or-remove-a-file" class="section level4">
 <h4>When trying to add or remove a file:</h4>
 <pre><code>fatal: pathspec &lt;name of file&gt; did not match any files</code></pre>
 <p>This means you are trying to add or remove a file that doesn’t exist! Potentially, the file isn’t there at all - (did you spell it wrong? are you in right directory? However, if the file <em>does</em> exist and you can’t <code>git rm</code> it, that’s because the file isn’t actually under version control! <code>git</code> doesn’t already know about the file so it doesn’t want to remove it. Instead, you need to just remove the file regularly with plain <code>rm</code> instead of <code>git rm</code>.</p>
+<p><br></p>
 </div>
 <div id="when-trying-to-commit" class="section level4">
 <h4>When trying to <code>commit</code></h4>
 <pre><code>error: switch `m&#39; requires a value</code></pre>
 <p>You forgot the commit <em>message</em>! You can’t just type <code>git commit -m</code> - you need <code>git commit -m &quot;YOUR MESSAGE GOES HERE&quot;</code>.</p>
+<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
 </div>
 </div>
 
@@ -575,7 +586,7 @@ nothing to commit, working tree clean</code></pre>
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -593,7 +604,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>

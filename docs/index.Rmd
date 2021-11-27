@@ -47,7 +47,7 @@ R 9/30 |  _Open work day_ | | -
 M 10/4 | Best practices in data visualization | [Slides](./slides/dataviz_style_slides.pdf) | Nothing due today, but watch Part 6 "Calling Bullshit" for Wednesday 
 W 10/6 |  Critiquing data viz <br> Customizing your plots in `ggplot2` | [In-class script: Facets and palettes](./inclass/ggplot2_facets_palettes.R)  | Watch Part 6 video playlist (~1 hour) from "Calling Bullshit": <br> [Link from "Calling Bullshit" class website](https://www.callingbullshit.org/videos.html) <br> [Direct YouTube link](https://www.youtube.com/watch?v=T-5aLbNeGo0) <br><br> Homework 4: Data visualization with `ggplot2`<br> [Link to Instructions](./homeworks/hw4/hw4_instructions.html)
 R 10/7 |  Introduction to exploratory data analysis | In-class activity | [Background reading: "A hypothesis is a liability"](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02133-w) 
-M 10/11 | Reading and writing data  |[Download in-class activity](https://github.com/sjspielman/datascience_for_biologists/raw/master/docs/inclass/mammals_activity.zip) |  [Background reading: "FILE NOT FOUND"](https://www.theverge.com/22684730/students-file-folder-directory-structure-education-gen-z)
+M 10/11 | Reading and writing data  | [Reference: reading and writing data and saving figures](./tutorials/readr_ggsave.html) <br> [Download in-class activity](https://github.com/sjspielman/datascience_for_biologists/raw/master/docs/inclass/mammals_activity.zip) |  [Background reading: "FILE NOT FOUND"](https://www.theverge.com/22684730/students-file-folder-directory-structure-education-gen-z)
 W 10/13 | Reading and writing data <br>  Introduction to data wrangling with `dplyr` and `tidyr`| See Canvas for spreadsheet links <br> In-class activity from Monday continued | Homework 5: Exploratory data analysis with `ggplot2` <br> [Link to instructions](./homeworks/hw5/hw5_instructions.html)
 R 10/14 | Data wrangling with `dplyr` and `tidyr` II | [In-class `dplyr` script from W 10/13- R 10/14](./inclass/notes_intro_dplyr.R) | -
 M 10/18 | Data wrangling with `dplyr` and `tidyr` III | [Introduction to `dplyr` exercises Set 1](./exercises/dplyr.html) | -
@@ -68,10 +68,10 @@ R 11/18 | Logistic regression III | Same slides/activity | -
 M 11/22 | Introduction to UNIX I | [Cheatsheet](./tutorials/unix_cheatsheet.html) | -
 W 11/24 | **CLASS IS OVER ZOOM TODAY!!** <br> Introduction to Final Project | [Link to proposal and project instructions](./homeworks/project/project_proposal_instructions.html) <br> [Link to proposal Rmd template](./homeworks/project/proposal_template.Rmd)  | Homework 11: Logistic regression  <br>  [Link to instructions](./homeworks/hw11/hw11_instructions.html)
 R 11/25 | _No class: Thanksgiving_  | - | 
-M 11/29 | UNIX, continued | Cheatsheets TBD | -
-W 12/1 | UNIX and Github | Cheatsheets TBD | Homework 12: Final Project Proposal. _This homework may NOT be dropped._ <br> (The below links are the same as those shown on 11/24) <br> [Link to instructions](./homeworks/project/project_proposal_instructions.html) <br> [Link to Rmd template](./homeworks/project/proposal_template.Rmd) 
-R 12/2 | UNIX and Github | Cheatsheets TBD | -
-M 12/6 | Final Project Setup | - | -
+M 11/29 | Introduction to `git` and GitHub | [Cheatsheet](./tutorials/github_cheatsheet.html) <br> [Graphical Cheatsheet](./tutorials/github_infographics/github_intro.pdf) | -
+W 12/1 | `git` and GitHub, continued | - | Homework 12: Final Project Proposal. _This homework may NOT be dropped._ <br> (The below links are the same as those shown on 11/24) <br> [Link to instructions](./homeworks/project/project_proposal_instructions.html) <br> [Link to Rmd template](./homeworks/project/proposal_template.Rmd) 
+R 12/2 | Final Project Setup | - | -
+M 12/6 | Open Work: Final Project | - | -
 W 12/8 | Optional Grabbag! <br> How to make your own website <br> Setting up R/RStudio on your computer <br> Statistical tests in R| - | -
 
 
