@@ -1,6 +1,6 @@
 ---
 title: "Final Project"
-subtitle: "Data Science for Biologists, Spring 2021"
+subtitle: "Data Science for Biologists, Fall 2021"
 author: "Replace this with your name. It will super awkward if you don't."
 output: html_document
 editor_options: 
@@ -33,11 +33,11 @@ knitr::opts_chunk$set(warning=FALSE, message=FALSE, echo = TRUE, include = TRUE)
 
 ### Methods
 
-<!-- Insert R chunk(s) here to build your model and make your visualization. --> 
+<!-- Insert NAMED R chunk(s) here to build your model and make your visualization. --> 
 
 ### Answer
 
-Replace this text with your answer to your question.
+Replace this text with the interpretation of your model. If you did a logistic regression, you must explain whether its AUC indicates a strong or weak model. If you did a linear model, you must explain whether BOTH its $R^2$ and RMSE indicate a strong or weak model.
 
 
 <br><br>
@@ -48,7 +48,7 @@ Replace this text with your answer to your question.
 
 ### Methods
 
-<!-- Insert R chunk(s) here to perform your exploratory analysis. --> 
+<!-- Insert NAMED R chunk(s) here to build your model and make your visualization. --> 
 
 
 ### Answer
@@ -63,7 +63,7 @@ Replace this text with your answer to your question.
 
 ### Methods
 
-<!-- Insert R chunk(s) here to perform your exploratory analysis. --> 
+<!-- Insert NAMED R chunk(s) here to build your model and make your visualization. --> 
 
 
 ### Answer
@@ -79,7 +79,7 @@ Replace this text with your answer to your question.
 
 ### Methods
 
-<!-- Insert R chunk(s) here to perform your exploratory analysis. --> 
+<!-- Insert NAMED R chunk(s) here to build your model and make your visualization. --> 
 
 
 ### Answer
