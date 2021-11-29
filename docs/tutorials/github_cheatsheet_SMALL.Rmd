@@ -12,20 +12,19 @@ knitr::opts_chunk$set(echo = TRUE)
 <br>
 
 **ADD! COMMIT! PUSH!** _and repeat_  **ADD! COMMIT! PUSH** _and repeat..._ 
-
 <br>
 
 Command | Description
 -------|--------------
 `git clone <ssh repo address>` |  Clone the repository to a new computer. **This should only be run ONCE**. This like like downloading the repository.
-`git add <filename>` | Stage a file with changes. Use this to tell git: `There are changes here you should know about.`
+`git add filename` | Stage a file with changes. Use this to tell git: `There are changes here you should know about.`
 `git commit -m "message"` | Commit files that have been added/removed with a message! **Don't forget to type the `-m "message"` - you will be stuck in VIM if you forget, and that will not be pleasant.**
 `git push` | Send commit(s) to `github.com`
 `git pull` | Obtain commits pushed to `github.com` onto the current machine. When working on multiple computers or with contributors, you should do this EVERY TIME you start working again in the project.
-`git mv <filename>` | Move a file and track this move with `git` in a shortcut version of `mv <filename> <newfilename>; git add <newfilename>` (Note: there is no analogous shortcut for `cp`). Use this to mv files that git knows about!
-`git rm <filename>`  | Remove a file from being tracked by git entirely. Hopefully you won't have to do this :).
+`git mv old_filename new_filename` | Move a file and track this move with `git` in a shortcut version of `mv old_filename new_filename; git add new_filename` (Note: there is no analogous shortcut for `cp`). Use this to mv files that git knows about!
+`git rm filename`  | Remove a file from being tracked by git entirely. Hopefully you won't have to do this :).
 `git status` | Check the status of files. 
-`git checkout <filename>` | Obtain the most recent commited version of the file. **Use this if you screwed something up and need to "reset" to the last COMMITTED version. It's like an "Undo" button!**
+`git checkout filename` | Obtain the most recent commited version of the file. **Use this if you screwed something up and need to "reset" to the last COMMITTED version. It's like an "Undo" button!**
 `git log` | See past commits and associated messages (may need to press the `q` key to exit)
 
 

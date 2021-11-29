@@ -260,7 +260,7 @@ credentials::ssh_keygen()</code></pre>
 <td>Clone the repository to a new computer. <strong>This should only be run ONCE</strong>. This like like downloading the repository.</td>
 </tr>
 <tr class="even">
-<td><code>git add &lt;filename&gt;</code></td>
+<td><code>git add filename</code></td>
 <td>Stage a file with changes. Use this to tell git: <code>There are changes here you should know about.</code></td>
 </tr>
 <tr class="odd">
@@ -276,11 +276,11 @@ credentials::ssh_keygen()</code></pre>
 <td>Obtain commits pushed to <code>github.com</code> onto the current machine. When working on multiple computers or with contributors, you should do this EVERY TIME you start working again in the project.</td>
 </tr>
 <tr class="even">
-<td><code>git mv &lt;filename&gt;</code></td>
-<td>Move a file and track this move with <code>git</code> in a shortcut version of <code>mv &lt;filename&gt; &lt;newfilename&gt;; git add &lt;newfilename&gt;</code> (Note: there is no analogous shortcut for <code>cp</code>). Use this to mv files that git knows about!</td>
+<td><code>git mv old_filename new_filename</code></td>
+<td>Move a file and track this move with <code>git</code> in a shortcut version of <code>mv old_filename new_filename; git add new_filename</code> (Note: there is no analogous shortcut for <code>cp</code>). Use this to mv files that git knows about!</td>
 </tr>
 <tr class="odd">
-<td><code>git rm &lt;filename&gt;</code></td>
+<td><code>git rm filename</code></td>
 <td>Remove a file from being tracked by git entirely. Hopefully you won’t have to do this :).</td>
 </tr>
 <tr class="even">
@@ -288,7 +288,7 @@ credentials::ssh_keygen()</code></pre>
 <td>Check the status of files.</td>
 </tr>
 <tr class="odd">
-<td><code>git checkout &lt;filename&gt;</code></td>
+<td><code>git checkout filename</code></td>
 <td>Obtain the most recent commited version of the file. <strong>Use this if you screwed something up and need to “reset” to the last COMMITTED version. It’s like an “Undo” button!</strong></td>
 </tr>
 <tr class="even">
