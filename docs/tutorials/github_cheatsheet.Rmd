@@ -1,6 +1,8 @@
 ---
 title: "Git(hub) Cheatsheet"
-output: html_document
+output: 
+  html_document:
+    toc: true
 ---
 
 ```{r setup, include=FALSE}
@@ -30,7 +32,7 @@ knitr::opts_chunk$set(echo = TRUE)
   + **pull** to get commits from the remote `github.com` repository to the *local* clone
 
 
-### Initial setup in Terminal
+### Initial setup when using `git` and `github.com` for the first time with a given computer
 
 <br>
 
