@@ -123,7 +123,7 @@ The project is templated out for you as follows:
 
 + All figures must be both shown in the Rmd AND saved to a separate file inside a directory called `figures/`. Figures must always be *fully visible and legible* which will require you to set proper figure sizes
   + **Export:** Figures must be exported as PNG files to the `figures/` directory and named as `questionX.png` where `X` is the question number. If there are multiple figures for the question, use `questionX_figureY.png` (like `question1_figure1.png` and `question1_figure2.png` for example).
-  + `ggsave()` must be used as taught [here](./tutorials/readr_ggsave.html)
+  + `ggsave()` must be used as taught [here](../../tutorials/readr_ggsave.html)
   + You must use the variable `path_to_figures` (defined in setup chunk) along with the function `file.path()` when using `ggsave()` to export figures.
 
 <br>
