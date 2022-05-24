@@ -42,7 +42,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 <br> 
 
-2. Define a variable `success_status` whose values *depends* on a logical comparison, using variables `a` and `b` from the previous question. If `a` squared equals `b`, `success_status` should be defined with the value "eureka". Otherwise, if `a` squared does not equal `b`, `success_status` should be defined with the value "wompwomp". **Print the value of `success_status` after it is defined.**
+2. Define a variable `success_status` whose values *depend* on a logical comparison, using variables `a` and `b` from the previous question. If `a` squared equals `b`, `success_status` should be defined with the value "eureka". Otherwise, if `a` squared does not equal `b`, `success_status` should be defined with the value "wompwomp". **Print the value of `success_status` after it is defined.**
       + Need help? Run `get_help("ifelse")` in the R Console after loading the `introverse` library.
       + Do NOT redefine the `a` and `b` variables. You defined them in question #2, and you are still coding in the same Rmarkdown file. _We always want to avoid repeating code since it often leads to unexpected bugs._
 
@@ -53,7 +53,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 <br>
 
-4. Define an array variable called `dinosaurs` to contain the three strings: "eagle", "ostrich", and "sparrow" (wait, those are all birds?! That's right, birds are dinosaurs!). Then, define two other variables called `mammals_length` and `dinosaurs_length`. The variable `mammals_length` should be defined as the result of running `length()` on the `mammals_vector` array you defined in the previous question. The variable `dinosaurs_length` should similar be defined as the result of running `length()` on the `dinosaurs` array. Finally, use a logical operator to compare these variables. **If `mammals_length` is larger than `dinosaurs_length` (in other words, the mammals array is longer than the dinosaurs array), your code should print `TRUE`. Otherwise, your code should print `FALSE`.**
+4. Define an array variable called `dinosaurs` to contain three strings: "eagle", "ostrich", and "sparrow" (wait, those are all birds?! That's right, birds are dinosaurs!). Then, define two other variables called `mammals_length` and `dinosaurs_length`. The variable `mammals_length` should be defined as the result of running `length()` on the `mammals_vector` array you defined in the previous question. The variable `dinosaurs_length` should similar be defined as the result of running `length()` on the `dinosaurs` array. Finally, use a logical operator to compare these variables. **If `mammals_length` is larger than `dinosaurs_length` (in other words, the mammals array is longer than the dinosaurs array), your code should print `TRUE`. Otherwise, your code should print `FALSE`.**
     + Need help? Run `get_help("length")` in the R Console after loading the `introverse` library.
     + Make sure to have variables dynamically assigned with `length()`! Scroll to the bottom of these instructions to see what I mean by making sure code produces the length variables!
 
@@ -89,7 +89,7 @@ knitr::opts_chunk$set(echo = TRUE)
 <br> 
 
 
-10. There is a super useful function called `paste()` which allows you to strings (characters) together to create a new string. See how this function works below:
+10. There is a super useful function called `paste()` that allows you to combine strings (characters) together to create a new string. See how this function works below:
 
       ```{r paste_demo}
       # combine the three strings "string 1", "and", and "string 2" into ONE string
@@ -122,7 +122,7 @@ knitr::opts_chunk$set(echo = TRUE)
 <br>
 
 
-11. For the remaining questions, you will consider the built-in R dataset `iris`, a famous dataset with 150 rows and 5 columns that provides physical measurements for 150 iris specimens from three different species.
+11. For the remaining questions, you will consider the built-in R dataset `iris`, a famous dataset with 150 rows and 5 columns that provides physical measurements for 150 iris (a type of flowering plant) specimens from three different species.
 
     For this question, write _code_ to determine the following information about `iris`. You need to use a single function for each task (there will be four lines of code in the end), and all output should be printed from the chunk.
 
@@ -147,7 +147,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 <br>
 
-15. To learn a little more about factors, let's _coerce_ some columns into and away from factors. To do this, we'll create a new dataset called `iris2` containing some coerced columns. _Copy and paste the following code into the R chunk for this question (this code should be the first code in your answer!!). This code creates a new data frame `iris2` that contains the same information as `iris`, but `Species` is no longer factor (it is now character), and `Sepal.Width` is no longer numeric (it is now a factor).
+15. To learn a little more about factors, let's _coerce_ some columns into and away from factors. To do this, we'll create a new dataset called `iris2` containing some coerced columns. Copy and paste the following code into the R chunk for this question (this code should be the first code in your answer!!). This code creates a new data frame `iris2` that contains the same information as `iris`, but `Species` is no longer factor (it is now character), and `Sepal.Width` is no longer numeric (it is now a factor).
 
     ```{r eval=F}
     # Create a copy of iris in iris2
@@ -189,7 +189,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 <br><br>
-**NO!** This is getting much closer, since we now have the fully code needed to generate the output. However, nothing is actually printed, so the output is not revealed. _It is critical to always reveal the output!_
+**NO!** This is getting much closer, since we now have the full code needed to generate the output. However, nothing is actually printed, so the output is not revealed. _It is critical to always reveal the output!_
 ```{r}
 answer <- length(c(4,6,10))
 ```
