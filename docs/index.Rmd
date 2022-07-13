@@ -3,6 +3,11 @@ title: "Data Science for Biologists, Fall 2021"
 output: html_document
 ---
 
+**THIS COURSE IS NOW READ-ONLY.**
+Dr. Spielman is no longer at Rowan University, and can be reached at `stephanie.spielman@gmail.com`.
+Content below is preserved from Fall 2021.
+--------------------------------------------------------------
+
 
 This website contains all materials used in BIOL 01301 Fall 2021 at Rowan University with [Dr. Spielman](https://spielmanlab.github.io) ([`spielman@rowan.edu`](mailto:spielman@rowan.edu)). (Are you a former student looking for your semester's version of this website? Email Dr. Spielman!) 
 
