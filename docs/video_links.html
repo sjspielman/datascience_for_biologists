@@ -13,8 +13,8 @@
 
 <title>Links to short help videos</title>
 
-<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -57,6 +57,7 @@ if (window.hljs) {
 
 
 
+
 <link rel="stylesheet" href="assets/custom.css" type="text/css" />
 
 
@@ -82,6 +83,9 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+details > summary > p:only-child {
+  display: inline;
+}
 pre code {
   padding: 0;
 }
@@ -101,8 +105,8 @@ pre code {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -110,16 +114,9 @@ pre code {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -173,25 +170,34 @@ pre code {
 <div id="working-in-rstudio-cloud" class="section level3">
 <h3>Working in RStudio Cloud</h3>
 <ul>
-<li><a href="https://youtu.be/HuEn5s3qByI">Customing RStudio pane layout</a></li>
-<li><a href="https://youtu.be/bAzWtVg-JjA">Customizing RStudio font and editor theme</a></li>
-<li><a href="https://youtu.be/stYKskGN15g">Helpful settings that make coding easier</a></li>
-<li><a href="https://youtu.be/dlFsYx8-Zys">Dealing with <em>problems</em> with the R session or RStudio Cloud Server</a></li>
+<li><a href="https://youtu.be/HuEn5s3qByI">Customing RStudio pane
+layout</a></li>
+<li><a href="https://youtu.be/bAzWtVg-JjA">Customizing RStudio font and
+editor theme</a></li>
+<li><a href="https://youtu.be/stYKskGN15g">Helpful settings that make
+coding easier</a></li>
+<li><a href="https://youtu.be/dlFsYx8-Zys">Dealing with
+<em>problems</em> with the R session or RStudio Cloud Server</a></li>
 </ul>
 </div>
 <div id="working-with-rmarkdown-documents" class="section level3">
 <h3>Working with RMarkdown Documents</h3>
 <ul>
-<li><a href="https://youtu.be/KqKs7y6k1r0">Creating a basic RMarkdown document</a></li>
-<li><a href="https://youtu.be/i6MzrdRnnz0">Working with RMarkdown code chunks</a></li>
-<li><a href="https://youtu.be/pvievwsAQWo">Setting the RMarkdown document theme and syntax highlighting</a></li>
-<li><a href="https://youtu.be/VH1CJjkw4zc">Using the RMarkdown Visual Editor Mode</a></li>
+<li><a href="https://youtu.be/KqKs7y6k1r0">Creating a basic RMarkdown
+document</a></li>
+<li><a href="https://youtu.be/i6MzrdRnnz0">Working with RMarkdown code
+chunks</a></li>
+<li><a href="https://youtu.be/pvievwsAQWo">Setting the RMarkdown
+document theme and syntax highlighting</a></li>
+<li><a href="https://youtu.be/VH1CJjkw4zc">Using the RMarkdown Visual
+Editor Mode</a></li>
 </ul>
 </div>
 <div id="additional-resources" class="section level3">
 <h3>Additional Resources</h3>
 <ul>
-<li><a href="https://youtu.be/G2HYUtaMLAI">Using the <code>introverse</code> package</a></li>
+<li><a href="https://youtu.be/G2HYUtaMLAI">Using the
+<code>introverse</code> package</a></li>
 </ul>
 </div>
 

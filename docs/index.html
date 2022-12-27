@@ -13,7 +13,7 @@
 
 <title>Data Science for Biologists, Fall 2021</title>
 
-<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.18/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
@@ -105,8 +105,8 @@ pre code {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -114,16 +114,9 @@ pre code {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -173,16 +166,19 @@ pre code {
 </div>
 
 
-<p><strong>THIS COURSE IS NOW READ-ONLY.</strong> Dr. Spielman is no
-longer at Rowan University, and can be reached at
-<code>stephanie.spielman@gmail.com</code>. Content below is preserved
-from Fall 2021. ————————————————————–</p>
+<div id="this-course-is-now-read-only" class="section level1">
+<h1>THIS COURSE IS NOW READ-ONLY</h1>
+<p>Dr. Spielman is no longer affiliated with Rowan University.</p>
+<p>You can reach <a href="https://sjspielman.github.io">Dr. Spielman</a>
+at <code>stephanie.spielman@gmail.com</code>.</p>
+<p>Content below is preserved from Fall 2021, although links to Shiny
+Apps are mostly dead. Most Shiny Apps live in the <a
+href="https://github.com/sjspielman/ds4b.materials"><code>ds4b.materials</code></a>
+(which is also not well maintained).</p>
+<hr />
 <p>This website contains all materials used in BIOL 01301 Fall 2021 at
-Rowan University with <a
-href="https://spielmanlab.github.io">Dr. Spielman</a> (<a
-href="mailto:spielman@rowan.edu"><code>spielman@rowan.edu</code></a>).
-(Are you a former student looking for your semester’s version of this
-website? Email Dr. Spielman!)</p>
+Rowan University with Dr. Spielman. (Are you a former student looking
+for your semester’s version of this website? Email Dr. Spielman!)</p>
 <div id="key-information-and-links" class="section level2">
 <h2>Key Information and Links</h2>
 <ul>
@@ -191,11 +187,9 @@ website? Email Dr. Spielman!)</p>
 <li>Virtual Office Hours are 1-3 PM every Tuesday over Zoom (link is in
 Canvas).</li>
 <li>All grading and assignment submissions (unless otherwise stated)
-will be hosted on <a
-href="https://rowan.instructure.com/">Canvas</a>.</li>
+will be hosted on Canvas.</li>
 <li>All course materials will be posted on <em>this site</em> and/or
-within the <a href="https://rstudio.cloud">rstudio.cloud</a> BIOL01301
-workspace.</li>
+within the RStudio Cloud BIOL01301 workspace.</li>
 <li>The <a href="syllabus/docs/index.html">syllabus</a> contains all
 class information and policies.</li>
 </ul>
@@ -206,7 +200,7 @@ class information and policies.</li>
 <p>Scheduled topics are subject to change up until the week before,
 depending on class pace. Homeworks will be made available no later than
 one week in advance of their deadlines.</p>
-<p><a href="https://spielmanlab.github.io/introverse">Link to the
+<p><a href="https://sjspielman.github.io/introverse">Link to the
 <code>{introverse}</code></a></p>
 <p><a href="./misc/Rcolor.pdf">All of the colors!!!</a></p>
 <p><a href="./video_links.html">Links to short help videos</a></p>
@@ -598,6 +592,7 @@ R</td>
 <p><strong>Final project due Tuesday December, 14th by 11:59 PM. <a
 href="./homeworks/project/project_proposal_instructions.html">Link to
 instructions</a></strong></p>
+</div>
 </div>
 
 
